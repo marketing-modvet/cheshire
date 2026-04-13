@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Veta — Quick Start Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Montserrat',sans-serif;background:#f0f4f4;color:#222;padding:40px 20px;min-height:100vh}
+
+.page{max-width:720px;margin:0 auto}
+
+/* Header */
+.header{background:#015962;border-radius:16px;padding:36px 40px;margin-bottom:28px;position:relative;overflow:hidden}
+.header::after{content:'🐾';position:absolute;right:32px;top:50%;transform:translateY(-50%);font-size:80px;opacity:0.12}
+.header-label{font-size:10px;font-weight:700;letter-spacing:5px;color:#dfecd1;opacity:0.7;text-transform:uppercase;margin-bottom:8px}
+.header h1{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:600;color:#ffffff;line-height:1.1;margin-bottom:6px}
+.header p{font-size:13px;color:#dfecd1;opacity:0.8;font-weight:500}
+
+/* Credential card */
+.cred-card{background:#fff;border-radius:12px;padding:28px 32px;margin-bottom:20px;box-shadow:0 4px 20px rgba(1,89,98,0.07)}
+.cred-card h2{font-size:11px;font-weight:700;letter-spacing:4px;color:#015962;text-transform:uppercase;margin-bottom:20px;opacity:0.6}
+
+.cred-row{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid #f0f0f0}
+.cred-row:last-child{border-bottom:none}
+.cred-icon{width:36px;height:36px;background:#f0f8f8;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.cred-label{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
+.cred-value{font-size:14px;font-weight:600;color:#015962;word-break:break-all}
+.cred-value.mono{font-family:monospace;font-size:13px;background:#f5f9f9;padding:4px 8px;border-radius:4px;display:inline-block;margin-top:2px}
+.copy-btn{margin-left:auto;background:#015962;color:#fff;border:none;padding:7px 14px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:0.5px;flex-shrink:0;transition:.15s}
+.copy-btn:hover{background:#002b2d}
+.copy-btn.copied{background:#27ae60}
+
+/* Steps */
+.section{background:#fff;border-radius:12px;padding:28px 32px;margin-bottom:20px;box-shadow:0 4px 20px rgba(1,89,98,0.07)}
+.section h2{font-size:11px;font-weight:700;letter-spacing:4px;color:#015962;text-transform:uppercase;margin-bottom:20px;opacity:0.6}
+
+.steps{display:flex;flex-direction:column;gap:0}
+.step{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid #f5f5f5;position:relative}
+.step:last-child{border-bottom:none}
+.step-num{width:32px;height:32px;background:#015962;border-radius:50%;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body h3{font-size:14px;font-weight:700;color:#015962;margin-bottom:4px}
+.step-body p{font-size:13px;color:#555;line-height:1.6}
+.step-body code{background:#f0f8f8;color:#015962;padding:2px 7px;border-radius:4px;font-size:12px;font-weight:600}
+
+/* Model section */
+.model-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:4px}
+.model-card{border:1.5px solid #e8e8e8;border-radius:10px;padding:16px;text-align:center}
+.model-card.recommended{border-color:#015962;background:#f0f8f8}
+.model-badge{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#888;margin-bottom:6px}
+.model-badge.hot{color:#015962}
+.model-name{font-size:13px;font-weight:700;color:#222;margin-bottom:6px}
+.model-desc{font-size:11px;color:#888;line-height:1.5}
+.model-cmd{background:#f5f5f5;border-radius:6px;padding:6px 10px;margin-top:10px;font-family:monospace;font-size:11px;color:#015962;font-weight:600}
+
+/* Files section */
+.file-tip{background:#f0f9f4;border-left:3px solid #27ae60;border-radius:6px;padding:14px 16px;font-size:13px;color:#444;line-height:1.7;margin-top:12px}
+.file-tip strong{color:#015962}
+
+/* Footer */
+.footer{text-align:center;padding:20px;font-size:11px;color:#aaa;letter-spacing:1px}
+
+/* Accent bar */
+.accent-bar{height:4px;background:linear-gradient(90deg,#015962,#dfecd1,#002b2d);border-radius:2px;margin-bottom:28px}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="accent-bar"></div>
+
+  <div class="header">
+    <div class="header-label">Vet Alliance · Internal Tool</div>
+    <h1>Meet Veta</h1>
+    <p>Your AI management assistant — powered by Anthropic Claude</p>
+  </div>
+
+  <!-- Credentials -->
+  <div class="cred-card">
+    <h2>Access Credentials</h2>
+
+    <div class="cred-row">
+      <div class="cred-icon">🌐</div>
+      <div>
+        <div class="cred-label">Chat URL</div>
+        <div class="cred-value"><a href="https://vetalliance.website" style="color:#015962">https://vetalliance.website</a></div>
+      </div>
+      <button class="copy-btn" onclick="copy(this,'https://vetalliance.website')">Copy</button>
+    </div>
+
+    <div class="cred-row">
+      <div class="cred-icon">🔑</div>
+      <div>
+        <div class="cred-label">Gateway Token (paste once on first visit)</div>
+        <div class="cred-value mono">64fb274aee1f88a338508b76cb517297f660fb195b06f944</div>
+      </div>
+      <button class="copy-btn" onclick="copy(this,'64fb274aee1f88a338508b76cb517297f660fb195b06f944')">Copy</button>
+    </div>
+
+    <div class="cred-row">
+      <div class="cred-icon">📁</div>
+      <div>
+        <div class="cred-label">File Hub URL</div>
+        <div class="cred-value"><a href="https://vetalliance.website/files" style="color:#015962">https://vetalliance.website/files</a></div>
+      </div>
+      <button class="copy-btn" onclick="copy(this,'https://vetalliance.website/files')">Copy</button>
+    </div>
+
+    <div class="cred-row">
+      <div class="cred-icon">🔒</div>
+      <div>
+        <div class="cred-label">File Hub Password</div>
+        <div class="cred-value mono">vetalliance2026</div>
+      </div>
+      <button class="copy-btn" onclick="copy(this,'vetalliance2026')">Copy</button>
+    </div>
+
+  </div>
+
+  <!-- Quick Start -->
+  <div class="section">
+    <h2>Quick Start — 3 Steps</h2>
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Open the chat</h3>
+          <p>Go to <strong>https://vetalliance.website</strong> in your browser. You'll see a token field — paste the gateway token and click Connect. Your browser remembers it from next time.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Start talking to Veta</h3>
+          <p>Just type naturally. Ask Veta to draft documents, analyse data, research topics, create reports, summarise content, or help plan projects. No special commands needed.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Share files via File Hub</h3>
+          <p>Go to <strong>https://vetalliance.website/files</strong>, enter the password, and drag & drop any PDF, Word, Excel, or CSV file. Then tell Veta the filename in chat — e.g. <em>"Please analyse the file <code>Q1-report.xlsx</code> I just uploaded"</em> — and Veta reads it directly.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Models -->
+  <div class="section">
+    <h2>Choosing the Right Model</h2>
+    <p style="font-size:13px;color:#666;margin-bottom:16px">Veta runs on <strong>Haiku</strong> by default — fast and great for most tasks. Switch to a more powerful model when the work demands it.</p>
+
+    <div class="model-grid">
+      <div class="model-card recommended">
+        <div class="model-badge hot">⚡ Default</div>
+        <div class="model-name">Haiku</div>
+        <div class="model-desc">Fast everyday tasks, quick answers, simple drafts</div>
+        <div class="model-cmd">/model anthropic/claude-haiku-4-5</div>
+      </div>
+      <div class="model-card">
+        <div class="model-badge">🧠 Recommended</div>
+        <div class="model-name">Sonnet</div>
+        <div class="model-desc">Complex documents, deep analysis, FAQ databases, Word & Excel work</div>
+        <div class="model-cmd">/model anthropic/claude-sonnet-4-6</div>
+      </div>
+      <div class="model-card">
+        <div class="model-badge">🚀 Most Powerful</div>
+        <div class="model-name">Opus</div>
+        <div class="model-desc">Hardest reasoning tasks, strategic thinking, nuanced writing</div>
+        <div class="model-cmd">/model anthropic/claude-opus-4-6</div>
+      </div>
+    </div>
+
+    <div class="file-tip" style="margin-top:16px">
+      💡 <strong>Tip:</strong> Type the <code>/model</code> command at the start of your conversation when you know the task is complex. You can always switch back to Haiku with <code>/model anthropic/claude-haiku-4-5</code> when done.
+    </div>
+  </div>
+
+  <!-- File sharing -->
+  <div class="section">
+    <h2>Working with Files</h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">📤</div>
+        <div class="step-body">
+          <h3>Uploading</h3>
+          <p>Visit <strong>vetalliance.website/files</strong> → enter password → drag & drop your file. Supported: <code>PDF</code> <code>DOCX</code> <code>XLSX</code> <code>CSV</code> <code>TXT</code> <code>JPG/PNG</code> — up to 50MB each.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">💬</div>
+        <div class="step-body">
+          <h3>Referencing in chat</h3>
+          <p>After uploading, just mention the filename to Veta: <em>"Summarise <code>meeting-notes.docx</code>"</em> or <em>"Create a report from <code>data.xlsx</code>"</em>. Veta finds it automatically.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">🗑️</div>
+        <div class="step-body">
+          <h3>Cleanup</h3>
+          <p>Delete files you no longer need directly from the File Hub — just click the red trash icon next to any file.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">VETA · VET ALLIANCE INTERNAL · CONFIDENTIAL</div>
+
+</div>
+
+<script>
+function copy(btn, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✓ Copied';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
+</body>
+</html>
