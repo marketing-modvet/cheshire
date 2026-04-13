@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ModernVet — Mobile Navigation Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ─── Reset & Base ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:        #252354;
+  --navy-dark:   #1a1940;
+  --navy-mid:    #2e2b6a;
+  --salmon:      #fcc198;
+  --salmon-dark: #f5a870;
+  --beige:       #fae3d6;
+  --offwhite:    #fdf9f7;
+  --warm-rose:   #b67b6d;
+  --mint:        #6fb09a;
+  --mint-dark:   #559e88;
+  --emergency:   #a71d17;
+  --emergency-light: #c9342d;
+  --text-muted:  #7a7899;
+  --border:      rgba(37,35,84,0.10);
+  --radius-card: 12px;
+  --radius-lg:   20px;
+  --transition:  300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #e8e4f0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 24px 16px 40px;
+}
+
+/* ─── Desktop Label ────────────────────────────────────────────── */
+.desktop-label {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #4a4870;
+}
+.desktop-label h1 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.desktop-label p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ─── Phone Frame ──────────────────────────────────────────────── */
+.phone-frame {
+  width: 390px;
+  max-width: 100%;
+  min-height: 844px;
+  background: var(--offwhite);
+  border-radius: 48px;
+  box-shadow:
+    0 0 0 10px #1a1940,
+    0 0 0 12px #2e2b6a,
+    0 40px 80px rgba(26,25,64,0.45);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Notch */
+.phone-frame::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 30px;
+  background: #1a1940;
+  border-radius: 0 0 20px 20px;
+  z-index: 1000;
+}
+
+/* Status bar */
+.status-bar {
+  height: 44px;
+  background: var(--navy);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 24px 8px;
+  position: relative;
+  z-index: 999;
+  flex-shrink: 0;
+}
+.status-time {
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  letter-spacing: 0.5px;
+}
+.status-icons {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.status-icons svg {
+  fill: white;
+  width: 14px;
+  height: 14px;
+}
+
+/* ─── Scrollable Content Area ──────────────────────────────────── */
+.phone-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+.phone-content.menu-open {
+  overflow: hidden;
+}
+
+/* ─── Mobile Header ────────────────────────────────────────────── */
+.mobile-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--navy);
+  flex-shrink: 0;
+}
+
+.header-main {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  gap: 12px;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+.header-logo img {
+  height: 34px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Emergency Button */
+.btn-emergency {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--emergency);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 7px 12px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--transition);
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+.btn-emergency:hover { background: var(--emergency-light); }
+
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  background: #ff6b6b;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulse 1.6s infinite;
+  box-shadow: 0 0 0 0 rgba(255,107,107,0.5);
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(255,107,107,0.6); }
+  50%  { box-shadow: 0 0 0 5px rgba(255,107,107,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,107,107,0); }
+}
+
+/* Hamburger */
+.btn-hamburger {
+  width: 40px;
+  height: 40px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: background var(--transition);
+  padding: 0;
+  flex-shrink: 0;
+}
+.btn-hamburger:hover { background: rgba(255,255,255,0.18); }
+.btn-hamburger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+  transition: all var(--transition);
+  transform-origin: center;
+}
+.btn-hamburger.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.btn-hamburger.active span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.btn-hamburger.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Secondary bar */
+.header-secondary {
+  height: 44px;
+  background: var(--navy-dark);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  gap: 10px;
+}
+
+.btn-book-now {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--salmon);
+  color: var(--navy);
+  border: none;
+  border-radius: 20px;
+  padding: 7px 16px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+  letter-spacing: 0.3px;
+}
+.btn-book-now:hover {
+  background: var(--salmon-dark);
+  transform: scale(1.03);
+}
+.btn-book-now svg { width: 13px; height: 13px; fill: var(--navy); }
+
+.header-secondary-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 20px;
+  padding: 7px 12px;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.btn-whatsapp:hover { background: rgba(255,255,255,0.1); }
+.btn-whatsapp svg { width: 14px; height: 14px; fill: #25d366; }
+
+/* ─── Page Body (fake content) ─────────────────────────────────── */
+.page-body {
+  flex: 1;
+  padding: 20px 16px 80px;
+  background: var(--offwhite);
+}
+
+.hero-card {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+  border-radius: var(--radius-lg);
+  padding: 24px 20px;
+  color: white;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-card::after {
+  content: '🐾';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 48px;
+  opacity: 0.15;
+}
+.hero-card h2 {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+.hero-card p {
+  font-size: 12px;
+  opacity: 0.75;
+  line-height: 1.5;
+}
+.hero-card .hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.content-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.content-card {
+  background: white;
+  border-radius: var(--radius-card);
+  padding: 16px 12px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(37,35,84,0.07);
+}
+.content-card .icon { font-size: 28px; margin-bottom: 6px; }
+.content-card h3 { font-size: 12px; font-weight: 600; color: var(--navy); }
+.content-card p  { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+.section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 10px;
+  margin-top: 4px;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: white;
+  border-radius: var(--radius-card);
+  margin-bottom: 8px;
+  box-shadow: 0 1px 4px rgba(37,35,84,0.06);
+}
+.list-item .li-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.li-icon.navy   { background: rgba(37,35,84,0.08); }
+.li-icon.salmon { background: rgba(252,193,152,0.3); }
+.li-icon.mint   { background: rgba(111,176,154,0.2); }
+.list-item .li-text h4 { font-size: 13px; font-weight: 600; color: var(--navy); }
+.list-item .li-text p  { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+
+/* ─── Overlay ───────────────────────────────────────────────────── */
+.menu-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 14, 50, 0.55);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+.menu-overlay.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ─── Side Menu Drawer ──────────────────────────────────────────── */
+.side-menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 310px;
+  max-width: 88%;
+  background: white;
+  z-index: 300;
+  transform: translateX(100%);
+  transition: transform var(--transition);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 0 0 0 var(--radius-lg);
+  box-shadow: -8px 0 40px rgba(26,25,64,0.25);
+}
+.side-menu.open {
+  transform: translateX(0);
+}
+
+/* Menu Header */
+.menu-header {
+  background: var(--navy);
+  padding: 16px 16px 14px;
+  flex-shrink: 0;
+}
+
+.menu-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.menu-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.menu-logo img {
+  height: 28px;
+  filter: brightness(0) invert(1);
+}
+
+.btn-close {
+  width: 34px;
+  height: 34px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 10px;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition);
+  flex-shrink: 0;
+}
+.btn-close:hover { background: rgba(255,255,255,0.22); }
+
+/* Language switcher */
+.lang-switcher {
+  display: flex;
+  gap: 6px;
+}
+.lang-btn {
+  flex: 1;
+  padding: 7px 0;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 8px;
+  color: rgba(255,255,255,0.75);
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: all var(--transition);
+  letter-spacing: 0.8px;
+}
+.lang-btn.active {
+  background: var(--salmon);
+  border-color: var(--salmon);
+  color: var(--navy);
+}
+.lang-btn:hover:not(.active) {
+  background: rgba(255,255,255,0.18);
+  color: white;
+}
+
+/* Menu body (scrollable) */
+.menu-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 16px;
+}
+
+/* Quick actions row */
+.quick-actions {
+  padding: 14px 12px 10px;
+  overflow-x: auto;
+  display: flex;
+  gap: 8px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  border-bottom: 1px solid var(--border);
+}
+.quick-actions::-webkit-scrollbar { display: none; }
+
+.quick-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  min-width: 58px;
+  padding: 10px 6px 8px;
+  background: var(--offwhite);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition);
+  flex-shrink: 0;
+}
+.quick-btn:hover { background: var(--beige); transform: translateY(-1px); }
+.quick-btn .qb-icon { font-size: 20px; line-height: 1; }
+.quick-btn .qb-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 9.5px;
+  font-weight: 600;
+  color: var(--navy);
+  text-align: center;
+  white-space: nowrap;
+  letter-spacing: 0.2px;
+}
+.quick-btn.emergency {
+  background: #fff0f0;
+  border-color: rgba(167,29,23,0.2);
+}
+.quick-btn.emergency .qb-label { color: var(--emergency); }
+.quick-btn.emergency:hover { background: #ffe0e0; }
+
+/* ─── Nav Accordion ────────────────────────────────────────────── */
+.nav-section {
+  padding: 8px 12px 0;
+}
+.nav-section-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 10px 4px 6px;
+}
+
+.nav-item {
+  margin-bottom: 2px;
+}
+
+/* Simple nav link */
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 12px;
+  border-radius: var(--radius-card);
+  text-decoration: none;
+  color: var(--navy);
+  font-size: 14px;
+  font-weight: 500;
+  transition: all var(--transition);
+  min-height: 48px;
+}
+.nav-link:hover { background: var(--offwhite); color: var(--navy); }
+.nav-link.active { background: var(--beige); color: var(--navy); font-weight: 600; }
+.nav-link .nl-icon { font-size: 16px; width: 22px; text-align: center; flex-shrink: 0; }
+.nav-link .nl-arrow {
+  margin-left: auto;
+  color: var(--text-muted);
+  font-size: 12px;
+  transition: transform var(--transition);
+}
+
+/* Accordion trigger */
+.nav-accordion-trigger {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 12px;
+  border-radius: var(--radius-card);
+  color: var(--navy);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  transition: all var(--transition);
+  min-height: 48px;
+  list-style: none;
+}
+.nav-accordion-trigger:hover { background: var(--offwhite); }
+.nav-accordion-trigger.active-parent { background: var(--beige); font-weight: 600; }
+
+.nav-accordion-trigger .at-icon { font-size: 16px; width: 22px; text-align: center; flex-shrink: 0; }
+.nav-accordion-trigger .at-label { flex: 1; }
+.nav-accordion-trigger .at-badge {
+  background: var(--salmon);
+  color: var(--navy);
+  font-size: 9px;
+  font-weight: 700;
+  border-radius: 20px;
+  padding: 2px 6px;
+  letter-spacing: 0.3px;
+}
+.nav-accordion-trigger .at-chevron {
+  color: var(--text-muted);
+  font-size: 11px;
+  transition: transform var(--transition);
+  margin-left: 4px;
+  flex-shrink: 0;
+}
+.nav-accordion-trigger.open .at-chevron {
+  transform: rotate(180deg);
+}
+
+/* Accordion panel */
+.nav-accordion-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 380ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.nav-accordion-panel.open {
+  max-height: 2000px;
+}
+
+/* Services sub-groups */
+.services-group {
+  margin: 4px 0 4px 32px;
+}
+.services-group-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 10px 8px 6px 8px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2px;
+}
+.services-group-header span { font-style: normal; }
+
+.sub-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 8px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #4a4870;
+  font-size: 13px;
+  font-weight: 400;
+  transition: all var(--transition);
+  min-height: 40px;
+  line-height: 1.3;
+}
+.sub-link::before {
+  content: '·';
+  color: var(--text-muted);
+  font-size: 18px;
+  flex-shrink: 0;
+  width: 8px;
+  text-align: center;
+}
+.sub-link:hover {
+  background: var(--offwhite);
+  color: var(--navy);
+}
+.sub-link.emergency-link {
+  color: var(--emergency);
+  font-weight: 500;
+}
+.sub-link.emergency-link::before { color: var(--emergency); }
+
+/* About sub-panel items */
+.about-sub-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 8px 11px 32px;
+  text-decoration: none;
+  color: #4a4870;
+  font-size: 13px;
+  font-weight: 400;
+  border-radius: 8px;
+  transition: all var(--transition);
+  min-height: 44px;
+}
+.about-sub-link:hover { background: var(--offwhite); color: var(--navy); }
+.about-sub-link .as-icon { font-size: 14px; width: 18px; text-align: center; }
+
+/* ─── Menu Footer ───────────────────────────────────────────────── */
+.menu-footer {
+  padding: 14px 16px;
+  border-top: 1px solid var(--border);
+  background: var(--offwhite);
+  flex-shrink: 0;
+}
+
+.footer-contacts {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.btn-call {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  background: var(--navy);
+  color: white;
+  border-radius: 10px;
+  padding: 11px 12px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background var(--transition);
+  border: none;
+  cursor: pointer;
+}
+.btn-call:hover { background: var(--navy-mid); }
+.btn-call svg { width: 14px; height: 14px; fill: white; flex-shrink: 0; }
+
+.btn-wa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  background: #25d366;
+  color: white;
+  border-radius: 10px;
+  padding: 11px 14px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  transition: background var(--transition);
+  white-space: nowrap;
+}
+.btn-wa:hover { background: #1ebe5d; }
+.btn-wa svg { width: 16px; height: 16px; fill: white; flex-shrink: 0; }
+
+.social-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.social-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-right: 2px;
+  white-space: nowrap;
+}
+.social-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all var(--transition);
+  font-size: 16px;
+}
+.social-btn.ig { background: #fce4ec; }
+.social-btn.fb { background: #e3f2fd; }
+.social-btn.yt { background: #ffebee; }
+.social-btn:hover { transform: scale(1.1); }
+
+.emergency-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  background: linear-gradient(135deg, #fff0f0 0%, #ffe5e5 100%);
+  border: 1px solid rgba(167,29,23,0.18);
+  border-radius: 10px;
+  padding: 10px 14px;
+  text-align: center;
+}
+.emergency-badge .eb-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--emergency);
+  border-radius: 50%;
+  animation: pulse 1.6s infinite;
+  flex-shrink: 0;
+}
+.emergency-badge span {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--emergency);
+  letter-spacing: 0.3px;
+}
+
+/* ─── Bottom Navigation Bar ────────────────────────────────────── */
+.bottom-nav {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: white;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  z-index: 150;
+  box-shadow: 0 -4px 20px rgba(37,35,84,0.1);
+  flex-shrink: 0;
+}
+
+.bottom-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 8px 4px;
+  text-decoration: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  transition: color var(--transition);
+  font-family: 'Poppins', sans-serif;
+  min-height: 44px;
+}
+.bottom-nav-item:hover,
+.bottom-nav-item.active {
+  color: var(--navy);
+}
+.bottom-nav-item.active .bni-icon-wrap {
+  background: var(--beige);
+}
+
+.bni-icon-wrap {
+  width: 32px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background var(--transition);
+  font-size: 16px;
+  line-height: 1;
+}
+
+.bni-label {
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  line-height: 1;
+}
+
+.bottom-nav-item.call-btn {
+  color: white;
+}
+.bottom-nav-item.call-btn .bni-icon-wrap {
+  background: var(--navy);
+  width: 38px;
+  height: 30px;
+  border-radius: 10px;
+}
+.bottom-nav-item.call-btn .bni-label { color: var(--navy); }
+.bottom-nav-item.call-btn:hover .bni-icon-wrap { background: var(--navy-mid); }
+
+/* ─── Divider in menu ───────────────────────────────────────────── */
+.menu-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 6px 12px;
+}
+
+/* ─── Scrollbar styling ────────────────────────────────────────── */
+.menu-body::-webkit-scrollbar { width: 3px; }
+.menu-body::-webkit-scrollbar-track { background: transparent; }
+.menu-body::-webkit-scrollbar-thumb { background: var(--beige); border-radius: 4px; }
+.phone-content::-webkit-scrollbar { width: 0; }
+
+/* ─── Responsive: on small screens, remove frame ──────────────── */
+@media (max-width: 500px) {
+  body { padding: 0; background: var(--offwhite); }
+  .phone-frame {
+    border-radius: 0;
+    box-shadow: none;
+    width: 100%;
+    min-height: 100vh;
+  }
+  .phone-frame::before { display: none; }
+  .status-bar { display: none; }
+  .desktop-label { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="desktop-label">
+  <h1>ModernVet — Mobile Navigation Prototype</h1>
+  <p>Tap the hamburger ☰ to open the menu &nbsp;·&nbsp; Tap accordion items to expand &nbsp;·&nbsp; Scroll inside the phone</p>
+</div>
+
+<!-- ═══ PHONE FRAME ══════════════════════════════════════════════ -->
+<div class="phone-frame">
+
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <span class="status-time">9:41</span>
+    <div class="status-icons">
+      <!-- Signal -->
+      <svg viewBox="0 0 20 14"><rect x="0" y="6" width="3" height="8" rx="1"/><rect x="4.5" y="4" width="3" height="10" rx="1"/><rect x="9" y="2" width="3" height="12" rx="1"/><rect x="13.5" y="0" width="3" height="14" rx="1"/></svg>
+      <!-- WiFi -->
+      <svg viewBox="0 0 20 14"><path d="M10 12a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm-4.2-3.8a6 6 0 018.4 0l1.4-1.4a8 8 0 00-11.2 0l1.4 1.4zm-2.8-2.8a10 10 0 0114 0l1.4-1.4A12 12 0 001.6 4l1.4 1.4z"/></svg>
+      <!-- Battery -->
+      <svg viewBox="0 0 22 12"><rect x="0" y="1.5" width="18" height="9" rx="2" stroke="white" stroke-width="1.5" fill="none"/><rect x="1.5" y="3" width="12" height="6" rx="1" fill="white"/><path d="M19 4v4a2 2 0 000-4z"/></svg>
+    </div>
+  </div>
+
+  <!-- ── SCROLLABLE PHONE CONTENT ── -->
+  <div class="phone-content" id="phoneContent">
+
+    <!-- ── STICKY HEADER ── -->
+    <header class="mobile-header">
+      <div class="header-main">
+        <a href="https://modernvet.com" class="header-logo">
+          <img src="https://modernvet.com/wp-content/uploads/2023/03/logo.svg"
+               alt="ModernVet"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <span style="display:none; color:white; font-size:16px; font-weight:700; letter-spacing:0.5px;">MODERNVET</span>
+        </a>
+
+        <div class="header-actions">
+          <a href="https://modernvet.com/our-services/emergency-pet-care/" class="btn-emergency">
+            <span class="pulse-dot"></span>
+            Emergency
+          </a>
+          <button class="btn-hamburger" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Open menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="header-secondary">
+        <a href="https://modernvet.com/book-now/" class="btn-book-now">
+          <svg viewBox="0 0 16 16"><path d="M14 2h-1V1a1 1 0 00-2 0v1H5V1a1 1 0 00-2 0v1H2a2 2 0 00-2 2v11a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2zm0 13H2V7h12v8zm0-10H2V4h1v1a1 1 0 002 0V4h6v1a1 1 0 002 0V4h1v1z"/></svg>
+          Book Appointment
+        </a>
+        <a href="https://api.whatsapp.com/send?phone=971506304573" class="btn-whatsapp" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.122.553 4.112 1.52 5.843L0 24l6.335-1.507A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.655-.508-5.181-1.395L2 22l1.418-4.696A9.952 9.952 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+    </header>
+
+    <!-- ── PAGE CONTENT (mock) ── -->
+    <main class="page-body">
+      <div class="hero-card">
+        <h2>Compassionate Care for Your Beloved Pets</h2>
+        <p>Dubai's most trusted veterinary clinic — 24/7 emergency, specialist care &amp; wellness.</p>
+        <div class="hero-badge">⭐ 4.9 · 2,400+ Reviews</div>
+      </div>
+
+      <div class="content-cards">
+        <div class="content-card">
+          <div class="icon">🏥</div>
+          <h3>Emergency Care</h3>
+          <p>Open 24 / 7</p>
+        </div>
+        <div class="content-card">
+          <div class="icon">💉</div>
+          <h3>Vaccinations</h3>
+          <p>All pets welcome</p>
+        </div>
+        <div class="content-card">
+          <div class="icon">🔬</div>
+          <h3>Specialist</h3>
+          <p>10+ specialities</p>
+        </div>
+        <div class="content-card">
+          <div class="icon">🛁</div>
+          <h3>Grooming</h3>
+          <p>Spa &amp; wellness</p>
+        </div>
+      </div>
+
+      <p class="section-title">Featured Services</p>
+
+      <div class="list-item">
+        <div class="li-icon navy">🐾</div>
+        <div class="li-text">
+          <h4>Pet Wellness Exams</h4>
+          <p>Annual check-ups &amp; preventive care</p>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="li-icon salmon">🦷</div>
+        <div class="li-text">
+          <h4>Dental Care</h4>
+          <p>Professional cleaning &amp; treatment</p>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="li-icon mint">🏊</div>
+        <div class="li-text">
+          <h4>Hydrotherapy</h4>
+          <p>Rehabilitation &amp; pain relief</p>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="li-icon navy">🚗</div>
+        <div class="li-text">
+          <h4>Mobile Clinic</h4>
+          <p>Vet care at your doorstep</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- ── OVERLAY ── -->
+    <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+
+    <!-- ════ SIDE MENU DRAWER ════════════════════════════════════ -->
+    <nav class="side-menu" id="sideMenu" role="dialog" aria-label="Main navigation">
+
+      <!-- Menu Header -->
+      <div class="menu-header">
+        <div class="menu-header-top">
+          <div class="menu-logo">
+            <img src="https://modernvet.com/wp-content/uploads/2023/03/logo.svg"
+                 alt="ModernVet"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+            <span style="display:none; color:white; font-size:14px; font-weight:700;">MODERNVET</span>
+          </div>
+          <button class="btn-close" onclick="closeMenu()" aria-label="Close menu">✕</button>
+        </div>
+        <div class="lang-switcher">
+          <button class="lang-btn active" onclick="setLang(this)">EN</button>
+          <button class="lang-btn" onclick="setLang(this)">RU</button>
+          <button class="lang-btn" onclick="setLang(this)">AR</button>
+        </div>
+      </div>
+
+      <!-- Scrollable body -->
+      <div class="menu-body">
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+          <a href="https://modernvet.com/our-services/emergency-pet-care/" class="quick-btn emergency">
+            <span class="qb-icon">🚨</span>
+            <span class="qb-label">Emergency</span>
+          </a>
+          <a href="https://modernvet.com/book-now/" class="quick-btn">
+            <span class="qb-icon">📅</span>
+            <span class="qb-label">Book Now</span>
+          </a>
+          <a href="https://modernvet.com/locations/" class="quick-btn">
+            <span class="qb-icon">📍</span>
+            <span class="qb-label">Locations</span>
+          </a>
+          <a href="https://floof.ae" class="quick-btn" target="_blank">
+            <span class="qb-icon">💊</span>
+            <span class="qb-label">Shop</span>
+          </a>
+          <a href="https://modernvet.com/symptom-checker/" class="quick-btn">
+            <span class="qb-icon">🔍</span>
+            <span class="qb-label">Symptoms</span>
+          </a>
+        </div>
+
+        <!-- Main Navigation -->
+        <div class="nav-section">
+          <div class="nav-section-label">Main Menu</div>
+
+          <!-- SERVICES — Accordion -->
+          <div class="nav-item">
+            <div class="nav-accordion-trigger" onclick="toggleAccordion(this)" role="button" tabindex="0">
+              <span class="at-icon">🩺</span>
+              <span class="at-label">Services</span>
+              <span class="at-badge">30+</span>
+              <span class="at-chevron">▾</span>
+            </div>
+            <div class="nav-accordion-panel">
+
+              <!-- Emergency & Critical -->
+              <div class="services-group">
+                <div class="services-group-header"><span>🚨</span> Emergency &amp; Critical</div>
+                <a href="https://modernvet.com/our-services/emergency-pet-care/" class="sub-link emergency-link">Emergency Pet Care</a>
+                <a href="https://modernvet.com/our-services/pet-consultation/" class="sub-link">Pet Consultation</a>
+              </div>
+
+              <!-- Preventive Care -->
+              <div class="services-group">
+                <div class="services-group-header"><span>🛡️</span> Preventive Care</div>
+                <a href="https://modernvet.com/our-services/vaccinations/" class="sub-link">Vaccinations</a>
+                <a href="https://modernvet.com/our-services/wellness-exam/" class="sub-link">Wellness Exams</a>
+              </div>
+
+              <!-- Specialist Medicine -->
+              <div class="services-group">
+                <div class="services-group-header"><span>🔬</span> Specialist Medicine</div>
+                <a href="https://modernvet.com/our-services/neurology/" class="sub-link">Neurology</a>
+                <a href="https://modernvet.com/our-services/cardiology/" class="sub-link">Cardiology</a>
+                <a href="https://modernvet.com/our-services/ophthalmology/" class="sub-link">Ophthalmology</a>
+                <a href="https://modernvet.com/our-services/dermatology/" class="sub-link">Dermatology</a>
+                <a href="https://modernvet.com/our-services/oncology/" class="sub-link">Oncology</a>
+                <a href="https://modernvet.com/our-services/holistic-medicine/" class="sub-link">Holistic Medicine</a>
+              </div>
+
+              <!-- Surgery & Dental -->
+              <div class="services-group">
+                <div class="services-group-header"><span>🏥</span> Surgery &amp; Dental</div>
+                <a href="https://modernvet.com/our-services/soft-tissue-orthopedic-surgery/" class="sub-link">Soft Tissue &amp; Orthopedics</a>
+                <a href="https://modernvet.com/our-services/spay-neuter/" class="sub-link">Spay &amp; Neuter</a>
+                <a href="https://modernvet.com/our-services/laparoscopic-spay/" class="sub-link">Laparoscopic Spay</a>
+                <a href="https://modernvet.com/our-services/pet-dental-care/" class="sub-link">Pet Dental Care</a>
+              </div>
+
+              <!-- Wellness & Rehab -->
+              <div class="services-group">
+                <div class="services-group-header"><span>💆</span> Wellness &amp; Rehab</div>
+                <a href="https://modernvet.com/our-services/physiotherapy/" class="sub-link">Physiotherapy</a>
+                <a href="https://modernvet.com/our-services/hydrotherapy/" class="sub-link">Hydrotherapy</a>
+                <a href="https://modernvet.com/our-services/grooming/" class="sub-link">Grooming</a>
+              </div>
+
+              <!-- Convenience -->
+              <div class="services-group">
+                <div class="services-group-header"><span>🚗</span> Convenience</div>
+                <a href="https://modernvet.com/our-services/mobile-clinic/" class="sub-link">Mobile Clinic</a>
+                <a href="https://modernvet.com/our-services/pet-taxi/" class="sub-link">Pet Taxi</a>
+                <a href="https://modernvet.com/our-services/pet-relocation/" class="sub-link">Pet Relocation</a>
+                <a href="https://modernvet.com/our-services/food-delivery/" class="sub-link">Food Delivery</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Packages -->
+          <div class="nav-item">
+            <a href="https://modernvet.com/packages/" class="nav-link">
+              <span class="nl-icon">📦</span>
+              Packages
+              <span class="nl-arrow">›</span>
+            </a>
+          </div>
+
+          <!-- Our Team -->
+          <div class="nav-item">
+            <a href="https://modernvet.com/the-team/" class="nav-link">
+              <span class="nl-icon">👩‍⚕️</span>
+              Our Team
+              <span class="nl-arrow">›</span>
+            </a>
+          </div>
+
+          <!-- About Us — Accordion -->
+          <div class="nav-item">
+            <div class="nav-accordion-trigger" onclick="toggleAccordion(this)" role="button" tabindex="0">
+              <span class="at-icon">🏢</span>
+              <span class="at-label">About Us</span>
+              <span class="at-chevron">▾</span>
+            </div>
+            <div class="nav-accordion-panel">
+              <a href="https://modernvet.com/about/" class="about-sub-link">
+                <span class="as-icon">ℹ️</span> About ModernVet
+              </a>
+              <a href="https://modernvet.com/partners/" class="about-sub-link">
+                <span class="as-icon">🤝</span> Partners
+              </a>
+              <a href="https://modernvet.com/careers/" class="about-sub-link">
+                <span class="as-icon">💼</span> Careers
+              </a>
+              <a href="https://modernvet.com/gallery/" class="about-sub-link">
+                <span class="as-icon">📸</span> Gallery
+              </a>
+            </div>
+          </div>
+
+          <div class="menu-divider"></div>
+
+          <!-- Health Library -->
+          <div class="nav-item">
+            <a href="https://modernvet.com/health-library/" class="nav-link">
+              <span class="nl-icon">📚</span>
+              Health Library
+              <span class="nl-arrow">›</span>
+            </a>
+          </div>
+
+          <!-- News -->
+          <div class="nav-item">
+            <a href="https://modernvet.com/news/" class="nav-link">
+              <span class="nl-icon">📰</span>
+              News
+              <span class="nl-arrow">›</span>
+            </a>
+          </div>
+
+          <!-- Prices -->
+          <div class="nav-item">
+            <a href="https://modernvet.com/prices/" class="nav-link">
+              <span class="nl-icon">💰</span>
+              Prices
+              <span class="nl-arrow">›</span>
+            </a>
+          </div>
+
+        </div><!-- /nav-section -->
+      </div><!-- /menu-body -->
+
+      <!-- Menu Footer -->
+      <div class="menu-footer">
+        <div class="footer-contacts">
+          <a href="tel:80082" class="btn-call">
+            <svg viewBox="0 0 20 20"><path d="M17.306 14.222l-2.499-2.499a1.11 1.11 0 00-1.571 0l-1.249 1.249a13.455 13.455 0 01-4.959-4.959l1.249-1.249a1.11 1.11 0 000-1.571L5.778 2.694A1.11 1.11 0 004.207 2.69l-1.77 1.77C1.617 5.281 1.5 6.166 1.5 7.056c0 6.351 5.093 11.444 11.444 11.444.89 0 1.775-.117 2.596-.937l1.77-1.77a1.11 1.11 0 00-.004-1.571z"/></svg>
+            800-82
+          </a>
+          <a href="https://api.whatsapp.com/send?phone=971506304573" class="btn-wa" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.122.553 4.112 1.52 5.843L0 24l6.335-1.507A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.655-.508-5.181-1.395L2 22l1.418-4.696A9.952 9.952 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+            Chat
+          </a>
+        </div>
+
+        <div class="social-row">
+          <span class="social-label">Follow</span>
+          <a href="https://www.instagram.com/modernvet.ae/" class="social-btn ig" target="_blank" aria-label="Instagram">📸</a>
+          <a href="https://www.facebook.com/modernvet.ae/" class="social-btn fb" target="_blank" aria-label="Facebook">👍</a>
+          <a href="https://www.youtube.com/@modernvet" class="social-btn yt" target="_blank" aria-label="YouTube">▶️</a>
+        </div>
+
+        <div class="emergency-badge">
+          <div class="eb-dot"></div>
+          <span>24/7 Emergency Care Available</span>
+        </div>
+      </div>
+
+    </nav>
+    <!-- /side-menu -->
+
+    <!-- ─── BOTTOM NAV BAR ───────────────────────────────────────── -->
+    <nav class="bottom-nav" aria-label="Quick navigation">
+      <a href="https://modernvet.com" class="bottom-nav-item active">
+        <div class="bni-icon-wrap">🏠</div>
+        <span class="bni-label">Home</span>
+      </a>
+      <a href="https://modernvet.com/our-services/" class="bottom-nav-item">
+        <div class="bni-icon-wrap">📋</div>
+        <span class="bni-label">Services</span>
+      </a>
+      <a href="https://modernvet.com/book-now/" class="bottom-nav-item">
+        <div class="bni-icon-wrap">📅</div>
+        <span class="bni-label">Book</span>
+      </a>
+      <a href="https://modernvet.com/locations/" class="bottom-nav-item">
+        <div class="bni-icon-wrap">📍</div>
+        <span class="bni-label">Locations</span>
+      </a>
+      <a href="tel:80082" class="bottom-nav-item call-btn">
+        <div class="bni-icon-wrap">☎️</div>
+        <span class="bni-label">Call</span>
+      </a>
+    </nav>
+
+  </div><!-- /phone-content -->
+</div><!-- /phone-frame -->
+
+<script>
+// ─── State ─────────────────────────────────────────────────────────
+let menuOpen = false;
+
+// ─── Toggle Menu ────────────────────────────────────────────────────
+function toggleMenu() {
+  menuOpen ? closeMenu() : openMenu();
+}
+
+function openMenu() {
+  menuOpen = true;
+  document.getElementById('sideMenu').classList.add('open');
+  document.getElementById('menuOverlay').classList.add('visible');
+  document.getElementById('hamburgerBtn').classList.add('active');
+  document.getElementById('phoneContent').classList.add('menu-open');
+}
+
+function closeMenu() {
+  menuOpen = false;
+  document.getElementById('sideMenu').classList.remove('open');
+  document.getElementById('menuOverlay').classList.remove('visible');
+  document.getElementById('hamburgerBtn').classList.remove('active');
+  document.getElementById('phoneContent').classList.remove('menu-open');
+}
+
+// ─── Accordion ──────────────────────────────────────────────────────
+function toggleAccordion(trigger) {
+  const isOpen = trigger.classList.contains('open');
+  const panel = trigger.nextElementSibling;
+
+  // Optionally close other open accordions (comment out for multi-open)
+  document.querySelectorAll('.nav-accordion-trigger.open').forEach(t => {
+    if (t !== trigger) {
+      t.classList.remove('open');
+      t.nextElementSibling.classList.remove('open');
+    }
+  });
+
+  if (isOpen) {
+    trigger.classList.remove('open');
+    panel.classList.remove('open');
+  } else {
+    trigger.classList.add('open');
+    panel.classList.add('open');
+    // Scroll panel into view after animation
+    setTimeout(() => {
+      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 160);
+  }
+}
+
+// Allow keyboard activation for accordion
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' || e.key === ' ') {
+    const el = document.activeElement;
+    if (el && el.classList.contains('nav-accordion-trigger')) {
+      e.preventDefault();
+      toggleAccordion(el);
+    }
+  }
+  if (e.key === 'Escape' && menuOpen) closeMenu();
+});
+
+// ─── Language Switcher ──────────────────────────────────────────────
+function setLang(btn) {
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ─── Bottom Nav active state ────────────────────────────────────────
+document.querySelectorAll('.bottom-nav-item').forEach(item => {
+  item.addEventListener('click', function() {
+    document.querySelectorAll('.bottom-nav-item').forEach(i => i.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// ─── Touch swipe-to-close ───────────────────────────────────────────
+(function() {
+  let startX = 0;
+  const menu = document.getElementById('sideMenu');
+
+  menu.addEventListener('touchstart', e => {
+    startX = e.touches[0].clientX;
+  }, { passive: true });
+
+  menu.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (dx > 60 && menuOpen) closeMenu();
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>
