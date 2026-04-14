@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modern Vet — Trifold Brochure Redesign</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: #E8E8E8;
+    padding: 40px 20px;
+    min-width: 1240px;
+  }
+
+  .page-wrapper {
+    background: #FFFFFF;
+    width: 1220px;
+    margin: 0 auto;
+    padding: 40px;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.18);
+    border-radius: 4px;
+  }
+
+  .spread-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: #AAAAAA;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .spread {
+    display: flex;
+    width: 1140px;
+    position: relative;
+  }
+
+  .spread-gap { height: 20px; }
+
+  /* Fold lines */
+  .fold-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    border-left: 2px dashed rgba(0,0,0,0.15);
+    z-index: 10;
+    pointer-events: none;
+  }
+  .fold-line-1 { left: 400px; }
+  .fold-line-2 { left: 780px; }
+
+  /* ===================== PANELS ===================== */
+  .panel {
+    width: 380px;
+    height: 680px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .panel + .panel { margin-left: 20px; }
+
+  /* ============ PANEL 1 — OUTSIDE LEFT (Pricing) ============ */
+  .panel-pricing {
+    background: #FBE9E0;
+    border-top: 5px solid #8B232E;
+    display: flex;
+    flex-direction: column;
+    padding: 22px 22px 16px;
+  }
+
+  .panel-pricing .panel-heading {
+    font-size: 15px;
+    font-weight: 800;
+    color: #8B232E;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+
+  .maroon-rule {
+    border: none;
+    border-top: 1.5px solid #8B232E;
+    margin-bottom: 14px;
+    opacity: 0.5;
+  }
+
+  .pricing-card {
+    background: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 3px 16px rgba(139,35,46,0.12);
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+
+  .pricing-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 16px;
+    border-bottom: 1px solid #E8D5CE;
+  }
+  .pricing-row:last-child { border-bottom: none; }
+
+  .pricing-row .service-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: #1B254B;
+  }
+
+  .pricing-row .service-price {
+    font-size: 12px;
+    font-weight: 700;
+    color: #8B232E;
+    white-space: nowrap;
+    margin-left: 8px;
+  }
+
+  .emergency-callout {
+    background: #FFF0F0;
+    border-left: 4px solid #8B232E;
+    border-radius: 0 8px 8px 0;
+    padding: 11px 13px;
+    margin-bottom: 12px;
+  }
+
+  .emergency-callout .emerg-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #8B232E;
+    margin-bottom: 4px;
+  }
+
+  .emergency-callout .emerg-body {
+    font-size: 10px;
+    font-weight: 400;
+    color: #1B254B;
+    line-height: 1.5;
+  }
+
+  .pricing-footnote {
+    font-size: 9.5px;
+    font-style: italic;
+    color: #1B254B;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    opacity: 0.75;
+  }
+
+  .panel-url {
+    font-size: 11px;
+    font-weight: 700;
+    color: #8B232E;
+    text-align: center;
+    margin-top: auto;
+    letter-spacing: 0.3px;
+  }
+
+  /* ============ PANEL 2 — OUTSIDE CENTRE (Locations) ============ */
+  .panel-locations {
+    background: #1B254B;
+    display: flex;
+    flex-direction: column;
+    padding: 22px 20px 16px;
+  }
+
+  .loc-logo {
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  .loc-logo-text {
+    font-size: 18px;
+    font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .loc-logo-paw {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 1px;
+  }
+  .loc-red-rule {
+    border: none;
+    border-top: 2px solid #8B232E;
+    margin: 7px 30px 10px;
+  }
+
+  .loc-heading {
+    font-size: 13px;
+    font-weight: 800;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .loc-rows { flex: 1; }
+
+  .loc-row {
+    display: flex;
+    align-items: center;
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    gap: 8px;
+  }
+  .loc-row:last-child { border-bottom: none; }
+
+  .loc-photo-placeholder {
+    width: 56px;
+    height: 42px;
+    flex-shrink: 0;
+    border: 1.5px dashed rgba(255,255,255,0.3);
+    border-radius: 4px;
+    background: rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7px;
+    color: rgba(255,255,255,0.4);
+    font-style: italic;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .loc-info { flex: 1; min-width: 0; }
+
+  .loc-name-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .loc-pin { color: #D94F4F; font-size: 9px; }
+  .loc-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: #FFFFFF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .loc-address {
+    font-size: 9.5px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    margin-top: 1px;
+  }
+
+  .loc-qr {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border: 1.5px dashed rgba(255,255,255,0.3);
+    border-radius: 4px;
+    background: rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7px;
+    color: rgba(255,255,255,0.4);
+    font-style: italic;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .loc-bottom {
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 10px;
+    margin-top: 8px;
+    text-align: center;
+  }
+  .loc-phone {
+    font-size: 15px;
+    font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+  }
+  .loc-web {
+    font-size: 10px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 5px;
+  }
+  .loc-social {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+  }
+  .loc-social-item {
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ============ PANEL 3 — OUTSIDE RIGHT (Front Cover) ============ */
+  .panel-cover {
+    background: #1B254B;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 24px 0;
+    position: relative;
+  }
+
+  .cover-logo {
+    font-size: 22px;
+    font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 6px;
+  }
+  .cover-logo-sub {
+    font-size: 9px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 2px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .cover-tagline-bar {
+    background: #C9A84C;
+    padding: 5px 18px;
+    border-radius: 2px;
+    margin-bottom: 18px;
+  }
+  .cover-tagline {
+    font-size: 11px;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-variant: small-caps;
+  }
+
+  .cover-photo-placeholder {
+    width: 300px;
+    height: 310px;
+    border: 2px dashed rgba(255,255,255,0.35);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 16px;
+    margin-bottom: 0;
+  }
+  .cover-photo-placeholder span {
+    font-size: 10px;
+    font-style: italic;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.6;
+  }
+
+  .cover-bottom-strip {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255,255,255,0.94);
+    padding: 16px 22px 20px;
+    text-align: center;
+  }
+  .cover-cta-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: #1B254B;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .cover-cta-sub {
+    font-size: 10.5px;
+    font-weight: 400;
+    color: #1B254B;
+    margin-bottom: 5px;
+    line-height: 1.4;
+  }
+  .cover-cta-url {
+    font-size: 12px;
+    font-weight: 700;
+    color: #8B232E;
+  }
+
+  /* ============ PANEL 4 — INSIDE LEFT (Services List) ============ */
+  .panel-services {
+    background: #FEF5F1;
+    border-top: 5px solid #8B232E;
+    display: flex;
+    flex-direction: column;
+    padding: 22px 22px 14px;
+  }
+
+  .accred-strip {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .accred-badge {
+    background: #fff;
+    border: 1.5px solid #E8D5CE;
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-size: 9px;
+    font-weight: 600;
+    color: #8B232E;
+    white-space: nowrap;
+  }
+
+  .panel-services .panel-heading {
+    font-size: 14px;
+    font-weight: 800;
+    color: #8B232E;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+
+  .service-categories { flex: 1; margin-bottom: 10px; }
+
+  .service-cat {
+    margin-bottom: 10px;
+  }
+
+  .service-cat-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #8B232E;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .service-bullets {
+    list-style: none;
+    padding-left: 16px;
+  }
+  .service-bullets li {
+    font-size: 11.5px;
+    font-weight: 400;
+    color: #1B254B;
+    line-height: 1.65;
+    position: relative;
+    padding-left: 10px;
+  }
+  .service-bullets li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #8B232E;
+    font-weight: 700;
+  }
+
+  .services-photo-placeholder {
+    width: 100%;
+    height: 100px;
+    border: 2px dashed #CCCCCC;
+    border-radius: 6px;
+    background: #F5F5F5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .services-photo-placeholder span {
+    font-size: 9.5px;
+    font-style: italic;
+    color: #AAAAAA;
+    text-align: center;
+  }
+
+  /* ============ PANEL 5 — INSIDE CENTRE (Preventive Care) ============ */
+  .panel-preventive {
+    background: #FEF5F1;
+    display: flex;
+    flex-direction: column;
+    padding: 22px 22px 14px;
+    border-top: 5px solid #8B232E;
+  }
+
+  .panel-preventive .panel-heading {
+    font-size: 13px;
+    font-weight: 800;
+    color: #8B232E;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.3px;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .preventive-intro {
+    font-size: 10.5px;
+    font-weight: 400;
+    color: #1B254B;
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  .preventive-sections { flex: 1; }
+
+  .prev-section {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #E8D8CF;
+  }
+  .prev-section:last-child { border-bottom: none; margin-bottom: 0; }
+
+  .prev-photo {
+    width: 140px;
+    height: 100px;
+    flex-shrink: 0;
+    border: 2px dashed #CCCCCC;
+    border-radius: 6px;
+    background: #F5F5F5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6px;
+  }
+  .prev-photo span {
+    font-size: 8.5px;
+    font-style: italic;
+    color: #AAAAAA;
+    line-height: 1.4;
+  }
+
+  .prev-text { flex: 1; }
+  .prev-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #8B232E;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 5px;
+  }
+  .prev-body {
+    font-size: 10.5px;
+    font-weight: 400;
+    color: #1B254B;
+    line-height: 1.6;
+  }
+
+  .preventive-cta {
+    font-size: 10.5px;
+    font-style: italic;
+    font-weight: 600;
+    color: #8B232E;
+    text-align: center;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #E8D8CF;
+  }
+
+  /* ============ PANEL 6 — INSIDE RIGHT (Specialist Showcase) ============ */
+  .panel-specialist {
+    background: #FEF5F1;
+    border-top: 5px solid #8B232E;
+    display: flex;
+    flex-direction: column;
+    padding: 22px 22px 0;
+  }
+
+  .panel-specialist .panel-heading {
+    font-size: 13px;
+    font-weight: 800;
+    color: #8B232E;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.3px;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .specialist-intro {
+    font-size: 10.5px;
+    font-weight: 400;
+    color: #1B254B;
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+
+  .showcase-items { flex: 1; }
+
+  .showcase-item {
+    margin-bottom: 8px;
+  }
+
+  .showcase-photo {
+    width: 100%;
+    height: 108px;
+    border: 2px dashed #CCCCCC;
+    border-radius: 6px;
+    background: #F5F5F5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8px;
+    margin-bottom: 5px;
+  }
+  .showcase-photo span {
+    font-size: 9px;
+    font-style: italic;
+    color: #AAAAAA;
+    line-height: 1.4;
+  }
+
+  .showcase-label {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #8B232E;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+  }
+  .showcase-desc {
+    font-size: 10px;
+    font-weight: 400;
+    color: #1B254B;
+  }
+
+  .specialist-cta {
+    background: #8B232E;
+    color: #FFFFFF;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-align: center;
+    padding: 13px 16px;
+    margin-top: auto;
+    letter-spacing: 0.3px;
+    line-height: 1.5;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- ========== OUTSIDE SPREAD ========== -->
+  <div class="spread-label">⬛ Outside Spread &nbsp;—&nbsp; fold &amp; mail face</div>
+  <div class="spread" style="margin-bottom: 0;">
+
+    <!-- Fold lines -->
+    <div class="fold-line fold-line-1"></div>
+    <div class="fold-line fold-line-2"></div>
+
+    <!-- PANEL 1 — Outside Left (Inside Flap / Pricing) -->
+    <div class="panel panel-pricing">
+
+      <div class="panel-heading">Our Services &amp; Pricing</div>
+      <hr class="maroon-rule">
+
+      <div class="pricing-card">
+        <div class="pricing-row">
+          <span class="service-name">Consultation (20 min)</span>
+          <span class="service-price">From 249 AED</span>
+        </div>
+        <div class="pricing-row">
+          <span class="service-name">Vaccination Package</span>
+          <span class="service-price">From 349 AED</span>
+        </div>
+        <div class="pricing-row">
+          <span class="service-name">Spay &amp; Neuter</span>
+          <span class="service-price">From 799 AED</span>
+        </div>
+        <div class="pricing-row">
+          <span class="service-name">Dental Scale &amp; Polish</span>
+          <span class="service-price">From 945 AED</span>
+        </div>
+        <div class="pricing-row">
+          <span class="service-name">Internal Medicine</span>
+          <span class="service-price">From 343 AED</span>
+        </div>
+        <div class="pricing-row">
+          <span class="service-name">MIS &amp; Endoscopy</span>
+          <span class="service-price">From 685 AED</span>
+        </div>
+      </div>
+
+      <div class="emergency-callout">
+        <div class="emerg-title">🚨 24/7 Emergency Care</div>
+        <div class="emerg-body">Available at Modern Vet Hospital (Al Wasl) and Blue Oasis Vet (DIP)</div>
+      </div>
+
+      <p class="pricing-footnote">Prices shown are starting prices. Final cost depends on location, pet size, and procedure complexity.</p>
+
+      <!-- QR Book Online -->
+      <div style="background:#fff;border-radius:10px;box-shadow:0 2px 10px rgba(139,35,46,0.10);padding:12px 14px;display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+        <div style="width:56px;height:56px;flex-shrink:0;border:2px dashed #8B232E;border-radius:6px;background:#FBE9E0;display:flex;align-items:center;justify-content:center;font-size:8px;font-style:italic;color:#8B232E;text-align:center;line-height:1.4;">QR<br>CODE</div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#8B232E;margin-bottom:2px;">📱 Book Online</div>
+          <div style="font-size:9.5px;color:#1B254B;line-height:1.5;">Scan to view all packages &amp; book your appointment at modernvet.com</div>
+        </div>
+      </div>
+
+      <!-- Zoetis co-brand strip -->
+      <div style="border-top:1px solid rgba(139,35,46,0.2);padding-top:10px;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px;">
+        <div style="font-size:8.5px;color:#1B254B;opacity:0.6;font-style:italic;">In partnership with</div>
+        <div style="font-size:10px;font-weight:700;color:#1B254B;letter-spacing:1px;">ZOETIS</div>
+      </div>
+
+      <div class="panel-url">modernvet.com</div>
+
+    </div><!-- /panel-pricing -->
+
+
+    <!-- PANEL 2 — Outside Centre (Locations / Back) -->
+    <div class="panel panel-locations">
+
+      <div class="loc-logo">
+        <div class="loc-logo-text">Modern Vet</div>
+        <div class="loc-logo-paw">🐾 Veterinary Clinics &amp; Hospital</div>
+      </div>
+      <hr class="loc-red-rule">
+      <div class="loc-heading">Find Us</div>
+
+      <div class="loc-rows">
+
+        <div class="loc-row">
+          <div class="loc-photo-placeholder">@Insert<br>clinic photo</div>
+          <div class="loc-info">
+            <div class="loc-name-row">
+              <span class="loc-pin">●</span>
+              <span class="loc-name">Modern Vet Al Wasl Hospital</span>
+            </div>
+            <div class="loc-address">Al Wasl Road &nbsp;·&nbsp; Open 24 hrs</div>
+          </div>
+          <div class="loc-qr">QR<br>CODE</div>
+        </div>
+
+        <div class="loc-row">
+          <div class="loc-photo-placeholder">@Insert<br>clinic photo</div>
+          <div class="loc-info">
+            <div class="loc-name-row">
+              <span class="loc-pin">●</span>
+              <span class="loc-name">Modern Vet JLT</span>
+            </div>
+            <div class="loc-address">Cluster T, JLT &nbsp;·&nbsp; 7AM–10PM</div>
+          </div>
+          <div class="loc-qr">QR<br>CODE</div>
+        </div>
+
+        <div class="loc-row">
+          <div class="loc-photo-placeholder">@Insert<br>clinic photo</div>
+          <div class="loc-info">
+            <div class="loc-name-row">
+              <span class="loc-pin">●</span>
+              <span class="loc-name">Modern Vet JVC</span>
+            </div>
+            <div class="loc-address">JVC Circle &nbsp;·&nbsp; 7AM–10PM</div>
+          </div>
+          <div class="loc-qr">QR<br>CODE</div>
+        </div>
+
+        <div class="loc-row">
+          <div class="loc-photo-placeholder">@Insert<br>clinic photo</div>
+          <div class="loc-info">
+            <div class="loc-name-row">
+              <span class="loc-pin">●</span>
+              <span class="loc-name">Modern Vet Downtown</span>
+            </div>
+            <div class="loc-address">Downtown Dubai &nbsp;·&nbsp; 7AM–10PM</div>
+          </div>
+          <div class="loc-qr">QR<br>CODE</div>
+        </div>
+
+        <div class="loc-row">
+          <div class="loc-photo-placeholder">@Insert<br>clinic photo</div>
+          <div class="loc-info">
+            <div class="loc-name-row">
+              <span class="loc-pin">●</span>
+              <span class="loc-name">Modern Vet Palm</span>
+            </div>
+            <div class="loc-address">Palm Jumeirah &nbsp;·&nbsp; 7AM–10PM</div>
+          </div>
+          <div class="loc-qr">QR<br>CODE</div>
+        </div>
+
+        <div class="loc-row">
+          <div class="loc-photo-placeholder">@Insert<br>clinic photo</div>
+          <div class="loc-info">
+            <div class="loc-name-row">
+              <span class="loc-pin">●</span>
+              <span class="loc-name">Modern Vet Azizi Riviera</span>
+            </div>
+            <div class="loc-address">Meydan &nbsp;·&nbsp; Tue–Sat 10AM–6PM</div>
+          </div>
+          <div class="loc-qr">QR<br>CODE</div>
+        </div>
+
+      </div><!-- /loc-rows -->
+
+      <div class="loc-bottom">
+        <div class="loc-phone">📞 800-82</div>
+        <div class="loc-web">modernvet.com &nbsp;·&nbsp; @modernvetdubai</div>
+        <div class="loc-social">
+          <span class="loc-social-item">f</span>
+          <span class="loc-social-item">ig</span>
+          <span class="loc-social-item">𝕏</span>
+          <span class="loc-social-item">wa</span>
+        </div>
+      </div>
+
+    </div><!-- /panel-locations -->
+
+
+    <!-- PANEL 3 — Outside Right (Front Cover) -->
+    <div class="panel panel-cover">
+
+      <div class="cover-logo">Modern Vet</div>
+      <div class="cover-logo-sub">Veterinary Clinics &amp; Hospital &nbsp;·&nbsp; Dubai</div>
+      <!-- Zoetis badge -->
+      <div style="font-size:8.5px;font-weight:600;color:rgba(255,255,255,0.45);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;">In partnership with <span style="color:rgba(255,255,255,0.75);">Zoetis</span></div>
+      <div class="cover-tagline-bar">
+        <div class="cover-tagline">30 Years of Trust</div>
+      </div>
+
+      <div class="cover-photo-placeholder">
+        <span>@Insert hero photo<br>vet with pet, clinic interior,<br>or team shot.<br><br>NO AI illustration.</span>
+      </div>
+
+      <div class="cover-bottom-strip">
+        <div class="cover-cta-title">Care You Can Trust</div>
+        <div class="cover-cta-sub">Comprehensive veterinary care across 6 locations in Dubai</div>
+        <div class="cover-cta-url">modernvet.com</div>
+      </div>
+
+    </div><!-- /panel-cover -->
+
+  </div><!-- /spread outside -->
+
+  <div class="spread-gap"></div>
+
+  <!-- ========== INSIDE SPREAD ========== -->
+  <div class="spread-label" style="margin-top: 28px;">⬜ Inside Spread &nbsp;—&nbsp; opens flat</div>
+  <div class="spread">
+
+    <!-- Fold lines -->
+    <div class="fold-line fold-line-1"></div>
+    <div class="fold-line fold-line-2"></div>
+
+    <!-- PANEL 4 — Inside Left (Services List) -->
+    <div class="panel panel-services">
+
+      <div class="panel-heading">Modern Vet Services</div>
+      <hr class="maroon-rule">
+
+      <div class="service-categories">
+
+        <div class="service-cat">
+          <div class="service-cat-label">🚨 Emergency &amp; Critical Care</div>
+          <ul class="service-bullets">
+            <li>24/7 Emergency Pet Care</li>
+          </ul>
+        </div>
+
+        <div class="service-cat">
+          <div class="service-cat-label">💉 Preventive &amp; Primary Care</div>
+          <ul class="service-bullets">
+            <li>Pet Consultation &amp; Wellness Exams</li>
+            <li>Pet Vaccination</li>
+          </ul>
+        </div>
+
+        <div class="service-cat">
+          <div class="service-cat-label">🔬 Specialist Medicine</div>
+          <ul class="service-bullets">
+            <li>Internal Medicine</li>
+            <li>Dermatology &nbsp;·&nbsp; Cardiology</li>
+            <li>Neurology &nbsp;·&nbsp; Oncology</li>
+            <li>Ophthalmology</li>
+          </ul>
+        </div>
+
+        <div class="service-cat">
+          <div class="service-cat-label">🔪 Advanced Surgery</div>
+          <ul class="service-bullets">
+            <li>Soft Tissue Surgery</li>
+            <li>Orthopedic Surgery</li>
+            <li>Minimally Invasive Surgery &amp; Endoscopy</li>
+          </ul>
+        </div>
+
+        <div class="service-cat">
+          <div class="service-cat-label">🦾 Rehabilitation &amp; Mobility</div>
+          <ul class="service-bullets">
+            <li>Physiotherapy &amp; Hydrotherapy</li>
+            <li>3D-Printed Prosthetics &amp; Braces</li>
+          </ul>
+        </div>
+
+      </div><!-- /service-categories -->
+
+      <!-- Accreditation badges -->
+      <div class="accred-strip">
+        <span class="accred-badge">🏅 ISFM Gold Standard</span>
+        <span class="accred-badge">🔬 RCVS Certified</span>
+        <span class="accred-badge">🏥 6 Locations</span>
+        <span class="accred-badge">⏰ 24/7 Emergency</span>
+      </div>
+
+      <div class="services-photo-placeholder">
+        <span>@Insert team / clinic photo</span>
+      </div>
+
+      <div class="panel-url">modernvet.com</div>
+
+    </div><!-- /panel-services -->
+
+
+    <!-- PANEL 5 — Inside Centre (Preventive Care Guide) -->
+    <div class="panel panel-preventive">
+
+      <div class="panel-heading">A Pet Parent's Guide to<br>Preventive Care</div>
+      <hr class="maroon-rule">
+
+      <p class="preventive-intro">Keeping your pet healthy starts with simple preventive care. Regular veterinary visits help your pet live a longer, happier life.</p>
+
+      <div class="preventive-sections">
+
+        <!-- Section 1: Spay & Neuter — photo left, text right -->
+        <div class="prev-section">
+          <div class="prev-photo">
+            <span>@Insert surgery /<br>procedure photo</span>
+          </div>
+          <div class="prev-text">
+            <div class="prev-label">Spay &amp; Neuter</div>
+            <div class="prev-body">Prevents unwanted litters, reduces risk of certain cancers, and improves behavioural health in dogs and cats.</div>
+          </div>
+        </div>
+
+        <!-- Section 2: Vaccination — text left, photo right -->
+        <div class="prev-section" style="flex-direction: row-reverse;">
+          <div class="prev-photo">
+            <span>@Insert vet /<br>vaccination photo</span>
+          </div>
+          <div class="prev-text">
+            <div class="prev-label">Vaccination</div>
+            <div class="prev-body">Protects against life-threatening diseases including rabies, parvovirus, and distemper. Annual boosters keep immunity strong.</div>
+          </div>
+        </div>
+
+        <!-- Section 3: Nutrition — photo left, text right -->
+        <div class="prev-section">
+          <div class="prev-photo">
+            <span>@Insert nutrition /<br>food photo</span>
+          </div>
+          <div class="prev-text">
+            <div class="prev-label">Proper Nutrition</div>
+            <div class="prev-body">High-quality food tailored to your pet's age, size, and breed supports growth, energy, and a strong immune system.</div>
+          </div>
+        </div>
+
+      </div><!-- /preventive-sections -->
+
+      <div class="preventive-cta">
+        Book your wellness check today — modernvet.com
+      </div>
+
+    </div><!-- /panel-preventive -->
+
+
+    <!-- PANEL 6 — Inside Right (Specialist Showcase) -->
+    <div class="panel panel-specialist" style="padding-bottom:0;">
+
+      <div class="panel-heading">Specialist Care at Every Stage</div>
+      <hr class="maroon-rule" style="margin-bottom: 8px;">
+
+      <p class="specialist-intro">Routine vet visits help detect health issues early and keep your pet on track with vaccinations, parasite control, and dental care.</p>
+
+      <!-- Stat strip -->
+      <div style="display:flex;justify-content:space-around;background:#fff;border-radius:8px;padding:9px 6px;margin-bottom:12px;box-shadow:0 2px 8px rgba(139,35,46,0.08);">
+        <div style="text-align:center;">
+          <div style="font-size:16px;font-weight:800;color:#8B232E;">7,800+</div>
+          <div style="font-size:8px;color:#1B254B;font-weight:500;">5-Star Reviews</div>
+        </div>
+        <div style="width:1px;background:#E8D5CE;"></div>
+        <div style="text-align:center;">
+          <div style="font-size:16px;font-weight:800;color:#8B232E;">4.8⭐</div>
+          <div style="font-size:8px;color:#1B254B;font-weight:500;">Avg. Rating</div>
+        </div>
+        <div style="width:1px;background:#E8D5CE;"></div>
+        <div style="text-align:center;">
+          <div style="font-size:16px;font-weight:800;color:#8B232E;">30+</div>
+          <div style="font-size:8px;color:#1B254B;font-weight:500;">Years of Care</div>
+        </div>
+      </div>
+
+      <div class="showcase-items">
+
+        <div class="showcase-item">
+          <div class="showcase-photo">
+            <span>@Insert ophthalmology photo — vet examining cat's eyes</span>
+          </div>
+          <div class="showcase-label">Ophthalmology</div>
+          <div class="showcase-desc">Specialist eye care for dogs and cats, including cataract and corneal treatments.</div>
+        </div>
+
+        <div class="showcase-item">
+          <div class="showcase-photo">
+            <span>@Insert dentistry photo — dental procedure on dog</span>
+          </div>
+          <div class="showcase-label">Dentistry</div>
+          <div class="showcase-desc">Professional dental scaling, polishing, and oral health assessments.</div>
+        </div>
+
+        <div class="showcase-item">
+          <div class="showcase-photo">
+            <span>@Insert dermatology photo — skin/coat examination</span>
+          </div>
+          <div class="showcase-label">Dermatology</div>
+          <div class="showcase-desc">Diagnosis and treatment of skin, coat, ear, and allergy conditions.</div>
+        </div>
+
+      </div><!-- /showcase-items -->
+
+      <div class="specialist-cta">
+        Book an appointment: 800-82 &nbsp;|&nbsp; modernvet.com
+      </div>
+
+    </div><!-- /panel-specialist -->
+
+  </div><!-- /spread inside -->
+
+</div><!-- /page-wrapper -->
+
+</body>
+</html>
