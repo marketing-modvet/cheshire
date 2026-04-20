@@ -3,6 +3,23 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Expansion Opportunity Report — April 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f2f5;color:#1a1a2e}
+#gate{display:flex;align-items:center;justify-content:center;min-height:100vh}
+#gate-box{background:white;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,.12);padding:48px 40px;text-align:center;max-width:360px;width:100%}
+#gate-box h2{color:#015962;font-size:22px;margin-bottom:8px}
+#gate-box p{color:#6c757d;font-size:13px;margin-bottom:28px}
+#gate-box input{width:100%;padding:12px 16px;border:1.5px solid #ddd;border-radius:8px;font-size:15px;outline:none;letter-spacing:2px;text-align:center;margin-bottom:12px;transition:border .2s}
+#gate-box input:focus{border-color:#015962}
+#gate-box button{width:100%;padding:12px;background:#015962;color:white;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;transition:background .2s}
+#gate-box button:hover{background:#027a87}
+#gate-box .err{color:#e74c3c;font-size:12.5px;margin-top:10px;display:none}
+#report{display:none}
+</style>
+
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Expansion Opportunity Report — April 2026</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
@@ -40,8 +57,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .disclaimer{background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:12px 16px;font-size:12.5px;color:#856404;margin-bottom:20px}
 @media(max-width:768px){.hdr,.content{padding-left:16px;padding-right:16px}.cards{grid-template-columns:1fr}}
 </style>
+
 </head>
 <body>
+<div id="gate">
+  <div id="gate-box">
+    <div style="font-size:40px;margin-bottom:16px">&#x1F5FA;</div>
+    <h2>Expansion Report</h2>
+    <p>Modern Vet Group &middot; April 2026<br>This document is confidential.</p>
+    <input type="password" id="pw" placeholder="Enter password" onkeydown="if(event.key==='Enter')check()">
+    <button onclick="check()">Access Report</button>
+    <div class="err" id="err">Incorrect password. Try again.</div>
+  </div>
+</div>
+<div id="report">
+
 <div class="hdr">
   <h1>🗺️ Expansion Opportunity Report</h1>
   <p>Modern Vet Group — Where to open next &nbsp;|&nbsp; April 2026 &nbsp;|&nbsp; 149 competitors · 148 pet businesses · population-weighted scoring</p>
@@ -297,4 +327,27 @@ const vetIcon = L.divIcon({className:'', html:'<div style="background:#e74c3c;wi
   if(c[0] && c[1]) L.marker([c[0],c[1]], {icon:vetIcon}).bindPopup(`<b>${c[2]}</b><br>${c[3]}`).addTo(map);
 });
 </script>
-</body></html>
+
+</div>
+<script>
+(function(){
+  if(sessionStorage.getItem('exp_auth')==='1'){
+    document.getElementById('gate').style.display='none';
+    document.getElementById('report').style.display='block';
+  }
+})();
+function check(){
+  const pw=document.getElementById('pw').value;
+  if(pw==='ModernVet2026'){
+    sessionStorage.setItem('exp_auth','1');
+    document.getElementById('gate').style.display='none';
+    document.getElementById('report').style.display='block';
+  } else {
+    document.getElementById('err').style.display='block';
+    document.getElementById('pw').value='';
+    document.getElementById('pw').focus();
+  }
+}
+</script>
+</body>
+</html>
