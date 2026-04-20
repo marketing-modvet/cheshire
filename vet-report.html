@@ -721,11 +721,12 @@ function sort(tid,col){const t=document.getElementById(tid);const b=t.querySelec
 
 /* Expansion map JS — runs when tab is activated */
 let _mapInit=false;
+let _expansionMap=null;
 function initExpansionMap(){
   if(_mapInit)return;
   _mapInit=true;
   
-const map = L.map('map').setView([25.14, 55.27], 11);
+_expansionMap = L.map('map').setView([25.14, 55.27], 11);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
   attribution: '© OpenStreetMap contributors © CARTO', maxZoom: 18
 }).addTo(map);
@@ -753,7 +754,10 @@ const vetIcon = L.divIcon({className:'', html:'<div style="background:#e74c3c;wi
 const _origShow=show;
 window.show=function(id,el){
   _origShow(id,el);
-  if(id==='expand')initExpansionMap();
+  if(id==='expand'){
+    initExpansionMap();
+    setTimeout(function(){if(_expansionMap)_expansionMap.invalidateSize();},50);
+  }
 };
 </script>
 </body>
