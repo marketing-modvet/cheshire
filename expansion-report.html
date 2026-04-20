@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Expansion Opportunity Report — April 2026</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f2f5;color:#1a1a2e}
+.hdr{background:linear-gradient(135deg,#015962,#027a87);color:white;padding:36px 48px 28px}
+.hdr h1{font-size:26px;font-weight:800}
+.hdr p{font-size:14px;opacity:.75;margin-top:5px}
+.content{padding:28px 48px;max-width:1280px;margin:0 auto}
+.sec-title{font-size:20px;font-weight:700;color:#015962;margin-bottom:4px;margin-top:32px}
+.sec-sub{font-size:13px;color:#6c757d;margin-bottom:20px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(500px,1fr));gap:18px}
+.card{background:white;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.07);overflow:hidden;border-left:4px solid #015962}
+.card-hdr{display:flex;align-items:flex-start;gap:12px;padding:16px 18px 12px;border-bottom:1px solid #f0f0f0}
+.rank{font-size:26px;line-height:1;min-width:36px}
+.card-title{font-size:15px;font-weight:700;color:#015962}
+.card-sub{font-size:12px;color:#6c757d;margin-top:2px}
+.card-score-box{margin-left:auto;text-align:center;min-width:52px}
+.big-score{font-size:26px;font-weight:800;color:#015962;line-height:1}
+.score-lbl{font-size:11px;color:#999}
+.card-body{padding:12px 18px 14px}
+.card-row{display:flex;gap:10px;padding:5px 0;border-bottom:1px solid #f8f8f8;font-size:13px}
+.card-row:last-of-type{border-bottom:none}
+.lbl{color:#6c757d;min-width:170px;font-weight:500;flex-shrink:0}
+.card-note{margin-top:10px;padding:8px 12px;background:#fffde7;border-radius:6px;font-size:13px;color:#856404;font-weight:500}
+#map{height:520px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.1);margin-bottom:24px}
+.map-legend{background:white;padding:12px 16px;border-radius:8px;font-size:12.5px;display:flex;gap:20px;flex-wrap:wrap;margin-top:-4px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.leg{display:flex;align-items:center;gap:7px}
+.dot{width:12px;height:12px;border-radius:50%}
+.summary{background:white;border-radius:10px;padding:18px 22px;box-shadow:0 2px 6px rgba(0,0,0,.06);margin-bottom:24px}
+.summary h3{font-size:15px;font-weight:700;color:#015962;margin-bottom:10px}
+.summary ul{padding-left:18px;font-size:13.5px;line-height:2.1}
+.divider{height:1px;background:#e0e0e0;margin:24px 0}
+.disclaimer{background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:12px 16px;font-size:12.5px;color:#856404;margin-bottom:20px}
+@media(max-width:768px){.hdr,.content{padding-left:16px;padding-right:16px}.cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <h1>🗺️ Expansion Opportunity Report</h1>
+  <p>Modern Vet Group — Where to open next &nbsp;|&nbsp; April 2026 &nbsp;|&nbsp; 149 competitors · 148 pet businesses · population-weighted scoring</p>
+</div>
+<div class="content">
+
+  <div class="disclaimer">⚠️ Population figures: DSC 2022 census estimates. Real estate: Bayut/DrivenProperties 2025–2026 averages. Scores are indicative. Expansion radius check: 10km from existing branches.</div>
+
+  <div class="sec-title">🗺️ Pet Business Density Map</div>
+  <div class="sec-sub">Heatmap of pet businesses (groomers, shops, kennels, hotels) across Dubai — proxy for pet owner concentration. Blue pins = our clinics. Red pins = competitors.</div>
+  <div id="map"></div>
+  <div class="map-legend">
+    <div class="leg"><div class="dot" style="background:#2196F3;border:2px solid white;box-shadow:0 0 0 1px #2196F3"></div>Our clinics</div>
+    <div class="leg"><div class="dot" style="background:#e74c3c"></div>Competitor vets</div>
+    <div class="leg" style="gap:7px"><div style="width:30px;height:10px;border-radius:3px;background:linear-gradient(to right,#00f,#0ff,#0f0,#ff0,#f00)"></div>Pet business density (blue=low → red=high)</div>
+  </div>
+
+  <div class="summary">
+    <h3>📊 Top Expansion Targets (unserved districts, ranked by score)</h3>
+    <ul>
+      <li><strong>🥇 Downtown / Business Bay</strong> — 48k residents per vet, 8 pet businesses, ⭐⭐⭐⭐⭐ affluence</li>
+      <li><strong>🥈 Bur Dubai / Karama</strong> — 50k residents per vet, 6 pet businesses, ⭐⭐ affluence</li>
+      <li><strong>🥉 Naif</strong> — 60k residents per vet, 4 pet businesses, ⭐⭐ affluence</li>
+    </ul>
+  </div>
+
+  <div class="sec-title">🆕 Unserved / Underserved Districts</div>
+  <div class="sec-sub">Districts where Modern Vet Group has no branch. ⚠️ = one of our clinics is within 10km.</div>
+  <div class="cards"><div class="card">
+  <div class="card-hdr">
+    <span class="rank">🥇</span>
+    <div>
+      <div class="card-title">Downtown / Business Bay</div>
+      <div class="card-sub">2 vets · 8 pet biz · ⭐⭐⭐⭐⭐ affluence · pop ~95k</div>
+    </div>
+    <div class="card-score-box"><div class="big-score">77</div><div class="score-lbl">score</div></div>
+  </div>
+  <div class="card-body">
+    <div class="card-row"><span class="lbl">Residential population</span><span>~95,000 residents</span></div>
+    <div class="card-row"><span class="lbl">Residents per vet</span><span style="font-weight:700">~48k per clinic</span></div>
+    <div class="card-row"><span class="lbl">Avg competitor rating</span><span>★4.8 &nbsp; (0 weak ≤4.4★)</span></div>
+    <div class="card-row"><span class="lbl">Residential rent</span><span>AED 85k–150k/yr</span></div>
+    <div class="card-row"><span class="lbl">Commercial space est.</span><span>AED 150–300/sqft/yr</span></div>
+    <div class="card-row"><span class="lbl">Key competitors</span><span>Prime Paws Veterinary Clinic LLC ★4.9 · VETPASS ★4.7</span></div>
+    <div class="card-row"><span class="lbl">Nearest our branch</span><span style="color:#f5a623">⚠️ Modern Vet Hospital (6.5km), Modern Vet Downtown (0.4km)</span></div>
+    
+  </div>
+</div>
+<div class="card">
+  <div class="card-hdr">
+    <span class="rank">🥈</span>
+    <div>
+      <div class="card-title">Bur Dubai / Karama</div>
+      <div class="card-sub">6 vets · 6 pet biz · ⭐⭐ affluence · pop ~300k</div>
+    </div>
+    <div class="card-score-box"><div class="big-score">71</div><div class="score-lbl">score</div></div>
+  </div>
+  <div class="card-body">
+    <div class="card-row"><span class="lbl">Residential population</span><span>~300,000 residents</span></div>
+    <div class="card-row"><span class="lbl">Residents per vet</span><span style="font-weight:700">~50k per clinic</span></div>
+    <div class="card-row"><span class="lbl">Avg competitor rating</span><span>★4.3 &nbsp; (3 weak ≤4.4★)</span></div>
+    <div class="card-row"><span class="lbl">Residential rent</span><span>—</span></div>
+    <div class="card-row"><span class="lbl">Commercial space est.</span><span>—/yr</span></div>
+    <div class="card-row"><span class="lbl">Key competitors</span><span>Zabeel Veterinary Hospital ★4.4 · Majestic Veterinary Clinic ★4.4</span></div>
+    <div class="card-row"><span class="lbl">Nearest our branch</span><span style="color:#f5a623">⚠️ Modern Vet Downtown (4.8km), Modern Vet Azizi Riviera (6.3km)</span></div>
+    
+  </div>
+</div>
+<div class="card">
+  <div class="card-hdr">
+    <span class="rank">🥉</span>
+    <div>
+      <div class="card-title">Naif</div>
+      <div class="card-sub">0 vets · 4 pet biz · ⭐⭐ affluence · pop ~30k</div>
+    </div>
+    <div class="card-score-box"><div class="big-score">58</div><div class="score-lbl">score</div></div>
+  </div>
+  <div class="card-body">
+    <div class="card-row"><span class="lbl">Residential population</span><span>~30,000 residents</span></div>
+    <div class="card-row"><span class="lbl">Residents per vet</span><span style="font-weight:700">~60k per clinic</span></div>
+    <div class="card-row"><span class="lbl">Avg competitor rating</span><span>No data &nbsp; (0 weak ≤4.4★)</span></div>
+    <div class="card-row"><span class="lbl">Residential rent</span><span>—</span></div>
+    <div class="card-row"><span class="lbl">Commercial space est.</span><span>—/yr</span></div>
+    <div class="card-row"><span class="lbl">Key competitors</span><span>None found</span></div>
+    <div class="card-row"><span class="lbl">Nearest our branch</span><span style="color:#f5a623">⚠️ Modern Vet Downtown (9.9km), The Veterinary Referral Centre (8.3km)</span></div>
+    
+  </div>
+</div>
+<div class="card">
+  <div class="card-hdr">
+    <span class="rank">4️⃣</span>
+    <div>
+      <div class="card-title">القوز الثالثة</div>
+      <div class="card-sub">0 vets · 1 pet biz · ⭐⭐ affluence · pop ~30k</div>
+    </div>
+    <div class="card-score-box"><div class="big-score">49</div><div class="score-lbl">score</div></div>
+  </div>
+  <div class="card-body">
+    <div class="card-row"><span class="lbl">Residential population</span><span>~30,000 residents</span></div>
+    <div class="card-row"><span class="lbl">Residents per vet</span><span style="font-weight:700">~60k per clinic</span></div>
+    <div class="card-row"><span class="lbl">Avg competitor rating</span><span>No data &nbsp; (0 weak ≤4.4★)</span></div>
+    <div class="card-row"><span class="lbl">Residential rent</span><span>—</span></div>
+    <div class="card-row"><span class="lbl">Commercial space est.</span><span>—/yr</span></div>
+    <div class="card-row"><span class="lbl">Key competitors</span><span>None found</span></div>
+    <div class="card-row"><span class="lbl">Nearest our branch</span><span style="color:#f5a623">⚠️ Modern Vet Hospital (2.9km), Modern Vet Downtown (4.1km)</span></div>
+    
+  </div>
+</div>
+<div class="card">
+  <div class="card-hdr">
+    <span class="rank">5️⃣</span>
+    <div>
+      <div class="card-title">نايف</div>
+      <div class="card-sub">0 vets · 1 pet biz · ⭐⭐ affluence · pop ~30k</div>
+    </div>
+    <div class="card-score-box"><div class="big-score">49</div><div class="score-lbl">score</div></div>
+  </div>
+  <div class="card-body">
+    <div class="card-row"><span class="lbl">Residential population</span><span>~30,000 residents</span></div>
+    <div class="card-row"><span class="lbl">Residents per vet</span><span style="font-weight:700">~60k per clinic</span></div>
+    <div class="card-row"><span class="lbl">Avg competitor rating</span><span>No data &nbsp; (0 weak ≤4.4★)</span></div>
+    <div class="card-row"><span class="lbl">Residential rent</span><span>—</span></div>
+    <div class="card-row"><span class="lbl">Commercial space est.</span><span>—/yr</span></div>
+    <div class="card-row"><span class="lbl">Key competitors</span><span>None found</span></div>
+    <div class="card-row"><span class="lbl">Nearest our branch</span><span style="color:#f5a623">⚠️ Modern Vet Downtown (9.6km), The Veterinary Referral Centre (8.0km)</span></div>
+    
+  </div>
+</div>
+<div class="card">
+  <div class="card-hdr">
+    <span class="rank">6️⃣</span>
+    <div>
+      <div class="card-title">Deira / Qusais</div>
+      <div class="card-sub">3 vets · 1 pet biz · ⭐⭐ affluence · pop ~550k</div>
+    </div>
+    <div class="card-score-box"><div class="big-score">49</div><div class="score-lbl">score</div></div>
+  </div>
+  <div class="card-body">
+    <div class="card-row"><span class="lbl">Residential population</span><span>~550,000 residents</span></div>
+    <div class="card-row"><span class="lbl">Residents per vet</span><span style="font-weight:700">~183k per clinic</span></div>
+    <div class="card-row"><span class="lbl">Avg competitor rating</span><span>★4.4 &nbsp; (2 weak ≤4.4★)</span></div>
+    <div class="card-row"><span class="lbl">Residential rent</span><span>AED 45k–65k/yr</span></div>
+    <div class="card-row"><span class="lbl">Commercial space est.</span><span>AED 30–60/sqft/yr</span></div>
+    <div class="card-row"><span class="lbl">Key competitors</span><span>Provet Veterinary Clinic ★4.3 · Companion Veterinary Clinic ★4.8</span></div>
+    
+    
+  </div>
+</div>
+<div class="card">
+  <div class="card-hdr">
+    <span class="rank">7️⃣</span>
+    <div>
+      <div class="card-title">KHUBEISY</div>
+      <div class="card-sub">0 vets · 1 pet biz · ⭐⭐ affluence · pop ~30k</div>
+    </div>
+    <div class="card-score-box"><div class="big-score">49</div><div class="score-lbl">score</div></div>
+  </div>
+  <div class="card-body">
+    <div class="card-row"><span class="lbl">Residential population</span><span>~30,000 residents</span></div>
+    <div class="card-row"><span class="lbl">Residents per vet</span><span style="font-weight:700">~60k per clinic</span></div>
+    <div class="card-row"><span class="lbl">Avg competitor rating</span><span>No data &nbsp; (0 weak ≤4.4★)</span></div>
+    <div class="card-row"><span class="lbl">Residential rent</span><span>—</span></div>
+    <div class="card-row"><span class="lbl">Commercial space est.</span><span>—/yr</span></div>
+    <div class="card-row"><span class="lbl">Key competitors</span><span>None found</span></div>
+    
+    
+  </div>
+</div>
+<div class="card">
+  <div class="card-hdr">
+    <span class="rank">8️⃣</span>
+    <div>
+      <div class="card-title">الحبيه الأولى</div>
+      <div class="card-sub">0 vets · 1 pet biz · ⭐⭐ affluence · pop ~30k</div>
+    </div>
+    <div class="card-score-box"><div class="big-score">49</div><div class="score-lbl">score</div></div>
+  </div>
+  <div class="card-body">
+    <div class="card-row"><span class="lbl">Residential population</span><span>~30,000 residents</span></div>
+    <div class="card-row"><span class="lbl">Residents per vet</span><span style="font-weight:700">~60k per clinic</span></div>
+    <div class="card-row"><span class="lbl">Avg competitor rating</span><span>No data &nbsp; (0 weak ≤4.4★)</span></div>
+    <div class="card-row"><span class="lbl">Residential rent</span><span>—</span></div>
+    <div class="card-row"><span class="lbl">Commercial space est.</span><span>—/yr</span></div>
+    <div class="card-row"><span class="lbl">Key competitors</span><span>None found</span></div>
+    <div class="card-row"><span class="lbl">Nearest our branch</span><span style="color:#f5a623">⚠️ Modern Vet JVC (3.6km)</span></div>
+    
+  </div>
+</div>
+<div class="card">
+  <div class="card-hdr">
+    <span class="rank">9️⃣</span>
+    <div>
+      <div class="card-title">Al Hamriya</div>
+      <div class="card-sub">0 vets · 1 pet biz · ⭐⭐ affluence · pop ~30k</div>
+    </div>
+    <div class="card-score-box"><div class="big-score">49</div><div class="score-lbl">score</div></div>
+  </div>
+  <div class="card-body">
+    <div class="card-row"><span class="lbl">Residential population</span><span>~30,000 residents</span></div>
+    <div class="card-row"><span class="lbl">Residents per vet</span><span style="font-weight:700">~60k per clinic</span></div>
+    <div class="card-row"><span class="lbl">Avg competitor rating</span><span>No data &nbsp; (0 weak ≤4.4★)</span></div>
+    <div class="card-row"><span class="lbl">Residential rent</span><span>—</span></div>
+    <div class="card-row"><span class="lbl">Commercial space est.</span><span>—/yr</span></div>
+    <div class="card-row"><span class="lbl">Key competitors</span><span>None found</span></div>
+    <div class="card-row"><span class="lbl">Nearest our branch</span><span style="color:#f5a623">⚠️ Modern Vet Downtown (8.5km), Modern Vet Azizi Riviera (10.0km)</span></div>
+    
+  </div>
+</div>
+<div class="card">
+  <div class="card-hdr">
+    <span class="rank">🔟</span>
+    <div>
+      <div class="card-title">Al Hudaiba</div>
+      <div class="card-sub">0 vets · 1 pet biz · ⭐⭐ affluence · pop ~30k</div>
+    </div>
+    <div class="card-score-box"><div class="big-score">49</div><div class="score-lbl">score</div></div>
+  </div>
+  <div class="card-body">
+    <div class="card-row"><span class="lbl">Residential population</span><span>~30,000 residents</span></div>
+    <div class="card-row"><span class="lbl">Residents per vet</span><span style="font-weight:700">~60k per clinic</span></div>
+    <div class="card-row"><span class="lbl">Avg competitor rating</span><span>No data &nbsp; (0 weak ≤4.4★)</span></div>
+    <div class="card-row"><span class="lbl">Residential rent</span><span>—</span></div>
+    <div class="card-row"><span class="lbl">Commercial space est.</span><span>—/yr</span></div>
+    <div class="card-row"><span class="lbl">Key competitors</span><span>None found</span></div>
+    <div class="card-row"><span class="lbl">Nearest our branch</span><span style="color:#f5a623">⚠️ Modern Vet Downtown (6.0km), Modern Vet Azizi Riviera (8.3km)</span></div>
+    
+  </div>
+</div></div>
+
+</div>
+
+<script>
+const map = L.map('map').setView([25.14, 55.27], 11);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  attribution: '© OpenStreetMap contributors © CARTO', maxZoom: 18
+}).addTo(map);
+
+// Heatmap layer — pet businesses
+const heatData = [[25.096341900000002, 55.176413999999994, "Doggy Be : Eco-friendly beds, toys and accessories for cat, dog and pet parents", "\u0627\u0644\u062b\u0646\u064a\u0647 \u0627\u0644\u0623\u0648\u0644\u0649"], [25.0098041, 55.156570099999996, "The Petshop DIP Megastore", "Dubai Investment Park First"], [25.089286899999998, 55.190616999999996, "Canine Styles Pet Shop & Grooming Salon", "Al Barsha Third"], [25.0789573, 55.152547399999996, "petsky", "Al Thanyah Fifth"], [25.072351899999997, 55.1323846, "Pet Boutique Daycare & Spa", "\u0645\u0631\u0633\u0649 \u062f\u0628\u064a"], [25.0478456, 55.1948545, "Six Pawz Pet Store & Grooming", "\u0627\u0644\u0628\u0631\u0634\u0627\u0621 \u062c\u0646\u0648\u0628 \u0627\u0644\u062e\u0627\u0645\u0633\u0629"], [25.0638712, 55.157373, "Petworld UAE The Meadows Village", "Al Thanyah Fourth"], [25.0616627, 55.2034807, "PAW KAESHA ANIMALS & BIRDS SUPPLIES", "\u0627\u0644\u0628\u0631\u0634\u0627\u0621 \u062c\u0646\u0648\u0628 \u0627\u0644\u0631\u0627\u0628\u0639\u0629"], [25.0389886, 55.166181599999994, "Pet Corner - Jumeriah Park Pet Shop", "\u0627\u0644\u062b\u0646\u064a\u0647 \u0627\u0644\u062e\u0627\u0645\u0633\u0629"], [25.0148473, 55.193152, "Pet Corner - Jumeirah Golf Estate Pet Shop", "Me'aisem First"], [25.0532763, 55.1975098, "The Petshop JVC", "Al Barsha South Fourth"], [25.056218299999998, 55.2044797, "Pet Corner - Jumeirah Village Circle Branch Pet Shop", "Al Barsha South Fourth"], [25.040220299999998, 55.1824247, "Brownie Pet Shop UAE", "\u0627\u0644\u0628\u0631\u0634\u0627\u0621 \u062c\u0646\u0648\u0628 \u0627\u0644\u062e\u0627\u0645\u0633\u0629"], [25.097440199999998, 55.169439, "Beauty Pets \u2013 Onyx Greens", "\u0627\u0644\u062b\u0646\u064a\u0647 \u0627\u0644\u062b\u0627\u0644\u062b\u0629"], [25.0885999, 55.1463628, "WAG Pet Care \u0648\u0627\u062c \u0644\u0644\u062d\u064a\u0648\u0627\u0646\u0627\u062a \u0627\u0644\u0623\u0644\u064a\u0641\u0629", "Marsa Dubai"], [25.0850258, 55.1489079, "The Petshop Marina Walk", "Marsa Dubai"], [25.0809496, 55.137395999999995, "Pet Corner - Jumeirah Beach Residence (JBR) Pet Shop", "Marsa Dubai"], [25.084037799999997, 55.1425111, "Petlove - Pet Grooming l Petshop l Daycare l Pet Boarding l Pet Taxi", "Marsa Dubai"], [25.111576, 55.1406358, "Best Pets Unlimited Trading LLC", "\u0646\u062e\u0644\u0629 \u062c\u0645\u064a\u0631\u0627"], [25.1134916, 55.193981199999996, "Pet Corner Al Barsha Pet Shop", "\u0627\u0644\u0628\u0631\u0634\u0627\u0621 \u0627\u0644\u0623\u0648\u0644\u0649"], [25.1540121, 55.2907167, "Pets Lounge UAE \u2013 Pet Grooming & Pet Store in Dubai", "Nad Al Sheba 1"], [25.1190625, 55.2074375, "The Petshop - Umm Suqeim", "Al Barsha First"], [25.192356399999998, 55.259510899999995, "Pet Corner Dubai- Sheikh Zayed Road", "Business Bay"], [25.15208, 55.2290961, "Petlove - Pet Boarding l Daycare l Pet Grooming l Pet Shop l Pet Taxi", "Al Qouz Ind.first"], [25.0738625, 55.144050299999996, "Puppies Dubai", "Al Thanyah Fifth"], [25.1151163, 55.195170499999996, "Pretty Paws", "Al Barsha First"], [25.1347824, 55.229025699999994, "Teo Premium Pet Supplies", "Al Qouz Ind.third"], [25.121480599999998, 55.2082905, "PetsCart \u2013 Pet Supplies Showroom", "Al Qouz Ind.third"], [25.1353974, 55.1969977, "World of Pets", "Umm Suqeim Third"], [25.143600499999998, 55.2217279, "PetHaus SZR Store & Cat Boarding", "Al Qouz Ind.first"], [25.1214652, 55.2082754, "Petsouq Online UAE", "Al Qouz Ind.third"], [25.1269611, 55.217574799999994, "Doghouse.ae - Pet Furniture in UAE", "Al Qouz Ind.third"], [25.1138855, 55.221198, "Paws and Whiskers Pets Nursery", "Al Qouz Ind.fourth"], [25.120428, 55.211693, "Kimbowny Pet Store", "\u0627\u0644\u0642\u0648\u0632 \u0627\u0644\u0635\u0646\u0627\u0639\u064a\u0629 \u0627\u0644\u062b\u0627\u0644\u062b\u0629"], [25.1078157, 55.1652054, "Pet Set GO - Holistic Pet Care Platform", "Al Sufouh"], [25.116747300000004, 55.213676199999995, "Petsville | Luxury Dog Staycations | Active Daycare | Grooming", "Al Qouz Ind.third"], [25.1436507, 55.221776899999995, "PetHaus Pet Hotel I Cat Boarding & Retail Store", "Al Qouz Ind.first"], [25.127590299999998, 55.216961399999995, "Pet Fun Park - Dog Boarding, Dog Daycare & Pet Grooming", "Al Qouz Ind.third"], [25.1326625, 55.2182262, "Petjestic Puppies Dubai", "Al Qouz Ind.third"], [25.1452435, 55.230174, "Piccolos Mobile Grooming Pet Boutique", "Al Qouz Ind.first"], [25.105503, 55.2306271, "Pets Kingdom LLC | Kennels & Cattery", "Al Qouz Ind.fourth"], [25.117048699999998, 55.2345969, "Dog House", "Al Qouz Ind.fourth"], [25.121229, 55.218636499999995, "PAW STREET GROOMING | DAYCARE | BOARDING", "\u0627\u0644\u0642\u0648\u0632 \u0627\u0644\u0635\u0646\u0627\u0639\u064a\u0629 \u0627\u0644\u062b\u0627\u0644\u062b\u0629"], [25.0649139, 55.2391491, "Paw Celebration Pet Grooming & Boutique", "Al Barsha South Third"], [25.1006717, 55.239270399999995, "World of Pets", "Hadaeq Sheikh Mohammed Bin Rashid"], [25.0666234, 55.2155019, "Beauty Pets - Circle Mall JVC", "\u0627\u0644\u0628\u0631\u0634\u0627\u0621 \u062c\u0646\u0648\u0628 \u0627\u0644\u0631\u0627\u0628\u0639\u0629"], [25.067912999999997, 55.214867299999995, "Pet Avenue Boutique and Spa", "\u0627\u0644\u0628\u0631\u0634\u0627\u0621 \u062c\u0646\u0648\u0628 \u0627\u0644\u0631\u0627\u0628\u0639\u0629"], [25.058826999999997, 55.2170953, "Paws Up Pet Grooming & Pet Shop \u2013 JVC Dubai", "\u0627\u0644\u0628\u0631\u0634\u0627\u0621 \u062c\u0646\u0648\u0628 \u0627\u0644\u0631\u0627\u0628\u0639\u0629"], [25.048950299999998, 55.214948899999996, "The Pet Co", "\u0627\u0644\u0628\u0631\u0634\u0627\u0621 \u062c\u0646\u0648\u0628 \u0627\u0644\u0631\u0627\u0628\u0639\u0629"], [25.0583931, 55.2251992, "Aqua Pets Dreams Trading & Grooming Center", "Al Barsha South Third"], [25.0476061, 55.2467243, "Pet Corner Motor City Pet Shop", "\u0627\u0644\u062d\u0628\u064a\u0647 \u0627\u0644\u0623\u0648\u0644\u0649"], [25.143606899999998, 55.2217407, "PetHaus Al Quoz", "Al Qouz Ind.first"], [25.123239299999998, 55.375090099999994, "PerkPets Pet Supplies & Grooming Store - Silicon Oasis", "\u0646\u062f \u062d\u0635\u0647"], [25.179187499999998, 55.2419375, "High Quality Pets Shop Dubai", "Al Safa 1"], [25.2144551, 55.2589995, "The Petshop - Aswaaq Mall", "\u0627\u0644\u0628\u062f\u0639"], [25.1691218, 55.2412224, "PETME", "Al Qouz First"], [25.1970602, 55.281123099999995, "World of pets", "Burj Khalifa"], [25.2021002, 55.2797255, "Cat feeder", "Zaa'beel Second"], [25.1817419, 55.278155, "Tom and Jerry Pet Shop and Nursery", "Business Bay"], [25.196848199999998, 55.263653600000005, "Petzone", "Al Wasl"], [25.228621999999998, 55.285557999999995, "Dubai Pets Grooming", "Trade Center First"], [25.1850959, 55.2817807, "VetMed", "Business Bay"], [25.277574899999998, 55.3502006, "Family Pets Trading L.L.C | IATA Approved Pet Carriers | Grooming & Pet Food", "Hor Al Anz East"], [25.191585999999997, 55.278664500000005, "Al Hayat Mobile Grooming", "Burj Khalifa"], [25.216533899999998, 55.2530739, "Pets Plus Express", "Jumeirah"], [25.23132, 55.2868987, "PeTiPaws Grooming & Boarding", "Al Jafiliya"], [25.177901000000002, 55.2740666, "Pets Habitat LLC", "Business Bay"], [25.215476199999998, 55.3169476, "Pets Gallery Dubai", "Al Jadaf"], [25.1800361, 55.269800599999996, "Precious Paws Pet Spa", "\u0627\u0644\u062e\u0644\u064a\u062c \u0627\u0644\u062a\u062c\u0627\u0631\u064a"], [25.214367499999998, 55.276278899999994, "Pet Basket Animals & Birds Supplies Trading LLC", "Trade Center First"], [25.229607400000003, 55.2730817, "Pet Town", "Al Satwa"], [25.217362599999998, 55.419218799999996, "Pet paradise Pets Grooming And Supplies", "Mirdif"], [25.233369399999997, 55.4277368, "Luxury Paw ( Pet Shop, Pet Grooming, Pet Boarding, Pet Food & Accessories )", "\u0645\u0631\u062f\u0641"], [25.189239399999998, 55.255574100000004, "Pets Goodies LLC", "\u0627\u0644\u0648\u0635\u0644"], [25.2048493, 55.2707828, "Leisured Pets", "Al Wasl"], [25.2704287, 55.314484, "Pet Shop", "Naif"], [25.1848556, 55.2420614, "Kimbowny Pet Store at WNWVET", "Al Safa 1"], [25.1784217, 55.27184200000001, "OC Pets", "\u0627\u0644\u062e\u0644\u064a\u062c \u0627\u0644\u062a\u062c\u0627\u0631\u064a"], [25.1609398, 55.250396800000004, "Jackie's Pets Grooming", "\u0627\u0644\u0642\u0648\u0632 \u0627\u0644\u062b\u0627\u0644\u062b\u0629"], [25.0703577, 55.1377696, "Trio Pet Care", "Jebel Ali Village"], [25.0697026, 55.141197500000004, "800-GROOM Pets in the City Mobile Grooming", "Al Thanyah Fifth"], [25.1076445, 55.146152, "Grooming & Lounge", "The Palm Jumeirah"], [25.1141407, 55.1396647, "World of Pets", "\u0646\u062e\u0644\u0629 \u062c\u0645\u064a\u0631\u0627"], [25.2619193, 55.300253899999994, "PawPots UAE", "Al Hamriya"], [25.2698261, 55.307280899999995, "MEGA STAR PET FOOD NUTRITION LLC", "\u0646\u0627\u064a\u0641"], [25.260562500000002, 55.332187499999996, "ThePetsClub", "Port Saeed"], [25.270946499999997, 55.3142413, "Pet FOOD", "Naif"], [25.2705153, 55.3146786, "Pawfessor Pets Grooming", "Naif"], [25.2472288, 55.30329580000001, "Fur pets", "Al Karama"], [25.259609800000003, 55.2715475, "Tylers Pet Salon", "Madinat Dubai Al Melaheyah"], [25.262639699999998, 55.2993126, "Flower Horn Pets Trading LLC", "Al Souq Al Kabeer"], [25.236923599999997, 55.307957599999995, "Precious Paws Pet Spa", "\u0639\u0648\u062f \u0645\u064a\u062b\u0627\u0621"], [25.270854399999997, 55.3141214, "AFAQ ALSHAMS TRADING LLC", "Naif"], [25.2229052, 55.435140999999994, "Petspoiler Pet Grooming - Mirdif", "Mirdif"], [25.1886971, 55.3849653, "Pet Corner - Nad Al Hamar Pet Shop", "Nadd Al Hamar"], [25.2063785, 55.347205100000004, "The Petshop - Creek Harbour", "\u0627\u0644\u062e\u064a\u0631\u0627\u0646 \u0627\u0644\u0623\u0648\u0644\u0649"], [25.2256039, 55.337946599999995, "Mesho Pet Grooming Salon", "\u0627\u0644\u062c\u062f\u0627\u0641"], [25.1718966, 55.3503597, "Best Companion Pet Supplies Trading", "Ras Al Khor Industrial Area 2"], [25.2249712, 55.3385545, "PetStylist Pet Accessories", "Al Jadaf"], [25.1880086, 55.408549099999995, "Paws Carte : Pet Grooming Salon, Pet Food and Accessories", "Al Warqa"], [25.1920055, 55.395602, "Pets Dreams Nadd Al Hamar", "Nadd Al Hamar"], [25.2141043, 55.428929, "Pet Corner - Shorooq Mirdif Pet Shop", "Mirdif"], [25.169745499999998, 55.404870900000006, "Pet Shampoo store and Grooming Salon", "Warsan First"], [25.203589299999997, 55.3442842, "Pet Dreamland Veterinary Clinic", "Al Kheeran First"], [25.241775999999998, 55.2759955, "Cut On Car Pets Grooming LLC", "Al Hudaiba"], [25.2462078, 55.295170199999994, "Pets Online", "Al Mankhool"], [25.236409, 55.269633000000006, "Shoosh World For Domestic Pets Boarding", "Jumeirah"], [25.242537, 55.2771858, "Total Pets - Pet Shop", "\u0627\u0644\u0633\u0637\u0648\u0629"], [25.2124177, 55.257640599999995, "Animal World Petshop", "Al Bada'"], [25.2170236, 55.4181948, "Pet Magnet", "Mirdif"], [25.224178499999997, 55.4236015, "Pet Shop - Mirdif Uptown", "Mirdif"], [25.2223984, 55.4338639, "Luxury Pets Grooming Mirdif Branch", "Mirdif"], [25.220485, 55.4140689, "Pet Trends", "Mirdif"], [25.2241581, 55.4236009, "Paws & Claws Pets", "Mirdif"], [25.2286557, 55.432702899999995, "Smart Pets Grooming Salon", "\u0645\u0631\u062f\u0641"], [25.1936216, 55.4073177, "Dog Food - Dubai Mirdiff Pet Shop", "Al Warqa"], [25.2228255, 55.4351011, "Loyal Furry Pets Grooming", "Mirdif"], [25.280719899999998, 55.41106, "Beauty Pets - Lulu Village Muhaisnah", "Muhaisanah Fourth"], [25.1665738, 55.411663999999995, "C - 16, shop 01", "Warsan First"], [25.172314699999998, 55.399533, "Fur & Tails L.L.C. Pet Shop and Pet Grooming Center Spa", "Warsan First"], [25.192601699999997, 55.395392699999995, "The Pet Vet", "Nadd Al Hamar"], [25.268698099999998, 55.3756589, "Canary land Pet Shop", "Al Twar 1"], [25.2850386, 55.407350699999995, "Groom&Stay - Pet Grooming and Accessories", "Al Qusais Industrial Area"], [25.2937343, 55.3699328, "Glittering Paws Boarding and Grooming LLC", "KHUBEISY"], [25.1113158, 55.3746819, "The Petshop Silicon Central", "Nadd Hessa"], [25.125060599999998, 55.3837419, "Glimmer Paws by Pet Planet", "Nadd Hessa"], [25.141887999999998, 55.3152219, "Pet Corner- Meydan Heights Retail Center", "Nad Al Sheba"], [25.118275099999998, 55.3760628, "Kittys zone", "Nadd Hessa"], [25.0695431, 55.3235854, "Pet Dreamland", "Wadi Al Safa 5"], [25.1475419, 55.4070143, "Pawfection Domestic Pets Grooming", "Warsan Fourth"], [25.091818, 55.368898599999994, "PETME", "Wadi Al Safa 5"], [25.0739746, 55.3673437, "Paws & Relax", "Wadi Al Safa 5"], [25.169738, 55.405957, "Pet Mania", "Warsan First"], [25.172120099999997, 55.4242437, "Top Pin Trading pet shop", "Warsan First"], [25.1698997, 55.3425629, "The Pet Parlor", "Ras Al Khor Industrial Area 1"], [25.1595344, 55.402385499999994, "Clip and Dip Pet store, france cluster International city", "\u0648\u0631\u0633\u0627\u0646 \u0627\u0644\u0623\u0648\u0644\u0649"], [25.141887999999998, 55.3152219, "Pet Corner Nad Al Sheba-Meydan Retail Center Pet Shop", "Nad Al Sheba"], [25.157382199999997, 55.300292299999995, "PZ Pets", "Nad Al Sheba"], [25.2320438, 55.3154799, "Imperial Pets", "\u0639\u0648\u062f \u0645\u064a\u062b\u0627\u0621"], [25.2213934, 55.3250258, "Fluffy Staycation Pets Grooming", "Al Jadaf"], [25.173255899999997, 55.3110193, "Luka Paws", "Al Merkadh"], [25.034696999999998, 55.146859, "Petworld UAE Discovery Gardens", "Jebel Ali Village"], [24.998727199999998, 55.1713461, "Petworld.ae | Kitty Sand Cat Litters | Doctor Wipe's Pet Wipes", "\u0645\u062c\u0645\u0639 \u062f\u0628\u064a \u0644\u0644\u0627\u0633\u062a\u062b\u0645\u0627\u0631 \u0627\u0644\u0623\u0648\u0644"], [25.011537, 55.1594186, "PetMart", "Dubai Investment Park First"], [25.0281004, 55.1076948, "Pet World Festival Plaza Branch", "Jebel Ali Village"], [25.055315200000003, 55.1539812, "\u201cHome Pet Grooming Dubai | The Furrys", "Palm Jumeirah"], [25.1275209, 55.396995499999996, "Pet's Delight", "Nadd Hessa"], [25.1569827, 55.399478200000004, "\u5948\u65af\u5ba0\u7269&Super lucky pets", "Warsan First"]].map(p => [p[0],p[1],1]);
+if(typeof L.heatLayer !== 'undefined') {
+  L.heatLayer(heatData, {radius:28, blur:22, maxZoom:14, gradient:{0.2:'blue',0.4:'cyan',0.6:'lime',0.8:'yellow',1.0:'red'}}).addTo(map);
+}
+
+// Our clinics — blue
+const ourIcon = L.divIcon({className:'', html:'<div style="background:#2196F3;width:14px;height:14px;border-radius:50%;border:2px solid white;box-shadow:0 0 4px rgba(0,0,0,.4)"></div>', iconSize:[14,14], iconAnchor:[7,7]});
+[[25.0690597, 55.138396, "Modern Vet JLT", "ours"], [25.161277899999998, 55.2212841, "Modern Vet Hospital", "ours"], [25.054598499999997, 55.2119438, "Modern Vet JVC", "ours"], [25.1070933, 55.147088999999994, "Modern Vet Palm", "ours"], [25.1877998, 55.2788046, "Modern Vet Downtown", "ours"], [25.1724894, 55.3060554, "Modern Vet Azizi Riviera", "ours"], [25.2346845, 55.557930799999994, "Modern Vet Al Khawaneej", "ours"], [25.143907199999997, 55.199458099999994, "Vienna Vet", "ours"], [25.203632, 55.2773769, "The Veterinary Referral Centre", "ours"], [25.00764, 55.15636010000001, "Blue Oasis Vet (DIP)", "ours"], [24.9982333, 55.383667499999994, "Blue Oasis Vet D2", "ours"]].forEach(c => {
+  if(c[0] && c[1]) L.marker([c[0],c[1]], {icon:ourIcon}).bindPopup(`<b>${c[2]}</b><br>Our clinic`).addTo(map);
+});
+
+// Competitors — red small dots
+const vetIcon = L.divIcon({className:'', html:'<div style="background:#e74c3c;width:8px;height:8px;border-radius:50%;border:1px solid white;opacity:0.8"></div>', iconSize:[8,8], iconAnchor:[4,4]});
+[[25.1134788, 55.194440699999994, "Al Barsha Veterinary Clinic LLC", "Al Barsha First", "comp"], [25.1153957, 55.2056038, "Pet Connection Veterinary Clinic Dubai Al Barsha 1", "Al Barsha First", "comp"], [25.1483124, 55.210488399999996, "Umm Suqeim Veterinary Centre", "Umm Suqeim Second", "comp"], [25.0525126, 55.2312874, "DKC Veterinary Clinic", "Al Hebiah First", "comp"], [25.239959499999998, 55.3468597, "Royal Pets Veterinary Clinic", "Al Garhoud", "comp"], [25.1690698, 55.215084999999995, "Pure Life Veterinary Clinic Dubai", "Umm Suqeim First", "comp"], [25.1213351, 55.398543700000005, "Pawsitive Veterinary Clinic - Dubai Silicon Oasis", "Nadd Hessa", "comp"], [25.1959159, 55.2621848, "Al Falah Veterinary Clinic", "Al Wasl", "comp"], [25.089482399999998, 55.1907851, "Amity Veterinary Clinic", "Al Barsha Third", "comp"], [25.0653328, 55.2167901, "Pet friends vet clinic", "Al Barsha South Fourth", "comp"], [25.163017600000003, 55.30036930000001, "Pet wellness vet clinic Dubai", "Nad Al Sheba", "comp"], [25.177609, 55.376258699999994, "Petflix Vet Clinic", "Al Khor", "comp"], [25.2414161, 55.271995700000005, "Happy Paws Veterinary Clinic LLC", "\u0645\u062f\u064a\u0646\u0629 \u062f\u0628\u064a \u0627\u0644\u0645\u0644\u0627\u062d\u064a\u0629", "comp"], [25.1239234, 55.3726239, "Pet Point Veterinary Clinic", "Nadd Hessa", "comp"], [25.0684766, 55.130311199999994, "Vet Plus | \u0412\u0435\u0442 \u041f\u043b\u044e\u0441", "Marsa Dubai", "comp"], [25.2358984, 55.271224399999994, "Pets Haven Veterinary Clinic", "Al Bada'", "comp"], [25.0892362, 55.191260299999996, "Mike\u2019s Veterinary Clinic", "Al Barsha Third", "comp"], [25.081513899999997, 55.205154, "Pet First Veterinary Clinic", "Al Barsha Third", "comp"], [25.2774748, 55.3501066, "Provet Veterinary Clinic", "Hor Al Anz East", "comp"], [25.197055199999998, 55.263359699999995, "Petzone Veterinary Clinic", "\u0627\u0644\u0648\u0635\u0644", "comp"], [25.0911634, 55.3842931, "2Feet4Paws (& Exotics) Veterinary Clinic", "Wadi Al Safa 5", "comp"], [25.216390999999998, 55.2609083, "Kings Vet Clinic Al Wasl Jumeirah", "Al Bada'", "comp"], [25.215201999999998, 55.317683, "Pets Hub Veterinary Clinic", "\u0627\u0644\u062c\u062f\u0627\u0641", "comp"], [25.113002899999998, 55.191558699999995, "Lucky Veterinary Clinic (LVC)", "\u0627\u0644\u0628\u0631\u0634\u0627\u0621 \u0627\u0644\u0623\u0648\u0644\u0649", "comp"], [25.0840395, 55.2008485, "Vets in the City Veterinary Clinic", "Al Barsha Third", "comp"], [25.2850362, 55.4073669, "Companion Veterinary Clinic", "\u0627\u0644\u0642\u0635\u064a\u0635 \u0645\u0646\u0637\u0642\u0629 \u0635\u0646\u0627\u0639\u064a\u0629", "comp"], [25.1702485, 55.4047057, "Pet Lovers Veterinary Clinic", "Warsan First", "comp"], [25.178802599999997, 55.241717099999995, "Mercy Veterinary Clinic \u0639\u064a\u0627\u062f\u0629 \u0645\u064a\u0631\u0633\u064a \u0627\u0644\u0628\u064a\u0637\u0631\u064a\u0629", "\u0627\u0644\u0635\u0641\u0627 1", "comp"], [25.235000100000004, 55.4311343, "Jungle Veterinary Clinic L.L.C", "Al Mizhar First", "comp"], [25.1818912, 55.279623199999996, "Prime Paws Veterinary Clinic LLC", "Business Bay", "comp"], [25.047579199999998, 55.2106621, "territory \u201ca Pet Clinic\u201c J.V.C", "Al Barsha South Fourth", "comp"], [25.174580499999998, 55.2308608, "VETS & PETS Dubai - Italian Veterinary Clinic", "Jumeirah", "comp"], [25.159546199999998, 55.3991749, "Harmony Vet Clinic", "Warsan First", "comp"], [25.10849, 55.3763698, "The Ark Animal Clinic", "\u0646\u062f \u062d\u0635\u0647", "comp"], [25.005251800000003, 55.2970943, "Vet Clinic Dubai - Town Square Nshama", "Al Yalayis 2", "comp"], [25.2214086, 55.440463699999995, "Pet Land Veterinary Clinic - Mirdif \u0623\u0641\u0636\u0644 \u0639\u064a\u0627\u062f\u0629 \u062d\u064a\u0648\u0627\u0646\u0627\u062a \u0623\u0644\u064a\u0641\u0629 \u0628\u0627\u0644\u0642\u0631\u0628 \u0645\u0646\u064a \u0641\u064a \u0645\u0631\u062f\u0641", "\u0645\u0631\u062f\u0641", "comp"], [25.1109595, 55.2447333, "The Hills Veterinary Clinic", "\u062d\u062f\u0627\u0626\u0642 \u0627\u0644\u0634\u064a\u062e \u0645\u062d\u0645\u062f \u0628\u0646 \u0631\u0627\u0634\u062f", "comp"], [25.155001799999997, 55.2165299, "The City Vet Clinic - Al Wasl Branch", "Al Safa 2", "comp"], [25.1427114, 55.2069245, "Canadian Veterinary Clinic.", "Al Manara", "comp"], [25.1420941, 55.205675199999995, "Intervet Veterinary Clinic L.L.C", "Umm Suqeim Second", "comp"], [25.0687692, 55.2074089, "Pets Society Veterinary Clinic", "Al Barsha South Fourth", "comp"], [25.1218476, 55.3732651, "Pet Pulse Emergency Veterinary Clinic - Dubai Silicon Oasis (DSO)", "\u0646\u062f \u062d\u0635\u0647", "comp"], [25.0370168, 55.1836104, "CardioVet Veterinary Clinic", "\u0645\u0639\u064a\u0635\u0645 \u0627\u0644\u0623\u0648\u0644\u0649", "comp"], [25.161036499999998, 55.401625499999994, "Pet Palace Veterinary Clinic", "\u0648\u0631\u0633\u0627\u0646 \u0627\u0644\u0623\u0648\u0644\u0649", "comp"], [25.202248100000002, 55.249947999999996, "Panacea Vets", "Jumeirah", "comp"], [25.069553499999998, 55.242193699999994, "VetDUB Veterinary Clinic", "\u0627\u0644\u0628\u0631\u0634\u0627\u0621 \u062c\u0646\u0648\u0628 \u0627\u0644\u062b\u0627\u0646\u064a\u0629", "comp"], [25.0114768, 55.159410799999996, "Noble Veterinary Clinic DIP", "\u0645\u062c\u0645\u0639 \u062f\u0628\u064a \u0644\u0644\u0627\u0633\u062a\u062b\u0645\u0627\u0631 \u0627\u0644\u0623\u0648\u0644", "comp"], [25.1380832, 55.2032695, "THE VETERINARY HOSPITAL", "Umm Al Sheif", "comp"], [25.192601699999997, 55.395392699999995, "The Pet Vet", "Nadd Al Hamar", "comp"], [25.061478299999997, 55.233257099999996, "Super Vet Pet Clinic LLC", "\u0627\u0644\u0628\u0631\u0634\u0627\u0621 \u062c\u0646\u0648\u0628 \u0627\u0644\u062b\u0627\u0644\u062b\u0629", "comp"], [25.0926966, 55.3134057, "Vet Uno Veterinary Clinic", "Wadi Al Safa 3", "comp"], [25.2391051, 55.2715792, "Alpha Vet Clinic Dubai", "Jumeirah", "comp"], [25.0482174, 55.207278099999996, "Paws and Claws Dubai", "\u0627\u0644\u0628\u0631\u0634\u0627\u0621 \u062c\u0646\u0648\u0628 \u0627\u0644\u0631\u0627\u0628\u0639\u0629", "comp"], [25.1629431, 55.234983899999996, "Petbook veterinary clinic", "Al Qouz Third", "comp"], [25.1848787, 55.2420279, "Whiskers and Wags Veterinary Clinic", "Al Safa 1", "comp"], [25.036784899999997, 55.178260400000006, "Kare Veterinary Clinic LLC", "\u0627\u0644\u0628\u0631\u0634\u0627\u0621 \u062c\u0646\u0648\u0628 \u0627\u0644\u062e\u0627\u0645\u0633\u0629", "comp"], [25.081871000000003, 55.2046539, "Vets Fur Pets", "\u0627\u0644\u0628\u0631\u0634\u0627\u0621 \u0627\u0644\u062b\u0627\u0644\u062b\u0629", "comp"], [24.9980951, 55.1700204, "Doctor Dolittle Veterinary Clinic - \u0639\u064a\u0627\u062f\u0647 \u062f\u0643\u062a\u0648\u0631 \u062f\u0648\u0644\u064a\u062a\u0644 \u062f\u0628\u064a", "\u0645\u062c\u0645\u0639 \u062f\u0628\u064a \u0644\u0644\u0627\u0633\u062a\u062b\u0645\u0627\u0631 \u0627\u0644\u0623\u0648\u0644", "comp"], [25.2242024, 55.424344000000005, "Synergy Veterinary Clinic", "Mirdif", "comp"], [25.0901265, 55.3155797, "Kings Vet Clinic Al-Barari", "\u0648\u0627\u062f\u064a \u0627\u0644\u0635\u0641\u0627 3", "comp"], [25.0879531, 55.193691699999995, "Perfect Dose Veterinary Clinic", "Al Barsha Third", "comp"], [25.2031994, 55.261011800000006, "PetsFirst Veterinary Clinic and Grooming", "\u0627\u0644\u0648\u0635\u0644", "comp"], [25.0888074, 55.1914831, "The Cat Vet", "Al Barsha Third", "comp"], [25.0474835, 55.2047606, "JVC Express Veterinary Clinic", "\u0627\u0644\u0628\u0631\u0634\u0627\u0621 \u062c\u0646\u0648\u0628 \u0627\u0644\u0631\u0627\u0628\u0639\u0629", "comp"], [25.080117700000002, 55.1533619, "Karas Veterinary Clinic", "\u0627\u0644\u062b\u0646\u064a\u0647 \u0627\u0644\u062e\u0627\u0645\u0633\u0629", "comp"], [25.066561399999998, 55.139997699999995, "Clinipets Vet Clinic DMCC", "Al Thanyah Fifth", "comp"], [25.2876566, 55.404598799999995, "Deira Veterinary Clinic LLC", "Al Qusais", "comp"], [25.1791719, 55.554094299999996, "Al Hayat Veterinary Clinic", "\u0627\u0644\u0639\u0648\u064a\u0631 \u0627\u0644\u0623\u0648\u0644\u0649", "comp"], [25.21048, 55.288326299999994, "Zabeel Veterinary Hospital", "Zaa'beel Second", "comp"], [25.013089299999997, 55.251180299999994, "Little Hearts Veterinary Clinic", "Al Hebiah Third", "comp"], [25.220530000000004, 55.436122, "The Vet Hub Clinic", "Mirdif", "comp"], [25.1248525, 55.2167639, "Pet Station Veterinary Clinic", "Al Qouz Ind.third", "comp"], [25.0288611, 55.1797956, "Vet in Town Veterinary Clinic", "Me'aisem First", "comp"], [25.2214079, 55.4406459, "The Moon Veterinary Clinic LLC", "Mirdif", "comp"], [25.0575504, 55.242524599999996, "Vetcare Veterinary Medical Centre", "Al Barsha South Third", "comp"], [25.1785379, 55.308771, "Petology Vet Clinic & Pet Shop", "Al Merkadh", "comp"], [24.9804259, 55.199687399999995, "SaBB Veterinary Clinic and Laboratory", "Dubai Investment Park Second", "comp"], [25.0283506, 55.2748862, "Star Veterinary Clinic - Sustainable City \u2b50", "\u0648\u0627\u062f\u064a \u0627\u0644\u0635\u0641\u0627 7", "comp"], [25.221972599999997, 55.263411899999994, "Falcon Centre (Al Wasl Veterinary Clinic)", "Jumeirah", "comp"], [25.175490099999998, 55.231380200000004, "BRITISH veterinary hospital", "Jumeirah", "comp"], [25.0744711, 55.1318469, "Pawbulance veterinary clinic", "Marsa Dubai", "comp"], [25.1456181, 55.2078355, "Advanced Pet Care Clinic", "Umm Suqeim Second", "comp"], [25.232063, 55.3151313, "Majestic Veterinary Clinic", "Oud Metha", "comp"], [25.1524757, 55.213839199999995, "Dr. Well Veterinary Clinic", "Umm Suqeim Second", "comp"], [25.1182442, 55.218788399999994, "Dogventurez Vet Clinic", "Al Qouz Ind.third", "comp"], [25.1442584, 55.4567756, "Phoenix Veterinary Clinic", "Warsan Third", "comp"], [25.210331, 55.2905282, "Dubai Falcon Hospital", "\u0632\u0639\u0628\u064a\u0644 \u0627\u0644\u062b\u0627\u0646\u064a\u0629", "comp"], [25.0764288, 55.1347178, "Rusty Veterinary Clinic", "Marsa Dubai", "comp"], [25.1623081, 55.4162932, "Animalia Veterinary Clinic LLC", "Warsan First", "comp"], [25.0778103, 55.159577199999994, "VIDA VET - Veterinary Clinic, Full Pet Health Care, Emergency Care 24/7", "\u0627\u0644\u062b\u0646\u064a\u0647 \u0627\u0644\u0631\u0627\u0628\u0639\u0629", "comp"], [25.221505900000004, 55.324296499999996, "Top Vet Clinic", "Al Jadaf", "comp"], [25.154092499999997, 55.289918899999996, "Nad Al Shiba Veterinary Clinic", "Nad Al Sheba 1", "comp"], [25.189304, 55.383198199999995, "Creekside Vet Clinic LLC", "\u0646\u062f \u0627\u0644\u062d\u0645\u0631", "comp"], [25.0600842, 55.237386, "Paw Prints Veterinary Clinic", "\u0627\u0644\u0628\u0631\u0634\u0627\u0621 \u062c\u0646\u0648\u0628 \u0627\u0644\u062b\u0627\u0644\u062b\u0629", "comp"], [25.0609704, 55.201519499999996, "Pet Planet Veterinary Clinic - VET JVC", "Al Barsha South Fourth", "comp"], [25.067408699999998, 55.248287899999994, "Orthopedic Veterinary Clinic", "\u0627\u0644\u0628\u0631\u0634\u0627\u0621 \u062c\u0646\u0648\u0628 \u0627\u0644\u062b\u0627\u0644\u062b\u0629", "comp"], [25.020871600000003, 55.1546543, "Fairy Tail Veterinary Clinic", "Jebel Ali Village", "comp"], [24.9511461, 55.5075495, "Al Fattal Vet Clinic Shop 119 &120", "\u0645\u0631\u063a\u0645", "comp"], [25.2161807, 55.3749263, "Crown Veterinary Clinic", "Al Kheeran", "comp"], [25.0797124, 55.152620399999996, "Safe care veterinary clinic (scvc)", "Al Thanyah Fifth", "comp"], [25.0180519, 55.141348199999996, "The Pet House Veterinary Clinic", "Jebel Ali Village", "comp"], [25.2210228, 55.3224832, "VIP Veterinary Clinic", "Al Jadaf", "comp"], [25.067959, 55.2338008, "Purr and Bark Pet Veterinary Clinic", "Al Barsha South Third", "comp"], [25.246431299999998, 55.306953, "Gulf Veterinary Centre", "Al Karama", "comp"], [25.1690468, 55.404112000000005, "Dr. Samir vet clinic", "Warsan First", "comp"], [25.2000893, 55.275132299999996, "VETPASS", "Burj Khalifa", "comp"], [25.111686, 55.3846961, "Pet Joy Veterinary Clinic", "Nadd Hessa", "comp"], [25.0036401, 55.154545199999994, "Dreamers Veterinary Clinic", "Dubai Investment Park First", "comp"], [25.0585956, 55.216307099999995, "PET AVENUE CLINIC", "Al Barsha South Fourth", "comp"], [25.0162974, 55.2477927, "Pet Bond Veterinary Clinic", "\u0627\u0644\u062d\u0628\u064a\u0647 \u0627\u0644\u062b\u0627\u0644\u062b\u0629", "comp"], [25.094521699999998, 55.322282599999994, "Petopia Veterinary Clinic", "Wadi Al Safa 3", "comp"], [25.1620459, 55.2994385, "Happy tails Veterinary Clinic", "Nad Al Sheba", "comp"], [25.1632863, 55.2476026, "Pet Xpress Vet Clinic", "Al Qouz Third", "comp"], [25.2195604, 55.3305813, "Liberty veterinary clinic Aljaddaf", "Al Jadaf", "comp"], [25.1681988, 55.406945199999996, "PETPALS VETERINARY CLINIC", "\u0648\u0631\u0633\u0627\u0646 \u0627\u0644\u0623\u0648\u0644\u0649", "comp"], [25.163338099999997, 55.3981411, "Salsabeel Veterinary Medicines LLC", "\u0648\u0631\u0633\u0627\u0646 \u0627\u0644\u0623\u0648\u0644\u0649", "comp"], [25.249875499999998, 55.3426366, "Paw Sisters Veterinary Clinic", "Al Garhoud", "comp"], [25.217385099999998, 55.4185126, "The Pearl Veterinary Clinic", "Mirdif", "comp"], [25.028630699999997, 55.207105299999995, "Amore veterinary Clinic", "\u0645\u0639\u064a\u0635\u0645 \u0627\u0644\u0623\u0648\u0644\u0649", "comp"], [24.9597218, 55.406860699999996, "Amazon vet clinic", "Al Yufrah 2", "comp"], [24.9678097, 55.491085500000004, "Dubai Camel Hospital", "Al Marmoom", "comp"], [25.2091807, 55.5486188, "Easyvet Veterinary Clinic", "Al Khawaneej", "comp"], [25.2598496, 55.2883603, "Al Basha Vet Medicine", "Al Souq Al Kabeer", "comp"], [25.0702143, 55.144193699999995, "BIOVET LAB CLINIC", "Al Thanyah Fifth", "comp"], [25.1854567, 55.3848367, "Cure Veterinary Clinic", "Nadd Al Hamar", "comp"], [25.1553556, 55.291311199999996, "Doctor Jess Falcon Clinic", "Nad Al Sheba 1", "comp"], [25.209464099999998, 55.290729999999996, "Dubai Equine Hospital", "Zaa'beel Second", "comp"], [25.2048493, 55.2707828, "European Veterinary Centre", "Al Wasl", "comp"], [25.0337136, 55.2900883, "Meshmesh Veterinary Clinic", "Wadi Al Safa 7", "comp"], [24.9981242, 55.1702413, "Petland wellness Vet clinic", "Dubai Investment Park First", "comp"], [25.036192099999997, 55.25628580000001, "Ranches Equine Clinic L.L.C", "Al Hebiah Second", "comp"], [24.952525899999998, 55.4994343, "Royal Equine Veterinary Clinic", "Al Lesaily", "comp"], [25.0971674, 55.1685476, "Vets For Pets Veterinary Clinic", "\u0627\u0644\u062b\u0646\u064a\u0647 \u0627\u0644\u062b\u0627\u0644\u062b\u0629", "comp"], [25.397479399999998, 55.5639441, "Pet Paradise Vet Clinic \u0639\u064a\u0627\u062f\u0629 \u062c\u0646\u0629 \u0627\u0644\u062d\u064a\u0648\u0627\u0646\u0627\u062a \u0627\u0644\u0623\u0644\u064a\u0641\u0629 \u0627\u0644\u0628\u064a\u0637\u0631\u064a", "Al Alia", "comp"], [25.146812, 55.389437, "Winterfell Veterinary & Pet Salon L.L.C", "\u0648\u0631\u0633\u0627\u0646 \u0627\u0644\u0631\u0627\u0628\u0639\u0629", "comp"], [25.184669399999997, 55.3427658, "My Buddy Pet Care", "Ras Al Khor Industrial Area 1", "comp"], [25.0473827, 55.195080999999995, "The City Vet Clinic - JVT Branch", "Al Barsha South Fifth", "comp"], [25.246347399999998, 55.2754707, "Al Falah Veterinary Clinic branch", "\u0645\u062f\u064a\u0646\u0629 \u062f\u0628\u064a \u0627\u0644\u0645\u0644\u0627\u062d\u064a\u0629", "comp"], [25.0988206, 55.205121899999995, "The City Vet Clinic - Al Barsha Mall", "Al Barsha Second", "comp"], [25.171701, 55.2249663, "Noble Veterinary Clinic Jumeirah", "Jumeirah", "comp"], [25.0632998, 55.137535199999995, "Noble Veterinary Clinic JLT", "Al Thanyah Fifth", "comp"], [25.206415, 55.424751, "The City Vet Clinic - Al Warqa City Mall", "Al Warqa", "comp"], [25.109837, 55.3780323, "The City Vet Clinic - Dubai Silicon Oasis (DSO)", "Nadd Hessa", "comp"], [25.154113499999998, 55.290599199999996, "The City Vet Clinic - Meydan Branch", "\u0646\u062f \u0627\u0644\u0634\u0628\u0627 \u0627\u0644\u0623\u0648\u0644\u0649", "comp"], [25.2217867, 55.4345588, "The City Vet Clinic - Mirdif Branch", "Mirdif", "comp"], [24.9528323, 55.4996644, "The City Vet Clinic - Al Marmoom Branch", "Intersection", "comp"], [25.1134916, 55.193981199999996, "Vet Clinic Dubai - Al Barsha Branch", "Al Barsha First", "comp"], [25.0564799, 55.209784, "Modern vet", "Al Barsha South Fourth", "comp"], [25.2217819, 55.441669999999995, "Pet Pulse Emergency Veterinary Clinic - Mirdif Dubai", "Mirdif", "comp"]].forEach(c => {
+  if(c[0] && c[1]) L.marker([c[0],c[1]], {icon:vetIcon}).bindPopup(`<b>${c[2]}</b><br>${c[3]}`).addTo(map);
+});
+</script>
+</body></html>
