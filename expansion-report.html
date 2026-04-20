@@ -331,7 +331,8 @@ const vetIcon = L.divIcon({className:'', html:'<div style="background:#e74c3c;wi
 </div>
 <script>
 (function(){
-  if(sessionStorage.getItem('exp_auth')==='1'){
+  // Skip gate if already authenticated OR if loaded inside an iframe (parent report)
+  if(sessionStorage.getItem('mvr_auth')==='1' || sessionStorage.getItem('exp_auth')==='1' || window.self!==window.top){
     document.getElementById('gate').style.display='none';
     document.getElementById('report').style.display='block';
   }
