@@ -80,6 +80,7 @@ tbody td{padding:10px 13px;vertical-align:middle}
 </div>
 <div class="nav">
   <div class="tab active" onclick="show('our',this)">🏥 Our Clinics</div>
+  <div class="tab" onclick="show('ranking',this)">🏆 Ranking</div>
   <div class="tab" onclick="show('comp',this)">⚔️ Competitors (147)</div>
   <div class="tab" onclick="show('perm',this)">🔴 Permanently Closed (1)</div>
   <div class="tab" onclick="show('temp',this)">🟡 Temporarily Closed (1)</div>
@@ -429,6 +430,315 @@ tbody td{padding:10px 13px;vertical-align:middle}
 <tr style="background:"><td style="font-weight:600">PerkPets Pet Supplies & Grooming Store - Silicon Oasis</td><td><span style="background:#f0f0f0;padding:2px 7px;border-radius:4px;font-size:11px">Pet Care</span></td><td>ند حصه</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.7</span></td><td style="text-align:right;font-weight:600">169</td><td style="color:#6c757d;font-size:12px">Perkpets Grooming Station - Sunshine residence retail 3 - ند حصه - واحة دبي للسيليكون - دبي - United Arab Emirates</td></tr>
 <tr style="background:"><td style="font-weight:600">Clip and Dip Pet store, france cluster International city</td><td><span style="background:#f0f0f0;padding:2px 7px;border-radius:4px;font-size:11px">Store</span></td><td>ورسان الأولى</td><td><span style="background:#f5a623;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4</span></td><td style="text-align:right;font-weight:600">86</td><td style="color:#6c757d;font-size:12px">France Cluster Q-10 Shop #02 - ورسان الأولى - مدينة دبي العالمية - دبي - United Arab Emirates</td></tr></tbody>
     </table></div>
+  </div>
+  <div id="ranking" class="sec">
+    <div class="sec-hdr"><h2>🏆 Branch Performance Ranking</h2><p>Weighted score: 50% rating quality (★) + 50% review volume (log-normalised). Strong rivals = competitors with rating &gt;4.4★ within 3km.</p></div>
+    <div class="tbl-wrap"><table id="t-rank" style="width:100%;border-collapse:collapse;font-size:13.5px">
+      <thead><tr style="background:#015962">
+        <th style="color:white;padding:11px 13px;text-align:center;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px">Rank</th>
+        <th style="color:white;padding:11px 13px;text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px" onclick="sort('t-rank',1)" style="cursor:pointer">Branch ↕</th>
+        <th style="color:white;padding:11px 13px;text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px">Brand</th>
+        <th style="color:white;padding:11px 13px;text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px">Area</th>
+        <th style="color:white;padding:11px 13px;text-align:center;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px" onclick="sort('t-rank',4)">Rating ↕</th>
+        <th style="color:white;padding:11px 13px;text-align:right;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px" onclick="sort('t-rank',5)">Reviews ↕</th>
+        <th style="color:white;padding:11px 13px;text-align:right;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px" onclick="sort('t-rank',6)">Strong Rivals ↕</th>
+        <th style="color:white;padding:11px 13px;text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px">Score Breakdown</th>
+        <th style="color:white;padding:11px 13px;text-align:center;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px" onclick="sort('t-rank',8)">Score ↕</th>
+      </tr></thead>
+      <tbody><tr>
+  <td style="padding:10px 13px;font-size:18px;text-align:center">🥇</td>
+  <td style="padding:10px 13px;font-weight:700">Modern Vet JLT</td>
+  <td style="padding:10px 13px"><span style="background:#e0f4f5;color:#015962;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">Modern Vet</span></td>
+  <td style="padding:10px 13px;color:#6c757d;font-size:13px">Al Thanyah Fifth</td>
+  <td style="padding:10px 13px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:700">★ 4.8</span></td>
+  <td style="padding:10px 13px;text-align:right;font-weight:600">1,728</td>
+  <td style="padding:10px 13px;text-align:right;font-weight:700;color:#e74c3c">9</td>
+  <td style="padding:10px 13px">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="flex:1;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden">
+        <div style="width:80%;height:100%;background:#015962;border-radius:4px"></div>
+      </div>
+      <span style="font-size:11px;color:#999;min-width:28px">★80%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+      <div style="flex:1;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden">
+        <div style="width:99%;height:100%;background:#027a87;border-radius:4px"></div>
+      </div>
+      <span style="font-size:11px;color:#999;min-width:28px">💬99%</span>
+    </div>
+  </td>
+  <td style="padding:10px 13px;text-align:center">
+    <span style="background:#00a86b;color:white;padding:4px 12px;border-radius:12px;font-size:14px;font-weight:800">89.8</span>
+    <div style="font-size:10px;color:#999;margin-top:2px">/ 100</div>
+  </td>
+</tr><tr>
+  <td style="padding:10px 13px;font-size:18px;text-align:center">🥈</td>
+  <td style="padding:10px 13px;font-weight:700">Modern Vet Palm</td>
+  <td style="padding:10px 13px"><span style="background:#e0f4f5;color:#015962;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">Modern Vet</span></td>
+  <td style="padding:10px 13px;color:#6c757d;font-size:13px">Palm Jumeirah</td>
+  <td style="padding:10px 13px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:700">★ 4.9</span></td>
+  <td style="padding:10px 13px;text-align:right;font-weight:600">796</td>
+  <td style="padding:10px 13px;text-align:right;font-weight:700;color:#00a86b">1</td>
+  <td style="padding:10px 13px">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="flex:1;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden">
+        <div style="width:90%;height:100%;background:#015962;border-radius:4px"></div>
+      </div>
+      <span style="font-size:11px;color:#999;min-width:28px">★90%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+      <div style="flex:1;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden">
+        <div style="width:89%;height:100%;background:#027a87;border-radius:4px"></div>
+      </div>
+      <span style="font-size:11px;color:#999;min-width:28px">💬89%</span>
+    </div>
+  </td>
+  <td style="padding:10px 13px;text-align:center">
+    <span style="background:#00a86b;color:white;padding:4px 12px;border-radius:12px;font-size:14px;font-weight:800">89.7</span>
+    <div style="font-size:10px;color:#999;margin-top:2px">/ 100</div>
+  </td>
+</tr><tr>
+  <td style="padding:10px 13px;font-size:18px;text-align:center">🥉</td>
+  <td style="padding:10px 13px;font-weight:700">Modern Vet JVC</td>
+  <td style="padding:10px 13px"><span style="background:#e0f4f5;color:#015962;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">Modern Vet</span></td>
+  <td style="padding:10px 13px;color:#6c757d;font-size:13px">JVC</td>
+  <td style="padding:10px 13px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:700">★ 4.8</span></td>
+  <td style="padding:10px 13px;text-align:right;font-weight:600">1,130</td>
+  <td style="padding:10px 13px;text-align:right;font-weight:700;color:#e74c3c">14</td>
+  <td style="padding:10px 13px">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="flex:1;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden">
+        <div style="width:80%;height:100%;background:#015962;border-radius:4px"></div>
+      </div>
+      <span style="font-size:11px;color:#999;min-width:28px">★80%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+      <div style="flex:1;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden">
+        <div style="width:94%;height:100%;background:#027a87;border-radius:4px"></div>
+      </div>
+      <span style="font-size:11px;color:#999;min-width:28px">💬94%</span>
+    </div>
+  </td>
+  <td style="padding:10px 13px;text-align:center">
+    <span style="background:#00a86b;color:white;padding:4px 12px;border-radius:12px;font-size:14px;font-weight:800">87.0</span>
+    <div style="font-size:10px;color:#999;margin-top:2px">/ 100</div>
+  </td>
+</tr><tr>
+  <td style="padding:10px 13px;font-size:18px;text-align:center">4.</td>
+  <td style="padding:10px 13px;font-weight:700">Blue Oasis Vet (DIP)</td>
+  <td style="padding:10px 13px"><span style="background:#e0f4f5;color:#015962;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">Blue Oasis</span></td>
+  <td style="padding:10px 13px;color:#6c757d;font-size:13px">DIP</td>
+  <td style="padding:10px 13px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:700">★ 4.7</span></td>
+  <td style="padding:10px 13px;text-align:right;font-weight:600">909</td>
+  <td style="padding:10px 13px;text-align:right;font-weight:700;color:#e74c3c">6</td>
+  <td style="padding:10px 13px">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="flex:1;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden">
+        <div style="width:70%;height:100%;background:#015962;border-radius:4px"></div>
+      </div>
+      <span style="font-size:11px;color:#999;min-width:28px">★70%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+      <div style="flex:1;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden">
+        <div style="width:91%;height:100%;background:#027a87;border-radius:4px"></div>
+      </div>
+      <span style="font-size:11px;color:#999;min-width:28px">💬91%</span>
+    </div>
+  </td>
+  <td style="padding:10px 13px;text-align:center">
+    <span style="background:#00a86b;color:white;padding:4px 12px;border-radius:12px;font-size:14px;font-weight:800">80.6</span>
+    <div style="font-size:10px;color:#999;margin-top:2px">/ 100</div>
+  </td>
+</tr><tr>
+  <td style="padding:10px 13px;font-size:18px;text-align:center">5.</td>
+  <td style="padding:10px 13px;font-weight:700">Modern Vet Hospital</td>
+  <td style="padding:10px 13px"><span style="background:#e0f4f5;color:#015962;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">Modern Vet</span></td>
+  <td style="padding:10px 13px;color:#6c757d;font-size:13px">Al Safa 2</td>
+  <td style="padding:10px 13px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:700">★ 4.6</span></td>
+  <td style="padding:10px 13px;text-align:right;font-weight:600">1,762</td>
+  <td style="padding:10px 13px;text-align:right;font-weight:700;color:#e74c3c">13</td>
+  <td style="padding:10px 13px">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="flex:1;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden">
+        <div style="width:60%;height:100%;background:#015962;border-radius:4px"></div>
+      </div>
+      <span style="font-size:11px;color:#999;min-width:28px">★60%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+      <div style="flex:1;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden">
+        <div style="width:100%;height:100%;background:#027a87;border-radius:4px"></div>
+      </div>
+      <span style="font-size:11px;color:#999;min-width:28px">💬100%</span>
+    </div>
+  </td>
+  <td style="padding:10px 13px;text-align:center">
+    <span style="background:#00a86b;color:white;padding:4px 12px;border-radius:12px;font-size:14px;font-weight:800">80.0</span>
+    <div style="font-size:10px;color:#999;margin-top:2px">/ 100</div>
+  </td>
+</tr><tr>
+  <td style="padding:10px 13px;font-size:18px;text-align:center">6.</td>
+  <td style="padding:10px 13px;font-weight:700">Modern Vet Azizi Riviera</td>
+  <td style="padding:10px 13px"><span style="background:#e0f4f5;color:#015962;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">Modern Vet</span></td>
+  <td style="padding:10px 13px;color:#6c757d;font-size:13px">Azizi Riviera</td>
+  <td style="padding:10px 13px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:700">★ 4.9</span></td>
+  <td style="padding:10px 13px;text-align:right;font-weight:600">134</td>
+  <td style="padding:10px 13px;text-align:right;font-weight:700;color:#e74c3c">7</td>
+  <td style="padding:10px 13px">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="flex:1;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden">
+        <div style="width:90%;height:100%;background:#015962;border-radius:4px"></div>
+      </div>
+      <span style="font-size:11px;color:#999;min-width:28px">★90%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+      <div style="flex:1;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden">
+        <div style="width:65%;height:100%;background:#027a87;border-radius:4px"></div>
+      </div>
+      <span style="font-size:11px;color:#999;min-width:28px">💬65%</span>
+    </div>
+  </td>
+  <td style="padding:10px 13px;text-align:center">
+    <span style="background:#f5a623;color:white;padding:4px 12px;border-radius:12px;font-size:14px;font-weight:800">77.8</span>
+    <div style="font-size:10px;color:#999;margin-top:2px">/ 100</div>
+  </td>
+</tr><tr>
+  <td style="padding:10px 13px;font-size:18px;text-align:center">7.</td>
+  <td style="padding:10px 13px;font-weight:700">Modern Vet Downtown</td>
+  <td style="padding:10px 13px"><span style="background:#e0f4f5;color:#015962;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">Modern Vet</span></td>
+  <td style="padding:10px 13px;color:#6c757d;font-size:13px">Business Bay</td>
+  <td style="padding:10px 13px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:700">★ 4.7</span></td>
+  <td style="padding:10px 13px;text-align:right;font-weight:600">588</td>
+  <td style="padding:10px 13px;text-align:right;font-weight:700;color:#e74c3c">9</td>
+  <td style="padding:10px 13px">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="flex:1;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden">
+        <div style="width:70%;height:100%;background:#015962;border-radius:4px"></div>
+      </div>
+      <span style="font-size:11px;color:#999;min-width:28px">★70%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+      <div style="flex:1;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden">
+        <div style="width:85%;height:100%;background:#027a87;border-radius:4px"></div>
+      </div>
+      <span style="font-size:11px;color:#999;min-width:28px">💬85%</span>
+    </div>
+  </td>
+  <td style="padding:10px 13px;text-align:center">
+    <span style="background:#f5a623;color:white;padding:4px 12px;border-radius:12px;font-size:14px;font-weight:800">77.7</span>
+    <div style="font-size:10px;color:#999;margin-top:2px">/ 100</div>
+  </td>
+</tr><tr>
+  <td style="padding:10px 13px;font-size:18px;text-align:center">8.</td>
+  <td style="padding:10px 13px;font-weight:700">Blue Oasis Vet D2</td>
+  <td style="padding:10px 13px"><span style="background:#e0f4f5;color:#015962;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">Blue Oasis</span></td>
+  <td style="padding:10px 13px;color:#6c757d;font-size:13px">DAMAC Hills 2</td>
+  <td style="padding:10px 13px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:700">★ 4.7</span></td>
+  <td style="padding:10px 13px;text-align:right;font-weight:600">329</td>
+  <td style="padding:10px 13px;text-align:right;font-weight:700;color:#00a86b">0</td>
+  <td style="padding:10px 13px">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="flex:1;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden">
+        <div style="width:70%;height:100%;background:#015962;border-radius:4px"></div>
+      </div>
+      <span style="font-size:11px;color:#999;min-width:28px">★70%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+      <div style="flex:1;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden">
+        <div style="width:77%;height:100%;background:#027a87;border-radius:4px"></div>
+      </div>
+      <span style="font-size:11px;color:#999;min-width:28px">💬77%</span>
+    </div>
+  </td>
+  <td style="padding:10px 13px;text-align:center">
+    <span style="background:#f5a623;color:white;padding:4px 12px;border-radius:12px;font-size:14px;font-weight:800">73.8</span>
+    <div style="font-size:10px;color:#999;margin-top:2px">/ 100</div>
+  </td>
+</tr><tr>
+  <td style="padding:10px 13px;font-size:18px;text-align:center">9.</td>
+  <td style="padding:10px 13px;font-weight:700">Vienna Vet</td>
+  <td style="padding:10px 13px"><span style="background:#e0f4f5;color:#015962;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">Vienna Vet</span></td>
+  <td style="padding:10px 13px;color:#6c757d;font-size:13px">Umm Suqeim</td>
+  <td style="padding:10px 13px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:700">★ 4.6</span></td>
+  <td style="padding:10px 13px;text-align:right;font-weight:600">511</td>
+  <td style="padding:10px 13px;text-align:right;font-weight:700;color:#e74c3c">8</td>
+  <td style="padding:10px 13px">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="flex:1;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden">
+        <div style="width:60%;height:100%;background:#015962;border-radius:4px"></div>
+      </div>
+      <span style="font-size:11px;color:#999;min-width:28px">★60%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+      <div style="flex:1;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden">
+        <div style="width:83%;height:100%;background:#027a87;border-radius:4px"></div>
+      </div>
+      <span style="font-size:11px;color:#999;min-width:28px">💬83%</span>
+    </div>
+  </td>
+  <td style="padding:10px 13px;text-align:center">
+    <span style="background:#f5a623;color:white;padding:4px 12px;border-radius:12px;font-size:14px;font-weight:800">71.8</span>
+    <div style="font-size:10px;color:#999;margin-top:2px">/ 100</div>
+  </td>
+</tr><tr>
+  <td style="padding:10px 13px;font-size:18px;text-align:center">10.</td>
+  <td style="padding:10px 13px;font-weight:700">Modern Vet Al Khawaneej</td>
+  <td style="padding:10px 13px"><span style="background:#e0f4f5;color:#015962;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">Modern Vet</span></td>
+  <td style="padding:10px 13px;color:#6c757d;font-size:13px">Al Khawaneej</td>
+  <td style="padding:10px 13px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:700">★ 4.6</span></td>
+  <td style="padding:10px 13px;text-align:right;font-weight:600">63</td>
+  <td style="padding:10px 13px;text-align:right;font-weight:700;color:#00a86b">1</td>
+  <td style="padding:10px 13px">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="flex:1;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden">
+        <div style="width:60%;height:100%;background:#015962;border-radius:4px"></div>
+      </div>
+      <span style="font-size:11px;color:#999;min-width:28px">★60%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+      <div style="flex:1;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden">
+        <div style="width:55%;height:100%;background:#027a87;border-radius:4px"></div>
+      </div>
+      <span style="font-size:11px;color:#999;min-width:28px">💬55%</span>
+    </div>
+  </td>
+  <td style="padding:10px 13px;text-align:center">
+    <span style="background:#e74c3c;color:white;padding:4px 12px;border-radius:12px;font-size:14px;font-weight:800">57.8</span>
+    <div style="font-size:10px;color:#999;margin-top:2px">/ 100</div>
+  </td>
+</tr><tr>
+  <td style="padding:10px 13px;font-size:18px;text-align:center">11.</td>
+  <td style="padding:10px 13px;font-weight:700">The Veterinary Referral Centre</td>
+  <td style="padding:10px 13px"><span style="background:#e0f4f5;color:#015962;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">Modern Vet</span></td>
+  <td style="padding:10px 13px;color:#6c757d;font-size:13px">Trade Centre</td>
+  <td style="padding:10px 13px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:700">★ 4.4</span></td>
+  <td style="padding:10px 13px;text-align:right;font-weight:600">19</td>
+  <td style="padding:10px 13px;text-align:right;font-weight:700;color:#e74c3c">12</td>
+  <td style="padding:10px 13px">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="flex:1;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden">
+        <div style="width:40%;height:100%;background:#015962;border-radius:4px"></div>
+      </div>
+      <span style="font-size:11px;color:#999;min-width:28px">★40%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+      <div style="flex:1;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden">
+        <div style="width:40%;height:100%;background:#027a87;border-radius:4px"></div>
+      </div>
+      <span style="font-size:11px;color:#999;min-width:28px">💬40%</span>
+    </div>
+  </td>
+  <td style="padding:10px 13px;text-align:center">
+    <span style="background:#e74c3c;color:white;padding:4px 12px;border-radius:12px;font-size:14px;font-weight:800">40.0</span>
+    <div style="font-size:10px;color:#999;margin-top:2px">/ 100</div>
+  </td>
+</tr></tbody>
+    </table></div>
+    <div style="background:white;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.06);padding:16px 20px;margin-top:16px;font-size:12.5px;color:#6c757d;line-height:1.8">
+      <strong style="color:#015962">Scoring methodology:</strong>
+      &nbsp;★ Rating score = (rating − 4.0) × 100 (range: 0–100 for 4.0★–5.0★) &nbsp;|&nbsp;
+      💬 Review score = log(reviews) / log(max reviews) × 100 &nbsp;|&nbsp;
+      Final = average of both. Updated monthly.
+    </div>
   </div>
   <div id="perm" class="sec">
     <div class="sec-hdr"><h2>🔴 Permanently Closed</h2><p>Competitor clinics confirmed permanently closed — removed from active competitor count (1 total)</p></div>
