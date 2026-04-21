@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WhatsApp Bot KB Progress Report</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f6f8;color:#333}
+.container{max-width:1000px;margin:0 auto;padding:20px}
+h1{color:#015962;font-size:24px;margin-bottom:4px}
+.subtitle{color:#888;font-size:13px;margin-bottom:20px}
+.tabs{display:flex;gap:4px;margin-bottom:0}
+.tab{padding:12px 28px;cursor:pointer;border-radius:10px 10px 0 0;font-weight:600;font-size:14px;transition:all .2s;border:1px solid #ddd;border-bottom:none;background:#e8ecef;color:#666}
+.tab.active{background:#015962;color:#fff;border-color:#015962}
+.tab-content{display:none;background:#fff;border-radius:0 10px 10px 10px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,.07);border:1px solid #ddd;border-top:2px solid #015962}
+.tab-content.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin-bottom:24px}
+.card{background:linear-gradient(135deg,#f0fafb,#e6f3f4);border-radius:10px;padding:18px;text-align:center;border:1px solid #d4e8ea}
+.card .num{font-size:32px;font-weight:800;color:#015962}
+.card .label{font-size:11px;color:#777;margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
+table{width:100%;border-collapse:collapse;margin:12px 0}
+th,td{padding:9px 14px;text-align:left;border-bottom:1px solid #eee;font-size:13px}
+th{background:#015962;color:#fff;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+tr:hover{background:#f5fafa}
+.section{margin-bottom:24px}
+.section h2{color:#015962;font-size:16px;margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid #e6f3f4}
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600}
+.bg{background:#e6f7ed;color:#0a7a42}
+.by{background:#fff8e1;color:#b8860b}
+.br{background:#fdeaea;color:#c0392b}
+.bb{background:#e8f0fe;color:#1a56db}
+.timeline{position:relative;padding-left:24px;margin:12px 0}
+.timeline::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:#d4e8ea}
+.tl-item{position:relative;padding-bottom:14px;font-size:13px}
+.tl-item::before{content:'';position:absolute;left:-20px;top:4px;width:10px;height:10px;border-radius:50%;background:#015962;border:2px solid #fff;box-shadow:0 0 0 2px #015962}
+.tl-item .date{color:#015962;font-weight:600}
+.note{background:#fff8e1;border-left:4px solid #f0c040;padding:12px 16px;border-radius:4px;font-size:13px;margin:12px 0}
+.footer{text-align:center;color:#aaa;font-size:11px;margin-top:30px;padding:16px 0}
+@media(max-width:600px){.grid{grid-template-columns:1fr 1fr}.tab{padding:10px 16px;font-size:12px}}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🐾 WhatsApp Bot — Knowledge Base Progress Report</h1>
+<p class="subtitle">Vet Alliance &bull; Last updated: April 21, 2026</p>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('mv')">Modern Vet</div>
+  <div class="tab" onclick="switchTab('bov')">Blue Oasis Vet</div>
+  <div class="tab" onclick="switchTab('vv')">Vienna Vet</div>
+</div>
+
+<!-- ========== TAB 1: MODERN VET ========== -->
+<div class="tab-content active" id="tab-mv">
+
+<div class="grid">
+  <div class="card"><div class="num">614</div><div class="label">Q&A Pairs</div></div>
+  <div class="card"><div class="num">82</div><div class="label">Doctors</div></div>
+  <div class="card"><div class="num">63</div><div class="label">Areas Mapped</div></div>
+  <div class="card"><div class="num">2</div><div class="label">Gaps Left</div></div>
+</div>
+
+<div class="section">
+  <h2>📊 Categories</h2>
+  <table>
+    <tr><th>Category</th><th>Count</th><th>Share</th></tr>
+    <tr><td>FAQ</td><td>193</td><td>31%</td></tr>
+    <tr><td>Pricing</td><td>116</td><td>19%</td></tr>
+    <tr><td>Doctors</td><td>82</td><td>13%</td></tr>
+    <tr><td>Location Mapping</td><td>63</td><td>10%</td></tr>
+    <tr><td>Services</td><td>59</td><td>10%</td></tr>
+    <tr><td>General</td><td>35</td><td>6%</td></tr>
+    <tr><td>Booking</td><td>29</td><td>5%</td></tr>
+    <tr><td>Emergency</td><td>16</td><td>3%</td></tr>
+    <tr><td>Procedures</td><td>11</td><td>2%</td></tr>
+    <tr><td>Hours</td><td>7</td><td>1%</td></tr>
+    <tr><td>Location</td><td>3</td><td>&lt;1%</td></tr>
+  </table>
+</div>
+
+<div class="section">
+  <h2>📈 Progress Timeline</h2>
+  <div class="timeline">
+    <div class="tl-item"><span class="date">Apr 15</span> — KB v1 draft: 170 Q&As from transcripts</div>
+    <div class="tl-item"><span class="date">Apr 15</span> — KB v2: 625 Q&As, cleaned & structured</div>
+    <div class="tl-item"><span class="date">Apr 20</span> — KB v3: 707 Q&As, doctors, neighbourhood mapping, action matrix</div>
+    <div class="tl-item"><span class="date">Apr 21 AM</span> — Brand split: 508 MV entries (BOV/VV separated into own files)</div>
+    <div class="tl-item"><span class="date">Apr 21 PM</span> — Gap filling: grooming PDF, pet taxi, spay/neuter CSV, forms, website scrape</div>
+    <div class="tl-item"><span class="date">Apr 21 PM</span> — Generated Q&As: breed, seasonal, senior, symptoms, logistics, WhatsApp flows</div>
+    <div class="tl-item"><span class="date">Apr 21 PM</span> — <strong>614 entries</strong> — 28/30 gaps closed, ChromaDB rebuilt, simulation passed</div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>🔍 Simulation Results</h2>
+  <table>
+    <tr><th>Scenario</th><th>Grade</th><th>Notes</th></tr>
+    <tr><td>New Pet Owner in JLT</td><td><span class="badge bg">A</span></td><td>Package upsell, municipality info, booking flow</td></tr>
+    <tr><td>Emergency — Vomiting Dog</td><td><span class="badge bg">A</span></td><td>Correct urgency, Hospital 24/7 escalation</td></tr>
+    <tr><td>Russian-Speaking Vet</td><td><span class="badge bg">A-</span></td><td>Doctor + location + price combo</td></tr>
+    <tr><td>Grooming + Flea</td><td><span class="badge bg">A</span></td><td>Full pricing now available (was B+)</td></tr>
+    <tr><td>Travel to UK</td><td><span class="badge by">B+</span></td><td>Titer timeline added (was C+)</td></tr>
+  </table>
+  <p style="font-size:12px;color:#888;margin-top:6px">Full report: <a href="https://marketing-modvet.github.io/cheshire/veta-sim-report.html" target="_blank">veta-sim-report.html</a></p>
+</div>
+
+<div class="section">
+  <h2>🏗️ Infrastructure</h2>
+  <table>
+    <tr><td>ChromaDB</td><td><span class="badge bg">Rebuilt — 614 docs</span></td></tr>
+    <tr><td>Conversation Memory</td><td><span class="badge bg">24h client context</span></td></tr>
+    <tr><td>Telegram</td><td><span class="badge br">Disabled</span></td></tr>
+    <tr><td>Slack</td><td><span class="badge br">Disabled</span></td></tr>
+    <tr><td>WhatsApp</td><td><span class="badge by">Pending integration</span></td></tr>
+  </table>
+</div>
+
+<div class="section">
+  <h2>⏳ Remaining Gaps (2)</h2>
+  <table>
+    <tr><th>#</th><th>Gap</th><th>Owner</th></tr>
+    <tr><td>12</td><td>Kennel cough vaccine standalone price</td><td>Aida</td></tr>
+    <tr><td>20</td><td>Nursing team WhatsApp numbers per branch</td><td>Aida</td></tr>
+  </table>
+  <div class="note">📋 <strong>Note for Aida:</strong> Please also review which "not public" prices (blood tests, X-ray, ultrasound) could become public on WhatsApp. Additionally, BOV spay/neuter prices need verification — confirm if CBC and Chem 10 are included.</div>
+</div>
+
+<div class="section">
+  <h2>📦 Sources</h2>
+  <table>
+    <tr><th>Source</th><th>Entries</th></tr>
+    <tr><td>Call transcripts + FAQs (gold_faq, faq-transcript)</td><td>~96</td></tr>
+    <tr><td>Manual confirmed / gap fills</td><td>~145</td></tr>
+    <tr><td>WhatsApp logs + SOPs</td><td>~55</td></tr>
+    <tr><td>Price sheet 2026</td><td>~74</td></tr>
+    <tr><td>Vet matrix (doctors)</td><td>~82</td></tr>
+    <tr><td>Neighbourhood mapping (geo calc)</td><td>63</td></tr>
+    <tr><td>Grooming pricelist PDF</td><td>7</td></tr>
+    <tr><td>Spay/neuter pricelist CSV</td><td>5</td></tr>
+    <tr><td>Website (vaccinations, prices, services)</td><td>~12</td></tr>
+    <tr><td>Forms (post-op, admission, call centre)</td><td>~12</td></tr>
+    <tr><td>Generated (simulation coverage)</td><td>~38</td></tr>
+  </table>
+</div>
+
+</div>
+
+<!-- ========== TAB 2: BLUE OASIS VET ========== -->
+<div class="tab-content" id="tab-bov">
+
+<div class="grid">
+  <div class="card"><div class="num">97</div><div class="label">Q&A Pairs</div></div>
+  <div class="card"><div class="num">2</div><div class="label">Branches</div></div>
+  <div class="card"><div class="num">—</div><div class="label">Areas Mapped</div></div>
+  <div class="card"><div class="num"><span class="badge by" style="font-size:16px">Pending</span></div><div class="label">Status</div></div>
+</div>
+
+<div class="section">
+  <h2>📋 Status</h2>
+  <p>97 Q&A entries extracted from main KB and saved to <code>kb_bov.json</code>. Ready for future bot deployment.</p>
+  <br>
+  <table>
+    <tr><th>Item</th><th>Detail</th></tr>
+    <tr><td>KB File</td><td><code>kb_bov.json</code> (97 entries)</td></tr>
+    <tr><td>Branches</td><td>Dubai Investments Park (DIP), Damac Hills 2</td></tr>
+    <tr><td>Bot Architecture</td><td>Same as MV — swap KB file + update SOUL.md</td></tr>
+    <tr><td>ChromaDB</td><td><span class="badge by">Not built yet</span> — will be created at deployment</td></tr>
+  </table>
+</div>
+
+<div class="note">⚠️ <strong>Action for Aida:</strong> BOV spay/neuter prices from CSV need verification — please confirm if CBC and Chem 10 are included in the package prices.</div>
+
+<div class="section">
+  <h2>📌 Next Steps</h2>
+  <ul style="padding-left:20px;font-size:13px;line-height:1.8">
+    <li>Verify spay/neuter pricing (Aida)</li>
+    <li>Add BOV-specific neighbourhood mapping</li>
+    <li>Add BOV-specific doctor entries (currently shared from vet matrix)</li>
+    <li>Build ChromaDB for BOV</li>
+    <li>Create BOV SOUL.md (based on MV template, adjust branches + pricing)</li>
+    <li>Deploy as separate WhatsApp number</li>
+  </ul>
+</div>
+
+</div>
+
+<!-- ========== TAB 3: VIENNA VET ========== -->
+<div class="tab-content" id="tab-vv">
+
+<div class="grid">
+  <div class="card"><div class="num">98</div><div class="label">Q&A Pairs</div></div>
+  <div class="card"><div class="num">1</div><div class="label">Branch</div></div>
+  <div class="card"><div class="num">⭐</div><div class="label">ISFM Gold</div></div>
+  <div class="card"><div class="num"><span class="badge by" style="font-size:16px">Pending</span></div><div class="label">Status</div></div>
+</div>
+
+<div class="section">
+  <h2>📋 Status</h2>
+  <p>98 Q&A entries extracted from main KB and saved to <code>kb_vv.json</code>. Ready for future bot deployment.</p>
+  <br>
+  <table>
+    <tr><th>Item</th><th>Detail</th></tr>
+    <tr><td>KB File</td><td><code>kb_vv.json</code> (98 entries)</td></tr>
+    <tr><td>Branch</td><td>Umm Suqeim</td></tr>
+    <tr><td>Special</td><td><span class="badge bb">ISFM Gold Standard</span> — certified cat-friendly clinic</td></tr>
+    <tr><td>Charity/Rescue</td><td>Handles TNR, stray animals, rescue cases</td></tr>
+    <tr><td>Bot Architecture</td><td>Same as MV — swap KB file + update SOUL.md</td></tr>
+    <tr><td>ChromaDB</td><td><span class="badge by">Not built yet</span></td></tr>
+  </table>
+</div>
+
+<div class="section">
+  <h2>🐱 ISFM Gold Standard</h2>
+  <p style="font-size:13px">Vienna Vet holds the <strong>ISFM Gold Standard</strong> certification — the highest international standard for cat-friendly veterinary care. This means separate cat waiting areas, low-stress handling techniques, and specially trained staff. MV's WhatsApp bot redirects charity/stray cases here.</p>
+</div>
+
+<div class="section">
+  <h2>📌 Next Steps</h2>
+  <ul style="padding-left:20px;font-size:13px;line-height:1.8">
+    <li>Add VV-specific charity/rescue pricing and processes</li>
+    <li>Add VV neighbourhood mapping (Umm Suqeim area)</li>
+    <li>Update doctor entries for VV-specific staff</li>
+    <li>Build ChromaDB for VV</li>
+    <li>Create VV SOUL.md (cat-focused, charity emphasis)</li>
+    <li>Deploy as separate WhatsApp number</li>
+  </ul>
+</div>
+
+</div>
+
+<p class="footer">Vet Alliance &bull; vetalliance.website &bull; Built by Cheshire 😸</p>
+</div>
+
+<script>
+function switchTab(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
