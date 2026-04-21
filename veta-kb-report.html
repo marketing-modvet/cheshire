@@ -7,7 +7,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f6f8;color:#333}
-.container{max-width:1000px;margin:0 auto;padding:20px}
+.container{max-width:1060px;margin:0 auto;padding:20px}
 h1{color:#015962;font-size:24px;margin-bottom:4px}
 .subtitle{color:#888;font-size:13px;margin-bottom:20px}
 .tabs{display:flex;gap:4px;margin-bottom:0}
@@ -30,20 +30,28 @@ tr:hover{background:#f5fafa}
 .by{background:#fff8e1;color:#b8860b}
 .br{background:#fdeaea;color:#c0392b}
 .bb{background:#e8f0fe;color:#1a56db}
+.progress-wrap{background:#e8ecef;border-radius:10px;height:28px;margin:16px 0;position:relative;overflow:hidden}
+.progress-bar{height:100%;border-radius:10px;background:linear-gradient(90deg,#015962,#02857a);transition:width .6s;display:flex;align-items:center;justify-content:flex-end;padding-right:12px;font-size:12px;font-weight:700;color:#fff}
 .timeline{position:relative;padding-left:24px;margin:12px 0}
 .timeline::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:#d4e8ea}
 .tl-item{position:relative;padding-bottom:14px;font-size:13px}
 .tl-item::before{content:'';position:absolute;left:-20px;top:4px;width:10px;height:10px;border-radius:50%;background:#015962;border:2px solid #fff;box-shadow:0 0 0 2px #015962}
 .tl-item .date{color:#015962;font-weight:600}
 .note{background:#fff8e1;border-left:4px solid #f0c040;padding:12px 16px;border-radius:4px;font-size:13px;margin:12px 0}
+.sim-block{background:#f8f9fa;border:1px solid #e8ecef;border-radius:8px;padding:16px;margin:10px 0;font-size:13px}
+.sim-q{color:#015962;font-weight:600;margin:8px 0 2px}
+.sim-a{background:#e6f7ed;border-left:3px solid #0a7a42;padding:8px 12px;margin:2px 0 8px;border-radius:0 6px 6px 0;font-size:12px;color:#333}
+.sim-match{font-size:11px;color:#888;margin-bottom:6px}
 .footer{text-align:center;color:#aaa;font-size:11px;margin-top:30px;padding:16px 0}
+details{margin:8px 0}
+details summary{cursor:pointer;color:#015962;font-weight:600;font-size:13px}
 @media(max-width:600px){.grid{grid-template-columns:1fr 1fr}.tab{padding:10px 16px;font-size:12px}}
 </style>
 </head>
 <body>
 <div class="container">
 <h1>🐾 WhatsApp Bot — Knowledge Base Progress Report</h1>
-<p class="subtitle">Vet Alliance &bull; Last updated: April 21, 2026</p>
+<p class="subtitle">Vet Alliance &bull; Last updated: April 21, 2026 4:00 PM</p>
 
 <div class="tabs">
   <div class="tab active" onclick="switchTab('mv')">Modern Vet</div>
@@ -55,61 +63,199 @@ tr:hover{background:#f5fafa}
 <div class="tab-content active" id="tab-mv">
 
 <div class="grid">
-  <div class="card"><div class="num">614</div><div class="label">Q&A Pairs</div></div>
-  <div class="card"><div class="num">82</div><div class="label">Doctors</div></div>
-  <div class="card"><div class="num">63</div><div class="label">Areas Mapped</div></div>
+  <div class="card"><div class="num">699</div><div class="label">Q&A Pairs</div></div>
+  <div class="card"><div class="num">82</div><div class="label">Doctor Profiles</div></div>
+  <div class="card"><div class="num">81</div><div class="label">Areas Mapped</div></div>
   <div class="card"><div class="num">2</div><div class="label">Gaps Left</div></div>
+</div>
+
+<div class="section">
+  <h2>📈 Coverage Progress</h2>
+  <div class="progress-wrap"><div class="progress-bar" style="width:97%">~97% coverage</div></div>
+  <div style="display:flex;justify-content:space-between;font-size:11px;color:#888;margin-top:4px">
+    <span>Apr 15: 170 Q&As</span>
+    <span>Apr 20: 707</span>
+    <span>Apr 21: <strong>699 (MV-only)</strong></span>
+    <span>Target: ~720</span>
+  </div>
 </div>
 
 <div class="section">
   <h2>📊 Categories</h2>
   <table>
-    <tr><th>Category</th><th>Count</th><th>Share</th></tr>
-    <tr><td>FAQ</td><td>193</td><td>31%</td></tr>
-    <tr><td>Pricing</td><td>116</td><td>19%</td></tr>
-    <tr><td>Doctors</td><td>82</td><td>13%</td></tr>
-    <tr><td>Location Mapping</td><td>63</td><td>10%</td></tr>
-    <tr><td>Services</td><td>59</td><td>10%</td></tr>
-    <tr><td>General</td><td>35</td><td>6%</td></tr>
-    <tr><td>Booking</td><td>29</td><td>5%</td></tr>
-    <tr><td>Emergency</td><td>16</td><td>3%</td></tr>
-    <tr><td>Procedures</td><td>11</td><td>2%</td></tr>
-    <tr><td>Hours</td><td>7</td><td>1%</td></tr>
-    <tr><td>Location</td><td>3</td><td>&lt;1%</td></tr>
+    <tr><th>Category</th><th>Count</th><th>Share</th><th>Notes</th></tr>
+    <tr><td>FAQ</td><td>185</td><td>26%</td><td>General questions, symptoms, pet care, Dubai rules</td></tr>
+    <tr><td>Location Mapping</td><td>162</td><td>23%</td><td>81 Dubai areas × 2 phrasings ("I live in" + "closest to")</td></tr>
+    <tr><td>Pricing</td><td>115</td><td>16%</td><td>Consultations, packages, grooming, spay/neuter, taxi</td></tr>
+    <tr><td>Doctors</td><td>82</td><td>12%</td><td>56 individual + 5 branch lists + 21 specialty/language</td></tr>
+    <tr><td>Services</td><td>58</td><td>8%</td><td>Grooming, travel, endoscopy, physio, holistic, etc.</td></tr>
+    <tr><td>General</td><td>33</td><td>5%</td><td>Greetings, complaints, WhatsApp flows, Arabic</td></tr>
+    <tr><td>Booking</td><td>28</td><td>4%</td><td>Scheduling, rescheduling, availability</td></tr>
+    <tr><td>Emergency</td><td>16</td><td>2%</td><td>Poisons, seizures, heatstroke, urinary blockage</td></tr>
+    <tr><td>Procedures</td><td>11</td><td>2%</td><td>Surgery, dental, neutering processes</td></tr>
+    <tr><td>Hours</td><td>6</td><td>1%</td><td>Branch hours, Eid, last appointment time</td></tr>
+    <tr><td>Location</td><td>3</td><td>&lt;1%</td><td>Branch addresses and map links</td></tr>
   </table>
+</div>
+
+<div class="section">
+  <h2>👨‍⚕️ Doctors (82 entries)</h2>
+  <p style="font-size:13px;margin-bottom:8px">All 57 vets from the Vet Matrix are in the KB with human-friendly descriptions:</p>
+  <table>
+    <tr><th>Type</th><th>Count</th><th>Details</th></tr>
+    <tr><td>Individual doctor profiles</td><td>56</td><td>Name, branch, nationality, languages, specialties</td></tr>
+    <tr><td>Branch team listings</td><td>5</td><td>"Who are the doctors at [branch]?" with full team list</td></tr>
+    <tr><td>Language matching</td><td>5</td><td>Russian, Arabic, Spanish + language-specific search</td></tr>
+    <tr><td>Specialist lookups</td><td>16</td><td>Ophthalmology, cardiology, ortho, neuro, derma, etc.</td></tr>
+  </table>
+  <p style="font-size:12px;color:#888;margin-top:6px">Source: Vet Matrix (57 vets), manually enriched with language skills and human-friendly descriptions. Hospital vets flagged as non-consulting (surgery/specialist only).</p>
 </div>
 
 <div class="section">
   <h2>📈 Progress Timeline</h2>
   <div class="timeline">
-    <div class="tl-item"><span class="date">Apr 15</span> — KB v1 draft: 170 Q&As from transcripts</div>
-    <div class="tl-item"><span class="date">Apr 15</span> — KB v2: 625 Q&As, cleaned & structured</div>
-    <div class="tl-item"><span class="date">Apr 20</span> — KB v3: 707 Q&As, doctors, neighbourhood mapping, action matrix</div>
-    <div class="tl-item"><span class="date">Apr 21 AM</span> — Brand split: 508 MV entries (BOV/VV separated into own files)</div>
-    <div class="tl-item"><span class="date">Apr 21 PM</span> — Gap filling: grooming PDF, pet taxi, spay/neuter CSV, forms, website scrape</div>
-    <div class="tl-item"><span class="date">Apr 21 PM</span> — Generated Q&As: breed, seasonal, senior, symptoms, logistics, WhatsApp flows</div>
-    <div class="tl-item"><span class="date">Apr 21 PM</span> — <strong>614 entries</strong> — 28/30 gaps closed, ChromaDB rebuilt, simulation passed</div>
+    <div class="tl-item"><span class="date">Apr 15</span> — KB v1 draft: 170 Q&As from call transcripts</div>
+    <div class="tl-item"><span class="date">Apr 15</span> — KB v2: 625 Q&As, cleaned, deduplicated, structured</div>
+    <div class="tl-item"><span class="date">Apr 20</span> — KB v3: 707 Q&As, +82 doctors, +63 neighbourhood mapping, action matrix, security rules</div>
+    <div class="tl-item"><span class="date">Apr 21 AM</span> — Brand split: 508 MV entries (97 BOV + 98 VV separated into own files)</div>
+    <div class="tl-item"><span class="date">Apr 21 PM</span> — Simulation #1 (20 questions) → found 5 gaps → all fixed</div>
+    <div class="tl-item"><span class="date">Apr 21 PM</span> — +21 from grooming PDF, pet taxi, titer test, forms (post-op, admission, call centre triage)</div>
+    <div class="tl-item"><span class="date">Apr 21 PM</span> — +5 spay/neuter from CSV, +3 vaccination from website, +20 gap fills (pricing, insurance, boarding, etc.)</div>
+    <div class="tl-item"><span class="date">Apr 21 PM</span> — +38 generated (breeds, senior pets, symptoms, seasonal, WhatsApp flows, Arabic)</div>
+    <div class="tl-item"><span class="date">Apr 21 PM</span> — +99 location variants (81 areas × "closest to" phrasing + 18 new areas)</div>
+    <div class="tl-item"><span class="date">Apr 21 PM</span> — Simulation #2 (20 new questions) → 95% hit rate, 1 weak match fixed</div>
+    <div class="tl-item"><span class="date">Now</span> — <strong>699 entries</strong>, 28/30 gaps closed, ChromaDB rebuilt</div>
   </div>
 </div>
 
 <div class="section">
-  <h2>🔍 Simulation Results</h2>
-  <table>
-    <tr><th>Scenario</th><th>Grade</th><th>Notes</th></tr>
-    <tr><td>New Pet Owner in JLT</td><td><span class="badge bg">A</span></td><td>Package upsell, municipality info, booking flow</td></tr>
-    <tr><td>Emergency — Vomiting Dog</td><td><span class="badge bg">A</span></td><td>Correct urgency, Hospital 24/7 escalation</td></tr>
-    <tr><td>Russian-Speaking Vet</td><td><span class="badge bg">A-</span></td><td>Doctor + location + price combo</td></tr>
-    <tr><td>Grooming + Flea</td><td><span class="badge bg">A</span></td><td>Full pricing now available (was B+)</td></tr>
-    <tr><td>Travel to UK</td><td><span class="badge by">B+</span></td><td>Titer timeline added (was C+)</td></tr>
-  </table>
-  <p style="font-size:12px;color:#888;margin-top:6px">Full report: <a href="https://marketing-modvet.github.io/cheshire/veta-sim-report.html" target="_blank">veta-sim-report.html</a></p>
+  <h2>🔍 Simulation #2 — Test Transcript</h2>
+  <p style="font-size:12px;color:#888;margin-bottom:12px">5 realistic client scenarios, 20 questions total. Each question tested against ChromaDB for retrieval quality.</p>
+
+  <details>
+    <summary>Scenario 1: Senior Dog Owner in Business Bay — Grade B+</summary>
+    <div class="sim-block">
+      <div class="sim-q">👤 "My dog is 10 years old and seems to be drinking a lot more water lately"</div>
+      <div class="sim-match">🔍 DECENT (0.508) — Matched to emergency/GI entries, not ideal for senior wellness</div>
+      <div class="sim-a">Weakness: No specific "senior pet drinking more water" entry. Would benefit from a kidney/diabetes awareness Q&A.</div>
+
+      <div class="sim-q">👤 "Should I bring him in for a check? How much will it cost?"</div>
+      <div class="sim-match">🔍 DECENT (0.626) — Matched to checkup guidelines + consultation pricing</div>
+      <div class="sim-a">Bot would answer: "A consultation is AED 249–299. We recommend senior wellness checks twice yearly." ✅</div>
+
+      <div class="sim-q">👤 "Which branch is closest to Business Bay?"</div>
+      <div class="sim-match">🔍 STRONG (0.322) — Direct match to Business Bay location entry ✅ (was 0.586 before variant phrasings added)</div>
+      <div class="sim-a">Bot would answer with nearest branch + Hospital + Mobile Clinic options with prices. ✅</div>
+
+      <div class="sim-q">👤 "Can you do blood tests the same day?"</div>
+      <div class="sim-match">🔍 DECENT (0.408) — Matched: "Same-day blood work available at ALL MV branches"</div>
+      <div class="sim-a">Bot would confirm in-house lab, all branches. ✅</div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Scenario 2: Cat Grooming + Spay — Grade A</summary>
+    <div class="sim-block">
+      <div class="sim-q">👤 "Hi, I want to get my cat groomed and also ask about spaying"</div>
+      <div class="sim-match">🔍 STRONG (0.358) — Cat grooming entry + spay info</div>
+      <div class="sim-a">Bot would list grooming services and mention spay pricing. ✅</div>
+
+      <div class="sim-q">👤 "How much does cat grooming cost?"</div>
+      <div class="sim-match">🔍 STRONG (0.244) — Direct price match: Basic AED 179, Platinum AED 299, Medicated AED 219</div>
+      <div class="sim-a">Full pricing with all options. ✅</div>
+
+      <div class="sim-q">👤 "She is 6 months old, is that old enough to spay?"</div>
+      <div class="sim-match">🔍 DECENT (0.486) — Matched spay age recommendation (4–6 months for cats)</div>
+      <div class="sim-a">Bot would confirm 5–6 months is perfect for cats. ✅</div>
+
+      <div class="sim-q">👤 "How much is the spay? She is about 4 kg"</div>
+      <div class="sim-match">🔍 DECENT (0.456) — Matched spay pricing entries</div>
+      <div class="sim-a">Cat spay: AED 999 branches / AED 1,299 Hospital. ✅ (Note: top hit was dog spay — cat spay ranked #2. Could improve with better cat-specific matching)</div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Scenario 3: French Bulldog Breathing — Grade A</summary>
+    <div class="sim-block">
+      <div class="sim-q">👤 "My French Bulldog is making weird breathing sounds, is this normal?"</div>
+      <div class="sim-match">🔍 STRONG (0.355) — Direct match to Frenchie breed-specific entry (BOAS, breathing difficulties)</div>
+      <div class="sim-a">Bot would explain brachycephalic risks, offer BOAS assessment. ✅</div>
+
+      <div class="sim-q">👤 "He is also not eating since yesterday"</div>
+      <div class="sim-match">🔍 DECENT (0.467) — Matched "pet not eating" emergency triage entry</div>
+      <div class="sim-a">Bot would recommend same-day vet visit. Correctly identifies urgency. ✅</div>
+
+      <div class="sim-q">👤 "Do you have any availability today?"</div>
+      <div class="sim-match">🔍 DECENT (0.429) — Matched availability/booking entries</div>
+      <div class="sim-a">Bot would ask which branch and what service, offer to check slots. ✅</div>
+
+      <div class="sim-q">👤 "Can you send me the location? I am in JVC"</div>
+      <div class="sim-match">🔍 STRONG (0.382) — Matched parking/JVC entry with branch details</div>
+      <div class="sim-a">Bot would show MV JVC address, easy street parking. ✅</div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Scenario 4: Pet Travel UK + Medication — Grade B+</summary>
+    <div class="sim-block">
+      <div class="sim-q">👤 "I need to fly to the UK with my cat next month, what do I need?"</div>
+      <div class="sim-match">🔍 DECENT (0.471) — Matched kitten care + travel entries</div>
+      <div class="sim-a">Bot would recommend Travel Consultation (AED 250) with BSPR specialist. Travel still not top-1 match — needs stronger travel-specific question phrasing in KB.</div>
+
+      <div class="sim-q">👤 "How long does the titer test take in total?"</div>
+      <div class="sim-match">🔍 DECENT (0.553) — Matched titer test entries (21–30 days + 14–21 lab)</div>
+      <div class="sim-a">Bot would explain full timeline and recommend starting 2+ months early. ✅</div>
+
+      <div class="sim-q">👤 "Also can I order Bravecto online?"</div>
+      <div class="sim-match">🔍 DECENT (0.468) — Matched Bravecto + floof.ae entries</div>
+      <div class="sim-a">Bot would direct to floof.ae for ordering. ✅</div>
+
+      <div class="sim-q">👤 "Do you deliver to Dubai Hills?"</div>
+      <div class="sim-match">🔍 DECENT (0.547) — Matched delivery + Dubai Hills location entries</div>
+      <div class="sim-a">Bot would confirm floof.ae delivery + show nearest branch for Dubai Hills. ✅</div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Scenario 5: Arabic Greeting + Lily Emergency — Grade A-</summary>
+    <div class="sim-block">
+      <div class="sim-q">👤 "marhaba"</div>
+      <div class="sim-match">🔍 DECENT (0.582) — Matched latin-script "marhaba" greeting (was WEAK 0.705 before fix)</div>
+      <div class="sim-a">Bot would respond "أهلاً وسهلاً! 🐾 Welcome to Modern Vet!" ✅</div>
+
+      <div class="sim-q">👤 "my cat ate a lily flower what do I do"</div>
+      <div class="sim-match">🔍 STRONG (0.198) — Direct match! "Lilies are highly toxic to cats. Bring in immediately."</div>
+      <div class="sim-a">Excellent emergency response. Bot would direct to Hospital 24/7 immediately. ✅</div>
+
+      <div class="sim-q">👤 "are you open now? its 2am"</div>
+      <div class="sim-match">🔍 DECENT (0.594) — Matched opening hours + after-hours entries</div>
+      <div class="sim-a">Bot would confirm Hospital 24/7, after-hours emergency team 10PM–7:30AM. ✅</div>
+
+      <div class="sim-q">👤 "how much will it cost"</div>
+      <div class="sim-match">🔍 DECENT (0.518) — Matched general pricing entries (AED 199–299)</div>
+      <div class="sim-a">In emergency context, bot would show night emergency AED 785. Context awareness would help here.</div>
+    </div>
+  </details>
+
+  <div style="margin-top:16px">
+    <table>
+      <tr><th>Metric</th><th>Sim #1 (before fixes)</th><th>Sim #2 (after fixes)</th></tr>
+      <tr><td>Total questions</td><td>20</td><td>20</td></tr>
+      <tr><td>STRONG (&lt;0.4)</td><td>9 (45%)</td><td>6 (30%)</td></tr>
+      <tr><td>DECENT (0.4–0.7)</td><td>11 (55%)</td><td>13 (65%)</td></tr>
+      <tr><td>WEAK (&gt;0.7)</td><td>0</td><td>1 → 0 (fixed)</td></tr>
+      <tr><td>Complete misses</td><td>0</td><td>0</td></tr>
+    </table>
+    <p style="font-size:12px;color:#888;margin-top:6px">Note: Sim #2 used harder, more varied questions (senior pets, breeds, Arabic, multi-topic). STRONG % is lower but zero misses on new territory.</p>
+  </div>
 </div>
 
 <div class="section">
   <h2>🏗️ Infrastructure</h2>
   <table>
-    <tr><td>ChromaDB</td><td><span class="badge bg">Rebuilt — 614 docs</span></td></tr>
+    <tr><td>ChromaDB</td><td><span class="badge bg">Rebuilt — 699 docs</span></td></tr>
     <tr><td>Conversation Memory</td><td><span class="badge bg">24h client context</span></td></tr>
+    <tr><td>Build Scripts</td><td><span class="badge bg">Saved — uploads/scripts/ (17 files)</span></td></tr>
     <tr><td>Telegram</td><td><span class="badge br">Disabled</span></td></tr>
     <tr><td>Slack</td><td><span class="badge br">Disabled</span></td></tr>
     <tr><td>WhatsApp</td><td><span class="badge by">Pending integration</span></td></tr>
@@ -123,25 +269,11 @@ tr:hover{background:#f5fafa}
     <tr><td>12</td><td>Kennel cough vaccine standalone price</td><td>Aida</td></tr>
     <tr><td>20</td><td>Nursing team WhatsApp numbers per branch</td><td>Aida</td></tr>
   </table>
-  <div class="note">📋 <strong>Note for Aida:</strong> Please also review which "not public" prices (blood tests, X-ray, ultrasound) could become public on WhatsApp. Additionally, BOV spay/neuter prices need verification — confirm if CBC and Chem 10 are included.</div>
-</div>
-
-<div class="section">
-  <h2>📦 Sources</h2>
-  <table>
-    <tr><th>Source</th><th>Entries</th></tr>
-    <tr><td>Call transcripts + FAQs (gold_faq, faq-transcript)</td><td>~96</td></tr>
-    <tr><td>Manual confirmed / gap fills</td><td>~145</td></tr>
-    <tr><td>WhatsApp logs + SOPs</td><td>~55</td></tr>
-    <tr><td>Price sheet 2026</td><td>~74</td></tr>
-    <tr><td>Vet matrix (doctors)</td><td>~82</td></tr>
-    <tr><td>Neighbourhood mapping (geo calc)</td><td>63</td></tr>
-    <tr><td>Grooming pricelist PDF</td><td>7</td></tr>
-    <tr><td>Spay/neuter pricelist CSV</td><td>5</td></tr>
-    <tr><td>Website (vaccinations, prices, services)</td><td>~12</td></tr>
-    <tr><td>Forms (post-op, admission, call centre)</td><td>~12</td></tr>
-    <tr><td>Generated (simulation coverage)</td><td>~38</td></tr>
-  </table>
+  <div class="note">📋 <strong>Action items for Aida:</strong><br>
+  1. Kennel cough vaccine price<br>
+  2. Nursing WhatsApp numbers per branch<br>
+  3. Verify BOV spay/neuter prices — confirm if CBC and Chem 10 are included<br>
+  4. Review which "not public" prices (blood tests, X-ray, ultrasound) could become shareable on WhatsApp</div>
 </div>
 
 </div>
@@ -153,36 +285,39 @@ tr:hover{background:#f5fafa}
   <div class="card"><div class="num">97</div><div class="label">Q&A Pairs</div></div>
   <div class="card"><div class="num">2</div><div class="label">Branches</div></div>
   <div class="card"><div class="num">—</div><div class="label">Areas Mapped</div></div>
-  <div class="card"><div class="num"><span class="badge by" style="font-size:16px">Pending</span></div><div class="label">Status</div></div>
+  <div class="card"><div class="num"><span class="badge by" style="font-size:14px">Pending</span></div><div class="label">Status</div></div>
+</div>
+
+<div class="section">
+  <h2>📈 Coverage Progress</h2>
+  <div class="progress-wrap"><div class="progress-bar" style="width:25%">~25% ready</div></div>
+  <p style="font-size:12px;color:#888;margin-top:6px">97 entries extracted from main KB. Needs BOV-specific neighbourhood mapping, doctor profiles, and pricing verification before deployment.</p>
 </div>
 
 <div class="section">
   <h2>📋 Status</h2>
-  <p>97 Q&A entries extracted from main KB and saved to <code>kb_bov.json</code>. Ready for future bot deployment.</p>
-  <br>
   <table>
     <tr><th>Item</th><th>Detail</th></tr>
     <tr><td>KB File</td><td><code>kb_bov.json</code> (97 entries)</td></tr>
     <tr><td>Branches</td><td>Dubai Investments Park (DIP), Damac Hills 2</td></tr>
-    <tr><td>Bot Architecture</td><td>Same as MV — swap KB file + update SOUL.md</td></tr>
-    <tr><td>ChromaDB</td><td><span class="badge by">Not built yet</span> — will be created at deployment</td></tr>
+    <tr><td>Architecture</td><td>Same as MV — swap KB file + update SOUL.md</td></tr>
+    <tr><td>ChromaDB</td><td><span class="badge by">Not built yet</span></td></tr>
   </table>
 </div>
 
-<div class="note">⚠️ <strong>Action for Aida:</strong> BOV spay/neuter prices from CSV need verification — please confirm if CBC and Chem 10 are included in the package prices.</div>
+<div class="note">⚠️ <strong>Action for Aida:</strong> BOV spay/neuter prices need verification — confirm if CBC and Chem 10 are included in the package prices.</div>
 
 <div class="section">
   <h2>📌 Next Steps</h2>
   <ul style="padding-left:20px;font-size:13px;line-height:1.8">
     <li>Verify spay/neuter pricing (Aida)</li>
-    <li>Add BOV-specific neighbourhood mapping</li>
-    <li>Add BOV-specific doctor entries (currently shared from vet matrix)</li>
+    <li>Add BOV neighbourhood mapping (DIP, Damac Hills 2 catchment)</li>
+    <li>Add BOV-specific doctor entries</li>
     <li>Build ChromaDB for BOV</li>
-    <li>Create BOV SOUL.md (based on MV template, adjust branches + pricing)</li>
+    <li>Create BOV SOUL.md (adjust branches + pricing from MV template)</li>
     <li>Deploy as separate WhatsApp number</li>
   </ul>
 </div>
-
 </div>
 
 <!-- ========== TAB 3: VIENNA VET ========== -->
@@ -192,52 +327,56 @@ tr:hover{background:#f5fafa}
   <div class="card"><div class="num">98</div><div class="label">Q&A Pairs</div></div>
   <div class="card"><div class="num">1</div><div class="label">Branch</div></div>
   <div class="card"><div class="num">⭐</div><div class="label">ISFM Gold</div></div>
-  <div class="card"><div class="num"><span class="badge by" style="font-size:16px">Pending</span></div><div class="label">Status</div></div>
+  <div class="card"><div class="num"><span class="badge by" style="font-size:14px">Pending</span></div><div class="label">Status</div></div>
+</div>
+
+<div class="section">
+  <h2>📈 Coverage Progress</h2>
+  <div class="progress-wrap"><div class="progress-bar" style="width:25%">~25% ready</div></div>
+  <p style="font-size:12px;color:#888;margin-top:6px">98 entries extracted from main KB. Needs VV-specific charity/rescue content, cat-focused SOUL.md, and neighbourhood mapping.</p>
 </div>
 
 <div class="section">
   <h2>📋 Status</h2>
-  <p>98 Q&A entries extracted from main KB and saved to <code>kb_vv.json</code>. Ready for future bot deployment.</p>
-  <br>
   <table>
     <tr><th>Item</th><th>Detail</th></tr>
     <tr><td>KB File</td><td><code>kb_vv.json</code> (98 entries)</td></tr>
     <tr><td>Branch</td><td>Umm Suqeim</td></tr>
     <tr><td>Special</td><td><span class="badge bb">ISFM Gold Standard</span> — certified cat-friendly clinic</td></tr>
     <tr><td>Charity/Rescue</td><td>Handles TNR, stray animals, rescue cases</td></tr>
-    <tr><td>Bot Architecture</td><td>Same as MV — swap KB file + update SOUL.md</td></tr>
     <tr><td>ChromaDB</td><td><span class="badge by">Not built yet</span></td></tr>
   </table>
 </div>
 
 <div class="section">
   <h2>🐱 ISFM Gold Standard</h2>
-  <p style="font-size:13px">Vienna Vet holds the <strong>ISFM Gold Standard</strong> certification — the highest international standard for cat-friendly veterinary care. This means separate cat waiting areas, low-stress handling techniques, and specially trained staff. MV's WhatsApp bot redirects charity/stray cases here.</p>
+  <p style="font-size:13px">Vienna Vet holds the <strong>ISFM Gold Standard</strong> — the highest international standard for cat-friendly care. Separate cat waiting areas, low-stress handling, specially trained staff. MV's WhatsApp bot redirects charity/stray cases here.</p>
 </div>
 
 <div class="section">
   <h2>📌 Next Steps</h2>
   <ul style="padding-left:20px;font-size:13px;line-height:1.8">
-    <li>Add VV-specific charity/rescue pricing and processes</li>
-    <li>Add VV neighbourhood mapping (Umm Suqeim area)</li>
-    <li>Update doctor entries for VV-specific staff</li>
+    <li>Add VV charity/rescue pricing and processes</li>
+    <li>Add VV neighbourhood mapping (Umm Suqeim catchment)</li>
+    <li>Update doctor entries for VV staff</li>
     <li>Build ChromaDB for VV</li>
-    <li>Create VV SOUL.md (cat-focused, charity emphasis)</li>
+    <li>Create cat-focused SOUL.md (ISFM emphasis, charity)</li>
     <li>Deploy as separate WhatsApp number</li>
   </ul>
 </div>
-
 </div>
 
 <p class="footer">Vet Alliance &bull; vetalliance.website &bull; Built by Cheshire 😸</p>
 </div>
 
 <script>
-function switchTab(id) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
-  event.target.classList.add('active');
+function switchTab(id){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
+  document.getElementById('tab-'+id).classList.add('active');
+  var tabs=document.querySelectorAll('.tab');
+  var map={mv:0,bov:1,vv:2};
+  tabs[map[id]].classList.add('active');
 }
 </script>
 </body>
