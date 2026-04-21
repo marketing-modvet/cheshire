@@ -63,8 +63,8 @@ details summary{cursor:pointer;color:#015962;font-weight:600;font-size:13px}
 <div class="tab-content active" id="tab-mv">
 
 <div class="grid">
-  <div class="card"><div class="num">699</div><div class="label">Q&A Pairs</div></div>
-  <div class="card"><div class="num">82</div><div class="label">Doctor Profiles</div></div>
+  <div class="card"><div class="num">700</div><div class="label">Q&A Pairs</div></div>
+  <div class="card"><div class="num">65</div><div class="label">Doctor Profiles</div></div>
   <div class="card"><div class="num">81</div><div class="label">Areas Mapped</div></div>
   <div class="card"><div class="num">2</div><div class="label">Gaps Left</div></div>
 </div>
@@ -75,7 +75,7 @@ details summary{cursor:pointer;color:#015962;font-weight:600;font-size:13px}
   <div style="display:flex;justify-content:space-between;font-size:11px;color:#888;margin-top:4px">
     <span>Apr 15: 170 Q&As</span>
     <span>Apr 20: 707</span>
-    <span>Apr 21: <strong>699 (MV-only)</strong></span>
+    <span>Apr 21: <strong>700 (MV-only)</strong></span>
     <span>Target: ~720</span>
   </div>
 </div>
@@ -87,7 +87,7 @@ details summary{cursor:pointer;color:#015962;font-weight:600;font-size:13px}
     <tr><td>FAQ</td><td>185</td><td>26%</td><td>General questions, symptoms, pet care, Dubai rules</td></tr>
     <tr><td>Location Mapping</td><td>162</td><td>23%</td><td>81 Dubai areas × 2 phrasings ("I live in" + "closest to")</td></tr>
     <tr><td>Pricing</td><td>115</td><td>16%</td><td>Consultations, packages, grooming, spay/neuter, taxi</td></tr>
-    <tr><td>Doctors</td><td>82</td><td>12%</td><td>56 individual + 5 branch lists + 21 specialty/language</td></tr>
+    <tr><td>Doctors</td><td>82</td><td>12%</td><td>56 individual + 7 team listings (5 clinics + Hospital + Mobile) + 20 specialty</td></tr>
     <tr><td>Services</td><td>58</td><td>8%</td><td>Grooming, travel, endoscopy, physio, holistic, etc.</td></tr>
     <tr><td>General</td><td>33</td><td>5%</td><td>Greetings, complaints, WhatsApp flows, Arabic</td></tr>
     <tr><td>Booking</td><td>28</td><td>4%</td><td>Scheduling, rescheduling, availability</td></tr>
@@ -104,11 +104,11 @@ details summary{cursor:pointer;color:#015962;font-weight:600;font-size:13px}
   <table>
     <tr><th>Type</th><th>Count</th><th>Details</th></tr>
     <tr><td>Individual doctor profiles</td><td>56</td><td>Name, branch, nationality, languages, specialties</td></tr>
-    <tr><td>Branch team listings</td><td>5</td><td>"Who are the doctors at [branch]?" with full team list</td></tr>
+    <tr><td>Branch/team listings</td><td>7</td><td>5 clinics (JLT, JVC, Palm, Downtown, Azizi) + Hospital + Mobile Clinic</td></tr>
     <tr><td>Language matching</td><td>5</td><td>Russian, Arabic, Spanish + language-specific search</td></tr>
     <tr><td>Specialist lookups</td><td>16</td><td>Ophthalmology, cardiology, ortho, neuro, derma, etc.</td></tr>
   </table>
-  <p style="font-size:12px;color:#888;margin-top:6px">Source: Vet Matrix (57 vets), manually enriched with language skills and human-friendly descriptions. Hospital vets flagged as non-consulting (surgery/specialist only).</p>
+  <p style="font-size:12px;color:#888;margin-top:6px">Source: Vet Matrix (57 vets), manually enriched with language skills and human-friendly descriptions. Hospital vets = non-consulting. Al Khawaneej under renovation. TVRC = B2B only.</p>
 </div>
 
 <div class="section">
@@ -124,7 +124,7 @@ details summary{cursor:pointer;color:#015962;font-weight:600;font-size:13px}
     <div class="tl-item"><span class="date">Apr 21 PM</span> — +38 generated (breeds, senior pets, symptoms, seasonal, WhatsApp flows, Arabic)</div>
     <div class="tl-item"><span class="date">Apr 21 PM</span> — +99 location variants (81 areas × "closest to" phrasing + 18 new areas)</div>
     <div class="tl-item"><span class="date">Apr 21 PM</span> — Simulation #2 (20 new questions) → 95% hit rate, 1 weak match fixed</div>
-    <div class="tl-item"><span class="date">Now</span> — <strong>699 entries</strong>, 28/30 gaps closed, ChromaDB rebuilt</div>
+    <div class="tl-item"><span class="date">Now</span> — <strong>700 entries</strong>, 28/30 gaps closed, Al Khawaneej (renovation) + TVRC (B2B) removed</div>
   </div>
 </div>
 
@@ -253,7 +253,7 @@ details summary{cursor:pointer;color:#015962;font-weight:600;font-size:13px}
 <div class="section">
   <h2>🏗️ Infrastructure</h2>
   <table>
-    <tr><td>ChromaDB</td><td><span class="badge bg">Rebuilt — 699 docs</span></td></tr>
+    <tr><td>ChromaDB</td><td><span class="badge bg">Rebuilt — 700 docs</span></td></tr>
     <tr><td>Conversation Memory</td><td><span class="badge bg">24h client context</span></td></tr>
     <tr><td>Build Scripts</td><td><span class="badge bg">Saved — uploads/scripts/ (17 files)</span></td></tr>
     <tr><td>Telegram</td><td><span class="badge br">Disabled</span></td></tr>
