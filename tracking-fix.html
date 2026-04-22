@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tracking Fix Guide — modernvet.com</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --surface2: #1a1e28;
+    --border: #252936;
+    --accent: #4ade80;
+    --accent2: #60a5fa;
+    --accent3: #f59e0b;
+    --red: #f87171;
+    --text: #e8eaf0;
+    --muted: #6b7280;
+    --serif: 'DM Serif Display', serif;
+    --sans: 'DM Sans', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* Layout */
+  .layout { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+
+  /* Sidebar */
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 32px 0;
+  }
+
+  .sidebar-logo {
+    padding: 0 24px 24px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+
+  .sidebar-logo .brand {
+    font-family: var(--serif);
+    font-size: 20px;
+    color: var(--text);
+    display: block;
+  }
+
+  .sidebar-logo .sub {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 2px;
+  }
+
+  .sidebar-section {
+    padding: 0 16px;
+    margin-bottom: 8px;
+  }
+
+  .sidebar-section-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    padding: 8px 8px 4px;
+  }
+
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 8px;
+    border-radius: 8px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 400;
+    transition: all 0.15s;
+    cursor: pointer;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+  }
+
+  .sidebar-link:hover { background: var(--surface2); color: var(--text); }
+  .sidebar-link.active { background: rgba(74, 222, 128, 0.08); color: var(--accent); }
+  .sidebar-link.done .step-dot { background: var(--accent); }
+
+  .step-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+
+  .sidebar-link.active .step-dot {
+    background: var(--accent);
+    color: #000;
+  }
+
+  /* Main content */
+  .main { padding: 48px 64px; max-width: 860px; }
+
+  .page-header { margin-bottom: 48px; }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: 40px;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .intro {
+    color: var(--muted);
+    font-size: 16px;
+    max-width: 600px;
+  }
+
+  /* Status bar */
+  .status-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 48px;
+    padding: 16px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+
+  .status-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .status-dot.red { background: var(--red); box-shadow: 0 0 6px var(--red); }
+  .status-dot.green { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+  .status-dot.yellow { background: var(--accent3); box-shadow: 0 0 6px var(--accent3); }
+  .status-divider { width: 1px; background: var(--border); }
+
+  /* Steps */
+  .step { display: none; }
+  .step.active { display: block; }
+
+  .step-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(74, 222, 128, 0.12);
+    border: 1px solid rgba(74, 222, 128, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .step-title { font-family: var(--serif); font-size: 28px; line-height: 1.2; margin-bottom: 6px; }
+  .step-subtitle { color: var(--muted); font-size: 14px; }
+
+  /* Alert boxes */
+  .alert {
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .alert-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .alert.critical { background: rgba(248, 113, 113, 0.08); border: 1px solid rgba(248, 113, 113, 0.2); color: #fca5a5; }
+  .alert.info { background: rgba(96, 165, 250, 0.08); border: 1px solid rgba(96, 165, 250, 0.2); color: #93c5fd; }
+  .alert.success { background: rgba(74, 222, 128, 0.08); border: 1px solid rgba(74, 222, 128, 0.2); color: #86efac; }
+  .alert.warning { background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.2); color: #fcd34d; }
+
+  /* Instructions */
+  .instructions { margin-bottom: 32px; }
+  .instructions h3 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 16px; }
+
+  .instruction-list { list-style: none; counter-reset: steps; }
+
+  .instruction-item {
+    counter-increment: steps;
+    display: flex;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .instruction-item:last-child { border-bottom: none; margin-bottom: 0; }
+
+  .instruction-item::before {
+    content: counter(steps);
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent2);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .instruction-content { flex: 1; }
+  .instruction-content strong { color: var(--text); font-weight: 600; }
+  .instruction-content p { color: var(--muted); font-size: 14px; margin-top: 4px; }
+
+  /* Code / path */
+  .path {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--accent2);
+    margin: 6px 0;
+  }
+
+  .code-block {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: #a5f3fc;
+    margin: 12px 0;
+    white-space: pre-wrap;
+    word-break: break-all;
+    line-height: 1.8;
+  }
+
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+  .tag-red { background: rgba(248,113,113,0.12); color: var(--red); border: 1px solid rgba(248,113,113,0.2); }
+  .tag-green { background: rgba(74,222,128,0.12); color: var(--accent); border: 1px solid rgba(74,222,128,0.2); }
+  .tag-blue { background: rgba(96,165,250,0.12); color: var(--accent2); border: 1px solid rgba(96,165,250,0.2); }
+  .tag-amber { background: rgba(245,158,11,0.12); color: var(--accent3); border: 1px solid rgba(245,158,11,0.2); }
+
+  /* Screenshot placeholder */
+  .screenshot {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin: 16px 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .screenshot-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  /* Mock UI */
+  .mock-ui {
+    background: #1e2130;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 8px 0;
+    font-size: 13px;
+  }
+
+  .mock-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .mock-checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    margin-bottom: 4px;
+  }
+
+  .mock-checkbox-row.highlight { background: rgba(74,222,128,0.06); border: 1px solid rgba(74,222,128,0.15); }
+  .mock-check { width: 16px; height: 16px; border-radius: 3px; background: var(--accent); display: inline-flex; align-items: center; justify-content: center; font-size: 10px; }
+  .mock-uncheck { width: 16px; height: 16px; border-radius: 3px; border: 1.5px solid var(--border); display: inline-block; }
+  .mock-textarea { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; font-family: var(--mono); font-size: 12px; color: var(--accent2); width: 100%; margin-top: 8px; }
+
+  /* Navigation */
+  .step-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    font-family: var(--sans);
+    transition: all 0.15s;
+  }
+
+  .btn-primary { background: var(--accent); color: #000; }
+  .btn-primary:hover { background: #22c55e; }
+  .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+  .btn-secondary:hover { background: var(--border); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .progress-text { font-size: 13px; color: var(--muted); }
+
+  /* Divider */
+  .divider { height: 1px; background: var(--border); margin: 28px 0; }
+
+  /* Table */
+  .fix-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13.5px; }
+  .fix-table th { text-align: left; padding: 10px 14px; background: var(--surface2); color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+  .fix-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .fix-table tr:last-child td { border-bottom: none; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-logo">
+      <span class="brand">Tracking Fixes</span>
+      <span class="sub">modernvet.com · April 2026</span>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Overview</div>
+      <a class="sidebar-link active" onclick="goTo(0)" id="nav-0">
+        <div class="step-dot">●</div> What's Broken
+      </a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Fixes</div>
+      <a class="sidebar-link" onclick="goTo(1)" id="nav-1">
+        <div class="step-dot">1</div> WP Rocket — Fix GTM
+      </a>
+      <a class="sidebar-link" onclick="goTo(2)" id="nav-2">
+        <div class="step-dot">2</div> GTM — Add Ads Conversions
+      </a>
+      <a class="sidebar-link" onclick="goTo(3)" id="nav-3">
+        <div class="step-dot">3</div> Google Ads — Conversion Actions
+      </a>
+      <a class="sidebar-link" onclick="goTo(4)" id="nav-4">
+        <div class="step-dot">4</div> GA4 — Cross-Domain Tracking
+      </a>
+      <a class="sidebar-link" onclick="goTo(5)" id="nav-5">
+        <div class="step-dot">5</div> GA4 — Clean Up Events
+      </a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Done</div>
+      <a class="sidebar-link" onclick="goTo(6)" id="nav-6">
+        <div class="step-dot">✓</div> Verify Everything
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="main">
+
+    <!-- Step 0: Overview -->
+    <div class="step active" id="step-0">
+      <div class="page-header">
+        <div class="eyebrow">modernvet.com · Tracking Audit</div>
+        <h1>What's Broken & Why</h1>
+        <p class="intro">Cheshire ran a full GTM + GA4 audit. Here's what was found and what needs fixing — in priority order.</p>
+      </div>
+
+      <div class="status-bar">
+        <div class="status-item"><div class="status-dot red"></div> 2 Critical</div>
+        <div class="status-divider"></div>
+        <div class="status-item"><div class="status-dot yellow"></div> 3 Medium</div>
+        <div class="status-divider"></div>
+        <div class="status-item"><div class="status-dot green"></div> Booking purchase → Ads ✓</div>
+      </div>
+
+      <table class="fix-table">
+        <thead>
+          <tr>
+            <th>Issue</th>
+            <th>Impact</th>
+            <th>Fix</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tag tag-red">Critical</span><br><strong>WP Rocket delays GTM</strong><br><span style="color:var(--muted);font-size:13px;">GTM loads as <code style="color:#a5f3fc;font-size:12px;">rocketlazyloadscript</code> — click listeners miss phone + WhatsApp taps. Caused the April 80% drop.</span></td>
+            <td>−80% phone &amp; WhatsApp tracking</td>
+            <td>Step 1</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-red">Critical</span><br><strong>No Google Ads conversions for phone or WhatsApp</strong><br><span style="color:var(--muted);font-size:13px;">Events go to GA4 only. Ads is running blind — zero conversion signals from your two biggest contact channels.</span></td>
+            <td>Ads bidding with no data</td>
+            <td>Steps 2–3</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-amber">Medium</span><br><strong>No cross-domain tracking</strong><br><span style="color:var(--muted);font-size:13px;">Session breaks when user goes from modernvet.com → book.floof.ae. Can't see which campaign drove a booking.</span></td>
+            <td>Attribution lost on bookings</td>
+            <td>Step 4</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-amber">Medium</span><br><strong>Duplicate payment events</strong><br><span style="color:var(--muted);font-size:13px;"><code style="color:#a5f3fc;font-size:12px;">successful_payment</code> + <code style="color:#a5f3fc;font-size:12px;">book_successful_payment</code> both fire on the same page. One sends to the wrong stream.</span></td>
+            <td>Inflated conversion counts</td>
+            <td>Step 5</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-amber">Medium</span><br><strong>Outbound clicks double-firing</strong><br><span style="color:var(--muted);font-size:13px;">Enhanced measurement fires outbound click events automatically, overlapping with manual phone/WhatsApp tags.</span></td>
+            <td>Event noise in GA4</td>
+            <td>Step 5</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="alert success">
+        <div class="alert-icon">✅</div>
+        <div><strong>Booking purchase → Google Ads is working.</strong> bookme.modernvet.com GTM sends purchase with value, transaction ID, and currency. Don't touch this.</div>
+      </div>
+
+      <div class="step-nav">
+        <div></div>
+        <button class="btn btn-primary" onclick="goTo(1)">Start with Fix 1 →</button>
+      </div>
+    </div>
+
+    <!-- Step 1: WP Rocket -->
+    <div class="step" id="step-1">
+      <div class="step-header">
+        <div class="step-number">1</div>
+        <div>
+          <div class="step-title">Fix WP Rocket — Stop Delaying GTM</div>
+          <div class="step-subtitle">WP Admin → WP Rocket → File Optimization</div>
+        </div>
+      </div>
+
+      <div class="alert critical">
+        <div class="alert-icon">🔴</div>
+        <div><strong>This is the #1 priority.</strong> GTM currently loads delayed — phone clicks and WhatsApp clicks are invisible to GA4 and Ads. This one fix restores ~80% of your lost tracking.</div>
+      </div>
+
+      <div class="instructions">
+        <h3>Step-by-step</h3>
+        <ol class="instruction-list">
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Go to WP Rocket settings</strong>
+              <p>In WordPress admin, navigate to:</p>
+              <div class="path">WP Admin → Settings → WP Rocket → File Optimization</div>
+              <p>Or use this direct URL:</p>
+              <div class="code-block">https://modernvet.com/wp-admin/admin.php?page=wprocket#file-optimization</div>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Find "Delay JavaScript Execution"</strong>
+              <p>Scroll down to the <strong>Delay JavaScript Execution</strong> section. It should be enabled (toggle is on). That's fine — we just need to exclude GTM and CallGear.</p>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Tick "Google Tag Manager" in the one-click list</strong>
+              <p>Under <strong>"3rd parties → Analytics & Trackers"</strong>, tick the checkbox for <strong>Google Tag Manager</strong>. Google Analytics should already be ticked — leave it.</p>
+              <div class="mock-ui">
+                <div class="mock-label">Analytics &amp; Trackers</div>
+                <div class="mock-checkbox-row">
+                  <div class="mock-check">✓</div> Google Analytics
+                </div>
+                <div class="mock-checkbox-row highlight">
+                  <div class="mock-check">✓</div> <strong>Google Tag Manager</strong> ← tick this
+                </div>
+                <div class="mock-checkbox-row">
+                  <div class="mock-uncheck"></div> Google Optimize
+                </div>
+                <div class="mock-checkbox-row">
+                  <div class="mock-uncheck"></div> HubSpot
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Add CallGear to manual exclusions</strong>
+              <p>Scroll further to find the <strong>"Excluded JavaScript Files"</strong> textarea. It currently contains <code style="color:#a5f3fc;font-family:var(--mono)">JoiiChat.iife.js</code>. Add <code style="color:#a5f3fc;font-family:var(--mono)">app.callgear</code> on a new line:</p>
+              <div class="mock-ui">
+                <div class="mock-label">Excluded JavaScript Files</div>
+                <div class="mock-textarea">JoiiChat.iife.js
+app.callgear</div>
+              </div>
+              <p>One entry per line. Don't remove JoiiChat.</p>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Save Changes</strong>
+              <p>Click the <strong>Save Changes</strong> button at the bottom of the page.</p>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Clear all caches</strong>
+              <p>Go to <strong>WP Rocket → Dashboard</strong> and click <strong>"Clear Cache"</strong>. Also clear Cloudflare cache if enabled.</p>
+              <div class="path">WP Admin → WP Rocket → Dashboard → Clear Cache</div>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Verify in browser</strong>
+              <p>Open <strong>modernvet.com</strong> in a new incognito window → right-click → View Page Source → search for <code style="color:#a5f3fc;font-family:var(--mono)">GTM-KRHZL582</code>. It should appear inside a normal <code style="color:#a5f3fc;font-family:var(--mono)">&lt;script&gt;</code> tag, NOT as <code style="color:var(--red);font-family:var(--mono)">type="rocketlazyloadscript"</code>.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="alert success">
+        <div class="alert-icon">✅</div>
+        <div>Once done, GA4 and CallGear will both load immediately on page load. Phone click and WhatsApp tracking will be restored within hours.</div>
+      </div>
+
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="goTo(0)">← Back</button>
+        <div class="progress-text">Step 1 of 5</div>
+        <button class="btn btn-primary" onclick="goTo(2)">Next: Add Ads Conversions →</button>
+      </div>
+    </div>
+
+    <!-- Step 2: GTM Ads tags -->
+    <div class="step" id="step-2">
+      <div class="step-header">
+        <div class="step-number">2</div>
+        <div>
+          <div class="step-title">GTM — Add Google Ads Conversion Tags</div>
+          <div class="step-subtitle">tagmanager.google.com → Modern Vet New (GTM-KRHZL582)</div>
+        </div>
+      </div>
+
+      <div class="alert info">
+        <div class="alert-icon">ℹ️</div>
+        <div><strong>Do Step 3 first if you don't have conversion labels yet.</strong> You need two conversion label codes from Google Ads before creating these tags. If you already have them, continue here.</div>
+      </div>
+
+      <div class="alert warning">
+        <div class="alert-icon">⚠️</div>
+        <div>You need two <strong>Conversion Labels</strong> from Google Ads (looks like <code style="font-family:var(--mono);font-size:12px;">AbCdEfGhIjKlMnOp</code>). Get them in Step 3, then come back here.</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="instructions">
+        <h3>Create Tag A — Phone Call Conversion</h3>
+        <ol class="instruction-list">
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Open GTM → Modern Vet New container</strong>
+              <div class="code-block">https://tagmanager.google.com/#/container/accounts/4701553509/containers/226714782</div>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>New Tag → Google Ads Conversion Tracking</strong>
+              <p>Tags → New → Tag Configuration → <strong>Google Ads Conversion Tracking</strong></p>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Fill in the tag settings</strong>
+              <div class="mock-ui">
+                <div style="margin-bottom:10px;"><div class="mock-label">Tag name</div><div style="color:var(--text);">GAds — Phone Call Conversion</div></div>
+                <div style="margin-bottom:10px;"><div class="mock-label">Conversion ID</div><div style="color:#a5f3fc;font-family:var(--mono);">785228984</div></div>
+                <div style="margin-bottom:10px;"><div class="mock-label">Conversion Label</div><div style="color:#a5f3fc;font-family:var(--mono);">[paste label from Step 3]</div></div>
+                <div style="margin-bottom:10px;"><div class="mock-label">Conversion Value</div><div style="color:var(--muted);">leave empty</div></div>
+                <div><div class="mock-label">Currency Code</div><div style="color:var(--muted);">AED</div></div>
+              </div>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Set trigger → "Click on Phone"</strong>
+              <p>Under Triggering, select the existing trigger: <strong>Click on Phone</strong> (fires on <code style="color:#a5f3fc;font-family:var(--mono)">tel:</code> links)</p>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Save</strong>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="instructions">
+        <h3>Create Tag B — WhatsApp Conversion</h3>
+        <ol class="instruction-list">
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>New Tag → Google Ads Conversion Tracking</strong>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Fill in the tag settings</strong>
+              <div class="mock-ui">
+                <div style="margin-bottom:10px;"><div class="mock-label">Tag name</div><div style="color:var(--text);">GAds — WhatsApp Conversion</div></div>
+                <div style="margin-bottom:10px;"><div class="mock-label">Conversion ID</div><div style="color:#a5f3fc;font-family:var(--mono);">785228984</div></div>
+                <div style="margin-bottom:10px;"><div class="mock-label">Conversion Label</div><div style="color:#a5f3fc;font-family:var(--mono);">[paste label from Step 3]</div></div>
+                <div style="margin-bottom:10px;"><div class="mock-label">Conversion Value</div><div style="color:var(--muted);">leave empty</div></div>
+                <div><div class="mock-label">Currency Code</div><div style="color:var(--muted);">AED</div></div>
+              </div>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Set trigger → "WhatsApp"</strong>
+              <p>Select existing trigger: <strong>WhatsApp</strong> (fires on links containing <code style="color:#a5f3fc;font-family:var(--mono)">whatsapp</code>)</p>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Save, then Submit the workspace</strong>
+              <p>Top right → <strong>Submit</strong> → Add version name "Add Ads conversion tags for phone + WhatsApp" → <strong>Publish</strong></p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="goTo(1)">← Back</button>
+        <div class="progress-text">Step 2 of 5</div>
+        <button class="btn btn-primary" onclick="goTo(3)">Next: Get Conversion Labels →</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Google Ads -->
+    <div class="step" id="step-3">
+      <div class="step-header">
+        <div class="step-number">3</div>
+        <div>
+          <div class="step-title">Google Ads — Create Conversion Actions</div>
+          <div class="step-subtitle">ads.google.com → Goals → Conversions</div>
+        </div>
+      </div>
+
+      <div class="alert info">
+        <div class="alert-icon">ℹ️</div>
+        <div>You need to create <strong>2 new conversion actions</strong> in Google Ads — one for phone calls, one for WhatsApp clicks. Each gives you a conversion label to paste into GTM (Step 2).</div>
+      </div>
+
+      <div class="instructions">
+        <h3>Create Conversion Action: Phone Call</h3>
+        <ol class="instruction-list">
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Go to Google Ads Goals</strong>
+              <div class="code-block">ads.google.com → Goals → Conversions → Summary → + New conversion action</div>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Choose "Website"</strong>
+              <p>Select <strong>Website</strong> as the conversion source.</p>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Fill in settings</strong>
+              <div class="mock-ui">
+                <div style="margin-bottom:10px;"><div class="mock-label">Category</div><div style="color:var(--text);">Contact → Phone call leads</div></div>
+                <div style="margin-bottom:10px;"><div class="mock-label">Conversion name</div><div style="color:var(--text);">Phone Call Click</div></div>
+                <div style="margin-bottom:10px;"><div class="mock-label">Value</div><div style="color:var(--muted);">Don't use a value (or set AED 200 as estimated lead value)</div></div>
+                <div style="margin-bottom:10px;"><div class="mock-label">Count</div><div style="color:var(--text);">One (one conversion per click is enough)</div></div>
+                <div style="margin-bottom:10px;"><div class="mock-label">Click-through window</div><div style="color:var(--text);">30 days</div></div>
+                <div><div class="mock-label">Attribution model</div><div style="color:var(--text);">Data-driven (or Last click)</div></div>
+              </div>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Choose "Use Google Tag Manager"</strong>
+              <p>When asked how to set up the tag, select <strong>"Use Google Tag Manager"</strong>. You'll see:</p>
+              <div class="code-block">Conversion ID: 785228984
+Conversion Label: [something like AbCdEfGhIjKlMnOp12]</div>
+              <p>Copy the <strong>Conversion Label</strong> — you need it in Step 2.</p>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Done → repeat for WhatsApp</strong>
+              <p>Click Done. Now create a second conversion action with the same steps but name it <strong>"WhatsApp Click"</strong>, category: <strong>Contact → Messaging</strong>. Copy its label too.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="alert success">
+        <div class="alert-icon">✅</div>
+        <div>Once you have both labels, go back to <strong>Step 2</strong> and paste them into the GTM tags.</div>
+      </div>
+
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="goTo(2)">← Back</button>
+        <div class="progress-text">Step 3 of 5</div>
+        <button class="btn btn-primary" onclick="goTo(4)">Next: Cross-Domain →</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Cross-domain -->
+    <div class="step" id="step-4">
+      <div class="step-header">
+        <div class="step-number">4</div>
+        <div>
+          <div class="step-title">GA4 — Cross-Domain Tracking</div>
+          <div class="step-subtitle">analytics.google.com → Admin → Data Streams</div>
+        </div>
+      </div>
+
+      <div class="alert info">
+        <div class="alert-icon">ℹ️</div>
+        <div>When a user goes from <strong>modernvet.com → book.floof.ae</strong>, GA4 currently treats it as two separate sessions. Cross-domain linking passes the session ID across so you can see the full journey in one session.</div>
+      </div>
+
+      <div class="instructions">
+        <h3>Set up cross-domain in GA4</h3>
+        <ol class="instruction-list">
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Open GA4 Admin → Data Streams</strong>
+              <div class="code-block">analytics.google.com → Admin (bottom left) → Data Streams → modernvet.com (G-PDRSCBMJL0)</div>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Scroll to "Configure tag settings"</strong>
+              <p>Click <strong>"Configure tag settings"</strong> at the bottom of the stream settings page.</p>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Find "Configure your domains"</strong>
+              <p>Click <strong>"Configure your domains"</strong> — this is where cross-domain is set up.</p>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Add both domains</strong>
+              <div class="mock-ui">
+                <div class="mock-label">Match type: Contains</div>
+                <div style="margin-bottom:8px;color:#a5f3fc;font-family:var(--mono);">modernvet.com</div>
+                <div style="color:#a5f3fc;font-family:var(--mono);">book.floof.ae</div>
+              </div>
+              <p>Click <strong>Save</strong>.</p>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Repeat for book.floof.ae stream</strong>
+              <p>Go back to Data Streams → <strong>book.floof.ae (G-JE3Q11XD2D)</strong> → same steps, same two domains.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="alert warning">
+        <div class="alert-icon">⚠️</div>
+        <div>The GTM Conversion Linker in <strong>bookme.modernvet.com</strong> (GTM-KMW364NM) currently lists <code style="font-family:var(--mono);font-size:12px;">bookme.modernvet.com</code> as the linked domain. This should be <code style="font-family:var(--mono);font-size:12px;">book.floof.ae</code>. Update it in GTM → bookme container → GAds Conversion Linker tag → linkerDomains → change to <code style="font-family:var(--mono);font-size:12px;">modernvet.com, book.floof.ae</code>.</div>
+      </div>
+
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="goTo(3)">← Back</button>
+        <div class="progress-text">Step 4 of 5</div>
+        <button class="btn btn-primary" onclick="goTo(5)">Next: Clean Up Events →</button>
+      </div>
+    </div>
+
+    <!-- Step 5: Cleanup -->
+    <div class="step" id="step-5">
+      <div class="step-header">
+        <div class="step-number">5</div>
+        <div>
+          <div class="step-title">GA4 — Clean Up Duplicate Events</div>
+          <div class="step-subtitle">analytics.google.com + GTM-KRHZL582</div>
+        </div>
+      </div>
+
+      <div class="instructions">
+        <h3>Fix A — Remove duplicate payment tag in GTM</h3>
+        <ol class="instruction-list">
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Open GTM-KRHZL582 → Tags</strong>
+              <p>Find the tag <strong>"GA4 - Book successful payment"</strong> (id:15). It fires on <code style="color:#a5f3fc;font-family:var(--mono)">?tab=orders</code> and sends <code style="color:#a5f3fc;font-family:var(--mono)">book_successful_payment</code> to the <strong>book.floof.ae</strong> stream (<code style="color:#a5f3fc;font-family:var(--mono)">G-JE3Q11XD2D</code>).</p>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Check if this event is needed</strong>
+              <p>The same event is tracked properly on <strong>bookme.modernvet.com</strong> container. This tag in the main container fires on a URL pattern (<code style="color:#a5f3fc;font-family:var(--mono)">?tab=orders</code>) that may not exist on modernvet.com anymore.</p>
+              <p>Open the GTM Preview mode and check if it actually fires on any real page. If not — <strong>pause or delete it</strong>.</p>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Fix the stream if keeping it</strong>
+              <p>If you want to keep it, change <code style="color:#a5f3fc;font-family:var(--mono)">measurementIdOverride</code> from <code style="color:var(--red);font-family:var(--mono)">G-JE3Q11XD2D</code> to <code style="color:#a5f3fc;font-family:var(--mono)">G-PDRSCBMJL0</code> (main site stream).</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="instructions">
+        <h3>Fix B — Disable outbound clicks (prevents double-firing)</h3>
+        <ol class="instruction-list">
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Go to GA4 → Admin → Data Streams → modernvet.com</strong>
+              <p>Click <strong>"Enhanced measurement"</strong> (the gear icon next to the toggle).</p>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Turn off "Outbound clicks"</strong>
+              <p>The <strong>Outbound clicks</strong> setting automatically fires on any link leaving the domain — including phone <code style="color:#a5f3fc;font-family:var(--mono)">tel:</code> links and WhatsApp links. Since you're tracking those manually with better event names, turn this off.</p>
+              <div class="mock-ui">
+                <div class="mock-checkbox-row"><div class="mock-check">✓</div> Page views — keep on</div>
+                <div class="mock-checkbox-row"><div class="mock-check">✓</div> Scrolls — keep on</div>
+                <div class="mock-checkbox-row highlight"><div class="mock-uncheck"></div> <strong>Outbound clicks → turn OFF</strong></div>
+                <div class="mock-checkbox-row"><div class="mock-check">✓</div> Site search — keep on</div>
+                <div class="mock-checkbox-row"><div class="mock-check">✓</div> Video engagement — keep on</div>
+              </div>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Save</strong>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="goTo(4)">← Back</button>
+        <div class="progress-text">Step 5 of 5</div>
+        <button class="btn btn-primary" onclick="goTo(6)">Verify Everything →</button>
+      </div>
+    </div>
+
+    <!-- Step 6: Verify -->
+    <div class="step" id="step-6">
+      <div class="step-header">
+        <div class="step-number">✓</div>
+        <div>
+          <div class="step-title">Verify Everything Works</div>
+          <div class="step-subtitle">GTM Preview + GA4 Realtime + Ads Conversion Status</div>
+        </div>
+      </div>
+
+      <div class="instructions">
+        <h3>GTM Preview Test</h3>
+        <ol class="instruction-list">
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Open GTM Preview mode</strong>
+              <div class="code-block">GTM → Modern Vet New → Preview → Enter URL: https://modernvet.com</div>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Test phone click</strong>
+              <p>Click any phone number on the site. In GTM Preview panel, you should see:</p>
+              <div class="code-block">gtm.linkClick fired
+→ GA4 - Click on Phone ✓
+→ GAds — Phone Call Conversion ✓</div>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Test WhatsApp click</strong>
+              <p>Click any WhatsApp button. You should see:</p>
+              <div class="code-block">gtm.linkClick fired
+→ GA4 - WhatsApp ✓
+→ GAds — WhatsApp Conversion ✓</div>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="instructions">
+        <h3>GA4 Realtime Check</h3>
+        <ol class="instruction-list">
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Open GA4 Realtime</strong>
+              <div class="code-block">analytics.google.com → Reports → Realtime</div>
+              <p>Browse the site and click a phone number. Within 30 seconds you should see <code style="color:#a5f3fc;font-family:var(--mono)">click_on_phone</code> appear in the event stream.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="instructions">
+        <h3>Google Ads Conversion Status</h3>
+        <ol class="instruction-list">
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Check conversion status in Ads</strong>
+              <div class="code-block">Google Ads → Goals → Conversions → Summary</div>
+              <p>Your new conversions will show as <span class="tag tag-amber">Unverified</span> initially. After someone clicks a phone number or WhatsApp on the site (with the GTM tags live), status will change to <span class="tag tag-green">Recording</span> within 24h.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="alert success">
+        <div class="alert-icon">🎉</div>
+        <div>
+          <strong>When all 5 steps are done, you'll have:</strong>
+          <ul style="margin-top:8px;padding-left:16px;color:#86efac;font-size:14px;line-height:2;">
+            <li>GTM loading immediately on page load (no delay)</li>
+            <li>Phone calls tracked in GA4 + Google Ads</li>
+            <li>WhatsApp clicks tracked in GA4 + Google Ads</li>
+            <li>Booking purchase tracked with value (already working)</li>
+            <li>Full session from modernvet.com through to booking</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="goTo(5)">← Back</button>
+        <div></div>
+        <button class="btn btn-primary" onclick="goTo(0)">Back to Overview</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  let current = 0;
+
+  function goTo(n) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+    document.getElementById('step-' + n).classList.add('active');
+    document.getElementById('nav-' + n).classList.add('active');
+    current = n;
+    window.scrollTo(0, 0);
+  }
+</script>
+
+</body>
+</html>
