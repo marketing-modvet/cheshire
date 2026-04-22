@@ -621,54 +621,29 @@ app.callgear</div>
         </div>
       </div>
 
+      <div class="alert success">
+        <div class="alert-icon">✅</div>
+        <div><strong>Good news — the conversion labels already exist in Google Ads</strong> from the old container. No need to create new ones. Just add two tags to the new container reusing the existing labels.</div>
+      </div>
+
       <div class="alert info">
         <div class="alert-icon">ℹ️</div>
-        <div><strong>Do Step 3 first if you don't have conversion labels yet.</strong> You need two conversion label codes from Google Ads before creating these tags. If you already have them, continue here.</div>
+        <div>
+          Labels to use:<br><br>
+          <strong>Phone:</strong> <code style="font-family:var(--mono);font-size:13px;color:#a5f3fc;">ws7yCM2W97gaELjJtvYC</code><br>
+          <strong>WhatsApp:</strong> <code style="font-family:var(--mono);font-size:13px;color:#a5f3fc;">OgU7CNKy97gaELjJtvYC</code><br>
+          <strong>Conversion ID (both):</strong> <code style="font-family:var(--mono);font-size:13px;color:#a5f3fc;">785228984</code>
+        </div>
       </div>
-
-      <div class="alert warning">
-        <div class="alert-icon">⚠️</div>
-        <div>You need two <strong>Conversion Labels</strong> from Google Ads (looks like <code style="font-family:var(--mono);font-size:12px;">AbCdEfGhIjKlMnOp</code>). Get them in Step 3, then come back here.</div>
-      </div>
-
-      <div class="divider"></div>
 
       <div class="instructions">
-        <h3>Create Tag A — Phone Call Conversion</h3>
+        <h3>Open the right GTM container</h3>
         <ol class="instruction-list">
           <li class="instruction-item">
             <div class="instruction-content">
-              <strong>Open GTM → Modern Vet New container</strong>
+              <strong>Go to GTM → Modern Vet New (GTM-KRHZL582)</strong>
               <div class="code-block">https://tagmanager.google.com/#/container/accounts/4701553509/containers/226714782</div>
-            </div>
-          </li>
-          <li class="instruction-item">
-            <div class="instruction-content">
-              <strong>New Tag → Google Ads Conversion Tracking</strong>
-              <p>Tags → New → Tag Configuration → <strong>Google Ads Conversion Tracking</strong></p>
-            </div>
-          </li>
-          <li class="instruction-item">
-            <div class="instruction-content">
-              <strong>Fill in the tag settings</strong>
-              <div class="mock-ui">
-                <div style="margin-bottom:10px;"><div class="mock-label">Tag name</div><div style="color:var(--text);">GAds — Phone Call Conversion</div></div>
-                <div style="margin-bottom:10px;"><div class="mock-label">Conversion ID</div><div style="color:#a5f3fc;font-family:var(--mono);">785228984</div></div>
-                <div style="margin-bottom:10px;"><div class="mock-label">Conversion Label</div><div style="color:#a5f3fc;font-family:var(--mono);">[paste label from Step 3]</div></div>
-                <div style="margin-bottom:10px;"><div class="mock-label">Conversion Value</div><div style="color:var(--muted);">leave empty</div></div>
-                <div><div class="mock-label">Currency Code</div><div style="color:var(--muted);">AED</div></div>
-              </div>
-            </div>
-          </li>
-          <li class="instruction-item">
-            <div class="instruction-content">
-              <strong>Set trigger → "Click on Phone"</strong>
-              <p>Under Triggering, select the existing trigger: <strong>Click on Phone</strong> (fires on <code style="color:#a5f3fc;font-family:var(--mono)">tel:</code> links)</p>
-            </div>
-          </li>
-          <li class="instruction-item">
-            <div class="instruction-content">
-              <strong>Save</strong>
+              <p>Make sure you're in the <strong>Default Workspace</strong>.</p>
             </div>
           </li>
         </ol>
@@ -677,44 +652,83 @@ app.callgear</div>
       <div class="divider"></div>
 
       <div class="instructions">
-        <h3>Create Tag B — WhatsApp Conversion</h3>
+        <h3>Tag A — Phone Call Conversion</h3>
         <ol class="instruction-list">
           <li class="instruction-item">
             <div class="instruction-content">
-              <strong>New Tag → Google Ads Conversion Tracking</strong>
+              <strong>Tags → New → choose "Google Ads Conversion Tracking"</strong>
             </div>
           </li>
           <li class="instruction-item">
             <div class="instruction-content">
-              <strong>Fill in the tag settings</strong>
+              <strong>Fill in exactly:</strong>
               <div class="mock-ui">
-                <div style="margin-bottom:10px;"><div class="mock-label">Tag name</div><div style="color:var(--text);">GAds — WhatsApp Conversion</div></div>
+                <div style="margin-bottom:10px;"><div class="mock-label">Tag name</div><div style="color:var(--text);">GAds — Phone Call Conversion</div></div>
                 <div style="margin-bottom:10px;"><div class="mock-label">Conversion ID</div><div style="color:#a5f3fc;font-family:var(--mono);">785228984</div></div>
-                <div style="margin-bottom:10px;"><div class="mock-label">Conversion Label</div><div style="color:#a5f3fc;font-family:var(--mono);">[paste label from Step 3]</div></div>
+                <div style="margin-bottom:10px;"><div class="mock-label">Conversion Label</div><div style="color:#a5f3fc;font-family:var(--mono);">ws7yCM2W97gaELjJtvYC</div></div>
                 <div style="margin-bottom:10px;"><div class="mock-label">Conversion Value</div><div style="color:var(--muted);">leave empty</div></div>
-                <div><div class="mock-label">Currency Code</div><div style="color:var(--muted);">AED</div></div>
+                <div><div class="mock-label">Currency Code</div><div style="color:var(--text);">AED</div></div>
               </div>
             </div>
           </li>
           <li class="instruction-item">
             <div class="instruction-content">
-              <strong>Set trigger → "WhatsApp"</strong>
-              <p>Select existing trigger: <strong>WhatsApp</strong> (fires on links containing <code style="color:#a5f3fc;font-family:var(--mono)">whatsapp</code>)</p>
+              <strong>Triggering → select existing trigger: "Click on Phone"</strong>
+              <p>This trigger already exists — fires when Click URL contains <code style="color:#a5f3fc;font-family:var(--mono)">tel:</code></p>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content"><strong>Save</strong></div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="instructions">
+        <h3>Tag B — WhatsApp Conversion</h3>
+        <ol class="instruction-list">
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Tags → New → "Google Ads Conversion Tracking"</strong>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Fill in exactly:</strong>
+              <div class="mock-ui">
+                <div style="margin-bottom:10px;"><div class="mock-label">Tag name</div><div style="color:var(--text);">GAds — WhatsApp Conversion</div></div>
+                <div style="margin-bottom:10px;"><div class="mock-label">Conversion ID</div><div style="color:#a5f3fc;font-family:var(--mono);">785228984</div></div>
+                <div style="margin-bottom:10px;"><div class="mock-label">Conversion Label</div><div style="color:#a5f3fc;font-family:var(--mono);">OgU7CNKy97gaELjJtvYC</div></div>
+                <div style="margin-bottom:10px;"><div class="mock-label">Conversion Value</div><div style="color:var(--muted);">leave empty</div></div>
+                <div><div class="mock-label">Currency Code</div><div style="color:var(--text);">AED</div></div>
+              </div>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>Triggering → select existing trigger: "WhatsApp"</strong>
+              <p>Fires when Click URL contains <code style="color:#a5f3fc;font-family:var(--mono)">whatsapp</code></p>
             </div>
           </li>
           <li class="instruction-item">
             <div class="instruction-content">
               <strong>Save, then Submit the workspace</strong>
-              <p>Top right → <strong>Submit</strong> → Add version name "Add Ads conversion tags for phone + WhatsApp" → <strong>Publish</strong></p>
+              <p>Top right → <strong>Submit</strong> → version name: <em>"Add Ads conversion tags — phone + WhatsApp"</em> → <strong>Publish</strong></p>
             </div>
           </li>
         </ol>
       </div>
 
+      <div class="alert warning">
+        <div class="alert-icon">⚠️</div>
+        <div><strong>Don't touch the old container (GTM-MH3G8WC).</strong> It's not on the live site so it's not causing duplicates. Leave it until everything in the new container is verified working.</div>
+      </div>
+
       <div class="step-nav">
         <button class="btn btn-secondary" onclick="goTo(1)">← Back</button>
         <div class="progress-text">Step 2 of 5</div>
-        <button class="btn btn-primary" onclick="goTo(3)">Next: Get Conversion Labels →</button>
+        <button class="btn btn-primary" onclick="goTo(3)">Next: Check in Ads →</button>
       </div>
     </div>
 
@@ -723,65 +737,61 @@ app.callgear</div>
       <div class="step-header">
         <div class="step-number">3</div>
         <div>
-          <div class="step-title">Google Ads — Create Conversion Actions</div>
-          <div class="step-subtitle">ads.google.com → Goals → Conversions</div>
+          <div class="step-title">Google Ads — Check Conversion Actions</div>
+          <div class="step-subtitle">ads.google.com → Goals → Conversions → Summary</div>
         </div>
       </div>
 
       <div class="alert info">
         <div class="alert-icon">ℹ️</div>
-        <div>You need to create <strong>2 new conversion actions</strong> in Google Ads — one for phone calls, one for WhatsApp clicks. Each gives you a conversion label to paste into GTM (Step 2).</div>
+        <div>The conversion actions for phone and WhatsApp already exist in Google Ads. This step is to verify they're active, set as Primary, and correctly configured.</div>
       </div>
 
       <div class="instructions">
-        <h3>Create Conversion Action: Phone Call</h3>
+        <h3>Check the two conversion actions</h3>
         <ol class="instruction-list">
           <li class="instruction-item">
             <div class="instruction-content">
-              <strong>Go to Google Ads Goals</strong>
-              <div class="code-block">ads.google.com → Goals → Conversions → Summary → + New conversion action</div>
+              <strong>Open Google Ads → Goals → Conversions → Summary</strong>
+              <div class="code-block">ads.google.com → Goals → Conversions → Summary</div>
             </div>
           </li>
           <li class="instruction-item">
             <div class="instruction-content">
-              <strong>Choose "Website"</strong>
-              <p>Select <strong>Website</strong> as the conversion source.</p>
-            </div>
-          </li>
-          <li class="instruction-item">
-            <div class="instruction-content">
-              <strong>Fill in settings</strong>
+              <strong>Find these two and check status:</strong>
               <div class="mock-ui">
-                <div style="margin-bottom:10px;"><div class="mock-label">Category</div><div style="color:var(--text);">Contact → Phone call leads</div></div>
-                <div style="margin-bottom:10px;"><div class="mock-label">Conversion name</div><div style="color:var(--text);">Phone Call Click</div></div>
-                <div style="margin-bottom:10px;"><div class="mock-label">Value</div><div style="color:var(--muted);">Don't use a value (or set AED 200 as estimated lead value)</div></div>
-                <div style="margin-bottom:10px;"><div class="mock-label">Count</div><div style="color:var(--text);">One (one conversion per click is enough)</div></div>
-                <div style="margin-bottom:10px;"><div class="mock-label">Click-through window</div><div style="color:var(--text);">30 days</div></div>
-                <div><div class="mock-label">Attribution model</div><div style="color:var(--text);">Data-driven (or Last click)</div></div>
+                <div style="margin-bottom:14px;">
+                  <div style="color:var(--text);font-weight:600;">GAds click_tel</div>
+                  <div style="color:var(--muted);font-size:13px;margin-top:3px;">Label: ws7yCM2W97gaELjJtvYC</div>
+                  <div style="margin-top:6px;">Should show: <span class="tag tag-green">Recording</span> &nbsp; Type: <span class="tag tag-blue">Primary</span></div>
+                </div>
+                <div>
+                  <div style="color:var(--text);font-weight:600;">GAds -- click_whatsApp</div>
+                  <div style="color:var(--muted);font-size:13px;margin-top:3px;">Label: OgU7CNKy97gaELjJtvYC</div>
+                  <div style="margin-top:6px;">Should show: <span class="tag tag-green">Recording</span> &nbsp; Type: <span class="tag tag-blue">Primary</span></div>
+                </div>
               </div>
             </div>
           </li>
           <li class="instruction-item">
             <div class="instruction-content">
-              <strong>Choose "Use Google Tag Manager"</strong>
-              <p>When asked how to set up the tag, select <strong>"Use Google Tag Manager"</strong>. You'll see:</p>
-              <div class="code-block">Conversion ID: 785228984
-Conversion Label: [something like AbCdEfGhIjKlMnOp12]</div>
-              <p>Copy the <strong>Conversion Label</strong> — you need it in Step 2.</p>
+              <strong>Make sure both are "Primary" not "Secondary"</strong>
+              <p>Click each conversion → check <strong>"Count as conversion"</strong> → must be <strong>Primary action</strong>. Secondary conversions are tracked but ignored for Smart Bidding — they won't help optimise your campaigns.</p>
             </div>
           </li>
           <li class="instruction-item">
             <div class="instruction-content">
-              <strong>Done → repeat for WhatsApp</strong>
-              <p>Click Done. Now create a second conversion action with the same steps but name it <strong>"WhatsApp Click"</strong>, category: <strong>Contact → Messaging</strong>. Copy its label too.</p>
+              <strong>Verify Count = One</strong>
+              <p>For contact events like phone + WhatsApp: <strong>Count = One per click</strong> is correct. This means one conversion per ad click, not per every tap the user makes.</p>
+            </div>
+          </li>
+          <li class="instruction-item">
+            <div class="instruction-content">
+              <strong>If status shows "Inactive" — that's expected for now</strong>
+              <p>The old GTM container that was sending these conversions is not on the live page anymore. Once you publish Step 2 (new GTM tags) and someone clicks phone/WhatsApp, the status will flip to <span class="tag tag-green">Recording</span> within 24h.</p>
             </div>
           </li>
         </ol>
-      </div>
-
-      <div class="alert success">
-        <div class="alert-icon">✅</div>
-        <div>Once you have both labels, go back to <strong>Step 2</strong> and paste them into the GTM tags.</div>
       </div>
 
       <div class="step-nav">
