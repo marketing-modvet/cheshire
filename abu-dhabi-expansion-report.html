@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Abu Dhabi Expansion Report — April 2026</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f2f5;color:#1a1a2e}
+#gate{display:flex;align-items:center;justify-content:center;min-height:100vh}
+#gate-box{background:white;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,.12);padding:48px 40px;text-align:center;max-width:360px;width:100%}
+#gate-box h2{color:#015962;font-size:22px;margin-bottom:8px}
+#gate-box p{color:#6c757d;font-size:13px;margin-bottom:28px}
+#gate-box input{width:100%;padding:12px 16px;border:1.5px solid #ddd;border-radius:8px;font-size:15px;outline:none;letter-spacing:2px;text-align:center;margin-bottom:12px;transition:border .2s}
+#gate-box input:focus{border-color:#015962}
+#gate-box button{width:100%;padding:12px;background:#015962;color:white;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;transition:background .2s}
+#gate-box button:hover{background:#027a87}
+#gate-box .err{color:#e74c3c;font-size:12.5px;margin-top:10px;display:none}
+#report{display:none}
+.hdr{background:linear-gradient(135deg,#015962,#027a87);color:white;padding:36px 48px 28px}
+.hdr h1{font-size:26px;font-weight:800}
+.hdr p{font-size:14px;opacity:.75;margin-top:5px}
+.content{padding:28px 48px;max-width:1280px;margin:0 auto}
+.sec-title{font-size:20px;font-weight:700;color:#015962;margin-bottom:4px;margin-top:32px}
+.sec-sub{font-size:13px;color:#6c757d;margin-bottom:20px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(500px,1fr));gap:18px}
+.card{background:white;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.07);overflow:hidden;border-left:4px solid #015962}
+.card-hdr{display:flex;align-items:flex-start;gap:12px;padding:16px 18px 12px;border-bottom:1px solid #f0f0f0}
+.rank{font-size:26px;line-height:1;min-width:36px}
+.card-title{font-size:15px;font-weight:700;color:#015962}
+.card-sub{font-size:12px;color:#6c757d;margin-top:2px}
+.card-score-box{margin-left:auto;text-align:center;min-width:52px}
+.big-score{font-size:26px;font-weight:800;color:#015962;line-height:1}
+.score-lbl{font-size:11px;color:#999}
+.card-body{padding:12px 18px 14px}
+.card-row{display:flex;gap:10px;padding:5px 0;border-bottom:1px solid #f8f8f8;font-size:13px}
+.card-row:last-of-type{border-bottom:none}
+.lbl{color:#6c757d;min-width:170px;font-weight:500;flex-shrink:0}
+.card-note{margin-top:10px;padding:8px 12px;background:#fffde7;border-radius:6px;font-size:13px;color:#856404;font-weight:500}
+#map{height:520px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.1);margin-bottom:24px}
+.map-legend{background:white;padding:12px 16px;border-radius:8px;font-size:12.5px;display:flex;gap:20px;flex-wrap:wrap;margin-top:-4px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.leg{display:flex;align-items:center;gap:7px}
+.dot{width:12px;height:12px;border-radius:50%}
+.summary{background:white;border-radius:10px;padding:18px 22px;box-shadow:0 2px 6px rgba(0,0,0,.06);margin-bottom:24px}
+.summary h3{font-size:15px;font-weight:700;color:#015962;margin-bottom:10px}
+.summary ul{padding-left:18px;font-size:13.5px;line-height:2.1}
+.divider{height:1px;background:#e0e0e0;margin:24px 0}
+.disclaimer{background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:12px 16px;font-size:12.5px;color:#856404;margin-bottom:20px}
+.novomed-card{background:white;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.07);overflow:hidden;border-left:4px solid #f5a623;margin-top:24px}
+.novomed-card .card-hdr{border-bottom:1px solid #f0f0f0}
+.novomed-card .card-title{color:#e67e22}
+@media(max-width:768px){.hdr,.content{padding-left:16px;padding-right:16px}.cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="gate">
+  <div id="gate-box">
+    <div style="font-size:44px;margin-bottom:16px">🗺️</div>
+    <h2>Expansion Report</h2>
+    <p>Modern Vet Group &middot; Abu Dhabi &middot; April 2026<br><span style="color:#e74c3c;font-weight:600">Confidential</span></p>
+    <input type="password" id="pw" placeholder="Password" onkeydown="if(event.key==='Enter')check()" autofocus>
+    <button onclick="check()">Access Report</button>
+    <div class="err" id="err">Incorrect password. Try again.</div>
+  </div>
+</div>
+<div id="report">
+<div class="hdr">
+  <h1>🗺️ Abu Dhabi — Expansion Opportunity Report</h1>
+  <p>Modern Vet Group — Where to open first in Abu Dhabi &nbsp;|&nbsp; April 2026 &nbsp;|&nbsp; 26 competitors · population 4.14M · zero Modern Vet presence</p>
+</div>
+<div class="content">
+
+  <div class="disclaimer">⚠️ Population figures: SCAD 2024 census (4.14M emirate-wide, +7.5% YoY). Real estate data: Bayut / Knight Frank H1 2025. Pet ownership: ~30% of expat households spend AED 500–1,000/mo on pet services (Ken Research 2025). Scores are indicative — field validation recommended before lease commitment.</div>
+
+  <div class="sec-title">🗺️ Abu Dhabi Vet Clinic Map</div>
+  <div class="sec-sub">All known vet clinics in Abu Dhabi Emirate (city region). Orange pin = Novomed location under review. Red pins = existing competitors. Green circles = underserved opportunity zones.</div>
+  <div id="map"></div>
+  <div class="map-legend">
+    <div class="leg"><div class="dot" style="background:#f5a623;border:2px solid white;box-shadow:0 0 0 1px #f5a623"></div>Novomed location (under review)</div>
+    <div class="leg"><div class="dot" style="background:#e74c3c"></div>Existing vet clinics</div>
+    <div class="leg"><div class="dot" style="background:#00a86b;opacity:.3;width:20px;height:20px"></div>Opportunity zones (no vets)</div>
+  </div>
+
+  <div class="summary">
+    <h3>📊 Top Expansion Targets (ranked by opportunity score)</h3>
+    <ul>
+      <li><strong>🥇 Yas Island</strong> — 0 vets · 8,000+ units in pipeline · Disney effect · ⭐⭐⭐⭐⭐ growth</li>
+      <li><strong>🥈 Saadiyat Island</strong> — 0 vets · ultra-premium expat community · ⭐⭐⭐⭐⭐ affluence</li>
+      <li><strong>🥉 Al Reem Island</strong> — 2 small branches only · highest density residential · ⭐⭐⭐⭐ demand</li>
+    </ul>
+  </div>
+
+  <div class="sec-title">🆕 Opportunity Districts — Ranked</div>
+  <div class="sec-sub">Abu Dhabi districts with zero or minimal vet coverage, ranked by composite score (population growth × affluence × pet density × competition gap).</div>
+  <div class="cards">
+
+<div class="card">
+  <div class="card-hdr">
+    <span class="rank">🥇</span>
+    <div>
+      <div class="card-title">Yas Island</div>
+      <div class="card-sub">0 vets · 0 pet biz · ⭐⭐⭐⭐⭐ growth · pop ~25k → 60k+</div>
+    </div>
+    <div class="card-score-box"><div class="big-score">92</div><div class="score-lbl">score</div></div>
+  </div>
+  <div class="card-body">
+    <div class="card-row"><span class="lbl">Current population</span><span>~25,000 residents (growing fast)</span></div>
+    <div class="card-row"><span class="lbl">Pipeline (2025–2028)</span><span style="font-weight:700;color:#e74c3c">8,000+ residential units</span></div>
+    <div class="card-row"><span class="lbl">Residents per vet</span><span style="font-weight:700;color:#e74c3c">∞ (zero vets)</span></div>
+    <div class="card-row"><span class="lbl">Demographics</span><span>Young families, entertainment workers, Western/Arab expats</span></div>
+    <div class="card-row"><span class="lbl">Residential rent</span><span>AED 70k–140k/yr (apartments) · 140k–250k (villas)</span></div>
+    <div class="card-row"><span class="lbl">Commercial space est.</span><span>AED 100–180/sqft/yr (retail podiums)</span></div>
+    <div class="card-row"><span class="lbl">Key competitors</span><span style="color:#00a86b;font-weight:600">None — absolute first-mover</span></div>
+    <div class="card-row"><span class="lbl">Nearest vet</span><span>Khalifa City A (~15km) · Al Raha (~12km)</span></div>
+    <div class="card-row"><span class="lbl">Growth catalyst</span><span>Disney Abu Dhabi announced May 2025 · +17% property prices YoY</span></div>
+    <div class="card-note">💡 #1 PICK — Massive first-mover advantage. Disney + entertainment ecosystem = young family magnet. Perfect Modern Vet demographic fit. Lock in a retail unit in Water's Edge or Yas Acres now.</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-hdr">
+    <span class="rank">🥈</span>
+    <div>
+      <div class="card-title">Saadiyat Island</div>
+      <div class="card-sub">0 vets · 0 pet biz · ⭐⭐⭐⭐⭐ affluence · pop ~15k</div>
+    </div>
+    <div class="card-score-box"><div class="big-score">88</div><div class="score-lbl">score</div></div>
+  </div>
+  <div class="card-body">
+    <div class="card-row"><span class="lbl">Current population</span><span>~15,000 residents</span></div>
+    <div class="card-row"><span class="lbl">Pipeline</span><span>New residential clusters in Park View, Mamsha Al Saadiyat expanding</span></div>
+    <div class="card-row"><span class="lbl">Residents per vet</span><span style="font-weight:700;color:#e74c3c">∞ (zero vets)</span></div>
+    <div class="card-row"><span class="lbl">Demographics</span><span>Ultra-premium: diplomats, C-suite expats, Emiratis. Highest income tier in AD.</span></div>
+    <div class="card-row"><span class="lbl">Residential rent</span><span>AED 120k–350k/yr (apartments) · 250k–600k (villas)</span></div>
+    <div class="card-row"><span class="lbl">Commercial space est.</span><span>AED 150–280/sqft/yr</span></div>
+    <div class="card-row"><span class="lbl">Key competitors</span><span style="color:#00a86b;font-weight:600">None — German Vet does home visits only</span></div>
+    <div class="card-row"><span class="lbl">Nearest vet</span><span>Khalifa City A (~18km) · Al Reem Island (~8km via bridge)</span></div>
+    <div class="card-row"><span class="lbl">Cultural anchor</span><span>Louvre Abu Dhabi, Guggenheim (opening), Natural History Museum</span></div>
+    <div class="card-note">💡 Premium play — smaller volume but highest spend-per-client in the emirate. Perfect for Vienna Vet brand (cat-focused, premium). Commercial space availability is limited — act early.</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-hdr">
+    <span class="rank">🥉</span>
+    <div>
+      <div class="card-title">Al Reem Island</div>
+      <div class="card-sub">2 vets (small branches) · ⭐⭐⭐⭐ demand · pop ~80k</div>
+    </div>
+    <div class="card-score-box"><div class="big-score">82</div><div class="score-lbl">score</div></div>
+  </div>
+  <div class="card-body">
+    <div class="card-row"><span class="lbl">Current population</span><span>~80,000 residents (one of AD's densest)</span></div>
+    <div class="card-row"><span class="lbl">Pipeline</span><span>City of Lights / New Horizons cluster expanding, 10–17% price appreciation</span></div>
+    <div class="card-row"><span class="lbl">Residents per vet</span><span style="font-weight:700;color:#e74c3c">~40,000 per clinic (critically underserved)</span></div>
+    <div class="card-row"><span class="lbl">Demographics</span><span>Young professionals, couples, small families. High pet ownership (apartment cats/dogs).</span></div>
+    <div class="card-row"><span class="lbl">Residential rent</span><span>AED 55k–100k/yr (apartments)</span></div>
+    <div class="card-row"><span class="lbl">Commercial space est.</span><span>AED 80–150/sqft/yr</span></div>
+    <div class="card-row"><span class="lbl">Key competitors</span><span>Australian Vet (Damac Oceanscape) · The City Vet (small branch)</span></div>
+    <div class="card-row"><span class="lbl">Nearest full vet</span><span>Al Khalidiyah clinics (~5km via bridge)</span></div>
+    <div class="card-note">💡 Volume play — 80k residents with only 2 small satellite branches. A full-service clinic here would dominate. Multiple high-rise towers = dense catchment in walking distance.</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-hdr">
+    <span class="rank">4️⃣</span>
+    <div>
+      <div class="card-title">Al Reef / Al Ghadeer</div>
+      <div class="card-sub">0 vets · ⭐⭐⭐ affluence · pop ~40k</div>
+    </div>
+    <div class="card-score-box"><div class="big-score">75</div><div class="score-lbl">score</div></div>
+  </div>
+  <div class="card-body">
+    <div class="card-row"><span class="lbl">Current population</span><span>~40,000 residents (family villas)</span></div>
+    <div class="card-row"><span class="lbl">Pipeline</span><span>Most sought-after affordable villa community — continuous infill</span></div>
+    <div class="card-row"><span class="lbl">Residents per vet</span><span style="font-weight:700;color:#e74c3c">∞ (zero vets)</span></div>
+    <div class="card-row"><span class="lbl">Demographics</span><span>Budget-conscious expat families. Villa lifestyle = high pet ownership (gardens, space).</span></div>
+    <div class="card-row"><span class="lbl">Residential rent</span><span>AED 55k–85k/yr (villas)</span></div>
+    <div class="card-row"><span class="lbl">Commercial space est.</span><span>AED 40–70/sqft/yr</span></div>
+    <div class="card-row"><span class="lbl">Key competitors</span><span style="color:#00a86b;font-weight:600">None — nearest vet 20–30 min drive</span></div>
+    <div class="card-row"><span class="lbl">Nearest vet</span><span>Khalifa City A (~20km)</span></div>
+    <div class="card-note">💡 Affordable market — lower ticket but huge volume. Villa families with gardens = dogs, cats, birds. Blue Oasis Vet brand fit. Could pair with boarding/daycare services.</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-hdr">
+    <span class="rank">5️⃣</span>
+    <div>
+      <div class="card-title">Al Shamkha / Shakhbout City / MBZ City</div>
+      <div class="card-sub">0 vets · ⭐⭐⭐ growth · pop ~50k</div>
+    </div>
+    <div class="card-score-box"><div class="big-score">70</div><div class="score-lbl">score</div></div>
+  </div>
+  <div class="card-body">
+    <div class="card-row"><span class="lbl">Current population</span><span>~50,000 residents (suburban families)</span></div>
+    <div class="card-row"><span class="lbl">Pipeline</span><span style="font-weight:700">3,000+ new units in Al Shamkha alone — 2nd largest AD pipeline after Yas</span></div>
+    <div class="card-row"><span class="lbl">Residents per vet</span><span style="font-weight:700;color:#e74c3c">∞ (zero vets)</span></div>
+    <div class="card-row"><span class="lbl">Demographics</span><span>Mixed Emirati + expat families. Suburban villa communities near E22 highway.</span></div>
+    <div class="card-row"><span class="lbl">Residential rent</span><span>AED 60k–100k/yr (villas)</span></div>
+    <div class="card-row"><span class="lbl">Commercial space est.</span><span>AED 35–60/sqft/yr</span></div>
+    <div class="card-row"><span class="lbl">Key competitors</span><span style="color:#00a86b;font-weight:600">None — nearest vet 15–25 min drive</span></div>
+    <div class="card-row"><span class="lbl">Nearest vet</span><span>Khalifa City A (~12km) · Al Nahyan (~18km)</span></div>
+    <div class="card-note">💡 Emerging suburban corridor — lower rent, growing fast. Could be a future #2 or #3 AD branch. Wait for population to hit critical mass (~2027–2028).</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-hdr">
+    <span class="rank">6️⃣</span>
+    <div>
+      <div class="card-title">Masdar City</div>
+      <div class="card-sub">0 vets · ⭐⭐⭐⭐ affluence · pop ~15k</div>
+    </div>
+    <div class="card-score-box"><div class="big-score">62</div><div class="score-lbl">score</div></div>
+  </div>
+  <div class="card-body">
+    <div class="card-row"><span class="lbl">Current population</span><span>~15,000 live + work (growing)</span></div>
+    <div class="card-row"><span class="lbl">Pipeline</span><span>Eco-city expanding — new residential blocks, mid-tier segment leader</span></div>
+    <div class="card-row"><span class="lbl">Residents per vet</span><span style="font-weight:700;color:#e74c3c">∞ (zero vets)</span></div>
+    <div class="card-row"><span class="lbl">Demographics</span><span>Tech/sustainability professionals, younger expats, university staff (Khalifa Uni)</span></div>
+    <div class="card-row"><span class="lbl">Residential rent</span><span>AED 45k–75k/yr (apartments)</span></div>
+    <div class="card-row"><span class="lbl">Commercial space est.</span><span>AED 60–100/sqft/yr</span></div>
+    <div class="card-row"><span class="lbl">Key competitors</span><span style="color:#00a86b;font-weight:600">None</span></div>
+    <div class="card-row"><span class="lbl">Anchor</span><span>Al Fay Park (popular dog park) — pet community already exists</span></div>
+    <div class="card-note">💡 Niche play — small but growing eco-conscious community. Al Fay Park is a dog-owner magnet. Population still too small for standalone clinic — consider as satellite/mobile service base.</div>
+  </div>
+</div>
+
+</div><!-- /cards -->
+
+<div class="divider"></div>
+
+<!-- Novomed Location Assessment -->
+<div class="sec-title">📍 Location Under Review: Novomed Building</div>
+<div class="sec-sub">Assessment of the proposed Novomed Plastic Surgery Hospital site in Al Rawdah / Al Muntazah.</div>
+
+<div class="novomed-card">
+  <div class="card-hdr">
+    <span class="rank">📍</span>
+    <div>
+      <div class="card-title">Novomed Building — Al Rawdah / Al Muntazah</div>
+      <div class="card-sub">Villa 19, Mahdar Qutouf St · 3 floors · Coords: 24.424°N, 54.456°E</div>
+    </div>
+    <div class="card-score-box"><div class="big-score" style="color:#f5a623">7</div><div class="score-lbl">/ 10</div></div>
+  </div>
+  <div class="card-body">
+    <div class="card-row"><span class="lbl">Current use</span><span>Novomed Plastic Surgery Hospital LLC</span></div>
+    <div class="card-row"><span class="lbl">Building</span><span>3-floor standalone villa — medical-grade fit-out</span></div>
+    <div class="card-row"><span class="lbl">Road access</span><span>Old Airport Road (E48) — major arterial, high visibility</span></div>
+    <div class="card-row"><span class="lbl">Zone demographics</span><span>Mixed Emirati + long-term expat families, upper-middle income</span></div>
+    <div class="card-row"><span class="lbl">Competitors within 2.5km</span><span style="color:#e74c3c;font-weight:700">3 clinics (National Vet 1.2km · Capital Vet 1.5km · Pure Life 2.3km)</span></div>
+    <div class="card-row"><span class="lbl">Competitors within 5km</span><span style="color:#e74c3c;font-weight:700">8 clinics — most saturated corridor in AD</span></div>
+    <div class="card-row"><span class="lbl">Strengths</span><span>Huge 3-floor premises · medical infrastructure · arterial road · standalone (24/7 capable)</span></div>
+    <div class="card-row"><span class="lbl">Weaknesses</span><span>Saturated zone · stable (not growing) population · parking limits · established competitor loyalty</span></div>
+    <div class="card-row"><span class="lbl">Best use case</span><span style="font-weight:600">Specialist referral hospital (surgery, imaging, emergency) — NOT general practice</span></div>
+    <div class="card-note">⚠️ This location scores 7/10 for a <strong>referral centre</strong> but only 4/10 as a <strong>first general-practice branch</strong>. The premises are exceptional, but the zone is wrong for a market-entry clinic. Consider this as a Phase 2 flagship after establishing presence in Yas or Saadiyat first.</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="summary">
+  <h3>🎯 Recommended Expansion Strategy</h3>
+  <ul>
+    <li><strong>Phase 1 (2026):</strong> Open first Abu Dhabi branch on <strong>Yas Island</strong> — Modern Vet brand, general practice + grooming. First-mover advantage, perfect demographic.</li>
+    <li><strong>Phase 2 (2026–2027):</strong> Open premium clinic on <strong>Saadiyat Island</strong> — consider Vienna Vet brand (cat-focused premium). Or second Modern Vet on <strong>Al Reem Island</strong> for volume.</li>
+    <li><strong>Phase 3 (2027–2028):</strong> If Novomed building available and affordable — convert to <strong>Veterinary Referral Centre Abu Dhabi</strong> (surgery, imaging, emergency, specialist referrals). Draw from entire emirate.</li>
+    <li><strong>Phase 4 (2028+):</strong> Suburban expansion into <strong>Al Shamkha</strong> or <strong>Al Reef</strong> as population hits critical mass.</li>
+  </ul>
+</div>
+
+</div><!-- /content -->
+</div><!-- /report -->
+
+<script>
+const map = L.map('map').setView([24.44, 54.55], 11);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  attribution:'© OpenStreetMap © CARTO', maxZoom:18
+}).addTo(map);
+
+// Novomed location — orange star
+const novoIcon = L.divIcon({className:'', html:'<div style="background:#f5a623;width:18px;height:18px;border-radius:50%;border:3px solid white;box-shadow:0 0 6px rgba(0,0,0,.4)"></div>', iconSize:[18,18], iconAnchor:[9,9]});
+L.marker([24.424015, 54.45579], {icon:novoIcon, zIndexOffset:1000}).bindPopup('<b>📍 Novomed Building</b><br>Al Rawdah / Al Muntazah<br>Score: 7/10<br><em>Under review</em>').addTo(map);
+
+// Existing vet clinics — red dots
+const vetIcon = L.divIcon({className:'', html:'<div style="background:#e74c3c;width:10px;height:10px;border-radius:50%;border:1.5px solid white;opacity:.85"></div>', iconSize:[10,10], iconAnchor:[5,5]});
+[
+  [24.4558, 54.3797, "National Veterinary Clinic", "Al Mushrif"],
+  [24.4590, 54.3580, "British Veterinary Centre — Marina Village", "Al Khalidiyah"],
+  [24.4140, 54.5610, "British Veterinary Centre — Khalifa City", "Khalifa City A"],
+  [24.4350, 54.3720, "American Vet / PetCure", "Al Khalidiyah"],
+  [24.4150, 54.5580, "German Veterinary Clinic", "Khalifa City A"],
+  [24.4130, 54.5620, "The City Vet Clinic — Khalifa City", "Khalifa City A"],
+  [24.4992, 54.4080, "The City Vet Clinic — Al Reem Island", "Al Reem Island"],
+  [24.4160, 54.5590, "Australian Veterinary Clinic — Khalifa City", "Khalifa City A"],
+  [24.5002, 54.4070, "Australian Veterinary Clinic — Al Reem Island", "Al Reem Island"],
+  [24.4475, 54.3885, "Pet Oasis Veterinary Clinic", "Al Muroor"],
+  [24.4690, 54.3750, "Pure Life Veterinary Treatment", "Al Nahyan"],
+  [24.3560, 54.4970, "Pet Pavilion", "Mussafah ICAD"],
+  [24.4830, 54.3660, "Canadian Veterinary Clinic", "Al Zahiyah (TCA)"],
+  [24.4800, 54.3620, "New Veterinary Clinic", "Tourist Club Area"],
+  [24.4200, 54.5530, "Fit Life Veterinary Clinic", "Khalifa City A"],
+  [24.4520, 54.3510, "Royal Veterinary Centre", "Al Bateen"],
+  [24.4580, 54.3830, "Capital Vet", "Al Mushrif"],
+  [24.4440, 54.3610, "Noble Veterinary Clinic", "Al Khalidiyah"],
+  [24.3930, 54.5380, "Animalia — Animal Welfare & Clinic", "Al Raha Beach"],
+  [24.3920, 54.5400, "Super Vet Pet Clinic (24/7)", "Al Raha"],
+  [24.3780, 54.5280, "Al Raha Veterinary Clinic", "Al Raha"],
+  [24.4800, 54.3690, "Pawspact Veterinarian Clinic", "Al Hisn"],
+  [24.4650, 54.3550, "Hope Veterinary Clinic", "Al Marina"],
+  [24.2280, 54.6000, "Top Care Veterinary Clinic", "Al Wathba"],
+  [24.5800, 54.6400, "Emirates Park Zoo Pet Clinic", "Al Bahyah"],
+  [24.4530, 54.4400, "Fit Life Khalifa Bin Zayed", "KBZ area"]
+].forEach(c => {
+  L.marker([c[0],c[1]], {icon:vetIcon}).bindPopup('<b>'+c[2]+'</b><br>'+c[3]).addTo(map);
+});
+
+// Opportunity zones — green translucent circles
+[
+  [24.4980, 54.6050, "Yas Island", 3500],
+  [24.5400, 54.4350, "Saadiyat Island", 3000],
+  [24.4990, 54.4050, "Al Reem Island", 2000],
+  [24.3200, 54.6700, "Al Reef / Al Ghadeer", 3500],
+  [24.3800, 54.6200, "Al Shamkha / MBZ City", 3500],
+  [24.4300, 54.6100, "Masdar City", 2000]
+].forEach(z => {
+  L.circle([z[0],z[1]], {radius:z[3], color:'#00a86b', fillColor:'#00a86b', fillOpacity:.12, weight:2, opacity:.4}).bindPopup('<b>🔥 '+z[2]+'</b><br>ZERO vet clinics<br>Opportunity zone').addTo(map);
+});
+</script>
+<script>
+(function(){
+  if(sessionStorage.getItem('ad_exp_auth')==='1'){
+    document.getElementById('gate').style.display='none';
+    document.getElementById('report').style.display='block';
+  }
+})();
+function check(){
+  var pw=document.getElementById('pw').value;
+  if(pw==='modvet2026'){
+    sessionStorage.setItem('ad_exp_auth','1');
+    document.getElementById('gate').style.display='none';
+    document.getElementById('report').style.display='block';
+  } else {
+    document.getElementById('err').style.display='block';
+    document.getElementById('pw').value='';
+    document.getElementById('pw').focus();
+  }
+}
+</script>
+</body>
+</html>
