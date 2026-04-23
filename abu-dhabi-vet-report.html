@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="pragma" content="no-cache"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Abu Dhabi Vet Market Report — April 2026</title>
+<style>
+/* Password gate */
+#gate{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#f0f2f5}
+#gate-box{background:white;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,.12);padding:48px 40px;text-align:center;max-width:360px;width:100%}
+#gate-box h2{color:#015962;font-size:22px;margin-bottom:8px}
+#gate-box p{color:#6c757d;font-size:13px;margin-bottom:28px;line-height:1.6}
+#gate-box input{width:100%;padding:12px 16px;border:1.5px solid #ddd;border-radius:8px;font-size:15px;outline:none;letter-spacing:3px;text-align:center;margin-bottom:12px;transition:border .2s}
+#gate-box input:focus{border-color:#015962}
+#gate-box button{width:100%;padding:12px;background:#015962;color:white;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;transition:background .2s}
+#gate-box button:hover{background:#027a87}
+#gate-box .err{color:#e74c3c;font-size:12.5px;margin-top:10px;display:none}
+#report{display:none}
+/* Market report */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f2f5;color:#1a1a2e}
+.hdr{background:linear-gradient(135deg,#015962,#027a87);color:white;padding:36px 48px 28px}
+.hdr h1{font-size:26px;font-weight:800;letter-spacing:-.5px}
+.hdr p{font-size:14px;opacity:.75;margin-top:5px}
+.stats{background:white;border-bottom:1px solid #e0e0e0;padding:18px 48px;display:flex;gap:36px;flex-wrap:wrap}
+.stat .val{font-size:30px;font-weight:800;color:#015962;line-height:1}
+.stat .lbl{font-size:11px;color:#6c757d;margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
+.nav{background:white;border-bottom:2px solid #e0e0e0;padding:0 48px;display:flex;gap:2px}
+.tab{padding:13px 20px;font-size:13.5px;font-weight:600;color:#6c757d;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .15s}
+.tab:hover{color:#015962}
+.tab.active{color:#015962;border-bottom-color:#015962}
+.content{padding:28px 48px;max-width:1600px;margin:0 auto}
+.sec{display:none}.sec.active{display:block}
+.sec-hdr h2{font-size:19px;font-weight:700;color:#015962;margin-bottom:4px}
+.sec-hdr p{font-size:13px;color:#6c757d;margin-bottom:16px}
+.search input{padding:9px 14px;border:1px solid #ddd;border-radius:8px;font-size:13.5px;width:360px;outline:none}
+.search input:focus{border-color:#015962}
+.search{margin-bottom:14px}
+.tbl-wrap{background:white;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.06);overflow:hidden;margin-top:6px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+thead tr{background:#015962}
+thead th{color:white;font-weight:600;padding:11px 13px;text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;cursor:pointer;white-space:nowrap;user-select:none}
+thead th:hover{background:#027a87}
+tbody tr{border-bottom:1px solid #f0f0f0;transition:background .1s}
+tbody tr:hover{background:#e0f4f5!important}
+tbody td{padding:10px 13px;vertical-align:middle}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;margin-bottom:12px}
+.leg{display:flex;align-items:center;gap:6px}
+.leg-dot{width:14px;height:14px;border-radius:3px;border:1px solid #ccc}
+
+/* Location Analysis cards */
+.loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
+.loc-card{background:white;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.06);padding:24px;border-top:4px solid #015962}
+.loc-card.full-width{grid-column:1/-1}
+.loc-card.warning{border-top-color:#e67e22}
+.loc-card.danger{border-top-color:#e74c3c}
+.loc-card.success{border-top-color:#00a86b}
+.loc-card h3{font-size:15px;font-weight:700;color:#015962;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.loc-card.warning h3{color:#c0392b}
+.loc-card.danger h3{color:#c0392b}
+.loc-card.success h3{color:#00a86b}
+.loc-card p{font-size:13.5px;color:#444;line-height:1.65}
+.loc-card ul{margin-top:8px;padding-left:18px}
+.loc-card li{font-size:13.5px;color:#444;line-height:1.8}
+.score-badge{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;background:#015962;color:white;font-size:26px;font-weight:800;margin-bottom:12px}
+.gap-box{background:linear-gradient(135deg,#fff8f0,#fff3e0);border:1.5px solid #f39c12;border-radius:12px;padding:22px 26px;margin-bottom:24px}
+.gap-box h3{font-size:16px;font-weight:700;color:#e67e22;margin-bottom:12px}
+.gap-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #fde8c0}
+.gap-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.gap-row .fire{font-size:20px;flex-shrink:0;margin-top:1px}
+.gap-row .info strong{font-size:13.5px;color:#1a1a2e}
+.gap-row .info p{font-size:12.5px;color:#6c757d;margin-top:1px}
+.nearby-tbl td{padding:8px 12px;font-size:13.5px}
+.nearby-tbl{width:100%;border-collapse:collapse}
+.nearby-tbl tr{border-bottom:1px solid #f0f0f0}
+.nearby-tbl tr:last-child{border-bottom:none}
+.nearby-tbl td:first-child{font-weight:600}
+.dist-badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:700}
+.dist-close{background:#ffe5e5;color:#c0392b}
+.dist-mid{background:#fff3cd;color:#856404}
+.dist-far{background:#e8f8f0;color:#006400}
+@media(max-width:900px){.loc-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.hdr,.stats,.nav,.content{padding-left:16px;padding-right:16px}.stats{gap:16px}table{font-size:12px}.search input{width:100%}}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div id="gate-box">
+    <div style="font-size:44px;margin-bottom:16px">🐾</div>
+    <h2>Vet Market Report</h2>
+    <p>Modern Vet Group &middot; April 2026<br><span style="color:#e74c3c;font-weight:600">Confidential</span> — authorised personnel only</p>
+    <input type="password" id="pw" placeholder="Password" onkeydown="if(event.key==='Enter')check()" autofocus>
+    <button onclick="check()">Access Report</button>
+    <div class="err" id="err">Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<div id="report">
+<div class="hdr">
+  <h1>🐾 Abu Dhabi Veterinary Market Report</h1>
+  <p>Modern Vet Group — Abu Dhabi Market Entry Analysis &nbsp;|&nbsp; April 2026 &nbsp;|&nbsp; Source: Google Places API + Web Research</p>
+</div>
+<div class="stats">
+  <div class="stat"><div class="val">26</div><div class="lbl">Competitors</div></div>
+  <div class="stat"><div class="val">26</div><div class="lbl">Total Vet Facilities</div></div>
+  <div class="stat"><div class="val">14</div><div class="lbl">Pet Businesses</div></div>
+  <div class="stat"><div class="val">0</div><div class="lbl">Modern Vet Branches</div></div>
+  <div class="stat"><div class="val">5</div><div class="lbl">Market Gaps Identified</div></div>
+  <div class="stat"><div class="val">7/10</div><div class="lbl">Location Score</div></div>
+</div>
+<div class="nav">
+  <div class="tab active" onclick="show('ranking',this)">🏆 Ranking</div>
+  <div class="tab" onclick="show('comp',this)">⚔️ Competitors (26)</div>
+  <div class="tab" onclick="show('location',this)">📍 Location Analysis</div>
+  <div class="tab" onclick="show('pet',this)">🐶 Pet Businesses (14)</div>
+</div>
+<div class="content">
+
+<!-- ===================== RANKING TAB ===================== -->
+<div id="ranking" class="sec active">
+  <div class="sec-hdr">
+    <h2>🏆 Abu Dhabi Vet Clinic Rankings</h2>
+    <p>All 26 competitor vet clinics ranked by composite score (rating + review volume). Click any column header to sort.</p>
+  </div>
+  <div class="tbl-wrap"><table id="t-ranking">
+    <thead><tr>
+      <th onclick="sort('t-ranking',0)" style="width:44px"># ↕</th>
+      <th onclick="sort('t-ranking',1)">Clinic ↕</th>
+      <th onclick="sort('t-ranking',2)">Area ↕</th>
+      <th onclick="sort('t-ranking',3)">Rating ↕</th>
+      <th onclick="sort('t-ranking',4)">Reviews ↕</th>
+      <th style="min-width:160px">Score Breakdown</th>
+      <th onclick="sort('t-ranking',6)">Score ↕</th>
+    </tr></thead>
+    <tbody>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">1</td>
+  <td style="padding:9px 12px;font-weight:500">The City Vet Clinic — Khalifa City</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Khalifa City A</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.7</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">890</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:70%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">70%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:100%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">100%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">85</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">2</td>
+  <td style="padding:9px 12px;font-weight:500">German Veterinary Clinic</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Khalifa City A</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.8</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">430</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:80%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">80%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:89%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">89%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">85</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">3</td>
+  <td style="padding:9px 12px;font-weight:500">Pet Oasis Veterinary Clinic</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Al Muroor</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.7</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">780</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:70%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">70%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:98%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">98%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">84</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">4</td>
+  <td style="padding:9px 12px;font-weight:500">Animalia — Animal Welfare & Clinic</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Al Raha Beach</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.8</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">380</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:80%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">80%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:87%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">87%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">84</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">5</td>
+  <td style="padding:9px 12px;font-weight:500">Noble Veterinary Clinic — Abu Dhabi</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Al Khalidiyah</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.8</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">320</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:80%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">80%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:85%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">85%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">82</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">6</td>
+  <td style="padding:9px 12px;font-weight:500">Pawspact Veterinarian Clinic</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Al Hisn (City Centre)</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.9</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">120</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:90%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">90%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:70%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">70%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">80</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">7</td>
+  <td style="padding:9px 12px;font-weight:500">British Veterinary Centre — Marina Village</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Al Khalidiyah</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.6</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">580</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:60%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">60%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:94%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">94%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">77</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">8</td>
+  <td style="padding:9px 12px;font-weight:500">Emirates Park Zoo Pet Clinic (ZVC)</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Al Bahyah</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.7</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">280</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:70%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">70%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:83%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">83%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">77</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">9</td>
+  <td style="padding:9px 12px;font-weight:500">Pet Pavilion</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Mussafah ICAD</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.6</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">450</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:60%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">60%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:90%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">90%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">75</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">10</td>
+  <td style="padding:9px 12px;font-weight:500">Capital Vet</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Al Mushrif</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.6</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">390</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:60%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">60%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:88%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">88%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">74</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">11</td>
+  <td style="padding:9px 12px;font-weight:500">The City Vet Clinic — Al Reem Island</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Al Reem Island</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.6</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">340</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:60%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">60%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:86%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">86%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">73</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">12</td>
+  <td style="padding:9px 12px;font-weight:500">American Veterinary Clinic (PetCure)</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Al Khalidiyah</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.5</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">620</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:50%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">50%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:95%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">95%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">72</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">13</td>
+  <td style="padding:9px 12px;font-weight:500">Australian Veterinary Clinic — Khalifa City</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Khalifa City A</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.6</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">510</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:60%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">60%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:92%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">92%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">76</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">14</td>
+  <td style="padding:9px 12px;font-weight:500">British Veterinary Centre — Khalifa City</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Khalifa City</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.5</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">240</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:50%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">50%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:81%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">81%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#f5a623;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">65</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">15</td>
+  <td style="padding:9px 12px;font-weight:500">Super Vet Pet Clinic (24/7)</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Al Raha</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.5</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">230</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:50%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">50%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:80%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">80%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#f5a623;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">65</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">16</td>
+  <td style="padding:9px 12px;font-weight:500">Royal Veterinary Centre</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Al Bateen</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.5</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">210</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:50%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">50%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:79%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">79%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#f5a623;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">64</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">17</td>
+  <td style="padding:9px 12px;font-weight:500">Hope Veterinary Clinic</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Al Marina</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.6</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">95</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:60%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">60%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:67%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">67%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#f5a623;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">64</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">18</td>
+  <td style="padding:9px 12px;font-weight:500">Australian Veterinary Clinic — Al Reem Island</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Al Reem Island</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.5</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">180</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:50%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">50%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:76%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">76%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#f5a623;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">63</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">19</td>
+  <td style="padding:9px 12px;font-weight:500">National Veterinary Clinic</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Al Mushrif</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#f5a623;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.4</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">320</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:40%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">40%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:85%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">85%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#f5a623;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">62</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">20</td>
+  <td style="padding:9px 12px;font-weight:500">Canadian Veterinary Clinic</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Al Zahiyah (TCA)</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#f5a623;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.4</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">290</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:40%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">40%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:84%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">84%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#f5a623;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">62</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">21</td>
+  <td style="padding:9px 12px;font-weight:500">Pure Life Veterinary Treatment</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Al Nahyan</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#f5a623;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.3</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">520</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:30%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">30%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:92%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">92%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#f5a623;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">61</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">22</td>
+  <td style="padding:9px 12px;font-weight:500">Top Care Veterinary Clinic</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Al Wathba</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.5</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">95</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:50%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">50%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:67%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">67%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#f5a623;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">59</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">23</td>
+  <td style="padding:9px 12px;font-weight:500">Al Raha Veterinary Clinic</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Al Raha</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#f5a623;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.4</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">160</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:40%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">40%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:75%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">75%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#f5a623;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">57</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">24</td>
+  <td style="padding:9px 12px;font-weight:500">Fit Life Veterinary Clinic</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Khalifa City A</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#f5a623;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.3</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">120</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:30%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">30%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:70%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">70%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#f5a623;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">50</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">25</td>
+  <td style="padding:9px 12px;font-weight:500">New Veterinary Clinic</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Tourist Club Area</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#f5a623;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.2</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">180</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:20%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">20%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:76%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">76%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#e74c3c;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">48</span></td>
+</tr>
+<tr>
+  <td style="padding:9px 12px;text-align:center;font-size:13px;font-weight:700">26</td>
+  <td style="padding:9px 12px;font-weight:500">Al Khalidiya Vet Clinic</td>
+  <td style="padding:9px 12px;font-size:12px;color:#6c757d">Al Nahyan</td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#f5a623;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.2</span></td>
+  <td style="padding:9px 12px;text-align:right;font-weight:600">45</td>
+  <td style="padding:9px 12px;min-width:160px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:10px;color:#999;width:14px">★</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:20%;height:100%;background:#015962;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">20%</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10px;color:#999;width:14px">💬</span>
+      <div style="flex:1;background:#f0f0f0;border-radius:3px;height:5px"><div style="width:56%;height:100%;background:#027a87;border-radius:3px"></div></div>
+      <span style="font-size:10px;color:#999;width:26px">56%</span>
+    </div>
+  </td>
+  <td style="padding:9px 12px;text-align:center"><span style="background:#e74c3c;color:white;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:800">38</span></td>
+</tr>
+    </tbody>
+  </table></div>
+  <div style="background:white;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.06);padding:14px 18px;margin-top:14px;font-size:12px;color:#6c757d;line-height:2">
+    <strong style="color:#015962">Methodology:</strong>
+    ★ Rating score = (rating − 4.0) × 100 &nbsp;|&nbsp;
+    💬 Review score = log(reviews) / log(890) × 100 &nbsp;|&nbsp;
+    Final score = average of both. Clinics with no reviews excluded.
+  </div>
+</div>
+
+<!-- ===================== COMPETITORS TAB ===================== -->
+<div id="comp" class="sec">
+  <div class="sec-hdr"><h2>Competitor Vet Clinics</h2><p>All active veterinary clinics and animal hospitals in Abu Dhabi (26 active facilities across all districts)</p></div>
+  <div class="search"><input id="s-comp" type="text" placeholder="Search by name, area, services..." oninput="filter('t-comp',this.value)"></div>
+  <div class="tbl-wrap"><table id="t-comp">
+    <thead><tr>
+      <th onclick="sort('t-comp',0)">Name ↕</th>
+      <th onclick="sort('t-comp',1)">Area ↕</th>
+      <th onclick="sort('t-comp',2)">Rating ↕</th>
+      <th onclick="sort('t-comp',3)">Reviews ↕</th>
+      <th onclick="sort('t-comp',4)">Est. ↕</th>
+      <th>Services / Notes</th>
+      <th>Address</th>
+    </tr></thead>
+    <tbody>
+<tr><td style="font-weight:600">National Veterinary Clinic</td><td>Al Mushrif</td><td><span style="background:#f5a623;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.4</span></td><td style="text-align:right;font-weight:600">320</td><td style="text-align:center">1988</td><td style="font-size:12px;color:#444">Falcon specialist, small mammals, farm animals, 14 caretakers, 10,000+ clients. Est. oldest vet clinic in Abu Dhabi.</td><td style="color:#6c757d;font-size:12px">Al Barq St, Al Mushrif W24-02, opp. Mary Mother of Jesus Mosque</td></tr>
+<tr><td style="font-weight:600">British Veterinary Centre — Marina Village</td><td>Al Khalidiyah</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.6</span></td><td style="text-align:right;font-weight:600">580</td><td style="text-align:center">1991</td><td style="font-size:12px;color:#444">Cardiology, orthopaedics, IPATA member (pet travel), in-house pharmacy &amp; pet store. MRCVS vets.</td><td style="color:#6c757d;font-size:12px">Villa 16, Al Kasir St, Marina Village, Abu Dhabi</td></tr>
+<tr><td style="font-weight:600">British Veterinary Centre — Khalifa City</td><td>Khalifa City</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.5</span></td><td style="text-align:right;font-weight:600">240</td><td style="text-align:center">1991</td><td style="font-size:12px;color:#444">Branch of British Vet Centre. Full-service clinic, surgery, internal medicine, preventive care.</td><td style="color:#6c757d;font-size:12px">Khalifa City, Abu Dhabi</td></tr>
+<tr><td style="font-weight:600">American Veterinary Clinic (PetCure)</td><td>Al Khalidiyah</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.5</span></td><td style="text-align:right;font-weight:600">620</td><td style="text-align:center">~2000</td><td style="font-size:12px;color:#444">Emergency 24h service, surgery, diagnostics. Long-established expat favourite. Also operates PetCure pet store.</td><td style="color:#6c757d;font-size:12px">Al Khalidiyah, Abu Dhabi</td></tr>
+<tr><td style="font-weight:600">German Veterinary Clinic</td><td>Khalifa City A</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.8</span></td><td style="text-align:right;font-weight:600">430</td><td style="text-align:center">2008</td><td style="font-size:12px;color:#444">Led by Dr. Katrin Jahn. European-standard care, surgery, dental, dermatology. Highly rated. Sector 32, Khalifa City A.</td><td style="color:#6c757d;font-size:12px">Khalifa City A, Sector 32, Abu Dhabi</td></tr>
+<tr><td style="font-weight:600">The City Vet Clinic — Khalifa City</td><td>Khalifa City A</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.7</span></td><td style="text-align:right;font-weight:600">890</td><td style="text-align:center">—</td><td style="font-size:12px;color:#444">Flagship Abu Dhabi branch of The City Vet chain. Multi-vet practice on 12th Street. Highest review count in AD market.</td><td style="color:#6c757d;font-size:12px">12th Street, Khalifa City A, Abu Dhabi</td></tr>
+<tr><td style="font-weight:600">The City Vet Clinic — Al Reem Island</td><td>Al Reem Island</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.6</span></td><td style="text-align:right;font-weight:600">340</td><td style="text-align:center">—</td><td style="font-size:12px;color:#444">Branch in Damac Oceanscape, Al Reem Island. Only vet serving Al Reem Island's high-density residential community.</td><td style="color:#6c757d;font-size:12px">Damac Oceanscape, Al Reem Island, Abu Dhabi</td></tr>
+<tr><td style="font-weight:600">Australian Veterinary Clinic — Khalifa City</td><td>Khalifa City A</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.6</span></td><td style="text-align:right;font-weight:600">510</td><td style="text-align:center">—</td><td style="font-size:12px;color:#444">MRCVS-associated vets. Full-service including operation theatre, laboratory. Very popular in Khalifa City.</td><td style="color:#6c757d;font-size:12px">Al Muroor – 66 Al Majarrah St – Zone 1, Sector E-38, Abu Dhabi</td></tr>
+<tr><td style="font-weight:600">Australian Veterinary Clinic — Al Reem Island</td><td>Al Reem Island</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.5</span></td><td style="text-align:right;font-weight:600">180</td><td style="text-align:center">—</td><td style="font-size:12px;color:#444">Satellite branch on Al Reem Island. Smaller clinic serving the island community alongside The City Vet.</td><td style="color:#6c757d;font-size:12px">Al Reem Island, Abu Dhabi</td></tr>
+<tr><td style="font-weight:600">Pet Oasis Veterinary Clinic</td><td>Al Muroor</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.7</span></td><td style="text-align:right;font-weight:600">780</td><td style="text-align:center">2006</td><td style="font-size:12px;color:#444">Led by Dr. Elizabeth Thomas. Full-service vet + animal resort: boarding, grooming, daycare. Highest-traffic single-site clinic.</td><td style="color:#6c757d;font-size:12px">Al Muroor, Zone 1, Sector E-38, Abu Dhabi</td></tr>
+<tr><td style="font-weight:600">Pure Life Veterinary Treatment</td><td>Al Nahyan</td><td><span style="background:#f5a623;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.3</span></td><td style="text-align:right;font-weight:600">520</td><td style="text-align:center">—</td><td style="font-size:12px;color:#444">70+ veterinarians on staff — the largest vet practice in Abu Dhabi by staff count. Sultan Bin Zayed area. High volume, mixed reviews.</td><td style="color:#6c757d;font-size:12px">Al Nahyan, Zone 1, Abu Dhabi</td></tr>
+<tr><td style="font-weight:600">Pet Pavilion (Vet Clinic + Boarding)</td><td>Mussafah ICAD</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.6</span></td><td style="text-align:right;font-weight:600">450</td><td style="text-align:center">—</td><td style="font-size:12px;color:#444">UAE's premier pet facility: vet clinic + luxury boarding (pet-cam, pool) + hydrotherapy + physiotherapy (Engelbert Nel). Shortlisted Pet Industry Awards 2025.</td><td style="color:#6c757d;font-size:12px">Plot M35, 13th Street, Musaffah ICAD, Abu Dhabi</td></tr>
+<tr><td style="font-weight:600">Canadian Veterinary Clinic</td><td>Al Zahiyah (TCA)</td><td><span style="background:#f5a623;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.4</span></td><td style="text-align:right;font-weight:600">290</td><td style="text-align:center">—</td><td style="font-size:12px;color:#444">Near Abu Dhabi Bird Market (Al Meena). Good volume, bilingual service. Serves TCA/tourist area residents.</td><td style="color:#6c757d;font-size:12px">Al Meena St, Al Zahiyah, Abu Dhabi</td></tr>
+<tr><td style="font-weight:600">New Veterinary Clinic</td><td>Tourist Club Area</td><td><span style="background:#f5a623;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.2</span></td><td style="text-align:right;font-weight:600">180</td><td style="text-align:center">—</td><td style="font-size:12px;color:#444">Basic general practice in the TCA / Al Zahiyah district. Moderate ratings.</td><td style="color:#6c757d;font-size:12px">Tourist Club Area, Abu Dhabi</td></tr>
+<tr><td style="font-weight:600">Fit Life Veterinary Clinic</td><td>Khalifa City A</td><td><span style="background:#f5a623;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.3</span></td><td style="text-align:right;font-weight:600">120</td><td style="text-align:center">—</td><td style="font-size:12px;color:#444">Near International School of Choueifat. Serves Khalifa City expat families. Lower-rated competitor vs German/Australian/City Vet.</td><td style="color:#6c757d;font-size:12px">Near International School of Choueifat, Khalifa City A</td></tr>
+<tr><td style="font-weight:600">Royal Veterinary Centre</td><td>Al Bateen</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.5</span></td><td style="text-align:right;font-weight:600">210</td><td style="text-align:center">—</td><td style="font-size:12px;color:#444">Purpose-built surgery in Al Bateen. Excellent facilities per reviews. Serves western Abu Dhabi residential communities.</td><td style="color:#6c757d;font-size:12px">Al Bateen, Ghafat Al Shwaihi, Abu Dhabi</td></tr>
+<tr><td style="font-weight:600">Capital Vet</td><td>Al Mushrif</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.6</span></td><td style="text-align:right;font-weight:600">390</td><td style="text-align:center">—</td><td style="font-size:12px;color:#444">Compassionate care, advanced medical including emergency. Positioned as community-first trusted clinic.</td><td style="color:#6c757d;font-size:12px">Abu Dhabi (capitalvet.ae)</td></tr>
+<tr><td style="font-weight:600">Animalia — Animal Welfare &amp; Clinic</td><td>Al Raha Beach</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.8</span></td><td style="text-align:right;font-weight:600">380</td><td style="text-align:center">—</td><td style="font-size:12px;color:#444">Welfare-led vet clinic + rescue + adoption. Beloved by expat community. C18 Al Raha Blvd, Beach Building 1484.</td><td style="color:#6c757d;font-size:12px">Beach Building 1484, C18 Al Raha Blvd, Al Raha Beach, Abu Dhabi</td></tr>
+<tr><td style="font-weight:600">Super Vet Pet Clinic (24/7)</td><td>Al Raha</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.5</span></td><td style="text-align:right;font-weight:600">230</td><td style="text-align:center">—</td><td style="font-size:12px;color:#444">24/7 emergency care. Only round-the-clock vet in the Al Raha / southern Abu Dhabi corridor.</td><td style="color:#6c757d;font-size:12px">Al Raha, Abu Dhabi</td></tr>
+<tr><td style="font-weight:600">Noble Veterinary Clinic — Abu Dhabi</td><td>Al Khalidiyah</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.8</span></td><td style="text-align:right;font-weight:600">320</td><td style="text-align:center">—</td><td style="font-size:12px;color:#444">Abu Dhabi branch of Noble Vet (Dubai chain). Premium quality care, excellent staff. Also publishes pet guides and blogs.</td><td style="color:#6c757d;font-size:12px">Abu Dhabi (noblevetclinic.com/vet-in-abu-dhabi)</td></tr>
+<tr><td style="font-weight:600">Top Care Veterinary Clinic</td><td>Al Wathba</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.5</span></td><td style="text-align:right;font-weight:600">95</td><td style="text-align:center">—</td><td style="font-size:12px;color:#444">Serves the Al Wathba South area. Newer clinic. Professional staff, detailed explanations per reviews.</td><td style="color:#6c757d;font-size:12px">Al Wathba South, Abu Dhabi</td></tr>
+<tr><td style="font-weight:600">Emirates Park Zoo Pet Clinic (ZVC)</td><td>Al Bahyah</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.7</span></td><td style="text-align:right;font-weight:600">280</td><td style="text-align:center">—</td><td style="font-size:12px;color:#444">Attached to Emirates Park Zoo. Exotic and domestic animal care. Favourite of reviewers for cat and exotic pet care.</td><td style="color:#6c757d;font-size:12px">Emirates Park Zoo, St 12, Al Bahyah, Abu Dhabi</td></tr>
+<tr><td style="font-weight:600">Al Raha Veterinary Clinic</td><td>Al Raha</td><td><span style="background:#f5a623;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.4</span></td><td style="text-align:right;font-weight:600">160</td><td style="text-align:center">—</td><td style="font-size:12px;color:#444">General practice. Post-surgery follow-up praised in reviews. Serves Al Raha / Al Dana area.</td><td style="color:#6c757d;font-size:12px">Al Qanat St, Al Raha, RBW5, Abu Dhabi</td></tr>
+<tr><td style="font-weight:600">Pawspact Veterinarian Clinic</td><td>Al Hisn (City Centre)</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.9</span></td><td style="text-align:right;font-weight:600">120</td><td style="text-align:center">—</td><td style="font-size:12px;color:#444">Top-rated in Abu Dhabi city centre. Dr. William praised extensively. 21 At Tashreef St. Newer but very highly rated.</td><td style="color:#6c757d;font-size:12px">21 At Tashreef St, Al Hisn W7-01, Abu Dhabi</td></tr>
+<tr><td style="font-weight:600">Hope Veterinary Clinic</td><td>Al Marina</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.6</span></td><td style="text-align:right;font-weight:600">95</td><td style="text-align:center">—</td><td style="font-size:12px;color:#444">Marina office park location. Good access to Marina/Corniche area residents and boat owners.</td><td style="color:#6c757d;font-size:12px">Marina Office Park, Abu Dhabi</td></tr>
+</tbody></table></div>
+</div>
+
+<!-- ===================== PET BUSINESSES TAB ===================== -->
+<div id="pet" class="sec">
+  <div class="sec-hdr">
+    <h2>🐶 Pet Businesses</h2>
+    <p>Pet shops, grooming, boarding, and other pet services in Abu Dhabi (non-veterinary)</p>
+  </div>
+  <div class="search"><input id="s-pet" type="text" placeholder="Search by name, area..." oninput="filter('t-pet',this.value)"></div>
+  <div class="tbl-wrap"><table id="t-pet">
+    <thead><tr>
+      <th onclick="sort('t-pet',0)">Name ↕</th>
+      <th onclick="sort('t-pet',1)">Area ↕</th>
+      <th onclick="sort('t-pet',2)">Type ↕</th>
+      <th onclick="sort('t-pet',3)">Rating ↕</th>
+      <th onclick="sort('t-pet',4)">Reviews ↕</th>
+    </tr></thead>
+    <tbody>
+<tr><td style="font-weight:600">Pet Zone</td><td>Multiple (Mall of Emirates, Yas Mall, etc.)</td><td>Pet Shop</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.5</span></td><td style="text-align:right;font-weight:600">850</td></tr>
+<tr><td style="font-weight:600">Pet Pavilion — Boarding & Daycare</td><td>Mussafah ICAD</td><td>Boarding / Daycare</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.6</span></td><td style="text-align:right;font-weight:600">450</td></tr>
+<tr><td style="font-weight:600">Pet Oasis — Animal Resort</td><td>Al Muroor</td><td>Boarding / Resort</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.7</span></td><td style="text-align:right;font-weight:600">780</td></tr>
+<tr><td style="font-weight:600">Animalia Adoption Centre</td><td>Al Raha Beach</td><td>Rescue / Adoption</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.8</span></td><td style="text-align:right;font-weight:600">380</td></tr>
+<tr><td style="font-weight:600">Abu Dhabi Bird Market (Souq Al Tuyur)</td><td>Al Meena</td><td>Pet Market</td><td><span style="background:#f5a623;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.2</span></td><td style="text-align:right;font-weight:600">1200</td></tr>
+<tr><td style="font-weight:600">Paws & Claws Pet Shop</td><td>Khalifa City A</td><td>Pet Shop</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.5</span></td><td style="text-align:right;font-weight:600">210</td></tr>
+<tr><td style="font-weight:600">Furry Friends Grooming Salon</td><td>Al Nahyan</td><td>Grooming</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.7</span></td><td style="text-align:right;font-weight:600">180</td></tr>
+<tr><td style="font-weight:600">Abu Dhabi Falcon Hospital</td><td>Sweihan Road</td><td>Falcon Hospital</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.6</span></td><td style="text-align:right;font-weight:600">3200</td></tr>
+<tr><td style="font-weight:600">Happy Tails Pet Grooming</td><td>Al Reem Island</td><td>Grooming</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.8</span></td><td style="text-align:right;font-weight:600">95</td></tr>
+<tr><td style="font-weight:600">K9 Friends Abu Dhabi</td><td>Al Shamkha</td><td>Rescue / Shelter</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.7</span></td><td style="text-align:right;font-weight:600">640</td></tr>
+<tr><td style="font-weight:600">SnoopyDoo Pet Grooming</td><td>Al Khalidiyah</td><td>Grooming</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.9</span></td><td style="text-align:right;font-weight:600">320</td></tr>
+<tr><td style="font-weight:600">Dog Park Abu Dhabi — Al Fay Park</td><td>Masdar City</td><td>Dog Park</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.5</span></td><td style="text-align:right;font-weight:600">1100</td></tr>
+<tr><td style="font-weight:600">Chauf-fur Pet Transport</td><td>Abu Dhabi (citywide)</td><td>Pet Transport</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.8</span></td><td style="text-align:right;font-weight:600">180</td></tr>
+<tr><td style="font-weight:600">PetPedia — Abu Dhabi</td><td>Al Reem Island</td><td>Pet Shop / Delivery</td><td><span style="background:#00a86b;color:white;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:700">★ 4.6</span></td><td style="text-align:right;font-weight:600">140</td></tr>
+</tbody></table></div>
+</div>
+
+</div><!-- /content -->
+</div><!-- /report -->
+
+<script>
+function check(){var p=document.getElementById('pw').value;if(p==='modvet2026'){document.getElementById('gate').style.display='none';document.getElementById('report').style.display='block'}else{var e=document.getElementById('err');e.style.display='block';setTimeout(function(){e.style.display='none'},2500)}}
+function show(id,el){document.querySelectorAll('.sec').forEach(function(s){s.classList.remove('active')});document.getElementById(id).classList.add('active');document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});el.classList.add('active')}
+function sort(tid,col){var t=document.getElementById(tid),tb=t.tBodies[0],rows=Array.from(tb.rows),asc=t.getAttribute('data-sort-asc-'+col)!=='1';rows.sort(function(a,b){var va=a.cells[col].textContent.trim(),vb=b.cells[col].textContent.trim(),na=parseFloat(va.replace(/[^0-9.\-]/g,'')),nb=parseFloat(vb.replace(/[^0-9.\-]/g,''));if(!isNaN(na)&&!isNaN(nb))return asc?na-nb:nb-na;return asc?va.localeCompare(vb):vb.localeCompare(va)});rows.forEach(function(r){tb.appendChild(r)});t.setAttribute('data-sort-asc-'+col,asc?'1':'0')}
+function filter(tid,q){var t=document.getElementById(tid),rows=t.tBodies[0].rows,lc=q.toLowerCase();for(var i=0;i<rows.length;i++){rows[i].style.display=rows[i].textContent.toLowerCase().indexOf(lc)>-1?'':'none'}}
+</script>
+</body>
+</html>
