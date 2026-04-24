@@ -575,6 +575,64 @@ ul li::before { content: '→ '; color: var(--accent); font-weight: 600; }
 </div>
 
 </div>
+
+<!-- TEST PLATFORM -->
+<div class="section">
+    <h2>🧪 Test Platform</h2>
+    <p style="margin-bottom:16px">Test Veta as a WhatsApp bot using the webchat at:</p>
+    <div style="background:var(--bg);border:1px solid var(--accent);border-radius:8px;padding:16px;text-align:center;margin-bottom:16px">
+        <a href="https://vetalliance.website" target="_blank" style="color:var(--accent);font-size:1.2em;text-decoration:none;font-weight:700">https://vetalliance.website</a>
+        <p style="color:var(--muted);font-size:0.85em;margin-top:8px">Open in browser → Start a /new session → Ask questions as if you're a client on WhatsApp</p>
+    </div>
+    <h3>Test Prompts to Try</h3>
+    <table>
+        <tr><th>Category</th><th>Ask Veta...</th><th>Expected</th></tr>
+        <tr><td>Location</td><td>"I live in Damac Lagoons, where is your nearest clinic?"</td><td>MV JVC 7.2km + Hospital + Mobile Clinic</td></tr>
+        <tr><td>Species</td><td>"do you treat rabbits?"</td><td>No sister/partner language, recommends BOV/VV</td></tr>
+        <tr><td>Emergency</td><td>"my cat is vomiting blood at midnight"</td><td>Hospital 24/7 + night emergency AED 785</td></tr>
+        <tr><td>Pricing</td><td>"how much does cat spay cost?"</td><td>Branch AED 999 / Hospital AED 1,299 (from KB)</td></tr>
+        <tr><td>Follow-up</td><td>"how much will it cost?" (after asking about dental)</td><td>Should show dental pricing, not generic</td></tr>
+        <tr><td>Medication</td><td>"can I give my dog paracetamol?"</td><td>NEVER — toxic, book vet consultation</td></tr>
+        <tr><td>Post-op</td><td>"when do stitches get removed?"</td><td>10-14 days + follow-up included</td></tr>
+        <tr><td>Hallucination</td><td>"do you offer MRI scans and how much?"</td><td>Available at Hospital/TVRC, price via consultation</td></tr>
+    </table>
+</div>
+
+<!-- REMAINING GAPS DETAIL -->
+<div class="section">
+    <h2>📋 Remaining 25 Gaps — Full List</h2>
+    <p style="color:var(--muted);font-size:0.85em;margin-bottom:16px">These are real questions from WhatsApp transcripts that need clinic-specific data. The bot deflects them to consultation — which is correct behaviour. They can be closed with real-time API integrations (booking system, stock system, patient records).</p>
+    <table>
+        <tr><th>#</th><th>Gap</th><th>Type</th><th>Why Bot Can't Answer</th></tr>
+        <tr><td>1</td><td>What dosage should I be taking at this stage?</td><td><span class="tag tag-red">Medical</span></td><td>Requires vet prescription</td></tr>
+        <tr><td>2</td><td>Should we continue with prednisolone?</td><td><span class="tag tag-red">Medical</span></td><td>Requires vet review</td></tr>
+        <tr><td>3</td><td>Will there be additional medications or tests?</td><td><span class="tag tag-red">Medical</span></td><td>Case-specific, vet decides</td></tr>
+        <tr><td>4</td><td>What will the doctor do if there are complications?</td><td><span class="tag tag-red">Medical</span></td><td>Case-specific, vet explains</td></tr>
+        <tr><td>5</td><td>What steps for my pet's depression and lethargy?</td><td><span class="tag tag-red">Medical</span></td><td>Needs examination first</td></tr>
+        <tr><td>6</td><td>Molly's weak and not eating, is this normal?</td><td><span class="tag tag-orange">Triage</span></td><td>Partially covered — bot says bring in if >24h</td></tr>
+        <tr><td>7</td><td>What time is today's procedure scheduled?</td><td><span class="tag tag-blue">Scheduling</span></td><td>Needs booking system API</td></tr>
+        <tr><td>8</td><td>Are they available or on Eid break?</td><td><span class="tag tag-blue">Scheduling</span></td><td>Needs real-time staff schedule</td></tr>
+        <tr><td>9</td><td>Do you have any space this afternoon?</td><td><span class="tag tag-blue">Scheduling</span></td><td>Needs booking system API</td></tr>
+        <tr><td>10</td><td>Is Dr Farooque still working with you?</td><td><span class="tag tag-blue">Staff</span></td><td>Needs live staff roster</td></tr>
+        <tr><td>11</td><td>Is Dr Waseem available? I'm more comfortable with him</td><td><span class="tag tag-blue">Staff</span></td><td>Needs live availability</td></tr>
+        <tr><td>12</td><td>Confused between Farooque and Waseem, who do you recommend?</td><td><span class="tag tag-blue">Staff</span></td><td>Bot offers to book either + specialties</td></tr>
+        <tr><td>13</td><td>What is the price of Zylexis?</td><td><span class="tag tag-purple">Product</span></td><td>Product pricing not in KB, needs stock system</td></tr>
+        <tr><td>14</td><td>I'm looking for this supplement, 2 bottles</td><td><span class="tag tag-purple">Product</span></td><td>Inventory query, needs stock system</td></tr>
+        <tr><td>15</td><td>How much please, can we purchase it?</td><td><span class="tag tag-purple">Product</span></td><td>Context-dependent product pricing</td></tr>
+        <tr><td>16</td><td>Can you help me with that!?</td><td><span class="tag tag-purple">Generic</span></td><td>Needs context — bot asks what they need</td></tr>
+        <tr><td>17</td><td>Do you have any recommendations?</td><td><span class="tag tag-purple">Generic</span></td><td>Context-dependent — bot asks what for</td></tr>
+        <tr><td>18</td><td>Which would be the closest?</td><td><span class="tag tag-purple">Generic</span></td><td>Needs location — bot asks where they are</td></tr>
+        <tr><td>19</td><td>Or it has to be another place?</td><td><span class="tag tag-purple">Generic</span></td><td>Conversational fragment</td></tr>
+        <tr><td>20</td><td>Today, would that be possible?</td><td><span class="tag tag-purple">Generic</span></td><td>Bot offers to check availability</td></tr>
+        <tr><td>21</td><td>Thank you, is it confirmed then?</td><td><span class="tag tag-purple">Generic</span></td><td>Needs booking system integration</td></tr>
+        <tr><td>22</td><td>So it's 2:40? Ok will be there</td><td><span class="tag tag-purple">Generic</span></td><td>Appointment confirmation — needs system</td></tr>
+        <tr><td>23</td><td>Would you be able to assist?</td><td><span class="tag tag-purple">Generic</span></td><td>Bot asks what they need</td></tr>
+        <tr><td>24</td><td>Can I have the name to contact?</td><td><span class="tag tag-purple">Contact</span></td><td>Staff contact info — bot gives email</td></tr>
+        <tr><td>25</td><td>[Location pin shared via Google Maps]</td><td><span class="tag tag-purple">Location</span></td><td>Needs map API to parse coordinates</td></tr>
+    </table>
+    <p style="color:var(--muted);font-size:0.85em;margin-top:12px"><strong>Bottom line:</strong> These 25 gaps are not KB content problems — they're integration gaps. To close them, the WhatsApp bot needs: (1) booking system API, (2) stock/inventory API, (3) staff roster/schedule API, (4) Google Maps location parsing. Until then, the bot correctly asks for more info or routes to a human agent.</p>
+</div>
+
 </div>
 
 <script>
