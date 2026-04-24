@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dubai Vet Price Intelligence | Vet Alliance</title>
+<script src="prices-data.js"></script>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3350;
+    --text: #e8eaf6;
+    --muted: #7986cb;
+    --accent: #5c6bc0;
+    --accent2: #3949ab;
+    --ours: #1a3a2a;
+    --ours-border: #2e7d52;
+    --green: #4caf50;
+    --yellow: #ffc107;
+    --red: #f44336;
+    --orange: #ff9800;
+    --pill-bg: #263238;
+    --header-h: 60px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; font-size: 14px; }
+
+  /* ── HEADER ── */
+  header {
+    height: var(--header-h);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .logo { font-weight: 700; font-size: 16px; color: var(--text); letter-spacing: 0.5px; }
+  .logo span { color: var(--muted); }
+  .header-meta { font-size: 12px; color: var(--muted); }
+  .header-meta b { color: #90caf9; }
+
+  /* ── TABS ── */
+  .tabs { display: flex; gap: 4px; padding: 16px 24px 0; border-bottom: 1px solid var(--border); background: var(--bg); }
+  .tab {
+    padding: 8px 18px; border-radius: 6px 6px 0 0; cursor: pointer;
+    color: var(--muted); font-weight: 500; font-size: 13px;
+    border: 1px solid transparent; border-bottom: none;
+    transition: all 0.15s;
+  }
+  .tab:hover { color: var(--text); background: var(--surface); }
+  .tab.active { color: var(--text); background: var(--surface); border-color: var(--border); }
+
+  /* ── MAIN ── */
+  main { padding: 24px; }
+
+  /* ── FILTERS ── */
+  .filters {
+    display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px;
+    align-items: center;
+  }
+  .filter-group { display: flex; align-items: center; gap: 8px; }
+  .filter-group label { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  select, input[type=text] {
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--text); border-radius: 6px; padding: 6px 10px;
+    font-size: 13px; outline: none;
+  }
+  select:focus, input:focus { border-color: var(--accent); }
+  .btn {
+    background: var(--accent2); color: #fff; border: none; border-radius: 6px;
+    padding: 6px 14px; cursor: pointer; font-size: 13px; font-weight: 500;
+    transition: background 0.15s;
+  }
+  .btn:hover { background: var(--accent); }
+  .btn-outline {
+    background: transparent; color: var(--muted); border: 1px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--text); background: var(--surface); }
+
+  /* ── STATS STRIP ── */
+  .stats-strip { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+  .stat-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 20px; flex: 1; min-width: 150px;
+  }
+  .stat-card .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; }
+  .stat-card .value { font-size: 22px; font-weight: 700; }
+  .stat-card .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  /* ── TABLE ── */
+  .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; }
+  thead tr { background: var(--surface2); }
+  th {
+    padding: 10px 12px; text-align: left; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted);
+    border-bottom: 1px solid var(--border); white-space: nowrap;
+    cursor: pointer; user-select: none;
+  }
+  th:hover { color: var(--text); }
+  th.sorted { color: var(--accent); }
+  td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  tr.ours td { background: var(--ours); }
+  tr.ours td:first-child { border-left: 3px solid var(--ours-border); }
+  tr:not(.ours):hover td { background: var(--surface); }
+
+  .clinic-name { font-weight: 600; font-size: 13px; }
+  .clinic-name a { color: var(--text); text-decoration: none; }
+  .clinic-name a:hover { color: var(--muted); text-decoration: underline; }
+  .clinic-note { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .ours-badge {
+    display: inline-block; font-size: 9px; font-weight: 700;
+    background: var(--ours-border); color: #fff; border-radius: 3px;
+    padding: 1px 5px; margin-left: 6px; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+
+  /* Price cells */
+  .price-cell { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  .price-cell.cheaper { color: var(--red); }
+  .price-cell.same    { color: var(--yellow); }
+  .price-cell.pricier { color: var(--green); }
+  .price-cell.ours    { color: var(--muted); font-weight: 700; }
+  .price-cell .note   { font-size: 10px; color: var(--muted); font-weight: 400; display: block; margin-top: 1px; }
+  .price-cell .src    { font-size: 9px; color: #546e7a; display: block; }
+  .no-data            { color: #546e7a; text-align: center; }
+
+  /* ── HEATMAP VIEW ── */
+  .heatmap-wrap { overflow-x: auto; }
+  .heatmap-table { border-collapse: collapse; width: 100%; }
+  .heatmap-table th { padding: 6px 10px; background: var(--surface2); font-size: 11px; color: var(--muted); border: 1px solid var(--border); white-space: nowrap; }
+  .heatmap-table td { border: 1px solid var(--border); padding: 0; min-width: 80px; height: 44px; text-align: center; vertical-align: middle; font-size: 12px; font-weight: 600; }
+  .heatmap-table td.row-label { padding: 6px 10px; text-align: left; font-size: 12px; font-weight: 600; min-width: 200px; background: var(--surface); white-space: nowrap; }
+  .heatmap-table td.row-label.ours-row { border-left: 3px solid var(--ours-border); background: var(--ours); }
+  .hm-cell { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: default; }
+  .hm-cell .hm-val { font-size: 12px; }
+  .hm-cell .hm-sub { font-size: 9px; color: rgba(255,255,255,0.5); }
+
+  /* ── LEGEND ── */
+  .legend { display: flex; gap: 16px; margin-bottom: 12px; flex-wrap: wrap; align-items: center; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  /* ── SECTION VIEW (by service) ── */
+  .service-sections { display: flex; flex-direction: column; gap: 24px; }
+  .service-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .service-header {
+    padding: 14px 18px; background: var(--surface2);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .service-header h3 { font-size: 14px; font-weight: 600; }
+  .service-header .market-range { font-size: 12px; color: var(--muted); }
+  .service-bars { padding: 12px 18px; display: flex; flex-direction: column; gap: 8px; }
+  .bar-row { display: flex; align-items: center; gap: 10px; }
+  .bar-label { width: 200px; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-shrink: 0; }
+  .bar-label.ours-label { color: #a5d6a7; font-weight: 600; }
+  .bar-track { flex: 1; background: var(--bg); border-radius: 4px; height: 20px; position: relative; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; position: absolute; left: 0; top: 0; transition: width 0.4s; }
+  .bar-fill.ours-fill { background: linear-gradient(90deg, #2e7d52, #4caf50); }
+  .bar-fill.comp-fill { background: linear-gradient(90deg, #1a237e, #5c6bc0); }
+  .bar-price { font-size: 12px; font-weight: 600; width: 80px; text-align: right; flex-shrink: 0; }
+  .bar-src { font-size: 10px; color: #546e7a; width: 80px; flex-shrink: 0; }
+
+  /* ── UPDATE PANEL ── */
+  .update-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; max-width: 600px; }
+  .update-panel h3 { margin-bottom: 14px; font-size: 15px; }
+  .form-row { display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+  .form-row select, .form-row input { flex: 1; min-width: 120px; }
+  textarea { width: 100%; background: var(--surface); border: 1px solid var(--border); color: var(--text); border-radius: 6px; padding: 8px 10px; font-size: 12px; font-family: monospace; min-height: 180px; outline: none; resize: vertical; }
+  textarea:focus { border-color: var(--accent); }
+  .update-note { font-size: 12px; color: var(--muted); margin-top: 8px; }
+  code { background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px; font-size: 11px; }
+
+  /* ── COVERAGE BADGES ── */
+  .coverage { display: inline-block; font-size: 10px; font-weight: 700; border-radius: 10px; padding: 2px 7px; }
+  .coverage.high  { background: #1b5e20; color: #a5d6a7; }
+  .coverage.med   { background: #e65100; color: #ffcc80; }
+  .coverage.low   { background: #37474f; color: #90a4ae; }
+
+  /* ── TOOLTIP ── */
+  [data-tooltip] { position: relative; cursor: help; }
+  [data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+    background: #263238; color: #eceff1; font-size: 11px; font-weight: 400;
+    white-space: nowrap; padding: 5px 9px; border-radius: 6px; border: 1px solid #37474f;
+    z-index: 999; pointer-events: none;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:700px) {
+    .stats-strip { flex-direction: column; }
+    .bar-label { width: 120px; }
+    .bar-src { display: none; }
+  }
+
+  /* ── PASSWORD OVERLAY ── */
+  #pw-overlay {
+    position: fixed; inset: 0; background: var(--bg);
+    display: flex; align-items: center; justify-content: center; z-index: 9999;
+  }
+  .pw-box { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 36px 40px; text-align: center; max-width: 360px; width: 90%; }
+  .pw-box h2 { margin-bottom: 6px; font-size: 18px; }
+  .pw-box p  { color: var(--muted); font-size: 13px; margin-bottom: 20px; }
+  .pw-box input { width: 100%; padding: 10px 14px; font-size: 15px; margin-bottom: 12px; border-radius: 8px; }
+  .pw-box .btn { width: 100%; padding: 10px; font-size: 14px; }
+  .pw-error { color: var(--red); font-size: 12px; margin-top: 6px; display: none; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- PASSWORD GATE -->
+<div id="pw-overlay">
+  <div class="pw-box">
+    <h2>🔒 Price Intelligence</h2>
+    <p>Vet Alliance internal tool — authorised access only</p>
+    <input type="password" id="pw-input" placeholder="Password" onkeydown="if(event.key==='Enter')checkPw()">
+    <button class="btn" onclick="checkPw()">Enter</button>
+    <div class="pw-error" id="pw-error">Incorrect password</div>
+  </div>
+</div>
+
+<header>
+  <div class="logo">Vet Alliance <span>/ Price Intelligence</span></div>
+  <div class="header-meta">Last updated: <b id="last-updated-header"></b> · <span id="competitor-count"></span> clinics tracked</div>
+</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('overview')">📊 Overview</div>
+  <div class="tab" onclick="switchTab('heatmap')">🌡️ Heatmap</div>
+  <div class="tab" onclick="switchTab('byservice')">📋 By Service</div>
+  <div class="tab" onclick="switchTab('update')">✏️ Add / Update Prices</div>
+</div>
+
+<main>
+  <!-- ════════════════ OVERVIEW TAB ════════════════ -->
+  <div id="tab-overview">
+    <div class="filters">
+      <div class="filter-group">
+        <label>Service</label>
+        <select id="svc-select" onchange="renderOverview()"></select>
+      </div>
+      <div class="filter-group">
+        <label>Compare against</label>
+        <select id="brand-select" onchange="renderOverview()">
+          <option value="mv_branches">MV Branches</option>
+          <option value="mv_hospital">MV Hospital</option>
+          <option value="blue_oasis">Blue Oasis Vet</option>
+          <option value="vienna_vet">Vienna Vet</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Show</label>
+        <select id="show-select" onchange="renderOverview()">
+          <option value="all">All clinics</option>
+          <option value="data-only">Has price data</option>
+          <option value="competitors">Competitors only</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Search</label>
+        <input type="text" id="search-input" placeholder="Clinic name…" oninput="renderOverview()">
+      </div>
+    </div>
+
+    <div class="stats-strip" id="stats-strip"></div>
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> More expensive than us</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--yellow)"></div> Same (±5%)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div> Cheaper than us</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--ours-border)"></div> Our brands</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#546e7a"></div> No data</div>
+    </div>
+
+    <div class="table-wrap">
+      <table id="overview-table">
+        <thead>
+          <tr>
+            <th onclick="sortBy('name')">Clinic ↕</th>
+            <th onclick="sortBy('price')" class="sorted">Price (AED) ↕</th>
+            <th>vs. Our Brand</th>
+            <th>Coverage</th>
+            <th>Notes / Source</th>
+          </tr>
+        </thead>
+        <tbody id="overview-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ════════════════ HEATMAP TAB ════════════════ -->
+  <div id="tab-heatmap" style="display:none">
+    <div class="filters" style="margin-bottom:16px">
+      <div class="filter-group">
+        <label>Category</label>
+        <select id="cat-select" onchange="renderHeatmap()">
+          <option value="all">All categories</option>
+          <option value="Consultation">Consultation</option>
+          <option value="Vaccinations">Vaccinations</option>
+          <option value="Surgery">Surgery</option>
+          <option value="Dental">Dental</option>
+          <option value="Preventive">Preventive</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Clinics</label>
+        <select id="hm-clinics" onchange="renderHeatmap()">
+          <option value="all">All with data</option>
+          <option value="competitors">Competitors only</option>
+        </select>
+      </div>
+    </div>
+    <div class="heatmap-wrap" id="heatmap-container"></div>
+  </div>
+
+  <!-- ════════════════ BY SERVICE TAB ════════════════ -->
+  <div id="tab-byservice" style="display:none">
+    <div class="filters" style="margin-bottom:16px">
+      <div class="filter-group">
+        <label>Category</label>
+        <select id="svc-cat-select" onchange="renderByService()">
+          <option value="all">All</option>
+          <option value="Consultation">Consultation</option>
+          <option value="Vaccinations">Vaccinations</option>
+          <option value="Surgery">Surgery</option>
+          <option value="Dental">Dental</option>
+          <option value="Preventive">Preventive</option>
+        </select>
+      </div>
+    </div>
+    <div class="service-sections" id="byservice-container"></div>
+  </div>
+
+  <!-- ════════════════ UPDATE TAB ════════════════ -->
+  <div id="tab-update" style="display:none">
+    <div class="update-panel">
+      <h3>✏️ Add or Update Prices</h3>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:16px">
+        To update this dashboard, edit <code>prices-data.js</code> in the GitHub repo and push.<br>
+        The dashboard auto-reads from the same file.
+      </p>
+      <p style="font-size:13px;margin-bottom:10px">Quick entry format for <code>prices-data.js</code>:</p>
+      <textarea readonly id="template-box"></textarea>
+      <p class="update-note">
+        📁 File location: <code>prices-data.js</code> in the <a href="https://github.com/marketing-modvet/cheshire" target="_blank" style="color:var(--muted)">cheshire repo</a><br>
+        🔄 After editing, <strong>git commit &amp; push</strong> — the live page updates automatically via GitHub Pages.<br>
+        📲 You can also drop updated prices via Telegram to Cheshire and they'll be added in the next update run.
+      </p>
+
+      <h3 style="margin-top:24px;margin-bottom:12px">📋 Missing Data Tracker</h3>
+      <div id="missing-tracker"></div>
+    </div>
+  </div>
+</main>
+
+<script>
+// ══════════════════════════════════════
+// PASSWORD
+// ══════════════════════════════════════
+const PW = "modvet2026";
+function checkPw(){
+  if(document.getElementById('pw-input').value === PW){
+    document.getElementById('pw-overlay').style.display='none';
+    init();
+  } else {
+    document.getElementById('pw-error').style.display='block';
+  }
+}
+document.getElementById('pw-input').addEventListener('keydown', e => { if(e.key==='Enter') checkPw(); });
+
+// ══════════════════════════════════════
+// INIT
+// ══════════════════════════════════════
+let currentSort = { col: 'price', dir: 1 };
+
+function init(){
+  document.getElementById('last-updated-header').textContent = LAST_UPDATED;
+  const visible = COMPETITORS.filter(c => !c.hidden);
+  document.getElementById('competitor-count').textContent = visible.length;
+
+  // Populate service dropdown
+  const svcSel = document.getElementById('svc-select');
+  SERVICES.forEach(s => {
+    const o = document.createElement('option');
+    o.value = s.id; o.textContent = s.label;
+    svcSel.appendChild(o);
+  });
+
+  renderOverview();
+  renderTemplate();
+  renderMissing();
+}
+
+// ══════════════════════════════════════
+// TAB SWITCHING
+// ══════════════════════════════════════
+function switchTab(name){
+  ['overview','heatmap','byservice','update'].forEach(t => {
+    document.getElementById('tab-'+t).style.display = t===name ? '' : 'none';
+  });
+  document.querySelectorAll('.tab').forEach((el,i) => {
+    el.classList.toggle('active', ['overview','heatmap','byservice','update'][i] === name);
+  });
+  if(name==='heatmap') renderHeatmap();
+  if(name==='byservice') renderByService();
+}
+
+// ══════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════
+function getPrice(clinic, svcId){
+  return clinic.prices[svcId] || null;
+}
+function fmtAED(val){
+  if(val === null || val === undefined) return null;
+  return val.toLocaleString('en-AE');
+}
+function heatColor(ratio){
+  if(ratio === null) return '#1c2533';
+  // ratio = competitor / our price
+  // >1 = they're more expensive = good for us = green
+  // <1 = cheaper = red
+  if(ratio >= 1.2) return '#1b5e20';
+  if(ratio >= 1.05) return '#2e7d32';
+  if(ratio >= 0.95) return '#f57f17';
+  if(ratio >= 0.8) return '#bf360c';
+  return '#7f0000';
+}
+function coverageBadge(clinic){
+  const total = SERVICES.length;
+  const has = SERVICES.filter(s => clinic.prices[s.id] && clinic.prices[s.id].val !== null).length;
+  const pct = has / total;
+  if(pct >= 0.6) return `<span class="coverage high">${has}/${total}</span>`;
+  if(pct >= 0.3) return `<span class="coverage med">${has}/${total}</span>`;
+  return `<span class="coverage low">${has}/${total}</span>`;
+}
+
+// ══════════════════════════════════════
+// OVERVIEW TABLE
+// ══════════════════════════════════════
+function renderOverview(){
+  const svcId = document.getElementById('svc-select').value;
+  const brandId = document.getElementById('brand-select').value;
+  const showMode = document.getElementById('show-select').value;
+  const search = document.getElementById('search-input').value.toLowerCase();
+
+  const svc = SERVICES.find(s => s.id === svcId);
+  const ourClinic = COMPETITORS.find(c => c.id === brandId);
+  const ourPrice = ourClinic ? getPrice(ourClinic, svcId) : null;
+  const ourVal = ourPrice && ourPrice.val !== null ? ourPrice.val : null;
+
+  let rows = COMPETITORS.filter(c => !c.hidden);
+
+  if(showMode === 'data-only') rows = rows.filter(c => c.prices[svcId] && c.prices[svcId].val !== null);
+  if(showMode === 'competitors') rows = rows.filter(c => !c.isOurs && c.prices[svcId] && c.prices[svcId].val !== null);
+  if(search) rows = rows.filter(c => c.name.toLowerCase().includes(search));
+
+  // Sort
+  rows.sort((a,b) => {
+    if(currentSort.col === 'price'){
+      const pa = a.prices[svcId]?.val ?? Infinity;
+      const pb = b.prices[svcId]?.val ?? Infinity;
+      return (pa - pb) * currentSort.dir;
+    }
+    return a.name.localeCompare(b.name) * currentSort.dir;
+  });
+
+  // Stats
+  const vals = rows.filter(c => !c.isOurs && c.prices[svcId]?.val != null).map(c => c.prices[svcId].val);
+  const marketMin = vals.length ? Math.min(...vals) : null;
+  const marketMax = vals.length ? Math.max(...vals) : null;
+  const marketAvg = vals.length ? Math.round(vals.reduce((a,b)=>a+b,0)/vals.length) : null;
+  const cheaperCount = ourVal ? vals.filter(v => v < ourVal).length : null;
+  const pricierCount = ourVal ? vals.filter(v => v > ourVal * 1.05).length : null;
+
+  document.getElementById('stats-strip').innerHTML = `
+    <div class="stat-card">
+      <div class="label">Market Min</div>
+      <div class="value" style="color:var(--red)">${marketMin !== null ? marketMin+' AED' : '—'}</div>
+      <div class="sub">Cheapest competitor</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Market Avg</div>
+      <div class="value" style="color:var(--yellow)">${marketAvg !== null ? marketAvg+' AED' : '—'}</div>
+      <div class="sub">${vals.length} data points</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Market Max</div>
+      <div class="value" style="color:var(--green)">${marketMax !== null ? marketMax+' AED' : '—'}</div>
+      <div class="sub">Most expensive competitor</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Our Price (${ourClinic?.name || '—'})</div>
+      <div class="value" style="color:#90caf9">${ourVal !== null ? ourVal+' AED' : '—'}</div>
+      <div class="sub">${ourPrice?.note || ''}</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Cheaper than us</div>
+      <div class="value" style="color:${(cheaperCount||0) > 3 ? 'var(--red)' : 'var(--yellow)'}">${cheaperCount !== null ? cheaperCount : '—'}</div>
+      <div class="sub">competitors undercutting</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">More expensive than us</div>
+      <div class="value" style="color:var(--green)">${pricierCount !== null ? pricierCount : '—'}</div>
+      <div class="sub">we're cheaper than these</div>
+    </div>
+  `;
+
+  // Table body
+  const tbody = document.getElementById('overview-body');
+  tbody.innerHTML = rows.map(c => {
+    const p = getPrice(c, svcId);
+    const val = p?.val ?? null;
+    let priceCell, vsCell;
+
+    if(val === null){
+      priceCell = `<td class="price-cell no-data" data-tooltip="No data available">—</td>`;
+      vsCell = `<td class="no-data">—</td>`;
+    } else {
+      let cls = 'ours';
+      if(!c.isOurs && ourVal !== null){
+        if(val < ourVal * 0.95) cls = 'cheaper';
+        else if(val > ourVal * 1.05) cls = 'pricier';
+        else cls = 'same';
+      }
+      priceCell = `<td class="price-cell ${cls}">
+        ${fmtAED(val)} AED
+        ${p.note ? `<span class="note">${p.note}</span>` : ''}
+        ${p.src && p.src !== 'internal' ? `<span class="src">📍 ${p.src}</span>` : ''}
+      </td>`;
+
+      if(c.isOurs || ourVal === null){
+        vsCell = `<td class="price-cell ours">—</td>`;
+      } else {
+        const diff = val - ourVal;
+        const pct = Math.round(diff / ourVal * 100);
+        const sign = diff > 0 ? '+' : '';
+        const color = cls === 'cheaper' ? 'var(--red)' : cls === 'pricier' ? 'var(--green)' : 'var(--yellow)';
+        vsCell = `<td style="color:${color};font-weight:600">${sign}${fmtAED(diff)} AED (${sign}${pct}%)</td>`;
+      }
+    }
+
+    return `<tr class="${c.isOurs ? 'ours' : ''}">
+      <td>
+        <div class="clinic-name">
+          ${c.website ? `<a href="${c.website}" target="_blank">${c.name}</a>` : c.name}
+          ${c.isOurs ? '<span class="ours-badge">ours</span>' : ''}
+        </div>
+        ${c.notes ? `<div class="clinic-note">${c.notes}</div>` : ''}
+      </td>
+      ${priceCell}
+      ${vsCell}
+      <td>${coverageBadge(c)}</td>
+      <td style="font-size:11px;color:var(--muted)">${p?.date || ''}</td>
+    </tr>`;
+  }).join('');
+}
+
+function sortBy(col){
+  if(currentSort.col === col) currentSort.dir *= -1;
+  else { currentSort.col = col; currentSort.dir = 1; }
+  renderOverview();
+}
+
+// ══════════════════════════════════════
+// HEATMAP
+// ══════════════════════════════════════
+function renderHeatmap(){
+  const catFilter = document.getElementById('cat-select').value;
+  const clinicFilter = document.getElementById('hm-clinics').value;
+
+  let svcs = catFilter === 'all' ? SERVICES : SERVICES.filter(s => s.category === catFilter);
+  let clinics = COMPETITORS.filter(c => !c.hidden);
+  if(clinicFilter === 'competitors') clinics = clinics.filter(c => !c.isOurs);
+
+  // Filter clinics with at least one data point for selected services
+  clinics = clinics.filter(c => svcs.some(s => c.prices[s.id]?.val != null));
+
+  // Our reference brand (MV Branches)
+  const ref = COMPETITORS.find(c => c.id === 'mv_branches');
+
+  const html = `
+    <table class="heatmap-table">
+      <thead>
+        <tr>
+          <th>Clinic</th>
+          ${svcs.map(s => `<th title="${s.label}">${s.label.replace(' – ', '<br>')}</th>`).join('')}
+        </tr>
+      </thead>
+      <tbody>
+        ${clinics.map(c => `
+          <tr>
+            <td class="row-label ${c.isOurs ? 'ours-row' : ''}">
+              ${c.name}${c.isOurs ? ' <span style="font-size:9px;color:var(--ours-border)">(OURS)</span>' : ''}
+            </td>
+            ${svcs.map(s => {
+              const p = c.prices[s.id];
+              const val = p?.val ?? null;
+              const refP = ref?.prices[s.id];
+              const refVal = refP?.val ?? null;
+              const ratio = (val !== null && refVal !== null && !c.isOurs) ? val / refVal : null;
+              const bg = heatColor(ratio);
+              const label = val !== null ? fmtAED(val) : '—';
+              return `<td style="background:${bg}">
+                <div class="hm-cell">
+                  <div class="hm-val">${label}</div>
+                  ${ratio !== null ? `<div class="hm-sub">${Math.round(ratio*100)}%</div>` : ''}
+                </div>
+              </td>`;
+            }).join('')}
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+    <p style="margin-top:10px;font-size:11px;color:var(--muted)">
+      % shown is competitor price vs. MV Branches price. Green = they charge more. Red = they're cheaper.
+    </p>
+  `;
+  document.getElementById('heatmap-container').innerHTML = html;
+}
+
+// ══════════════════════════════════════
+// BY SERVICE
+// ══════════════════════════════════════
+function renderByService(){
+  const catFilter = document.getElementById('svc-cat-select').value;
+  let svcs = catFilter === 'all' ? SERVICES : SERVICES.filter(s => s.category === catFilter);
+
+  const sections = svcs.map(svc => {
+    // All clinics with data for this service
+    let clinicsWithData = COMPETITORS.filter(c => !c.hidden && c.prices[svc.id]?.val != null);
+    clinicsWithData.sort((a,b) => a.prices[svc.id].val - b.prices[svc.id].val);
+
+    if(!clinicsWithData.length) return '';
+
+    const vals = clinicsWithData.map(c => c.prices[svc.id].val);
+    const maxVal = Math.max(...vals);
+    const minVal = Math.min(...vals);
+
+    const bars = clinicsWithData.map(c => {
+      const p = c.prices[svc.id];
+      const pct = Math.round(p.val / maxVal * 95);
+      return `
+        <div class="bar-row">
+          <div class="bar-label ${c.isOurs ? 'ours-label' : ''}">${c.name}${c.isOurs ? ' ★' : ''}</div>
+          <div class="bar-track">
+            <div class="bar-fill ${c.isOurs ? 'ours-fill' : 'comp-fill'}" style="width:${pct}%"></div>
+          </div>
+          <div class="bar-price">${fmtAED(p.val)} AED</div>
+          <div class="bar-src">${p.note ? p.note.substring(0,20) : ''}</div>
+        </div>
+      `;
+    }).join('');
+
+    return `
+      <div class="service-section">
+        <div class="service-header">
+          <h3>${svc.label}</h3>
+          <div class="market-range">
+            Range: <b style="color:var(--red)">${fmtAED(minVal)}</b> –
+            <b style="color:var(--green)">${fmtAED(maxVal)} AED</b>
+            (${clinicsWithData.length} data points)
+          </div>
+        </div>
+        <div class="service-bars">${bars}</div>
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById('byservice-container').innerHTML = sections || '<p style="color:var(--muted)">No data for selected category.</p>';
+}
+
+// ══════════════════════════════════════
+// UPDATE TEMPLATE
+// ══════════════════════════════════════
+function renderTemplate(){
+  document.getElementById('template-box').value = `// Add a NEW competitor:
+{
+  id: "clinic_id",          // unique, lowercase, no spaces
+  name: "Clinic Full Name",
+  isOurs: false,
+  website: "https://...",   // or null
+  notes: "Location / notes",
+  prices: {
+    consult_standard:  { val: 250, note: "excl. VAT", src: "website", date: "2026-04" },
+    vax_annual_dog:    { val: 350, note: "", src: "phone call", date: "2026-04" },
+    neuter_cat_male:   { val: 800, note: "incl. blood", src: "Andrew visit", date: "2026-04" },
+    spay_cat_female:   { val: 1000, note: "", src: "Andrew visit", date: "2026-04" },
+    // add more services as needed
+  }
+},
+
+// UPDATE a price for existing clinic, find the entry and change:
+consult_standard: { val: 280, note: "updated Apr 2026", src: "phone", date: "2026-04" },
+
+// Available service IDs:
+${SERVICES.map(s => `// ${s.id.padEnd(25)} → ${s.label}`).join('\n')}`;
+}
+
+// ══════════════════════════════════════
+// MISSING TRACKER
+// ══════════════════════════════════════
+function renderMissing(){
+  const priority = ['consult_standard','neuter_cat_male','spay_cat_female','neuter_dog_male_s','spay_dog_female_s','dental_scale_cat','vax_annual_dog','microchip'];
+  const rows = COMPETITORS.filter(c => !c.hidden && !c.isOurs).map(c => {
+    const missing = priority.filter(sid => !c.prices[sid] || c.prices[sid].val === null);
+    if(!missing.length) return null;
+    return `<tr>
+      <td style="padding:5px 10px;border-bottom:1px solid var(--border);font-size:12px">${c.name}</td>
+      <td style="padding:5px 10px;border-bottom:1px solid var(--border);font-size:11px;color:var(--muted)">${missing.map(s => SERVICES.find(sv=>sv.id===s)?.label).join(', ')}</td>
+    </tr>`;
+  }).filter(Boolean).join('');
+
+  document.getElementById('missing-tracker').innerHTML = `
+    <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Priority services missing from competitors:</p>
+    <div style="overflow-x:auto;border:1px solid var(--border);border-radius:8px">
+      <table style="width:100%;border-collapse:collapse">
+        <thead><tr>
+          <th style="padding:7px 10px;background:var(--surface2);font-size:11px;color:var(--muted);text-align:left;border-bottom:1px solid var(--border)">Clinic</th>
+          <th style="padding:7px 10px;background:var(--surface2);font-size:11px;color:var(--muted);text-align:left;border-bottom:1px solid var(--border)">Missing services</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  `;
+}
+</script>
+</body>
+</html>
