@@ -172,8 +172,8 @@ ul li::before { content: '→ '; color: var(--accent); font-weight: 600; }
 <div class="grid">
     <div class="stat-card">
         <div class="label">Total KB Entries</div>
-        <div class="value" style="color:var(--green)">914</div>
-        <div class="delta up">↑ 213 from 701 (+30%)</div>
+        <div class="value" style="color:var(--green)">948</div>
+        <div class="delta up">↑ 247 from 701 (+35%)</div>
     </div>
     <div class="stat-card">
         <div class="label">Dubai Areas Mapped</div>
@@ -182,8 +182,8 @@ ul li::before { content: '→ '; color: var(--accent); font-weight: 600; }
     </div>
     <div class="stat-card">
         <div class="label">Knowledge Gaps</div>
-        <div class="value" style="color:var(--orange)">77</div>
-        <div class="delta up">↓ from 389 (−80%)</div>
+        <div class="value" style="color:var(--orange)">36</div>
+        <div class="delta up">↓ from 389 (−91%) — 83% coverage</div>
     </div>
     <div class="stat-card">
         <div class="label">Anti-Hallucination Layers</div>
@@ -240,15 +240,59 @@ ul li::before { content: '→ '; color: var(--accent); font-weight: 600; }
     <p style="color:var(--muted);font-size:0.9em;margin-bottom:12px">Every gap was re-queried against the updated KB. Auto-closed ones with strong matches.</p>
     <div class="bar-chart">
         <div class="bar-row"><div class="bar-label">Before</div><div class="bar-track"><div class="bar-fill bar-orange" style="width:100%">389 gaps</div></div></div>
-        <div class="bar-row"><div class="bar-label">After</div><div class="bar-track"><div class="bar-fill bar-green" style="width:20%">77 gaps</div></div></div>
+        <div class="bar-row"><div class="bar-label">After</div><div class="bar-track"><div class="bar-fill bar-green" style="width:9%">36 real gaps</div></div></div>
     </div>
     <table>
         <tr><th>Status</th><th>Count</th><th>Notes</th></tr>
-        <tr><td><span class="tag tag-green">Strong match</span></td><td>169</td><td>Already answered well in KB</td></tr>
-        <tr><td><span class="tag tag-blue">Partial match</span></td><td>142</td><td>Decent coverage, may need refinement</td></tr>
-        <tr><td><span class="tag tag-orange">Still missing</span></td><td>77</td><td>Saved in gaps_v3.md</td></tr>
-        <tr><td><span class="tag tag-purple">Noise removed</span></td><td>1</td><td>Transcript fragments, not real gaps</td></tr>
+        <tr><td><span class="tag tag-green">Strong match</span></td><td>179</td><td>Already answered well in KB</td></tr>
+        <tr><td><span class="tag tag-blue">Partial match</span></td><td>143</td><td>Decent coverage, may need refinement</td></tr>
+        <tr><td><span class="tag tag-orange">Real gaps remaining</span></td><td>36</td><td>Need clinic manager / vet input</td></tr>
+        <tr><td><span class="tag tag-purple">Transcript fragments</span></td><td>30</td><td>Client-side conversation, not actionable</td></tr>
     </table>
+</div>
+
+<!-- AIDA CONFIRMED INFO -->
+<div class="section">
+    <h2>✅ Confirmed by Aida (Call Centre Manager)</h2>
+    <table>
+        <tr><th>Item</th><th>Answer</th><th>KB Action</th></tr>
+        <tr>
+            <td><strong>Kennel cough vaccine</strong></td>
+            <td>Outside pkg: consult + AED 125 (MV) / AED 105 (VV). Within pkg: vaccine only AED 125/105</td>
+            <td><span class="tag tag-green">Added — 3 entries</span></td>
+        </tr>
+        <tr>
+            <td><strong>Nursing WhatsApp numbers</strong></td>
+            <td>NOT to be shared. Only given when pet is hospitalized.</td>
+            <td><span class="tag tag-green">Added — 2 entries with policy</span></td>
+        </tr>
+        <tr>
+            <td><strong>BOV spay/neuter includes blood work?</strong></td>
+            <td>Yes — CBC and Chem 10 included at all locations incl. BOV</td>
+            <td><span class="tag tag-green">Added — 1 entry</span></td>
+        </tr>
+        <tr>
+            <td><strong>Diagnostic pricing (blood, X-ray, ultrasound)</strong></td>
+            <td>Should NOT be shared. Guide client to consultation first.</td>
+            <td><span class="tag tag-green">Added — 3 deflection entries</span></td>
+        </tr>
+    </table>
+</div>
+
+<!-- ROUND 2: CONVERSATIONAL HANDLERS -->
+<div class="section">
+    <h2>💬 Round 2: Conversational Handler Entries (+26)</h2>
+    <p style="color:var(--muted);font-size:0.9em;margin-bottom:16px">Analyzed remaining gaps — most were real WhatsApp transcript fragments. Added smart catch-all entries instead of answering each individually.</p>
+    <div class="bar-chart">
+        <div class="bar-row"><div class="bar-label">Medication</div><div class="bar-track"><div class="bar-fill bar-blue" style="width:23%">6</div></div></div>
+        <div class="bar-row"><div class="bar-label">Booking Flow</div><div class="bar-track"><div class="bar-fill bar-green" style="width:27%">7</div></div></div>
+        <div class="bar-row"><div class="bar-label">Doctor Queries</div><div class="bar-track"><div class="bar-fill bar-blue" style="width:12%">3</div></div></div>
+        <div class="bar-row"><div class="bar-label">Emergency</div><div class="bar-track"><div class="bar-fill bar-orange" style="width:8%">2</div></div></div>
+        <div class="bar-row"><div class="bar-label">Shopping</div><div class="bar-track"><div class="bar-fill bar-blue" style="width:12%">3</div></div></div>
+        <div class="bar-row"><div class="bar-label">Packages</div><div class="bar-track"><div class="bar-fill bar-blue" style="width:8%">2</div></div></div>
+        <div class="bar-row"><div class="bar-label">Other</div><div class="bar-track"><div class="bar-fill bar-blue" style="width:12%">3</div></div></div>
+    </div>
+    <p style="color:var(--muted);font-size:0.85em">Key principle: medical questions (dosage, medication, diagnosis) are deflected to vet consultation. Product/pricing questions where we can’t share prices are handled with “vet will discuss during consultation”. Conversational fragments (“ok confirmed”, “let me check”) get graceful acknowledgment responses.</p>
 </div>
 
 <!-- ANTI-HALLUCINATION -->
@@ -356,13 +400,13 @@ ul li::before { content: '→ '; color: var(--accent); font-weight: 600; }
 <div class="section">
     <h2>📊 KB Category Breakdown</h2>
     <div class="bar-chart">
-        <div class="bar-row"><div class="bar-label">Location</div><div class="bar-track"><div class="bar-fill bar-green" style="width:37%">340</div></div></div>
-        <div class="bar-row"><div class="bar-label">FAQ</div><div class="bar-track"><div class="bar-fill bar-blue" style="width:22%">203</div></div></div>
-        <div class="bar-row"><div class="bar-label">Pricing</div><div class="bar-track"><div class="bar-fill bar-green" style="width:13%">118</div></div></div>
-        <div class="bar-row"><div class="bar-label">Doctors</div><div class="bar-track"><div class="bar-fill bar-blue" style="width:10%">88</div></div></div>
-        <div class="bar-row"><div class="bar-label">Services</div><div class="bar-track"><div class="bar-fill bar-green" style="width:7%">61</div></div></div>
+        <div class="bar-row"><div class="bar-label">Location</div><div class="bar-track"><div class="bar-fill bar-green" style="width:36%">340</div></div></div>
+        <div class="bar-row"><div class="bar-label">FAQ</div><div class="bar-track"><div class="bar-fill bar-blue" style="width:24%">229</div></div></div>
+        <div class="bar-row"><div class="bar-label">Pricing</div><div class="bar-track"><div class="bar-fill bar-green" style="width:13%">125</div></div></div>
+        <div class="bar-row"><div class="bar-label">Doctors</div><div class="bar-track"><div class="bar-fill bar-blue" style="width:10%">91</div></div></div>
+        <div class="bar-row"><div class="bar-label">Services</div><div class="bar-track"><div class="bar-fill bar-green" style="width:7%">63</div></div></div>
         <div class="bar-row"><div class="bar-label">General</div><div class="bar-track"><div class="bar-fill bar-blue" style="width:4%">39</div></div></div>
-        <div class="bar-row"><div class="bar-label">Booking</div><div class="bar-track"><div class="bar-fill bar-green" style="width:3%">30</div></div></div>
+        <div class="bar-row"><div class="bar-label">Booking</div><div class="bar-track"><div class="bar-fill bar-green" style="width:4%">37</div></div></div>
         <div class="bar-row"><div class="bar-label">Emergency</div><div class="bar-track"><div class="bar-fill bar-orange" style="width:2%">18</div></div></div>
         <div class="bar-row"><div class="bar-label">Procedures</div><div class="bar-track"><div class="bar-fill bar-blue" style="width:1%">11</div></div></div>
         <div class="bar-row"><div class="bar-label">Hours</div><div class="bar-track"><div class="bar-fill bar-blue" style="width:1%">6</div></div></div>
@@ -375,10 +419,11 @@ ul li::before { content: '→ '; color: var(--accent); font-weight: 600; }
     
     <h3>Still Needs Attention</h3>
     <ul>
-        <li><strong>77 gaps remaining</strong> — mostly transcript-specific questions (real client phrasing), some need Aida/clinic manager input</li>
-        <li><strong>Kennel cough pricing</strong> — still waiting on Aida</li>
-        <li><strong>Nursing direct numbers</strong> — still waiting on Aida</li>
-        <li><strong>BOV spay prices</strong> — need Aida to verify</li>
+        <li><strong>36 real gaps remaining</strong> — need specific clinic manager or vet input (procedures, complications, specific doctor queries)</li>
+        <li><del>Kennel cough pricing</del> — <span class="tag tag-green">DONE</span> (Aida confirmed)</li>
+        <li><del>Nursing numbers</del> — <span class="tag tag-green">DONE</span> (policy: not shared, hospitalized only)</li>
+        <li><del>BOV spay blood work</del> — <span class="tag tag-green">DONE</span> (CBC + Chem10 included)</li>
+        <li><del>Diagnostic pricing policy</del> — <span class="tag tag-green">DONE</span> (not shared, guide to consultation)</li>
         <li><strong>Arabic Q&A pairs</strong> — only greetings covered, no Arabic medical/service Q&As</li>
         <li><strong>Russian/Farsi transliteration</strong> — clients frequently use Latin-script Russian, no coverage</li>
         <li><strong>WhatsApp integration</strong> — KB ready, bot architecture not yet built</li>
