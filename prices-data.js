@@ -247,7 +247,7 @@ const COMPETITORS = [
 
   {
     id: "purr_and_bark_pet_veterinary_clinic", name: "Purr and Bark Pet Veterinary Clinic", isOurs: false,
-    website: null, area: "Al Barsha South Third",
+    website: "https://purrnbark.com", area: "Al Barsha South Third",
     rating: "4.9", reviews: 525,
     notes: "Al Barsha South Third | Arjan",
     address: "Arjan - Al Barsha South Third - Al Barsha South - Dubai - United Arab Emirates",
@@ -276,7 +276,7 @@ const COMPETITORS = [
 
   {
     id: "perfect_dose_veterinary_clinic", name: "Perfect Dose Veterinary Clinic", isOurs: false,
-    website: null, area: "Al Barsha Third",
+    website: "https://perfectdoseveterinaryclinic.com", area: "Al Barsha Third",
     rating: "4.7", reviews: 793,
     notes: "Al Barsha Third | Hessa St",
     address: "Hessa St - Al Barsha Third - Al Barsha - Dubai - United Arab Emirates",
@@ -285,7 +285,7 @@ const COMPETITORS = [
 
   {
     id: "mikes_veterinary_clinic", name: "Mike’s Veterinary Clinic", isOurs: false,
-    website: null, area: "Al Barsha Third",
+    website: "https://mikesvet.com", area: "Al Barsha Third",
     rating: "4.9", reviews: 448,
     notes: "Al Barsha Third | 39th St",
     address: "39th St - Al Barsha Third - Al Barsha - Dubai - United Arab Emirates",
@@ -321,7 +321,7 @@ const COMPETITORS = [
 
   {
     id: "royal_pets_veterinary_clinic", name: "Royal Pets Veterinary Clinic", isOurs: false,
-    website: null, area: "Al Garhoud",
+    website: "https://royalpetsclinic.com", area: "Al Garhoud",
     rating: "4.9", reviews: 763,
     notes: "Al Garhoud | Al Garhoud",
     address: "Al Garhoud - Dubai - United Arab Emirates",
@@ -330,7 +330,7 @@ const COMPETITORS = [
 
   {
     id: "paw_sisters_veterinary_clinic", name: "Paw Sisters Veterinary Clinic", isOurs: false,
-    website: null, area: "Al Garhoud",
+    website: "https://pawsisters.ae", area: "Al Garhoud",
     rating: "4.8", reviews: 271,
     notes: "Al Garhoud | 31 61B Street",
     address: "31 61B Street - Al Garhoud - Dubai - United Arab Emirates",
@@ -375,7 +375,7 @@ const COMPETITORS = [
 
   {
     id: "top_vet_clinic", name: "Top Vet Clinic", isOurs: false,
-    website: null, area: "Al Jadaf",
+    website: "https://topvet.ae", area: "Al Jadaf",
     rating: "4.9", reviews: 467,
     notes: "Al Jadaf | 68CF+MP2",
     address: "68CF+MP2 - Al Jadaf - Dubai - United Arab Emirates",
@@ -643,7 +643,7 @@ const COMPETITORS = [
 
   {
     id: "petland_wellness_vet_clinic", name: "Petland wellness Vet clinic", isOurs: false,
-    website: null, area: "Dubai Investment Park First",
+    website: "https://petlandwellness.com", area: "Dubai Investment Park First",
     rating: "4.9", reviews: 172,
     notes: "Dubai Investment Park First | Ground floor, office 09, royal class, DIP 1",
     address: "Ground floor, office 09, royal class, DIP 1 - Dubai Investment Park First - Green Community Village - Dubai - United Ara",
@@ -728,7 +728,7 @@ const COMPETITORS = [
 
   {
     id: "panacea_vets", name: "Panacea Vets", isOurs: false,
-    website: null, area: "Jumeirah",
+    website: "https://panaceavets.com", area: "Jumeirah",
     rating: "4.8", reviews: 441,
     notes: "Jumeirah | Villa 444 Al Wasl Rd",
     address: "Villa 444 Al Wasl Rd - Jumeirah - Jumeira Second - Dubai - United Arab Emirates",
@@ -988,11 +988,13 @@ const COMPETITORS = [
 
   {
     id: "intervet_veterinary_clinic_llc", name: "Intervet Veterinary Clinic L.L.C", isOurs: false,
-    website: null, area: "Umm Suqeim Second",
+    website: "https://intervetuae.ae", area: "Umm Suqeim Second",
     rating: "4.6", reviews: 586,
     notes: "Umm Suqeim Second | 1234 Al Wasl Rd",
     address: "1234 Al Wasl Rd - Umm Suqeim Second - Umm Suqeim 2 - Dubai - United Arab Emirates",
-    prices: {}
+    prices: {
+      spay_cat_female: { val: 960, note: "promo spay package cat/dog", src: "cobone", date: "2026-04" },
+      spay_dog_female_s: { val: 960, note: "promo spay package cat/dog", src: "cobone", date: "2026-04" },}
   },
 
   {
@@ -1064,11 +1066,19 @@ const COMPETITORS = [
 
   {
     id: "harmony_vet_clinic", name: "Harmony Vet Clinic", isOurs: false,
-    website: null, area: "Warsan First",
+    website: "https://harmonyvetdubai.com", area: "Warsan First",
     rating: "4.7", reviews: 392,
     notes: "Warsan First | Q1 Dubai",
     address: "Q1 Dubai - Warsan First - France Cluster - Dubai - United Arab Emirates",
-    prices: {}
+    prices: {
+      vax_annual_dog: { val: 249, note: "annual pkg: exam+DHPPIL+rabies+deworming+muni tag", src: "website", date: "2026-04" },
+      vax_annual_cat: { val: 249, note: "annual pkg: exam+PCH+rabies+deworming+muni tag", src: "website", date: "2026-04" },
+      vax_initial_dog: { val: 399, note: "puppy pkg: 2x consult+2x DHPPIL+rabies+chip+passport+muni", src: "website", date: "2026-04" },
+      vax_initial_cat: { val: 399, note: "kitten pkg: 2x consult+2x PCH+rabies+chip+passport+muni", src: "website", date: "2026-04" },
+      neuter_cat_male: { val: 333, note: "", src: "website", date: "2026-04" },
+      spay_cat_female: { val: 444, note: "", src: "website", date: "2026-04" },
+      neuter_dog_male_s: { val: 777, note: "starting from", src: "website", date: "2026-04" },
+      spay_dog_female_s: { val: 999, note: "starting from", src: "website", date: "2026-04" },}
   },
 
   {
