@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submit Price Data | Vet Alliance Price Intelligence</title>
+<script src="prices-data.js"></script>
+<style>
+  :root {
+    --bg: #0f1117; --surface: #1a1d27; --surface2: #22263a; --border: #2e3350;
+    --text: #e8eaf6; --muted: #7986cb; --accent: #5c6bc0; --accent2: #3949ab;
+    --green: #4caf50; --red: #f44336; --yellow: #ffc107; --orange: #ff9800;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; font-size: 14px; min-height: 100vh; }
+  a { color: var(--accent); }
+
+  /* Password */
+  #pw-overlay { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 999; }
+  .pw-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 40px; text-align: center; max-width: 400px; width: 90%; }
+  .pw-box h2 { margin-bottom: 8px; font-size: 20px; }
+  .pw-box p { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+  .pw-box input { width: 100%; padding: 12px 16px; background: var(--bg); border: 1px solid var(--border); color: var(--text); border-radius: 8px; font-size: 14px; text-align: center; outline: none; margin-bottom: 16px; }
+  .pw-box input:focus { border-color: var(--accent); }
+  .pw-box .btn-pw { width: 100%; padding: 12px; background: var(--accent2); color: #fff; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: 600; }
+  .pw-box .btn-pw:hover { background: var(--accent); }
+  .pw-error { color: var(--red); font-size: 12px; margin-top: 8px; display: none; }
+
+  /* Header */
+  header { height: 60px; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; }
+  .logo { font-weight: 700; font-size: 16px; } .logo span { color: var(--muted); }
+  .nav-links { display: flex; gap: 16px; } .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; } .nav-links a:hover { color: var(--text); }
+
+  /* Tabs */
+  .tab-bar { display: flex; gap: 4px; padding: 16px 24px 0; border-bottom: 1px solid var(--border); background: var(--bg); max-width: 700px; margin: 0 auto; }
+  .tab { padding: 8px 18px; border-radius: 6px 6px 0 0; cursor: pointer; color: var(--muted); font-weight: 500; font-size: 13px; border: 1px solid transparent; border-bottom: none; transition: all 0.15s; }
+  .tab:hover { color: var(--text); background: var(--surface); }
+  .tab.active { color: var(--text); background: var(--surface); border-color: var(--border); }
+  .tab-content { display: none; } .tab-content.active { display: block; }
+
+  /* Main */
+  .container { max-width: 700px; margin: 0 auto; padding: 32px 24px; }
+  h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .subtitle { color: var(--muted); font-size: 13px; margin-bottom: 32px; }
+
+  /* Form */
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display: block; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; font-weight: 600; }
+  .form-group .hint { font-size: 11px; color: var(--muted); margin-top: 4px; font-weight: 400; text-transform: none; letter-spacing: 0; }
+  select, input[type=text], input[type=number], textarea { width: 100%; padding: 10px 14px; background: var(--surface); border: 1px solid var(--border); color: var(--text); border-radius: 8px; font-size: 14px; outline: none; font-family: inherit; }
+  select:focus, input:focus, textarea:focus { border-color: var(--accent); }
+  textarea { resize: vertical; min-height: 60px; }
+  select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%237986cb' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+  .row { display: flex; gap: 16px; } .row > .form-group { flex: 1; }
+
+  .source-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .source-tag { padding: 6px 14px; border-radius: 20px; font-size: 13px; cursor: pointer; border: 1px solid var(--border); color: var(--muted); background: transparent; transition: all 0.15s; }
+  .source-tag:hover { border-color: var(--accent); color: var(--text); }
+  .source-tag.active { background: var(--accent2); border-color: var(--accent2); color: #fff; }
+
+  .btn-submit { width: 100%; padding: 14px; background: var(--accent2); color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.15s; margin-top: 24px; }
+  .btn-submit:hover { background: var(--accent); }
+  .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .msg { padding: 16px 20px; border-radius: 10px; margin-top: 16px; font-size: 14px; display: none; }
+  .msg.success { background: rgba(76,175,80,0.15); border: 1px solid rgba(76,175,80,0.3); color: #81c784; }
+  .msg.error { background: rgba(244,67,54,0.15); border: 1px solid rgba(244,67,54,0.3); color: #ef9a9a; }
+
+  /* History & Review */
+  .section { margin-top: 32px; }
+  .section h2 { font-size: 16px; margin-bottom: 16px; }
+
+  .sub-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; margin-bottom: 8px; }
+  .sub-item .top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .sub-item .clinic-name { font-weight: 600; font-size: 14px; }
+  .sub-item .price-val { font-weight: 700; font-size: 18px; color: var(--green); }
+  .sub-item .detail { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  .sub-item .note-text { color: var(--muted); font-size: 12px; margin-top: 4px; font-style: italic; }
+
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .badge.pending { background: rgba(255,193,7,0.15); color: var(--yellow); }
+  .badge.approved { background: rgba(76,175,80,0.15); color: var(--green); }
+  .badge.rejected { background: rgba(244,67,54,0.15); color: var(--red); }
+
+  .review-actions { display: flex; gap: 8px; margin-top: 10px; }
+  .btn-sm { padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; border: none; cursor: pointer; }
+  .btn-approve { background: rgba(76,175,80,0.2); color: var(--green); } .btn-approve:hover { background: rgba(76,175,80,0.35); }
+  .btn-reject { background: rgba(244,67,54,0.2); color: var(--red); } .btn-reject:hover { background: rgba(244,67,54,0.35); }
+  .btn-export { background: rgba(92,107,192,0.2); color: var(--accent); } .btn-export:hover { background: rgba(92,107,192,0.35); }
+
+  .empty { text-align: center; color: var(--muted); padding: 40px; font-size: 13px; }
+  .count-badge { background: var(--accent2); color: #fff; border-radius: 10px; padding: 1px 7px; font-size: 11px; margin-left: 6px; }
+
+  .toolbar { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  .filter-chip { padding: 5px 12px; border-radius: 16px; font-size: 12px; cursor: pointer; border: 1px solid var(--border); color: var(--muted); background: transparent; }
+  .filter-chip.active { background: var(--accent2); border-color: var(--accent2); color: #fff; }
+
+  @media (max-width: 600px) { .row { flex-direction: column; gap: 0; } .container { padding: 20px 16px; } }
+</style>
+</head>
+<body>
+
+<div id="pw-overlay">
+  <div class="pw-box">
+    <h2>🔒 Price Intelligence</h2>
+    <p>Enter the access code to submit price data</p>
+    <input type="password" id="pw-input" placeholder="Access code" autofocus>
+    <button class="btn-pw" onclick="checkPassword()">Enter</button>
+    <div class="pw-error" id="pw-error">Incorrect code. Try again.</div>
+  </div>
+</div>
+
+<div id="app" style="display:none">
+  <header>
+    <div class="logo">Price Intel <span>/ Submit</span></div>
+    <div class="nav-links"><a href="price-intelligence.html">← Dashboard</a></div>
+  </header>
+
+  <div class="tab-bar">
+    <div class="tab active" onclick="switchTab('submit')">Submit Price</div>
+    <div class="tab" onclick="switchTab('history')">My Submissions</div>
+    <div class="tab" onclick="switchTab('review')" id="tab-review" style="display:none">Review Queue <span class="count-badge" id="pending-count">0</span></div>
+  </div>
+
+  <div class="container">
+
+    <!-- SUBMIT TAB -->
+    <div class="tab-content active" id="panel-submit">
+      <h1>Submit Price Data</h1>
+      <p class="subtitle">All submissions are reviewed before being added to the dashboard.</p>
+
+      <form id="price-form" onsubmit="return submitPrice(event)">
+        <div class="form-group">
+          <label>Clinic Name</label>
+          <select id="f-clinic" required><option value="">Select clinic...</option></select>
+          <div class="hint">Can't find it? <a href="#" onclick="showNewClinic(); return false;">Add new clinic</a></div>
+        </div>
+        <div class="form-group" id="new-clinic-group" style="display:none">
+          <label>New Clinic Name</label>
+          <input type="text" id="f-new-clinic" placeholder="e.g. Happy Paws Vet Clinic">
+          <div class="form-group" style="margin-top:10px"><label>Area / Location</label><input type="text" id="f-new-area" placeholder="e.g. JLT, Al Barsha, Downtown"></div>
+        </div>
+
+        <div class="row">
+          <div class="form-group">
+            <label>Service</label>
+            <select id="f-service" required><option value="">Select service...</option></select>
+          </div>
+          <div class="form-group">
+            <label>Price (AED)</label>
+            <input type="number" id="f-price" placeholder="e.g. 299" min="0" step="0.01" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Source — how was this price found?</label>
+          <div class="source-tags">
+            <div class="source-tag" data-val="website" onclick="selectSource(this)">🌐 Website</div>
+            <div class="source-tag" data-val="social" onclick="selectSource(this)">📱 Social Media</div>
+            <div class="source-tag" data-val="phone_call" onclick="selectSource(this)">📞 Phone Call</div>
+            <div class="source-tag" data-val="visit" onclick="selectSource(this)">🏥 In-Person Visit</div>
+            <div class="source-tag" data-val="groupon" onclick="selectSource(this)">🏷️ Groupon</div>
+            <div class="source-tag" data-val="cobone" onclick="selectSource(this)">🏷️ Cobone</div>
+            <div class="source-tag" data-val="other" onclick="selectSource(this)">📋 Other</div>
+          </div>
+          <input type="hidden" id="f-source">
+        </div>
+
+        <div class="form-group">
+          <label>Notes <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+          <textarea id="f-note" placeholder="e.g. excl. VAT, includes blood work, promotional price, valid until..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="f-name" placeholder="Your name" required>
+        </div>
+
+        <button type="submit" class="btn-submit">Submit for Review</button>
+      </form>
+      <div class="msg success" id="msg-success">✅ Price submitted successfully! It will be reviewed before appearing on the dashboard.</div>
+      <div class="msg error" id="msg-error"></div>
+    </div>
+
+    <!-- HISTORY TAB -->
+    <div class="tab-content" id="panel-history">
+      <div class="section">
+        <h2>My Submissions</h2>
+        <div id="history-list"></div>
+      </div>
+    </div>
+
+    <!-- REVIEW TAB (admin only) -->
+    <div class="tab-content" id="panel-review">
+      <div class="section">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <h2 style="margin:0">⚠️ Pending Review</h2>
+          <div>
+            <button class="btn-sm btn-export" onclick="exportApproved()">📥 Export Approved CSV</button>
+            <button class="btn-sm btn-export" onclick="exportAll()">📥 Export All CSV</button>
+          </div>
+        </div>
+        <div class="toolbar">
+          <div class="filter-chip active" onclick="setReviewFilter('pending',this)">Pending</div>
+          <div class="filter-chip" onclick="setReviewFilter('approved',this)">Approved</div>
+          <div class="filter-chip" onclick="setReviewFilter('rejected',this)">Rejected</div>
+          <div class="filter-chip" onclick="setReviewFilter('all',this)">All</div>
+        </div>
+        <div id="review-list"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'priceIntel_v2';
+const PW_HASH = 'c2e1f05b6868968d63617ab5ea1d169ab838acba350416eae151f275611a5ff3';
+const ADMIN_HASH = '0bc549537ed0695e11a0b09fa4c7b23868edfed06548f0da73c25ace66f6cab6';
+let isAdmin = false;
+let reviewFilter = 'pending';
+
+// ═══ BACKEND CONFIG ═══
+// When Google Apps Script URL is set, submissions sync to Google Sheets
+// Otherwise, localStorage-only mode
+const BACKEND_URL = ''; // Set this to your Apps Script Web App URL
+const ADMIN_KEY = 'modvet-review-2026';
+
+async function sha256(s) {
+  const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+  return Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2,'0')).join('');
+}
+
+async function checkPassword() {
+  const pw = document.getElementById('pw-input').value;
+  const h = await sha256(pw);
+  if (h === PW_HASH || h === ADMIN_HASH) {
+    isAdmin = (h === ADMIN_HASH);
+    document.getElementById('pw-overlay').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    if (isAdmin) document.getElementById('tab-review').style.display = '';
+    initForm();
+    loadSubmissions();
+  } else {
+    document.getElementById('pw-error').style.display = 'block';
+    document.getElementById('pw-input').value = '';
+    document.getElementById('pw-input').focus();
+  }
+}
+document.getElementById('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(); });
+
+// ═══ TABS ═══
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  event.target.closest('.tab').classList.add('active');
+  document.getElementById('panel-' + name).classList.add('active');
+}
+
+// ═══ INIT ═══
+function initForm() {
+  const sel = document.getElementById('f-clinic');
+  const clinics = typeof COMPETITORS !== 'undefined' ? COMPETITORS : [];
+  const sorted = [...clinics].sort((a, b) => {
+    if (a.isOurs && !b.isOurs) return -1;
+    if (!a.isOurs && b.isOurs) return 1;
+    return a.name.localeCompare(b.name);
+  });
+  let grp = '';
+  sorted.forEach(c => {
+    const g = c.isOurs ? '★ Our Brands' : 'Competitors';
+    if (g !== grp) { const og = document.createElement('optgroup'); og.label = g; sel.appendChild(og); grp = g; }
+    const o = document.createElement('option'); o.value = c.id; o.textContent = c.name + (c.area ? ` (${c.area})` : '');
+    sel.lastElementChild.appendChild(o);
+  });
+  const oNew = document.createElement('option'); oNew.value = '__new__'; oNew.textContent = '➕ Add new clinic...'; sel.appendChild(oNew);
+  sel.addEventListener('change', () => { document.getElementById('new-clinic-group').style.display = sel.value === '__new__' ? 'block' : 'none'; });
+
+  const svcSel = document.getElementById('f-service');
+  const svcs = typeof SERVICES !== 'undefined' ? SERVICES : [];
+  let cat = '';
+  svcs.forEach(s => {
+    if (s.category !== cat) { const og = document.createElement('optgroup'); og.label = s.category; svcSel.appendChild(og); cat = s.category; }
+    const o = document.createElement('option'); o.value = s.id; o.textContent = s.label;
+    svcSel.lastElementChild.appendChild(o);
+  });
+
+  const n = localStorage.getItem('priceIntel_name');
+  if (n) document.getElementById('f-name').value = n;
+}
+
+// ═══ DATA ═══
+function getLocal() { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+function saveLocal(data) { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+
+async function loadSubmissions() {
+  if (BACKEND_URL) {
+    try {
+      const r = await fetch(BACKEND_URL + '?action=list');
+      const d = await r.json();
+      if (d.submissions) { saveLocal(d.submissions); }
+    } catch (e) { console.warn('Backend fetch failed, using local:', e); }
+  }
+  renderAll();
+}
+
+function renderAll() {
+  renderHistory();
+  if (isAdmin) renderReview();
+  updatePendingCount();
+}
+
+function updatePendingCount() {
+  const n = getLocal().filter(s => s.status === 'pending').length;
+  document.getElementById('pending-count').textContent = n;
+}
+
+// ═══ SUBMIT ═══
+async function submitPrice(e) {
+  e.preventDefault();
+  const src = document.getElementById('f-source').value;
+  if (!src) { alert('Please select a source'); return false; }
+
+  const cid = document.getElementById('f-clinic').value;
+  let cname = '', carea = '';
+  if (cid === '__new__') {
+    cname = document.getElementById('f-new-clinic').value.trim();
+    carea = document.getElementById('f-new-area').value.trim();
+    if (!cname) { alert('Please enter the clinic name'); return false; }
+  } else {
+    const c = (typeof COMPETITORS !== 'undefined' ? COMPETITORS : []).find(x => x.id === cid);
+    cname = c ? c.name : cid;
+    carea = c ? c.area : '';
+  }
+
+  const sid = document.getElementById('f-service').value;
+  const svc = (typeof SERVICES !== 'undefined' ? SERVICES : []).find(x => x.id === sid);
+
+  const sub = {
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2,7),
+    clinicId: cid === '__new__' ? null : cid,
+    clinicName: cname,
+    clinicArea: carea,
+    serviceId: sid,
+    serviceName: svc ? svc.label : sid,
+    price: parseFloat(document.getElementById('f-price').value),
+    source: src,
+    note: document.getElementById('f-note').value.trim(),
+    submittedBy: document.getElementById('f-name').value.trim(),
+    submittedAt: new Date().toISOString(),
+    status: 'pending'
+  };
+
+  // Save locally
+  const data = getLocal();
+  data.unshift(sub);
+  saveLocal(data);
+
+  // Try backend
+  if (BACKEND_URL) {
+    try {
+      const params = new URLSearchParams({action: 'submit', ...sub});
+      await fetch(BACKEND_URL + '?' + params.toString());
+    } catch (e) { console.warn('Backend submit failed:', e); }
+  }
+
+  localStorage.setItem('priceIntel_name', sub.submittedBy);
+
+  document.getElementById('msg-success').style.display = 'block';
+  setTimeout(() => { document.getElementById('msg-success').style.display = 'none'; }, 4000);
+
+  const savedName = document.getElementById('f-name').value;
+  document.getElementById('price-form').reset();
+  document.getElementById('f-name').value = savedName;
+  document.querySelectorAll('.source-tag').forEach(t => t.classList.remove('active'));
+  document.getElementById('f-source').value = '';
+  document.getElementById('new-clinic-group').style.display = 'none';
+  renderAll();
+  return false;
+}
+
+function selectSource(el) {
+  document.querySelectorAll('.source-tag').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('f-source').value = el.dataset.val;
+}
+function showNewClinic() {
+  document.getElementById('f-clinic').value = '__new__';
+  document.getElementById('new-clinic-group').style.display = 'block';
+  document.getElementById('f-new-clinic').focus();
+}
+
+// ═══ HISTORY ═══
+function renderHistory() {
+  const el = document.getElementById('history-list');
+  const name = (document.getElementById('f-name').value || localStorage.getItem('priceIntel_name') || '').toLowerCase();
+  const items = getLocal().filter(s => s.submittedBy && s.submittedBy.toLowerCase() === name);
+  if (!items.length) { el.innerHTML = '<div class="empty">No submissions yet. Submit your first price above!</div>'; return; }
+  el.innerHTML = items.slice(0,50).map(s => `
+    <div class="sub-item">
+      <div class="top">
+        <div>
+          <div class="clinic-name">${esc(s.clinicName)}${s.clinicArea ? ' <span style="color:var(--muted);font-weight:400;font-size:12px">(' + esc(s.clinicArea) + ')</span>' : ''}</div>
+          <div class="detail">${esc(s.serviceName)} · ${esc(s.source)} · ${timeAgo(s.submittedAt)}</div>
+          ${s.note ? '<div class="note-text">' + esc(s.note) + '</div>' : ''}
+        </div>
+        <div style="text-align:right">
+          <div class="price-val">${s.price} AED</div>
+          <span class="badge ${s.status}">${s.status}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ═══ ADMIN REVIEW ═══
+function setReviewFilter(f, el) {
+  reviewFilter = f;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderReview();
+}
+
+function renderReview() {
+  const el = document.getElementById('review-list');
+  let items = getLocal();
+  if (reviewFilter !== 'all') items = items.filter(s => s.status === reviewFilter);
+  if (!items.length) { el.innerHTML = '<div class="empty">No ' + reviewFilter + ' submissions</div>'; return; }
+  el.innerHTML = items.slice(0,100).map(s => `
+    <div class="sub-item" id="r-${s.id}">
+      <div class="top">
+        <div>
+          <div class="clinic-name">${esc(s.clinicName)}${s.clinicArea ? ' <span style="color:var(--muted);font-weight:400;font-size:12px">(' + esc(s.clinicArea) + ')</span>' : ''}</div>
+          <div class="detail">${esc(s.serviceName)} · Source: ${esc(s.source)} · By: ${esc(s.submittedBy)} · ${new Date(s.submittedAt).toLocaleString()}</div>
+          ${s.note ? '<div class="note-text">📝 ' + esc(s.note) + '</div>' : ''}
+        </div>
+        <div style="text-align:right">
+          <div class="price-val">${s.price} AED</div>
+          <span class="badge ${s.status}">${s.status}</span>
+        </div>
+      </div>
+      ${s.status === 'pending' ? `
+      <div class="review-actions">
+        <button class="btn-sm btn-approve" onclick="doReview('${s.id}','approved')">✅ Approve</button>
+        <button class="btn-sm btn-reject" onclick="doReview('${s.id}','rejected')">❌ Reject</button>
+      </div>` : ''}
+    </div>
+  `).join('');
+}
+
+async function doReview(id, status) {
+  const data = getLocal();
+  const s = data.find(x => x.id === id);
+  if (s) {
+    s.status = status;
+    s.reviewedAt = new Date().toISOString();
+    saveLocal(data);
+    if (BACKEND_URL) {
+      try {
+        const p = new URLSearchParams({action:'review', id, status, adminKey: ADMIN_KEY});
+        await fetch(BACKEND_URL + '?' + p.toString());
+      } catch (e) { console.warn('Backend review failed:', e); }
+    }
+    renderAll();
+  }
+}
+
+// ═══ EXPORT ═══
+function toCSV(items) {
+  const headers = ['Clinic','Area','Service','Price (AED)','Source','Note','Submitted By','Date','Status'];
+  const rows = items.map(s => [s.clinicName, s.clinicArea||'', s.serviceName, s.price, s.source, s.note||'', s.submittedBy, s.submittedAt, s.status].map(v => '"' + String(v).replace(/"/g,'""') + '"'));
+  return [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+}
+
+function downloadCSV(content, filename) {
+  const blob = new Blob([content], {type: 'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+}
+
+function exportApproved() {
+  const items = getLocal().filter(s => s.status === 'approved');
+  if (!items.length) { alert('No approved submissions to export'); return; }
+  downloadCSV(toCSV(items), 'approved-prices-' + new Date().toISOString().slice(0,10) + '.csv');
+}
+
+function exportAll() {
+  const items = getLocal();
+  if (!items.length) { alert('No submissions to export'); return; }
+  downloadCSV(toCSV(items), 'all-price-submissions-' + new Date().toISOString().slice(0,10) + '.csv');
+}
+
+// ═══ UTILS ═══
+function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+function timeAgo(iso) {
+  const m = Math.floor((Date.now() - new Date(iso).getTime()) / 60000);
+  if (m < 1) return 'just now'; if (m < 60) return m + 'm ago';
+  const h = Math.floor(m / 60); if (h < 24) return h + 'h ago';
+  return Math.floor(h / 24) + 'd ago';
+}
+</script>
+</body>
+</html>
