@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veta Improvement Plan | Vet Alliance</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3350;
+    --text: #e8eaf6;
+    --muted: #7986cb;
+    --accent: #5c6bc0;
+    --accent2: #3949ab;
+    --green: #4caf50;
+    --yellow: #ffc107;
+    --red: #f44336;
+    --orange: #ff9800;
+    --teal: #26a69a;
+    --pink: #ec407a;
+    --purple: #ab47bc;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; font-size: 14px; line-height: 1.6; }
+
+  /* PASSWORD GATE */
+  #pw-overlay {
+    position: fixed; inset: 0; background: var(--bg); z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .pw-card {
+    background: var(--surface); padding: 32px 40px; border-radius: 12px;
+    border: 1px solid var(--border); text-align: center; max-width: 360px;
+  }
+  .pw-card h2 { margin-bottom: 8px; }
+  .pw-card p { color: var(--muted); margin-bottom: 20px; font-size: 13px; }
+  .pw-card input { width: 100%; padding: 10px 12px; background: var(--bg); border: 1px solid var(--border); color: var(--text); border-radius: 6px; margin-bottom: 12px; font-size: 14px; outline: none; }
+  .pw-card input:focus { border-color: var(--accent); }
+  .pw-card .btn { width: 100%; padding: 10px; background: var(--accent2); color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 500; }
+  .pw-card .btn:hover { background: var(--accent); }
+  .pw-error { color: var(--red); font-size: 12px; margin-top: 8px; display: none; }
+
+  /* HEADER */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 32px;
+    position: sticky; top: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .logo { font-weight: 700; font-size: 16px; letter-spacing: 0.5px; }
+  .logo span { color: var(--muted); font-weight: 400; }
+  .header-meta { font-size: 12px; color: var(--muted); }
+  .header-meta b { color: #90caf9; }
+
+  /* MAIN */
+  main { max-width: 1100px; margin: 0 auto; padding: 32px; }
+
+  h1 { font-size: 26px; margin-bottom: 6px; letter-spacing: -0.3px; }
+  h2 { font-size: 19px; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+  h3 { font-size: 15px; margin: 22px 0 10px; color: #c5cae9; }
+  h4 { font-size: 13px; margin: 14px 0 6px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  p { margin-bottom: 12px; color: #d1d5e0; }
+  ul, ol { margin-left: 20px; margin-bottom: 14px; }
+  li { margin-bottom: 4px; color: #d1d5e0; }
+  code { background: var(--surface2); padding: 2px 6px; border-radius: 4px; font-size: 12px; color: #ffcc80; font-family: 'JetBrains Mono', monospace; }
+  pre { background: var(--surface2); padding: 12px 16px; border-radius: 6px; overflow-x: auto; font-size: 12px; margin: 12px 0; border-left: 3px solid var(--accent); }
+  pre code { background: transparent; padding: 0; color: #e0e0e0; }
+
+  /* SUBTITLE */
+  .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+
+  /* CARDS */
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin-bottom: 16px; }
+  .card.danger { border-left: 4px solid var(--red); }
+  .card.warning { border-left: 4px solid var(--orange); }
+  .card.good { border-left: 4px solid var(--green); }
+  .card.info { border-left: 4px solid var(--accent); }
+  .card.priority-high { border-left: 4px solid var(--red); }
+  .card.priority-med { border-left: 4px solid var(--yellow); }
+  .card.priority-low { border-left: 4px solid var(--teal); }
+
+  /* PILLS */
+  .pill { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 500; margin-right: 6px; }
+  .pill-andrew { background: rgba(92,107,192,0.2); color: #9fa8da; }
+  .pill-aida { background: rgba(236,64,122,0.2); color: #f48fb1; }
+  .pill-ar { background: rgba(38,166,154,0.2); color: #80cbc4; }
+  .pill-cheshire { background: rgba(171,71,188,0.2); color: #ce93d8; }
+  .pill-high { background: rgba(244,67,54,0.2); color: #ef9a9a; }
+  .pill-med { background: rgba(255,193,7,0.2); color: #ffd54f; }
+  .pill-low { background: rgba(38,166,154,0.2); color: #80cbc4; }
+  .pill-blocker { background: rgba(244,67,54,0.3); color: #ef9a9a; font-weight: 700; }
+
+  /* TABLES */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: 13px; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--surface2); color: #c5cae9; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  tr:hover td { background: rgba(92,107,192,0.05); }
+
+  /* TOC */
+  .toc { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; margin-bottom: 28px; }
+  .toc h4 { margin-top: 0; }
+  .toc ol { margin: 8px 0 0 18px; }
+  .toc a { color: #9fa8da; text-decoration: none; }
+  .toc a:hover { color: #fff; }
+
+  /* PHASES */
+  .phase {
+    background: var(--surface); border-radius: 10px; padding: 18px 24px; margin: 14px 0;
+    border-left: 4px solid var(--accent);
+  }
+  .phase h3 { margin-top: 0; color: #fff; display: flex; align-items: center; gap: 10px; }
+  .phase-meta { color: var(--muted); font-size: 12px; margin-bottom: 10px; }
+
+  /* CALLOUT */
+  .callout {
+    background: rgba(92,107,192,0.08); border: 1px solid rgba(92,107,192,0.25);
+    border-radius: 8px; padding: 14px 18px; margin: 14px 0;
+  }
+  .callout.danger { background: rgba(244,67,54,0.08); border-color: rgba(244,67,54,0.3); }
+  .callout.warning { background: rgba(255,193,7,0.08); border-color: rgba(255,193,7,0.3); }
+  .callout.good { background: rgba(76,175,80,0.08); border-color: rgba(76,175,80,0.3); }
+
+  /* ARROW LINKS */
+  a { color: #9fa8da; }
+  a:hover { color: #fff; }
+
+  /* GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 720px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  /* STATS */
+  .stat-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; }
+  .stat { background: var(--surface2); padding: 14px 20px; border-radius: 8px; min-width: 140px; flex: 1; }
+  .stat .num { font-size: 22px; font-weight: 700; color: #fff; }
+  .stat .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<div id="pw-overlay">
+  <div class="pw-card">
+    <h2>🤖 Veta Improvement Plan</h2>
+    <p>Vet Alliance internal — authorised access only</p>
+    <input type="password" id="pw-input" placeholder="Password" onkeydown="if(event.key==='Enter')checkPw()">
+    <button class="btn" onclick="checkPw()">Enter</button>
+    <div class="pw-error" id="pw-error">Incorrect password</div>
+  </div>
+</div>
+
+<header>
+  <div class="logo">Vet Alliance <span>/ Veta Improvement Plan</span></div>
+  <div class="header-meta">Drafted by Cheshire · <b>2026-04-27</b> · For Andrew, Aida, AR (CTO)</div>
+</header>
+
+<main>
+  <h1>Making Veta Reliable: Full Improvement Plan</h1>
+  <p class="subtitle">From a 699-entry KB that occasionally hallucinates → a WhatsApp bot ready for live client traffic. Combines technical fixes with a clear human-input workflow for Andrew (Marketing), Aida (Operations), and AR (CTO).</p>
+
+  <div class="stat-row">
+    <div class="stat"><div class="num">699</div><div class="lbl">KB entries today</div></div>
+    <div class="stat"><div class="num">974</div><div class="lbl">ChromaDB docs</div></div>
+    <div class="stat"><div class="num">~88%</div><div class="lbl">Coverage (last sim)</div></div>
+    <div class="stat"><div class="num">30</div><div class="lbl">Open data gaps</div></div>
+    <div class="stat"><div class="num">~40-50%</div><div class="lbl">Current real-traffic accuracy estimate</div></div>
+  </div>
+
+  <div class="toc">
+    <h4>📋 Contents</h4>
+    <ol>
+      <li><a href="#problem">The hallucination problem — what we actually know</a></li>
+      <li><a href="#tech">Technical improvements (8 items, prioritised)</a></li>
+      <li><a href="#human">Human input still needed — refreshed list</a></li>
+      <li><a href="#workflow">Better workflow: how Andrew, Aida & AR feed Veta</a></li>
+      <li><a href="#rollout">Phased rollout plan</a></li>
+      <li><a href="#decisions">Decisions Andrew needs to make today</a></li>
+    </ol>
+  </div>
+
+  <!-- ══════════ SECTION 1: PROBLEM ══════════ -->
+  <h2 id="problem">1. 🐛 The Hallucination Problem</h2>
+
+  <p>From simulation results and what we've seen in testing, hallucinations cluster into <b>five repeatable patterns</b>. None of them are random — each has a fixable cause.</p>
+
+  <div class="card danger">
+    <h3>Pattern A — Confident wrong-brand routing</h3>
+    <p><b>Example:</b> User asks about a rabbit; bot confidently lists Modern Vet branches and "exotic specialist Dr. Ionut" without the BOV/VV alternative or the surgery-vs-consultation distinction.</p>
+    <p><b>Cause:</b> Brand-separation rules live in SOUL.md (prompt) but aren't enforced at retrieval. The retriever can pull a single MV-only entry and the LLM speaks confidently from it.</p>
+    <p><b>Fix:</b> Brand-aware retrieval (filter chunks by detected species/intent before the LLM sees them) + a hard post-check.</p>
+  </div>
+
+  <div class="card danger">
+    <h3>Pattern B — Branch-blind pricing</h3>
+    <p><b>Example:</b> "How much is a consultation?" → "AED 199-299". Technically true but useless. Then user books at JLT expecting AED 199 (Hospital is AED 299).</p>
+    <p><b>Cause:</b> Bot answers without knowing which branch. Pricing is per-branch but the slot extractor doesn't pin one down before pricing answers.</p>
+    <p><b>Fix:</b> Mandatory slot-filling — bot must ask "which branch?" before quoting price, or default to a single branch and SAY so.</p>
+  </div>
+
+  <div class="card danger">
+    <h3>Pattern C — Distance/geography invention</h3>
+    <p><b>Example:</b> "JVC is 3-4 km from Falcon City" (real distance: 15-18 km).</p>
+    <p><b>Cause:</b> 127 neighbourhood mappings exist, but if the user's area isn't on the list, the LLM estimates from training data.</p>
+    <p><b>Fix:</b> Hard rule — if neighbourhood not in <code>neighbourhood_kb_entries.json</code>, never quote distance. Either ask for area name, or list nearest 3 branches without distances.</p>
+  </div>
+
+  <div class="card danger">
+    <h3>Pattern D — Service-availability assumption</h3>
+    <p><b>Example:</b> Recommending Mobile Clinic for a surgery (Mobile only does consultations).</p>
+    <p><b>Cause:</b> Branch-service matrix is not enforced; bot reasons "Modern Vet does surgery, Mobile is Modern Vet, ergo Mobile does surgery."</p>
+    <p><b>Fix:</b> Explicit branch × service capability table, retrieved alongside any service-related answer.</p>
+  </div>
+
+  <div class="card danger">
+    <h3>Pattern E — Free-form medical advice</h3>
+    <p><b>Example:</b> User describes symptoms; bot says "could be X or Y, try Z" instead of routing to consultation.</p>
+    <p><b>Cause:</b> When KB has no match, the model falls back on training data instead of escalating.</p>
+    <p><b>Fix:</b> Confidence threshold — below <b>0.55 cosine similarity</b>, bot must say "let me connect you with our team" and never offer medical specifics.</p>
+  </div>
+
+  <h3>Common root cause</h3>
+  <p>Veta's KB is rich, but the <b>guardrails are in the prompt instead of the pipeline</b>. A long instruction in SOUL.md saying "never make things up" loses to a confident-sounding retrieved chunk + a helpful LLM. We need to move guardrails from <em>prompt-level</em> to <em>code-level</em>.</p>
+
+  <!-- ══════════ SECTION 2: TECH ══════════ -->
+  <h2 id="tech">2. 🛠️ Technical Improvements</h2>
+
+  <p>Eight items, prioritised by reliability impact vs. effort. Owner column flags whether AR (CTO) needs to be involved.</p>
+
+  <table>
+    <thead>
+      <tr><th>#</th><th>Improvement</th><th>Impact</th><th>Effort</th><th>Owner</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Confidence threshold + auto-escalation</td><td>★★★★★</td><td>S</td><td><span class="pill pill-cheshire">Cheshire</span></td></tr>
+      <tr><td>2</td><td>Conversation memory across messages</td><td>★★★★★</td><td>M</td><td><span class="pill pill-cheshire">Cheshire</span> <span class="pill pill-ar">AR review</span></td></tr>
+      <tr><td>3</td><td>Answer-grounding verifier (anti-hallucination)</td><td>★★★★★</td><td>M</td><td><span class="pill pill-cheshire">Cheshire</span></td></tr>
+      <tr><td>4</td><td>Hybrid retrieval (BM25 + vector)</td><td>★★★★</td><td>M</td><td><span class="pill pill-cheshire">Cheshire</span></td></tr>
+      <tr><td>5</td><td>Intent + slot-filling pre-step (branch / service / species / brand)</td><td>★★★★</td><td>M</td><td><span class="pill pill-cheshire">Cheshire</span></td></tr>
+      <tr><td>6</td><td>Brand × Service × Species capability matrix (hard table)</td><td>★★★★</td><td>S</td><td><span class="pill pill-aida">Aida data</span> <span class="pill pill-cheshire">Cheshire build</span></td></tr>
+      <tr><td>7</td><td>Re-run 3-model self-improvement loop on full traffic sample</td><td>★★★</td><td>S</td><td><span class="pill pill-cheshire">Cheshire</span></td></tr>
+      <tr><td>8</td><td>Deployment hardening: WhatsApp Business API integration, rate limits, logging</td><td>★★★</td><td>L</td><td><span class="pill pill-ar">AR (CTO)</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Detail on the "anti-hallucination trio" (#1, #3, #5)</h3>
+
+  <div class="card priority-high">
+    <h4>#1 — Confidence threshold + auto-escalation</h4>
+    <p>Today, every retrieved chunk reaches the LLM regardless of similarity. The bot then writes a confident answer from a 0.7-distance match (i.e. weak).</p>
+    <p><b>New behaviour:</b></p>
+    <ul>
+      <li>Top-1 distance &lt; <b>0.40</b> → answer with full confidence</li>
+      <li>Distance <b>0.40–0.55</b> → answer + soft hand-off offer ("would you like me to connect you with our team to confirm?")</li>
+      <li>Distance &gt; <b>0.55</b> → no answer attempt → "I'm not 100% sure about that — let me connect you with our team!" + auto-log as GAP</li>
+    </ul>
+    <p><b>Effort:</b> 30 lines of code in <code>query_kb.py</code>. Test: re-run 100 questions and see how often it correctly escalates.</p>
+  </div>
+
+  <div class="card priority-high">
+    <h4>#3 — Answer-grounding verifier</h4>
+    <p>Run the bot's draft answer through a <em>second</em> Haiku call: "Here's the answer. Here are the retrieved chunks. Does every factual claim in the answer (price, location, doctor name, hour, distance) appear in the chunks? Y/N." If N → strip the unsupported claim or escalate.</p>
+    <p>Cost: ~$0.0003 per message. Cuts hallucinations 60-80% in published RAG benchmarks.</p>
+  </div>
+
+  <div class="card priority-high">
+    <h4>#5 — Intent + slot-filling pre-step</h4>
+    <p>Before retrieval, run a tiny classifier that fills in:</p>
+    <ul>
+      <li><b>Intent:</b> booking / pricing / emergency / location / general / medical / complaint</li>
+      <li><b>Branch:</b> JLT / Hospital / JVC / Palm / Downtown / etc / unknown</li>
+      <li><b>Species:</b> dog / cat / rabbit / bird / exotic / unknown</li>
+      <li><b>Brand match:</b> MV / BOV / VV / unspecified</li>
+    </ul>
+    <p>Output drives <b>filtered retrieval</b> — instead of searching all 974 docs, search only the relevant slice. Massively cuts wrong-brand and wrong-branch errors.</p>
+  </div>
+
+  <!-- ══════════ SECTION 3: HUMAN INPUT ══════════ -->
+  <h2 id="human">3. 👥 Human Input Still Needed</h2>
+
+  <p>Of the 30 remaining gaps, plus what's surfaced in recent testing, here's what's actually <b>blocking</b> the bot from going live — split by who owns it.</p>
+
+  <h3><span class="pill pill-andrew">Andrew (Marketing)</span> — 6 items</h3>
+  <table>
+    <thead><tr><th>Item</th><th>Why blocking</th><th>Effort</th></tr></thead>
+    <tbody>
+      <tr><td><b>Booking link & flow per branch</b> — confirm book.floof.ae handles every brand + branch correctly</td><td>Bot tells clients to book; if links fail, clients churn</td><td>30 min</td></tr>
+      <tr><td><b>WhatsApp number → branch routing table</b></td><td>Currently the bot can't say "this is the Marina-area WhatsApp"</td><td>1 h</td></tr>
+      <tr><td><b>Final brand-separation rules</b> for edge cases (rabbit emergency, exotic-emergency-night, charity)</td><td>Today's update covers rabbits — let's lock the rest</td><td>30 min discussion</td></tr>
+      <tr><td><b>Tone & escalation script</b> — when bot hands off, what does it actually say? Different for emergency vs. general</td><td>Hand-off currently generic; should differ by intent</td><td>1 h</td></tr>
+      <tr><td><b>Promotional / package rules</b> — when can bot mention promos? Always? Only on request? Per brand?</td><td>Risk of bot offering a discontinued promo</td><td>30 min</td></tr>
+      <tr><td><b>Compliance line for medical questions</b> — exact wording approved by management</td><td>"I can't give medical advice" needs to be unambiguous</td><td>15 min, signed off by Mansoor</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="pill pill-aida">Aida (Operations / Senior Vet)</span> — 11 items</h3>
+  <p class="callout warning">⚠️ These are the highest-impact items. Most current hallucinations would be prevented by Aida's input.</p>
+  <table>
+    <thead><tr><th>Item</th><th>Why blocking</th><th>Effort</th></tr></thead>
+    <tbody>
+      <tr><td><b>Branch × Service capability matrix</b> — yes/no for surgery, dental, X-ray, ultrasound, grooming, exotic, emergency at every branch</td><td>Pattern D errors stop the moment we have this</td><td>1 h with a spreadsheet template I'll provide</td></tr>
+      <tr><td><b>Doctor × Specialty × Branch table</b> — confirm who can do what, where, on what days</td><td>"Can I see Dr. X today?" needs clean data</td><td>1 h with template</td></tr>
+      <tr><td><b>Species rules confirmed</b> — locking today's update: Dr. Ionut consults rabbits/exotics at JVC; Dr. Theodora handles rabbit emergency surgery only at Hospital. <b>Open question: scope of Dr. Ionut's rabbit consultation</b> (vaccination? minor procedures? wound care?)</td><td>Decided today — needs Aida sign-off then KB updated</td><td>15 min call</td></tr>
+      <tr><td><b>Stray-animal protocol</b></td><td>Recurring question, currently handled inconsistently</td><td>30 min</td></tr>
+      <tr><td><b>Pre/post-surgery instructions</b> — confirm fasting rules, drop-off windows, recovery instructions</td><td>Bad fasting info is medically risky</td><td>30 min review of current KB</td></tr>
+      <tr><td><b>Vaccination schedules</b> by species, age, and outdoor/indoor</td><td>Currently fragmented across entries</td><td>1 h</td></tr>
+      <tr><td><b>Pricing edge cases</b> — sedation, anaesthesia, IV fluids, X-ray-add-on, lab tests on top of consult</td><td>Sim shows bot quotes consult price for things that include extras</td><td>1 h</td></tr>
+      <tr><td><b>Kennel cough vaccine price</b> + <b>nursing fees</b> (tagged as needing Aida in last memory)</td><td>Already on the open list</td><td>10 min</td></tr>
+      <tr><td><b>Emergency triage rules</b> — what symptoms = "go now to Hospital", what = "book consult tomorrow"</td><td>Pattern E protection</td><td>1 h</td></tr>
+      <tr><td><b>Referral rules</b> — when does MV refer to a specialist outside the group?</td><td>Currently no answer in KB</td><td>20 min</td></tr>
+      <tr><td><b>Approval of all medical-content answers</b> — final review pass before go-live</td><td>Liability protection</td><td>2 h once</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="pill pill-ar">AR (CTO)</span> — 5 items</h3>
+  <table>
+    <thead><tr><th>Item</th><th>Why blocking</th><th>Effort</th></tr></thead>
+    <tbody>
+      <tr><td><b>WhatsApp Business API access</b> — Meta-approved number, webhook URL, message templates</td><td>Without this, Veta can't actually receive WhatsApp messages</td><td>1-2 weeks lead time with Meta</td></tr>
+      <tr><td><b>CRM / booking-system integration spec</b> — can the bot read availability, write appointments?</td><td>If yes → much smarter bot; if no → bot stays at "let me connect you" for booking</td><td>Spec call: 30 min</td></tr>
+      <tr><td><b>Logging & analytics infrastructure</b> — every bot message logged, searchable, tagged with confidence score</td><td>Without this, we can't iterate</td><td>1 day</td></tr>
+      <tr><td><b>Privacy & data retention policy</b> — how long do we keep WhatsApp conversation logs?</td><td>UAE PDPL compliance</td><td>30 min review</td></tr>
+      <tr><td><b>Failover plan</b> — when bot is unsure / down, who picks up the conversation?</td><td>Risk: bot silently fails for hours</td><td>30 min spec</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ══════════ SECTION 4: WORKFLOW ══════════ -->
+  <h2 id="workflow">4. 🔄 Better Workflow: How We Feed Veta</h2>
+
+  <p>Right now the workflow is informal — Andrew finds a gap, tells Cheshire, Cheshire updates the KB, sometimes nothing reaches Aida or AR. This breaks down at scale. Proposed workflow:</p>
+
+  <div class="grid-2">
+    <div class="card info">
+      <h4>📥 Single intake form / sheet</h4>
+      <p>One Google Sheet (<code>veta-kb-updates</code>) where any of the three of you can drop:</p>
+      <ul>
+        <li>New Q&A pair</li>
+        <li>Correction to existing answer</li>
+        <li>Reported hallucination from a real user</li>
+        <li>New gap discovered</li>
+      </ul>
+      <p>Columns: <code>Date · Submitter · Type · Q · A · Source · Approved by · Status</code></p>
+    </div>
+
+    <div class="card info">
+      <h4>👥 Roles & approval flow</h4>
+      <ul>
+        <li><b>Andrew</b> — submits anything client-facing, marketing, brand</li>
+        <li><b>Aida</b> — submits + approves medical/clinical/operational</li>
+        <li><b>AR</b> — submits + approves anything tech/integration/data</li>
+        <li><b>Cheshire</b> — converts approved rows to KB entries, runs sims, reports back</li>
+      </ul>
+      <p>Rule: medical answers require Aida's tick before going into KB. No exceptions.</p>
+    </div>
+
+    <div class="card info">
+      <h4>🔁 Weekly review cycle</h4>
+      <p>Every Monday Cheshire posts a Slack thread with:</p>
+      <ul>
+        <li>New Q&A added that week</li>
+        <li>Hallucinations caught by the verifier</li>
+        <li>Open gaps still missing input</li>
+        <li>Confidence-score histogram (are we improving?)</li>
+      </ul>
+      <p>10 minutes for the three of you to scan, comment, approve.</p>
+    </div>
+
+    <div class="card info">
+      <h4>🚨 Live-traffic feedback loop</h4>
+      <p>Once live, every conversation is logged. Each week, Cheshire pulls a random 30-message sample. Aida spot-checks for medical accuracy, Andrew for tone/brand, AR for technical issues. New gaps from real users flow back into the intake form.</p>
+    </div>
+  </div>
+
+  <div class="callout good">
+    <b>Why this is "better than now":</b> Today the chain has one bottleneck (Andrew → Cheshire). With three people contributing in their own area + a structured queue, gaps close 3-4× faster, medical accuracy is enforced, and AR sees what's coming so integration work doesn't get sprung last-minute.
+  </div>
+
+  <!-- ══════════ SECTION 5: ROLLOUT ══════════ -->
+  <h2 id="rollout">5. 🚀 Phased Rollout</h2>
+
+  <div class="phase">
+    <h3>Phase 1 — Anti-Hallucination Patch <span class="pill pill-high">THIS WEEK</span></h3>
+    <div class="phase-meta">Owner: Cheshire · Effort: 2 days</div>
+    <ul>
+      <li>✅ Apply the rabbit/exotic data update from today's session (~8 KB entries + SOUL.md)</li>
+      <li>✅ Implement #1 confidence threshold</li>
+      <li>✅ Implement #3 answer-grounding verifier</li>
+      <li>✅ Implement #5 intent + slot-filling</li>
+      <li>✅ Re-run sim on 100 test questions; report % escalated, % grounded, % wrong</li>
+    </ul>
+    <p><b>Exit criteria:</b> Hallucination rate drops below 5% on the standard sim set.</p>
+  </div>
+
+  <div class="phase">
+    <h3>Phase 2 — Data Push <span class="pill pill-med">WEEK 2-3</span></h3>
+    <div class="phase-meta">Owner: Aida (primary), Andrew, AR · Effort: ~10 hours total across all three</div>
+    <ul>
+      <li>Aida fills the Branch × Service matrix (template provided)</li>
+      <li>Aida confirms doctor table + scope-of-rabbit-consultation question</li>
+      <li>Andrew finalises booking links, brand rules, escalation script</li>
+      <li>AR provides WhatsApp API plan + logging architecture</li>
+      <li>Cheshire ingests everything, rebuilds KB, re-runs sim</li>
+    </ul>
+    <p><b>Exit criteria:</b> Coverage &gt;95%, no critical gaps, all medical answers Aida-approved.</p>
+  </div>
+
+  <div class="phase">
+    <h3>Phase 3 — Hybrid Retrieval & Loop Re-Run <span class="pill pill-med">WEEK 3-4</span></h3>
+    <div class="phase-meta">Owner: Cheshire · Effort: 3 days</div>
+    <ul>
+      <li>Add BM25 alongside vector retrieval (#4)</li>
+      <li>Add conversation memory (#2)</li>
+      <li>Run 3-model loop on 500 real WhatsApp messages from logs</li>
+      <li>Generate gap report, fill last items</li>
+    </ul>
+    <p><b>Exit criteria:</b> Real-traffic accuracy ≥90% in sim. Edge cases &lt;3%.</p>
+  </div>
+
+  <div class="phase">
+    <h3>Phase 4 — Closed Beta <span class="pill pill-low">WEEK 4-5</span></h3>
+    <div class="phase-meta">Owner: AR + Andrew · Effort: variable</div>
+    <ul>
+      <li>WhatsApp Business API live on a single MV branch number</li>
+      <li>10-20 internal users (staff + select clients) test</li>
+      <li>Every conversation reviewed daily by Cheshire</li>
+      <li>Issues reported via Slack → fix → redeploy</li>
+    </ul>
+    <p><b>Exit criteria:</b> One full week with &lt;1 escalated complaint per 50 conversations.</p>
+  </div>
+
+  <div class="phase">
+    <h3>Phase 5 — Public Soft-Launch <span class="pill pill-low">WEEK 6+</span></h3>
+    <ul>
+      <li>One branch's number live to real client traffic</li>
+      <li>Bot handles first response, escalates anything &lt;0.55 confidence</li>
+      <li>Weekly review cycle starts</li>
+      <li>Roll out to remaining branches as confidence improves</li>
+    </ul>
+  </div>
+
+  <!-- ══════════ SECTION 6: DECISIONS ══════════ -->
+  <h2 id="decisions">6. ⚡ Decisions Andrew Needs to Make Today</h2>
+
+  <div class="card priority-high">
+    <ol>
+      <li><b>Approve Phase 1 scope</b> — should I start the anti-hallucination patch + rabbit/exotic update now? <span class="pill pill-blocker">BLOCKER</span></li>
+      <li><b>Aida's involvement</b> — when can we get her ~10 hours? Is she happy to be the medical-approval point? Do we need Mansoor's blessing first?</li>
+      <li><b>AR's involvement</b> — does WhatsApp Business API setup start now (long lead time) or after Phase 2?</li>
+      <li><b>Intake form location</b> — Google Sheet (Andrew owns)? Slack list? Or keep it in the existing Marketing Master Tasks list with a Veta workstream tag?</li>
+      <li><b>Open question for Aida:</b> Dr. Ionut's rabbit consultation scope — examine only? Vaccinations? Minor procedures? Wound care? <b>This affects 4 KB entries today.</b></li>
+    </ol>
+  </div>
+
+  <div class="callout">
+    <b>📞 My recommendation:</b> Approve Phase 1 today, I'll start the anti-hallucination patch + rabbit data update tonight. Schedule a 30-min call with Aida this week to walk her through the templates. Loop AR in for a 30-min spec session next week so the WhatsApp API timeline starts moving.
+  </div>
+
+</main>
+
+<script>
+  const PW = "modvet2026";
+  function checkPw(){
+    if(document.getElementById('pw-input').value === PW){
+      document.getElementById('pw-overlay').style.display='none';
+    } else {
+      document.getElementById('pw-error').style.display='block';
+    }
+  }
+  document.getElementById('pw-input').addEventListener('keydown', e => { if(e.key==='Enter') checkPw(); });
+</script>
+
+</body>
+</html>
