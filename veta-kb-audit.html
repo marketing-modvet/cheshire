@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Veta KB Audit — 2026-04-27</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --teal: #015962;
+    --teal-light: #4a8b92;
+    --bg: #f6f7f8;
+    --card: #fff;
+    --border: #e2e6ea;
+    --text: #1a1f25;
+    --muted: #6a737d;
+    --confident: #2d9e6c;
+    --escalate: #d8434b;
+    --ezyvet: #8047d6;
+    --action: #1976d2;
+    --gap-aida: #e6873b;
+    --gap-andrew: #c66a14;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    margin: 0; padding: 0; background: var(--bg); color: var(--text);
+  }
+  header {
+    background: var(--teal); color: white; padding: 28px 36px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  header h1 { margin: 0; font-size: 22px; font-weight: 600; }
+  header .sub { font-size: 13px; opacity: 0.85; margin-top: 4px; }
+  main { max-width: 1400px; margin: 0 auto; padding: 24px 36px; }
+
+  .gate { max-width: 420px; margin: 96px auto; background: white; padding: 32px; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .gate h2 { margin-top: 0; }
+  .gate input { width: 100%; padding: 10px; font-size: 14px; border: 1px solid var(--border); border-radius: 4px; }
+  .gate button { margin-top: 12px; width: 100%; padding: 11px; background: var(--teal); color: white; border: none; border-radius: 4px; font-size: 14px; cursor: pointer; }
+  .gate .err { color: var(--escalate); font-size: 13px; margin-top: 10px; min-height: 18px; }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .stat { background: var(--card); padding: 14px; border-radius: 6px; border-left: 4px solid var(--muted); cursor: pointer; transition: transform 0.1s; }
+  .stat:hover { transform: translateY(-2px); }
+  .stat.active { box-shadow: 0 0 0 2px var(--teal); }
+  .stat .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat .value { font-size: 26px; font-weight: 600; margin-top: 2px; }
+  .stat .pct { font-size: 12px; color: var(--muted); }
+
+  .stat.confident   { border-left-color: var(--confident); }
+  .stat.escalate    { border-left-color: var(--escalate); }
+  .stat.ezyvet      { border-left-color: var(--ezyvet); }
+  .stat.action      { border-left-color: var(--action); }
+  .stat.gap_aida    { border-left-color: var(--gap-aida); }
+  .stat.gap_andrew  { border-left-color: var(--gap-andrew); }
+
+  .filters { background: var(--card); padding: 16px; border-radius: 6px; margin-bottom: 16px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .filters input[type=text] { flex: 1; min-width: 220px; padding: 8px 12px; font-size: 14px; border: 1px solid var(--border); border-radius: 4px; }
+  .filters select { padding: 8px; font-size: 13px; border: 1px solid var(--border); border-radius: 4px; background: white; }
+  .filters .count { font-size: 13px; color: var(--muted); white-space: nowrap; }
+
+  table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 6px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+  th { background: #fafbfc; text-align: left; padding: 10px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); font-weight: 600; border-bottom: 1px solid var(--border); }
+  td { padding: 12px; vertical-align: top; border-bottom: 1px solid var(--border); font-size: 13px; line-height: 1.45; }
+  tr:hover td { background: #fafbfc; }
+  td.idx { font-family: monospace; color: var(--muted); white-space: nowrap; }
+  td.q { font-weight: 500; max-width: 380px; }
+  td.a { color: var(--text); max-width: 460px; }
+  td.meta { font-size: 11px; color: var(--muted); white-space: nowrap; }
+
+  .badge { display: inline-block; padding: 3px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
+  .b-CONFIDENT  { background: #e8f5ec; color: var(--confident); }
+  .b-ESCALATE_CC{ background: #fbe8ea; color: var(--escalate); }
+  .b-EZYVET     { background: #f0e8fa; color: var(--ezyvet); }
+  .b-BOT_ACTION { background: #e3f0fb; color: var(--action); }
+  .b-GAP_AIDA   { background: #fdeede; color: var(--gap-aida); }
+  .b-GAP_ANDREW { background: #f9e3d2; color: var(--gap-andrew); }
+
+  .chip { display: inline-block; background: #eef1f4; padding: 2px 7px; border-radius: 8px; font-size: 11px; color: var(--muted); margin: 1px 3px 1px 0; }
+  .chip.live { background: #f0e8fa; color: var(--ezyvet); }
+  .chip.act  { background: #e3f0fb; color: var(--action); }
+
+  .pagination { margin-top: 18px; text-align: center; padding: 12px; }
+  .pagination button { padding: 6px 14px; margin: 0 4px; border: 1px solid var(--border); background: white; border-radius: 4px; cursor: pointer; font-size: 13px; }
+  .pagination button:hover { background: #fafbfc; }
+  .pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
+  .pagination .info { display: inline-block; margin: 0 12px; font-size: 13px; color: var(--muted); }
+
+  .legend { background: var(--card); padding: 16px; border-radius: 6px; margin-bottom: 16px; font-size: 13px; }
+  .legend h3 { margin: 0 0 10px 0; font-size: 13px; }
+  .legend-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 8px; }
+  .legend-item { display: flex; gap: 8px; align-items: flex-start; }
+  .legend-item .badge { flex-shrink: 0; }
+  .legend-item span { color: var(--muted); font-size: 12px; }
+
+  .download-row { display: flex; gap: 8px; margin-bottom: 16px; }
+  .btn { padding: 8px 14px; background: var(--teal); color: white; border: none; border-radius: 4px; font-size: 13px; cursor: pointer; text-decoration: none; display: inline-block; }
+  .btn.outline { background: white; color: var(--teal); border: 1px solid var(--teal); }
+</style>
+</head>
+<body>
+
+<div id="gate" class="gate">
+  <h2>🔒 Veta KB Audit</h2>
+  <p style="color:#6a737d; font-size: 13px;">Internal access only. Enter password.</p>
+  <input type="password" id="pw" placeholder="password" onkeydown="if(event.key==='Enter')unlock()">
+  <button onclick="unlock()">Unlock</button>
+  <div class="err" id="err"></div>
+</div>
+
+<div id="content" style="display:none">
+<header>
+  <div>
+    <h1>Veta KB Audit</h1>
+    <div class="sub">974 entries · audited 2026-04-27 · for the WhatsApp bot reliability pass</div>
+  </div>
+  <div style="text-align:right; font-size:12px; opacity:0.85;">
+    Goal: bot acts on routine, escalates on serious<br>
+    Modern Vet · Vet Alliance
+  </div>
+</header>
+
+<main>
+
+<div class="stats" id="stats"></div>
+
+<div class="legend">
+  <h3>What each label means</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span class="badge b-CONFIDENT">CONFIDENT</span><span>Bot answers directly. Clean, factual, no waffle.</span></div>
+    <div class="legend-item"><span class="badge b-ESCALATE_CC">ESCALATE CC</span><span>Clinical / medical content. Bot must hand off to call centre — never act as a vet.</span></div>
+    <div class="legend-item"><span class="badge b-EZYVET">EZYVET</span><span>Needs live data (availability, stock, doctor schedule, patient history). Future ezyVet integration entry point.</span></div>
+    <div class="legend-item"><span class="badge b-BOT_ACTION">BOT ACTION</span><span>Bot should DO something (book, route, send link), not just answer.</span></div>
+    <div class="legend-item"><span class="badge b-GAP_AIDA">GAP — AIDA</span><span>Real medical/operational gap. Aida to confirm content.</span></div>
+    <div class="legend-item"><span class="badge b-GAP_ANDREW">GAP — ANDREW</span><span>Pricing/policy gap. Andrew to confirm.</span></div>
+  </div>
+</div>
+
+<div class="download-row">
+  <a class="btn" href="kb_v3_audited.json" download>Download audited KB (JSON)</a>
+  <a class="btn outline" href="gaps_v4.md" download>Gap list (markdown)</a>
+  <a class="btn outline" href="ezyvet-entry-points.md" download>ezyVet entry points (markdown)</a>
+</div>
+
+<div class="filters">
+  <input type="text" id="search" placeholder="Search question / answer / notes..." oninput="render()">
+  <select id="cls" onchange="render()">
+    <option value="">All classifications</option>
+    <option value="CONFIDENT">CONFIDENT</option>
+    <option value="ESCALATE_CC">ESCALATE_CC</option>
+    <option value="EZYVET">EZYVET</option>
+    <option value="BOT_ACTION">BOT_ACTION</option>
+    <option value="GAP_AIDA">GAP_AIDA</option>
+    <option value="GAP_ANDREW">GAP_ANDREW</option>
+  </select>
+  <select id="cat" onchange="render()">
+    <option value="">All categories</option>
+  </select>
+  <select id="live" onchange="render()">
+    <option value="">All live-data types</option>
+  </select>
+  <span class="count" id="count"></span>
+</div>
+
+<div id="table-wrap"></div>
+
+<div class="pagination" id="pagination"></div>
+
+</main>
+</div>
+
+<script>
+const PW_HASH = '46a3f36ea82080bfe15d3c4a00ddd9ee1c3229bce6d7c53e76e43b4df4baf67b'; // 'modvet2026'
+
+async function sha256(text) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+async function unlock() {
+  const v = document.getElementById('pw').value;
+  const h = await sha256(v);
+  if (h === PW_HASH) {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+    sessionStorage.setItem('veta-kb-audit-ok', '1');
+    load();
+  } else {
+    document.getElementById('err').textContent = 'Wrong password.';
+  }
+}
+if (sessionStorage.getItem('veta-kb-audit-ok') === '1') {
+  document.getElementById('gate').style.display = 'none';
+  document.getElementById('content').style.display = 'block';
+  load();
+}
+
+let DATA = [];
+let PAGE = 0;
+const PER_PAGE = 50;
+
+async function load() {
+  const r = await fetch('audit_data.json');
+  DATA = await r.json();
+  buildStats();
+  buildFilters();
+  render();
+}
+
+function buildStats() {
+  const counts = {};
+  DATA.forEach(e => counts[e.cls] = (counts[e.cls]||0) + 1);
+  const total = DATA.length;
+  const order = ['CONFIDENT','ESCALATE_CC','EZYVET','BOT_ACTION','GAP_AIDA','GAP_ANDREW'];
+  const cssMap = {CONFIDENT:'confident',ESCALATE_CC:'escalate',EZYVET:'ezyvet',BOT_ACTION:'action',GAP_AIDA:'gap_aida',GAP_ANDREW:'gap_andrew'};
+  let html = `<div class="stat" onclick="setFilter('cls','')"><div class="label">Total</div><div class="value">${total}</div><div class="pct">all entries</div></div>`;
+  order.forEach(k => {
+    if (!counts[k]) return;
+    const pct = Math.round(counts[k]/total*100);
+    html += `<div class="stat ${cssMap[k]}" onclick="setFilter('cls','${k}')"><div class="label">${k.replace('_',' ')}</div><div class="value">${counts[k]}</div><div class="pct">${pct}%</div></div>`;
+  });
+  document.getElementById('stats').innerHTML = html;
+}
+
+function setFilter(name, val) {
+  document.getElementById(name).value = val;
+  PAGE = 0;
+  render();
+}
+
+function buildFilters() {
+  const cats = new Set(), lives = new Set();
+  DATA.forEach(e => {
+    if (e.cat) cats.add(e.cat);
+    (e.live_types||[]).forEach(t => lives.add(t));
+  });
+  const catSel = document.getElementById('cat');
+  [...cats].sort().forEach(c => {
+    const o = document.createElement('option');
+    o.value = c; o.textContent = c;
+    catSel.appendChild(o);
+  });
+  const liveSel = document.getElementById('live');
+  [...lives].sort().forEach(c => {
+    const o = document.createElement('option');
+    o.value = c; o.textContent = c;
+    liveSel.appendChild(o);
+  });
+}
+
+function filtered() {
+  const q = document.getElementById('search').value.trim().toLowerCase();
+  const cls = document.getElementById('cls').value;
+  const cat = document.getElementById('cat').value;
+  const live = document.getElementById('live').value;
+  return DATA.filter(e => {
+    if (cls && e.cls !== cls) return false;
+    if (cat && e.cat !== cat) return false;
+    if (live && !(e.live_types||[]).includes(live)) return false;
+    if (q) {
+      const hay = (e.q + ' ' + e.a + ' ' + (e.notes||'')).toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+function render() {
+  const list = filtered();
+  document.getElementById('count').textContent = `${list.length} of ${DATA.length}`;
+  const start = PAGE * PER_PAGE;
+  const slice = list.slice(start, start + PER_PAGE);
+
+  let html = `<table><thead><tr>
+    <th>#</th><th>Class</th><th>Question</th><th>Answer</th><th>Meta</th>
+  </tr></thead><tbody>`;
+  slice.forEach(e => {
+    let chips = '';
+    (e.live_types || []).forEach(t => chips += `<span class="chip live">${t}</span>`);
+    (e.bot_act || []).forEach(t => chips += `<span class="chip act">${t}</span>`);
+    html += `<tr>
+      <td class="idx">${e.i}</td>
+      <td><span class="badge b-${e.cls}">${e.cls.replace('_',' ')}</span>${chips ? '<div style="margin-top:6px">'+chips+'</div>' : ''}</td>
+      <td class="q">${escapeHtml(e.q)}</td>
+      <td class="a">${escapeHtml(e.a.length > 280 ? e.a.slice(0,280)+'…' : e.a)}</td>
+      <td class="meta">${escapeHtml(e.cat)}<br>${escapeHtml(e.brand)}<br><span style="opacity:0.6">${escapeHtml(e.src)}</span><br><i>${escapeHtml(e.notes||'')}</i></td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  document.getElementById('table-wrap').innerHTML = html;
+
+  const pages = Math.max(1, Math.ceil(list.length / PER_PAGE));
+  document.getElementById('pagination').innerHTML = `
+    <button onclick="setPage(0)" ${PAGE===0?'disabled':''}>« First</button>
+    <button onclick="setPage(${PAGE-1})" ${PAGE===0?'disabled':''}>‹ Prev</button>
+    <span class="info">Page ${PAGE+1} of ${pages}</span>
+    <button onclick="setPage(${PAGE+1})" ${PAGE>=pages-1?'disabled':''}>Next ›</button>
+    <button onclick="setPage(${pages-1})" ${PAGE>=pages-1?'disabled':''}>Last »</button>
+  `;
+}
+
+function setPage(p) { PAGE = p; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+
+function escapeHtml(s) {
+  return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+</script>
+</body>
+</html>
