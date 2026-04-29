@@ -348,11 +348,11 @@
 
   <!-- ═══ KPIs ═══ -->
   <div class="kpis">
+    <div class="kpi"><div class="kpi-num" id="kpi-tools">—</div><div class="kpi-label">Tools live</div></div>
+    <div class="kpi"><div class="kpi-num" id="kpi-reports">—</div><div class="kpi-label">Reports shipped</div></div>
     <div class="kpi"><div class="kpi-num">151</div><div class="kpi-label">Clinics tracked</div></div>
-    <div class="kpi"><div class="kpi-num">16</div><div class="kpi-label">Services compared</div></div>
     <div class="kpi"><div class="kpi-num">1,018</div><div class="kpi-label">Bot KB entries</div></div>
     <div class="kpi"><div class="kpi-num">100<small>%</small></div><div class="kpi-label">Bot sim hit rate</div></div>
-    <div class="kpi"><div class="kpi-num">7</div><div class="kpi-label">Months ahead (plan)</div></div>
   </div>
 
   <!-- ═══ MARKET INTELLIGENCE ═══ -->
@@ -784,6 +784,21 @@
   </section>
 
 </main>
+
+<script>
+  // Auto-count tiles by category for KPIs
+  // Tools = Internal Tools/Ops + Tech & Tracking + Veta
+  // Reports = Market Intelligence + SEO/Digital + Brand & Marketing Assets + Web Mockups
+  const tiles = document.querySelectorAll('.tile');
+  let tools = 0, reports = 0;
+  tiles.forEach(t => {
+    const c = t.className;
+    if (c.includes('cat-internal') || c.includes('cat-veta')) tools++;
+    else reports++;
+  });
+  document.getElementById('kpi-tools').textContent = tools;
+  document.getElementById('kpi-reports').textContent = reports;
+</script>
 
 <footer>
   <span class="va-mark">Vet Alliance</span>
