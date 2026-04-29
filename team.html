@@ -786,14 +786,14 @@
 </main>
 
 <script>
-  // Auto-count tiles by category for KPIs
-  // Tools = Internal Tools/Ops + Tech & Tracking + Veta
-  // Reports = Market Intelligence + SEO/Digital + Brand & Marketing Assets + Web Mockups
+  // KPI counts — Tools = things you use (live products), Reports = things you read (deliverables)
+  // Tools: Internal Tools/Ops + Tech & Tracking + Veta + the 2 price tools (dashboard + submit)
+  // Reports: Market Intelligence reports + SEO/Digital reports + Brand assets + Web Mockups
   const tiles = document.querySelectorAll('.tile');
   let tools = 0, reports = 0;
   tiles.forEach(t => {
     const c = t.className;
-    if (c.includes('cat-internal') || c.includes('cat-veta')) tools++;
+    if (c.includes('cat-internal') || c.includes('cat-veta') || c.includes('cat-prices')) tools++;
     else reports++;
   });
   document.getElementById('kpi-tools').textContent = tools;
