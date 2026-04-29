@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Floof — Letterhead</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal:    #009595;
+    --teal-dk: #007575;
+    --orange:  #f37443;
+    --mint:    #28b67a;
+    --cream:   #fff1d0;
+    --cream-dk:#f5e5b8;
+    --black:   #111111;
+    --text:    #2a2a2a;
+    --muted:   #777777;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Open Sans', sans-serif;
+    background: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  /* A4 */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    background: #ffffff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── HEADER BAND ── */
+  .header-band {
+    background: var(--teal);
+    padding: 10mm 14mm 9mm 14mm;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Decorative circles in header */
+  .header-deco-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid rgba(255,241,208,0.15);
+    pointer-events: none;
+  }
+
+  .hdc-1 { width: 90px; height: 90px; top: -30px; right: 60px; }
+  .hdc-2 { width: 55px; height: 55px; top: 10px;  right: 30px; }
+  .hdc-3 { width: 30px; height: 30px; bottom: -10px; left: 50mm; }
+
+  /* Logo */
+  .logo-area {
+    position: relative;
+    z-index: 2;
+  }
+
+  .logo-text {
+    font-family: 'Lilita One', cursive;
+    font-size: 38px;
+    color: var(--cream);
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+
+  .logo-sub {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 7.5px;
+    font-weight: 600;
+    color: rgba(255,241,208,0.65);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+
+  /* Header right: paw icon */
+  .header-icon {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .paw-svg {
+    width: 36px;
+    height: 36px;
+    opacity: 0.55;
+  }
+
+  /* ── ACCENT STRIP ── */
+  .accent-strip {
+    height: 5px;
+    background: linear-gradient(to right, var(--orange) 0%, var(--orange) 40%, var(--cream-dk) 40%, var(--cream-dk) 60%, var(--mint) 60%, var(--mint) 100%);
+  }
+
+  /* ── BODY AREA ── */
+  .body-area {
+    flex: 1;
+    padding: 11mm 14mm 6mm 14mm;
+    position: relative;
+    background: #ffffff;
+  }
+
+  /* Date / Ref */
+  .meta-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 9mm;
+  }
+
+  .meta-block {}
+
+  .meta-label {
+    font-size: 7px;
+    font-weight: 700;
+    color: var(--teal);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1.5px;
+  }
+
+  .meta-value {
+    font-size: 9px;
+    font-weight: 300;
+    color: var(--muted);
+  }
+
+  /* Divider dot-dash */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 7mm;
+  }
+
+  .divider-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+    flex-shrink: 0;
+  }
+
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: rgba(0,149,149,0.15);
+  }
+
+  /* Recipient */
+  .recipient {
+    margin-bottom: 8mm;
+  }
+
+  .recipient-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .recipient-details {
+    font-size: 9px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-top: 2px;
+  }
+
+  /* Subject */
+  .subject-box {
+    background: rgba(0,149,149,0.05);
+    border-left: 3px solid var(--teal);
+    padding: 4mm 6mm;
+    margin-bottom: 8mm;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .subject-label {
+    font-size: 7px;
+    font-weight: 700;
+    color: var(--teal);
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .subject-text {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  /* Body text */
+  .body-text {
+    font-size: 9.5px;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.9;
+  }
+
+  .body-text p + p {
+    margin-top: 5mm;
+  }
+
+  /* Signature */
+  .signature {
+    margin-top: 13mm;
+  }
+
+  .sig-closing {
+    font-size: 8.5px;
+    font-weight: 300;
+    color: var(--muted);
+    margin-bottom: 7mm;
+  }
+
+  .sig-line {
+    width: 45mm;
+    height: 1px;
+    background: rgba(0,149,149,0.3);
+    margin-bottom: 2mm;
+  }
+
+  .sig-name {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--teal);
+  }
+
+  .sig-title {
+    font-size: 8px;
+    font-weight: 300;
+    color: var(--muted);
+  }
+
+  /* ── WATERMARK ── */
+  .watermark {
+    position: absolute;
+    bottom: 5mm;
+    right: 10mm;
+    pointer-events: none;
+    opacity: 0.05;
+  }
+
+  .wm-text {
+    font-family: 'Lilita One', cursive;
+    font-size: 110px;
+    color: var(--teal);
+    line-height: 1;
+  }
+
+  /* Orange accent dot cluster */
+  .dot-cluster {
+    position: absolute;
+    top: 8mm;
+    right: 14mm;
+    display: grid;
+    grid-template-columns: repeat(5, 6px);
+    gap: 5px;
+    opacity: 0.18;
+  }
+
+  .dc-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+  }
+
+  .dc-teal   { background: var(--teal);   }
+  .dc-orange { background: var(--orange); }
+  .dc-mint   { background: var(--mint);   }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--teal);
+    padding: 6mm 14mm;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4mm;
+    position: relative;
+  }
+
+  .footer-col {}
+
+  .footer-label {
+    font-size: 6px;
+    font-weight: 700;
+    color: rgba(255,241,208,0.6);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .footer-value {
+    font-size: 8px;
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.55;
+  }
+
+  .footer-brand {
+    position: absolute;
+    right: 14mm;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Lilita One', cursive;
+    font-size: 16px;
+    color: rgba(255,241,208,0.2);
+    letter-spacing: -0.5px;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: none; padding: 0; margin: 0; }
+    .page { box-shadow: none; width: 210mm; min-height: 297mm; }
+    @page { size: A4; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER BAND -->
+  <div class="header-band">
+    <div class="header-deco-circle hdc-1"></div>
+    <div class="header-deco-circle hdc-2"></div>
+    <div class="header-deco-circle hdc-3"></div>
+
+    <div class="logo-area">
+      <div class="logo-text">floof</div>
+      <div class="logo-sub">Home for Fabulous Pets · Dubai</div>
+    </div>
+
+    <!-- Paw icon SVG (CSS drawn) -->
+    <div class="header-icon">
+      <svg class="paw-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Main paw pad -->
+        <ellipse cx="32" cy="42" rx="15" ry="13" fill="rgba(255,241,208,0.7)"/>
+        <!-- Toe beans -->
+        <ellipse cx="14" cy="30" rx="6" ry="7.5" fill="rgba(255,241,208,0.7)"/>
+        <ellipse cx="26" cy="22" rx="6" ry="7.5" fill="rgba(255,241,208,0.7)"/>
+        <ellipse cx="38" cy="22" rx="6" ry="7.5" fill="rgba(255,241,208,0.7)"/>
+        <ellipse cx="50" cy="30" rx="6" ry="7.5" fill="rgba(255,241,208,0.7)"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ACCENT STRIP -->
+  <div class="accent-strip"></div>
+
+  <!-- BODY AREA -->
+  <div class="body-area">
+
+    <!-- Dot cluster decoration -->
+    <div class="dot-cluster">
+      <span class="dc-dot dc-teal"></span><span class="dc-dot dc-orange"></span><span class="dc-dot dc-teal"></span><span class="dc-dot dc-mint"></span><span class="dc-dot dc-teal"></span>
+      <span class="dc-dot dc-orange"></span><span class="dc-dot dc-teal"></span><span class="dc-dot dc-orange"></span><span class="dc-dot dc-teal"></span><span class="dc-dot dc-orange"></span>
+      <span class="dc-dot dc-mint"></span><span class="dc-dot dc-teal"></span><span class="dc-dot dc-mint"></span><span class="dc-dot dc-teal"></span><span class="dc-dot dc-mint"></span>
+    </div>
+
+    <!-- Meta row -->
+    <div class="meta-row">
+      <div class="meta-block">
+        <div class="meta-label">Date</div>
+        <div class="meta-value">_______________________</div>
+      </div>
+      <div class="meta-block" style="text-align:right;">
+        <div class="meta-label">Reference</div>
+        <div class="meta-value">_______________________</div>
+      </div>
+    </div>
+
+    <!-- Recipient -->
+    <div class="recipient">
+      <div class="recipient-name">Recipient Name</div>
+      <div class="recipient-details">
+        Title / Organisation<br>
+        Address, Dubai, UAE
+      </div>
+    </div>
+
+    <div class="section-divider">
+      <span class="divider-dot"></span>
+      <span class="divider-line"></span>
+    </div>
+
+    <!-- Subject box -->
+    <div class="subject-box">
+      <div class="subject-label">Subject</div>
+      <div class="subject-text">Letter Subject Goes Here</div>
+    </div>
+
+    <!-- Body text -->
+    <div class="body-text">
+      <p>Dear [Recipient],</p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      </p>
+      <p>
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+      <p>
+        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+      </p>
+    </div>
+
+    <!-- Signature -->
+    <div class="signature">
+      <div class="sig-closing">Warm regards,</div>
+      <div class="sig-line"></div>
+      <div class="sig-name">Name · Signature</div>
+      <div class="sig-title">Title, Floof</div>
+    </div>
+
+    <!-- Watermark -->
+    <div class="watermark">
+      <div class="wm-text">f</div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-col">
+      <div class="footer-label">Address</div>
+      <div class="footer-value">Floof Pet Store<br>Dubai, UAE</div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-label">Contact</div>
+      <div class="footer-value">+971 4 XXX XXXX<br>hello@floof.ae</div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-label">Online</div>
+      <div class="footer-value">www.floof.ae<br>@floof.ae</div>
+    </div>
+    <div class="footer-brand">floof</div>
+  </div>
+
+</div>
+
+</body>
+</html>

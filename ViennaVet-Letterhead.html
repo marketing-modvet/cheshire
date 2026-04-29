@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vienna Vet — Letterhead</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green:      #00553b;
+    --green-dark: #003d2a;
+    --teal:       #017f66;
+    --pink:       #fed3d1;
+    --peach:      #fadacd;
+    --gold:       #c99837;
+    --navy:       #26275f;
+    --white:      #ffffff;
+    --text-body:  #2d2d2d;
+    --text-light: #888888;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #e8e8e8;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  /* A4 page */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    background: var(--white);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 12mm 14mm 0 14mm;
+  }
+
+  /* Logo */
+  .logo {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .logo-wordmark {
+    font-family: 'Poppins', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    color: var(--green);
+    line-height: 1;
+    position: relative;
+  }
+
+  .logo-wordmark span.dot-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.5px;
+    vertical-align: middle;
+    margin-left: 1px;
+    position: relative;
+    top: -2px;
+  }
+
+  .logo-dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--gold);
+    display: inline-block;
+  }
+
+  .logo-tagline {
+    font-size: 8px;
+    font-weight: 400;
+    color: var(--teal);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* Corner accent blocks */
+  .corner-accent {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 12px;
+  }
+
+  .corner-block-green {
+    width: 12px;
+    height: 42px;
+    background: var(--green);
+  }
+
+  .corner-block-pink {
+    width: 12px;
+    height: 18px;
+    background: var(--pink);
+  }
+
+  /* ── HEADER RULE ── */
+  .header-rule {
+    margin: 9mm 14mm 0 14mm;
+    height: 1px;
+    background: linear-gradient(to right, var(--green) 60%, var(--pink) 100%);
+    opacity: 0.35;
+  }
+
+  /* ── BODY AREA ── */
+  .body-area {
+    flex: 1;
+    padding: 14mm 14mm 8mm 14mm;
+    position: relative;
+  }
+
+  /* Date / Reference line */
+  .meta-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10mm;
+  }
+
+  .meta-label {
+    font-size: 8px;
+    font-weight: 500;
+    color: var(--text-light);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .meta-value {
+    font-size: 9px;
+    font-weight: 400;
+    color: var(--text-body);
+    margin-top: 2px;
+  }
+
+  /* Recipient block */
+  .recipient {
+    margin-bottom: 8mm;
+  }
+
+  .recipient-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-body);
+  }
+
+  .recipient-address {
+    font-size: 9.5px;
+    font-weight: 300;
+    color: var(--text-light);
+    line-height: 1.6;
+    margin-top: 2px;
+  }
+
+  /* Subject line */
+  .subject-line {
+    margin-bottom: 8mm;
+    padding-bottom: 4mm;
+    border-bottom: 1px solid rgba(0,85,59,0.12);
+  }
+
+  .subject-label {
+    font-size: 7.5px;
+    font-weight: 600;
+    color: var(--green);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .subject-text {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text-body);
+  }
+
+  /* Body text */
+  .body-text {
+    font-size: 9.5px;
+    font-weight: 300;
+    color: var(--text-body);
+    line-height: 1.9;
+    max-width: 160mm;
+  }
+
+  .body-text p + p {
+    margin-top: 5mm;
+  }
+
+  /* Signature */
+  .signature {
+    margin-top: 14mm;
+  }
+
+  .signature-name {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--green);
+    margin-top: 2mm;
+  }
+
+  .signature-title {
+    font-size: 8.5px;
+    font-weight: 300;
+    color: var(--text-light);
+  }
+
+  /* ── WATERMARK ── */
+  .watermark {
+    position: absolute;
+    bottom: -10mm;
+    right: -12mm;
+    width: 80mm;
+    height: 80mm;
+    pointer-events: none;
+    opacity: 0.055;
+  }
+
+  .watermark-circle {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--green);
+  }
+
+  /* Dot decoration */
+  .dot-decor {
+    position: absolute;
+    bottom: 22mm;
+    right: 28mm;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    pointer-events: none;
+  }
+
+  .dot-row {
+    display: flex;
+    gap: 3px;
+  }
+
+  .dot-decor-item {
+    width: 3.5px;
+    height: 3.5px;
+    border-radius: 50%;
+  }
+
+  .dot-green { background: var(--green); opacity: 0.25; }
+  .dot-pink  { background: var(--pink);  opacity: 0.6;  }
+  .dot-gold  { background: var(--gold);  opacity: 0.35; }
+
+  /* ── FOOTER ── */
+  .footer {
+    padding: 5mm 14mm 8mm 14mm;
+    border-top: 1px solid rgba(0,85,59,0.12);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4mm;
+    position: relative;
+    z-index: 2;
+  }
+
+  .footer-col {}
+
+  .footer-label {
+    font-size: 6.5px;
+    font-weight: 600;
+    color: var(--green);
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .footer-value {
+    font-size: 8px;
+    font-weight: 300;
+    color: var(--text-body);
+    line-height: 1.5;
+  }
+
+  .footer-accent-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--green) 70%, var(--gold) 85%, var(--pink) 100%);
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body {
+      background: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .page {
+      box-shadow: none;
+      width: 210mm;
+      min-height: 297mm;
+      page-break-after: always;
+    }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">
+      <div class="logo-wordmark">vienna vet<span class="dot-group"><span class="logo-dot"></span><span class="logo-dot"></span></span></div>
+      <div class="logo-tagline">Veterinary Clinic · Dubai</div>
+    </div>
+    <div class="corner-accent">
+      <div class="corner-block-green"></div>
+      <div class="corner-block-pink"></div>
+    </div>
+  </div>
+
+  <div class="header-rule"></div>
+
+  <!-- BODY AREA -->
+  <div class="body-area">
+
+    <!-- Date / Ref -->
+    <div class="meta-line">
+      <div>
+        <div class="meta-label">Date</div>
+        <div class="meta-value">_______________________</div>
+      </div>
+      <div style="text-align:right;">
+        <div class="meta-label">Reference</div>
+        <div class="meta-value">_______________________</div>
+      </div>
+    </div>
+
+    <!-- Recipient -->
+    <div class="recipient">
+      <div class="recipient-name">Recipient Name</div>
+      <div class="recipient-address">
+        Title / Organisation<br>
+        Address Line 1<br>
+        Dubai, United Arab Emirates
+      </div>
+    </div>
+
+    <!-- Subject -->
+    <div class="subject-line">
+      <div class="subject-label">Subject</div>
+      <div class="subject-text">Letter Subject Goes Here</div>
+    </div>
+
+    <!-- Body -->
+    <div class="body-text">
+      <p>Dear [Recipient],</p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      </p>
+      <p>
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+      <p>
+        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+      </p>
+    </div>
+
+    <!-- Signature -->
+    <div class="signature">
+      <div style="font-size:8.5px; font-weight:300; color:var(--text-light); margin-bottom: 8mm;">Yours sincerely,</div>
+      <div class="signature-name">Name · Signature</div>
+      <div class="signature-title">Title, Vienna Vet</div>
+    </div>
+
+    <!-- Watermark -->
+    <div class="watermark">
+      <div class="watermark-circle"></div>
+    </div>
+
+    <!-- Dot decoration -->
+    <div class="dot-decor">
+      <div class="dot-row"><span class="dot-decor-item dot-green"></span><span class="dot-decor-item dot-pink"></span><span class="dot-decor-item dot-green"></span></div>
+      <div class="dot-row"><span class="dot-decor-item dot-pink"></span><span class="dot-decor-item dot-gold"></span><span class="dot-decor-item dot-pink"></span></div>
+      <div class="dot-row"><span class="dot-decor-item dot-green"></span><span class="dot-decor-item dot-pink"></span><span class="dot-decor-item dot-green"></span></div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-col">
+      <div class="footer-label">Address</div>
+      <div class="footer-value">Vienna Vet Clinic<br>Dubai, UAE</div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-label">Contact</div>
+      <div class="footer-value">+971 4 XXX XXXX<br>info@viennavet.ae</div>
+    </div>
+    <div class="footer-col" style="text-align:right;">
+      <div class="footer-label">Web</div>
+      <div class="footer-value">www.viennavet.ae</div>
+    </div>
+    <div class="footer-accent-bar"></div>
+  </div>
+
+</div>
+
+</body>
+</html>
