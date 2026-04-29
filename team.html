@@ -3,255 +3,324 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Marketing Hub | Modern Vet</title>
-<meta name="description" content="Modern Vet Marketing — tools, intelligence, and reports for leadership and team.">
+<title>Marketing Hub | Vet Alliance</title>
+<meta name="description" content="Vet Alliance Marketing — tools, intelligence, and reports for leadership and team.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📊%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #252354;
-    --navy-deep: #1a1840;
-    --navy-soft: #34326a;
-    --salmon: #fcc198;
-    --salmon-bright: #ffb380;
-    --beige: #fae3d6;
-    --rose: #b67b6d;
-    --mint: #6fb09a;
-    --brick: #a61c00;
-    --bg: #faf6f2;
+    /* ═══ Vet Alliance Palette ═══ */
+    --va-teal: #015962;
+    --va-teal-deep: #002b2d;
+    --va-teal-soft: #1a747e;
+    --va-cream: #dfecd1;
+    --va-cream-deep: #c9d7b9;
+    --va-gold: #C9A227;
+    --va-gold-bright: #FFD700;
+    --va-silver: #A8A8A8;
+    --va-bronze: #A0522D;
+
+    --bg: #f7f5f0;
+    --bg-soft: #fafaf6;
     --card: #ffffff;
-    --text: #1a1840;
-    --muted: #6b6c87;
-    --border: rgba(37,35,84,0.08);
-    --shadow: 0 1px 2px rgba(37,35,84,0.04), 0 4px 16px rgba(37,35,84,0.06);
-    --shadow-hover: 0 2px 4px rgba(37,35,84,0.08), 0 12px 32px rgba(37,35,84,0.12);
+    --text: #1a2628;
+    --text-soft: #2c3e42;
+    --muted: #6b7c80;
+    --border: rgba(1,89,98,0.1);
+    --border-strong: rgba(1,89,98,0.2);
+    --shadow: 0 1px 3px rgba(1,89,98,0.05), 0 4px 16px rgba(1,89,98,0.07);
+    --shadow-hover: 0 2px 6px rgba(1,89,98,0.1), 0 12px 32px rgba(1,89,98,0.13);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-  html, body { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; }
-  body { line-height: 1.55; min-height: 100vh; }
+  html, body {
+    font-family: 'Montserrat', -apple-system, system-ui, sans-serif;
+    color: var(--text); background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+  body { line-height: 1.6; min-height: 100vh; }
+
+  .serif { font-family: 'Cormorant Garamond', 'Times New Roman', serif; font-weight: 500; letter-spacing: 0.01em; }
 
   /* ═══ HEADER ═══ */
   .hero {
-    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+    background: linear-gradient(135deg, var(--va-teal) 0%, var(--va-teal-deep) 100%);
     color: white;
-    padding: 56px 24px 64px;
+    padding: 64px 24px 88px;
     position: relative;
     overflow: hidden;
   }
   .hero::before {
     content: '';
     position: absolute;
-    top: -40%; right: -8%;
-    width: 700px; height: 700px;
-    background: radial-gradient(circle, var(--salmon) 0%, transparent 60%);
-    opacity: 0.18;
+    top: 0; right: 0; bottom: 0;
+    width: 50%;
+    background: radial-gradient(ellipse at top right, rgba(223,236,209,0.12) 0%, transparent 60%);
     pointer-events: none;
   }
   .hero::after {
     content: '';
     position: absolute;
-    bottom: -30%; left: -10%;
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, var(--mint) 0%, transparent 60%);
-    opacity: 0.08;
-    pointer-events: none;
+    left: 0; right: 0; bottom: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--va-teal-deep) 0%, var(--va-gold) 50%, var(--va-teal-deep) 100%);
   }
   .hero-inner { max-width: 1200px; margin: 0 auto; position: relative; }
-  .brand-line {
-    display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
-    color: var(--salmon); font-weight: 600; font-size: 13px;
-    text-transform: uppercase; letter-spacing: 2.5px;
+  .hero-top {
+    display: flex; align-items: center; gap: 16px; margin-bottom: 32px;
   }
-  .brand-line::before {
-    content: ''; width: 32px; height: 2px; background: var(--salmon); display: inline-block;
+  .hero-eyebrow {
+    color: var(--va-cream);
+    font-size: 11px; font-weight: 700; letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+  .hero-line {
+    flex: 1; height: 1px; background: rgba(223,236,209,0.25); max-width: 240px;
   }
   .hero h1 {
-    font-size: clamp(32px, 4.5vw, 48px); font-weight: 700;
-    line-height: 1.1; margin-bottom: 16px; letter-spacing: -0.02em;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 6vw, 64px); font-weight: 500;
+    line-height: 1.05; margin-bottom: 18px; letter-spacing: -0.01em;
   }
-  .hero h1 .accent { color: var(--salmon); }
+  .hero h1 em {
+    color: var(--va-gold-bright); font-style: italic; font-weight: 500;
+  }
   .hero p {
-    color: rgba(255,255,255,0.82); max-width: 720px; font-size: 17px; font-weight: 300;
+    color: rgba(255,255,255,0.78); max-width: 640px; font-size: 16px; font-weight: 300;
+    line-height: 1.65;
   }
   .hero-meta {
-    display: flex; gap: 32px; flex-wrap: wrap; margin-top: 28px;
-    font-size: 13px; color: rgba(255,255,255,0.6);
+    display: flex; gap: 32px; flex-wrap: wrap; margin-top: 32px;
+    padding-top: 28px; border-top: 1px solid rgba(223,236,209,0.15);
+    font-size: 12px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1.5px;
   }
-  .hero-meta span strong { color: var(--salmon); font-weight: 600; }
+  .hero-meta span strong { color: var(--va-gold-bright); font-weight: 600; }
 
   /* ═══ MAIN ═══ */
-  main { max-width: 1200px; margin: -32px auto 0; padding: 0 24px 80px; position: relative; z-index: 2; }
+  main { max-width: 1200px; margin: -48px auto 0; padding: 0 24px 80px; position: relative; z-index: 2; }
 
   /* ═══ KPIs ═══ */
   .kpis {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-    gap: 14px; margin-bottom: 48px;
-    background: var(--card); border-radius: 18px; padding: 24px;
+    gap: 0; margin-bottom: 56px;
+    background: var(--card); border-radius: 4px;
     box-shadow: var(--shadow); border: 1px solid var(--border);
+    overflow: hidden;
   }
-  .kpi { padding: 8px 14px; border-left: 3px solid var(--salmon); }
-  .kpi-num { font-size: 28px; font-weight: 700; color: var(--navy); line-height: 1; }
-  .kpi-num small { font-size: 14px; color: var(--muted); font-weight: 500; }
-  .kpi-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; font-weight: 500; }
+  .kpi {
+    padding: 28px 22px;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .kpi:last-child { border-right: none; }
+  .kpi::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--va-teal);
+  }
+  .kpi-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px; font-weight: 600; color: var(--va-teal);
+    line-height: 1; letter-spacing: -0.02em;
+  }
+  .kpi-num small { font-family: 'Montserrat', sans-serif; font-size: 16px; color: var(--muted); font-weight: 500; }
+  .kpi-label {
+    font-size: 10px; color: var(--muted); text-transform: uppercase;
+    letter-spacing: 1.8px; margin-top: 10px; font-weight: 600;
+  }
 
   /* ═══ SECTIONS ═══ */
   section { margin-bottom: 64px; }
   .section-head {
-    display: flex; align-items: baseline; justify-content: space-between;
-    margin-bottom: 24px; gap: 16px; flex-wrap: wrap; padding-bottom: 12px;
-    border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 28px; gap: 16px; flex-wrap: wrap; padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-strong);
+    position: relative;
+  }
+  .section-head::after {
+    content: ''; position: absolute; left: 0; bottom: -1px; width: 64px; height: 2px;
+    background: var(--va-gold);
   }
   .section-head h2 {
-    font-size: 24px; font-weight: 700; color: var(--navy); letter-spacing: -0.01em;
-    display: flex; align-items: center; gap: 14px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px; font-weight: 500; color: var(--va-teal); letter-spacing: -0.01em;
+    display: flex; align-items: center; gap: 16px;
   }
-  .section-head .emoji { font-size: 26px; }
-  .section-head p { color: var(--muted); font-size: 13.5px; max-width: 320px; text-align: right; }
+  .section-head .num {
+    font-size: 11px; font-weight: 700; color: var(--va-gold);
+    letter-spacing: 3px; padding-top: 8px;
+  }
+  .section-head p {
+    color: var(--muted); font-size: 12px; max-width: 360px; text-align: right;
+    text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500;
+  }
 
   /* ═══ TILES ═══ */
   .tiles {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 16px;
+    gap: 18px;
   }
   .tile {
-    background: var(--card); border-radius: 14px; padding: 22px 22px 18px;
+    background: var(--card); border-radius: 6px; padding: 26px 24px 22px;
     box-shadow: var(--shadow); border: 1px solid var(--border);
     text-decoration: none; color: inherit; display: flex; flex-direction: column;
-    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-    position: relative; overflow: hidden; min-height: 150px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    position: relative; overflow: hidden; min-height: 160px;
+  }
+  .tile::before {
+    content: '';
+    position: absolute; top: 0; left: 0; bottom: 0;
+    width: 3px; background: var(--va-teal);
+    transition: width 0.2s ease;
   }
   .tile:hover {
     transform: translateY(-3px); box-shadow: var(--shadow-hover);
-    border-color: rgba(37,35,84,0.18);
+    border-color: var(--border-strong);
   }
+  .tile:hover::before { width: 5px; background: var(--va-gold); }
   .tile::after {
     content: '→';
-    position: absolute; top: 18px; right: 20px;
-    color: var(--muted); font-size: 18px; font-weight: 400;
-    transition: transform 0.18s ease, color 0.18s ease;
+    position: absolute; top: 24px; right: 22px;
+    color: var(--muted); font-size: 16px;
+    transition: transform 0.2s ease, color 0.2s ease;
   }
-  .tile:hover::after { transform: translateX(4px); color: var(--navy); }
-  .tile-icon { font-size: 26px; margin-bottom: 10px; line-height: 1; }
-  .tile-title { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 6px; padding-right: 28px; line-height: 1.3; }
-  .tile-desc { font-size: 13px; color: var(--muted); line-height: 1.5; flex: 1; }
-  .tile-foot {
-    margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap;
+  .tile:hover::after { transform: translateX(4px); color: var(--va-gold); }
+  .tile-icon { font-size: 28px; margin-bottom: 12px; line-height: 1; }
+  .tile-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 600; color: var(--va-teal); margin-bottom: 6px;
+    padding-right: 28px; line-height: 1.2; letter-spacing: -0.01em;
   }
+  .tile-desc { font-size: 13px; color: var(--text-soft); line-height: 1.55; flex: 1; font-weight: 400; }
+  .tile-foot { margin-top: 14px; display: flex; gap: 6px; flex-wrap: wrap; }
   .pill {
-    font-size: 10px; padding: 3px 9px; border-radius: 10px; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.5px;
+    font-size: 9.5px; padding: 3px 9px; border-radius: 3px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.2px;
   }
-  .pill-live { background: rgba(111,176,154,0.18); color: #3d7a64; }
-  .pill-locked { background: rgba(252,193,152,0.3); color: #8a4d2c; }
-  .pill-pdf { background: rgba(166,28,0,0.12); color: var(--brick); }
-  .pill-sheet { background: rgba(64,150,68,0.18); color: #2e6e2c; }
+  .pill-live { background: rgba(1,89,98,0.1); color: var(--va-teal); border: 1px solid rgba(1,89,98,0.2); }
+  .pill-locked { background: rgba(201,162,39,0.15); color: #8a6f1a; border: 1px solid rgba(201,162,39,0.3); }
+  .pill-pdf { background: rgba(160,82,45,0.12); color: var(--va-bronze); border: 1px solid rgba(160,82,45,0.25); }
 
-  /* category tints */
-  .tile.cat-prices { border-top: 3px solid var(--salmon); }
-  .tile.cat-reports { border-top: 3px solid var(--navy); }
-  .tile.cat-veta { border-top: 3px solid var(--mint); }
-  .tile.cat-marketing { border-top: 3px solid var(--brick); }
-  .tile.cat-mockups { border-top: 3px solid var(--rose); }
+  /* category tints — left bar color */
+  .tile.cat-prices::before { background: var(--va-gold); }
+  .tile.cat-reports::before { background: var(--va-teal); }
+  .tile.cat-veta::before { background: var(--va-teal-soft); }
+  .tile.cat-marketing::before { background: var(--va-bronze); }
+  .tile.cat-mockups::before { background: var(--va-cream-deep); }
+  .tile.cat-internal::before { background: var(--va-silver); }
+
+  /* ═══ VETA RELEASES ═══ */
+  .va-track-card {
+    background: var(--card); border-radius: 6px; padding: 36px 36px 32px;
+    box-shadow: var(--shadow); border: 1px solid var(--border);
+    border-top: 3px solid var(--va-gold);
+  }
+  .vt-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 28px; flex-wrap: wrap; gap: 16px; }
+  .vt-head h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px; color: var(--va-teal); font-weight: 600;
+  }
+  .vt-head .vt-meta { font-size: 11.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
+  .vt-head .vt-meta strong { color: var(--va-teal); font-weight: 700; }
+  .vt-list { list-style: none; }
+  .vt-row {
+    display: grid; grid-template-columns: 130px 100px 1fr auto; gap: 18px; align-items: center;
+    padding: 14px 16px; margin-bottom: 4px; border-radius: 4px;
+    transition: background 0.15s;
+  }
+  .vt-row:hover { background: rgba(1,89,98,0.04); }
+  .vt-row.major { background: rgba(1,89,98,0.06); border-left: 3px solid var(--va-gold); padding-left: 13px; }
+  .vt-version {
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+    font-size: 12.5px; font-weight: 700; color: var(--va-teal);
+    background: white; padding: 5px 11px; border-radius: 3px;
+    border: 1px solid var(--border-strong); display: inline-block;
+    text-align: center;
+  }
+  .vt-row.major .vt-version { background: var(--va-teal); color: var(--va-cream); border-color: var(--va-teal); }
+  .vt-date { font-size: 11.5px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; }
+  .vt-what strong { color: var(--va-teal); font-weight: 600; font-size: 14.5px; font-family: 'Cormorant Garamond', serif; font-size: 18px; letter-spacing: 0; }
+  .vt-what em { color: var(--text-soft); font-style: normal; font-size: 12.5px; display: block; margin-top: 3px; }
+  .vt-stat {
+    font-size: 10px; padding: 4px 10px; border-radius: 3px;
+    background: rgba(201,162,39,0.15); color: #8a6f1a; font-weight: 700;
+    white-space: nowrap; text-transform: uppercase; letter-spacing: 1px;
+    border: 1px solid rgba(201,162,39,0.3);
+  }
+  @media (max-width: 700px) {
+    .vt-row { grid-template-columns: 100px 1fr; gap: 8px; }
+    .vt-row .vt-date, .vt-row .vt-stat { grid-column: 1 / -1; padding-left: 0; }
+  }
 
   /* ═══ TIMELINE ═══ */
   .timeline-wrap {
-    background: var(--card); border-radius: 18px; padding: 32px;
+    background: var(--card); border-radius: 6px; padding: 36px 36px 28px;
     box-shadow: var(--shadow); border: 1px solid var(--border);
+    border-top: 3px solid var(--va-teal);
   }
-  .tl-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
-  .tl-head h3 { font-size: 20px; color: var(--navy); }
-  .tl-counter { font-size: 13px; color: var(--muted); }
-  .tl-counter strong { color: var(--brick); font-weight: 600; }
+  .tl-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 28px; flex-wrap: wrap; gap: 16px; }
+  .tl-head h3 { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--va-teal); font-weight: 600; }
+  .tl-counter { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
+  .tl-counter strong { color: var(--va-gold); font-weight: 700; }
 
-  .tl-month {
-    margin-bottom: 24px;
-  }
+  .tl-month { margin-bottom: 24px; }
   .tl-month-label {
-    font-size: 11px; font-weight: 700; color: var(--rose);
-    text-transform: uppercase; letter-spacing: 2px;
-    margin-bottom: 12px; padding-left: 4px;
-    display: flex; align-items: center; gap: 12px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px; font-weight: 600; color: var(--va-teal-soft);
+    margin-bottom: 14px; padding-left: 4px;
+    display: flex; align-items: center; gap: 14px;
+    font-style: italic;
   }
   .tl-month-label::after {
-    content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent);
+    content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border-strong), transparent);
   }
   .tl-list { list-style: none; }
   .tl-item {
-    display: grid; grid-template-columns: 80px 1fr; gap: 20px;
+    display: grid; grid-template-columns: 90px 1fr; gap: 22px;
     padding: 14px 0; border-bottom: 1px dashed var(--border); align-items: start;
   }
   .tl-item:last-child { border-bottom: none; }
-  .tl-date { font-size: 12px; color: var(--muted); font-weight: 600; padding-top: 2px; }
-  .tl-body strong { color: var(--navy); font-weight: 600; font-size: 14.5px; }
-  .tl-body em { color: var(--muted); font-style: normal; font-size: 13px; display: block; margin-top: 3px; }
+  .tl-date { font-size: 11.5px; color: var(--muted); font-weight: 600; padding-top: 3px; text-transform: uppercase; letter-spacing: 0.8px; }
+  .tl-body strong { color: var(--va-teal); font-weight: 600; font-size: 15px; }
+  .tl-body em { color: var(--text-soft); font-style: normal; font-size: 12.5px; display: block; margin-top: 3px; line-height: 1.55; }
   .tl-tag {
-    display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 8px;
-    background: var(--beige); color: var(--rose); font-weight: 600; margin-right: 8px;
-    text-transform: uppercase; letter-spacing: 0.5px; vertical-align: 2px;
+    display: inline-block; font-size: 9.5px; padding: 2px 8px; border-radius: 3px;
+    background: var(--va-cream); color: var(--va-teal); font-weight: 700; margin-right: 8px;
+    text-transform: uppercase; letter-spacing: 1.2px; vertical-align: 2px;
+    border: 1px solid rgba(1,89,98,0.15);
   }
-  .tl-tag.t-prices { background: rgba(252,193,152,0.35); color: #8a4d2c; }
-  .tl-tag.t-reports { background: rgba(37,35,84,0.1); color: var(--navy); }
-  .tl-tag.t-veta { background: rgba(111,176,154,0.2); color: #3d7a64; }
-  .tl-tag.t-marketing { background: rgba(166,28,0,0.12); color: var(--brick); }
-  .tl-tag.t-tech { background: rgba(52,50,106,0.12); color: var(--navy-soft); }
-  .tl-tag.t-mockups { background: rgba(182,123,109,0.2); color: var(--rose); }
-
-  /* ═══ VETA VERSION TRACK ═══ */
-  .veta-track {
-    background: linear-gradient(135deg, #fafdfb 0%, #f5fbf8 100%);
-    border-radius: 18px; padding: 32px;
-    box-shadow: var(--shadow); border: 1px solid var(--border);
-    border-left: 4px solid var(--mint);
-  }
-  .veta-track .vt-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
-  .veta-track .vt-head h3 { font-size: 20px; color: var(--navy); }
-  .veta-track .vt-head .vt-meta { font-size: 13px; color: var(--muted); }
-  .veta-track .vt-head .vt-meta strong { color: #3d7a64; font-weight: 600; }
-  .vt-list { list-style: none; }
-  .vt-row {
-    display: grid; grid-template-columns: 110px 110px 1fr auto; gap: 16px; align-items: center;
-    padding: 12px 14px; margin-bottom: 6px;
-    border-radius: 10px; transition: background 0.15s;
-  }
-  .vt-row:hover { background: rgba(111,176,154,0.08); }
-  .vt-row.major { background: rgba(111,176,154,0.12); border-left: 3px solid var(--mint); }
-  .vt-version {
-    font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
-    font-size: 13px; font-weight: 600; color: var(--navy);
-    background: white; padding: 4px 10px; border-radius: 6px;
-    border: 1px solid var(--border); display: inline-block;
-  }
-  .vt-row.major .vt-version { background: var(--navy); color: var(--salmon); border-color: var(--navy); }
-  .vt-date { font-size: 12px; color: var(--muted); font-weight: 500; }
-  .vt-what strong { color: var(--navy); font-weight: 600; font-size: 14px; }
-  .vt-what em { color: var(--muted); font-style: normal; font-size: 12.5px; display: block; margin-top: 2px; }
-  .vt-stat {
-    font-size: 11px; padding: 3px 10px; border-radius: 12px;
-    background: rgba(111,176,154,0.18); color: #3d7a64; font-weight: 600;
-    white-space: nowrap;
-  }
-  .vt-stat.flag { background: rgba(166,28,0,0.12); color: var(--brick); }
-  @media (max-width: 700px) {
-    .vt-row { grid-template-columns: 90px 1fr; gap: 8px; }
-    .vt-row .vt-date, .vt-row .vt-stat { grid-column: 1 / -1; }
-    .vt-row .vt-date { padding-left: 0; }
-  }
+  .tl-tag.t-prices { background: rgba(201,162,39,0.15); color: #8a6f1a; border-color: rgba(201,162,39,0.3); }
+  .tl-tag.t-reports { background: rgba(1,89,98,0.1); color: var(--va-teal); }
+  .tl-tag.t-veta { background: rgba(26,116,126,0.15); color: var(--va-teal-soft); border-color: rgba(26,116,126,0.3); }
+  .tl-tag.t-marketing { background: rgba(160,82,45,0.12); color: var(--va-bronze); border-color: rgba(160,82,45,0.25); }
+  .tl-tag.t-tech { background: rgba(168,168,168,0.18); color: #5a5a5a; border-color: rgba(168,168,168,0.35); }
+  .tl-tag.t-mockups { background: rgba(201,215,185,0.4); color: #5a6e44; border-color: rgba(201,215,185,0.6); }
+  .tl-tag.t-rd { background: rgba(255,215,0,0.15); color: #8a6f1a; border-color: rgba(255,215,0,0.3); }
 
   /* ═══ FOOTER ═══ */
   footer {
-    text-align: center; padding: 36px 24px;
-    color: var(--muted); font-size: 12.5px; border-top: 1px solid var(--border);
-    margin-top: 48px; background: white;
+    text-align: center; padding: 40px 24px;
+    color: var(--muted); font-size: 11.5px; border-top: 1px solid var(--border);
+    margin-top: 56px; background: white;
+    text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500;
   }
-  footer a { color: var(--navy); text-decoration: none; font-weight: 500; }
+  footer .va-mark {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--va-teal); font-size: 18px; font-style: italic;
+    text-transform: none; letter-spacing: 0.5px; font-weight: 600; display: block; margin-bottom: 12px;
+  }
+  footer .va-mark::before, footer .va-mark::after {
+    content: '——'; color: var(--va-gold); margin: 0 12px; font-style: normal; letter-spacing: -2px;
+  }
 
   /* ═══ MOBILE ═══ */
   @media (max-width: 600px) {
-    .hero { padding: 36px 20px 44px; }
+    .hero { padding: 40px 20px 56px; }
     main { padding: 0 16px 60px; }
     .tiles { grid-template-columns: 1fr; }
+    .kpis { grid-template-columns: repeat(2, 1fr); }
+    .kpi:nth-child(2n) { border-right: none; }
+    .kpi { border-bottom: 1px solid var(--border); }
     .tl-item { grid-template-columns: 70px 1fr; gap: 14px; }
-    .timeline-wrap { padding: 22px; }
+    .timeline-wrap, .va-track-card { padding: 22px; }
     .section-head { flex-direction: column; align-items: flex-start; }
     .section-head p { text-align: left; }
   }
@@ -261,12 +330,16 @@
 
 <header class="hero">
   <div class="hero-inner">
-    <div class="brand-line">Modern Vet · Marketing</div>
-    <h1>Marketing <span class="accent">Hub</span></h1>
+    <div class="hero-top">
+      <span class="hero-eyebrow">Vet Alliance · Marketing</span>
+      <span class="hero-line"></span>
+      <span class="hero-eyebrow">2026</span>
+    </div>
+    <h1>Marketing <em>Hub</em></h1>
     <p>Tools, intelligence, and reports for our team and partners. Live dashboards, market research, brand assets — everything we've built, ready to use.</p>
     <div class="hero-meta">
-      <span><strong>Last updated:</strong> Apr 29, 2026</span>
-      <span><strong>Owner:</strong> Marketing Department</span>
+      <span>Last updated · <strong>Apr 29, 2026</strong></span>
+      <span>Owner · <strong>Marketing Department</strong></span>
     </div>
   </div>
 </header>
@@ -285,8 +358,8 @@
   <!-- ═══ MARKET INTELLIGENCE ═══ -->
   <section>
     <div class="section-head">
-      <h2><span class="emoji">📊</span> Market Intelligence</h2>
-      <p>Live dashboards and market reports</p>
+      <h2><span class="num">01</span> Market Intelligence</h2>
+      <p>Live dashboards · market reports</p>
     </div>
     <div class="tiles">
       <a class="tile cat-prices" href="price-intelligence.html">
@@ -331,15 +404,15 @@
   <!-- ═══ SEO & DIGITAL ═══ -->
   <section>
     <div class="section-head">
-      <h2><span class="emoji">🔎</span> SEO & Digital</h2>
-      <p>Reports and technical foundations</p>
+      <h2><span class="num">02</span> SEO &amp; Digital</h2>
+      <p>Reports · technical foundations</p>
     </div>
     <div class="tiles">
       <a class="tile cat-reports" href="SEO-Report-140426.pdf">
         <div class="tile-icon">📄</div>
-        <div class="tile-title">SEO Weekly Report (Apr 14)</div>
+        <div class="tile-title">SEO Weekly Report</div>
         <div class="tile-desc">8-page PDF — modernvet.com SEO state, competitor benchmarks, GMB analysis, action items for the next sprint.</div>
-        <div class="tile-foot"><span class="pill pill-live">Live</span><span class="pill pill-pdf">PDF</span></div>
+        <div class="tile-foot"><span class="pill pill-live">Apr 14</span><span class="pill pill-pdf">PDF</span></div>
       </a>
       <a class="tile cat-reports" href="tracking-fix.html">
         <div class="tile-icon">🛠️</div>
@@ -353,7 +426,7 @@
   <!-- ═══ BOT — VETA ═══ -->
   <section>
     <div class="section-head">
-      <h2><span class="emoji">🤖</span> Veta — WhatsApp Assistant</h2>
+      <h2><span class="num">03</span> Veta — WhatsApp Assistant</h2>
       <p>Customer-facing AI consultant</p>
     </div>
     <div class="tiles">
@@ -371,7 +444,7 @@
       </a>
       <a class="tile cat-veta" href="veta-sim-report.html">
         <div class="tile-icon">🧪</div>
-        <div class="tile-title">Veta Confidence Test</div>
+        <div class="tile-title">Confidence Test (Sim v3)</div>
         <div class="tile-desc">40-question simulation across both KB scopes. <strong>100% hit rate</strong> — proof the bot is ready for customer-facing rollout.</div>
         <div class="tile-foot"><span class="pill pill-live">Live</span></div>
       </a>
@@ -381,34 +454,34 @@
         <div class="tile-desc">Where the KB stands today — 1,018 entries, 88% gap coverage, the full path from baseline to production-ready.</div>
         <div class="tile-foot"><span class="pill pill-live">Live</span></div>
       </a>
+      <a class="tile cat-veta" href="veta-improvement-plan.html">
+        <div class="tile-icon">🗺️</div>
+        <div class="tile-title">Veta Improvement Plan</div>
+        <div class="tile-desc">Strategic roadmap: what to fix, in what order, and why. Data-driven priority list.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
+      <a class="tile cat-veta" href="veta-improvement-report.html">
+        <div class="tile-icon">📈</div>
+        <div class="tile-title">Veta Improvement Report</div>
+        <div class="tile-desc">Bot reliability baseline (Apr 24). Tracks the journey from initial KB to production-grade.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
+      <a class="tile cat-veta" href="veta-kb-report.html">
+        <div class="tile-icon">📊</div>
+        <div class="tile-title">KB Progress Report</div>
+        <div class="tile-desc">Earlier WhatsApp-bot KB build progress. Useful as a "where we started" reference for the journey.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
     </div>
   </section>
 
   <!-- ═══ BRAND & MARKETING ASSETS ═══ -->
   <section>
     <div class="section-head">
-      <h2><span class="emoji">✨</span> Brand & Marketing Assets</h2>
-      <p>Templates, graphics, and ready-to-use materials</p>
+      <h2><span class="num">04</span> Brand &amp; Marketing Assets</h2>
+      <p>Templates · graphics · production-ready</p>
     </div>
     <div class="tiles">
-      <a class="tile cat-marketing" href="ViennaVet-Letterhead.html">
-        <div class="tile-icon">📝</div>
-        <div class="tile-title">Vienna Vet — Letterhead</div>
-        <div class="tile-desc">Brand-book accurate letterhead template for Vienna Vet correspondence. Open and print or download as PDF.</div>
-        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
-      </a>
-      <a class="tile cat-marketing" href="Floof-Letterhead.html">
-        <div class="tile-icon">🐕</div>
-        <div class="tile-title">Floof — Letterhead</div>
-        <div class="tile-desc">Brand-book accurate letterhead for Floof correspondence. Open and print or download as PDF.</div>
-        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
-      </a>
-      <a class="tile cat-marketing" href="RoyalCanin-BackInStock-Email.html">
-        <div class="tile-icon">📧</div>
-        <div class="tile-title">Royal Canin — Back in Stock Email</div>
-        <div class="tile-desc">Customer email announcing the return of prescription diet stock. Real product imagery, hero collage, ready to send.</div>
-        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
-      </a>
       <a class="tile cat-marketing" href="zoetis-brochure-redesign-full.html">
         <div class="tile-icon">📰</div>
         <div class="tile-title">Zoetis — Trifold Brochure</div>
@@ -433,47 +506,105 @@
         <div class="tile-desc">Six certificate designs — 1st/2nd/3rd place, Solo + Team awards. Ready to print for Q1 recognition.</div>
         <div class="tile-foot"><span class="pill pill-live">Live</span></div>
       </a>
+      <a class="tile cat-marketing" href="#" onclick="event.preventDefault(); alert('IVR voice files: Modern Vet (DanPegg cloned + Katherine library), Vienna Vet, Blue Oasis. 3 messages each (hold, agents busy, book online). ElevenLabs-generated.');">
+        <div class="tile-icon">🎤</div>
+        <div class="tile-title">IVR Voice Recordings</div>
+        <div class="tile-desc">Three brand voicelines for phone systems — Modern Vet (Dan + Katherine versions), Vienna Vet, Blue Oasis. Hold, agents-busy, and book-online prompts.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
     </div>
   </section>
 
-  <!-- ═══ TEAM TOOLS ═══ -->
+  <!-- ═══ INTERNAL TOOLS & OPS ═══ -->
   <section>
     <div class="section-head">
-      <h2><span class="emoji">⚙️</span> Team Tools</h2>
-      <p>Apps and integrations the team uses daily</p>
+      <h2><span class="num">05</span> Internal Tools &amp; Ops</h2>
+      <p>Apps · integrations · automations</p>
     </div>
     <div class="tiles">
-      <a class="tile cat-prices" href="https://script.google.com/macros/s/AKfycbyZUMG2x36LuhV8uz1adr3T4THJcXYwXRdh5lde3bapn71W-io9zAVURxM63FU5vx6zDw/exec" target="_blank" rel="noopener">
+      <div class="tile cat-internal">
         <div class="tile-icon">📆</div>
-        <div class="tile-title">Marketing Lieu Days</div>
-        <div class="tile-desc">Track, request, and approve lieu day balances for the marketing team. Apps Script + Sheets, works on any device.</div>
+        <div class="tile-title">Marketing Lieu Days App</div>
+        <div class="tile-desc">Apps Script + Sheets web app. Track / request / approve lieu day balances for the marketing team. No-server, mobile-friendly.</div>
         <div class="tile-foot"><span class="pill pill-live">Live</span></div>
-      </a>
-      <a class="tile cat-prices" href="https://blueskypetrelocation.com/book-consultation/" target="_blank" rel="noopener">
+      </div>
+      <div class="tile cat-internal">
         <div class="tile-icon">📅</div>
-        <div class="tile-title">BSPR Booking System</div>
-        <div class="tile-desc">Blue Sky Pet Relocation paid consultation flow — Calendly + payment + email confirmation. Currently on v3.1.</div>
+        <div class="tile-title">BSPR Booking System v3.1</div>
+        <div class="tile-desc">Blue Sky Pet Relocation paid consultation flow. Calendly + WPCode + payment webhook + cap enforcement.</div>
         <div class="tile-foot"><span class="pill pill-live">Live</span></div>
-      </a>
-      <a class="tile cat-prices" href="https://www.youtube.com/@modernvetdubai" target="_blank" rel="noopener">
+      </div>
+      <div class="tile cat-internal">
+        <div class="tile-icon">💬</div>
+        <div class="tile-title">Slack — Marketing Master Tasks</div>
+        <div class="tile-desc">Marketing weekly tasks list (Slack Lists). Auto-DM digest sent to team. Public list accessible to all.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </div>
+      <div class="tile cat-internal">
         <div class="tile-icon">📺</div>
-        <div class="tile-title">Modern Vet — YouTube Channel</div>
-        <div class="tile-desc">Optimised channel — new branded banner, UTM-tagged about-page links, ongoing video tagging via daily automation.</div>
+        <div class="tile-title">Modern Vet YouTube Channel</div>
+        <div class="tile-desc">Channel optimised: branded banner v12 (2560×1440), about-page links with UTMs, ~200 videos being tagged via daily cron.</div>
         <div class="tile-foot"><span class="pill pill-live">Live</span></div>
-      </a>
-      <a class="tile cat-prices" href="https://modernvet.com/join-us/" target="_blank" rel="noopener">
+      </div>
+      <div class="tile cat-internal">
         <div class="tile-icon">🤝</div>
-        <div class="tile-title">Careers Page (modernvet.com/join-us)</div>
+        <div class="tile-title">Careers (modernvet.com/join-us)</div>
         <div class="tile-desc">Third-party HR platform integrated into the Modern Vet website. Live and accepting applications.</div>
         <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TECH & TRACKING ═══ -->
+  <section>
+    <div class="section-head">
+      <h2><span class="num">06</span> Tech &amp; Tracking</h2>
+      <p>Engineering · analytics · integrations</p>
+    </div>
+    <div class="tiles">
+      <a class="tile cat-internal" href="tracking-fix.html">
+        <div class="tile-icon">🛠️</div>
+        <div class="tile-title">Tracking Fix Guide</div>
+        <div class="tile-desc">Full diagnostic + fix walkthrough for the modernvet.com tracking pipeline. GTM, GA4, Ads conversions.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
       </a>
+      <div class="tile cat-internal">
+        <div class="tile-icon">📈</div>
+        <div class="tile-title">GA4 — Modern Vet</div>
+        <div class="tile-desc">Property 285306647. Real-time, conversions, sources, Search Console, demographics — full funnel visibility.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </div>
+      <div class="tile cat-internal">
+        <div class="tile-icon">🎯</div>
+        <div class="tile-title">Google Ads — Modern Vet</div>
+        <div class="tile-desc">Account 6049720476. Conversions, campaigns, bid strategy, GA4 conversion imports active.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </div>
+      <div class="tile cat-internal">
+        <div class="tile-icon">🧷</div>
+        <div class="tile-title">GTM — Modern Vet</div>
+        <div class="tile-desc">GTM-KRHZL582. Active container handling both modernvet.com and book.floof.ae after April cleanup.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </div>
+      <div class="tile cat-internal">
+        <div class="tile-icon">🔎</div>
+        <div class="tile-title">Search Console</div>
+        <div class="tile-desc">Indexing, clicks, impressions, queries. Plus indexing API access via service account.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </div>
+      <div class="tile cat-internal">
+        <div class="tile-icon">🌐</div>
+        <div class="tile-title">WordPress — modernvet.com</div>
+        <div class="tile-desc">WP Admin. Yoast SEO Premium, Permalink Manager, WPCode, Avada/Fusion, WP Rocket, Polylang.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </div>
     </div>
   </section>
 
   <!-- ═══ WEB MOCKUPS ═══ -->
   <section>
     <div class="section-head">
-      <h2><span class="emoji">🎨</span> Web Mockups (in Review)</h2>
+      <h2><span class="num">07</span> Web Mockups</h2>
       <p>Drafts for the modernvet.com refresh</p>
     </div>
     <div class="tiles">
@@ -495,16 +626,15 @@
   <!-- ═══ VETA RELEASES ═══ -->
   <section>
     <div class="section-head">
-      <h2><span class="emoji">🚀</span> Veta — Release History</h2>
-      <p>From idea to production-ready bot in 6 weeks</p>
+      <h2><span class="num">08</span> Veta — Release History</h2>
+      <p>From idea to production-ready bot</p>
     </div>
-    <div class="veta-track">
+    <div class="va-track-card">
       <div class="vt-head">
-        <h3>Veta Knowledge Base &amp; Bot Versions</h3>
-        <div class="vt-meta">Current: <strong>KB v3.5 (1,018 entries)</strong> · 100% sim hit rate · Telegram beta live</div>
+        <h3>Knowledge Base &amp; Bot Versions</h3>
+        <div class="vt-meta">Current: <strong>KB v3.5 · 1,018 entries</strong> · 100% sim · Telegram beta</div>
       </div>
       <ul class="vt-list">
-
         <li class="vt-row major">
           <span class="vt-version">Telegram Beta</span>
           <span class="vt-date">Apr 28, 2026</span>
@@ -577,7 +707,6 @@
           <span class="vt-what"><strong>Veta access guide written</strong><em>KB structure decided. Architecture: ChromaDB (vector DB) + Claude Haiku (LLM). Project starts.</em></span>
           <span class="vt-stat">Kickoff</span>
         </li>
-
       </ul>
     </div>
   </section>
@@ -585,267 +714,69 @@
   <!-- ═══ RELEASE TIMETABLE ═══ -->
   <section>
     <div class="section-head">
-      <h2><span class="emoji">📅</span> Release Timetable</h2>
+      <h2><span class="num">09</span> Release Timetable</h2>
       <p>Everything we've shipped — recent first</p>
     </div>
     <div class="timeline-wrap">
       <div class="tl-head">
-        <h3>Marketing Department — Delivery Track</h3>
+        <h3>Marketing Department · Delivery Track</h3>
         <div class="tl-counter">From <strong>Mar 19</strong> to <strong>Apr 29, 2026</strong></div>
       </div>
 
       <div class="tl-month">
-        <div class="tl-month-label">April 2026 — Late</div>
+        <div class="tl-month-label">April · Late</div>
         <ul class="tl-list">
-          <li class="tl-item">
-            <div class="tl-date">Apr 29</div>
-            <div class="tl-body">
-              <span class="tl-tag t-prices">Prices</span><strong>Price Submission System — central sync</strong>
-              <em>Form, review queue, and Google Sheet backend live. Anyone in the team can now submit competitor prices into the dashboard.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Apr 29</div>
-            <div class="tl-body">
-              <span class="tl-tag t-tech">Tech</span><strong>GA4 → Google Ads conversions verified</strong>
-              <em>Confirmed WhatsApp & phone-click conversion tracking is functional end-to-end. Flagged & documented duplicate WA action for cleanup.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Apr 29</div>
-            <div class="tl-body">
-              <span class="tl-tag t-marketing">Brand</span><strong>Vienna Vet & Floof Letterheads</strong>
-              <em>Brand-book accurate letterhead templates for both sister brands. Hosted, ready to use anywhere.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Apr 29</div>
-            <div class="tl-body">
-              <span class="tl-tag t-marketing">Brand</span><strong>Royal Canin Back-in-Stock email</strong>
-              <em>Customer-facing announcement email with real product imagery and hero collage. Ready to send.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Apr 28</div>
-            <div class="tl-body">
-              <span class="tl-tag t-veta">Veta</span><strong>Veta Telegram test bot live</strong>
-              <em>@veta_modernvet_consultantbot online for public testing. Same KB & logic as future WhatsApp deployment.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Apr 28</div>
-            <div class="tl-body">
-              <span class="tl-tag t-marketing">Brand</span><strong>YouTube Channel — Banner &amp; Optimisation</strong>
-              <em>New 2560×1440 branded banner, UTM-tagged about-page links (booking, website, Floof). Tagging cron processing remaining ~200 videos.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Apr 27</div>
-            <div class="tl-body">
-              <span class="tl-tag t-veta">Veta</span><strong>KB Improvement Phase 1–5 complete</strong>
-              <em>1,018 entries audited & classified. 88% gap coverage. Bot validated as production-ready.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Apr 27</div>
-            <div class="tl-body">
-              <span class="tl-tag t-tech">Tech</span><strong>Cross-domain tracking fix</strong>
-              <em>Diagnosed and repaired the modernvet.com ↔ book.floof.ae tracking pipeline. Missing AdWords tag installed.</em>
-            </div>
-          </li>
+          <li class="tl-item"><div class="tl-date">Apr 29</div><div class="tl-body"><span class="tl-tag t-prices">Prices</span><strong>Price Submission System — central sync</strong><em>Form, review queue, and Google Sheet backend live. Anyone in the team can now submit competitor prices into the dashboard.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Apr 29</div><div class="tl-body"><span class="tl-tag t-tech">Tech</span><strong>GA4 → Google Ads conversions verified</strong><em>Confirmed WhatsApp &amp; phone-click conversion tracking is functional end-to-end. Flagged &amp; documented duplicate WA action for cleanup.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Apr 29</div><div class="tl-body"><span class="tl-tag t-marketing">Brand</span><strong>Vienna Vet &amp; Floof Letterheads</strong><em>Brand-book accurate letterhead templates for both sister brands.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Apr 29</div><div class="tl-body"><span class="tl-tag t-marketing">Brand</span><strong>Royal Canin Back-in-Stock email</strong><em>Customer-facing announcement email with real product imagery and hero collage.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Apr 28</div><div class="tl-body"><span class="tl-tag t-veta">Veta</span><strong>Veta Telegram test bot live</strong><em>@veta_modernvet_consultantbot online for public testing. Same KB &amp; logic as future WhatsApp deployment.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Apr 28</div><div class="tl-body"><span class="tl-tag t-marketing">Brand</span><strong>YouTube Channel — Banner &amp; Optimisation</strong><em>New 2560×1440 branded banner, UTM-tagged about-page links (booking, website, Floof). Tagging cron processing remaining ~200 videos.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Apr 27</div><div class="tl-body"><span class="tl-tag t-veta">Veta</span><strong>KB Improvement Phase 1–5 complete</strong><em>1,018 entries audited &amp; classified. 88% gap coverage. Bot validated as production-ready.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Apr 27</div><div class="tl-body"><span class="tl-tag t-tech">Tech</span><strong>Cross-domain tracking fix</strong><em>Diagnosed and repaired the modernvet.com ↔ book.floof.ae tracking pipeline. Missing AdWords tag installed.</em></div></li>
         </ul>
       </div>
 
       <div class="tl-month">
-        <div class="tl-month-label">April 2026 — Mid</div>
+        <div class="tl-month-label">April · Mid</div>
         <ul class="tl-list">
-          <li class="tl-item">
-            <div class="tl-date">Apr 24</div>
-            <div class="tl-body">
-              <span class="tl-tag t-prices">Prices</span><strong>Dubai Vet Price Intelligence — v1 live</strong>
-              <em>151-clinic, 16-service price comparison hub. Heatmap, sortable overview, our brands highlighted vs. competitors.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Apr 23</div>
-            <div class="tl-body">
-              <span class="tl-tag t-reports">Report</span><strong>Abu Dhabi Vet Market + Expansion Reports</strong>
-              <em>29-clinic Abu Dhabi market scan plus strategic expansion analysis with location candidates.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Apr 22</div>
-            <div class="tl-body">
-              <span class="tl-tag t-tech">Tech</span><strong>BSPR Booking v3.1 — final fixes</strong>
-              <em>Form/JS migrated into PHP snippet via wp_footer hook. Demand notice removed. Production-stable. (Apr 24–26)</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Apr 22</div>
-            <div class="tl-body">
-              <span class="tl-tag t-tech">Tech</span><strong>GTM/GA4 Cleanup &amp; Tracking Tutorial</strong>
-              <em>Container audit, tag cleanup, full tracking tutorial published for engineering reference.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Apr 22</div>
-            <div class="tl-body">
-              <span class="tl-tag t-tech">Tech</span><strong>Google Ads health check</strong>
-              <em>Account-wide audit — conversion flow, campaign performance, conversion imports verified. No issues flagged, healthy state confirmed.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Apr 21</div>
-            <div class="tl-body">
-              <span class="tl-tag t-veta">Veta</span><strong>KB Report v3 + Simulation v2</strong>
-              <em>Knowledge base milestones: 700 entries, 56 doctor profiles. 40-question simulation across MV/BOV/VV.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Apr 20</div>
-            <div class="tl-body">
-              <span class="tl-tag t-reports">Report</span><strong>Dubai Vet Market Report (unified)</strong>
-              <em>156 clinics, ratings, neighbourhoods, weighted ranking, expansion tab. Foundation report for everything that followed.</em>
-            </div>
-          </li>
+          <li class="tl-item"><div class="tl-date">Apr 24–26</div><div class="tl-body"><span class="tl-tag t-tech">Tech</span><strong>BSPR Booking v3.1 — final fixes</strong><em>Form/JS migrated into PHP snippet via wp_footer hook. Demand notice removed. Production-stable.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Apr 24</div><div class="tl-body"><span class="tl-tag t-prices">Prices</span><strong>Dubai Vet Price Intelligence — v1 live</strong><em>151-clinic, 16-service price comparison hub. Heatmap, sortable overview, our brands highlighted vs. competitors.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Apr 23</div><div class="tl-body"><span class="tl-tag t-reports">Report</span><strong>Abu Dhabi Vet Market + Expansion Reports</strong><em>29-clinic Abu Dhabi market scan plus strategic expansion analysis with location candidates.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Apr 22</div><div class="tl-body"><span class="tl-tag t-tech">Tech</span><strong>GTM/GA4 Cleanup &amp; Tracking Tutorial</strong><em>Container audit, tag cleanup, full tracking tutorial published for engineering reference.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Apr 22</div><div class="tl-body"><span class="tl-tag t-tech">Tech</span><strong>Google Ads health check</strong><em>Account-wide audit — conversion flow, campaign performance, conversion imports verified. No issues flagged, healthy state confirmed.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Apr 21</div><div class="tl-body"><span class="tl-tag t-veta">Veta</span><strong>KB Report v3 + Simulation v2</strong><em>Knowledge base milestones: 700 entries, 56 doctor profiles. 40-question simulation across MV/BOV/VV.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Apr 20</div><div class="tl-body"><span class="tl-tag t-reports">Report</span><strong>Dubai Vet Market Report (unified)</strong><em>156 clinics, ratings, neighbourhoods, weighted ranking, expansion tab. Foundation report for everything that followed.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Apr 20</div><div class="tl-body"><span class="tl-tag t-tech">Tech</span><strong>Slack Tasks v2 — Lists API</strong><em>Upgraded from DM-based pushing to native Slack Lists. Marketing Master Tasks list public-readable, full files:read API access.</em></div></li>
         </ul>
       </div>
 
       <div class="tl-month">
-        <div class="tl-month-label">April 2026 — Early</div>
+        <div class="tl-month-label">April · Early</div>
         <ul class="tl-list">
-          <li class="tl-item">
-            <div class="tl-date">Apr 14</div>
-            <div class="tl-body">
-              <span class="tl-tag t-reports">Report</span><strong>SEO Weekly Report — 8-page PDF</strong>
-              <em>modernvet.com SEO state of the union, competitor benchmarks, action items. GMB report companion.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Apr 14</div>
-            <div class="tl-body">
-              <span class="tl-tag t-reports">Report</span><strong>GMB Intelligence Report</strong>
-              <em>9 group locations, 7,855 reviews, 4.77★ avg. Competitor benchmarks (DKC, Noble, Panacea). Flagged Panacea zombie listing &amp; Azizi gap.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Apr 14</div>
-            <div class="tl-body">
-              <span class="tl-tag t-mockups">R&amp;D</span><strong>Visual generation systems evaluated</strong>
-              <em>Tested and benchmarked multiple image &amp; video generation tools to find the right fit for production work. Stack chosen for ongoing creative output.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Apr 14</div>
-            <div class="tl-body">
-              <span class="tl-tag t-marketing">Brand</span><strong>Brand Asset Sprint</strong>
-              <em>BOV review graphics (multiple formats), Zoetis trifold brochure redesign, two-sided Azizi Riviera advertising card with "NOW OPEN" overlay.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Apr 13</div>
-            <div class="tl-body">
-              <span class="tl-tag t-mockups">Web</span><strong>modernvet.com Refresh Drafts</strong>
-              <em>Services page redesign V1 &amp; V2. Mobile navigation prototype. Q1 2026 certificate set (6 designs).</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Apr 10</div>
-            <div class="tl-body">
-              <span class="tl-tag t-marketing">Brand</span><strong>IVR Voice Recordings (ElevenLabs)</strong>
-              <em>Three brand voicelines (Modern Vet ×2, Vienna Vet, Blue Oasis). Hold / agents busy / book-online prompts. Cloned + library voices delivered.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Apr 9–13</div>
-            <div class="tl-body">
-              <span class="tl-tag t-tech">Tech</span><strong>BSPR Booking v2 → v3</strong>
-              <em>Calendly + payment webhook + email confirmation + cap enforcement + admin password. Multiple iterations into production.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Apr 6–7</div>
-            <div class="tl-body">
-              <span class="tl-tag t-tech">Tech</span><strong>Major SEO &amp; Indexing Cleanup</strong>
-              <em>SEMRush, Ahrefs &amp; Search Console deep-dive. 41 pages noindexed. dev.modernvet.com blocked from Google. Schema fixes.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Mar–Apr</div>
-            <div class="tl-body">
-              <span class="tl-tag t-tech">Site</span><strong>modernvet.com — site fixes &amp; integrations</strong>
-              <em>Permalink/redirect fixes, schema corrections (GPS, FAQ), Yoast updates, WP Rocket optimisation, plugin maintenance. Careers page integration via 3rd-party HR platform (modernvet.com/join-us).</em>
-            </div>
-          </li>
+          <li class="tl-item"><div class="tl-date">Apr 14</div><div class="tl-body"><span class="tl-tag t-reports">Report</span><strong>SEO Weekly Report — 8-page PDF</strong><em>modernvet.com SEO state of the union, competitor benchmarks, action items.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Apr 14</div><div class="tl-body"><span class="tl-tag t-reports">Report</span><strong>GMB Intelligence Report</strong><em>9 group locations, 7,855 reviews, 4.77★ avg. Competitor benchmarks (DKC, Noble, Panacea). Flagged Panacea zombie listing &amp; Azizi gap.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Apr 14–19</div><div class="tl-body"><span class="tl-tag t-rd">R&amp;D</span><strong>Visual generation systems evaluated</strong><em>Tested and benchmarked multiple image &amp; video generation tools to find the right fit for production work. Stack chosen for ongoing creative output.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Apr 14</div><div class="tl-body"><span class="tl-tag t-marketing">Brand</span><strong>Brand Asset Sprint</strong><em>BOV review graphics (multiple formats), Zoetis trifold brochure redesign, two-sided Azizi Riviera advertising card with "NOW OPEN" overlay.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Apr 13</div><div class="tl-body"><span class="tl-tag t-mockups">Web</span><strong>modernvet.com Refresh Drafts</strong><em>Services page redesign V1 &amp; V2. Mobile navigation prototype. Q1 2026 certificate set (6 designs).</em></div></li>
+          <li class="tl-item"><div class="tl-date">Apr 10</div><div class="tl-body"><span class="tl-tag t-marketing">Brand</span><strong>IVR Voice Recordings (ElevenLabs)</strong><em>Three brand voicelines (Modern Vet ×2, Vienna Vet, Blue Oasis). Hold / agents busy / book-online prompts. Cloned + library voices delivered.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Apr 9–13</div><div class="tl-body"><span class="tl-tag t-tech">Tech</span><strong>BSPR Booking v2 → v3</strong><em>Calendly + payment webhook + email confirmation + cap enforcement + admin password. Multiple iterations into production.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Apr 6–7</div><div class="tl-body"><span class="tl-tag t-tech">Tech</span><strong>Major SEO &amp; Indexing Cleanup</strong><em>SEMRush, Ahrefs &amp; Search Console deep-dive. 41 pages noindexed. dev.modernvet.com blocked from Google. Schema fixes.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Mar–Apr</div><div class="tl-body"><span class="tl-tag t-tech">Site</span><strong>modernvet.com — site fixes &amp; integrations</strong><em>Permalink/redirect fixes, schema corrections (GPS, FAQ), Yoast updates, WP Rocket optimisation, plugin maintenance. Careers page integration via 3rd-party HR platform (modernvet.com/join-us).</em></div></li>
         </ul>
       </div>
 
       <div class="tl-month">
-        <div class="tl-month-label">March 2026</div>
+        <div class="tl-month-label">March</div>
         <ul class="tl-list">
-          <li class="tl-item">
-            <div class="tl-date">Mar 31<br>Apr 4</div>
-            <div class="tl-body">
-              <span class="tl-tag t-prices">Tool</span><strong>Marketing Lieu Days App</strong>
-              <em>Apps Script + Sheets web app. Track / request / approve lieu day balances for the marketing team. No-server, mobile-friendly.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Mar 31<br>Apr 4</div>
-            <div class="tl-body">
-              <span class="tl-tag t-tech">Tech</span><strong>Daily Email Digest &amp; Internal Comms</strong>
-              <em>Daily Gmail digest cron, Telegram group routing, weekly Slack DM task assignments to the team.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Mar 24<br>Apr 9</div>
-            <div class="tl-body">
-              <span class="tl-tag t-tech">Tech</span><strong>BSPR Booking v1 (kickoff)</strong>
-              <em>Blue Sky Pet Relocation paid consultation flow. Initial design: Calendly appointment scheduling + WPCode email snippet (bspr/v1).</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Mar 27</div>
-            <div class="tl-body">
-              <span class="tl-tag t-mockups">Web</span><strong>Services Redesign — Brand Foundation</strong>
-              <em>Brand-book deep dive, services hierarchy decisions, header redesign concept work.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Mar 24</div>
-            <div class="tl-body">
-              <span class="tl-tag t-reports">Report</span><strong>Modern Vet — SEO Analysis</strong>
-              <em>Google March 2026 core update impact assessment. Competitor DR data. On-page audit across 1,180 posts + 115 pages.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Mar 22</div>
-            <div class="tl-body">
-              <span class="tl-tag t-reports">Report</span><strong>Full Site Audit — modernvet.com</strong>
-              <em>SEMRush full audit. Critical bugs surfaced. Foundation for the SEO cleanup that followed.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Apr 20</div>
-            <div class="tl-body">
-              <span class="tl-tag t-tech">Tech</span><strong>Slack Tasks v2 — Lists API</strong>
-              <em>Upgraded from DM-based pushing to native Slack Lists. Marketing Master Tasks list public-readable, full Slack Lists API integration with files:read scope.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Mar 21</div>
-            <div class="tl-body">
-              <span class="tl-tag t-tech">Tech</span><strong>Slack Tasks v1 — Weekly DM digest</strong>
-              <em>Slack workspace integrated. Weekly task DMs sent to team (Yohann, Vrinda, Eugene, Katerina &amp; co.). Cron infrastructure live.</em>
-            </div>
-          </li>
-          <li class="tl-item">
-            <div class="tl-date">Mar 19</div>
-            <div class="tl-body">
-              <span class="tl-tag t-tech">Start</span><strong>Marketing Automation — Day One</strong>
-              <em>Marketing systems set up. First SEO diagnostic surfaces a critical issue: "emergency vet near me" dropped from #1 ranking.</em>
-            </div>
-          </li>
+          <li class="tl-item"><div class="tl-date">Mar 31</div><div class="tl-body"><span class="tl-tag t-prices">Tool</span><strong>Marketing Lieu Days App</strong><em>Apps Script + Sheets web app. Track / request / approve lieu day balances for the marketing team. No-server, mobile-friendly.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Mar 31<br>Apr 4</div><div class="tl-body"><span class="tl-tag t-tech">Tech</span><strong>Daily Email Digest &amp; Internal Comms</strong><em>Daily Gmail digest cron, Telegram group routing, weekly Slack DM task assignments to the team.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Mar 27</div><div class="tl-body"><span class="tl-tag t-mockups">Web</span><strong>Services Redesign — Brand Foundation</strong><em>Brand-book deep dive, services hierarchy decisions, header redesign concept work.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Mar 24<br>Apr 9</div><div class="tl-body"><span class="tl-tag t-tech">Tech</span><strong>BSPR Booking v1 (kickoff)</strong><em>Blue Sky Pet Relocation paid consultation flow. Initial design: Calendly appointment scheduling + WPCode email snippet (bspr/v1).</em></div></li>
+          <li class="tl-item"><div class="tl-date">Mar 24</div><div class="tl-body"><span class="tl-tag t-reports">Report</span><strong>Modern Vet — SEO Analysis</strong><em>Google March 2026 core update impact assessment. Competitor DR data. On-page audit across 1,180 posts + 115 pages.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Mar 22</div><div class="tl-body"><span class="tl-tag t-reports">Report</span><strong>Full Site Audit — modernvet.com</strong><em>SEMRush full audit. Critical bugs surfaced. Foundation for the SEO cleanup that followed.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Mar 21</div><div class="tl-body"><span class="tl-tag t-tech">Tech</span><strong>Slack Tasks v1 — Weekly DM digest</strong><em>Slack workspace integrated. Weekly task DMs sent to team (Yohann, Vrinda, Eugene, Katerina &amp; co.). Cron infrastructure live.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Mar 19</div><div class="tl-body"><span class="tl-tag t-tech">Start</span><strong>Marketing Automation — Day One</strong><em>Marketing systems set up. First SEO diagnostic surfaces a critical issue: "emergency vet near me" dropped from #1 ranking.</em></div></li>
         </ul>
       </div>
 
@@ -855,8 +786,8 @@
 </main>
 
 <footer>
-  Modern Vet — Marketing Department · April 2026<br>
-  <em style="opacity:0.6">Hub maintained by Marketing. New deliverables are added here as they ship.</em>
+  <span class="va-mark">Vet Alliance</span>
+  Marketing Department · April 2026 · Hub maintained by Marketing
 </footer>
 
 </body>
