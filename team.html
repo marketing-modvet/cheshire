@@ -196,6 +196,47 @@
   .tl-tag.t-tech { background: rgba(52,50,106,0.12); color: var(--navy-soft); }
   .tl-tag.t-mockups { background: rgba(182,123,109,0.2); color: var(--rose); }
 
+  /* ═══ VETA VERSION TRACK ═══ */
+  .veta-track {
+    background: linear-gradient(135deg, #fafdfb 0%, #f5fbf8 100%);
+    border-radius: 18px; padding: 32px;
+    box-shadow: var(--shadow); border: 1px solid var(--border);
+    border-left: 4px solid var(--mint);
+  }
+  .veta-track .vt-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+  .veta-track .vt-head h3 { font-size: 20px; color: var(--navy); }
+  .veta-track .vt-head .vt-meta { font-size: 13px; color: var(--muted); }
+  .veta-track .vt-head .vt-meta strong { color: #3d7a64; font-weight: 600; }
+  .vt-list { list-style: none; }
+  .vt-row {
+    display: grid; grid-template-columns: 110px 110px 1fr auto; gap: 16px; align-items: center;
+    padding: 12px 14px; margin-bottom: 6px;
+    border-radius: 10px; transition: background 0.15s;
+  }
+  .vt-row:hover { background: rgba(111,176,154,0.08); }
+  .vt-row.major { background: rgba(111,176,154,0.12); border-left: 3px solid var(--mint); }
+  .vt-version {
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+    font-size: 13px; font-weight: 600; color: var(--navy);
+    background: white; padding: 4px 10px; border-radius: 6px;
+    border: 1px solid var(--border); display: inline-block;
+  }
+  .vt-row.major .vt-version { background: var(--navy); color: var(--salmon); border-color: var(--navy); }
+  .vt-date { font-size: 12px; color: var(--muted); font-weight: 500; }
+  .vt-what strong { color: var(--navy); font-weight: 600; font-size: 14px; }
+  .vt-what em { color: var(--muted); font-style: normal; font-size: 12.5px; display: block; margin-top: 2px; }
+  .vt-stat {
+    font-size: 11px; padding: 3px 10px; border-radius: 12px;
+    background: rgba(111,176,154,0.18); color: #3d7a64; font-weight: 600;
+    white-space: nowrap;
+  }
+  .vt-stat.flag { background: rgba(166,28,0,0.12); color: var(--brick); }
+  @media (max-width: 700px) {
+    .vt-row { grid-template-columns: 90px 1fr; gap: 8px; }
+    .vt-row .vt-date, .vt-row .vt-stat { grid-column: 1 / -1; }
+    .vt-row .vt-date { padding-left: 0; }
+  }
+
   /* ═══ FOOTER ═══ */
   footer {
     text-align: center; padding: 36px 24px;
@@ -414,6 +455,96 @@
         <div class="tile-desc">Improved mobile navigation pattern for modernvet.com. Tap-friendly, hierarchy clear, emergency CTA prominent.</div>
         <div class="tile-foot"><span class="pill pill-live">Live</span></div>
       </a>
+    </div>
+  </section>
+
+  <!-- ═══ VETA RELEASES ═══ -->
+  <section>
+    <div class="section-head">
+      <h2><span class="emoji">🚀</span> Veta — Release History</h2>
+      <p>From idea to production-ready bot in 6 weeks</p>
+    </div>
+    <div class="veta-track">
+      <div class="vt-head">
+        <h3>Veta Knowledge Base &amp; Bot Versions</h3>
+        <div class="vt-meta">Current: <strong>KB v3.5 (1,018 entries)</strong> · 100% sim hit rate · Telegram beta live</div>
+      </div>
+      <ul class="vt-list">
+
+        <li class="vt-row major">
+          <span class="vt-version">Telegram Beta</span>
+          <span class="vt-date">Apr 28, 2026</span>
+          <span class="vt-what"><strong>First public-facing test deployment</strong><em>@veta_modernvet_consultantbot live for team &amp; stakeholders to try real questions.</em></span>
+          <span class="vt-stat">LIVE</span>
+        </li>
+        <li class="vt-row major">
+          <span class="vt-version">KB v3.5</span>
+          <span class="vt-date">Apr 27, 2026</span>
+          <span class="vt-what"><strong>Phase 1–5 KB cleanup complete</strong><em>Full audit, classification, dedupe, gap closure. The version cleared for production.</em></span>
+          <span class="vt-stat">1,018 entries</span>
+        </li>
+        <li class="vt-row">
+          <span class="vt-version">KB v3.4</span>
+          <span class="vt-date">Apr 27, 2026</span>
+          <span class="vt-what"><strong>Audited &amp; classified</strong><em>Heuristic classifier flags clinical / live-data / action items. Real gaps: 6 → 1.</em></span>
+          <span class="vt-stat">974 entries</span>
+        </li>
+        <li class="vt-row major">
+          <span class="vt-version">Sim v3</span>
+          <span class="vt-date">Apr 24, 2026</span>
+          <span class="vt-what"><strong>Confidence test passed</strong><em>40-question simulation across 8 scenarios. <strong>100% hit rate</strong> — the milestone we needed before talking customer rollout.</em></span>
+          <span class="vt-stat">100% hit</span>
+        </li>
+        <li class="vt-row">
+          <span class="vt-version">KB v3.3</span>
+          <span class="vt-date">Apr 24, 2026</span>
+          <span class="vt-what"><strong>Gap coverage milestone</strong><em>Full sweep with progress bars. 88% gap coverage achieved.</em></span>
+          <span class="vt-stat">974 entries</span>
+        </li>
+        <li class="vt-row">
+          <span class="vt-version">KB v3.2</span>
+          <span class="vt-date">Apr 24, 2026</span>
+          <span class="vt-what"><strong>Aida confirmed information added</strong><em>Doctor profiles + clinical info verified by Aida (clinical reference).</em></span>
+          <span class="vt-stat">948 entries</span>
+        </li>
+        <li class="vt-row">
+          <span class="vt-version">Sim v2</span>
+          <span class="vt-date">Apr 24, 2026</span>
+          <span class="vt-what"><strong>Quality bar raised</strong><em>STRONG-confidence answers improved from 30% to 63%. Found &amp; fixed stale ChromaDB pointing at v2.</em></span>
+          <span class="vt-stat">63% strong</span>
+        </li>
+        <li class="vt-row">
+          <span class="vt-version">KB v3.1</span>
+          <span class="vt-date">Apr 21, 2026</span>
+          <span class="vt-what"><strong>Brand-scope split</strong><em>Split into MV / BOV / VV scopes. 56 doctor profiles added. Bot can now answer brand-specific questions.</em></span>
+          <span class="vt-stat">700 entries</span>
+        </li>
+        <li class="vt-row">
+          <span class="vt-version">Sim v1</span>
+          <span class="vt-date">Apr 21, 2026</span>
+          <span class="vt-what"><strong>First 40-question simulation</strong><em>Baseline test across all three brand scopes. Reveals which areas the KB still needs.</em></span>
+          <span class="vt-stat">40 questions</span>
+        </li>
+        <li class="vt-row major">
+          <span class="vt-version">KB v3.0</span>
+          <span class="vt-date">Apr 20, 2026</span>
+          <span class="vt-what"><strong>Master KB rebuild</strong><em>Full rebuild on Veta server. Master structured KB — the foundation everything since builds on.</em></span>
+          <span class="vt-stat">549 entries</span>
+        </li>
+        <li class="vt-row">
+          <span class="vt-version">KB v2.0</span>
+          <span class="vt-date">Apr 15, 2026</span>
+          <span class="vt-what"><strong>Q&amp;A generation pipeline</strong><em>kb_pipeline_v2.py built — Claude Haiku + full SOP context generates 170 curated Q&amp;A pairs. First real KB.</em></span>
+          <span class="vt-stat">170 entries</span>
+        </li>
+        <li class="vt-row">
+          <span class="vt-version">v1 (planning)</span>
+          <span class="vt-date">Apr 13, 2026</span>
+          <span class="vt-what"><strong>Veta access guide written</strong><em>KB structure decided. Architecture: ChromaDB (vector DB) + Claude Haiku (LLM). Project starts.</em></span>
+          <span class="vt-stat">Kickoff</span>
+        </li>
+
+      </ul>
     </div>
   </section>
 
