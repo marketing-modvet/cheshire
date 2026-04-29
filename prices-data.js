@@ -2,7 +2,7 @@
 // Sourced from: Google Maps research (vet-report.html), clinic websites, Groupon, social media
 // Source key: "website" | "social" | "groupon" | "cobone" | "internal" | "" (confirmed, source unknown)
 
-const LAST_UPDATED = "2026-04-24";
+const LAST_UPDATED = "2026-04-29";
 
 const SERVICES = [
   { id: "consult_standard",    label: "Consultation (Standard)",               category: "Consultation" },
@@ -143,12 +143,16 @@ const COMPETITORS = [
     id: "al_barsha_veterinary_clinic_llc", name: "Al Barsha Veterinary Clinic LLC", isOurs: false,
     website: "https://abvc.ae", area: "Al Barsha First",
     rating: "4.5", reviews: 659,
-    notes: "Al Barsha First | SS Lootha",
+    notes: "Al Barsha First | SS Lootha. PROMO until 2026-09-30 on neuter/spay (CIO submission Apr 29).",
     address: "SS Lootha - Building, shop no.3 23b street - Al Barsha First - Al Barsha - Dubai - United Arab Emirates",
     prices: {
-      consult_standard: { val: 180, note: "not confirmed", src: "", date: "2026-04" },
-      neuter_cat_male: { val: 700, note: "2019 data", src: "", date: "2019" },
-      spay_cat_female: { val: 880, note: "2019 data", src: "", date: "2019" }
+      consult_standard:  { val: 180, note: "not confirmed",                                              src: "",         date: "2026-04" },
+      neuter_cat_male:   { val: 300, note: "excl. VAT — PROMO until 2026-09-30",                          src: "internal", date: "2026-04-29" },
+      spay_cat_female:   { val: 450, note: "excl. VAT — PROMO until 2026-09-30",                          src: "internal", date: "2026-04-29" },
+      neuter_dog_male_s: { val: 450, note: "small dog, excl. VAT — PROMO until 2026-09-30",               src: "internal", date: "2026-04-29" },
+      spay_dog_female_s: { val: 650, note: "small dog, excl. VAT — PROMO until 2026-09-30",               src: "internal", date: "2026-04-29" },
+      neuter_dog_male_m: { val: 650, note: "medium dog, excl. VAT — PROMO until 2026-09-30 (large 850)",  src: "internal", date: "2026-04-29" },
+      spay_dog_female_m: { val: 850, note: "medium dog, excl. VAT — PROMO until 2026-09-30 (large 950)",  src: "internal", date: "2026-04-29" }
     }
   },
 
