@@ -134,6 +134,10 @@
   .pill-draft  { background: rgba(107,108,135,0.15); color: var(--muted); }
   .pill-new    { background: var(--navy); color: var(--salmon); }
   .pill-tool   { background: rgba(166,28,0,0.12); color: var(--brick); }
+  .pill-old    { background: rgba(107,108,135,0.18); color: #4a4b66; }
+  .pill-internal { background: rgba(180,123,109,0.2); color: #7a4a3d; }
+  .tile.is-old .tile-title { opacity: 0.7; }
+  .tile.is-old { opacity: 0.85; }
 
   /* category tints */
   .tile.cat-prices { border-top: 3px solid var(--salmon); }
@@ -265,6 +269,12 @@
         <div class="tile-desc">Backing Google Sheet for the price submission form. View, edit, export raw submissions here.</div>
         <div class="tile-foot"><span class="pill pill-live">Live</span><span class="pill pill-tool">Sheet</span></div>
       </a>
+      <a class="tile cat-prices" href="team.html" data-cat="prices">
+        <div class="tile-icon">👥</div>
+        <div class="tile-title">Team / Leadership Hub</div>
+        <div class="tile-desc">Cleaner public-facing version for CEO, CIO, and team. No admin pages, no Veta internals.</div>
+        <div class="tile-foot"><span class="pill pill-new">New</span><span class="pill pill-tool">Share</span></div>
+      </a>
     </div>
   </section>
 
@@ -299,11 +309,17 @@
         <div class="tile-desc">Site analysis for new branches in Dubai — neighbourhood scoring, competitor proximity, commercial logic.</div>
         <div class="tile-foot"><span class="pill pill-live">Live</span></div>
       </a>
-      <a class="tile cat-reports" href="vet-report.html" data-cat="reports">
+      <a class="tile cat-reports is-old" href="vet-report.html" data-cat="reports">
         <div class="tile-icon">📑</div>
         <div class="tile-title">Vet Report (legacy)</div>
-        <div class="tile-desc">Earlier full Dubai market scan — 156 clinics with ratings + reviews. Source data for the price dashboard.</div>
-        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+        <div class="tile-desc">Earlier full Dubai market scan. Superseded by Vet Market Report — keep for source data only.</div>
+        <div class="tile-foot"><span class="pill pill-old">Outdated</span></div>
+      </a>
+      <a class="tile cat-reports" href="SEO-Report-140426.pdf" data-cat="reports">
+        <div class="tile-icon">📄</div>
+        <div class="tile-title">SEO Weekly Report (Apr 14)</div>
+        <div class="tile-desc">8-page PDF — modernvet.com SEO state, competitor benchmarks, action items.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span><span class="pill pill-tool">PDF</span></div>
       </a>
     </div>
   </section>
@@ -315,29 +331,29 @@
       <p>Knowledge base, audits, sim reports, deployment guide</p>
     </div>
     <div class="tiles">
-      <a class="tile cat-veta" href="veta-improvement-report.html" data-cat="veta">
-        <div class="tile-icon">📈</div>
-        <div class="tile-title">Veta Improvement Report</div>
-        <div class="tile-desc">Bot reliability & coverage progress. Apr 24 baseline + path to production-ready.</div>
-        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      <a class="tile cat-veta" href="veta-kb-improvement-2026-04-27.html" data-cat="veta">
+        <div class="tile-icon">📚</div>
+        <div class="tile-title">KB Improvement Report (Apr 27)</div>
+        <div class="tile-desc">Phase 1–5 KB cleanup recap. Final tally: 1,018 entries, 88% gap coverage. <strong>Latest.</strong></div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span><span class="pill pill-new">Latest</span></div>
       </a>
       <a class="tile cat-veta" href="veta-improvement-plan.html" data-cat="veta">
         <div class="tile-icon">🗺️</div>
         <div class="tile-title">Veta Improvement Plan</div>
         <div class="tile-desc">Strategic roadmap: what to fix, in what order, and why. Data-driven priority list.</div>
-        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span><span class="pill pill-internal">Internal</span></div>
       </a>
-      <a class="tile cat-veta" href="veta-kb-improvement-2026-04-27.html" data-cat="veta">
-        <div class="tile-icon">📚</div>
-        <div class="tile-title">KB Improvement Report (Apr 27)</div>
-        <div class="tile-desc">Phase 1–5 KB cleanup recap. Final tally: 1,018 entries, 88% gap coverage.</div>
-        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      <a class="tile cat-veta is-old" href="veta-improvement-report.html" data-cat="veta">
+        <div class="tile-icon">📈</div>
+        <div class="tile-title">Veta Improvement Report (Apr 24)</div>
+        <div class="tile-desc">Bot reliability baseline. Superseded by the Apr 27 KB Improvement Report.</div>
+        <div class="tile-foot"><span class="pill pill-old">Outdated</span></div>
       </a>
       <a class="tile cat-veta" href="veta-kb-audit.html" data-cat="veta">
         <div class="tile-icon">🔍</div>
         <div class="tile-title">KB Browse / Audit Dashboard</div>
         <div class="tile-desc">Browse all 1,018 KB entries. Search, filter, classify. The bot's full memory in one view.</div>
-        <div class="tile-foot"><span class="pill pill-live">Live</span><span class="pill pill-locked">Pwd</span></div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span><span class="pill pill-locked">Pwd</span><span class="pill pill-internal">Internal</span></div>
       </a>
       <a class="tile cat-veta" href="veta-sim-report.html" data-cat="veta">
         <div class="tile-icon">🧪</div>
@@ -345,11 +361,11 @@
         <div class="tile-desc">40-question sim with 100% hit rate. Confidence test that Veta can handle real customers.</div>
         <div class="tile-foot"><span class="pill pill-live">Live</span></div>
       </a>
-      <a class="tile cat-veta" href="veta-kb-report.html" data-cat="veta">
+      <a class="tile cat-veta is-old" href="veta-kb-report.html" data-cat="veta">
         <div class="tile-icon">📊</div>
         <div class="tile-title">KB Progress Report</div>
-        <div class="tile-desc">WhatsApp-bot KB build progress over time. Useful as a "where we started" reference.</div>
-        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+        <div class="tile-desc">Earlier WhatsApp-bot KB progress (700 entries baseline). Superseded by Apr 27 report.</div>
+        <div class="tile-foot"><span class="pill pill-old">Outdated</span></div>
       </a>
       <a class="tile cat-veta" href="veta-guide.html" data-cat="veta">
         <div class="tile-icon">📖</div>
@@ -377,13 +393,13 @@
         <div class="tile-icon">🆕</div>
         <div class="tile-title">Services Page Redesign V2</div>
         <div class="tile-desc">Latest iteration of the modernvet.com services page. Cleaner hierarchy, better CTAs.</div>
-        <div class="tile-foot"><span class="pill pill-draft">Draft</span></div>
+        <div class="tile-foot"><span class="pill pill-draft">Draft</span><span class="pill pill-new">Latest</span></div>
       </a>
-      <a class="tile cat-mockups" href="modernvet-services-redesign.html" data-cat="mockups">
+      <a class="tile cat-mockups is-old" href="modernvet-services-redesign.html" data-cat="mockups">
         <div class="tile-icon">📄</div>
         <div class="tile-title">Services Redesign V1</div>
-        <div class="tile-desc">First pass at restructured services page. Keep for compare/contrast against V2.</div>
-        <div class="tile-foot"><span class="pill pill-draft">Draft</span></div>
+        <div class="tile-desc">First pass at restructured services page. Superseded by V2 — keep for compare/contrast.</div>
+        <div class="tile-foot"><span class="pill pill-old">Outdated</span></div>
       </a>
       <a class="tile cat-mockups" href="modernvet-mobile-menu-prototype.html" data-cat="mockups">
         <div class="tile-icon">📱</div>
@@ -435,6 +451,24 @@
         <div class="tile-icon">🐕</div>
         <div class="tile-title">Floof — Letterhead</div>
         <div class="tile-desc">Branded letterhead for Floof correspondence. Brand-book accurate.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
+      <a class="tile cat-marketing" href="bov-d2-reviews-branded-v2.jpg" data-cat="marketing">
+        <div class="tile-icon">⭐</div>
+        <div class="tile-title">BOV Review Graphic</div>
+        <div class="tile-desc">Blue Oasis Vet — 4 customer reviews, branded social-ready graphic. 1080×1350 portrait.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span><span class="pill pill-tool">JPG</span></div>
+      </a>
+      <a class="tile cat-marketing" href="blue-oasis-d2-reviews-1080x1350.jpg" data-cat="marketing">
+        <div class="tile-icon">📱</div>
+        <div class="tile-title">BOV Review Graphic (Portrait)</div>
+        <div class="tile-desc">Blue Oasis Vet review graphic, portrait orientation for Instagram Stories/Reels.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span><span class="pill pill-tool">JPG</span></div>
+      </a>
+      <a class="tile cat-marketing" href="certs/index.html" data-cat="marketing">
+        <div class="tile-icon">🏆</div>
+        <div class="tile-title">VA Q1 2026 Certificates</div>
+        <div class="tile-desc">6 certificate designs — 1st/2nd/3rd place, Solo + Team, Vet Alliance Q1 awards.</div>
         <div class="tile-foot"><span class="pill pill-live">Live</span></div>
       </a>
     </div>
@@ -584,10 +618,94 @@
           </div>
         </li>
         <li class="tl-item">
-          <div class="tl-date">Apr 19</div>
+          <div class="tl-date">Apr 23</div>
           <div class="tl-body">
-            <span class="tl-tag">reports</span><strong>Abu Dhabi Expansion Reports</strong>
-            <em>Market scan + strategic expansion analysis for Abu Dhabi entry.</em>
+            <span class="tl-tag">reports</span><strong>Abu Dhabi Vet Market + Expansion Reports</strong>
+            <em>Market scan + strategic expansion analysis for Abu Dhabi entry. 29 verified clinics.</em>
+          </div>
+        </li>
+        <li class="tl-item">
+          <div class="tl-date">Apr 21</div>
+          <div class="tl-body">
+            <span class="tl-tag">veta</span><strong>Veta KB Report v3 + Sim Report v2</strong>
+            <em>700 entries milestone, 56 doctor profiles. 40-question simulation across both KB tabs.</em>
+          </div>
+        </li>
+        <li class="tl-item">
+          <div class="tl-date">Apr 20</div>
+          <div class="tl-body">
+            <span class="tl-tag">reports</span><strong>Vet Market Report (unified)</strong>
+            <em>156 clinics, ratings, neighbourhoods, weighted ranking, expansion tab. Foundation for everything that followed.</em>
+          </div>
+        </li>
+        <li class="tl-item">
+          <div class="tl-date">Apr 14</div>
+          <div class="tl-body">
+            <span class="tl-tag">reports</span><strong>SEO Weekly Report (Apr 14)</strong>
+            <em>8-page PDF — modernvet.com SEO state, competitor benchmarks, GMB report companion.</em>
+          </div>
+        </li>
+        <li class="tl-item">
+          <div class="tl-date">Apr 14</div>
+          <div class="tl-body">
+            <span class="tl-tag">marketing</span><strong>BOV Review Graphics + Zoetis Brochure + Azizi Riviera Card</strong>
+            <em>Social-ready review graphics for Blue Oasis Vet (multiple formats), Zoetis trifold brochure, two-sided Azizi Riviera advertising card with real photos.</em>
+          </div>
+        </li>
+        <li class="tl-item">
+          <div class="tl-date">Apr 13</div>
+          <div class="tl-body">
+            <span class="tl-tag">mockups</span><strong>ModernVet Services Redesign + Mobile Menu + VA Certificates</strong>
+            <em>Services page redesign V1 & V2, mobile navigation prototype, 6 Q1 2026 certificate designs (Solo + Team).</em>
+          </div>
+        </li>
+        <li class="tl-item">
+          <div class="tl-date">Apr 6–7</div>
+          <div class="tl-body">
+            <span class="tl-tag">tech</span><strong>Major SEO + Indexing Cleanup</strong>
+            <em>SEMRush + Ahrefs + GSC analysis. Noindexed 41 pages. Blocked dev.modernvet.com from Google. GPS schema fix.</em>
+          </div>
+        </li>
+        <li class="tl-item">
+          <div class="tl-date">Mar 31–Apr 4</div>
+          <div class="tl-body">
+            <span class="tl-tag">tech</span><strong>Daily Email Digest + Telegram Bot Wiring</strong>
+            <em>Daily Gmail digest cron, Telegram group routing, Slack DM intros. Email cron failure root-caused & fixed.</em>
+          </div>
+        </li>
+        <li class="tl-item">
+          <div class="tl-date">Mar 27</div>
+          <div class="tl-body">
+            <span class="tl-tag">mockups</span><strong>Services Page Redesign (kickoff)</strong>
+            <em>Brand-book deep dive, services hierarchy decisions, header redesign concept.</em>
+          </div>
+        </li>
+        <li class="tl-item">
+          <div class="tl-date">Mar 24</div>
+          <div class="tl-body">
+            <span class="tl-tag">reports</span><strong>Modern Vet SEO Analysis</strong>
+            <em>Google March 2026 core update impact assessment. Competitor DR data. On-page audit: 1,180 posts + 115 pages.</em>
+          </div>
+        </li>
+        <li class="tl-item">
+          <div class="tl-date">Mar 22</div>
+          <div class="tl-body">
+            <span class="tl-tag">reports</span><strong>Full Site Audit (modernvet.com)</strong>
+            <em>SEMRush full audit. Critical bugs surfaced. Foundation for the SEO cleanup that followed.</em>
+          </div>
+        </li>
+        <li class="tl-item">
+          <div class="tl-date">Mar 21</div>
+          <div class="tl-body">
+            <span class="tl-tag">tech</span><strong>Slack + Telegram + Cron Foundation</strong>
+            <em>14 Slack DMs to team with weekly task lists. Telegram connected. Initial cron jobs for daily/weekly automation.</em>
+          </div>
+        </li>
+        <li class="tl-item">
+          <div class="tl-date">Mar 19</div>
+          <div class="tl-body">
+            <span class="tl-tag">tech</span><strong>First contact — Setup &amp; SEO Diagnostic</strong>
+            <em>Andrew &amp; Cheshire start collaborating. Critical SEO issue surfaced: "emergency vet near me" dropped from #1.</em>
           </div>
         </li>
 

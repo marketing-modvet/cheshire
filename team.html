@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marketing Hub | Modern Vet</title>
+<meta name="description" content="Modern Vet Marketing — tools, intelligence, and reports for leadership and team.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📊%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --navy: #252354;
+    --navy-deep: #1a1840;
+    --navy-soft: #34326a;
+    --salmon: #fcc198;
+    --salmon-bright: #ffb380;
+    --beige: #fae3d6;
+    --rose: #b67b6d;
+    --mint: #6fb09a;
+    --brick: #a61c00;
+    --bg: #faf6f2;
+    --card: #ffffff;
+    --text: #1a1840;
+    --muted: #6b6c87;
+    --border: rgba(37,35,84,0.08);
+    --shadow: 0 1px 2px rgba(37,35,84,0.04), 0 4px 16px rgba(37,35,84,0.06);
+    --shadow-hover: 0 2px 4px rgba(37,35,84,0.08), 0 12px 32px rgba(37,35,84,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+  html, body { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; }
+  body { line-height: 1.55; min-height: 100vh; }
+
+  /* ═══ HEADER ═══ */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color: white;
+    padding: 56px 24px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40%; right: -8%;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, var(--salmon) 0%, transparent 60%);
+    opacity: 0.18;
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30%; left: -10%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, var(--mint) 0%, transparent 60%);
+    opacity: 0.08;
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 1200px; margin: 0 auto; position: relative; }
+  .brand-line {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+    color: var(--salmon); font-weight: 600; font-size: 13px;
+    text-transform: uppercase; letter-spacing: 2.5px;
+  }
+  .brand-line::before {
+    content: ''; width: 32px; height: 2px; background: var(--salmon); display: inline-block;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 4.5vw, 48px); font-weight: 700;
+    line-height: 1.1; margin-bottom: 16px; letter-spacing: -0.02em;
+  }
+  .hero h1 .accent { color: var(--salmon); }
+  .hero p {
+    color: rgba(255,255,255,0.82); max-width: 720px; font-size: 17px; font-weight: 300;
+  }
+  .hero-meta {
+    display: flex; gap: 32px; flex-wrap: wrap; margin-top: 28px;
+    font-size: 13px; color: rgba(255,255,255,0.6);
+  }
+  .hero-meta span strong { color: var(--salmon); font-weight: 600; }
+
+  /* ═══ MAIN ═══ */
+  main { max-width: 1200px; margin: -32px auto 0; padding: 0 24px 80px; position: relative; z-index: 2; }
+
+  /* ═══ KPIs ═══ */
+  .kpis {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 14px; margin-bottom: 48px;
+    background: var(--card); border-radius: 18px; padding: 24px;
+    box-shadow: var(--shadow); border: 1px solid var(--border);
+  }
+  .kpi { padding: 8px 14px; border-left: 3px solid var(--salmon); }
+  .kpi-num { font-size: 28px; font-weight: 700; color: var(--navy); line-height: 1; }
+  .kpi-num small { font-size: 14px; color: var(--muted); font-weight: 500; }
+  .kpi-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; font-weight: 500; }
+
+  /* ═══ SECTIONS ═══ */
+  section { margin-bottom: 64px; }
+  .section-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 24px; gap: 16px; flex-wrap: wrap; padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-head h2 {
+    font-size: 24px; font-weight: 700; color: var(--navy); letter-spacing: -0.01em;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .section-head .emoji { font-size: 26px; }
+  .section-head p { color: var(--muted); font-size: 13.5px; max-width: 320px; text-align: right; }
+
+  /* ═══ TILES ═══ */
+  .tiles {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+  .tile {
+    background: var(--card); border-radius: 14px; padding: 22px 22px 18px;
+    box-shadow: var(--shadow); border: 1px solid var(--border);
+    text-decoration: none; color: inherit; display: flex; flex-direction: column;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    position: relative; overflow: hidden; min-height: 150px;
+  }
+  .tile:hover {
+    transform: translateY(-3px); box-shadow: var(--shadow-hover);
+    border-color: rgba(37,35,84,0.18);
+  }
+  .tile::after {
+    content: '→';
+    position: absolute; top: 18px; right: 20px;
+    color: var(--muted); font-size: 18px; font-weight: 400;
+    transition: transform 0.18s ease, color 0.18s ease;
+  }
+  .tile:hover::after { transform: translateX(4px); color: var(--navy); }
+  .tile-icon { font-size: 26px; margin-bottom: 10px; line-height: 1; }
+  .tile-title { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 6px; padding-right: 28px; line-height: 1.3; }
+  .tile-desc { font-size: 13px; color: var(--muted); line-height: 1.5; flex: 1; }
+  .tile-foot {
+    margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap;
+  }
+  .pill {
+    font-size: 10px; padding: 3px 9px; border-radius: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .pill-live { background: rgba(111,176,154,0.18); color: #3d7a64; }
+  .pill-locked { background: rgba(252,193,152,0.3); color: #8a4d2c; }
+  .pill-pdf { background: rgba(166,28,0,0.12); color: var(--brick); }
+  .pill-sheet { background: rgba(64,150,68,0.18); color: #2e6e2c; }
+
+  /* category tints */
+  .tile.cat-prices { border-top: 3px solid var(--salmon); }
+  .tile.cat-reports { border-top: 3px solid var(--navy); }
+  .tile.cat-veta { border-top: 3px solid var(--mint); }
+  .tile.cat-marketing { border-top: 3px solid var(--brick); }
+  .tile.cat-mockups { border-top: 3px solid var(--rose); }
+
+  /* ═══ TIMELINE ═══ */
+  .timeline-wrap {
+    background: var(--card); border-radius: 18px; padding: 32px;
+    box-shadow: var(--shadow); border: 1px solid var(--border);
+  }
+  .tl-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+  .tl-head h3 { font-size: 20px; color: var(--navy); }
+  .tl-counter { font-size: 13px; color: var(--muted); }
+  .tl-counter strong { color: var(--brick); font-weight: 600; }
+
+  .tl-month {
+    margin-bottom: 24px;
+  }
+  .tl-month-label {
+    font-size: 11px; font-weight: 700; color: var(--rose);
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px; padding-left: 4px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .tl-month-label::after {
+    content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent);
+  }
+  .tl-list { list-style: none; }
+  .tl-item {
+    display: grid; grid-template-columns: 80px 1fr; gap: 20px;
+    padding: 14px 0; border-bottom: 1px dashed var(--border); align-items: start;
+  }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-date { font-size: 12px; color: var(--muted); font-weight: 600; padding-top: 2px; }
+  .tl-body strong { color: var(--navy); font-weight: 600; font-size: 14.5px; }
+  .tl-body em { color: var(--muted); font-style: normal; font-size: 13px; display: block; margin-top: 3px; }
+  .tl-tag {
+    display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 8px;
+    background: var(--beige); color: var(--rose); font-weight: 600; margin-right: 8px;
+    text-transform: uppercase; letter-spacing: 0.5px; vertical-align: 2px;
+  }
+  .tl-tag.t-prices { background: rgba(252,193,152,0.35); color: #8a4d2c; }
+  .tl-tag.t-reports { background: rgba(37,35,84,0.1); color: var(--navy); }
+  .tl-tag.t-veta { background: rgba(111,176,154,0.2); color: #3d7a64; }
+  .tl-tag.t-marketing { background: rgba(166,28,0,0.12); color: var(--brick); }
+  .tl-tag.t-tech { background: rgba(52,50,106,0.12); color: var(--navy-soft); }
+  .tl-tag.t-mockups { background: rgba(182,123,109,0.2); color: var(--rose); }
+
+  /* ═══ FOOTER ═══ */
+  footer {
+    text-align: center; padding: 36px 24px;
+    color: var(--muted); font-size: 12.5px; border-top: 1px solid var(--border);
+    margin-top: 48px; background: white;
+  }
+  footer a { color: var(--navy); text-decoration: none; font-weight: 500; }
+
+  /* ═══ MOBILE ═══ */
+  @media (max-width: 600px) {
+    .hero { padding: 36px 20px 44px; }
+    main { padding: 0 16px 60px; }
+    .tiles { grid-template-columns: 1fr; }
+    .tl-item { grid-template-columns: 70px 1fr; gap: 14px; }
+    .timeline-wrap { padding: 22px; }
+    .section-head { flex-direction: column; align-items: flex-start; }
+    .section-head p { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="brand-line">Modern Vet · Marketing</div>
+    <h1>Marketing <span class="accent">Hub</span></h1>
+    <p>Tools, intelligence, and reports for our team and partners. Live dashboards, market research, brand assets — everything we've built, ready to use.</p>
+    <div class="hero-meta">
+      <span><strong>Last updated:</strong> Apr 29, 2026</span>
+      <span><strong>Owner:</strong> Marketing Department</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ═══ KPIs ═══ -->
+  <div class="kpis">
+    <div class="kpi"><div class="kpi-num">151</div><div class="kpi-label">Clinics tracked</div></div>
+    <div class="kpi"><div class="kpi-num">16</div><div class="kpi-label">Services compared</div></div>
+    <div class="kpi"><div class="kpi-num">1,018</div><div class="kpi-label">Bot KB entries</div></div>
+    <div class="kpi"><div class="kpi-num">100<small>%</small></div><div class="kpi-label">Bot sim hit rate</div></div>
+    <div class="kpi"><div class="kpi-num">7</div><div class="kpi-label">Months ahead (plan)</div></div>
+  </div>
+
+  <!-- ═══ MARKET INTELLIGENCE ═══ -->
+  <section>
+    <div class="section-head">
+      <h2><span class="emoji">📊</span> Market Intelligence</h2>
+      <p>Live dashboards and market reports</p>
+    </div>
+    <div class="tiles">
+      <a class="tile cat-prices" href="price-intelligence.html">
+        <div class="tile-icon">💰</div>
+        <div class="tile-title">Dubai Vet Price Dashboard</div>
+        <div class="tile-desc">Live price comparison across 151 Dubai vet clinics, 16 services. Heatmap, sortable tables, our brands highlighted vs. competitors.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span><span class="pill pill-locked">Password</span></div>
+      </a>
+      <a class="tile cat-prices" href="submit-price.html">
+        <div class="tile-icon">📝</div>
+        <div class="tile-title">Submit Competitor Price</div>
+        <div class="tile-desc">Found a price during a clinic visit, phone call, or website check? Drop it here — feeds straight into the dashboard after review.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
+      <a class="tile cat-reports" href="vet-market-report.html">
+        <div class="tile-icon">🏆</div>
+        <div class="tile-title">Dubai Vet Market Report</div>
+        <div class="tile-desc">Full Dubai veterinary landscape — 156 clinics, ratings, neighbourhoods, weighted competitive ranking, expansion opportunity tab.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
+      <a class="tile cat-reports" href="abu-dhabi-vet-report.html">
+        <div class="tile-icon">🌆</div>
+        <div class="tile-title">Abu Dhabi Vet Market Report</div>
+        <div class="tile-desc">Abu Dhabi market scan — 29 verified clinics, competitor density, gap analysis, candidate areas for expansion.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
+      <a class="tile cat-reports" href="abu-dhabi-expansion-report.html">
+        <div class="tile-icon">🚩</div>
+        <div class="tile-title">Abu Dhabi Expansion Report</div>
+        <div class="tile-desc">Strategic write-up: where to enter Abu Dhabi, why those locations, and how. Builds on the market scan with concrete recommendations.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
+      <a class="tile cat-reports" href="expansion-report.html">
+        <div class="tile-icon">📍</div>
+        <div class="tile-title">Dubai Expansion Opportunity</div>
+        <div class="tile-desc">Site analysis for new branches in Dubai — neighbourhood scoring, competitor proximity, commercial logic for next locations.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ SEO & DIGITAL ═══ -->
+  <section>
+    <div class="section-head">
+      <h2><span class="emoji">🔎</span> SEO & Digital</h2>
+      <p>Reports and technical foundations</p>
+    </div>
+    <div class="tiles">
+      <a class="tile cat-reports" href="SEO-Report-140426.pdf">
+        <div class="tile-icon">📄</div>
+        <div class="tile-title">SEO Weekly Report (Apr 14)</div>
+        <div class="tile-desc">8-page PDF — modernvet.com SEO state, competitor benchmarks, GMB analysis, action items for the next sprint.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span><span class="pill pill-pdf">PDF</span></div>
+      </a>
+      <a class="tile cat-reports" href="tracking-fix.html">
+        <div class="tile-icon">🛠️</div>
+        <div class="tile-title">Tracking Fix Tutorial</div>
+        <div class="tile-desc">Full diagnostic + fix walkthrough for the modernvet.com tracking pipeline. GTM, GA4, Google Ads conversions — what was broken, what we fixed.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ BOT — VETA ═══ -->
+  <section>
+    <div class="section-head">
+      <h2><span class="emoji">🤖</span> Veta — WhatsApp Assistant</h2>
+      <p>Customer-facing AI consultant</p>
+    </div>
+    <div class="tiles">
+      <a class="tile cat-veta" href="veta-guide.html">
+        <div class="tile-icon">📖</div>
+        <div class="tile-title">Veta Quick-Start Guide</div>
+        <div class="tile-desc">How to use Veta, what she knows, and what she can answer. Share with team & customers as the public-facing entry point.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
+      <a class="tile cat-veta" href="https://t.me/veta_modernvet_consultantbot" target="_blank" rel="noopener">
+        <div class="tile-icon">💬</div>
+        <div class="tile-title">Try Veta on Telegram</div>
+        <div class="tile-desc">Live test bot @veta_modernvet_consultantbot — same brain WhatsApp will use. Ask real customer questions and see how she responds.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
+      <a class="tile cat-veta" href="veta-sim-report.html">
+        <div class="tile-icon">🧪</div>
+        <div class="tile-title">Veta Confidence Test</div>
+        <div class="tile-desc">40-question simulation across both KB scopes. <strong>100% hit rate</strong> — proof the bot is ready for customer-facing rollout.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
+      <a class="tile cat-veta" href="veta-kb-improvement-2026-04-27.html">
+        <div class="tile-icon">📚</div>
+        <div class="tile-title">Knowledge Base Status</div>
+        <div class="tile-desc">Where the KB stands today — 1,018 entries, 88% gap coverage, the full path from baseline to production-ready.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ BRAND & MARKETING ASSETS ═══ -->
+  <section>
+    <div class="section-head">
+      <h2><span class="emoji">✨</span> Brand & Marketing Assets</h2>
+      <p>Templates, graphics, and ready-to-use materials</p>
+    </div>
+    <div class="tiles">
+      <a class="tile cat-marketing" href="ViennaVet-Letterhead.html">
+        <div class="tile-icon">📝</div>
+        <div class="tile-title">Vienna Vet — Letterhead</div>
+        <div class="tile-desc">Brand-book accurate letterhead template for Vienna Vet correspondence. Open and print or download as PDF.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
+      <a class="tile cat-marketing" href="Floof-Letterhead.html">
+        <div class="tile-icon">🐕</div>
+        <div class="tile-title">Floof — Letterhead</div>
+        <div class="tile-desc">Brand-book accurate letterhead for Floof correspondence. Open and print or download as PDF.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
+      <a class="tile cat-marketing" href="RoyalCanin-BackInStock-Email.html">
+        <div class="tile-icon">📧</div>
+        <div class="tile-title">Royal Canin — Back in Stock Email</div>
+        <div class="tile-desc">Customer email announcing the return of prescription diet stock. Real product imagery, hero collage, ready to send.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
+      <a class="tile cat-marketing" href="zoetis-brochure-redesign-full.html">
+        <div class="tile-icon">📰</div>
+        <div class="tile-title">Zoetis — Trifold Brochure</div>
+        <div class="tile-desc">Trifold print brochure redesign for Modern Vet × Zoetis services. Print-ready layout, branded.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
+      <a class="tile cat-marketing" href="bov-d2-reviews-branded-v2.jpg">
+        <div class="tile-icon">⭐</div>
+        <div class="tile-title">BOV — Review Graphic</div>
+        <div class="tile-desc">Blue Oasis Vet — 4 customer reviews on a branded social-ready graphic. 1080×1350 portrait, perfect for Instagram & Stories.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
+      <a class="tile cat-marketing" href="azizi-riviera-card.html">
+        <div class="tile-icon">🏪</div>
+        <div class="tile-title">Azizi Riviera — Advertising Card</div>
+        <div class="tile-desc">Two-sided print card for Modern Vet's Azizi Riviera branch. Real photos, doctor bio, packages.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
+      <a class="tile cat-marketing" href="certs/index.html">
+        <div class="tile-icon">🏆</div>
+        <div class="tile-title">VA Q1 2026 Certificates</div>
+        <div class="tile-desc">Six certificate designs — 1st/2nd/3rd place, Solo + Team awards. Ready to print for Q1 recognition.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ WEB MOCKUPS ═══ -->
+  <section>
+    <div class="section-head">
+      <h2><span class="emoji">🎨</span> Web Mockups (in Review)</h2>
+      <p>Drafts for the modernvet.com refresh</p>
+    </div>
+    <div class="tiles">
+      <a class="tile cat-mockups" href="modernvet-services-redesign-v2.html">
+        <div class="tile-icon">🆕</div>
+        <div class="tile-title">Services Page Redesign</div>
+        <div class="tile-desc">Latest iteration of the modernvet.com services page. Cleaner hierarchy, stronger CTAs. Ready for stakeholder review.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
+      <a class="tile cat-mockups" href="modernvet-mobile-menu-prototype.html">
+        <div class="tile-icon">📱</div>
+        <div class="tile-title">Mobile Menu Prototype</div>
+        <div class="tile-desc">Improved mobile navigation pattern for modernvet.com. Tap-friendly, hierarchy clear, emergency CTA prominent.</div>
+        <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ RELEASE TIMETABLE ═══ -->
+  <section>
+    <div class="section-head">
+      <h2><span class="emoji">📅</span> Release Timetable</h2>
+      <p>Everything we've shipped — recent first</p>
+    </div>
+    <div class="timeline-wrap">
+      <div class="tl-head">
+        <h3>Marketing Department — Delivery Track</h3>
+        <div class="tl-counter">From <strong>Mar 19</strong> to <strong>Apr 29, 2026</strong></div>
+      </div>
+
+      <div class="tl-month">
+        <div class="tl-month-label">April 2026 — Late</div>
+        <ul class="tl-list">
+          <li class="tl-item">
+            <div class="tl-date">Apr 29</div>
+            <div class="tl-body">
+              <span class="tl-tag t-prices">Prices</span><strong>Price Submission System — central sync</strong>
+              <em>Form, review queue, and Google Sheet backend live. Anyone in the team can now submit competitor prices into the dashboard.</em>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-date">Apr 29</div>
+            <div class="tl-body">
+              <span class="tl-tag t-tech">Tech</span><strong>GA4 → Google Ads conversions verified</strong>
+              <em>Confirmed WhatsApp & phone-click conversion tracking is functional end-to-end. Flagged & documented duplicate WA action for cleanup.</em>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-date">Apr 29</div>
+            <div class="tl-body">
+              <span class="tl-tag t-marketing">Brand</span><strong>Vienna Vet & Floof Letterheads</strong>
+              <em>Brand-book accurate letterhead templates for both sister brands. Hosted, ready to use anywhere.</em>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-date">Apr 29</div>
+            <div class="tl-body">
+              <span class="tl-tag t-marketing">Brand</span><strong>Royal Canin Back-in-Stock email</strong>
+              <em>Customer-facing announcement email with real product imagery and hero collage. Ready to send.</em>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-date">Apr 28</div>
+            <div class="tl-body">
+              <span class="tl-tag t-veta">Veta</span><strong>Veta Telegram test bot live</strong>
+              <em>@veta_modernvet_consultantbot online for public testing. Same KB & logic as future WhatsApp deployment.</em>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-date">Apr 27</div>
+            <div class="tl-body">
+              <span class="tl-tag t-veta">Veta</span><strong>KB Improvement Phase 1–5 complete</strong>
+              <em>1,018 entries audited & classified. 88% gap coverage. Bot validated as production-ready.</em>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-date">Apr 27</div>
+            <div class="tl-body">
+              <span class="tl-tag t-tech">Tech</span><strong>Cross-domain tracking fix</strong>
+              <em>Diagnosed and repaired the modernvet.com ↔ book.floof.ae tracking pipeline. Missing AdWords tag installed.</em>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="tl-month">
+        <div class="tl-month-label">April 2026 — Mid</div>
+        <ul class="tl-list">
+          <li class="tl-item">
+            <div class="tl-date">Apr 24</div>
+            <div class="tl-body">
+              <span class="tl-tag t-prices">Prices</span><strong>Dubai Vet Price Intelligence — v1 live</strong>
+              <em>151-clinic, 16-service price comparison hub. Heatmap, sortable overview, our brands highlighted vs. competitors.</em>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-date">Apr 23</div>
+            <div class="tl-body">
+              <span class="tl-tag t-reports">Report</span><strong>Abu Dhabi Vet Market + Expansion Reports</strong>
+              <em>29-clinic Abu Dhabi market scan plus strategic expansion analysis with location candidates.</em>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-date">Apr 22</div>
+            <div class="tl-body">
+              <span class="tl-tag t-tech">Tech</span><strong>GTM/GA4 Cleanup &amp; Tracking Tutorial</strong>
+              <em>Container audit, tag cleanup, full tracking tutorial published for engineering reference.</em>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-date">Apr 21</div>
+            <div class="tl-body">
+              <span class="tl-tag t-veta">Veta</span><strong>KB Report v3 + Simulation v2</strong>
+              <em>Knowledge base milestones: 700 entries, 56 doctor profiles. 40-question simulation across MV/BOV/VV.</em>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-date">Apr 20</div>
+            <div class="tl-body">
+              <span class="tl-tag t-reports">Report</span><strong>Dubai Vet Market Report (unified)</strong>
+              <em>156 clinics, ratings, neighbourhoods, weighted ranking, expansion tab. Foundation report for everything that followed.</em>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="tl-month">
+        <div class="tl-month-label">April 2026 — Early</div>
+        <ul class="tl-list">
+          <li class="tl-item">
+            <div class="tl-date">Apr 14</div>
+            <div class="tl-body">
+              <span class="tl-tag t-reports">Report</span><strong>SEO Weekly Report — 8-page PDF</strong>
+              <em>modernvet.com SEO state of the union, competitor benchmarks, action items. GMB report companion.</em>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-date">Apr 14</div>
+            <div class="tl-body">
+              <span class="tl-tag t-marketing">Brand</span><strong>Brand Asset Sprint</strong>
+              <em>BOV review graphics (multiple formats), Zoetis trifold brochure redesign, two-sided Azizi Riviera advertising card.</em>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-date">Apr 13</div>
+            <div class="tl-body">
+              <span class="tl-tag t-mockups">Web</span><strong>modernvet.com Refresh Drafts</strong>
+              <em>Services page redesign V1 &amp; V2. Mobile navigation prototype. Q1 2026 certificate set (6 designs).</em>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-date">Apr 6–7</div>
+            <div class="tl-body">
+              <span class="tl-tag t-tech">Tech</span><strong>Major SEO &amp; Indexing Cleanup</strong>
+              <em>SEMRush, Ahrefs &amp; Search Console deep-dive. 41 pages noindexed. dev.modernvet.com blocked from Google. Schema fixes.</em>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="tl-month">
+        <div class="tl-month-label">March 2026</div>
+        <ul class="tl-list">
+          <li class="tl-item">
+            <div class="tl-date">Mar 31<br>Apr 4</div>
+            <div class="tl-body">
+              <span class="tl-tag t-tech">Tech</span><strong>Daily Email Digest &amp; Internal Comms</strong>
+              <em>Daily Gmail digest cron, Telegram group routing, weekly Slack DM task assignments to the team.</em>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-date">Mar 27</div>
+            <div class="tl-body">
+              <span class="tl-tag t-mockups">Web</span><strong>Services Redesign — Brand Foundation</strong>
+              <em>Brand-book deep dive, services hierarchy decisions, header redesign concept work.</em>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-date">Mar 24</div>
+            <div class="tl-body">
+              <span class="tl-tag t-reports">Report</span><strong>Modern Vet — SEO Analysis</strong>
+              <em>Google March 2026 core update impact assessment. Competitor DR data. On-page audit across 1,180 posts + 115 pages.</em>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-date">Mar 22</div>
+            <div class="tl-body">
+              <span class="tl-tag t-reports">Report</span><strong>Full Site Audit — modernvet.com</strong>
+              <em>SEMRush full audit. Critical bugs surfaced. Foundation for the SEO cleanup that followed.</em>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-date">Mar 21</div>
+            <div class="tl-body">
+              <span class="tl-tag t-tech">Tech</span><strong>Slack &amp; Cron Foundation</strong>
+              <em>14 weekly task DMs sent to team (Yohann, Vrinda, Eugene, Katerina &amp; co.). Telegram &amp; cron infrastructure live.</em>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-date">Mar 19</div>
+            <div class="tl-body">
+              <span class="tl-tag t-tech">Start</span><strong>Marketing Automation — Day One</strong>
+              <em>Marketing systems set up. First SEO diagnostic surfaces a critical issue: "emergency vet near me" dropped from #1 ranking.</em>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Modern Vet — Marketing Department · April 2026<br>
+  <em style="opacity:0.6">Hub maintained by Marketing. New deliverables are added here as they ship.</em>
+</footer>
+
+</body>
+</html>
