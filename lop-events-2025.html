@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Легенда Феникса — Акции 2025</title>
+<style>
+  :root {
+    --bg: #0f0c1a;
+    --bg2: #1a1530;
+    --card: #1e1a35;
+    --border: #2e2850;
+    --pink: #ff9eb5;
+    --gold: #ffd700;
+    --lavender: #c4b0f5;
+    --teal: #7fd9c8;
+    --text: #e8e0f8;
+    --muted: #8c85a8;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  header {
+    background: linear-gradient(135deg, #1a0e2e 0%, #2a1040 50%, #1a1530 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 20px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(255,158,181,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  header h1 {
+    font-size: clamp(22px, 5vw, 36px);
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    text-shadow: 0 0 30px rgba(255,215,0,0.4);
+  }
+  header p {
+    color: var(--muted);
+    font-size: 13px;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .search-bar {
+    margin: 20px auto 0;
+    max-width: 420px;
+    display: flex;
+    gap: 8px;
+  }
+  .search-bar input {
+    flex: 1;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 14px;
+    color: var(--text);
+    font-size: 14px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .search-bar input:focus { border-color: var(--pink); }
+  .search-bar input::placeholder { color: var(--muted); }
+
+  /* ── Layout ── */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 16px 60px;
+  }
+
+  /* ── Month block ── */
+  .month {
+    margin-bottom: 36px;
+  }
+  .month-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .month-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+  .month-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--border), transparent);
+  }
+  .month-count {
+    font-size: 12px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* ── Event card ── */
+  .events-grid {
+    display: grid;
+    gap: 10px;
+  }
+  .event {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4px 12px;
+    align-items: start;
+    transition: border-color .2s, background .2s;
+  }
+  .event:hover {
+    border-color: rgba(255,158,181,0.35);
+    background: #231e3d;
+  }
+  .event-name {
+    font-weight: 600;
+    color: var(--pink);
+    font-size: 14.5px;
+    grid-column: 1;
+  }
+  .event-dates {
+    font-size: 12.5px;
+    color: var(--gold);
+    font-weight: 600;
+    grid-column: 2;
+    grid-row: 1;
+    text-align: right;
+    white-space: nowrap;
+    padding-top: 2px;
+  }
+  .event-desc {
+    font-size: 13px;
+    color: var(--muted);
+    grid-column: 1 / -1;
+    margin-top: 2px;
+  }
+  .tag {
+    display: inline-block;
+    background: rgba(196,176,245,0.12);
+    color: var(--lavender);
+    border-radius: 4px;
+    padding: 1px 7px;
+    font-size: 11px;
+    margin-right: 4px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .tag.main { background: rgba(255,158,181,0.12); color: var(--pink); }
+  .tag.special { background: rgba(255,215,0,0.12); color: var(--gold); }
+  .tag.seasonal { background: rgba(127,217,200,0.12); color: var(--teal); }
+
+  /* ── Stats bar ── */
+  .stats {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+    justify-content: center;
+  }
+  .stat { text-align: center; }
+  .stat-n { font-size: 26px; font-weight: 700; color: var(--gold); }
+  .stat-l { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* ── Tip ── */
+  .tip {
+    background: rgba(196,176,245,0.07);
+    border: 1px solid rgba(196,176,245,0.2);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+  .tip strong { color: var(--lavender); }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    padding: 24px 16px;
+    border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--lavender); text-decoration: none; }
+  footer a:hover { color: var(--pink); }
+
+  /* ── Search highlight ── */
+  .hidden { display: none !important; }
+  mark { background: rgba(255,215,0,0.25); color: inherit; border-radius: 2px; }
+
+  @media (max-width: 520px) {
+    .event { grid-template-columns: 1fr; }
+    .event-dates { grid-column: 1; grid-row: auto; text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🦅 Легенда Феникса — Акции 2025</h1>
+  <p>Полный список игровых событий и акций за 2025 год. Данные из фан-канала @lop_fan.</p>
+  <div class="search-bar">
+    <input type="text" id="search" placeholder="🔍 Поиск по названию или датам…" oninput="filterEvents(this.value)">
+  </div>
+</header>
+
+<main>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-n">50+</div><div class="stat-l">акций за год</div></div>
+    <div class="stat"><div class="stat-n">12</div><div class="stat-l">месяцев</div></div>
+    <div class="stat"><div class="stat-n">2025</div><div class="stat-l">год</div></div>
+  </div>
+
+  <div class="tip">
+    <strong>Подсказка:</strong> Используй поиск выше или Ctrl+F для быстрого поиска нужной акции. Даты без года — 2025. Точные даты некоторых событий установлены приблизительно по постам фан-канала.
+  </div>
+
+  <!-- ═══════════════ ЯНВАРЬ ═══════════════ -->
+  <div class="month" data-month="январь">
+    <div class="month-header">
+      <span class="month-name">🏮 Январь</span>
+      <div class="month-line"></div>
+      <span class="month-count">4 события</span>
+    </div>
+    <div class="events-grid">
+      <div class="event">
+        <div class="event-name">Битва за знамя</div>
+        <div class="event-dates">20–26 янв</div>
+        <div class="event-desc">
+          <span class="tag">рейтинг</span>
+          Командное соревнование в 3 этапа: Подача заявок (20–21 янв), Собрание талантов (22–23 янв), Битва обаяния (24–26 янв).
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Пряная весна — I этап</div>
+        <div class="event-dates">27 янв – 2 февр</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Праздник Весны / Китайский Новый год. Накопление очков первого этапа (очки не переносятся во II этап).
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Дождь из красных конвертов</div>
+        <div class="event-dates">28 янв – 3 февр</div>
+        <div class="event-desc">
+          <span class="tag seasonal">сезонная</span>
+          Новогодний ивент. Раздача конвертов ежедневно в 12:00 и 20:00 МСК.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Акция к Китайскому Новому году</div>
+        <div class="event-dates">конец января</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Праздничный ивент Праздника Весны. Специальные наряды и украшения к году Змеи.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ ФЕВРАЛЬ ═══════════════ -->
+  <div class="month" data-month="февраль">
+    <div class="month-header">
+      <span class="month-name">❄️ Февраль</span>
+      <div class="month-line"></div>
+      <span class="month-count">2 события</span>
+    </div>
+    <div class="events-grid">
+      <div class="event">
+        <div class="event-name">Пряная весна — II этап</div>
+        <div class="event-dates">3–10 февр (прибл.)</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Продолжение новогоднего ивента. Новый набор очков — с нуля.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">День Святого Валентина</div>
+        <div class="event-dates">~14 февр</div>
+        <div class="event-desc">
+          <span class="tag seasonal">сезонная</span>
+          Небольшое тематическое событие к 14 февраля.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ МАРТ ═══════════════ -->
+  <div class="month" data-month="март">
+    <div class="month-header">
+      <span class="month-name">🌹 Март</span>
+      <div class="month-line"></div>
+      <span class="month-count">3 события</span>
+    </div>
+    <div class="events-grid">
+      <div class="event">
+        <div class="event-name">Сладкое свидание</div>
+        <div class="event-dates">9–15 марта</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Событие Белого дня (14 марта). Визитка для профиля, наряд для гг «Ванильная лирика», наряд для Сунь Вэньгуна.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Любовь в розах</div>
+        <div class="event-dates">9–15 марта</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Параллельная акция Белого дня. Коллекционный наряд «Розовый рассвет», единодушный наряд «Красная невеста», драгоценный наряд Сюй Чжэньцина «Святые крылья», фоны, мебель.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Обновление 5.5 (глобал)</div>
+        <div class="event-dates">март (прибл.)</div>
+        <div class="event-desc">
+          <span class="tag special">патч</span>
+          «Нарядная Судьба» для помощников, перекрасы для нескольких нарядов коллекции «Эксклюзивный», расширение мини-игры «Закати шарики» до 200 уровней.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ АПРЕЛЬ ═══════════════ -->
+  <div class="month" data-month="апрель">
+    <div class="month-header">
+      <span class="month-name">🌸 Апрель</span>
+      <div class="month-line"></div>
+      <span class="month-count">4 события</span>
+    </div>
+    <div class="events-grid">
+      <div class="event">
+        <div class="event-name">5-я Годовщина игры</div>
+        <div class="event-dates">апрель (опрос 9–13 апр)</div>
+        <div class="event-desc">
+          <span class="tag special">годовщина</span>
+          Масштабное ежегодное событие. Эксклюзивные наряды, скин для Свахи (эльфийка), скин для Сюй Чжэньцина, скин для Воспитанника. Праздничный опрос 9–13 апреля.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Легенда об озере Сиху</div>
+        <div class="event-dates">апрель (прибл.)</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Наряд для помощника Ши Лянь «Тень бамбука».
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Морская песня (анонс)</div>
+        <div class="event-dates">апрель-май</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Летняя морская акция. Дата старта объявлялась как «как только так сразу».
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Карнавал воды</div>
+        <div class="event-dates">апрель-май</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Анимированный наряд «Фантастическое плавание», наряд для БД Сюй Чжэньцина «Приятное лето», наряд для БД Фу Хэна «На гребне волны», наряды для гг, скин для Чжэнь Хуань.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ МАЙ ═══════════════ -->
+  <div class="month" data-month="май">
+    <div class="month-header">
+      <span class="month-name">🌺 Май</span>
+      <div class="month-line"></div>
+      <span class="month-count">3 события</span>
+    </div>
+    <div class="events-grid">
+      <div class="event">
+        <div class="event-name">День 520 / Цветы персика</div>
+        <div class="event-dates">~20 мая</div>
+        <div class="event-desc">
+          <span class="tag seasonal">сезонная</span>
+          Китайский день влюблённых (520 = «Я тебя люблю» по-китайски). Наряд «Цветы персика» с перекрасом.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">День детей (обменник)</div>
+        <div class="event-dates">~1 июня</div>
+        <div class="event-desc">
+          <span class="tag seasonal">сезонная</span>
+          Небольшой обменник к Дню детей. Наряд «Клубничный торт» (позже доступен в Ярмарке).
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Садовая гармония</div>
+        <div class="event-dates">29 апр – 5 мая</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Обычный (с перекрасом) и анимированный наряды для гг, скин для Дугу Мэн (пьющий), питомец Оленёнок, фоны для Гардероба/Зала Феникса/Огорода, мебель, декор. Помощник Лян Се за донат.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ ИЮНЬ ═══════════════ -->
+  <div class="month" data-month="июнь">
+    <div class="month-header">
+      <span class="month-name">🪻 Июнь</span>
+      <div class="month-line"></div>
+      <span class="month-count">2 события</span>
+    </div>
+    <div class="events-grid">
+      <div class="event">
+        <div class="event-name">Цветочное окрашивание на Дуаньу</div>
+        <div class="event-dates">28 мая – 5 июня</div>
+        <div class="event-desc">
+          <span class="tag seasonal">сезонная</span>
+          Праздник Лодок-Драконов. Единодушный скин для Мулан (с зонтом), эксклюзивный и анимированные наряды для гг, фоны для Будуара и Зала Феникса, мебель, декор, картина «Любовь красавицы», визитка для профиля.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Волшебные мечты</div>
+        <div class="event-dates">11–17 июня</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Эксклюзивный (карточный шут) и анимированный (голубой) наряды для гг, пчелиный скин для Цэцэг, скин для кота, мебель для кота, картина. Наряд для Ши Лянь «Летняя игра».
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ ИЮЛЬ ═══════════════ -->
+  <div class="month" data-month="июль">
+    <div class="month-header">
+      <span class="month-name">🌠 Июль</span>
+      <div class="month-line"></div>
+      <span class="month-count">3 события</span>
+    </div>
+    <div class="events-grid">
+      <div class="event">
+        <div class="event-name">Земля под звёздами</div>
+        <div class="event-dates">6–12 июля</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Обычный и анимированный наряды для гг, наряд для Юань Тяньгана, новый помощник Синчжи, фоны для Резиденции и Дворца, мебель, картина с регалией.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Пруд звёздной мечты</div>
+        <div class="event-dates">июль</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Получение наряда для помощника Юань Тяньгана (100 единиц прогресса).
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Июльское событие: дни рождения</div>
+        <div class="event-dates">9–29 июля</div>
+        <div class="event-desc">
+          <span class="tag seasonal">сезонная</span>
+          Дни рождения трёх Близких друзей: Бай Ци и двое других. Ежегодное сезонное событие с подарками.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ АВГУСТ ═══════════════ -->
+  <div class="month" data-month="август">
+    <div class="month-header">
+      <span class="month-name">🌕 Август</span>
+      <div class="month-line"></div>
+      <span class="month-count">4 события</span>
+    </div>
+    <div class="events-grid">
+      <div class="event">
+        <div class="event-name">Аромат глицинии</div>
+        <div class="event-dates">август</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Единодушный наряд «Ночной разговор. Глициния», раздел «Аромат глицинии». Мешочек глицинии как гарант.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Праздник влюблённых / Цисицзе</div>
+        <div class="event-dates">~21–29 августа</div>
+        <div class="event-desc">
+          <span class="tag seasonal">сезонная</span>
+          Китайский Валентин (Цисицзе, 7-й день 7-го лунного месяца). Разделы: «Млечный путь», «Алая нить судьбы», «Вместе навсегда», «Любовь на всю жизнь».
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Млечный путь</div>
+        <div class="event-dates">~21 авг</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Часть Цисицзе-ивента. Попытки за серебро, золото и донат.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Лунный павильон</div>
+        <div class="event-dates">август</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Крупное событие, завершилось до конца сентября. Опрос об акции после завершения.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ СЕНТЯБРЬ ═══════════════ -->
+  <div class="month" data-month="сентябрь">
+    <div class="month-header">
+      <span class="month-name">🍂 Сентябрь</span>
+      <div class="month-line"></div>
+      <span class="month-count">5 событий</span>
+    </div>
+    <div class="events-grid">
+      <div class="event">
+        <div class="event-name">Усмирение мятежа</div>
+        <div class="event-dates">2–6 сент</div>
+        <div class="event-desc">
+          <span class="tag">рейтинг</span>
+          Рейтинговое событие. Эксклюзивная награда — помощник Принцесса Пинъян (требуется приобрести 100 нефритов).
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Зеркало Тысячелетий</div>
+        <div class="event-dates">сентябрь</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Крупное событие. Опрос после завершения. Точные даты: до конца сентября.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Акция с Ланьлин-ваном / Цыси</div>
+        <div class="event-dates">сентябрь</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Анимированный наряд для гг, наряд помощника для Ланьлин-вана, единодушный наряд для Свахи, помощник Дуань Уфэн, регальная картина, фоны, декор. Акция с Лунной богиней ~6 октября.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Подземное царство</div>
+        <div class="event-dates">17–21 сент</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Эксклюзивный наряд для гг, наряд помощника для Князя Сюня, титул и рамки. Без привычного магазина — разблокировка через прокачку жетона.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Кешбэк AppGallery</div>
+        <div class="event-dates">24 сент – 11 окт</div>
+        <div class="event-desc">
+          <span class="tag special">партнёрская</span>
+          10% кешбэк при внутриигровых покупках через AppGallery. Купон 99 руб. за установку.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ ОКТЯБРЬ ═══════════════ -->
+  <div class="month" data-month="октябрь">
+    <div class="month-header">
+      <span class="month-name">🎃 Октябрь</span>
+      <div class="month-line"></div>
+      <span class="month-count">8 событий</span>
+    </div>
+    <div class="events-grid">
+      <div class="event">
+        <div class="event-name">Праздник Середины осени / Лунная богиня</div>
+        <div class="event-dates">~6 октября</div>
+        <div class="event-desc">
+          <span class="tag seasonal">сезонная</span>
+          Ивент к Чжунцю (Праздник Луны). Богатое на активности событие. Игра «Бо-Бинг», наряды, украшения.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Усмирение чудовищ</div>
+        <div class="event-dates">октябрь (Хэллоуин)</div>
+        <div class="event-desc">
+          <span class="tag seasonal">хэллоуин</span>
+          Мини-игра. Базовый / Продвинутый (1790 руб.) / Премиум (4690 руб.) пути. 10 атласов наряда Князя Сюня на уровне 30 продвинутого пути.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Поимка чудовищ</div>
+        <div class="event-dates">октябрь (Хэллоуин)</div>
+        <div class="event-desc">
+          <span class="tag seasonal">хэллоуин</span>
+          Мини-игра. 125 поимок для наряда Шангуань Ваньэр (25-й уровень). 9 попыток за серебро, 72 за золото ежедневно.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Изгнание привидений</div>
+        <div class="event-dates">октябрь (Хэллоуин)</div>
+        <div class="event-desc">
+          <span class="tag seasonal">хэллоуин</span>
+          Последовательная очистка точек с привидениями.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Красочные конфеты</div>
+        <div class="event-dates">октябрь (Хэллоуин)</div>
+        <div class="event-desc">
+          <span class="tag seasonal">хэллоуин</span>
+          Хэллоуинский ивент. Картина, декор для Поместья.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Колючие кустарники</div>
+        <div class="event-dates">октябрь (Хэллоуин)</div>
+        <div class="event-desc">
+          <span class="tag seasonal">хэллоуин</span>
+          Рамки чата и аватара, скин для Фань Лихуа. 10 «Зелий» за рамки, 110 — за скин Фань Лихуа.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Защита сокровищ</div>
+        <div class="event-dates">октябрь</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Мини-игра «Защита сокровищ» 🏯. Продвинутая (1790 руб.) и Премиум (4690 руб.) награды.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Павильон редкостей</div>
+        <div class="event-dates">октябрь</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Расчёты опубликованы фан-каналом. Параллельная акция.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ НОЯБРЬ ═══════════════ -->
+  <div class="month" data-month="ноябрь">
+    <div class="month-header">
+      <span class="month-name">🎪 Ноябрь</span>
+      <div class="month-line"></div>
+      <span class="month-count">5 событий</span>
+    </div>
+    <div class="events-grid">
+      <div class="event">
+        <div class="event-name">Реставрация древности</div>
+        <div class="event-dates">ноябрь</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Фу Чунгуан полностью за донат. Не доступен добор в следующем году.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Обновление 5.9</div>
+        <div class="event-dates">7 ноября</div>
+        <div class="event-desc">
+          <span class="tag special">патч</span>
+          Новые главы 316–320 основной истории. Улучшения интерфейса: отображение условий близости, сортировка помощников, новые окна для ресурсов.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Весёлая ярмарка / Изящная ярмарка</div>
+        <div class="event-dates">9–17 ноября</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Большая распродажа. Магазин редкостей и сокровищ (наряды для БД и Помощников), Магазин одежды (наряды гг включая анимированные), Магазин фонов, Бутик (за донат). Накопительные скидки при достижении порогов покупок. Наряд «Весенняя пора» с перекрасом.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Подарки ярмарки</div>
+        <div class="event-dates">9–17 ноября</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Открытие коробок, сбор выигрышных комбинаций, получение купонов. Попытки обнуляются каждый день.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Подземное царство (повтор)</div>
+        <div class="event-dates">23–27 ноября</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Повторное проведение: эксклюзивный наряд для гг, наряд помощника Князя Чжи, титул и рамки.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ НОЯБРЬ–ДЕКАБРЬ ═══════════════ -->
+  <div class="month" data-month="ноябрь декабрь зодиак">
+    <div class="month-header">
+      <span class="month-name">🌙 Ноябрь–Декабрь</span>
+      <div class="month-line"></div>
+      <span class="month-count">1 событие</span>
+    </div>
+    <div class="events-grid">
+      <div class="event">
+        <div class="event-name">Древние созвездия: Чертог Симу</div>
+        <div class="event-dates">21 ноября – 20 декабря</div>
+        <div class="event-desc">
+          <span class="tag special">зодиак</span>
+          Серия «Двенадцать Звёздных Чертогов». Фрагменты → награды. Скарпель Звёздного потока (198 золота), Скарпель Дубхе (2390 руб.). Рамки аватара/чата за золото, наряд и титул — только за донат.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ ДЕКАБРЬ ═══════════════ -->
+  <div class="month" data-month="декабрь">
+    <div class="month-header">
+      <span class="month-name">🎄 Декабрь</span>
+      <div class="month-line"></div>
+      <span class="month-count">4 события</span>
+    </div>
+    <div class="events-grid">
+      <div class="event">
+        <div class="event-name">Шоколадный вечер</div>
+        <div class="event-dates">22–31 декабря</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Душный наряд для Шу Сянь, два анимированных и эксклюзивный наряды для гг, наряд Цэцэг, скин для Воспитанника, питомец Хорёк, картина, фоны, мебель, декор, рамки.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Печенье удачи</div>
+        <div class="event-dates">22–28 декабря</div>
+        <div class="event-desc">
+          <span class="tag seasonal">сезонная</span>
+          Рождественский ивент. Собирай монетки вовремя — после полуночи превращаются в тыкву (300 слитков за мешочек). Гайд в двух частях.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Зимнее парфе</div>
+        <div class="event-dates">декабрь</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Купоны парфе → очки (25–40 очков за 1 купон, 20 слитков). Наряд для Шу Сянь.
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-name">Лавка вечера / Пожелания в снежную ночь</div>
+        <div class="event-dates">декабрь</div>
+        <div class="event-desc">
+          <span class="tag main">основная</span>
+          Эксклюзивный питомец Выдра (1 карта = 1497 руб.), наряд помощника для Дугу Мэн (10 атласов = 4780 руб.). Карты и хорёк.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>📌 Данные собраны из неофициального фан-канала <a href="https://t.me/lop_fan" target="_blank">@lop_fan</a> (17.5K подписчиков)</p>
+  <p style="margin-top:6px">Список может быть неполным · Официальные даты уточняйте в <a href="https://vk.com/legendofthephoenix" target="_blank">ВКонтакте</a> разработчиков</p>
+  <p style="margin-top:6px; color:#4a4570">Составлено: апрель 2026 · Legend of the Phoenix (MODO Global)</p>
+</footer>
+
+<script>
+function filterEvents(query) {
+  const q = query.toLowerCase().trim();
+  document.querySelectorAll('.month').forEach(month => {
+    let monthVisible = false;
+    month.querySelectorAll('.event').forEach(ev => {
+      const text = ev.textContent.toLowerCase();
+      const match = !q || text.includes(q);
+      ev.classList.toggle('hidden', !match);
+      if (match) monthVisible = true;
+    });
+    month.classList.toggle('hidden', !monthVisible && !!q);
+  });
+}
+// Keyboard shortcut hint
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+    const el = document.getElementById('search');
+    if (el) { e.preventDefault(); el.focus(); }
+  }
+});
+</script>
+</body>
+</html>
