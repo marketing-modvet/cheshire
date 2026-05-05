@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vet Alliance — Slack Structure (Phase 3 Scheme)</title>
+<style>
+  :root {
+    --teal: #015962;
+    --teal-deep: #002b2d;
+    --cream: #dfecd1;
+    --gold: #C9A227;
+    --gold-bright: #FFD700;
+    --silver: #A8A8A8;
+    --bronze: #A0522D;
+    --paper: #fafaf7;
+    --ink: #1a1a1a;
+    --muted: #666;
+    --border: #d8dcd2;
+    --accent: #015962;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.55;
+    font-size: 15px;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 600;
+    color: var(--teal-deep);
+    letter-spacing: 0.5px;
+  }
+  h1 { font-size: 2.6rem; margin: 0 0 .4rem; }
+  h2 { font-size: 1.9rem; margin: 2.5rem 0 1rem; border-bottom: 2px solid var(--teal); padding-bottom: .4rem; }
+  h3 { font-size: 1.35rem; margin: 1.5rem 0 .6rem; color: var(--teal); }
+  h4 { font-size: 1.05rem; margin: 1rem 0 .4rem; color: var(--teal); font-family: 'Montserrat', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+  header {
+    background: linear-gradient(135deg, var(--teal-deep) 0%, var(--teal) 100%);
+    color: var(--cream);
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+  }
+  header h1 { color: var(--cream); }
+  header .subtitle { font-style: italic; opacity: 0.85; margin-top: .5rem; }
+  header .meta { margin-top: 1rem; font-size: .85rem; opacity: 0.7; }
+
+  .container { max-width: 1280px; margin: 0 auto; padding: 2rem; }
+  .legend {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+  }
+  .legend-item { display: flex; align-items: center; gap: .4rem; }
+  .legend-pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: .75rem;
+    font-weight: 600;
+    color: white;
+  }
+
+  /* Channel pills color-coded by prefix */
+  .pfx-va    { background: #015962; }
+  .pfx-team  { background: #2563a8; }
+  .pfx-clinic{ background: #58a058; }
+  .pfx-brand { background: #C9A227; color: #2a1d00; }
+  .pfx-proj  { background: #a55a3a; }
+  .pfx-vendor{ background: #6b4d8a; }
+  .pfx-help  { background: #d44e4e; }
+  .pfx-social{ background: #888; }
+
+  .grid { display: grid; gap: 1.5rem; }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+  @media (max-width: 800px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+  .card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card.skip {
+    background: #f5f3eb;
+    border-style: dashed;
+    color: var(--muted);
+  }
+  .channel-list { list-style: none; padding: 0; margin: 0; }
+  .channel-list li {
+    padding: 6px 0;
+    border-bottom: 1px dotted var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+  }
+  .channel-list li:last-child { border-bottom: 0; }
+  .channel-list .ch {
+    font-family: 'Menlo', 'Consolas', monospace;
+    font-weight: 600;
+    color: var(--teal-deep);
+  }
+  .channel-list .meta-tag {
+    font-size: 0.7rem;
+    background: var(--cream);
+    color: var(--teal-deep);
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: auto;
+  }
+  .channel-list .meta-tag.new { background: #58a058; color: white; }
+  .channel-list .meta-tag.rename { background: var(--gold); color: #2a1d00; }
+  .channel-list .meta-tag.exists { background: #ddd; color: #444; }
+
+  /* Org tree diagram */
+  .tree {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 2rem;
+    overflow-x: auto;
+    font-family: 'Menlo', 'Consolas', monospace;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    white-space: pre;
+    color: var(--teal-deep);
+  }
+
+  /* Intercomms diagram */
+  .flowbox {
+    background: white;
+    border: 2px solid var(--teal);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+  .flowbox h4 { margin-top: 0; color: var(--teal); }
+  .flow-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 8px 0;
+    flex-wrap: wrap;
+  }
+  .flow-pill {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-family: 'Menlo', monospace;
+    font-size: .82rem;
+    font-weight: 600;
+    color: white;
+    background: var(--teal);
+    white-space: nowrap;
+  }
+  .flow-arrow { color: var(--gold); font-weight: 700; font-size: 1.1rem; }
+  .flow-note { color: var(--muted); font-size: .8rem; font-style: italic; }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  th, td {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+  }
+  th {
+    background: var(--teal-deep);
+    color: var(--cream);
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  tr:last-child td { border-bottom: 0; }
+  tr:hover td { background: #f7f9f3; }
+  td code {
+    background: var(--cream);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 0.85rem;
+  }
+
+  .num-summary {
+    background: var(--teal-deep);
+    color: var(--cream);
+    padding: 2rem;
+    border-radius: 10px;
+    margin: 2rem 0;
+  }
+  .num-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .num-stat {
+    text-align: center;
+    background: rgba(255,255,255,0.08);
+    padding: 1rem;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .num-stat .n { font-size: 2rem; font-weight: 700; color: var(--gold-bright); display: block; font-family: 'Cormorant Garamond', serif; }
+  .num-stat .l { font-size: 0.78rem; opacity: 0.85; text-transform: uppercase; letter-spacing: 1px; }
+
+  footer {
+    background: var(--teal-deep);
+    color: var(--cream);
+    padding: 2rem;
+    text-align: center;
+    margin-top: 4rem;
+    font-size: 0.85rem;
+  }
+  footer a { color: var(--gold-bright); }
+
+  .qbox {
+    background: #fff8e6;
+    border-left: 4px solid var(--gold);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .qbox h4 { color: var(--bronze); margin-top: 0; }
+
+  .nav-toc {
+    position: sticky;
+    top: 0;
+    background: rgba(250, 250, 247, 0.95);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--border);
+    padding: .8rem 2rem;
+    z-index: 10;
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+  }
+  .nav-toc a {
+    color: var(--teal);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .nav-toc a:hover { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Vet Alliance — Slack Structure</h1>
+  <div class="subtitle">Phase 3 Scheme · Full company rollout</div>
+  <div class="meta">Drafted 5 May 2026 · Synthesises Mansoor's Blueprint (4 May) + Phase 1+2 work · For Andrew → Mansoor review</div>
+</header>
+
+<nav class="nav-toc">
+  <a href="#legend">Legend</a>
+  <a href="#tree">Org Tree</a>
+  <a href="#prefixes">8 Prefixes</a>
+  <a href="#mgmt">Mgmt Depts</a>
+  <a href="#clinics">Clinics</a>
+  <a href="#brands">Brands</a>
+  <a href="#help">Help / Vendors</a>
+  <a href="#intercomm">Intercommunication</a>
+  <a href="#numbers">Numbers</a>
+  <a href="#questions">Open Qs</a>
+</nav>
+
+<div class="container">
+
+<section id="legend">
+  <h2>Legend</h2>
+  <div class="legend">
+    <div class="legend-item"><span class="legend-pill pfx-va">va-</span>Org-wide</div>
+    <div class="legend-item"><span class="legend-pill pfx-team">team-</span>Functional teams</div>
+    <div class="legend-item"><span class="legend-pill pfx-clinic">clinic-</span>Branches</div>
+    <div class="legend-item"><span class="legend-pill pfx-brand">brand-</span>Brand-level</div>
+    <div class="legend-item"><span class="legend-pill pfx-proj">proj-</span>Projects</div>
+    <div class="legend-item"><span class="legend-pill pfx-vendor">vendor-</span>External</div>
+    <div class="legend-item"><span class="legend-pill pfx-help">help-</span>Service desks</div>
+    <div class="legend-item"><span class="legend-pill pfx-social">social-</span>Off-topic</div>
+  </div>
+  <div class="legend">
+    <div class="legend-item">🌐 public</div>
+    <div class="legend-item">🔒 private</div>
+    <div class="legend-item">📢 locked posting</div>
+    <div class="legend-item">🔓 open posting</div>
+    <div class="legend-item"><span class="meta-tag new" style="background:#58a058;color:white;padding:2px 6px;border-radius:3px;font-size:.7rem;">new</span> create new</div>
+    <div class="legend-item"><span class="meta-tag rename" style="background:#C9A227;color:#2a1d00;padding:2px 6px;border-radius:3px;font-size:.7rem;">rename</span> rename existing</div>
+    <div class="legend-item"><span class="meta-tag exists" style="background:#ddd;color:#444;padding:2px 6px;border-radius:3px;font-size:.7rem;">live</span> already live</div>
+  </div>
+</section>
+
+<section id="tree">
+  <h2>Org Tree — at a glance</h2>
+  <p>The full Vet Alliance Slack workspace organised by prefix, then by function/brand. Channels in <em>italic</em> are stubbed (Marketing & IT — already in flight, not part of Phase 3).</p>
+
+<div class="tree">VET ALLIANCE WORKSPACE
+│
+├─ va-                                               (Org-wide · 5 ch)
+│  ├─ va-announcements        🌐📢   Mansoor + 9 leaders post
+│  ├─ va-general              🌐🔓   watercooler / kudos
+│  ├─ va-leadership           🔒     Mansoor + direct reports
+│  ├─ va-management           🔒     all team leads + branch managers
+│  └─ va-policies             🌐📢   read-only (SOPs, IT/HR policies)
+│
+├─ team-                                             (Functional · 46 ch)
+│  ├─ MARKETING (10 ch — stubbed, already in flight)
+│  │   └─ team-marketing · -content · -social · -paid · -seo
+│  │      -pr · -website · -lifecycle · -reputation · -analytics
+│  │
+│  ├─ TECH / IT (5 ch — stubbed, already in flight)
+│  │   └─ team-tech · -it · -software · -data · -ai
+│  │
+│  ├─ OPERATIONS (11 ch · Scott + Michael)
+│  │   ├─ team-ops                           Scott
+│  │   ├─ team-ops-warehouse           ✏️    Michael    [from #ops-warehouse]
+│  │   ├─ team-ops-inventory           ✏️    Michael
+│  │   ├─ team-ops-floof-orders        ✏️    Michael
+│  │   ├─ team-ops-smartflow           ✏️    Michael    🌐 only ops-public
+│  │   ├─ team-ops-purchasing          ✏️    Michael
+│  │   ├─ team-ops-approvals-equipment ✏️    Michael
+│  │   ├─ team-ops-approvals-medicine  ✏️    Michael
+│  │   ├─ team-ops-maintenance         🆕    Judit
+│  │   ├─ team-ops-fitout              🆕    Samar?
+│  │   └─ team-ops-licensing           🆕    Scott
+│  │
+│  ├─ CLINICAL (6 ch · Dr. Rami / Dr. Dieter)
+│  │   ├─ team-clinical                      Rami
+│  │   ├─ team-clinical-vets                 Rami           — all licensed vets
+│  │   ├─ team-clinical-nurses               Sandy
+│  │   ├─ team-clinical-medical-product      Rami + Michael — formulary
+│  │   ├─ team-clinical-rescue               Marta + Scott
+│  │   └─ team-clinical-emergency      📢    Scott          — replaces WhatsApp
+│  │
+│  ├─ CUSTOMER EXPERIENCE (5 ch · Aida)
+│  │   ├─ team-cx                            Aida
+│  │   ├─ team-cx-reception                  Aida
+│  │   ├─ team-cx-scheduling                 Janiro + Dima
+│  │   ├─ team-cx-complaints           📢    Aida + Scott
+│  │   └─ team-cx-experience                 Aida
+│  │
+│  ├─ PEOPLE / HR (4 ch · Shari)
+│  │   ├─ team-people                        Shari
+│  │   ├─ team-people-recruitment            Shari + Priya
+│  │   ├─ team-people-licensing-visa         Yusuf? + Shari
+│  │   └─ team-people-leave-payroll    📢    Shari + Hadi
+│  │
+│  └─ FINANCE (5 ch · Hadi)
+│      ├─ team-finance                       Hadi
+│      ├─ team-finance-ap              📢    Pauline + Harshita
+│      ├─ team-finance-ar              📢    Hadi
+│      ├─ team-finance-discounts       📢    Sandy + Aida
+│      └─ team-finance-pricing         📢    Mansoor + Scott
+│
+├─ clinic-                                           (Branches · 36 ch = 12 × 3)
+│  ├─ Modern Vet (8 branches × 3 = 24)
+│  │   ├─ clinic-mv-mb / -mb-med / -mb-fd       Anissa     ★ PILOT
+│  │   ├─ clinic-mv-palm / -palm-med / -palm-fd
+│  │   ├─ clinic-mv-dt / -dt-med / -dt-fd
+│  │   ├─ clinic-mv-jvc / -jvc-med / -jvc-fd
+│  │   ├─ clinic-mv-jlt / -jlt-med / -jlt-fd
+│  │   ├─ clinic-mv-az / -az-med / -az-fd       (Azizi Riviera, partial Tue–Sat)
+│  │   ├─ clinic-mv-khw / -khw-med / -khw-fd    (Khawaneej — opens Jun/Jul reno)
+│  │   └─ clinic-mv-mob / -mob-med / -mob-fd    (Mobile Clinic)
+│  ├─ BOVC (2 × 3 = 6)
+│  │   ├─ clinic-bovc-dip / -dip-med / -dip-fd
+│  │   └─ clinic-bovc-d2 / -d2-med / -d2-fd
+│  ├─ Vienna Vet (1 × 3 = 3)
+│  │   └─ clinic-vv / clinic-vv-med / clinic-vv-fd      Amy
+│  └─ TVRH (1 × 3 = 3)
+│      └─ clinic-tvrh / -tvrh-med / -tvrh-fd
+│
+├─ brand-                                            (Brand-level · 5 ch)
+│  ├─ brand-mv               Scott            cross-branch MV
+│  ├─ brand-bovc             Scott            cross-branch BOVC
+│  ├─ brand-vv               Amy              + rescue work
+│  ├─ brand-tvrh             TVRH lead
+│  └─ brand-floof            Kavitha + Michael  e-commerce/app
+│
+├─ help-                                             (Service desks · 5 ch)
+│  ├─ help-marketing   ✏️   Andrew      [from #marketing-requests]
+│  ├─ help-it          ✏️   AbdulRahman [from #tech-help]
+│  ├─ help-people      ✏️   Shari       [from #hr-help]
+│  ├─ help-finance     🆕   Hadi
+│  └─ help-ops         🆕   Judit + Scott
+│
+├─ vendor-                                           (External · 8 ch)
+│  ├─ vendor-ecre8           Andrew
+│  ├─ vendor-synergi         AbdulRahman
+│  ├─ vendor-nexwerx         AbdulRahman
+│  ├─ vendor-gulfrider       Michael
+│  ├─ vendor-eurovets        Michael
+│  ├─ vendor-udo             Michael + AbdulRahman
+│  ├─ vendor-ashurst         Mansoor
+│  └─ vendor-ezyvet          AbdulRahman
+│
+├─ proj-                                             (Active · ~12, rotating)
+│  └─ slack-rollout · scheduling-app · floof-app-launch · floof-shopify
+│     udo-inventory · pricing-2026 · pr-2025-2026 · summer-purchasing-2026
+│     it-roadmap · sop-library · marketing-plan-2026 · veta-whatsapp-bot
+│
+└─ social-                                           (Off-topic · 3 ch)
+   └─ social-random · social-pets · social-celebrations</div>
+</section>
+
+<section id="prefixes">
+  <h2>The 8 prefixes — naming convention</h2>
+  <p>Format: <code>[prefix]-[scope]-[topic]</code> · all lowercase · hyphens only · no emoji in names · no underscores or camelCase.</p>
+  <table>
+    <thead><tr><th>Prefix</th><th>Purpose</th><th>Lifecycle</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td><span class="legend-pill pfx-va">va-</span></td><td>Org-wide. Announcements, leadership, all-hands.</td><td>Permanent</td><td><code>va-announcements</code></td></tr>
+      <tr><td><span class="legend-pill pfx-team">team-</span></td><td>Functional teams. Day-to-day work.</td><td>Permanent</td><td><code>team-finance-ap</code></td></tr>
+      <tr><td><span class="legend-pill pfx-clinic">clinic-</span></td><td>Branch / clinic operations.</td><td>Permanent</td><td><code>clinic-mv-mb</code></td></tr>
+      <tr><td><span class="legend-pill pfx-brand">brand-</span></td><td>Brand-level coordination across branches.</td><td>Permanent</td><td><code>brand-floof</code></td></tr>
+      <tr><td><span class="legend-pill pfx-proj">proj-</span></td><td>Time-bound projects with a defined end.</td><td>Archive on done</td><td><code>proj-pricing-2026</code></td></tr>
+      <tr><td><span class="legend-pill pfx-vendor">vendor-</span></td><td>External partner / vendor channels.</td><td>Permanent unless ended</td><td><code>vendor-ecre8</code></td></tr>
+      <tr><td><span class="legend-pill pfx-help">help-</span></td><td>Service desk style. Anyone can ask.</td><td>Permanent</td><td><code>help-it</code></td></tr>
+      <tr><td><span class="legend-pill pfx-social">social-</span></td><td>Non-work, opt-in.</td><td>Permanent</td><td><code>social-pets</code></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="mgmt">
+  <h2>Management Departments — full detail</h2>
+  <p>Marketing & IT stubbed (already in flight). Operations preserves Michael's work — only prefix tweak from <code>#ops-*</code> → <code>#team-ops-*</code>.</p>
+
+  <div class="grid grid-2">
+
+    <div class="card skip">
+      <h3>📈 Marketing — stubbed</h3>
+      <p style="font-size:.85rem;">10 channels (content, social, paid, seo, pr, website, lifecycle, reputation, analytics + leadership). Already in active rollout. <strong>No action in Phase 3.</strong></p>
+    </div>
+
+    <div class="card skip">
+      <h3>💻 Tech / IT — stubbed</h3>
+      <p style="font-size:.85rem;">5 channels (it, software, data, ai + leadership). Already in active rollout. <strong>No action in Phase 3.</strong></p>
+    </div>
+
+    <div class="card">
+      <h3>🏭 Operations — Scott + Michael</h3>
+      <ul class="channel-list">
+        <li><span class="ch">team-ops</span> 🔒🔓 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-ops-warehouse</span> 🔒📢 <span class="meta-tag rename">rename</span></li>
+        <li><span class="ch">team-ops-inventory</span> 🔒📢 <span class="meta-tag rename">rename</span></li>
+        <li><span class="ch">team-ops-floof-orders</span> 🔒📢 <span class="meta-tag rename">rename</span></li>
+        <li><span class="ch">team-ops-smartflow</span> 🌐🔓 <span class="meta-tag rename">rename</span></li>
+        <li><span class="ch">team-ops-purchasing</span> 🔒📢 <span class="meta-tag rename">rename</span></li>
+        <li><span class="ch">team-ops-approvals-equipment</span> 🔒📢 <span class="meta-tag rename">rename</span></li>
+        <li><span class="ch">team-ops-approvals-medicine</span> 🔒📢 <span class="meta-tag rename">rename</span></li>
+        <li><span class="ch">team-ops-maintenance</span> 🔒🔓 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-ops-fitout</span> 🔒🔓 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-ops-licensing</span> 🔒🔓 <span class="meta-tag new">new</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>🩺 Clinical — Dr. Rami / Dieter</h3>
+      <ul class="channel-list">
+        <li><span class="ch">team-clinical</span> 🔒🔓 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-clinical-vets</span> 🔒🔓 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-clinical-nurses</span> 🔒🔓 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-clinical-medical-product</span> 🔒🔓 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-clinical-rescue</span> 🔒🔓 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-clinical-emergency</span> 🔒📢 <span class="meta-tag new">new</span></li>
+      </ul>
+      <p style="font-size:.78rem;color:var(--muted);">⚠️ Blocked: Rami, Nour, Waseem, Marta need Slack invites first.</p>
+    </div>
+
+    <div class="card">
+      <h3>📞 Customer Experience — Aida</h3>
+      <ul class="channel-list">
+        <li><span class="ch">team-cx</span> 🔒🔓 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-cx-reception</span> 🔒🔓 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-cx-scheduling</span> 🔒🔓 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-cx-complaints</span> 🔒📢 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-cx-experience</span> 🔒🔓 <span class="meta-tag new">new</span></li>
+      </ul>
+      <p style="font-size:.78rem;color:var(--muted);">⚠️ Aida still needs to provide CC roster.</p>
+    </div>
+
+    <div class="card">
+      <h3>👥 People / HR — Shari</h3>
+      <ul class="channel-list">
+        <li><span class="ch">team-people</span> 🔒🔓 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-people-recruitment</span> 🔒🔓 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-people-licensing-visa</span> 🔒🔓 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-people-leave-payroll</span> 🔒📢 <span class="meta-tag new">new</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>💰 Finance — Hadi</h3>
+      <ul class="channel-list">
+        <li><span class="ch">team-finance</span> 🔒🔓 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-finance-ap</span> 🔒📢 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-finance-ar</span> 🔒📢 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-finance-discounts</span> 🔒📢 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-finance-pricing</span> 🔒📢 <span class="meta-tag new">new</span></li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<section id="clinics">
+  <h2>Clinics — the structural fix</h2>
+  <p>Today: every clinic = one giant chat with vets + nurses + reception + assistants. Bad signal-to-noise. Fix: <strong>3 channels per active branch</strong>.</p>
+
+  <div class="flowbox">
+    <h4>The 3-channel pattern</h4>
+    <div class="flow-step">
+      <span class="flow-pill" style="background:#58a058;">clinic-XXX</span>
+      <span class="flow-note">🌐 all staff — branch news, handovers</span>
+    </div>
+    <div class="flow-step">
+      <span class="flow-pill" style="background:#2563a8;">clinic-XXX-med</span>
+      <span class="flow-note">🔒 vets + nurses + medical assistants — clinical</span>
+    </div>
+    <div class="flow-step">
+      <span class="flow-pill" style="background:#a55a3a;">clinic-XXX-fd</span>
+      <span class="flow-note">🔒 reception + front-desk — bookings, CX</span>
+    </div>
+    <p style="margin-top:1rem;font-size:.85rem;"><strong>Optional 4th</strong> if branch manager asks: <code>clinic-XXX-mgmt</code> 🔒 (clinic mgr + vet lead + reception lead).</p>
+  </div>
+
+  <h3>Active branches — 12 × 3 = 36 channels at full rollout</h3>
+
+  <table>
+    <thead><tr><th>Code</th><th>Brand</th><th>Branch</th><th>Manager</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td><code>clinic-mv-mb</code></td><td>Modern Vet</td><td>Main Branch (Hospital)</td><td>Anissa Benhamou</td><td>🟢 active · ★ <strong>PILOT</strong></td></tr>
+      <tr><td><code>clinic-mv-palm</code></td><td>Modern Vet</td><td>Palm</td><td>❓</td><td>🟢 active</td></tr>
+      <tr><td><code>clinic-mv-dt</code></td><td>Modern Vet</td><td>Downtown</td><td>❓</td><td>🟢 active</td></tr>
+      <tr><td><code>clinic-mv-jvc</code></td><td>Modern Vet</td><td>JVC</td><td>❓</td><td>🟢 active</td></tr>
+      <tr><td><code>clinic-mv-jlt</code></td><td>Modern Vet</td><td>JLT</td><td>❓</td><td>🟢 active</td></tr>
+      <tr><td><code>clinic-mv-az</code></td><td>Modern Vet</td><td>Azizi Riviera</td><td>❓</td><td>🟡 partial Tue–Sat</td></tr>
+      <tr><td><code>clinic-mv-khw</code></td><td>Modern Vet</td><td>Khawaneej</td><td>❓</td><td>🟠 reno · re-open Jun/Jul 2026</td></tr>
+      <tr><td><code>clinic-mv-mob</code></td><td>Modern Vet</td><td>Mobile Clinic</td><td>Rahaf ❓</td><td>🟢 active</td></tr>
+      <tr><td><code>clinic-bovc-dip</code></td><td>BOVC</td><td>DIP</td><td>❓</td><td>🟢 active</td></tr>
+      <tr><td><code>clinic-bovc-d2</code></td><td>BOVC</td><td>D2</td><td>❓</td><td>🟢 active</td></tr>
+      <tr><td><code>clinic-vv</code></td><td>Vienna Vet</td><td>(single site)</td><td>Amy Griffiths</td><td>🟢 active</td></tr>
+      <tr><td><code>clinic-tvrh</code></td><td>TVRH</td><td>(referral hospital)</td><td>❓</td><td>🟢 active</td></tr>
+    </tbody>
+  </table>
+
+  <div class="qbox">
+    <h4>Pilot recommendation</h4>
+    Start with <code>clinic-mv-mb</code> (Anissa is engaged · biggest branch · the hospital). Run 2 weeks. Refine pattern. Then roll out to remaining 11 branches in 3 waves of ~4.
+  </div>
+</section>
+
+<section id="brands">
+  <h2>Brand-level coordination</h2>
+  <p>For when something affects all branches of one brand (or a brand-wide product like Floof).</p>
+
+  <div class="grid grid-3">
+    <div class="card"><h4>brand-mv 🔒</h4><p>Modern Vet brand-level.<br/>5 branches + Hospital.<br/><em>Owner: Scott</em></p></div>
+    <div class="card"><h4>brand-bovc 🔒</h4><p>Blue Oasis brand.<br/>DIP + D2.<br/><em>Owner: Scott</em></p></div>
+    <div class="card"><h4>brand-vv 🔒</h4><p>Vienna Vet + rescue.<br/><em>Owner: Amy</em></p></div>
+    <div class="card"><h4>brand-tvrh 🔒</h4><p>Referral Hospital.<br/><em>Owner: TBD</em></p></div>
+    <div class="card"><h4>brand-floof 🔒</h4><p>Floof e-commerce / app.<br/>Feature, revenue, product.<br/><em>Owners: Kavitha + Michael</em></p></div>
+  </div>
+</section>
+
+<section id="help">
+  <h2>Service Desks &amp; Vendors</h2>
+
+  <div class="grid grid-2">
+    <div class="card">
+      <h3>help-* — service desks (5)</h3>
+      <p style="font-size:.85rem;">The "front door" for every dept. Anyone can ask. Owner triages.</p>
+      <ul class="channel-list">
+        <li><span class="ch">help-marketing</span> <span class="meta-tag rename">rename</span> Andrew</li>
+        <li><span class="ch">help-it</span> <span class="meta-tag rename">rename</span> AbdulRahman</li>
+        <li><span class="ch">help-people</span> <span class="meta-tag rename">rename</span> Shari</li>
+        <li><span class="ch">help-finance</span> <span class="meta-tag new">new</span> Hadi</li>
+        <li><span class="ch">help-ops</span> <span class="meta-tag new">new</span> Judit + Scott</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>vendor-* — external (8)</h3>
+      <p style="font-size:.85rem;">Slack Connect where vendor agrees, internal-only otherwise.</p>
+      <ul class="channel-list">
+        <li><span class="ch">vendor-ecre8</span> Andrew</li>
+        <li><span class="ch">vendor-synergi</span> AbdulRahman</li>
+        <li><span class="ch">vendor-nexwerx</span> AbdulRahman</li>
+        <li><span class="ch">vendor-gulfrider</span> Michael</li>
+        <li><span class="ch">vendor-eurovets</span> Michael</li>
+        <li><span class="ch">vendor-udo</span> Michael + AbdulRahman</li>
+        <li><span class="ch">vendor-ashurst</span> Mansoor</li>
+        <li><span class="ch">vendor-ezyvet</span> AbdulRahman</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="intercomm">
+  <h2>Intercommunication scheme</h2>
+  <p>The structure only works if people know <strong>where to send asks</strong> and <strong>where to escalate</strong>. Three mechanisms wire it together.</p>
+
+  <div class="flowbox">
+    <h4>1. Inbound asks → help-* channels (the "front door")</h4>
+    <div class="flow-step">
+      <span class="flow-pill">Anyone in company</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-pill" style="background:#d44e4e;">help-marketing</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-pill">@marketing triages</span>
+    </div>
+    <div class="flow-step">
+      <span class="flow-pill">Anyone</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-pill" style="background:#d44e4e;">help-it</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-pill">@it triages</span>
+    </div>
+    <div class="flow-step">
+      <span class="flow-pill">Anyone</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-pill" style="background:#d44e4e;">help-people · -finance · -ops</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-pill">dept lead triages</span>
+    </div>
+    <p class="flow-note" style="margin-top:.6rem;">Triage decision: stays in help-channel (simple) OR converted to a List item / moved to relevant <code>team-*</code> for actual work.</p>
+  </div>
+
+  <div class="flowbox">
+    <h4>2. Cross-team coordination → va-management + share-to-channel</h4>
+    <div class="flow-step">
+      <span class="flow-pill">Strategic / cross-functional</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-pill" style="background:#015962;">va-management</span>
+      <span class="flow-note">all team leads see it</span>
+    </div>
+    <div class="flow-step">
+      <span class="flow-pill">Specific input from another team</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-pill">@-mention via "share to channel"</span>
+      <span class="flow-note">audit trail in both</span>
+    </div>
+  </div>
+
+  <div class="flowbox">
+    <h4>3. Brand / clinic ↔ functional teams</h4>
+    <div class="flow-step">
+      <span class="flow-pill" style="background:#a55a3a;">clinic-mv-mb-fd</span>
+      <span class="flow-arrow">→ billing query →</span>
+      <span class="flow-pill" style="background:#d44e4e;">help-finance</span>
+    </div>
+    <div class="flow-step">
+      <span class="flow-pill" style="background:#2563a8;">clinic-mv-mb-med</span>
+      <span class="flow-arrow">→ case escalation →</span>
+      <span class="flow-pill" style="background:#2563a8;">team-clinical-vets</span>
+      <span class="flow-note">@vets-all</span>
+    </div>
+    <div class="flow-step">
+      <span class="flow-pill" style="background:#58a058;">clinic-mv-mb</span>
+      <span class="flow-arrow">→ maintenance →</span>
+      <span class="flow-pill" style="background:#d44e4e;">help-ops</span>
+      <span class="flow-note">or team-ops-maintenance</span>
+    </div>
+    <div class="flow-step">
+      <span class="flow-pill" style="background:#2563a8;">team-clinical</span>
+      <span class="flow-arrow">→ product change →</span>
+      <span class="flow-pill" style="background:#C9A227;color:#2a1d00;">brand-mv</span>
+      <span class="flow-arrow">→ announce →</span>
+      <span class="flow-pill" style="background:#58a058;">clinic-mv-* channels</span>
+    </div>
+    <div class="flow-step">
+      <span class="flow-pill" style="background:#C9A227;color:#2a1d00;">brand-mv</span>
+      <span class="flow-arrow">→ price change →</span>
+      <span class="flow-pill" style="background:#2563a8;">team-finance-pricing</span>
+      <span class="flow-arrow">+</span>
+      <span class="flow-pill" style="background:#58a058;">clinic-mv-*</span>
+    </div>
+  </div>
+
+  <div class="flowbox">
+    <h4>4. Vendor ↔ internal flow</h4>
+    <div class="flow-step">
+      <span class="flow-pill" style="background:#6b4d8a;">vendor-synergi</span>
+      <span class="flow-arrow">→ escalation →</span>
+      <span class="flow-pill" style="background:#2563a8;">team-tech-it</span>
+      <span class="flow-arrow">→ if budget →</span>
+      <span class="flow-pill" style="background:#015962;">va-leadership</span>
+    </div>
+    <div class="flow-step">
+      <span class="flow-pill" style="background:#6b4d8a;">vendor-eurovets</span>
+      <span class="flow-arrow">→ stock →</span>
+      <span class="flow-pill" style="background:#2563a8;">team-ops-purchasing</span>
+    </div>
+    <div class="flow-step">
+      <span class="flow-pill" style="background:#6b4d8a;">vendor-ecre8</span>
+      <span class="flow-arrow">→ deliverable →</span>
+      <span class="flow-pill" style="background:#a55a3a;">proj-floof-shopify</span>
+      <span class="flow-note">or proj-pr-2025-2026</span>
+    </div>
+  </div>
+
+  <div class="flowbox">
+    <h4>5. Project flows — pull resources temporarily</h4>
+    <div class="flow-step">
+      <span class="flow-pill" style="background:#a55a3a;">proj-pricing-2026</span>
+      <span class="flow-arrow">draws from →</span>
+      <span class="flow-pill" style="background:#2563a8;">team-finance-pricing</span>
+      <span class="flow-pill" style="background:#C9A227;color:#2a1d00;">brand-mv / brand-bovc</span>
+      <span class="flow-pill" style="background:#015962;">va-leadership</span>
+    </div>
+    <div class="flow-step">
+      <span class="flow-pill" style="background:#a55a3a;">proj-udo-inventory</span>
+      <span class="flow-arrow">draws from →</span>
+      <span class="flow-pill" style="background:#2563a8;">team-ops-inventory</span>
+      <span class="flow-pill" style="background:#2563a8;">team-tech-software</span>
+      <span class="flow-pill" style="background:#6b4d8a;">vendor-udo</span>
+    </div>
+    <p class="flow-note" style="margin-top:.6rem;">When project ends → archive · decision log moves to relevant <code>team-*</code> canvas.</p>
+  </div>
+
+  <div class="flowbox" style="border-color:var(--gold);background:#fff8e6;">
+    <h4>The escalation ladder (one-page summary)</h4>
+<div style="font-family:'Menlo',monospace;font-size:.9rem;line-height:1.7;color:var(--teal-deep);white-space:pre;">Day-to-day  ──►  clinic-* / team-* sub-channels
+       │
+Cross-team  ──►  help-* (request-driven) or @-mention partner team
+       │
+Strategic   ──►  va-management (all leads)
+       │
+Decisions   ──►  va-leadership (Mansoor + direct reports)
+       │
+Read-only   ──►  va-announcements (everyone sees outcome)</div>
+  </div>
+</section>
+
+<section id="usergroups">
+  <h2>User groups — set up FIRST</h2>
+  <p><code>@handle</code> mentions that auto-resolve to a member list. Set these up before channel creation so we invite groups, not 15 individuals each time.</p>
+  <div class="grid grid-3">
+    <div class="card"><h4>Leadership / mgmt</h4><ul class="channel-list">
+      <li><span class="ch">@leadership</span></li>
+      <li><span class="ch">@managers</span></li>
+      <li><span class="ch">@branch-managers</span></li>
+    </ul></div>
+    <div class="card"><h4>Clinical</h4><ul class="channel-list">
+      <li><span class="ch">@vets-all</span></li>
+      <li><span class="ch">@vets-mv · -bovc · -vv · -tvrh</span></li>
+      <li><span class="ch">@nurses-all</span></li>
+      <li><span class="ch">@hospital-vets</span></li>
+      <li><span class="ch">@on-call-vet</span></li>
+    </ul></div>
+    <div class="card"><h4>CX / Reception</h4><ul class="channel-list">
+      <li><span class="ch">@reception-all</span></li>
+      <li><span class="ch">@callcentre</span></li>
+      <li><span class="ch">@scheduling</span></li>
+    </ul></div>
+    <div class="card"><h4>Functional</h4><ul class="channel-list">
+      <li><span class="ch">@marketing</span></li>
+      <li><span class="ch">@it</span></li>
+      <li><span class="ch">@hr</span></li>
+      <li><span class="ch">@finance · @accounts</span></li>
+      <li><span class="ch">@procurement</span></li>
+    </ul></div>
+  </div>
+</section>
+
+<section id="lists">
+  <h2>Slack Lists — task tracking per channel</h2>
+  <p>Each working channel pins one List. Items can be created from any message via "Create from message" — chat → tracked work item.</p>
+
+  <h3>Standard task list template (default)</h3>
+  <table>
+    <thead><tr><th>Column</th><th>Type</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Task</td><td>text</td><td>required</td></tr>
+      <tr><td>Assignee</td><td>person</td><td>from channel members</td></tr>
+      <tr><td>Status</td><td>select</td><td>Backlog · In progress · Blocked · Review · Done</td></tr>
+      <tr><td>Priority</td><td>select</td><td>Low · Medium · High · Urgent</td></tr>
+      <tr><td>Due</td><td>date</td><td>optional</td></tr>
+      <tr><td>Notes</td><td>text</td><td>freeform</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Specialised lists per channel type</h3>
+  <table>
+    <thead><tr><th>Channel</th><th>List name</th><th>Extra columns</th></tr></thead>
+    <tbody>
+      <tr><td><code>team-ops-warehouse</code></td><td>Warehouse tasks</td><td>+ Item · Quantity</td></tr>
+      <tr><td><code>team-ops-inventory</code></td><td>Restock orders</td><td>+ Supplier · Status (Pending → Ordered → Received)</td></tr>
+      <tr><td><code>team-ops-floof-orders</code></td><td>Floof orders</td><td>+ Order # · Customer · Status</td></tr>
+      <tr><td><code>team-ops-smartflow</code></td><td>Smartflow issues</td><td>+ Bug/Feature · Reporter</td></tr>
+      <tr><td><code>team-ops-purchasing</code></td><td>Purchase requests</td><td>+ Amount AED · Approval status</td></tr>
+      <tr><td><code>team-ops-approvals-equipment</code></td><td>Equipment requests</td><td>+ Item · Cost · Requestor · Decision</td></tr>
+      <tr><td><code>team-ops-approvals-medicine</code></td><td>Medicine requests</td><td>+ Drug · Quantity · Requestor · Vet sign-off</td></tr>
+      <tr><td><code>team-ops-maintenance</code></td><td>Maintenance tickets</td><td>+ Branch · Issue · Severity · Vendor</td></tr>
+      <tr><td><code>team-clinical-medical-product</code></td><td>Product evaluations</td><td>+ Product · Supplier · Decision</td></tr>
+      <tr><td><code>team-clinical-rescue</code></td><td>Rescue cases</td><td>+ Group · Animal · Status</td></tr>
+      <tr><td><code>team-cx-complaints</code></td><td>Open complaints</td><td>+ Customer · Channel · Severity · Owner</td></tr>
+      <tr><td><code>team-people-recruitment</code></td><td>Open roles</td><td>+ Role · Pipeline stage · Candidates</td></tr>
+      <tr><td><code>team-people-licensing-visa</code></td><td>Visa/licence pipeline</td><td>+ Person · Document · Expiry</td></tr>
+      <tr><td><code>team-finance-ap</code></td><td>AP queue</td><td>+ Vendor · Amount · Due · PO match</td></tr>
+      <tr><td><code>team-finance-ar</code></td><td>AR aging</td><td>+ Customer · Amount · Days overdue</td></tr>
+      <tr><td><code>team-finance-discounts</code></td><td>Discount log</td><td>+ Date · Branch · Customer · Amount · Justification</td></tr>
+      <tr><td><code>team-finance-pricing</code></td><td>Pricing changes</td><td>+ Service · From · To · Effective</td></tr>
+      <tr><td><code>clinic-XXX-med</code></td><td>Case follow-ups</td><td>+ Patient · Owner · Vet</td></tr>
+      <tr><td><code>clinic-XXX-fd</code></td><td>Front-desk issues</td><td>+ Customer · Type · Resolution</td></tr>
+      <tr><td><code>help-*</code></td><td>Inbound tickets</td><td>+ Requestor · Type · Resolution</td></tr>
+      <tr><td><code>proj-*</code></td><td>Project tasks</td><td>+ Phase · Milestone</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="numbers">
+  <h2>By the numbers</h2>
+  <div class="num-summary">
+    <p style="margin-top:0;">Going from 16 channels today → ~80 active for Phase 3 (excl. marketing/IT which are separate). Total at full rollout including everything: ~120.</p>
+    <div class="num-grid">
+      <div class="num-stat"><span class="n">5</span><span class="l">va-</span></div>
+      <div class="num-stat"><span class="n">10+5</span><span class="l">team- mkt+IT (stub)</span></div>
+      <div class="num-stat"><span class="n">11</span><span class="l">team-ops-</span></div>
+      <div class="num-stat"><span class="n">6</span><span class="l">team-clinical-</span></div>
+      <div class="num-stat"><span class="n">5</span><span class="l">team-cx-</span></div>
+      <div class="num-stat"><span class="n">4</span><span class="l">team-people-</span></div>
+      <div class="num-stat"><span class="n">5</span><span class="l">team-finance-</span></div>
+      <div class="num-stat"><span class="n">36</span><span class="l">clinic- (12×3)</span></div>
+      <div class="num-stat"><span class="n">5</span><span class="l">brand-</span></div>
+      <div class="num-stat"><span class="n">5</span><span class="l">help-</span></div>
+      <div class="num-stat"><span class="n">8</span><span class="l">vendor-</span></div>
+      <div class="num-stat"><span class="n">~12</span><span class="l">proj-</span></div>
+      <div class="num-stat"><span class="n">3</span><span class="l">social-</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="rollout">
+  <h2>Rollout plan — 6 weeks</h2>
+  <table>
+    <thead><tr><th>Wave</th><th>Week</th><th>Action</th><th>Owner</th></tr></thead>
+    <tbody>
+      <tr><td><strong>0</strong></td><td>this week</td><td>Confirm structure with Mansoor · invite Rami/Nour/Waseem/Marta · set up user-groups · solve Lists template blocker</td><td>Andrew + Cheshire</td></tr>
+      <tr><td><strong>1</strong></td><td>Week 1</td><td>All renames (low risk, preserves history) · create <code>va-leadership</code> + <code>va-policies</code></td><td>Andrew</td></tr>
+      <tr><td><strong>2</strong></td><td>Week 2</td><td>Operations completion + Clinical + CX · Lists attached</td><td>Scott + Aida + Rami</td></tr>
+      <tr><td><strong>3</strong></td><td>Week 2</td><td>People + Finance · Lists attached</td><td>Shari + Hadi</td></tr>
+      <tr><td><strong>4</strong></td><td>Week 3</td><td>Pilot clinic split (<code>clinic-mv-mb</code> + med + fd) · 2-week observation</td><td>Anissa</td></tr>
+      <tr><td><strong>5</strong></td><td>Week 4–5</td><td>Brands + remaining 11 clinics + vendors</td><td>Branch managers</td></tr>
+      <tr><td><strong>6</strong></td><td>rolling</td><td>Project channels as projects spin up · social-* light effort</td><td>Project owners</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="questions">
+  <h2>Open questions for Andrew</h2>
+  <p>Before this goes to Mansoor, 11 decisions are needed. Most are quick.</p>
+  <ol style="line-height:1.9;">
+    <li><strong>Scope confirm</strong> — Marketing/IT stubbed (already in flight) OK?</li>
+    <li><strong>Clinic naming</strong> — <code>clinic-XXX-med</code> &amp; <code>clinic-XXX-fd</code> (single prefix) OK, or strict Mansoor pattern?</li>
+    <li><strong>Branch codes</strong> — Khawaneej = <code>khw</code> · Azizi Riviera = <code>az</code>? Confirm.</li>
+    <li><strong>Branch managers</strong> — names for MV Palm, DT, JVC, JLT, BOVC DIP, BOVC D2, TVRH?</li>
+    <li><strong>Finance lead</strong> — Hadi or Harshita as <code>team-finance</code> owner?</li>
+    <li><strong>TVRH staffing</strong> — own clinical/brand channels yet, or fold into <code>brand-mv</code> first?</li>
+    <li><strong>Floof scope</strong> — <code>brand-floof</code> alone, or sub-channels for product/tech/marketing?</li>
+    <li><strong>Rescue groups</strong> — single <code>team-clinical-rescue</code>, or split per clinic?</li>
+    <li><strong>Vendor Slack Connect</strong> — which 8 vendors get external Connect vs internal-only? (Default: internal except eCRE8 + Synergi.)</li>
+    <li><strong>Head Office</strong> — own <code>team-headoffice-*</code> cluster, or sits inside <code>va-management</code>? (Default: <code>va-management</code>.)</li>
+    <li><strong>Rollout speed</strong> — 6 weeks realistic given dept submissions still trickling in? (Mansoor's blueprint says 4.)</li>
+  </ol>
+</section>
+
+</div>
+
+<footer>
+  <p><strong>Vet Alliance · Slack Phase 3 Scheme</strong></p>
+  <p>Drafted by Cheshire · 5 May 2026 · For Andrew → Mansoor review</p>
+  <p>Companion to <code>PHASE3-STRUCTURE.md</code> · part of <code>projects/slack-rollout/</code></p>
+</footer>
+
+</body>
+</html>
