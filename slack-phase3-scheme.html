@@ -509,7 +509,8 @@
     </div>
 
     <div class="card">
-      <h3>💰 Finance — Hadi</h3>
+      <h3>💰 Finance — Harshita <span style="font-size:.7rem;color:var(--muted);font-weight:normal;">(Head of Finance)</span></h3>
+      <p style="font-size:.78rem;color:var(--muted);">Hadi = Chief Development Officer (sits in <code>va-leadership</code> for strategy, not day-to-day finance).</p>
       <ul class="channel-list">
         <li><span class="ch">team-finance</span> 🔒🔓 <span class="meta-tag new">new</span></li>
         <li><span class="ch">team-finance-ap</span> 🔒📢 <span class="meta-tag new">new</span></li>
@@ -851,17 +852,34 @@ Read-only   ──►  va-announcements (everyone sees outcome)</div>
 </section>
 
 <section id="rollout">
-  <h2>Rollout plan — 6 weeks</h2>
+  <h2>Rollout plan — 3 weeks (aggressive)</h2>
+  <p>Compressed from 6 weeks at Andrew's request. Doable if Andrew + Cheshire run prep in parallel and dept heads respond inside 24h. Key compression: pilot clinic split runs <strong>in parallel</strong> with brand/vendor rollout instead of sequentially.</p>
   <table>
-    <thead><tr><th>Wave</th><th>Week</th><th>Action</th><th>Owner</th></tr></thead>
+    <thead><tr><th>Phase</th><th>When</th><th>Action</th><th>Owner</th></tr></thead>
     <tbody>
-      <tr><td><strong>0</strong></td><td>this week</td><td>Confirm structure with Mansoor · invite Rami/Nour/Waseem/Marta · set up user-groups · solve Lists template blocker</td><td>Andrew + Cheshire</td></tr>
-      <tr><td><strong>1</strong></td><td>Week 1</td><td>All renames (low risk, preserves history) · create <code>va-leadership</code> + <code>va-policies</code></td><td>Andrew</td></tr>
-      <tr><td><strong>2</strong></td><td>Week 2</td><td>Operations completion + Clinical + CX · Lists attached</td><td>Scott + Aida + Rami</td></tr>
-      <tr><td><strong>3</strong></td><td>Week 2</td><td>People + Finance · Lists attached</td><td>Shari + Hadi</td></tr>
-      <tr><td><strong>4</strong></td><td>Week 3</td><td>Pilot clinic split (<code>clinic-mv-mb</code> + med + fd) · 2-week observation</td><td>Anissa</td></tr>
-      <tr><td><strong>5</strong></td><td>Week 4–5</td><td>Brands + remaining 11 clinics + vendors</td><td>Branch managers</td></tr>
-      <tr><td><strong>6</strong></td><td>rolling</td><td>Project channels as projects spin up · social-* light effort</td><td>Project owners</td></tr>
+      <tr><td><strong>Prep</strong></td><td>Days 1–2</td><td>Confirm with Mansoor · invite Rami/Nour/Waseem/Marta · user-groups · Lists template unblock · 11 open Qs answered</td><td>Andrew + Cheshire</td></tr>
+      <tr><td><strong>Week 1</strong></td><td>Day 1–2</td><td>All renames (preserves history) · create <code>va-leadership</code> + <code>va-policies</code></td><td>Cheshire</td></tr>
+      <tr><td></td><td>Day 3–4</td><td>New ops channels (maintenance/fitout/licensing) · all <code>team-clinical-*</code> (6) · all <code>team-cx-*</code> (5)</td><td>Cheshire</td></tr>
+      <tr><td></td><td>Day 5</td><td>Lists + topics + canvases attached — <strong>~30 channels live</strong></td><td>Cheshire</td></tr>
+      <tr><td><strong>Week 2</strong></td><td>Day 1–2</td><td>All <code>team-people-*</code> (4) · all <code>team-finance-*</code> (5) · Lists attached</td><td>Shari + Harshita</td></tr>
+      <tr><td></td><td>Day 3</td><td>Pilot clinic launch (<code>clinic-mv-mb</code> + -med + -fd) · brief Anissa</td><td>Anissa</td></tr>
+      <tr><td></td><td>Day 4–5</td><td>All <code>brand-*</code> (5) — <strong>~25 more channels live</strong> · pilot runs in parallel</td><td>Cheshire</td></tr>
+      <tr><td><strong>Week 3</strong></td><td>Day 1</td><td>Pilot review with Anissa · lock clinic pattern</td><td>Andrew</td></tr>
+      <tr><td></td><td>Day 2–3</td><td>Roll out 3-channel split to remaining 11 clinics (33 channels) in one batch</td><td>Branch managers</td></tr>
+      <tr><td></td><td>Day 4</td><td>All <code>vendor-*</code> (8) · all active <code>proj-*</code> (~12)</td><td>Project owners</td></tr>
+      <tr><td></td><td>Day 5</td><td>Cleanup · archive duplicates · <code>social-random</code> — <strong>~80 channels live, Phase 3 done</strong></td><td>Cheshire</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Risks of the 3-week pace</h3>
+  <table>
+    <thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
+    <tbody>
+      <tr><td>Dept heads slow on member lists</td><td>Cheshire pre-fills from Slack roster + RASCI; dept head signs off in &lt;30 min</td></tr>
+      <tr><td>Pilot clinic week too short</td><td>Daily 5-min check-ins with Anissa; Andrew + Cheshire on standby</td></tr>
+      <tr><td>33 clinic channels in one batch = chaos</td><td>Pre-script creation; one all-branch-managers briefing call covering everyone at once</td></tr>
+      <tr><td>Lists API blocker not resolved</td><td>Manual UI fallback; Andrew shares template Day 1 to unblock</td></tr>
+      <tr><td>Rami/Nour/Waseem/Marta not invited in time</td><td>Build channels without them; add later (low cost)</td></tr>
     </tbody>
   </table>
 </section>
@@ -874,13 +892,13 @@ Read-only   ──►  va-announcements (everyone sees outcome)</div>
     <li><strong>Clinic naming</strong> — <code>clinic-XXX-med</code> &amp; <code>clinic-XXX-fd</code> (single prefix) OK, or strict Mansoor pattern?</li>
     <li><strong>Branch codes</strong> — Khawaneej = <code>khw</code> · Azizi Riviera = <code>az</code>? Confirm.</li>
     <li><strong>Branch managers</strong> — names for MV Palm, DT, JVC, JLT, BOVC DIP, BOVC D2, TVRH?</li>
-    <li><strong>Finance lead</strong> — Hadi or Harshita as <code>team-finance</code> owner?</li>
+    <li><s><strong>Finance lead</strong></s> — ✅ <strong>Harshita</strong> (Head of Finance). Hadi = Chief Development Officer.</li>
     <li><strong>TVRH staffing</strong> — own clinical/brand channels yet, or fold into <code>brand-mv</code> first?</li>
     <li><strong>Floof scope</strong> — <code>brand-floof</code> alone, or sub-channels for product/tech/marketing?</li>
     <li><strong>Rescue groups</strong> — single <code>team-clinical-rescue</code>, or split per clinic?</li>
     <li><strong>Vendor Slack Connect</strong> — which 8 vendors get external Connect vs internal-only? (Default: internal except eCRE8 + Synergi.)</li>
     <li><strong>Head Office</strong> — own <code>team-headoffice-*</code> cluster, or sits inside <code>va-management</code>? (Default: <code>va-management</code>.)</li>
-    <li><strong>Rollout speed</strong> — 6 weeks realistic given dept submissions still trickling in? (Mansoor's blueprint says 4.)</li>
+    <li><s><strong>Rollout speed</strong></s> — ✅ <strong>3 weeks aggressive</strong>, see plan above.</li>
   </ol>
 </section>
 
