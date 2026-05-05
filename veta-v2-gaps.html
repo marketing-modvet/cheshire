@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veta v2 — Gap Report (for Aida & Operations)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e2e8f0; line-height: 1.6; }
+
+  #auth-overlay { position: fixed; inset: 0; background: #0f1117; display: flex; align-items: center; justify-content: center; z-index: 9999; }
+  .auth-box { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 16px; padding: 48px 40px; text-align: center; max-width: 380px; width: 90%; }
+  .auth-box h2 { color: #fbbf24; font-size: 1.4rem; margin-bottom: 8px; }
+  .auth-box p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 24px; }
+  .auth-box input { width: 100%; padding: 12px 16px; background: #0f1117; border: 1px solid #374151; border-radius: 8px; color: #e2e8f0; font-size: 1rem; outline: none; margin-bottom: 12px; }
+  .auth-box input:focus { border-color: #fbbf24; }
+  .auth-box button { width: 100%; padding: 12px; background: #fbbf24; border: none; border-radius: 8px; color: #0f1117; font-size: 1rem; cursor: pointer; font-weight: 600; }
+  .auth-box button:hover { background: #f59e0b; }
+  .auth-error { color: #f87171; font-size: 0.85rem; margin-top: 8px; display: none; }
+  #main-content { display: none; }
+
+  .header { background: linear-gradient(135deg, #78350f 0%, #92400e 100%); padding: 48px 32px; border-bottom: 1px solid #2d3748; }
+  .header-inner { max-width: 1100px; margin: 0 auto; }
+  .header-tag { display: inline-block; background: #fbbf2422; border: 1px solid #fbbf2466; color: #fbbf24; padding: 4px 14px; border-radius: 20px; font-size: 0.8rem; margin-bottom: 16px; font-weight: 500; }
+  h1 { font-size: 2.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; }
+  .header-sub { color: #fef3c7; font-size: 1.05rem; max-width: 800px; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 32px; }
+
+  .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .stat-card { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 12px; padding: 20px; text-align: center; }
+  .stat-card .num { font-size: 2.4rem; font-weight: 700; line-height: 1; margin-bottom: 4px; color: #fbbf24; }
+  .stat-card .lbl { color: #64748b; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  .intro { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 12px; padding: 28px; margin-bottom: 32px; }
+  .intro h2 { color: #fbbf24; font-size: 1.2rem; margin-bottom: 12px; }
+  .intro p { color: #cbd5e1; margin-bottom: 12px; }
+  .intro ol { color: #cbd5e1; margin-left: 24px; }
+  .intro ol li { margin-bottom: 8px; }
+  .intro strong { color: #e2e8f0; }
+  .intro a { color: #2dd4bf; }
+
+  .topic-section { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+  .topic-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid #2d3748; flex-wrap: wrap; gap: 12px; }
+  .topic-head h3 { color: #f1f5f9; font-size: 1.15rem; font-weight: 600; }
+  .topic-meta { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  .topic-meta .pill { background: #fbbf2420; color: #fbbf24; border: 1px solid #fbbf2440; padding: 3px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
+  .topic-meta .owner { color: #94a3b8; font-size: 0.85rem; }
+  .topic-meta .owner strong { color: #cbd5e1; }
+
+  .gap-card { background: #0f1117; border: 1px solid #2d3748; border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+  .gap-card .gap-q { color: #f1f5f9; font-size: 1rem; font-weight: 600; margin-bottom: 10px; }
+  .gap-card .gap-q::before { content: "Q  "; color: #2dd4bf; font-weight: 700; }
+  .gap-card .gap-a-label { color: #64748b; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+  .gap-card .gap-a { color: #cbd5e1; font-size: 0.9rem; padding: 10px 14px; background: #1a1f2e; border-left: 3px solid #fbbf24; border-radius: 4px; margin-bottom: 10px; font-style: italic; }
+  .gap-card .gap-notes { color: #64748b; font-size: 0.78rem; margin-bottom: 8px; }
+  .gap-card .gap-input { background: #fbbf2410; color: #fbbf24; padding: 8px 12px; border-radius: 6px; font-size: 0.83rem; border-left: 3px solid #fbbf24; }
+  .gap-card .gap-input strong { color: #fbbf24; }
+
+  .footer { color: #475569; font-size: 0.85rem; text-align: center; padding: 32px 0 16px; border-top: 1px solid #2d3748; margin-top: 40px; }
+  a { color: #2dd4bf; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div id="auth-overlay">
+  <div class="auth-box">
+    <h2>🚧 Veta Gap Report</h2>
+    <p>Internal report. Enter the access password to continue.</p>
+    <input type="password" id="pw-input" placeholder="Password" onkeydown="if(event.key==='Enter')checkPw()">
+    <button onclick="checkPw()">Unlock</button>
+    <div class="auth-error" id="pw-error">Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<div id="main-content">
+
+<div class="header">
+  <div class="header-inner">
+    <span class="header-tag">FOR AIDA & OPERATIONS · 5 MAY 2026</span>
+    <h1>Veta v2 — Gaps Needing Manual Input</h1>
+    <p class="header-sub">During the v4 KB rebuild, Opus 4.7 flagged 77 questions where the source materials don't have a canonical answer. Veta currently hedges honestly on these ("let me check and come back to you") instead of inventing. Below is the full list, organized by topic, with a suggested owner. Please provide the canonical answer for each — by email, shared doc, or however suits — and we'll fold them into the next KB update.</p>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="stats-row">
+  <div class="stat-card"><div class="num">77</div><div class="lbl">Total gaps</div></div>
+  <div class="stat-card"><div class="num">20</div><div class="lbl">Topics</div></div>
+  <div class="stat-card"><div class="num">5.9%</div><div class="lbl">of full KB (1313)</div></div>
+</div>
+
+<div class="intro">
+  <h2>📋 How to fill these gaps</h2>
+  <p>Each gap below shows: the question Veta gets asked, what she currently says (the honest hedge), and a suggested owner. Three options for filling them:</p>
+  <ol>
+    <li><strong>Email the answer</strong> — send to <a href="mailto:marketing@modernvet.com">marketing@modernvet.com</a> with the question quoted and your canonical answer. Andrew batches these into the next KB update.</li>
+    <li><strong>Drop into a shared doc</strong> — Andrew will set up a Google Doc per topic on request.</li>
+    <li><strong>Walk Andrew through it on a call</strong> — for topics that need policy decisions (e.g. "do we even offer boarding?"), a 15-minute call is faster than back-and-forth.</li>
+  </ol>
+  <p>You don't need to answer in Veta's voice — just give the facts, and we'll humanize them through the KB pipeline. <strong>Accuracy is what matters here, not tone.</strong></p>
+  <p>Some gaps may require a yes/no decision rather than an answer (e.g. "Do we offer boarding?" or "Do we accept Apple Pay?"). Mark those clearly.</p>
+</div>
+
+<div class="topic-section">
+  <div class="topic-head"><h3>Cremation & End-of-Life</h3><div class="topic-meta"><span class="pill">13 gaps</span><span class="owner">Owner: <strong>Aida + Operations</strong></span></div></div>
+  <div class="gap-card">
+    <div class="gap-q">Do you offer cremation services?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Yes, we do. Sorry you're dealing with this 🙏. Cremation is offered, with a few options depending on what you'd like — let me check the current details and come back to you.</div>
+    <div class="gap-notes"><em>Notes: Andrew flagged 2026-05-05: KNOWN GAP — exact cremation options/pricing not documented in source files. Bot stalls and admits limit. Needs Aida or operations team to provide canonical answer.</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">How much does euthanasia cost?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Really sorry you're at this point 🙏. Pricing varies depending on whether it's at home or in clinic, and the cremation arrangement afterwards. Let me get you the exact figures — give me a moment.</div>
+    <div class="gap-notes"><em>Notes: Andrew flagged 2026-05-05: KNOWN GAP — exact euthanasia pricing (in-clinic vs home, with/without cremation) not documented in source files. Bot stalls. Needs Aida or operations team to provide canonical answer.</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Do you offer pet cremation?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Yes, we help arrange cremation when the time comes. Let me check the current options and costs and come back to you — won't be long.</div>
+    <div class="gap-notes"><em>Notes: Stall + admit need to confirm details</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">What are the cremation options?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Usually it's individual (ashes returned to you) or communal (no ashes back), but I'd rather confirm exactly what we offer right now before quoting you. Give me a moment to check.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">How much does cremation cost?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Pricing depends on the type and your pet's size. I don't have the current rate sheet in front of me — let me pull it up and come back to you with a proper figure.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Can I get my pet's ashes back?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Yes, that's the individual cremation option. Let me confirm the current pricing and turnaround for you and I'll come straight back.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Do you offer urns?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">I believe there are a few options but I don't want to guess on what's available right now. Give me a sec to check and I'll let you know.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Do you do paw prints?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Paw prints are usually included as a keepsake option — let me double-check that's still the case and come back to you.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Where is the cremation done?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">It's handled through a partner facility rather than on-site at our branches. I'll confirm the exact arrangement and let you know.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">How long until I get the ashes?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Typically about a week or so for individual cremation, but let me check the current timeline with our partner and confirm for you.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">What happens if I don't want the ashes?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">That's completely fine — communal cremation is the option where ashes aren't returned. Let me confirm the exact pricing for you, give me a moment.</div>
+    <div class="gap-notes"><em>Notes: Stalls naturally, offers to come back with details</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Do you do home euthanasia?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Yes, our Mobile Clinic can come to you for end-of-life visits — it's often the gentlest option so they can stay in their own space. Let me check current availability and pricing for you, one sec.</div>
+    <div class="gap-notes"><em>Notes: Mobile Clinic exists at AED 499 + consult, but euthanasia-specific pricing not confirmed</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Memorial keepsakes — do you offer them?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Things like paw prints and fur clippings are usually arranged through the cremation provider. Let me check exactly what's offered and come back to you, give me a moment.</div>
+    <div class="gap-notes"><em>Notes: Honest stall — needs confirmation from cremation partner</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+</div>
+<div class="topic-section">
+  <div class="topic-head"><h3>Pre/Post-Op Care</h3><div class="topic-meta"><span class="pill">10 gaps</span><span class="owner">Owner: <strong>Aida + Senior Vet</strong></span></div></div>
+  <div class="gap-card">
+    <div class="gap-q">What time should I drop off for surgery?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Drop-off time is set when we book the slot — usually first thing in the morning so the team can prep and run pre-op checks. Let me confirm the exact time for your booking, just give me a sec.</div>
+    <div class="gap-notes"><em>Notes: Flagging — would be useful to lock a default drop-off window in the SOP.</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">When can I pick my pet up after surgery?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Usually same-day once they're awake and stable, the vet will ring you when they're ready to go home. Exact timing depends on the procedure and how your pet recovers from anaesthesia, so the team will give you a clearer window after the surgery's done.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">What pain medication will be given?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">The vet picks the pain plan based on the procedure and your pet — usually an injectable on the day plus oral pain relief to take home for a few days. They'll go through dosing with you at discharge.</div>
+    <div class="gap-notes"><em>Notes: Would be good to have a standard post-op meds reference.</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">How do I care for the wound at home?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Keep it clean and dry, no licking — that's what the cone or recovery suit is for. No baths, swimming or rough play until the vet clears you, usually 10 to 14 days. Check the site once a day and bring them in for the post-op recheck as scheduled.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">What signs of infection should I watch for?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Redness or swelling that's getting worse, discharge or bad smell from the site, the wound opening up, your pet off their food, lethargic, or running a fever. If any of that shows up, ring us and bring them in — sooner the better.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">When can my pet eat normally after surgery?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Usually we suggest a small light meal the evening of surgery once they're properly awake — about a quarter of their normal portion. Back to normal food the next day if they kept that down. The vet will give you specifics on discharge depending on the procedure.</div>
+    <div class="gap-notes"><em>Notes: Flagging for Aida to confirm exact post-op feeding guidance</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Can my pet climb stairs after surgery?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Best to keep stairs and jumping to a minimum for the first 10–14 days — especially after spay/neuter or any abdominal surgery. Carry them up and down where you can, and crate or small-room rest is ideal. The vet will tell you exactly how strict to be based on the procedure.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">How long until stitches come out?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Typically around 10–14 days after surgery, depending on how the wound's healing. Some cases use dissolvable sutures so nothing needs removing — the vet will tell you which on discharge and book you in for the suture removal if needed.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">When is the post-op check-up?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Usually around 10–14 days after surgery, lined up with suture removal. The vet will book it in on discharge. If anything looks off before then — swelling, discharge, the wound opening — bring them in sooner, don't wait.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">What if my pet vomits after surgery?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">One small vomit the evening of surgery isn't unusual — anaesthesia can leave them queasy. Hold off food for a couple of hours then try a tiny amount. If it's repeated vomiting, they seem flat, or you're worried, ring us — Hospital on Al Wasl is 24/7 on 800-82.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+</div>
+<div class="topic-section">
+  <div class="topic-head"><h3>Boarding & Kennel</h3><div class="topic-meta"><span class="pill">8 gaps</span><span class="owner">Owner: <strong>Operations + Mansoor</strong></span></div></div>
+  <div class="gap-card">
+    <div class="gap-q">Do you offer boarding?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Boarding isn't something I can confirm we offer off the top of my head — let me check and come back to you. If your pet's hospitalised for medical reasons that's different, but kennel-style boarding I'd want to verify before saying yes.</div>
+    <div class="gap-notes"><em>Notes: Hedged honestly per brief</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Can my pet stay with you while I'm on holiday?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Holiday boarding isn't something I can confirm we offer — give me a moment to check. If it's medical boarding (pet on treatment, needs monitoring) that's a different conversation and we can usually arrange that at the Hospital.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Pet hotel — do you have one?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Not that I'm aware of — we're a vet clinic rather than a pet hotel. Let me double-check though, in case there's something I'm missing.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Cattery — do you offer it?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Cattery boarding isn't something I can confirm — hold on, let me check. We're primarily a clinic, so for general holiday boarding you'd usually look at a dedicated cattery, but I'll verify if we have anything.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">How much is overnight boarding?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">I don't have boarding pricing to hand — let me check whether that's something we offer and come back with numbers. Medical hospitalisation at the Hospital is priced separately and depends on the case.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Can I board my dog with you?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Routine dog boarding I can't confirm — give me a sec to check. If it's medical (post-op, needs IV, monitoring), that's hospitalisation and we can arrange it at the Hospital on Al Wasl. Pure holiday boarding I'd need to verify.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Boarding requirements — vaccines etc?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Before I list requirements I'd want to confirm we actually offer boarding — let me check. As a general rule anywhere that does board pets will want core vaccines up to date plus kennel cough for dogs, but I'll come back with our specifics.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Daycare for dogs — do you offer it?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Daycare isn't on my radar as something we run — we're set up as a clinic and hospital rather than a daycare. Let me check anyway in case I'm wrong on that.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+</div>
+<div class="topic-section">
+  <div class="topic-head"><h3>Parrot / Avian</h3><div class="topic-meta"><span class="pill">6 gaps</span><span class="owner">Owner: <strong>Operations</strong></span></div></div>
+  <div class="gap-card">
+    <div class="gap-q">Do you do bird grooming or wing clipping?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Don't have that one in front of me — wing clipping isn't something I can confirm we do routinely. Let me check with Dr Ionut's team at JVC and come back to you.</div>
+    <div class="gap-notes"><em>Notes: Flag for Aida — confirm whether JVC offers routine wing clip/grooming for birds</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Can you DNA-sex my parrot?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Let me check that one — DNA sexing isn't something I can confirm off the top of my head. I'll ask Dr Ionut at JVC and get back to you shortly.</div>
+    <div class="gap-notes"><em>Notes: Flag for Aida — confirm whether we offer DNA sexing in-house or via external lab</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Bird nail clipping — do you offer it?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Nail clipping for birds isn't something I can confirm we do as a standalone service — let me check with Dr Ionut's team at JVC. Usually it'd be done as part of a consult anyway. I'll come back to you.</div>
+    <div class="gap-notes"><em>Notes: Flag for Aida — confirm pricing/availability for bird nail trim at JVC</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Can you microchip my parrot?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Honestly not something I've quoted before for a parrot — let me check whether Dr Ionut at JVC does avian microchipping or whether it's better routed to Blue Oasis Vet. Give me a moment.</div>
+    <div class="gap-notes"><em>Notes: Flag for Aida — confirm whether parrot microchipping done at JVC</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Do you take chickens?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Don't have that one in front of me — chickens aren't a routine case for us. Let me check with Dr Ionut at JVC whether he sees them, otherwise Blue Oasis Vet would be the better route. Give me a sec.</div>
+    <div class="gap-notes"><em>Notes: Flag for confirmation</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Do you do beak trimming?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Beak trims for parrots — Dr Ionut at JVC is the one to see. Let me confirm pricing and slot availability, give me a moment.</div>
+    <div class="gap-notes"><em>Notes: Flag for Aida — beak/nail trim avian pricing</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+</div>
+<div class="topic-section">
+  <div class="topic-head"><h3>Cancellation & No-Show</h3><div class="topic-meta"><span class="pill">5 gaps</span><span class="owner">Owner: <strong>Operations + Finance</strong></span></div></div>
+  <div class="gap-card">
+    <div class="gap-q">What if I miss my surgery appointment?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Best to ring us as soon as you can on 800-82 so we can rebook. Surgeries take a slot in the vet's diary, so a heads up helps us fit you back in quickly. Depending on how late notice it is there may be a deposit/rebooking charge — let me check the specifics for your case.</div>
+    <div class="gap-notes"><em>Notes: Flagging for SOP confirmation</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Do you charge for no-shows?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Don't have the exact policy in front of me — let me check and come back to you. Generally a heads up before the slot keeps things simple, even a quick WhatsApp on 050 630 4573 is enough.</div>
+    <div class="gap-notes"><em>Notes: Brief mentions 24h notice + deposit policy as a gap area to fill — needs Aida confirmation</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">What's your cancellation policy?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">We ask for 24 hours' notice if you need to cancel or reschedule. Let me check the exact deposit/no-show terms and come back to you in a sec — want to make sure I give you the right detail.</div>
+    <div class="gap-notes"><em>Notes: Flag for Aida to confirm exact policy + any deposit forfeiture rules.</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Do you charge for missed appointments?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Let me double-check the current no-show rule before I quote you anything — give me a moment. Generally we just ask for 24 hours' notice if you can't make it.</div>
+    <div class="gap-notes"><em>Notes: Needs confirmation from Aida — is there a no-show charge?</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Will I get my deposit back if I cancel?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Let me check the deposit terms for your booking and come back to you — depends on the service and how much notice you're giving. One sec.</div>
+    <div class="gap-notes"><em>Notes: Needs confirmation — which services take deposits, and refund rules.</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+</div>
+<div class="topic-section">
+  <div class="topic-head"><h3>Pet Travel & Export</h3><div class="topic-meta"><span class="pill">5 gaps</span><span class="owner">Owner: <strong>Operations + Bluesky Pet Relocations</strong></span></div></div>
+  <div class="gap-card">
+    <div class="gap-q">How long is a fit-to-fly certificate valid?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Validity depends on the destination country — most accept it within 10 days of travel, some shorter. I'd check the exact requirement with Rose at Bluesky (+971 54 506 7276) since she handles this daily, then we time the cert to match.</div>
+    <div class="gap-notes"><em>Notes: Flag for Aida to confirm a default.</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">What's needed to fly my pet to UK?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">UK has strict requirements — microchip, rabies vaccination timing, tapeworm treatment for dogs, and the right paperwork. Rather than guess, ring Rose at Bluesky on +971 54 506 7276, she does UK relocations regularly and will lay it all out. We handle the vet side once she confirms what's needed.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">What's needed to fly my pet to USA?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">USA rules shifted recently, especially for dogs — CDC has tighter import rules now. Rose at Bluesky (+971 54 506 7276) is the right person to walk you through it. Once she's confirmed the protocol, we'll do the vet checks and certificate.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">What's needed to fly my pet to India?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">India has its own NOC and import permit process. Best to speak to Rose at Bluesky on +971 54 506 7276 — she handles the permit side. We'll sort the health certificate and any vet requirements from there.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">What's needed to fly my pet to Saudi Arabia?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Saudi's usually more straightforward as a GCC move, but there's still an import permit and health cert needed. Rose at Bluesky (+971 54 506 7276) will know the current requirements. We do the vet side once she's confirmed.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+</div>
+<div class="topic-section">
+  <div class="topic-head"><h3>Spay/Neuter Specifics</h3><div class="topic-meta"><span class="pill">4 gaps</span><span class="owner">Owner: <strong>Senior Vet</strong></span></div></div>
+  <div class="gap-card">
+    <div class="gap-q">Is overnight observation included after surgery?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Don't have a clear line on overnight observation in front of me — most routine spay/neuters are same-day discharge once the pet's awake and stable, but it depends on the case and the vet's call. Let me check with the surgery team and come back to you.</div>
+    <div class="gap-notes"><em>Notes: Worth confirming with Aida — likely case-by-case but should be documented</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Are stitches dissolvable or do they need removing?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Depends on the case — the surgeon decides on the day. Often we use dissolvable sutures internally with skin stitches that need removing about 10-14 days later, but the vet will confirm at discharge what your pet has and whether a recheck is needed.</div>
+    <div class="gap-notes"><em>Notes: Worth confirming standard MV suture practice with the surgical team.</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">How much pain medication will my pet need?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">The vet sends them home with a tailored pain plan — usually a few days of oral meds, dosed by weight. Full instructions are gone through at discharge. If you want me to check what's been prescribed for a specific pet, send me the name.</div>
+    <div class="gap-notes"><em>Notes: Generic answer — specifics depend on vet and patient.</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Is laparoscopic spay available?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Let me check on that one — I want to confirm which of our vets is currently doing lap spays before I quote you. Give me a moment and I'll come back with who's available and pricing.</div>
+    <div class="gap-notes"><em>Notes: Flagged as gap — only BOV vet shows laparoscopy in matrix; MV positioning unclear.</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+</div>
+<div class="topic-section">
+  <div class="topic-head"><h3>Lost & Found Pets</h3><div class="topic-meta"><span class="pill">4 gaps</span><span class="owner">Owner: <strong>Operations</strong></span></div></div>
+  <div class="gap-card">
+    <div class="gap-q">Can you keep a found pet at the clinic until owner is found?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Honestly not something I've got a clear policy on in front of me — boarding a found pet while we trace an owner isn't a standard service. Let me check with the team and come back to you. If the animal needs medical care that's a different conversation, we can see it.</div>
+    <div class="gap-notes"><em>Notes: Flag for Aida — needs a clear policy</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Do you have a lost-and-found?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">We don't run a formal lost-and-found register, but we can scan any pet that comes in for a microchip, and we'll often hear about lost pets through the community. The Facebook and Instagram groups Lost & Found Pets Dubai are usually the fastest route — much bigger reach than us.</div>
+    <div class="gap-notes"><em>Notes: Confirm with Aida if branches keep informal logs.</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Lost pet poster — can you put one up?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Sure, drop a poster at any of our branches and we're happy to put it up at reception. The Lost & Found Pets Dubai groups on Facebook and Instagram will get you a lot more eyes on it though, worth posting there too.</div>
+    <div class="gap-notes"><em>Notes: Worth confirming with branch managers.</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">I want to surrender my pet</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Sorry you're in that spot. We're not a shelter so we can't take pets in ourselves, but rehoming groups like K9 Friends, Stray Dogs Center Umm Al Quwain, and 38 Strays do this kind of work. Vienna Vet also works closely with rescues and might be able to point you somewhere. Happy to help with vet care in the meantime if needed.</div>
+    <div class="gap-notes"><em>Notes: Listed common Dubai rehoming orgs — verify current operations.</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+</div>
+<div class="topic-section">
+  <div class="topic-head"><h3>Payment Methods</h3><div class="topic-meta"><span class="pill">3 gaps</span><span class="owner">Owner: <strong>Finance</strong></span></div></div>
+  <div class="gap-card">
+    <div class="gap-q">Do you accept bank transfers?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Let me check that one — I don't have the bank transfer policy in front of me. Most clients pay by card or cash at the branch, but if you'd prefer a transfer I'll confirm with finance and come back to you.</div>
+    <div class="gap-notes"><em>Notes: Genuine gap, Veta admits and offers to check</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Can my insurance pay you directly?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Hold on a sec, let me check which insurers we have direct billing with — it varies by provider. Which one's yours?</div>
+    <div class="gap-notes"><em>Notes: Needs Aida/finance to confirm direct billing partners.</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Which insurance do you accept?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">I don't have the current insurer list in front of me — let me confirm. If you tell me which provider you're with, I can check whether we bill them directly or whether it's a reimbursement claim.</div>
+    <div class="gap-notes"><em>Notes: Coverage gap — needs finance team input.</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+</div>
+<div class="topic-section">
+  <div class="topic-head"><h3>Branch Hours (specifics)</h3><div class="topic-meta"><span class="pill">3 gaps</span><span class="owner">Owner: <strong>Branch Managers</strong></span></div></div>
+  <div class="gap-card">
+    <div class="gap-q">Are you open during Ramadan?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">We are, yes. Hospital stays 24/7 as always. Branch hours can shift slightly during Ramadan though — let me confirm the exact timings nearer the date so you've got the right ones.</div>
+    <div class="gap-notes"><em>Notes: Ramadan-specific hours not in sources — flagging as gap to confirm with Aida</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Are you open on Eid?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Hospital on Al Wasl Rd is 24/7 right through Eid. Branches usually stay open too but hours can shift on the public holiday days — give me a sec to check the exact Eid timings if you need a specific branch.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Are you open on public holidays?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Hospital runs 24/7, holidays included. Branches usually trade as normal but timings can shift on the day — worth checking the specific date if you're planning ahead.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+</div>
+<div class="topic-section">
+  <div class="topic-head"><h3>Ownership Transfer</h3><div class="topic-meta"><span class="pill">2 gaps</span><span class="owner">Owner: <strong>Aida (SOP exists, just needs detail)</strong></span></div></div>
+  <div class="gap-card">
+    <div class="gap-q">Do I need to update Dubai Municipality after the transfer?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Good shout — yes, the muni record should be updated to reflect the new owner. We handle the NOC and our internal file on the day, but the municipality tag side is usually sorted at the next annual renewal under the new owner's name. Let me double-check the exact timing with the team if you need it sooner.</div>
+    <div class="gap-notes"><em>Notes: Flagged — need clarity from Aida on muni update workflow post-transfer</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Is there a fee for ownership transfer?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Don't have a fee listed for that in front of me — let me check and come back to you.</div>
+    <div class="gap-notes"><em>Notes: Flagged as gap — needs confirmation from Aida/pricing.</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+</div>
+<div class="topic-section">
+  <div class="topic-head"><h3>Behaviour & Training</h3><div class="topic-meta"><span class="pill">2 gaps</span><span class="owner">Owner: <strong>Senior Vet</strong></span></div></div>
+  <div class="gap-card">
+    <div class="gap-q">Do you offer pheromone diffusers?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Let me check stock for you — we usually carry Feliway for cats and Adaptil for dogs but I'd want to confirm what's in at your nearest branch before saying yes. Which branch are you closest to?</div>
+    <div class="gap-notes"><em>Notes: Flag for Aida — confirm Feliway/Adaptil stock policy</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Can you recommend a dog trainer in Dubai?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">I don't have an official list to share — we don't formally partner with trainers. Let me ask around the team for who clients have had good experiences with and come back to you. What kind of training are you after — puppy basics, behaviour issues, something specific?</div>
+    <div class="gap-notes"><em>Notes: Flagging as gap — would be useful to have an approved trainer list</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+</div>
+<div class="topic-section">
+  <div class="topic-head"><h3>FIP Treatment</h3><div class="topic-meta"><span class="pill">2 gaps</span><span class="owner">Owner: <strong>Senior Vet</strong></span></div></div>
+  <div class="gap-card">
+    <div class="gap-q">How long is the FIP treatment course?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Standard protocol is around 84 days of daily injections, then a monitoring phase after. Let me double-check the exact timeline against the latest guidance and come back to you — want me to confirm?</div>
+    <div class="gap-notes"><em>Notes: SOP focuses on policy, not clinical protocol details</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Are there side effects to GS treatment?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">I don't have a side effect list to hand for GS — and to be straight with you, we don't stock or administer it ourselves, so it's not something we manage day to day. Best to discuss specifics with whoever's sourcing the GS for you. We can support with diagnostics and monitoring on our end though.</div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+</div>
+<div class="topic-section">
+  <div class="topic-head"><h3>Insurance Details</h3><div class="topic-meta"><span class="pill">2 gaps</span><span class="owner">Owner: <strong>Finance + Andrew</strong></span></div></div>
+  <div class="gap-card">
+    <div class="gap-q">Do you have a recommended insurer?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">I don't have a specific recommendation to hand — let me check who we typically work with and come back to you. In the meantime, the main names in the UAE market are worth getting quotes from.</div>
+    <div class="gap-notes"><em>Notes: Flagged as gap — needs confirmation from Aida on accepted insurers.</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Do you do direct billing with insurance?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Don't have the current direct-billing list in front of me — let me check which insurers we're set up with. Most cases the client pays at the visit and claims back, but a few have direct billing arrangements. What's your provider?</div>
+    <div class="gap-notes"><em>Notes: Flag for ops to confirm direct-billing partners</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+</div>
+<div class="topic-section">
+  <div class="topic-head"><h3>Pet Taxi (Chauf-fur)</h3><div class="topic-meta"><span class="pill">2 gaps</span><span class="owner">Owner: <strong>Operations</strong></span></div></div>
+  <div class="gap-card">
+    <div class="gap-q">Do you provide the carrier for transport?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Don't have that one in front of me — let me check with the Chauf-fur team and come back to you.</div>
+    <div class="gap-notes"><em>Notes: Genuine gap — needs Aida confirmation</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Is there a fee for pet taxi outside Dubai?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">I don't have a specific out-of-Dubai surcharge listed — pricing is by distance bracket up to 60 km+ (AED 250 one-way). Let me check with dispatch on cross-emirate trips and come back to you. What's the destination?</div>
+    <div class="gap-notes"><em>Notes: Worth confirming with Aida whether Chauf-fur operates outside Dubai and any surcharge.</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+</div>
+<div class="topic-section">
+  <div class="topic-head"><h3>Vaccination Specifics</h3><div class="topic-meta"><span class="pill">2 gaps</span><span class="owner">Owner: <strong>Senior Vet</strong></span></div></div>
+  <div class="gap-card">
+    <div class="gap-q">Do you give FeLV vaccine?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Yes, we offer it. It's non-core, usually recommended for cats with outdoor access or in multi-cat homes where status is unknown. We'd typically test for FeLV first before vaccinating. Pricing isn't in the standard package — let me check the exact figure if you'd like.</div>
+    <div class="gap-notes"><em>Notes: Flagged pricing gap</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+  <div class="gap-card">
+    <div class="gap-q">Do you do titer testing instead of vaccination?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Let me check that one — I'd rather confirm with the vet which titers we run in-house vs send out, and the pricing. Give me a sec.</div>
+    <div class="gap-notes"><em>Notes: Flag for Aida/clinical team to confirm.</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+</div>
+<div class="topic-section">
+  <div class="topic-head"><h3>Pregnancy & Breeding</h3><div class="topic-meta"><span class="pill">1 gaps</span><span class="owner">Owner: <strong>Senior Vet</strong></span></div></div>
+  <div class="gap-card">
+    <div class="gap-q">What's emergency C-section pricing?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Don't have the C-section price list in front of me — it varies by size of the dog and what's needed during surgery. Let me check and come back to you. If it's happening now, head to Hospital on Al Wasl, we're 24/7.</div>
+    <div class="gap-notes"><em>Notes: Flag for Aida to add C-section pricing to KB.</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+</div>
+<div class="topic-section">
+  <div class="topic-head"><h3>Microchip Registration</h3><div class="topic-meta"><span class="pill">1 gaps</span><span class="owner">Owner: <strong>Aida</strong></span></div></div>
+  <div class="gap-card">
+    <div class="gap-q">Can you update the chip details?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Updating the registry details (new phone, new address, new owner) is done through Dubai Municipality directly, not us. If you're stuck, give me your number and I'll find out the exact step for your case.</div>
+    <div class="gap-notes"><em>Notes: Flag for Aida — confirm exact process MV offers for chip detail updates</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+</div>
+<div class="topic-section">
+  <div class="topic-head"><h3>Dental Specifics</h3><div class="topic-meta"><span class="pill">1 gaps</span><span class="owner">Owner: <strong>Senior Vet</strong></span></div></div>
+  <div class="gap-card">
+    <div class="gap-q">How much is a dental scale and polish?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Don't have a flat dental price to hand — it depends on the size of the pet, how much work's needed and whether any extractions come up. The way we usually do it is a pre-dental consult first (AED 249 at branches, AED 299 at Hospital), then the vet builds an estimate. Want me to get you booked in for that?</div>
+    <div class="gap-notes"><em>Notes: Flag for Aida — clarify whether there's a baseline dental package price.</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+</div>
+<div class="topic-section">
+  <div class="topic-head"><h3>First Visit Admin</h3><div class="topic-meta"><span class="pill">1 gaps</span><span class="owner">Owner: <strong>Aida</strong></span></div></div>
+  <div class="gap-card">
+    <div class="gap-q">Do you need my Emirates ID?</div>
+    <div class="gap-a-label">Veta currently says:</div>
+    <div class="gap-a">Don't have that one fully nailed down for you — let me check. We do need owner contact details on file, and for municipality tag registration there's some ID involved. I'll confirm exactly what's required and come back to you.</div>
+    <div class="gap-notes"><em>Notes: Flag for Aida — confirm ID requirements at reception</em></div>
+    <div class="gap-input"><strong>Canonical answer needed</strong> — please provide via email or shared doc</div>
+  </div>
+</div>
+
+<div class="footer">
+  Veta v2 gap report · 5 May 2026 · Modern Vet Group<br>
+  Confidential. Internal use only.<br>
+  <a href="veta-v2-launch.html">← Back to Veta v2 launch report</a>
+</div>
+
+</div>
+</div>
+
+<script>
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+const CORRECT_HASH = 'c2e1f05b6868968d63617ab5ea1d169ab838acba350416eae151f275611a5ff3';
+async function checkPw() {
+  const pw = document.getElementById('pw-input').value;
+  const hash = await sha256(pw);
+  if (hash === CORRECT_HASH) {
+    document.getElementById('auth-overlay').style.display = 'none';
+    document.getElementById('main-content').style.display = 'block';
+    sessionStorage.setItem('auth-veta-v2-gaps', '1');
+  } else {
+    document.getElementById('pw-error').style.display = 'block';
+    document.getElementById('pw-input').value = '';
+  }
+}
+if (sessionStorage.getItem('auth-veta-v2-gaps') === '1') {
+  document.getElementById('auth-overlay').style.display = 'none';
+  document.getElementById('main-content').style.display = 'block';
+}
+window.addEventListener('load', () => document.getElementById('pw-input').focus());
+</script>
+
+</body>
+</html>
