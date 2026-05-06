@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ModernVet SEO Report — 6 May 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --navy: #0f3460;
+    --navy-deep: #1a1a2e;
+    --salmon: #ee6c4d;
+    --salmon-light: #fdf2ee;
+    --green: #2e7d32;
+    --green-soft: #e8f5e9;
+    --red: #c62828;
+    --red-soft: #ffebee;
+    --amber: #f57c00;
+    --amber-soft: #fff3e0;
+    --grey: #555;
+    --grey-light: #f5f5f7;
+    --border: #e0e0e0;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #222;
+    line-height: 1.6;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+    background: #fafafa;
+  }
+  header {
+    border-bottom: 4px solid var(--salmon);
+    padding-bottom: 16px;
+    margin-bottom: 32px;
+  }
+  h1 { color: var(--navy); margin: 0 0 8px; font-size: 32px; }
+  h2 { color: var(--navy); margin-top: 40px; padding-bottom: 6px; border-bottom: 2px solid var(--border); font-size: 22px; }
+  h3 { color: var(--navy-deep); margin-top: 28px; font-size: 17px; }
+  .meta { color: var(--grey); font-size: 14px; }
+  .headline {
+    background: var(--salmon-light);
+    border-left: 4px solid var(--salmon);
+    padding: 16px 20px;
+    margin: 24px 0;
+    border-radius: 4px;
+  }
+  .headline strong { color: var(--salmon); }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 16px 0 24px;
+    font-size: 14px;
+    background: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  th { background: var(--navy); color: white; text-align: left; padding: 10px 12px; font-weight: 600; }
+  td { padding: 9px 12px; border-bottom: 1px solid var(--border); }
+  tr:hover td { background: var(--grey-light); }
+  .up { color: var(--green); font-weight: 600; }
+  .down { color: var(--red); font-weight: 600; }
+  .flat { color: var(--grey); }
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: 600; }
+  .pill-good { background: var(--green-soft); color: var(--green); }
+  .pill-bad { background: var(--red-soft); color: var(--red); }
+  .pill-warn { background: var(--amber-soft); color: var(--amber); }
+  .callout {
+    background: white;
+    border-left: 4px solid var(--navy);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .callout-warn { border-left-color: var(--amber); background: var(--amber-soft); }
+  .callout-bad { border-left-color: var(--red); background: var(--red-soft); }
+  .callout-good { border-left-color: var(--green); background: var(--green-soft); }
+  ul, ol { padding-left: 22px; }
+  li { margin: 4px 0; }
+  code { background: var(--grey-light); padding: 1px 6px; border-radius: 3px; font-size: 13px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .stat {
+    background: white;
+    padding: 14px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    border-top: 3px solid var(--navy);
+  }
+  .stat-label { font-size: 12px; color: var(--grey); text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-value { font-size: 24px; font-weight: 700; color: var(--navy-deep); margin: 4px 0; }
+  .stat-delta { font-size: 13px; }
+  footer {
+    margin-top: 48px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--grey);
+  }
+  .check-pass { color: var(--green); font-weight: 700; }
+  .check-fail { color: var(--red); font-weight: 700; }
+  @media print { body { background: white; padding: 16px; } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>ModernVet SEO Report</h1>
+  <div class="meta">Period: <strong>15 April → 5 May 2026</strong> (3 weeks) · Generated 6 May 2026</div>
+</header>
+
+<div class="headline">
+<strong>Headline.</strong> The April 30 dev/SEO brief still hasn't shipped. Live origin re-check on May 6 confirms <strong>all five schema/grammar issues are still live</strong>: 7am–10pm hours, <code>priceRange: null</code>, no <code>aggregateRating</code>, Russian day names on location pages, and "in the Dubai" still in titles. <strong>Until those land, ranking gains will be capped.</strong><br><br>
+That said, keyword movement over the period is mostly positive — <strong>66 keywords improved vs 54 declined</strong>, average position 18.6, and several near-me / emergency terms made big jumps. Two structural problems also surfaced this period: <strong>Ahrefs DR dropped 56 → 51</strong> (referring domains down 70 in 3 weeks) and the GSC traffic strip / nginx redirect issue still needs CTO attention.
+</div>
+
+<h2>📊 Domain Health</h2>
+
+<div class="grid">
+  <div class="stat"><div class="stat-label">Ahrefs DR</div><div class="stat-value">51</div><div class="stat-delta down">▼ 5 vs 15 Apr</div></div>
+  <div class="stat"><div class="stat-label">Referring Domains</div><div class="stat-value">838</div><div class="stat-delta down">▼ 70 vs 15 Apr</div></div>
+  <div class="stat"><div class="stat-label">Avg Position (ranked)</div><div class="stat-value">18.6</div><div class="stat-delta up">▲ ~7.6 vs 14 Apr</div></div>
+  <div class="stat"><div class="stat-label">Top 10 Keywords</div><div class="stat-value">36/145</div><div class="stat-delta">25%</div></div>
+  <div class="stat"><div class="stat-label">Top 3 Keywords</div><div class="stat-value">10/145</div><div class="stat-delta">7%</div></div>
+  <div class="stat"><div class="stat-label">Branded Avg Pos</div><div class="stat-value">1.0</div><div class="stat-delta flat">flat ✅</div></div>
+</div>
+
+<div class="callout callout-warn">
+<strong>Two flags worth raising with leadership:</strong>
+<ol>
+<li><strong>DR dropped 5 points in 3 weeks</strong>, and we lost <strong>70 referring domains net</strong>. That's not a measurement glitch — it's real backlink decay. Likely candidates: dropped link partnerships, content removed off other sites, or a Cloudflare/nginx issue making pages unreachable to crawlers. Needs a deeper Ahrefs lost-backlink audit.</li>
+<li><strong>The April 30 brief is still not deployed.</strong> Every day it stays unshipped is a day we leave Top 3 emergency rankings on the table.</li>
+</ol>
+</div>
+
+<h2>✅ What Shipped Since April 14</h2>
+<ul>
+  <li><span class="check-pass">✅</span> <strong>Apr 22</strong> — Google Ads health check (no issues at the time)</li>
+  <li><span class="check-pass">✅</span> <strong>Apr 30</strong> — Homepage media-library alt text saved (but Avada <code>[fusion_imageframe]</code> ignores it — needs in-shortcode <code>alt=""</code> fix)</li>
+  <li><span class="check-pass">✅</span> <strong>Apr 30</strong> — Internal SEO audit re-run; full briefs delivered to dev + SEO specialist</li>
+  <li><span class="check-fail">❌</span> Schema fixes (drafted, awaiting dev deploy)</li>
+  <li><span class="check-fail">❌</span> Grammar fixes ("in the Dubai")</li>
+  <li><span class="check-fail">❌</span> Russian day names on location pages</li>
+  <li><span class="check-fail">❌</span> WP REST API write-block investigation (CTO)</li>
+  <li><span class="check-fail">❌</span> nginx Google Ads param strip (CTO)</li>
+</ul>
+
+<h2>📈 Keyword Performance (15 Apr → 5 May)</h2>
+
+<h3>Distribution (145 tracked)</h3>
+<table>
+<thead><tr><th>Bucket</th><th>Count</th><th>%</th></tr></thead>
+<tbody>
+<tr><td>Top 3</td><td>10</td><td>7%</td></tr>
+<tr><td>Top 4–10</td><td>26</td><td>18%</td></tr>
+<tr><td>Top 11–20</td><td>34</td><td>23%</td></tr>
+<tr><td>Top 21–50</td><td>48</td><td>33%</td></tr>
+<tr><td>Not ranking (>100 / dropped)</td><td>27</td><td>19%</td></tr>
+</tbody>
+</table>
+<div class="callout">Healthy distribution at the top — <strong>25% in Top 10</strong> is solid for a competitive market. The 27 unranked is where most of the loss happened (see Losers table).</div>
+
+<h3>🏆 Top 15 Gainers</h3>
+<table>
+<thead><tr><th>Keyword</th><th>Pos (5 May)</th><th>Δ</th><th>Volume</th><th>KD</th></tr></thead>
+<tbody>
+<tr><td><strong>vet clinics</strong></td><td><strong>7</strong></td><td class="up">▲ +93</td><td>2,900</td><td>48</td></tr>
+<tr><td>best vet near me</td><td>11</td><td class="up">▲ +89</td><td>30</td><td>47</td></tr>
+<tr><td>emergency veterinarian near me</td><td>13</td><td class="up">▲ +87</td><td>20</td><td>42</td></tr>
+<tr><td><strong>emergency vet near me</strong></td><td><strong>15</strong></td><td class="up">▲ +85</td><td>210</td><td>36</td></tr>
+<tr><td>vets</td><td>18</td><td class="up">▲ +82</td><td>170</td><td>48</td></tr>
+<tr><td>best veterinarian near me</td><td>20</td><td class="up">▲ +80</td><td>10</td><td>45</td></tr>
+<tr><td>animal hospital dubai</td><td>23</td><td class="up">▲ +77</td><td>20</td><td>41</td></tr>
+<tr><td>dog hospital</td><td>23</td><td class="up">▲ +77</td><td>20</td><td>44</td></tr>
+<tr><td>pet emergency near me</td><td>24</td><td class="up">▲ +76</td><td>20</td><td>33</td></tr>
+<tr><td>animal hospital near me</td><td>25</td><td class="up">▲ +75</td><td>90</td><td>45</td></tr>
+<tr><td><strong>veterinarian</strong></td><td><strong>28</strong></td><td class="up">▲ +72</td><td><strong>4,400</strong></td><td>32</td></tr>
+<tr><td>vet veterinary clinic</td><td>29</td><td class="up">▲ +71</td><td>480</td><td>36</td></tr>
+<tr><td>veterinary doctor</td><td>29</td><td class="up">▲ +71</td><td>140</td><td>42</td></tr>
+<tr><td>emergency vet clinic</td><td>31</td><td class="up">▲ +69</td><td>10</td><td>21</td></tr>
+<tr><td>veterinarian dubai</td><td>32</td><td class="up">▲ +68</td><td>50</td><td>38</td></tr>
+</tbody>
+</table>
+<div class="callout callout-good"><strong>Read:</strong> Recovery is broad-based across emergency / near-me / animal-hospital terms. <strong>"vet clinics" jumping to #7 (vol 2,900)</strong> is the single biggest win of the period. <strong>"veterinarian" climbing 72 places to #28 (vol 4,400)</strong> is the next step toward Top 10 on a major head term.</div>
+
+<h3>⚠️ Top 15 Losers</h3>
+<table>
+<thead><tr><th>Keyword</th><th>Pos</th><th>Δ</th><th>Volume</th><th>KD</th></tr></thead>
+<tbody>
+<tr><td><strong>veterinary clinic near me</strong></td><td>dropped</td><td class="down">▼ -75</td><td><strong>1,900</strong></td><td>38</td></tr>
+<tr><td>veterinary hospital</td><td>dropped</td><td class="down">▼ -85</td><td>320</td><td>45</td></tr>
+<tr><td>24 hour vet</td><td>dropped</td><td class="down">▼ -89</td><td>50</td><td>20</td></tr>
+<tr><td>vet hospital near me</td><td>dropped</td><td class="down">▼ -94</td><td>50</td><td>42</td></tr>
+<tr><td>pet vet near me</td><td>dropped</td><td class="down">▼ -73</td><td>110</td><td>35</td></tr>
+<tr><td>pet emergency hospital</td><td>dropped</td><td class="down">▼ -72</td><td>10</td><td>9</td></tr>
+<tr><td>the cat vet dubai</td><td>dropped</td><td class="down">▼ -68</td><td>50</td><td>22</td></tr>
+<tr><td>pet clinic</td><td>dropped</td><td class="down">▼ -66</td><td>480</td><td>36</td></tr>
+<tr><td>city vet clinic al wasl</td><td>dropped</td><td class="down">▼ -65</td><td>40</td><td>9</td></tr>
+<tr><td>noble veterinary clinic dubai</td><td>dropped</td><td class="down">▼ -64</td><td>170</td><td>12</td></tr>
+<tr><td>animal doctor</td><td>dropped</td><td class="down">▼ -61</td><td>40</td><td>38</td></tr>
+<tr><td>pet vet clinic</td><td>dropped</td><td class="down">▼ -56</td><td>70</td><td>29</td></tr>
+<tr><td>pet doctor</td><td>dropped</td><td class="down">▼ -55</td><td>70</td><td>39</td></tr>
+<tr><td>cat clinic</td><td>dropped</td><td class="down">▼ -57</td><td>30</td><td>40</td></tr>
+<tr><td>the vet clinic</td><td>dropped</td><td class="down">▼ -59</td><td>30</td><td>34</td></tr>
+</tbody>
+</table>
+<div class="callout callout-bad"><strong>Read:</strong> Biggest concern is <strong>"veterinary clinic near me" (vol 1,900)</strong> dropping out of top 100 entirely — pairs with last week's "veterinary clinic" decline. Together these represent ~4,800 monthly searches we're losing visibility on.<br><br>
+The <strong>"24 hour vet" drop is exactly what the schema brief predicts</strong>: with <code>openingHours</code> declared as 7am–10pm, Google can't classify us as 24/7, so emergency-related rankings stay capped. <strong>This is the single most important reason to ship the schema fix.</strong></div>
+
+<h2>💎 Quick Wins (Page 1, push to Top 3)</h2>
+<p>Already at position 4–15 with search volume ≥ 200 — most leverage from internal-link / on-page tightening:</p>
+<table>
+<thead><tr><th>Keyword</th><th>Pos</th><th>Volume</th><th>KD</th><th>Landing</th></tr></thead>
+<tbody>
+<tr><td><strong>vet near me</strong></td><td>6</td><td><strong>5,400</strong></td><td>38</td><td>/</td></tr>
+<tr><td><strong>vet clinics</strong></td><td>7</td><td>2,900</td><td>48</td><td>/</td></tr>
+<tr><td><strong>vet clinic near me</strong></td><td>6</td><td>1,600</td><td>48</td><td>/</td></tr>
+<tr><td><strong>vet dubai</strong></td><td>8</td><td>880</td><td>47</td><td>/</td></tr>
+<tr><td>veterinary clinics</td><td>11</td><td>2,900</td><td>47</td><td>/</td></tr>
+<tr><td>best vet in dubai</td><td>5</td><td>260</td><td>45</td><td>/</td></tr>
+<tr><td>vet hospital dubai</td><td>10</td><td>390</td><td>42</td><td>/</td></tr>
+<tr><td>emergency vet near me</td><td>15</td><td>210</td><td>36</td><td>/</td></tr>
+</tbody>
+</table>
+<div class="callout"><strong>Combined potential:</strong> ~14,000 extra monthly impressions if all reach Top 3. The schema fixes (especially <code>aggregateRating</code> + correct hours + <code>VeterinaryCare</code> type) directly support all 8.</div>
+
+<h2>🎯 Big-Volume Underperformers</h2>
+<p>Strategic focus area — high-volume terms ranking poorly or not at all:</p>
+<table>
+<thead><tr><th>Keyword</th><th>Pos</th><th>Volume</th><th>KD</th></tr></thead>
+<tbody>
+<tr><td><strong>veterinarian</strong></td><td>28</td><td><strong>4,400</strong></td><td>32</td></tr>
+<tr><td>veterinary</td><td class="down">unranked</td><td>4,400</td><td>34</td></tr>
+<tr><td><strong>vet clinic</strong></td><td>39</td><td>2,900</td><td>43</td></tr>
+<tr><td>veterinary clinic</td><td>49</td><td>2,900</td><td>47</td></tr>
+<tr><td>vet clinic dubai</td><td>22</td><td>1,900</td><td>43</td></tr>
+<tr><td>veterinary clinic dubai</td><td>27</td><td>1,900</td><td>47</td></tr>
+<tr><td>veterinary clinic near me</td><td class="down">unranked</td><td><strong>1,900</strong></td><td>38</td></tr>
+<tr><td>pet clinic near me</td><td>21</td><td>1,300</td><td>40</td></tr>
+<tr><td>veterinarian near me</td><td>22</td><td>1,300</td><td>45</td></tr>
+<tr><td>amity veterinary clinic</td><td class="down">unranked</td><td>880</td><td>29</td></tr>
+</tbody>
+</table>
+<div class="callout">"veterinary" (4,400) being unranked is interesting given strong rank on "veterinarian" (#28) — likely a content/keyword-mapping issue rather than authority. Worth a dedicated landing-page audit.</div>
+
+<h2>📱 SE Ranking Snapshot (Mobile, Dubai EN)</h2>
+<div class="grid">
+  <div class="stat"><div class="stat-label">Avg position</div><div class="stat-value">30</div><div class="stat-delta up">▲ 3 vs 15 Apr</div></div>
+  <div class="stat"><div class="stat-label">Traffic forecast</div><div class="stat-value">176</div><div class="stat-delta up">▲ 5</div></div>
+  <div class="stat"><div class="stat-label">Visibility</div><div class="stat-value">0.4</div><div class="stat-delta up">▲ 0.3 (4×)</div></div>
+  <div class="stat"><div class="stat-label">% Top 10 Keys</div><div class="stat-value">20%</div><div class="stat-delta up">▲ 10 (2×)</div></div>
+</div>
+
+<h3>Mobile Movers (15 Apr → 6 May)</h3>
+<table>
+<thead><tr><th>Keyword</th><th>Volume</th><th>15 Apr</th><th>6 May</th><th>Δ</th></tr></thead>
+<tbody>
+<tr><td><strong>vet dubai</strong></td><td>880</td><td>20</td><td><strong>6</strong></td><td class="up">▲ 14</td></tr>
+<tr><td>dubai vet</td><td>320</td><td>19</td><td>10</td><td class="up">▲ 9</td></tr>
+<tr><td>veterinary hospital dubai</td><td>480</td><td>29</td><td>22</td><td class="up">▲ 7</td></tr>
+<tr><td>veterinary clinic dubai</td><td>410</td><td>37</td><td>30</td><td class="up">▲ 7</td></tr>
+<tr><td>vet in dubai</td><td>320</td><td>10</td><td>23</td><td class="down">▼ 13 ⚠️</td></tr>
+<tr><td>pet hospital dubai</td><td>480</td><td>13</td><td>23</td><td class="down">▼ 10</td></tr>
+<tr><td>animal hospital near me</td><td>210</td><td>8</td><td>23</td><td class="down">▼ 15 ⚠️</td></tr>
+<tr><td>vet</td><td>12,100</td><td>17</td><td>29</td><td class="down">▼ 12</td></tr>
+<tr><td>pet veterinary clinic</td><td>260</td><td>34</td><td>57</td><td class="down">▼ 23</td></tr>
+<tr><td>veterinary clinic</td><td>6,600</td><td>48</td><td>52</td><td class="down">▼ 4</td></tr>
+</tbody>
+</table>
+<div class="callout">Mobile picture is mixed but improving overall — visibility 4× up, Top 10 share doubled. Drops on "vet in dubai" and "animal hospital near me" mirror the SEMRush pattern: emergency/near-me volatility likely tied to local-pack displacement, not organic content.</div>
+
+<h2>🔎 Live Site Health Check (May 6)</h2>
+<table>
+<thead><tr><th>Check</th><th>Status</th><th>Detail</th></tr></thead>
+<tbody>
+<tr><td>Homepage <code>openingHours</code></td><td><span class="check-fail">❌ FAIL</span></td><td>Still <code>07:00–22:00</code> (we are 24/7)</td></tr>
+<tr><td>Homepage <code>priceRange</code></td><td><span class="check-fail">❌ FAIL</span></td><td>Still <code>null</code></td></tr>
+<tr><td>Homepage <code>aggregateRating</code></td><td><span class="check-fail">❌ FAIL</span></td><td>Missing entirely (1,600+ reviews invisible to Google)</td></tr>
+<tr><td>Location page <code>dayOfWeek</code></td><td><span class="check-fail">❌ FAIL</span></td><td>Still in Russian ("Понедельник", "Вторник"...)</td></tr>
+<tr><td>Page titles "in the Dubai"</td><td><span class="check-fail">❌ FAIL</span></td><td>3 instances on homepage; JLT title still reads "in the Dubai"</td></tr>
+<tr><td>Homepage fusion_imageframe alt</td><td><span class="check-fail">❌ FAIL</span></td><td>All 7 doctor + bg images render with no alt</td></tr>
+<tr><td>Schema <code>@type</code></td><td>LocalBusiness</td><td>Should upgrade to <code>VeterinaryCare</code> (after main fixes)</td></tr>
+<tr><td>Schema source</td><td><span class="check-pass">✅ identified</span></td><td><strong>Schema Pro</strong> plugin (confirmed via <code>&lt;!-- Schema optimized by Schema Pro --&gt;</code>)</td></tr>
+</tbody>
+</table>
+
+<div class="callout callout-good"><strong>🟢 Good news:</strong> schema source is confirmed as the <strong>Schema Pro plugin</strong>. Dev can edit it directly in WP admin → Schema Pro Settings → LocalBusiness template. No need to dig through theme files or WPCode snippets for the homepage schema. <strong>This unblocks the entire schema fix.</strong></div>
+
+<h2>🏗️ Open Issues from April 30 Audit</h2>
+
+<h3>High priority (SEO impact)</h3>
+<ol>
+  <li><span class="check-fail">❌</span> Schema: 7am-10pm → 24/7 — caps every emergency-related ranking</li>
+  <li><span class="check-fail">❌</span> Schema: Russian day names on location pages</li>
+  <li><span class="check-fail">❌</span> Schema: <code>priceRange</code> null → <code>"$$"</code></li>
+  <li><span class="check-fail">❌</span> Schema: <code>aggregateRating</code> missing (1,600+ reviews invisible)</li>
+  <li><span class="check-fail">❌</span> Grammar: "in the Dubai" sitewide</li>
+  <li><span class="check-fail">❌</span> Homepage alt tags — 7 fusion_imageframe shortcodes need explicit <code>alt=""</code></li>
+</ol>
+
+<h3>Medium priority (infrastructure)</h3>
+<ol start="7">
+  <li><span class="check-fail">❌</span> WP REST API silently rejecting writes — blocks all SEO automation tooling</li>
+  <li><span class="check-fail">❌</span> nginx Google Ads param strip (CTO) — kills Ads conversion tracking</li>
+  <li><span class="pill pill-warn">NEW</span> Backlink decay — DR 56→51, refdomains -70 in 3 weeks — needs lost-backlink audit + outreach</li>
+  <li><span class="pill pill-warn">NEW</span> "veterinary clinic near me" dropped (vol 1,900) — investigate ranking page, possible cannibalisation</li>
+</ol>
+
+<h3>Lower priority</h3>
+<ol start="11">
+  <li><span class="check-fail">❌</span> Schema <code>@type</code> LocalBusiness → <code>VeterinaryCare</code> (do last)</li>
+  <li><span class="check-fail">❌</span> Disavow file review (still pending GSC export)</li>
+  <li><span class="check-fail">❌</span> Editorial roundup outreach (Bayut, mypawland, etc.)</li>
+</ol>
+
+<h2>📋 Recommended Actions</h2>
+
+<h3>This week</h3>
+<ol>
+  <li><strong>Push Schema Pro homepage fix</strong> — opening hours + priceRange + aggregateRating. Dev now has confirmed schema source. Single deploy, low risk, biggest ranking impact.</li>
+  <li><strong>Fix Russian day names on location pages</strong> — same Schema Pro template per location.</li>
+  <li><strong>Pull GBP <code>ratingValue</code> + <code>reviewCount</code> per location</strong> — needed for <code>aggregateRating</code> per branch.</li>
+</ol>
+
+<h3>Next 2 weeks</h3>
+<ol start="4">
+  <li>Sitewide "in the Dubai" → "in Dubai" (Yoast templates + Polylang).</li>
+  <li>Add <code>alt=""</code> to 7 fusion_imageframe shortcodes on homepage (post 26424).</li>
+  <li>Schedule Ahrefs lost-backlinks audit — DR drop deserves a deeper look.</li>
+  <li>Flag REST API + nginx redirect to CTO if not already in flight.</li>
+</ol>
+
+<h3>Next 4 weeks (after schema fixes)</h3>
+<ol start="8">
+  <li>Re-validate via Google Rich Results Test on /, JLT, Al Wasl pages.</li>
+  <li>Re-submit those URLs in GSC for indexing.</li>
+  <li>Monitor GSC Performance for "24 hour vet Dubai", "emergency vet Dubai", "vet open now Dubai" — expect lift within 2-4 weeks.</li>
+  <li>Decide on <code>@type</code> upgrade (LocalBusiness → VeterinaryCare).</li>
+  <li>Investigate "veterinary clinic near me" (vol 1,900) drop.</li>
+</ol>
+
+<h2>🎯 What Success Looks Like (Next 30 Days)</h2>
+
+<div class="callout callout-good">
+<strong>If the April 30 brief deploys this week:</strong>
+<ul>
+<li>Star ratings appear in SERPs for at least homepage + 2 location pages within 14 days</li>
+<li>"24 hour vet dubai" (vol 90) and "emergency vet dubai" (vol 110) both reach Top 10 within 4 weeks</li>
+<li><code>vet near me</code> (#6 / vol 5,400) and <code>vet dubai</code> (#8 / vol 880) push into Top 3</li>
+<li>Average tracked-keyword position drops below 15</li>
+<li>Refdomains stabilise above 830 (need active outreach if decay continues)</li>
+</ul>
+</div>
+
+<div class="callout callout-warn">
+<strong>If brief doesn't deploy:</strong>
+<ul>
+<li>Emergency / 24-hour-related rankings stay flat or slowly decay</li>
+<li>Quick-wins list above stays at "page 1, but not Top 3"</li>
+<li>Risk of more drops on commercial terms as competitors catch up</li>
+</ul>
+</div>
+
+<footer>
+Report generated 6 May 2026 · Sources: SEMRush position tracker (15 Apr → 4 May export), PR-CY mobile (06 May), SE Ranking (06 May), Ahrefs API (DR + refdomains-history), live origin fetch on 06 May. Compiled by Cheshire 😸
+</footer>
+
+</body>
+</html>
