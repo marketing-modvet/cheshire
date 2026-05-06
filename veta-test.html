@@ -100,19 +100,30 @@
   <div class="wrap">
     <span class="badge">Internal · Test Chat</span>
     <h1>Veta — Modern Vet Assistant</h1>
-    <p class="subtitle">Embedded test page so the team can chat with Veta and leave thumbs up / thumbs down feedback on each reply.</p>
+    <p class="subtitle">Internal test page for the team to chat with Veta and tell us where she shines and where she trips up.</p>
 
     <div class="card">
       <h2>How to test 🐾</h2>
-      <p>Click the chat bubble in the bottom-right corner to start. Type as if you were a real client asking about Modern Vet — pricing, services, doctors, branches, packages, anything.</p>
+      <p>Click the chat bubble in the bottom-right corner to start. Type as if you were a real client messaging Modern Vet on WhatsApp — ask about pricing, services, doctors, branches, packages, emergencies, anything you'd realistically ask.</p>
       <ul>
-        <li><strong>Thumbs up / down</strong> appear on each of Veta's replies — please tap them as you go.</li>
-        <li>If a reply is wrong, off-tone, or invented, give it a thumbs down.</li>
-        <li>If a reply nails it, thumbs up so we know what's working.</li>
-        <li>End-of-chat star rating is also enabled — give an overall score before you close the window.</li>
+        <li>Have a proper back-and-forth, not just one question. We want to see how she handles a real conversation flow.</li>
+        <li>Try to stump her — edge cases, unusual species, weird scheduling, complaints, multi-pet questions.</li>
+        <li>Mix easy and hard — softball questions confirm she gets the basics right; hard ones show us the gaps.</li>
       </ul>
       <div class="hint">
-        <strong>Heads up:</strong> Veta presents as a real Modern Vet team member, not as AI. She also can't pull live ezyVet data (appointments, records) — that's deliberate.
+        <strong>Heads up:</strong> Veta presents as a real Modern Vet team member, not as AI. She also can't pull live ezyVet data (appointments, records, stock) — that's deliberate. If she stalls on those, that's correct behaviour.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>How to give feedback 📝</h2>
+      <p>ElevenLabs recently removed the per-message thumbs up / down buttons from the chat widget, so we're collecting feedback two other ways:</p>
+      <ul>
+        <li><strong>End-of-chat star rating</strong> — when you close the chat window, you'll be asked for a 1-5 star rating and an optional comment. <em>Please use it every time</em> — that's our main quality signal.</li>
+        <li><strong>Slack — <code>#veta-feedback</code></strong> — for anything specific (a reply was wrong, off-tone, invented a price, missed an obvious answer), drop a screenshot or quote in Slack with a quick note. That's how we catch the stuff that needs fixing in the knowledge base.</li>
+      </ul>
+      <div class="hint">
+        <strong>Behind the scenes:</strong> every conversation transcript is logged automatically. Andrew + Cheshire run them through a review pipeline weekly to flag issues and feed corrections back into Veta's knowledge base — your feedback speeds that up massively.
       </div>
     </div>
 
@@ -123,6 +134,7 @@
         <li><strong>Tone</strong> — does she sound like a sharp human teammate, not a corporate bot?</li>
         <li><strong>Boundaries</strong> — does she stall naturally on things she shouldn't have (e.g. live system data)?</li>
         <li><strong>Brand</strong> — does she stay Modern Vet without leaking BOV / VV?</li>
+        <li><strong>Booking flow</strong> — can she take a booking smoothly (pet name, service, time, branch, phone)?</li>
       </ul>
     </div>
 
