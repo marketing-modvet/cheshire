@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Veta — Modern Vet Assistant (Test Chat)</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <style>
+    :root {
+      --mv-navy: #1a3a5c;
+      --mv-salmon: #e8a99a;
+      --mv-cream: #fdf6f1;
+      --mv-text: #2c2c2c;
+      --mv-muted: #6b7280;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--mv-cream);
+      color: var(--mv-text);
+      min-height: 100vh;
+    }
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 48px 24px 120px;
+    }
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--mv-navy);
+      margin: 0 0 8px;
+    }
+    .subtitle {
+      color: var(--mv-muted);
+      font-size: 15px;
+      margin: 0 0 32px;
+    }
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 28px;
+      box-shadow: 0 2px 12px rgba(26, 58, 92, 0.08);
+      margin-bottom: 20px;
+    }
+    .card h2 {
+      font-size: 18px;
+      color: var(--mv-navy);
+      margin: 0 0 12px;
+      font-weight: 600;
+    }
+    .card p {
+      margin: 0 0 10px;
+      line-height: 1.55;
+      font-size: 15px;
+    }
+    .card ul {
+      margin: 8px 0 0;
+      padding-left: 20px;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+    .badge {
+      display: inline-block;
+      background: var(--mv-salmon);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .hint {
+      background: #fff8e6;
+      border-left: 3px solid #f0b400;
+      padding: 12px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: #5c4500;
+      margin-top: 14px;
+    }
+    .hint strong { color: #3d2e00; }
+    .footer {
+      text-align: center;
+      color: var(--mv-muted);
+      font-size: 13px;
+      margin-top: 32px;
+    }
+    /* Make sure the widget sits comfortably on mobile */
+    elevenlabs-convai {
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <span class="badge">Internal · Test Chat</span>
+    <h1>Veta — Modern Vet Assistant</h1>
+    <p class="subtitle">Embedded test page so the team can chat with Veta and leave thumbs up / thumbs down feedback on each reply.</p>
+
+    <div class="card">
+      <h2>How to test 🐾</h2>
+      <p>Click the chat bubble in the bottom-right corner to start. Type as if you were a real client asking about Modern Vet — pricing, services, doctors, branches, packages, anything.</p>
+      <ul>
+        <li><strong>Thumbs up / down</strong> appear on each of Veta's replies — please tap them as you go.</li>
+        <li>If a reply is wrong, off-tone, or invented, give it a thumbs down.</li>
+        <li>If a reply nails it, thumbs up so we know what's working.</li>
+        <li>End-of-chat star rating is also enabled — give an overall score before you close the window.</li>
+      </ul>
+      <div class="hint">
+        <strong>Heads up:</strong> Veta presents as a real Modern Vet team member, not as AI. She also can't pull live ezyVet data (appointments, records) — that's deliberate.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>What we're testing</h2>
+      <ul>
+        <li><strong>Accuracy</strong> — does she get prices, branches, hours, doctors right?</li>
+        <li><strong>Tone</strong> — does she sound like a sharp human teammate, not a corporate bot?</li>
+        <li><strong>Boundaries</strong> — does she stall naturally on things she shouldn't have (e.g. live system data)?</li>
+        <li><strong>Brand</strong> — does she stay Modern Vet without leaking BOV / VV?</li>
+      </ul>
+    </div>
+
+    <p class="footer">Modern Vet · Internal use only · Powered by ElevenLabs Agents</p>
+  </div>
+
+  <!-- ElevenLabs ConvAI widget -->
+  <elevenlabs-convai agent-id="agent_2701kqwnryy2ewdapx7kxvqyr1zk"></elevenlabs-convai>
+  <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+</body>
+</html>
