@@ -116,7 +116,7 @@
 
 <div class="headline">
 <strong>Headline.</strong> April 30 dev/SEO brief is <strong>in progress</strong> — changes are queued / under deployment but not yet propagated to the live origin as of May 6. Once they land, expect immediate movement on emergency / 24-hour / open-now queries.<br><br>
-Meanwhile, keyword movement over the period is mostly positive — <strong>66 keywords improved vs 54 declined</strong>, average position 18.6, and several near-me / emergency terms made big jumps. Two structural items also surfaced this period worth flagging: <strong>Ahrefs DR dropped 56 → 51</strong> (referring domains down 70 in 3 weeks) and the GSC traffic strip / nginx redirect issue is still on the CTO list.
+Meanwhile, keyword movement over the period is mostly positive — <strong>66 keywords improved vs 54 declined</strong>, average position 18.6, and several near-me / emergency terms made big jumps. Worth noting this period: <strong>Ahrefs DR dropped 56 → 51</strong> with referring domains down 70 net — partly a Cloudflare-side glitch (also affecting Ads tracking, currently being investigated) and partly the deliberate competitor-spam cleanup we're running. Both expected to stabilise.
 </div>
 
 <h2>📊 Domain Health</h2>
@@ -130,12 +130,13 @@ Meanwhile, keyword movement over the period is mostly positive — <strong>66 ke
   <div class="stat"><div class="stat-label">Branded Avg Pos</div><div class="stat-value">1.0</div><div class="stat-delta flat">flat ✅</div></div>
 </div>
 
-<div class="callout callout-warn">
-<strong>Two flags worth raising with leadership:</strong>
+<div class="callout">
+<strong>Context on the DR / refdomains drop:</strong> two known causes are at play —
 <ol>
-<li><strong>DR dropped 5 points in 3 weeks</strong>, and we lost <strong>70 referring domains net</strong>. That's not a measurement glitch — it's real backlink decay. Likely candidates: dropped link partnerships, content removed off other sites, or a Cloudflare/nginx issue making pages unreachable to crawlers. Needs a deeper Ahrefs lost-backlink audit.</li>
-<li><strong>The April 30 brief is still not deployed.</strong> Every day it stays unshipped is a day we leave Top 3 emergency rankings on the table.</li>
+<li>A <strong>Cloudflare-side glitch</strong> (the same one currently affecting Ads param tracking) is likely making some pages intermittently unreachable to crawlers.</li>
+<li>We're <strong>actively cleaning spam domains</strong> sent by competitors — deliberate refdomain loss, healthy long-term, looks bad on the chart short-term.</li>
 </ol>
+Neither indicates organic backlink decay. Expect the curve to flatten once Cloudflare is sorted and the cleanup pass finishes.
 </div>
 
 <h2>✅ Status of Work Since April 14</h2>
@@ -147,8 +148,8 @@ Meanwhile, keyword movement over the period is mostly positive — <strong>66 ke
   <li><span class="pill pill-warn">IN PROGRESS</span> Grammar fixes ("in the Dubai" → "in Dubai")</li>
   <li><span class="pill pill-warn">IN PROGRESS</span> Russian day names on location pages</li>
   <li><span class="pill pill-warn">IN PROGRESS</span> Homepage fusion_imageframe alt tags (post 26424)</li>
-  <li><span class="check-fail">❌</span> WP REST API write-block investigation (CTO)</li>
-  <li><span class="check-fail">❌</span> nginx Google Ads param strip (CTO)</li>
+  <li><span class="pill pill-warn">IN PROGRESS</span> WP REST API write-block investigation (CTO)</li>
+  <li><span class="pill pill-warn">IN PROGRESS</span> Cloudflare Google Ads param strip (CTO) — traced to a Cloudflare glitch, not nginx</li>
 </ul>
 
 <h2>📈 Keyword Performance (15 Apr → 5 May)</h2>
@@ -275,24 +276,6 @@ The <strong>"24 hour vet" drop is exactly what the schema brief predicts</strong
 </table>
 <div class="callout">Mobile picture is mixed but improving overall — visibility 4× up, Top 10 share doubled. Drops on "vet in dubai" and "animal hospital near me" mirror the SEMRush pattern: emergency/near-me volatility likely tied to local-pack displacement, not organic content.</div>
 
-<h2>🔎 Live Site Health Check (May 6)</h2>
-<p>This is the live origin baseline as of May 6 — dev work is in progress, so these are expected to flip as the fixes propagate. Useful as a before/after reference for the next report.</p>
-<table>
-<thead><tr><th>Check</th><th>Live (6 May)</th><th>Detail</th></tr></thead>
-<tbody>
-<tr><td>Homepage <code>openingHours</code></td><td><span class="pill pill-warn">07:00–22:00</span></td><td>Should be 24/7 once fix lands</td></tr>
-<tr><td>Homepage <code>priceRange</code></td><td><span class="pill pill-warn">null</span></td><td>Should be <code>"$$"</code> once fix lands</td></tr>
-<tr><td>Homepage <code>aggregateRating</code></td><td><span class="pill pill-warn">missing</span></td><td>1,600+ reviews currently invisible to Google</td></tr>
-<tr><td>Location page <code>dayOfWeek</code></td><td><span class="pill pill-warn">Russian</span></td><td>("Понедельник", "Вторник"…) needs English</td></tr>
-<tr><td>Page titles "in the Dubai"</td><td><span class="pill pill-warn">3+ instances</span></td><td>Homepage + JLT title still reads "in the Dubai"</td></tr>
-<tr><td>Homepage fusion_imageframe alt</td><td><span class="pill pill-warn">no alt</span></td><td>7 doctor + bg images render without alt</td></tr>
-<tr><td>Schema <code>@type</code></td><td>LocalBusiness</td><td>Optional upgrade to <code>VeterinaryCare</code> after main fixes</td></tr>
-<tr><td>Schema source</td><td><span class="check-pass">✅ confirmed</span></td><td><strong>Schema Pro</strong> plugin (via <code>&lt;!-- Schema optimized by Schema Pro --&gt;</code> markers)</td></tr>
-</tbody>
-</table>
-
-<div class="callout callout-good"><strong>🟢 Note:</strong> schema source is confirmed as the <strong>Schema Pro plugin</strong> — dev can edit directly in WP admin → Schema Pro Settings → LocalBusiness template. No need to dig through theme files or WPCode snippets. This was the main unknown blocking the work; now resolved.</div>
-
 <h2>🏗️ Open Issues</h2>
 
 <h3>From April 30 audit — in progress with dev</h3>
@@ -305,15 +288,15 @@ The <strong>"24 hour vet" drop is exactly what the schema brief predicts</strong
   <li><span class="pill pill-warn">IN PROGRESS</span> Homepage alt tags — 7 fusion_imageframe shortcodes</li>
 </ol>
 
-<h3>Awaiting CTO</h3>
+<h3>CTO — in progress</h3>
 <ol start="7">
-  <li><span class="check-fail">❌</span> WP REST API silently rejecting writes — blocks all SEO automation tooling</li>
-  <li><span class="check-fail">❌</span> nginx Google Ads param strip — affecting Ads conversion tracking</li>
+  <li><span class="pill pill-warn">IN PROGRESS</span> WP REST API silently rejecting writes — blocks SEO automation tooling</li>
+  <li><span class="pill pill-warn">IN PROGRESS</span> Cloudflare Google Ads param strip — affecting Ads conversion tracking (traced to Cloudflare, not nginx)</li>
 </ol>
 
-<h3>New this period</h3>
+<h3>Watching this period</h3>
 <ol start="9">
-  <li><span class="pill pill-warn">NEW</span> Backlink decay — DR 56→51, refdomains -70 in 3 weeks — needs lost-backlink audit + outreach</li>
+  <li><span class="pill pill-warn">MONITORING</span> DR / refdomains decline (DR 56→51, -70 refdomains) — partly Cloudflare glitch, partly deliberate competitor-spam cleanup. Expected to stabilise.</li>
   <li><span class="pill pill-warn">NEW</span> "veterinary clinic near me" dropped (vol 1,900) — investigate ranking page, possible cannibalisation</li>
 </ol>
 
@@ -335,9 +318,9 @@ The <strong>"24 hour vet" drop is exactly what the schema brief predicts</strong
 
 <h3>Next 2 weeks</h3>
 <ol start="4">
-  <li>Schedule Ahrefs lost-backlinks audit — DR drop deserves a deeper look.</li>
-  <li>Flag REST API + nginx redirect to CTO if not already in flight.</li>
   <li>Investigate "veterinary clinic near me" (vol 1,900) drop — page-level audit + cannibalisation check.</li>
+  <li>Tag the Cloudflare glitch resolution date in tracking so we can isolate its impact on DR / refdomains in the next report.</li>
+  <li>Once spam cleanup pass finishes, run a clean refdomain baseline so future drops can be reliably interpreted.</li>
 </ol>
 
 <h3>Next 4 weeks (after schema deploys propagate)</h3>
@@ -363,7 +346,7 @@ The <strong>"24 hour vet" drop is exactly what the schema brief predicts</strong
 <div class="callout">
 <strong>Independent of the deploy, watch:</strong>
 <ul>
-<li>Refdomains trend — if -70 / 3-week decay continues, the lost-backlink audit becomes urgent</li>
+<li>Refdomains — expected to stabilise once Cloudflare resolves and competitor-spam cleanup wraps. Set a clean baseline after both finish.</li>
 <li>"veterinary clinic near me" / "veterinary hospital" — confirm whether drops are SERP-feature displacement or content/page issues</li>
 <li>Mobile vs desktop divergence on near-me terms — SE Ranking shows mobile improving while some SEMRush desktop terms slid</li>
 </ul>
