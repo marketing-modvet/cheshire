@@ -255,78 +255,88 @@
 
 <h2>How the structure looks</h2>
 
+<p style="font-size:.85rem;color:var(--muted);">Lock icon 🔒 = private channel. 🌐 = open to everyone in the company.</p>
+
 <div class="tree"><span class="pfx">va-</span>                                            (Vet Alliance org-wide · 5 channels)
-├─ va-announcements              <span class="own">posting locked to leadership</span>
-├─ va-general                    <span class="own">watercooler, kudos</span>
-├─ va-leadership      🔒         <span class="own">Mansoor + direct reports</span>
-├─ va-management      🔒         <span class="own">all team leads</span>
-└─ va-policies                   <span class="own">read-only · IT/HR/SOP releases</span>
+├─ va-announcements              🌐  <span class="own">posting locked to leadership</span>
+├─ va-general                    🌐  <span class="own">watercooler, kudos</span>
+├─ va-leadership                 🔒  <span class="own">Mansoor + direct reports</span>
+├─ va-management                 🔒  <span class="own">all team leads</span>
+└─ va-policies                   🌐  <span class="own">read-only · IT/HR/SOP releases</span>
 
 <span class="pfx">team-</span>                                          (Functional teams · ~40 channels)
-├─ MARKETING                     <span class="own">Andrew (already running)</span>
-├─ TECH / IT                     <span class="own">AbdulRahman (already running)</span>
-├─ OPERATIONS (Scott + Michael + Judit)
-│   ├─ team-ops-warehouse / -inventory / -smartflow
-│   ├─ team-ops-floof-orders / -purchasing
-│   ├─ team-ops-approvals-equipment / -approvals-medicine
-│   ├─ team-ops-maintenance              <span class="own">Judit</span>
-│   ├─ team-ops-fitout                   <span class="own">Judit</span>
-│   └─ team-ops-licensing                <span class="own">Scott + Yusuf</span>
-├─ CLINICAL                      <span class="own">Scott + Dr. Dieter + Dr. Rami</span>
-│   ├─ team-clinical (leadership)
-│   ├─ team-clinical-vets / -nurses / -emergency
-│   ├─ team-clinical-medical-product
-│   └─ team-clinical-rescue              <span class="own">Aida</span>
-├─ CUSTOMER EXPERIENCE           <span class="own">Aida</span>
-│   ├─ team-cx (leadership)
-│   ├─ team-cx-scheduling   🔒           <span class="own">Dima · existing private</span>
-│   ├─ team-cx-complaints
-│   ├─ team-cx-experience
-│   └─ team-cx-training
+├─ MARKETING                              <span class="own">Andrew (already running)</span>
+├─ TECH / IT                              <span class="own">AbdulRahman (already running)</span>
+├─ OPERATIONS                             <span class="own">Michael (COO)</span>
+│   ├─ team-ops                    🔒  <span class="own">Michael (leadership)</span>
+│   ├─ team-ops-warehouse          🔒
+│   ├─ team-ops-inventory          🔒  <span class="own">Michael</span>
+│   ├─ team-ops-smartflow          🌐  <span class="own">clinical staff need it</span>
+│   ├─ team-ops-floof-orders       🔒
+│   ├─ team-ops-purchasing         🔒
+│   ├─ team-ops-approvals-equipment 🔒
+│   ├─ team-ops-approvals-medicine 🔒
+│   ├─ team-ops-maintenance        🌐  <span class="own">Judit</span>
+│   ├─ team-ops-fitout             🔒  <span class="own">Judit</span>
+│   └─ team-ops-licensing          🔒  <span class="own">Scott + Yusuf</span>
+├─ CLINICAL                               <span class="own">Scott (Clinical Director) + Dr. Dieter + Dr. Rami</span>
+│   ├─ team-clinical               🔒  <span class="own">Scott + Dieter + Rami (leadership)</span>
+│   ├─ team-clinical-vets          🔒
+│   ├─ team-clinical-nurses        🔒  <span class="own">Sandy</span>
+│   ├─ team-clinical-emergency     🔒  <span class="own">Scott</span>
+│   ├─ team-clinical-medical-product 🌐
+│   └─ team-clinical-rescue        🔒  <span class="own">Aida</span>
+├─ CUSTOMER EXPERIENCE                    <span class="own">Aida</span>
+│   ├─ team-cx                     🔒  <span class="own">Aida (leadership)</span>
+│   ├─ team-cx-scheduling          🔒  <span class="own">Dima · existing private</span>
+│   ├─ team-cx-complaints          🔒
+│   ├─ team-cx-experience          🔒
+│   └─ team-cx-training            🔒
 ├─ CALL CENTRE (separate entity)
-│   ├─ team-cc                           <span class="own">CC team</span>
-│   ├─ team-cc-handoffs                  <span class="own">⚡ bridge: CC ↔ reception</span>
-│   └─ team-cc-callgear                  <span class="own">CallGear admin</span>
-├─ PEOPLE / HR                   <span class="own">Shari</span>
-│   ├─ team-people (leadership)
-│   ├─ team-people-recruitment
-│   ├─ team-people-licensing-visa        <span class="own">Yusuf + Shari</span>
-│   └─ team-people-leave-payroll
-├─ FINANCE                       <span class="own">Harshita</span>
-│   ├─ team-finance (leadership)
-│   ├─ team-finance-ap                   <span class="own">Pauline + Harshita</span>
-│   ├─ team-finance-ar                   <span class="own">Harshita</span>
-│   ├─ team-finance-discounts            <span class="own">Sandy + Aida</span>
-│   └─ team-finance-pricing              <span class="own">Mansoor + Scott</span>
-└─ BUSINESS DEVELOPMENT          <span class="own">Hadi</span>
-    ├─ team-bizdev (leadership)
-    ├─ team-bizdev-partnerships
-    ├─ team-bizdev-expansion
-    └─ team-bizdev-pipeline
+│   ├─ team-cc                     🔒  <span class="own">CC team</span>
+│   ├─ team-cc-handoffs            🔒  <span class="own">⚡ bridge: CC ↔ reception</span>
+│   └─ team-cc-callgear            🔒  <span class="own">CallGear admin</span>
+├─ PEOPLE / HR                            <span class="own">Shari</span>
+│   ├─ team-people                 🔒  <span class="own">Shari (leadership)</span>
+│   ├─ team-people-recruitment     🔒
+│   ├─ team-people-licensing-visa  🔒  <span class="own">Yusuf + Shari</span>
+│   └─ team-people-leave-payroll   🔒
+├─ FINANCE                                <span class="own">Harshita (Head of Finance)</span>
+│   ├─ team-finance                🔒  <span class="own">Harshita (leadership)</span>
+│   ├─ team-finance-ap             🔒  <span class="own">Pauline + Harshita</span>
+│   ├─ team-finance-ar             🔒  <span class="own">Harshita</span>
+│   ├─ team-finance-discounts      🔒  <span class="own">Sandy + Aida</span>
+│   └─ team-finance-pricing        🔒  <span class="own">Mansoor + Scott</span>
+└─ BUSINESS DEVELOPMENT                   <span class="own">Hadi (CDO)</span>
+    ├─ team-bizdev                 🔒  <span class="own">Hadi (leadership)</span>
+    ├─ team-bizdev-partnerships    🔒
+    ├─ team-bizdev-expansion       🔒
+    └─ team-bizdev-pipeline        🔒
 
 <span class="pfx">clinic-</span>                                        (Locations · 60 channels = 12 × 5)
-│   <span class="note">Sandy + Scott own all clinics except VV/TVRC (Aida); branch staff see only their own location.</span>
+│   <span class="note">All clinic channels are 🔒 private. Branch staff see only their own location.</span>
+│   <span class="note">Michael + Sandy own all clinics except VV/TVRC (Aida).</span>
 ├─ Modern Vet (8 branches × 5 = 40)
 │   ├─ MB · Palm · DT · JVC · JLT · Azizi · Khawaneej · Mobile
 ├─ Blue Oasis (DIP)        × 5 = 5
 ├─ Vienna Vet              × 5 = 5            <span class="own">Aida</span>
 ├─ TVRC                    × 5 = 5            <span class="own">Aida</span>
-└─ HQ (Head Office)        × 2-5 = 2-5        <span class="own">Mansoor / Scott</span>
+└─ HQ (Head Office)        × 2-5 = 2-5        <span class="own">Mansoor / Michael</span>
 
-<span class="pfx">help-</span>                                           (Service desks · 7 channels)
-├─ help-marketing            <span class="own">Andrew</span>
-├─ help-it                   <span class="own">AbdulRahman</span>
-├─ help-people               <span class="own">Shari</span>
-├─ help-finance              <span class="own">Harshita</span>
-├─ help-bizdev               <span class="own">Hadi</span>
-├─ help-ops                  <span class="own">Judit + Scott</span>
-└─ help-scheduling           <span class="own">Dima · staff-facing scheduling Q&amp;A</span>
+<span class="pfx">help-</span>                                           (Service desks · 7 channels · all 🌐 public)
+├─ help-marketing            🌐  <span class="own">Andrew</span>
+├─ help-it                   🌐  <span class="own">AbdulRahman</span>
+├─ help-people               🌐  <span class="own">Shari</span>
+├─ help-finance              🌐  <span class="own">Harshita</span>
+├─ help-bizdev               🌐  <span class="own">Hadi</span>
+├─ help-ops                  🌐  <span class="own">Judit + Michael</span>
+└─ help-scheduling           🌐  <span class="own">Dima · staff-facing scheduling Q&amp;A</span>
 
 <span class="pfx">vendor-</span>                                         (External · 2 channels)
-├─ vendor-ecre8              <span class="own">digital agency · Andrew</span>
-└─ vendor-synergi            <span class="own">IT MSP · AbdulRahman</span>
+├─ vendor-ecre8              🔒  <span class="own">digital agency · Andrew</span>
+└─ vendor-synergi            🔒  <span class="own">IT MSP · AbdulRahman</span>
 
-<span class="pfx">social-</span>                                         (Off-topic · 4 channels)
+<span class="pfx">social-</span>                                         (Off-topic · 4 channels · all 🌐 opt-in)
 └─ social-random · social-pets · social-celebrations · social-marketplace</div>
 
 <h2>How a clinic location works</h2>
@@ -338,7 +348,7 @@
 <table>
   <thead><tr><th>Channel</th><th>Who's in it</th><th>Functional holder (across all clinics)</th></tr></thead>
   <tbody>
-    <tr><td><code>clinic-XXX</code></td><td>Branch staff — handovers, branch news</td><td><strong>Sandy + Scott</strong> (Aida for VV/TVRC)</td></tr>
+    <tr><td><code>clinic-XXX</code></td><td>Branch staff — handovers, branch news</td><td><strong>Michael + Sandy</strong> (Aida for VV/TVRC)</td></tr>
     <tr><td><code>clinic-XXX-med</code></td><td>Branch vets + nurses + medical assistants</td><td><strong>Scott + Sandy</strong></td></tr>
     <tr><td><code>clinic-XXX-fd</code></td><td>Branch reception + front-desk</td><td><strong>Aida</strong></td></tr>
     <tr><td><code>clinic-XXX-inventory</code></td><td>Branch staff + procurement team</td><td><strong>Michael</strong></td></tr>
@@ -349,7 +359,7 @@
 <div class="callout">
   <h4>Branch isolation, dept-head visibility</h4>
   <p>JLT staff see only JLT channels. Downtown sees only Downtown. No cross-branch chatter for staff.</p>
-  <p style="margin-bottom:0;">Sandy + Scott are members of every clinic's medical channel. Aida is in every front-desk channel. Michael is in every inventory channel. Judit is in every maintenance channel. They see across all branches; staff don't.</p>
+  <p style="margin-bottom:0;">Scott + Sandy are members of every clinic's medical channel. Aida is in every front-desk channel. Michael is in every inventory channel and umbrella. Judit is in every maintenance channel. They see across all branches; staff don't.</p>
 </div>
 
 <h3>Active locations</h3>
@@ -357,18 +367,18 @@
 <table>
   <thead><tr><th>Location</th><th>Channel code</th><th>Holder</th></tr></thead>
   <tbody>
-    <tr><td>Modern Vet — Main Branch (Hospital)</td><td><code>clinic-mv-mb</code></td><td>Sandy + Scott</td></tr>
-    <tr><td>Modern Vet — Palm</td><td><code>clinic-mv-palm</code></td><td>Sandy + Scott</td></tr>
-    <tr><td>Modern Vet — Downtown</td><td><code>clinic-mv-dt</code></td><td>Sandy + Scott</td></tr>
-    <tr><td>Modern Vet — JVC</td><td><code>clinic-mv-jvc</code></td><td>Sandy + Scott</td></tr>
-    <tr><td>Modern Vet — JLT</td><td><code>clinic-mv-jlt</code></td><td>Sandy + Scott</td></tr>
-    <tr><td>Modern Vet — Azizi Riviera</td><td><code>clinic-mv-az</code></td><td>Sandy + Scott</td></tr>
-    <tr><td>Modern Vet — Khawaneej</td><td><code>clinic-mv-khw</code></td><td>Sandy + Scott (re-opens Jun/Jul)</td></tr>
-    <tr><td>Modern Vet — Mobile Clinic</td><td><code>clinic-mv-mob</code></td><td>Sandy + Scott</td></tr>
-    <tr><td>Blue Oasis — DIP</td><td><code>clinic-bovc-dip</code></td><td>Sandy + Scott</td></tr>
+    <tr><td>Modern Vet — Main Branch (Hospital)</td><td><code>clinic-mv-mb</code></td><td>Michael + Sandy</td></tr>
+    <tr><td>Modern Vet — Palm</td><td><code>clinic-mv-palm</code></td><td>Michael + Sandy</td></tr>
+    <tr><td>Modern Vet — Downtown</td><td><code>clinic-mv-dt</code></td><td>Michael + Sandy</td></tr>
+    <tr><td>Modern Vet — JVC</td><td><code>clinic-mv-jvc</code></td><td>Michael + Sandy</td></tr>
+    <tr><td>Modern Vet — JLT</td><td><code>clinic-mv-jlt</code></td><td>Michael + Sandy</td></tr>
+    <tr><td>Modern Vet — Azizi Riviera</td><td><code>clinic-mv-az</code></td><td>Michael + Sandy</td></tr>
+    <tr><td>Modern Vet — Khawaneej</td><td><code>clinic-mv-khw</code></td><td>Michael + Sandy (re-opens Jun/Jul)</td></tr>
+    <tr><td>Modern Vet — Mobile Clinic</td><td><code>clinic-mv-mob</code></td><td>Michael + Sandy</td></tr>
+    <tr><td>Blue Oasis — DIP</td><td><code>clinic-bovc-dip</code></td><td>Michael + Sandy</td></tr>
     <tr><td>Vienna Vet</td><td><code>clinic-vv</code></td><td><strong>Aida</strong> + branch lead TBC</td></tr>
     <tr><td>TVRC (referral hospital)</td><td><code>clinic-tvrc</code></td><td><strong>Aida</strong></td></tr>
-    <tr><td>VA Head Office</td><td><code>clinic-hq</code></td><td>Mansoor / Scott</td></tr>
+    <tr><td>VA Head Office</td><td><code>clinic-hq</code></td><td>Mansoor / Michael</td></tr>
   </tbody>
 </table>
 
@@ -377,8 +387,8 @@
 <p>Each functional team has its own cluster of channels. The detail below shows what each one looks like.</p>
 
 <div class="dept-block">
-  <h3>🏭 Operations <span class="tier tier-1">Mostly open</span></h3>
-  <div class="lead">Lead: Scott · Procurement: Michael · Maintenance: Judit · Licensing: Scott + Yusuf</div>
+  <h3>🏭 Operations <span class="tier tier-2">Dept + management</span></h3>
+  <div class="lead">Lead: <strong>Michael (COO)</strong> · Maintenance: Judit · Licensing: Scott + Yusuf</div>
   <ul>
     <li><code>team-ops</code> — leadership + weekly priorities</li>
     <li><code>team-ops-warehouse</code> · <code>team-ops-inventory</code> · <code>team-ops-smartflow</code></li>
@@ -390,7 +400,7 @@
 
 <div class="dept-block">
   <h3>🩺 Clinical <span class="tier tier-2">Dept + management</span></h3>
-  <div class="lead">Lead: Scott + Dr. Dieter + Dr. Rami · Nurses: Sandy · Rescue: Aida</div>
+  <div class="lead">Lead: <strong>Scott (Clinical Director)</strong> + Dr. Dieter + Dr. Rami · Nurses: Sandy · Rescue: Aida</div>
   <ul>
     <li><code>team-clinical</code> — clinical leadership, cross-clinic medical decisions</li>
     <li><code>team-clinical-vets</code> — all licensed vets (CPD, case discussions)</li>
