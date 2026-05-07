@@ -267,9 +267,10 @@
 
 <header>
   <h1>Vet Alliance — Slack Structure</h1>
-  <div class="subtitle">Phase 3 Scheme · v1.1 · Full company rollout</div>
-  <div class="meta">Drafted 5 May 2026 · Revised 7 May 2026 (post May 6 CEO meeting) · Synthesises Mansoor's Blueprint + Phase 1+2 + May 6 decisions</div>
-  <div class="meta" style="margin-top:.5rem;">v1.1 changes: <strong>Option B</strong> per-clinic inventory + maintenance · added <strong>HQ + TVRC</strong> · <strong>Master Lists</strong> with work-stream views · Amy → Aida · Kavita → Andrew</div>
+  <div class="subtitle">Phase 3 Scheme · v1.2 · Full company rollout</div>
+  <div class="meta">Drafted 5 May 2026 · Revised 7 May 2026 · Synthesises Mansoor's Blueprint + Phase 1+2 + May 6 CEO meeting + Andrew's May 7 refinements</div>
+  <div class="meta" style="margin-top:.5rem;">v1.2: <strong>BizDev cluster</strong> under Hadi · <strong>CC separate entity</strong> from reception (with handoffs bridge) · stronger inter-dept comms · worked Lists example</div>
+  <div class="meta">v1.1: Option B per-clinic inventory/maintenance · HQ + TVRC · Master Lists with views · Amy→Aida · Kavita→Andrew</div>
 </header>
 
 <nav class="nav-toc">
@@ -354,12 +355,16 @@
 │  │   └─ team-clinical-emergency      📢    Scott          — replaces WhatsApp
 │  │
 │  ├─ CUSTOMER EXPERIENCE (5 ch · Aida)
-│  │   ├─ team-cx                            Aida (expanded scope post-May-6)
-│  │   ├─ team-cx-reception                  Aida
+│  │   ├─ team-cx                            Aida (CX leadership)
 │  │   ├─ team-cx-scheduling                 Janiro + Dima
 │  │   ├─ team-cx-complaints           📢    Aida + Scott
 │  │   ├─ team-cx-experience                 Aida
 │  │   └─ team-cx-training         🆕        Aida
+│  │
+│  ├─ CALL CENTRE (separate entity · 3 ch · CC lead under Aida)
+│  │   ├─ team-cc                  🆕        CC team channel
+│  │   ├─ team-cc-handoffs         🆕        ⚡ BRIDGE: CC ↔ reception leads
+│  │   └─ team-cc-callgear         🆕        CallGear admin + tagging
 │  │
 │  ├─ PEOPLE / HR (4 ch · Shari)
 │  │   ├─ team-people                        Shari
@@ -367,12 +372,18 @@
 │  │   ├─ team-people-licensing-visa         Yusuf? + Shari
 │  │   └─ team-people-leave-payroll    📢    Shari + Harshita
 │  │
-│  └─ FINANCE (5 ch · Harshita — Head of Finance)
-│      ├─ team-finance                       Harshita
-│      ├─ team-finance-ap              📢    Pauline + Harshita
-│      ├─ team-finance-ar              📢    Harshita
-│      ├─ team-finance-discounts       📢    Sandy + Aida
-│      └─ team-finance-pricing         📢    Mansoor + Scott
+│  ├─ FINANCE (5 ch · Harshita — Head of Finance)
+│  │   ├─ team-finance                       Harshita
+│  │   ├─ team-finance-ap              📢    Pauline + Harshita
+│  │   ├─ team-finance-ar              📢    Harshita
+│  │   ├─ team-finance-discounts       📢    Sandy + Aida
+│  │   └─ team-finance-pricing         📢    Mansoor + Scott
+│  │
+│  └─ BUSINESS DEVELOPMENT (4 ch · Hadi — Chief Development Officer) 🆕
+│      ├─ team-bizdev                        Hadi (BD leadership)
+│      ├─ team-bizdev-partnerships           Hadi
+│      ├─ team-bizdev-expansion              Hadi + Mansoor
+│      └─ team-bizdev-pipeline         📢    Hadi (active deals tracker)
 │
 ├─ clinic-                                           (Locations · 60 ch = 12 × 5)
 │  ├─ Modern Vet (8 branches × 5 = 40)
@@ -603,13 +614,14 @@
 
   <div class="grid grid-2">
     <div class="card">
-      <h3>help-* — service desks (5)</h3>
+      <h3>help-* — service desks (6)</h3>
       <p style="font-size:.85rem;">The "front door" for every dept. Anyone can ask. Owner triages.</p>
       <ul class="channel-list">
         <li><span class="ch">help-marketing</span> <span class="meta-tag rename">rename</span> Andrew</li>
         <li><span class="ch">help-it</span> <span class="meta-tag rename">rename</span> AbdulRahman</li>
         <li><span class="ch">help-people</span> <span class="meta-tag rename">rename</span> Shari</li>
-        <li><span class="ch">help-finance</span> <span class="meta-tag new">new</span> Hadi</li>
+        <li><span class="ch">help-finance</span> <span class="meta-tag new">new</span> Harshita</li>
+        <li><span class="ch">help-bizdev</span> <span class="meta-tag new">new</span> Hadi</li>
         <li><span class="ch">help-ops</span> <span class="meta-tag new">new</span> Judit + Scott</li>
       </ul>
     </div>
@@ -633,36 +645,40 @@
 
 <section id="intercomm">
   <h2>Intercommunication scheme</h2>
-  <p>The structure only works if people know <strong>where to send asks</strong> and <strong>where to escalate</strong>. Three mechanisms wire it together.</p>
+  <p>The structure only works if people know <strong>where to send asks</strong> and <strong>where to escalate</strong>. Four mechanisms wire it together — and a cheat sheet at the bottom for everyone's onboarding canvas.</p>
 
   <div class="flowbox">
     <h4>1. Inbound asks → help-* channels (the "front door")</h4>
     <div class="flow-step">
       <span class="flow-pill">Anyone in company</span>
       <span class="flow-arrow">→</span>
-      <span class="flow-pill" style="background:#d44e4e;">help-marketing</span>
+      <span class="flow-pill" style="background:#d44e4e;">help-marketing / -it / -people / -finance / -bizdev / -ops</span>
       <span class="flow-arrow">→</span>
-      <span class="flow-pill">@marketing triages</span>
+      <span class="flow-pill">dept user-group triages</span>
     </div>
-    <div class="flow-step">
-      <span class="flow-pill">Anyone</span>
-      <span class="flow-arrow">→</span>
-      <span class="flow-pill" style="background:#d44e4e;">help-it</span>
-      <span class="flow-arrow">→</span>
-      <span class="flow-pill">@it triages</span>
-    </div>
-    <div class="flow-step">
-      <span class="flow-pill">Anyone</span>
-      <span class="flow-arrow">→</span>
-      <span class="flow-pill" style="background:#d44e4e;">help-people · -finance · -ops</span>
-      <span class="flow-arrow">→</span>
-      <span class="flow-pill">dept lead triages</span>
-    </div>
-    <p class="flow-note" style="margin-top:.6rem;">Triage decision: stays in help-channel (simple) OR converted to a List item / moved to relevant <code>team-*</code> for actual work.</p>
+    <p class="flow-note" style="margin-top:.6rem;">Each <code>help-*</code> is monitored by its dept user-group, expected response time = same business day. Triage outcomes: in-thread reply (close) · add to master list · share into partner team channel.</p>
+  </div>
+
+  <div class="flowbox" style="border-color:var(--gold);">
+    <h4>2. Direct dept ↔ dept channels (when both depts know each other) 🆕</h4>
+    <p style="font-size:.85rem;margin-top:0;">For recurring inter-dept patterns, depts use <strong>direct shared channels</strong> instead of routing through <code>help-*</code>. Less friction.</p>
+    <table style="margin-top:.5rem;font-size:.85rem;">
+      <thead><tr><th>Pattern</th><th>Channel</th><th>Members</th></tr></thead>
+      <tbody>
+        <tr><td><strong>CC ↔ Reception</strong></td><td><code>team-cc-handoffs</code></td><td>CC + reception leads from every clinic</td></tr>
+        <tr><td>Reception ↔ Vets</td><td><code>clinic-XXX-fd</code> + <code>clinic-XXX-med</code></td><td>Branch staff (cross-post within branch)</td></tr>
+        <tr><td>Inventory ↔ Branch</td><td><code>clinic-XXX-inventory</code></td><td>Branch + Michael's team</td></tr>
+        <tr><td>Maintenance ↔ Branch</td><td><code>clinic-XXX-maintenance</code></td><td>Branch + Judit's team</td></tr>
+        <tr><td>Finance ↔ Branch</td><td><code>clinic-XXX-fd</code> for billing · <code>team-finance-discounts</code> for approvals</td><td>Reception + Aida + finance</td></tr>
+        <tr><td>BizDev ↔ Finance</td><td><code>team-finance-pricing</code> + <code>team-bizdev-pipeline</code> cross-post</td><td>Hadi + Harshita</td></tr>
+        <tr><td>BizDev ↔ Clinical</td><td><code>team-clinical-rescue</code></td><td>Hadi + Marta + Scott</td></tr>
+        <tr><td>Clinical ↔ Inventory</td><td><code>team-clinical-medical-product</code></td><td>Vets + Michael</td></tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="flowbox">
-    <h4>2. Cross-team coordination → va-management + share-to-channel</h4>
+    <h4>3. Cross-team strategic coordination → va-management</h4>
     <div class="flow-step">
       <span class="flow-pill">Strategic / cross-functional</span>
       <span class="flow-arrow">→</span>
@@ -678,7 +694,7 @@
   </div>
 
   <div class="flowbox">
-    <h4>3. Brand / clinic ↔ functional teams</h4>
+    <h4>4. Brand / clinic ↔ functional teams (concrete examples)</h4>
     <div class="flow-step">
       <span class="flow-pill" style="background:#a55a3a;">clinic-mv-mb-fd</span>
       <span class="flow-arrow">→ billing query →</span>
@@ -713,7 +729,7 @@
   </div>
 
   <div class="flowbox">
-    <h4>4. Vendor ↔ internal flow</h4>
+    <h4>5. Vendor ↔ internal flow</h4>
     <div class="flow-step">
       <span class="flow-pill" style="background:#6b4d8a;">vendor-synergi</span>
       <span class="flow-arrow">→ escalation →</span>
@@ -735,7 +751,7 @@
   </div>
 
   <div class="flowbox">
-    <h4>5. Project flows — pull resources temporarily</h4>
+    <h4>6. Project flows — pull resources temporarily</h4>
     <div class="flow-step">
       <span class="flow-pill" style="background:#a55a3a;">proj-pricing-2026</span>
       <span class="flow-arrow">draws from →</span>
@@ -755,15 +771,36 @@
 
   <div class="flowbox" style="border-color:var(--gold);background:#fff8e6;">
     <h4>The escalation ladder (one-page summary)</h4>
-<div style="font-family:'Menlo',monospace;font-size:.9rem;line-height:1.7;color:var(--teal-deep);white-space:pre;">Day-to-day  ──►  clinic-* / team-* sub-channels
+<div style="font-family:'Menlo',monospace;font-size:.9rem;line-height:1.7;color:var(--teal-deep);white-space:pre;">Day-to-day        ──►  clinic-XXX-*  /  team-* sub-channels
        │
-Cross-team  ──►  help-* (request-driven) or @-mention partner team
+Direct dept↔dept ──►  see table above (e.g. team-cc-handoffs)
        │
-Strategic   ──►  va-management (all leads)
+Cross-team        ──►  help-* (request-driven, monitored by dept user-group)
        │
-Decisions   ──►  va-leadership (Mansoor + direct reports)
+Strategic         ──►  va-management (all leads)
        │
-Read-only   ──►  va-announcements (everyone sees outcome)</div>
+Decisions         ──►  va-leadership (Mansoor + direct reports)
+       │
+Read-only         ──►  va-announcements (everyone sees outcome)</div>
+  </div>
+
+  <div class="flowbox" style="border-color:var(--teal);background:#e6f0f0;">
+    <h4>The "where do I post this?" cheat sheet — goes in onboarding canvas 🆕</h4>
+<div style="font-family:'Menlo',monospace;font-size:.85rem;line-height:1.7;color:var(--teal-deep);white-space:pre;">Is it a question/request to another dept?
+   ├─ Yes, recurring pattern (CC↔reception, branch↔inventory, etc.) → direct channel from §2 above
+   └─ Yes, one-off                                                  → the relevant help-*
+
+Is it a decision that needs 3+ depts or leadership?
+   → va-management
+
+Is it news everyone needs to know?
+   → va-announcements (with author from the 9 authorized posters)
+
+Is it just within my team?
+   → team-* sub-channel  or  clinic-XXX-* sub-channel
+
+Is it not work?
+   → social-* (random / pets / celebrations)</div>
   </div>
 </section>
 
@@ -783,37 +820,99 @@ Read-only   ──►  va-announcements (everyone sees outcome)</div>
       <li><span class="ch">@hospital-vets</span></li>
       <li><span class="ch">@on-call-vet</span></li>
     </ul></div>
-    <div class="card"><h4>CX / Reception</h4><ul class="channel-list">
-      <li><span class="ch">@reception-all</span></li>
-      <li><span class="ch">@callcentre</span></li>
+    <div class="card"><h4>CX / Reception (separated)</h4><ul class="channel-list">
+      <li><span class="ch">@reception-all</span> — reception leads only</li>
+      <li><span class="ch">@callcentre</span> — CC agents only 🆕</li>
       <li><span class="ch">@scheduling</span></li>
     </ul></div>
     <div class="card"><h4>Functional</h4><ul class="channel-list">
       <li><span class="ch">@marketing</span></li>
       <li><span class="ch">@it</span></li>
       <li><span class="ch">@hr</span></li>
-      <li><span class="ch">@finance · @accounts</span></li>
-      <li><span class="ch">@procurement</span></li>
+      <li><span class="ch">@finance</span> — Harshita + AP/AR</li>
+      <li><span class="ch">@bizdev</span> — Hadi + BD team 🆕</li>
+      <li><span class="ch">@accounts · @procurement</span></li>
     </ul></div>
   </div>
 </section>
 
 <section id="lists">
-  <h2>Slack Lists — task tracking per channel</h2>
-  <p>Each working channel pins one List. Items can be created from any message via "Create from message" — chat → tracked work item.</p>
+  <h2>Slack Lists — Master Lists with work-stream views</h2>
+  <p><strong>Mansoor's design (May 6):</strong> instead of a separate list per channel, run <strong>one master list per function</strong> with views attached to channels filtered by branch / work-stream. Dept heads see everything, branches see only their slice. No private info crosses teams.</p>
 
-  <h3>Standard task list template (default)</h3>
+  <h3>11 master lists — one per function</h3>
+  <table>
+    <thead><tr><th>Master list</th><th>Owner</th><th>Filter columns</th><th>Views attached to</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Maintenance</strong></td><td>Judit</td><td>Branch · Issue type · Severity</td><td><code>team-ops-maintenance</code> (full) + each <code>clinic-XXX-maintenance</code> (filtered)</td></tr>
+      <tr><td><strong>Inventory</strong></td><td>Michael</td><td>Branch · Item · Supplier</td><td><code>team-ops-inventory</code> + each <code>clinic-XXX-inventory</code></td></tr>
+      <tr><td><strong>Purchasing &amp; Approvals</strong></td><td>Michael</td><td>Type · Branch · Status</td><td><code>team-ops-purchasing</code> + <code>team-ops-approvals-*</code></td></tr>
+      <tr><td><strong>CX / Reception</strong></td><td>Aida</td><td>Branch · Issue type</td><td><code>team-cx-*</code> + each <code>clinic-XXX-fd</code></td></tr>
+      <tr><td><strong>Marketing</strong></td><td>Andrew</td><td>Type · Brand</td><td><code>team-marketing-*</code> + <code>help-marketing</code></td></tr>
+      <tr><td><strong>People / HR</strong></td><td>Shari</td><td>Type · Person</td><td><code>team-people-*</code> + <code>help-people</code></td></tr>
+      <tr><td><strong>Finance</strong></td><td>Harshita</td><td>Type (AP/AR/discount/pricing) · Branch</td><td><code>team-finance-*</code> + <code>help-finance</code></td></tr>
+      <tr><td><strong>BizDev pipeline</strong> 🆕</td><td>Hadi</td><td>Stage · Type</td><td><code>team-bizdev-*</code> + <code>help-bizdev</code></td></tr>
+      <tr><td><strong>IT</strong></td><td>AbdulRahman</td><td>Type · System</td><td><code>team-tech-*</code> + <code>help-it</code></td></tr>
+      <tr><td><strong>Clinical</strong></td><td>Dr. Rami / Dieter</td><td>Type · Branch</td><td><code>team-clinical-*</code></td></tr>
+      <tr><td><strong>Project tracker</strong></td><td>Andrew</td><td>Project · Phase</td><td>each <code>proj-*</code></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Standard column template</h3>
   <table>
     <thead><tr><th>Column</th><th>Type</th><th>Notes</th></tr></thead>
     <tbody>
       <tr><td>Task</td><td>text</td><td>required</td></tr>
-      <tr><td>Assignee</td><td>person</td><td>from channel members</td></tr>
+      <tr><td>Assignee</td><td>person</td><td>from channel/team members</td></tr>
+      <tr><td><strong>Branch / Brand</strong></td><td>select</td><td>drives clinic views — MB / Palm / DT / JVC / JLT / AZ / KHW / Mob / DIP / VV / TVRC / HQ / All</td></tr>
+      <tr><td><strong>Work stream</strong></td><td>select</td><td>drives team views — per master list</td></tr>
       <tr><td>Status</td><td>select</td><td>Backlog · In progress · Blocked · Review · Done</td></tr>
       <tr><td>Priority</td><td>select</td><td>Low · Medium · High · Urgent</td></tr>
       <tr><td>Due</td><td>date</td><td>optional</td></tr>
       <tr><td>Notes</td><td>text</td><td>freeform</td></tr>
     </tbody>
   </table>
+
+  <div class="flowbox" style="border-color:var(--gold);background:#fff8e6;">
+    <h4>Worked example — Maintenance master list 🆕</h4>
+    <p style="font-size:.85rem;margin-top:0;">What one master list actually looks like once it's running. Same pattern applies to all 11.</p>
+
+    <h4 style="margin-top:1rem;">The list (Judit's master view, lives in <code>team-ops-maintenance</code>)</h4>
+    <table style="font-size:.82rem;">
+      <thead><tr><th>Task</th><th>Branch</th><th>Issue type</th><th>Severity</th><th>Status</th><th>Vendor</th><th>Due</th></tr></thead>
+      <tbody>
+        <tr><td>AC unit reception failing</td><td>MB</td><td>HVAC</td><td>High</td><td>In progress</td><td>CoolTech</td><td>May 9</td></tr>
+        <tr><td>Front door auto-close broken</td><td>Palm</td><td>Carpentry</td><td>Medium</td><td>Backlog</td><td>—</td><td>May 12</td></tr>
+        <tr><td>Lab sink leaking</td><td>VV</td><td>Plumbing</td><td>High</td><td>Blocked</td><td>Pending quote</td><td>—</td></tr>
+        <tr><td>Reception printer</td><td>JLT</td><td>IT/Hardware</td><td>Low</td><td>Done</td><td>Self</td><td>May 6</td></tr>
+        <tr><td style="color:#a61c00;font-weight:600;">Server room temp alarm</td><td>MB</td><td>HVAC</td><td>Urgent</td><td>In progress</td><td>CoolTech</td><td>Today</td></tr>
+      </tbody>
+    </table>
+
+    <h4 style="margin-top:1rem;">The views (same data, filtered)</h4>
+    <table style="font-size:.82rem;">
+      <thead><tr><th>View name</th><th>Lives in channel</th><th>Filter</th><th>Who sees it</th></tr></thead>
+      <tbody>
+        <tr><td>All maintenance</td><td><code>team-ops-maintenance</code></td><td>none</td><td>Judit + maintenance team</td></tr>
+        <tr><td>MB maintenance</td><td><code>clinic-mv-mb-maintenance</code></td><td>Branch = MB</td><td>Anissa + MB staff + Judit</td></tr>
+        <tr><td>Palm maintenance</td><td><code>clinic-mv-palm-maintenance</code></td><td>Branch = Palm</td><td>Palm manager + staff + Judit</td></tr>
+        <tr><td>VV maintenance</td><td><code>clinic-vv-maintenance</code></td><td>Branch = VV</td><td>VV lead + Aida + Judit</td></tr>
+        <tr><td>All urgent</td><td><code>team-ops-maintenance</code> (pinned)</td><td>Severity = Urgent</td><td>Judit + Scott</td></tr>
+      </tbody>
+    </table>
+
+    <h4 style="margin-top:1rem;">The flow</h4>
+    <ol style="font-size:.85rem;line-height:1.7;">
+      <li>MB reception notices broken AC → posts in <code>clinic-mv-mb-maintenance</code> and clicks "Add to list"</li>
+      <li>Slack auto-fills Branch = MB (channel knows its branch)</li>
+      <li>Item appears in Judit's master list (she sees it instantly)</li>
+      <li>Judit assigns severity, sets status, assigns vendor</li>
+      <li>MB sees status updates in their filtered view inside their own channel</li>
+      <li>When done, item flips to Done; both Judit's master and MB's view reflect it</li>
+    </ol>
+
+    <p style="font-size:.85rem;margin-top:1rem;"><strong>Why this beats per-channel lists:</strong> Judit has ONE list to manage instead of 12. Branches see only their items. No private info crosses branches. Cross-clinic patterns (3 branches with the same HVAC issue → contact same vendor in bulk) are visible to Judit but not to individual branches.</p>
+  </div>
 
   <h3>Specialised lists per channel type</h3>
   <table>
@@ -853,12 +952,14 @@ Read-only   ──►  va-announcements (everyone sees outcome)</div>
       <div class="num-stat"><span class="n">10+5</span><span class="l">team- mkt+IT (stub)</span></div>
       <div class="num-stat"><span class="n">11</span><span class="l">team-ops-</span></div>
       <div class="num-stat"><span class="n">6</span><span class="l">team-clinical-</span></div>
-      <div class="num-stat"><span class="n">6</span><span class="l">team-cx-</span></div>
+      <div class="num-stat"><span class="n">5</span><span class="l">team-cx-</span></div>
+      <div class="num-stat"><span class="n">3</span><span class="l">team-cc- 🆕</span></div>
       <div class="num-stat"><span class="n">4</span><span class="l">team-people-</span></div>
       <div class="num-stat"><span class="n">5</span><span class="l">team-finance-</span></div>
+      <div class="num-stat"><span class="n">4</span><span class="l">team-bizdev- 🆕</span></div>
       <div class="num-stat"><span class="n">60</span><span class="l">clinic- (12×5)</span></div>
       <div class="num-stat"><span class="n">6</span><span class="l">brand-</span></div>
-      <div class="num-stat"><span class="n">5</span><span class="l">help-</span></div>
+      <div class="num-stat"><span class="n">6</span><span class="l">help-</span></div>
       <div class="num-stat"><span class="n">8</span><span class="l">vendor-</span></div>
       <div class="num-stat"><span class="n">~12</span><span class="l">proj-</span></div>
       <div class="num-stat"><span class="n">3</span><span class="l">social-</span></div>
