@@ -265,18 +265,18 @@
 └─ va-policies                   🌐  <span class="own">read-only · IT/HR/SOP releases</span>
 
 <span class="pfx">team-</span>                                          (Functional teams · ~40 channels)
-├─ MARKETING                              <span class="own">Andrew (already running)</span>
-├─ TECH / IT                              <span class="own">AbdulRahman (already running)</span>
+├─ MARKETING                              <span class="own">Andrew · 🔒 all marketing channels private to team + management</span>
+├─ TECH / IT                              <span class="own">AbdulRahman · 🔒 all tech channels private to team + management</span>
 ├─ OPERATIONS                             <span class="own">Michael (COO)</span>
 │   ├─ team-ops                    🔒  <span class="own">Michael (leadership)</span>
 │   ├─ team-ops-warehouse          🔒
 │   ├─ team-ops-inventory          🔒  <span class="own">Michael</span>
-│   ├─ team-ops-smartflow          🌐  <span class="own">clinical staff need it</span>
+│   ├─ team-ops-smartflow          🔒  <span class="own">ops + clinical leadership</span>
 │   ├─ team-ops-floof-orders       🔒
 │   ├─ team-ops-purchasing         🔒
 │   ├─ team-ops-approvals-equipment 🔒
 │   ├─ team-ops-approvals-medicine 🔒
-│   ├─ team-ops-maintenance        🌐  <span class="own">Judit</span>
+│   ├─ team-ops-maintenance        🔒  <span class="own">Judit · maintenance team only</span>
 │   ├─ team-ops-fitout             🔒  <span class="own">Judit</span>
 │   └─ team-ops-licensing          🔒  <span class="own">Scott + Yusuf</span>
 ├─ CLINICAL                               <span class="own">Scott (Clinical Director) + Dr. Dieter + Dr. Rami</span>
@@ -284,7 +284,7 @@
 │   ├─ team-clinical-vets          🔒
 │   ├─ team-clinical-nurses        🔒  <span class="own">Sandy</span>
 │   ├─ team-clinical-emergency     🔒  <span class="own">Scott</span>
-│   ├─ team-clinical-medical-product 🌐
+│   ├─ team-clinical-medical-product 🔒  <span class="own">inventory + doctors + management</span>
 │   └─ team-clinical-rescue        🔒  <span class="own">Aida</span>
 ├─ CUSTOMER EXPERIENCE                    <span class="own">Aida</span>
 │   ├─ team-cx                     🔒  <span class="own">Aida (leadership)</span>
@@ -388,24 +388,25 @@
 
 <div class="dept-block">
   <h3>🏭 Operations <span class="tier tier-2">Dept + management</span></h3>
-  <div class="lead">Lead: <strong>Michael (COO)</strong> · Maintenance: Judit · Licensing: Scott + Yusuf</div>
+  <div class="lead">Lead: <strong>Michael (COO)</strong> · Maintenance: Judit · Licensing: Scott + Yusuf · All channels private to ops team + management</div>
   <ul>
     <li><code>team-ops</code> — leadership + weekly priorities</li>
     <li><code>team-ops-warehouse</code> · <code>team-ops-inventory</code> · <code>team-ops-smartflow</code></li>
     <li><code>team-ops-purchasing</code> · <code>team-ops-floof-orders</code></li>
     <li><code>team-ops-approvals-equipment</code> · <code>team-ops-approvals-medicine</code></li>
-    <li><code>team-ops-maintenance</code> · <code>team-ops-fitout</code> · <code>team-ops-licensing</code></li>
+    <li><code>team-ops-maintenance</code> — maintenance team only · branches request via their own <code>clinic-XXX-maintenance</code></li>
+    <li><code>team-ops-fitout</code> · <code>team-ops-licensing</code></li>
   </ul>
 </div>
 
 <div class="dept-block">
   <h3>🩺 Clinical <span class="tier tier-2">Dept + management</span></h3>
-  <div class="lead">Lead: <strong>Scott (Clinical Director)</strong> + Dr. Dieter + Dr. Rami · Nurses: Sandy · Rescue: Aida</div>
+  <div class="lead">Lead: <strong>Scott (Clinical Director)</strong> + Dr. Dieter + Dr. Rami · Nurses: Sandy · Rescue: Aida · All channels private to clinical team + management</div>
   <ul>
     <li><code>team-clinical</code> — clinical leadership, cross-clinic medical decisions</li>
     <li><code>team-clinical-vets</code> — all licensed vets (CPD, case discussions)</li>
     <li><code>team-clinical-nurses</code> — all nurses</li>
-    <li><code>team-clinical-medical-product</code> — product evaluations, formulary decisions</li>
+    <li><code>team-clinical-medical-product</code> — product evaluations, formulary decisions · inventory team + doctors + management · branches order via their own <code>clinic-XXX-inventory</code></li>
     <li><code>team-clinical-rescue</code> — rescue group coordination, TNR, advocacy</li>
     <li><code>team-clinical-emergency</code> — emergency / on-call protocols</li>
   </ul>
@@ -470,20 +471,20 @@
 </div>
 
 <div class="dept-block">
-  <h3>📈 Marketing <span class="tier tier-1">Mostly open</span></h3>
-  <div class="lead">Lead: Andrew · Already running, no new channels needed</div>
+  <h3>📈 Marketing <span class="tier tier-3">Strictly private</span></h3>
+  <div class="lead">Lead: Andrew · Already running · All channels private to marketing team + management</div>
   <ul>
     <li>10 sub-channels for content, social, paid, SEO, PR, website, lifecycle, reputation, analytics + leadership</li>
-    <li>Inbound from rest of company via <code>help-marketing</code></li>
+    <li>Inbound from rest of company via <code>help-marketing</code> (the only public-facing marketing channel)</li>
   </ul>
 </div>
 
 <div class="dept-block">
-  <h3>💻 Tech / IT <span class="tier tier-2">Dept + management</span></h3>
-  <div class="lead">Lead: AbdulRahman · Already running, light additions</div>
+  <h3>💻 Tech / IT <span class="tier tier-3">Strictly private</span></h3>
+  <div class="lead">Lead: AbdulRahman · Already running · All channels private to tech team + management</div>
   <ul>
     <li>5 sub-channels for IT, software, data, AI + leadership</li>
-    <li>Inbound from rest of company via <code>help-it</code></li>
+    <li>Inbound from rest of company via <code>help-it</code> (the only public-facing tech channel)</li>
   </ul>
 </div>
 
@@ -491,33 +492,24 @@
 
 <p>Channels are for conversation. <strong>Lists are where work is tracked.</strong> Each functional channel has a list with task / assignee / status / due / notes columns, plus function-specific extras.</p>
 
-<p>Not every list needs the same level of privacy. We use <strong>three tiers</strong> based on what kind of data ends up in the list:</p>
+<p>Almost everything is dept-private. Two patterns based on whether branches need their own private slice:</p>
 
-<div class="grid grid-3">
+<div class="grid grid-2">
   <div class="card">
-    <h4><span class="tier tier-1">Tier 1</span> Open to everyone</h4>
-    <p style="font-size:.92rem;">Operational, non-sensitive. Useful for cross-clinic learning. <strong>One master list with views per branch.</strong></p>
+    <h4><span class="tier tier-2">Single dept list</span> Dept + management only</h4>
+    <p style="font-size:.92rem;">One list in the dept's private team channel. Only that dept + management see it. Used where there's no per-branch privacy concern.</p>
     <ul style="font-size:.88rem;color:var(--muted);">
-      <li>Maintenance tickets</li>
-      <li>IT support tickets</li>
-      <li>Marketing requests</li>
-      <li>SOPs / clinical product evaluations</li>
+      <li>Operations — maintenance, inventory, purchasing, approvals, fitout, licensing</li>
+      <li>Clinical — cases, product evaluations, rescue</li>
+      <li>CX — complaints, scheduling decisions</li>
+      <li>BizDev — pipeline, partnerships, expansion</li>
+      <li>Marketing — campaigns, content calendar</li>
+      <li>IT — tickets, projects</li>
+      <li>Project tracker (cross-team)</li>
     </ul>
   </div>
   <div class="card">
-    <h4><span class="tier tier-2">Tier 2</span> Dept + management</h4>
-    <p style="font-size:.92rem;">Operational within a function, not for staff outside that function. <strong>Single list in private dept channel that includes management.</strong></p>
-    <ul style="font-size:.88rem;color:var(--muted);">
-      <li>Inventory + purchasing</li>
-      <li>CX complaints</li>
-      <li>Scheduling decisions</li>
-      <li>BizDev pipeline</li>
-      <li>Project tracker</li>
-      <li>Clinical cases</li>
-    </ul>
-  </div>
-  <div class="card">
-    <h4><span class="tier tier-3">Tier 3</span> Strictly private</h4>
+    <h4><span class="tier tier-3">Per-clinic + dept master</span> Branch isolation</h4>
     <p style="font-size:.92rem;">Sensitive data. Branch must not see other branch; staff must not see dept-level. <strong>Per-clinic list + dept master list with sync.</strong></p>
     <ul style="font-size:.88rem;color:var(--muted);">
       <li>Finance — AP, AR, discounts, pricing</li>
@@ -527,14 +519,14 @@
   </div>
 </div>
 
-<h3>Worked example: a broken AC at JLT (Tier 1 — open)</h3>
+<h3>Worked example: a broken AC at JLT (single dept list)</h3>
 
 <ol>
   <li>JLT reception notices the AC is broken in the waiting room.</li>
-  <li>They post in <code>clinic-mv-jlt-maintenance</code> and click <strong>"Add to list"</strong>.</li>
-  <li>The item lands in the master Maintenance list, tagged Branch = JLT.</li>
-  <li>Each clinic has a view of the list filtered to their branch — JLT staff mainly see JLT items.</li>
-  <li>Judit assigns severity, vendor, status. Updates flow to the master list.</li>
+  <li>They post in <code>clinic-mv-jlt-maintenance</code> (their own private branch channel) and click <strong>"Add to list"</strong>.</li>
+  <li>The item lands in the maintenance team's private list inside <code>team-ops-maintenance</code>, tagged Branch = JLT.</li>
+  <li>Only Judit + her maintenance team + management see the list. Other branches don't see it.</li>
+  <li>JLT sees status updates inside their own branch channel via the dept-head's reply / cross-post.</li>
   <li>Cross-clinic patterns (3 branches with HVAC issues this week) are visible to Judit so she can negotiate with the vendor in bulk.</li>
 </ol>
 
