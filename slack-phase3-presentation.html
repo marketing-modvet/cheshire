@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vet Alliance — Slack Structure</title>
+<style>
+  :root {
+    --teal: #015962;
+    --teal-deep: #002b2d;
+    --cream: #dfecd1;
+    --gold: #C9A227;
+    --gold-bright: #FFD700;
+    --paper: #fafaf7;
+    --ink: #1a1a1a;
+    --muted: #5a5a5a;
+    --border: #e2e6da;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 16px;
+  }
+  h1, h2, h3 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 600;
+    color: var(--teal-deep);
+    letter-spacing: 0.5px;
+  }
+  h1 { font-size: 3rem; margin: 0 0 .4rem; }
+  h2 { font-size: 2.1rem; margin: 3rem 0 1rem; color: var(--teal); }
+  h3 { font-size: 1.4rem; margin: 1.8rem 0 .8rem; color: var(--teal-deep); }
+  h4 { font-size: 1.05rem; margin: 1rem 0 .4rem; color: var(--teal); font-family: 'Montserrat', sans-serif; font-weight: 700; }
+
+  header {
+    background: linear-gradient(135deg, var(--teal-deep) 0%, var(--teal) 100%);
+    color: var(--cream);
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+  }
+  header h1 { color: var(--cream); }
+  header .subtitle { font-style: italic; opacity: 0.9; margin-top: .5rem; font-size: 1.15rem; }
+  header .meta { margin-top: 1.5rem; font-size: .9rem; opacity: 0.75; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+
+  .intro {
+    background: white;
+    border-left: 4px solid var(--gold);
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 1.05rem;
+  }
+  .intro p:first-child { margin-top: 0; }
+  .intro p:last-child { margin-bottom: 0; }
+
+  /* Cards */
+  .grid {
+    display: grid;
+    gap: 1.2rem;
+    margin: 1.5rem 0;
+  }
+  .grid-2 { grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); }
+  .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .grid-4 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+  .card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.4rem 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card h3 { margin-top: 0; }
+  .card h4 { margin-top: 0; }
+  .card.accent { border-top: 3px solid var(--gold); }
+
+  .pill {
+    display: inline-block;
+    background: var(--teal);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: .8rem;
+    font-weight: 600;
+    margin-right: 4px;
+    margin-bottom: 3px;
+  }
+  .pill.muted { background: #aaa; }
+  .pill.gold { background: var(--gold); color: var(--teal-deep); }
+
+  /* Channel chip */
+  .ch {
+    font-family: 'Menlo', 'Monaco', monospace;
+    background: #eef0e8;
+    color: var(--teal-deep);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: .9rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  th, td {
+    border-bottom: 1px solid var(--border);
+    padding: .75rem 1rem;
+    text-align: left;
+    font-size: .92rem;
+  }
+  th { background: var(--teal-deep); color: var(--cream); font-weight: 600; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover { background: #f7f8f4; }
+
+  /* The 6-prefix tile bar */
+  .prefix-bar {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin: 1.2rem 0;
+  }
+  .prefix-tile {
+    flex: 1 1 150px;
+    min-width: 140px;
+    padding: 1rem;
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+  .prefix-tile .p { font-family: 'Menlo', monospace; font-size: 1.05rem; font-weight: 600; display: block; }
+  .prefix-tile .desc { font-size: .8rem; opacity: 0.9; margin-top: .3rem; display: block; }
+  .pfx-va    { background: #015962; }
+  .pfx-team  { background: #2563a8; }
+  .pfx-clinic{ background: #58a058; }
+  .pfx-help  { background: #d44e4e; }
+  .pfx-vendor{ background: #6b4d8a; }
+  .pfx-social{ background: #aa8030; }
+
+  /* Tree visualisation */
+  .tree {
+    background: var(--teal-deep);
+    color: var(--cream);
+    padding: 1.5rem;
+    border-radius: 10px;
+    font-family: 'Menlo', 'Monaco', monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    overflow-x: auto;
+    white-space: pre;
+    margin: 1.5rem 0;
+  }
+  .tree .pfx { color: var(--gold-bright); font-weight: 600; }
+  .tree .own { color: #95c8c4; }
+  .tree .note { color: #c5b07a; font-style: italic; }
+
+  /* Flow diagram */
+  .flow-row {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    flex-wrap: wrap;
+    margin: .6rem 0;
+  }
+  .flow-pill {
+    display: inline-block;
+    background: var(--teal);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 16px;
+    font-size: .85rem;
+    font-family: 'Menlo', monospace;
+  }
+  .flow-arrow {
+    color: var(--gold);
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+  .flow-note {
+    color: var(--muted);
+    font-size: .85rem;
+    font-style: italic;
+  }
+
+  .callout {
+    background: #fff8e6;
+    border: 1px solid var(--gold);
+    border-radius: 10px;
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .callout h4 { color: var(--teal-deep); margin-top: 0; }
+
+  .stat-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+  }
+  .stat {
+    flex: 1 1 120px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .stat .n {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+  }
+  .stat .l {
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: .4rem;
+    display: block;
+  }
+
+  footer {
+    background: var(--teal-deep);
+    color: var(--cream);
+    text-align: center;
+    padding: 2rem;
+    margin-top: 4rem;
+    font-size: .9rem;
+  }
+
+  @media (max-width: 720px) {
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.7rem; }
+    .container { padding: 1rem; }
+    .tree { font-size: .75rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Vet Alliance — Slack Structure</h1>
+  <div class="subtitle">A clear home for every conversation.</div>
+  <div class="meta">May 2026 · Prepared by the Marketing department for company rollout</div>
+</header>
+
+<div class="container">
+
+<div class="intro">
+  <p>Vet Alliance is moving company communication onto Slack. Today, work conversations are scattered across WhatsApp groups, emails, DMs, and ad-hoc chats. That makes things slow, easy to miss, and impossible to search later.</p>
+  <p>This document explains how we're organising Slack so <strong>every message has an obvious home</strong>, every team has the channels they need, and nothing falls between the cracks.</p>
+  <p style="margin-bottom:0;">It's designed to scale to ~200 staff across 11 clinics + Head Office, while staying simple enough that a new joiner can find their way around on day one.</p>
+</div>
+
+<h2>The big idea</h2>
+
+<div class="grid grid-3">
+  <div class="card accent">
+    <h4>Six channel families</h4>
+    <p>Every channel name starts with one of six prefixes. The prefix tells you instantly what kind of channel it is.</p>
+  </div>
+  <div class="card accent">
+    <h4>One owner per channel</h4>
+    <p>Every channel has a clear holder who triages messages, keeps it tidy, and answers questions.</p>
+  </div>
+  <div class="card accent">
+    <h4>Master Lists for tasks</h4>
+    <p>Real work lives in lists, not chat. One master list per function. Branches see only their slice.</p>
+  </div>
+</div>
+
+<h2>The 6 channel families</h2>
+
+<p>Format: <code>[prefix]-[scope]-[topic]</code> · all lowercase · hyphens only.</p>
+
+<div class="prefix-bar">
+  <div class="prefix-tile pfx-va"><span class="p">va-</span><span class="desc">Org-wide<br/>everyone</span></div>
+  <div class="prefix-tile pfx-team"><span class="p">team-</span><span class="desc">Functional teams<br/>day-to-day work</span></div>
+  <div class="prefix-tile pfx-clinic"><span class="p">clinic-</span><span class="desc">Locations<br/>each branch + HQ</span></div>
+  <div class="prefix-tile pfx-help"><span class="p">help-</span><span class="desc">Service desks<br/>ask anything</span></div>
+  <div class="prefix-tile pfx-vendor"><span class="p">vendor-</span><span class="desc">External partners<br/>2 only</span></div>
+  <div class="prefix-tile pfx-social"><span class="p">social-</span><span class="desc">Off-topic<br/>opt-in</span></div>
+</div>
+
+<table>
+  <thead><tr><th>Prefix</th><th>Purpose</th><th>Example</th></tr></thead>
+  <tbody>
+    <tr><td><code>va-</code></td><td>Org-wide. Announcements, leadership, all-hands.</td><td><code>va-announcements</code></td></tr>
+    <tr><td><code>team-</code></td><td>Functional teams (operations, clinical, finance, HR, marketing, IT, customer experience, business development). Day-to-day work.</td><td><code>team-finance-ap</code></td></tr>
+    <tr><td><code>clinic-</code></td><td>Branch / clinic / location operations. Each location has 5 sub-channels.</td><td><code>clinic-mv-mb</code></td></tr>
+    <tr><td><code>help-</code></td><td>Service desks. Anyone in the company can ask. The dept user-group answers.</td><td><code>help-it</code></td></tr>
+    <tr><td><code>vendor-</code></td><td>External partner channels (2 only: digital agency + IT).</td><td><code>vendor-ecre8</code></td></tr>
+    <tr><td><code>social-</code></td><td>Non-work chat. Opt-in.</td><td><code>social-pets</code></td></tr>
+  </tbody>
+</table>
+
+<h2>How the structure looks</h2>
+
+<div class="tree"><span class="pfx">va-</span>                                            (Vet Alliance org-wide · 5 channels)
+├─ va-announcements              <span class="own">posting locked to leadership</span>
+├─ va-general                    <span class="own">watercooler, kudos</span>
+├─ va-leadership      🔒         <span class="own">Mansoor + direct reports</span>
+├─ va-management      🔒         <span class="own">all team leads + branch managers</span>
+└─ va-policies                   <span class="own">read-only · IT/HR/SOP releases</span>
+
+<span class="pfx">team-</span>                                          (Functional teams · ~40 channels)
+├─ MARKETING                     <span class="own">Andrew (already running)</span>
+├─ TECH / IT                     <span class="own">AbdulRahman (already running)</span>
+├─ OPERATIONS (Scott + Michael + Judit)
+│   ├─ team-ops-warehouse / -inventory / -smartflow
+│   ├─ team-ops-floof-orders / -purchasing
+│   ├─ team-ops-approvals-equipment / -approvals-medicine
+│   ├─ team-ops-maintenance              <span class="own">Judit</span>
+│   ├─ team-ops-fitout                   <span class="own">Judit</span>
+│   └─ team-ops-licensing                <span class="own">Scott + Yusuf</span>
+├─ CLINICAL                      <span class="own">Scott + Dr. Dieter + Dr. Rami</span>
+│   ├─ team-clinical (leadership)
+│   ├─ team-clinical-vets / -nurses / -emergency
+│   ├─ team-clinical-medical-product
+│   └─ team-clinical-rescue              <span class="own">Aida</span>
+├─ CUSTOMER EXPERIENCE           <span class="own">Aida</span>
+│   ├─ team-cx (leadership)
+│   ├─ team-cx-scheduling   🔒           <span class="own">Dima · existing private</span>
+│   ├─ team-cx-complaints
+│   ├─ team-cx-experience
+│   └─ team-cx-training
+├─ CALL CENTRE (separate entity)
+│   ├─ team-cc                           <span class="own">CC team</span>
+│   ├─ team-cc-handoffs                  <span class="own">⚡ bridge: CC ↔ reception</span>
+│   └─ team-cc-callgear                  <span class="own">CallGear admin</span>
+├─ PEOPLE / HR                   <span class="own">Shari</span>
+├─ FINANCE                       <span class="own">Harshita</span>
+└─ BUSINESS DEVELOPMENT          <span class="own">Hadi</span>
+
+<span class="pfx">clinic-</span>                                        (Locations · 60 channels = 12 × 5)
+│   <span class="note">Standardised holders: branch manager owns the umbrella;</span>
+│   <span class="note">Scott + Sandy = medical, Aida = reception, Michael = inventory, Judit = maintenance.</span>
+├─ Modern Vet (8 branches × 5 = 40)
+│   ├─ MB · Palm · DT · JVC · JLT · Azizi · Khawaneej · Mobile
+├─ Blue Oasis (DIP)        × 5 = 5
+├─ Vienna Vet              × 5 = 5
+├─ TVRC                    × 5 = 5            <span class="own">Aida</span>
+└─ HQ (Head Office)        × 2-5 = 2-5        <span class="own">Mansoor / Scott</span>
+
+<span class="pfx">help-</span>                                           (Service desks · 7 channels)
+├─ help-marketing            <span class="own">Andrew</span>
+├─ help-it                   <span class="own">AbdulRahman</span>
+├─ help-people               <span class="own">Shari</span>
+├─ help-finance              <span class="own">Harshita</span>
+├─ help-bizdev               <span class="own">Hadi</span>
+├─ help-ops                  <span class="own">Judit + Scott</span>
+└─ help-scheduling           <span class="own">Dima · staff-facing scheduling Q&amp;A</span>
+
+<span class="pfx">vendor-</span>                                         (External · 2 channels)
+├─ vendor-ecre8              <span class="own">digital agency · Andrew</span>
+└─ vendor-synergi            <span class="own">IT MSP · AbdulRahman</span>
+
+<span class="pfx">social-</span>                                         (Off-topic · 4 channels)
+└─ social-random · social-pets · social-celebrations · social-marketplace</div>
+
+<h2>How a clinic location works</h2>
+
+<p>Today, every clinic shares one giant chat where vets, nurses, reception, and assistants are all mixed together. Important medical messages get lost in front-desk chatter, and vice versa.</p>
+
+<p><strong>Each location now gets 5 dedicated channels</strong>, with the same person holding each function across all locations:</p>
+
+<table>
+  <thead><tr><th>Channel</th><th>Who's in it</th><th>Functional holder</th></tr></thead>
+  <tbody>
+    <tr><td><code>clinic-XXX</code></td><td>All branch staff — handovers, branch news</td><td>Branch manager</td></tr>
+    <tr><td><code>clinic-XXX-med</code></td><td>Vets + nurses + medical assistants — clinical</td><td><strong>Scott + Sandy</strong></td></tr>
+    <tr><td><code>clinic-XXX-fd</code></td><td>Reception + front-desk — bookings, customer care</td><td><strong>Aida</strong></td></tr>
+    <tr><td><code>clinic-XXX-inventory</code></td><td>Branch staff + procurement team — stock requests</td><td><strong>Michael</strong></td></tr>
+    <tr><td><code>clinic-XXX-maintenance</code></td><td>Branch staff + maintenance team — facility tickets</td><td><strong>Judit</strong></td></tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <h4>Why standardised holders?</h4>
+  <p style="margin-bottom:0;">Staff always know who answers each sub-channel, regardless of which branch they're in. The branch manager runs the umbrella; dept heads functionally lead each function. No more "who do I ask?" — the channel name tells you.</p>
+</div>
+
+<h3>Active locations</h3>
+
+<table>
+  <thead><tr><th>Location</th><th>Channel code</th><th>Branch manager</th></tr></thead>
+  <tbody>
+    <tr><td>Modern Vet — Main Branch (Hospital)</td><td><code>clinic-mv-mb</code></td><td>Anissa Benhamou</td></tr>
+    <tr><td>Modern Vet — Palm</td><td><code>clinic-mv-palm</code></td><td>TBC</td></tr>
+    <tr><td>Modern Vet — Downtown</td><td><code>clinic-mv-dt</code></td><td>TBC</td></tr>
+    <tr><td>Modern Vet — JVC</td><td><code>clinic-mv-jvc</code></td><td>TBC</td></tr>
+    <tr><td>Modern Vet — JLT</td><td><code>clinic-mv-jlt</code></td><td>TBC</td></tr>
+    <tr><td>Modern Vet — Azizi Riviera</td><td><code>clinic-mv-az</code></td><td>TBC</td></tr>
+    <tr><td>Modern Vet — Khawaneej</td><td><code>clinic-mv-khw</code></td><td>TBC (re-opens Jun/Jul)</td></tr>
+    <tr><td>Modern Vet — Mobile Clinic</td><td><code>clinic-mv-mob</code></td><td>Rahaf</td></tr>
+    <tr><td>Blue Oasis — DIP</td><td><code>clinic-bovc-dip</code></td><td>TBC</td></tr>
+    <tr><td>Vienna Vet</td><td><code>clinic-vv</code></td><td>Aida + branch lead TBC</td></tr>
+    <tr><td>TVRC (referral hospital)</td><td><code>clinic-tvrc</code></td><td><strong>Aida</strong></td></tr>
+    <tr><td>VA Head Office</td><td><code>clinic-hq</code></td><td>Mansoor / Scott</td></tr>
+  </tbody>
+</table>
+
+<h2>Master Lists — where work actually lives</h2>
+
+<p>Channels are for conversation. <strong>Lists are where work is tracked.</strong> Instead of every channel having its own task list, we run <strong>one master list per function</strong>, with views attached to channels filtered by branch or work-stream.</p>
+
+<table>
+  <thead><tr><th>Master list</th><th>Owner</th><th>Used by</th></tr></thead>
+  <tbody>
+    <tr><td>Maintenance</td><td>Judit</td><td>All <code>clinic-XXX-maintenance</code> + <code>team-ops-maintenance</code></td></tr>
+    <tr><td>Inventory</td><td>Michael</td><td>All <code>clinic-XXX-inventory</code> + <code>team-ops-inventory</code></td></tr>
+    <tr><td>Purchasing &amp; Approvals</td><td>Michael</td><td><code>team-ops-purchasing</code> + approvals channels</td></tr>
+    <tr><td>Customer Experience</td><td>Aida</td><td><code>team-cx-*</code> + <code>clinic-XXX-fd</code></td></tr>
+    <tr><td>Marketing</td><td>Andrew</td><td><code>team-marketing-*</code> + <code>help-marketing</code></td></tr>
+    <tr><td>People / HR</td><td>Shari</td><td><code>team-people-*</code> + <code>help-people</code></td></tr>
+    <tr><td>Finance</td><td>Harshita</td><td><code>team-finance-*</code> + <code>help-finance</code></td></tr>
+    <tr><td>BizDev pipeline</td><td>Hadi</td><td><code>team-bizdev-*</code> + <code>help-bizdev</code></td></tr>
+    <tr><td>IT</td><td>AbdulRahman</td><td><code>team-tech-*</code> + <code>help-it</code></td></tr>
+    <tr><td>Clinical</td><td>Scott + Dieter + Rami</td><td><code>team-clinical-*</code></td></tr>
+  </tbody>
+</table>
+
+<h3>Worked example: a broken AC at Main Branch</h3>
+
+<ol>
+  <li>MB reception notices the AC is broken in the waiting room.</li>
+  <li>They post a message in <code>clinic-mv-mb-maintenance</code> and click <strong>"Add to list"</strong>.</li>
+  <li>Slack auto-fills "Branch = MB" because the channel knows where it lives.</li>
+  <li>The item appears in <strong>Judit's master Maintenance list</strong> instantly.</li>
+  <li>Judit assigns severity, picks a vendor, sets a due date.</li>
+  <li>MB sees the status update right inside their own channel — without seeing what's happening at any other branch.</li>
+</ol>
+
+<div class="callout">
+  <h4>The benefit</h4>
+  <p style="margin-bottom:0;">Judit has one place to manage all maintenance, across all 12 locations. Each branch sees only their own items. And cross-clinic patterns (e.g. three branches with HVAC issues this week) are visible to Judit so she can deal with the same vendor in bulk.</p>
+</div>
+
+<h2>How teams talk to each other</h2>
+
+<p>Slack only works if people know <strong>where to send asks</strong>. Four mechanisms wire the structure together:</p>
+
+<div class="grid grid-2">
+  <div class="card">
+    <h4>1. The "front door" — <code>help-*</code></h4>
+    <p>Anyone in the company can post in a help channel. The dept user-group monitors and triages — same business day response.</p>
+    <p style="font-size:.85rem;color:var(--muted);"><em>Example: a vet needs a poster reprinted → <code>help-marketing</code> → Andrew picks it up.</em></p>
+  </div>
+  <div class="card">
+    <h4>2. Direct dept ↔ dept channels</h4>
+    <p>For recurring patterns (Call Centre ↔ Reception, branch ↔ inventory), depts use shared channels directly — no <code>help-*</code> middleman.</p>
+    <p style="font-size:.85rem;color:var(--muted);"><em>Example: <code>team-cc-handoffs</code> bridges Call Centre and reception leads.</em></p>
+  </div>
+  <div class="card">
+    <h4>3. Strategic decisions — <code>va-management</code></h4>
+    <p>Anything affecting 3+ departments or needing leadership air-cover goes here. All team leads see it. Decisions get logged in a pinned canvas.</p>
+  </div>
+  <div class="card">
+    <h4>4. Read-only — <code>va-announcements</code></h4>
+    <p>Outcomes, policy changes, big news. Posting locked to 9 leaders. Everyone reads.</p>
+  </div>
+</div>
+
+<h3>The "Where do I post this?" cheat sheet</h3>
+
+<div class="tree" style="font-size:.85rem;">Is it a question/request to another dept?
+   ├─ Yes, recurring pattern (CC↔reception, branch↔inventory) → direct channel
+   └─ Yes, one-off                                          → the relevant <span class="pfx">help-*</span>
+
+Is it a decision that needs 3+ depts or leadership?
+   → <span class="pfx">va-management</span>
+
+Is it news everyone needs to know?
+   → <span class="pfx">va-announcements</span> (with author from authorised posters)
+
+Is it just within my team?
+   → <span class="pfx">team-*</span> sub-channel  or  <span class="pfx">clinic-XXX-*</span> sub-channel
+
+Is it not work?
+   → <span class="pfx">social-*</span> (random / pets / celebrations / marketplace)</div>
+
+<h2>By the numbers</h2>
+
+<div class="stat-row">
+  <div class="stat"><span class="n">~85</span><span class="l">Active channels at full rollout</span></div>
+  <div class="stat"><span class="n">12</span><span class="l">Locations</span></div>
+  <div class="stat"><span class="n">10</span><span class="l">Functional teams</span></div>
+  <div class="stat"><span class="n">10</span><span class="l">Master lists</span></div>
+  <div class="stat"><span class="n">3</span><span class="l">Weeks to roll out</span></div>
+</div>
+
+<h2>Rollout plan — 3 weeks</h2>
+
+<table>
+  <thead><tr><th>Week</th><th>What goes live</th><th>Who's involved</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Prep</strong> (Days 1–2)</td><td>Confirm structure with leadership · invite remaining staff to Slack · set up user groups · prep master lists</td><td>Andrew + dept heads</td></tr>
+    <tr><td><strong>Week 1</strong></td><td>Rename existing channels to new prefix system · build operations + clinical + customer experience clusters (~30 channels)</td><td>Marketing dept + Scott, Michael, Judit, Aida, Dr. Rami</td></tr>
+    <tr><td><strong>Week 2</strong></td><td>People + finance + business development clusters · pilot 5-channel split with Main Branch hospital · brief Anissa</td><td>Shari, Harshita, Hadi, Anissa</td></tr>
+    <tr><td><strong>Week 3</strong></td><td>Pilot review · roll out 5-channel split to all remaining locations + HQ · vendor channels · cleanup</td><td>All branch managers</td></tr>
+  </tbody>
+</table>
+
+<h2>For dept heads — your slice</h2>
+
+<table>
+  <thead><tr><th>You</th><th>What you own</th><th>What you need to confirm</th></tr></thead>
+  <tbody>
+    <tr><td>Scott</td><td>Operations leadership · clinical (with Dieter + Rami) · licensing (with Yusuf) · branch manager network</td><td>Branch manager names · Khawaneej + Azizi codes · rescue scope</td></tr>
+    <tr><td>Michael</td><td>Inventory + ordering across all clinics · purchasing approvals · Floof orders</td><td>Procurement team rosters per channel</td></tr>
+    <tr><td>Judit</td><td>Maintenance across all clinics · fit-outs · facility tickets via master list</td><td>Maintenance team + vendor list</td></tr>
+    <tr><td>Aida</td><td>Customer experience · reception across all clinics · Vienna Vet + TVRC location lead · rescue · CC handoffs</td><td>Call Centre roster · CC lead identity · VV interim branch lead</td></tr>
+    <tr><td>Dr. Dieter / Dr. Rami</td><td>Clinical leadership · vets · nurses · medical product evaluation</td><td>Vet/nurse rosters per brand</td></tr>
+    <tr><td>Shari</td><td>HR · recruitment · payroll · visa &amp; licensing</td><td>HR team channel membership</td></tr>
+    <tr><td>Harshita</td><td>Finance — AP, AR, discounts, pricing</td><td>AP/AR team split (Vijo, Husain, Mahroof, Mohammed Saeed)</td></tr>
+    <tr><td>Hadi</td><td>Business development · partnerships · expansion · pipeline</td><td>BD team membership (if any)</td></tr>
+    <tr><td>AbdulRahman</td><td>IT · software · data · AI · 2 vendor channels (Synergi + ezyVet upstream)</td><td>Tech vendor confirmations</td></tr>
+    <tr><td>Andrew</td><td>Marketing · Floof revenue + product · brand voice across the org · this rollout</td><td>Floof scope · final structure sign-off</td></tr>
+  </tbody>
+</table>
+
+<h2>What to do next</h2>
+
+<div class="grid grid-3">
+  <div class="card">
+    <h4>1 · Review your slice</h4>
+    <p>Look at the section that applies to your dept. Check the channels, owners, and master list look right.</p>
+  </div>
+  <div class="card">
+    <h4>2 · Fill the gaps</h4>
+    <p>Names of team members per channel. Anything missing or wrong. Reply to Andrew with your thoughts.</p>
+  </div>
+  <div class="card">
+    <h4>3 · We build</h4>
+    <p>Once everyone signs off, we roll out over 3 weeks. Pilot with the hospital first, then everyone else.</p>
+  </div>
+</div>
+
+</div>
+
+<footer>
+  <p><strong>Vet Alliance — Slack Structure</strong></p>
+  <p>Prepared by the Marketing department · May 2026 · Questions → Andrew</p>
+</footer>
+
+</body>
+</html>

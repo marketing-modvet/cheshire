@@ -267,19 +267,19 @@
 
 <header>
   <h1>Vet Alliance — Slack Structure</h1>
-  <div class="subtitle">Phase 3 Scheme · v1.2 · Full company rollout</div>
-  <div class="meta">Drafted 5 May 2026 · Revised 7 May 2026 · Synthesises Mansoor's Blueprint + Phase 1+2 + May 6 CEO meeting + Andrew's May 7 refinements</div>
-  <div class="meta" style="margin-top:.5rem;">v1.2: <strong>BizDev cluster</strong> under Hadi · <strong>CC separate entity</strong> from reception (with handoffs bridge) · stronger inter-dept comms · worked Lists example</div>
-  <div class="meta">v1.1: Option B per-clinic inventory/maintenance · HQ + TVRC · Master Lists with views · Amy→Aida · Kavita→Andrew</div>
+  <div class="subtitle">Phase 3 Scheme · v1.3 · Full company rollout</div>
+  <div class="meta">Drafted 5 May 2026 · Revised 7 May 2026 · For internal review · Companion presentation: <a href="slack-phase3-presentation.html" style="color:var(--gold-bright);">slack-phase3-presentation.html</a></div>
+  <div class="meta" style="margin-top:.5rem;">v1.3: vendors trimmed to 2 · <strong>brand-*</strong> &amp; <strong>proj-*</strong> removed · standardised per-clinic holders · BizDev under Hadi · social-marketplace</div>
+  <div class="meta">v1.2: BizDev cluster · CC separate entity · inter-dept comms · worked Lists example</div>
+  <div class="meta">v1.1: Option B per-clinic inventory/maintenance · HQ + TVRC · Master Lists · Amy→Aida · Kavita→Andrew</div>
 </header>
 
 <nav class="nav-toc">
   <a href="#legend">Legend</a>
   <a href="#tree">Org Tree</a>
-  <a href="#prefixes">8 Prefixes</a>
+  <a href="#prefixes">6 Prefixes</a>
   <a href="#mgmt">Mgmt Depts</a>
   <a href="#clinics">Locations</a>
-  <a href="#brands">Brands</a>
   <a href="#help">Help / Vendors</a>
   <a href="#intercomm">Intercommunication</a>
   <a href="#numbers">Numbers</a>
@@ -295,9 +295,7 @@
     <div class="legend-item"><span class="legend-pill pfx-va">va-</span>Org-wide</div>
     <div class="legend-item"><span class="legend-pill pfx-team">team-</span>Functional teams</div>
     <div class="legend-item"><span class="legend-pill pfx-clinic">clinic-</span>Branches</div>
-    <div class="legend-item"><span class="legend-pill pfx-brand">brand-</span>Brand-level</div>
-    <div class="legend-item"><span class="legend-pill pfx-proj">proj-</span>Projects</div>
-    <div class="legend-item"><span class="legend-pill pfx-vendor">vendor-</span>External</div>
+    <div class="legend-item"><span class="legend-pill pfx-vendor">vendor-</span>External (2 only)</div>
     <div class="legend-item"><span class="legend-pill pfx-help">help-</span>Service desks</div>
     <div class="legend-item"><span class="legend-pill pfx-social">social-</span>Off-topic</div>
   </div>
@@ -343,20 +341,20 @@
 │  │   ├─ team-ops-approvals-equipment ✏️    Michael
 │  │   ├─ team-ops-approvals-medicine  ✏️    Michael
 │  │   ├─ team-ops-maintenance         🆕    Judit
-│  │   ├─ team-ops-fitout              🆕    Samar?
-│  │   └─ team-ops-licensing           🆕    Scott
+│  │   ├─ team-ops-fitout              🆕    Judit
+│  │   └─ team-ops-licensing           🆕    Scott + Yusuf
 │  │
 │  ├─ CLINICAL (6 ch · Dr. Rami / Dr. Dieter)
 │  │   ├─ team-clinical                      Rami
 │  │   ├─ team-clinical-vets                 Rami           — all licensed vets
 │  │   ├─ team-clinical-nurses               Sandy
 │  │   ├─ team-clinical-medical-product      Rami + Michael — formulary
-│  │   ├─ team-clinical-rescue               Marta + Scott
+│  │   ├─ team-clinical-rescue               Aida
 │  │   └─ team-clinical-emergency      📢    Scott          — replaces WhatsApp
 │  │
 │  ├─ CUSTOMER EXPERIENCE (5 ch · Aida)
 │  │   ├─ team-cx                            Aida (CX leadership)
-│  │   ├─ team-cx-scheduling                 Janiro + Dima
+│  │   ├─ team-cx-scheduling           🔒    Dima (existing private — keep)
 │  │   ├─ team-cx-complaints           📢    Aida + Scott
 │  │   ├─ team-cx-experience                 Aida
 │  │   └─ team-cx-training         🆕        Aida
@@ -404,13 +402,7 @@
 │  └─ HQ (1 × 2-5 = 2-5 · 🆕 Head Office)
 │      └─ clinic-hq  (general + maintenance · Mansoor/Scott)
 │
-├─ brand-                                            (Brand-level · 6 ch)
-│  ├─ brand-mv               Scott            cross-branch MV
-│  ├─ brand-bovc             Scott            BOVC (DIP only · long-term consolidation flagged)
-│  ├─ brand-vv               Aida + lead TBC  Vienna Vet + rescue (was Amy)
-│  ├─ brand-tvrc             TVRC lead        Referral Center (was brand-tvrh)
-│  ├─ brand-floof            Andrew + Michael Floof e-commerce/app — Mansoor's summer priority
-│  └─ brand-hq         🆕    Mansoor / Scott  Head Office admin coordination
+[brand-* REMOVED v1.3 — brands roll into Vet Alliance; branding sits in marketing]
 │
 ├─ help-                                             (Service desks · 5 ch)
 │  ├─ help-marketing   ✏️   Andrew      [from #marketing-requests]
@@ -419,15 +411,9 @@
 │  ├─ help-finance     🆕   Hadi
 │  └─ help-ops         🆕   Judit + Scott
 │
-├─ vendor-                                           (External · 8 ch)
-│  ├─ vendor-ecre8           Andrew
-│  ├─ vendor-synergi         AbdulRahman
-│  ├─ vendor-nexwerx         AbdulRahman
-│  ├─ vendor-gulfrider       Michael
-│  ├─ vendor-eurovets        Michael
-│  ├─ vendor-udo             Michael + AbdulRahman
-│  ├─ vendor-ashurst         Mansoor
-│  └─ vendor-ezyvet          AbdulRahman
+├─ vendor-                                           (External · 2 ch · trimmed v1.3)
+│  ├─ vendor-ecre8           Andrew         digital agency
+│  └─ vendor-synergi         AbdulRahman   IT MSP
 │
 ├─ proj-                                             (Active · ~12, rotating)
 │  └─ slack-rollout · scheduling-app · floof-app-launch · floof-shopify
@@ -439,17 +425,16 @@
 </section>
 
 <section id="prefixes">
-  <h2>The 8 prefixes — naming convention</h2>
+  <h2>The 6 prefixes — naming convention (v1.3 — trimmed from 8)</h2>
   <p>Format: <code>[prefix]-[scope]-[topic]</code> · all lowercase · hyphens only · no emoji in names · no underscores or camelCase.</p>
+  <p style="font-size:.85rem;color:var(--muted);">Removed in v1.3: <s><code>brand-</code></s> (brands roll into Vet Alliance; branding is a marketing function) · <s><code>proj-</code></s> (projects fold into existing functional channels).</p>
   <table>
     <thead><tr><th>Prefix</th><th>Purpose</th><th>Lifecycle</th><th>Example</th></tr></thead>
     <tbody>
       <tr><td><span class="legend-pill pfx-va">va-</span></td><td>Org-wide. Announcements, leadership, all-hands.</td><td>Permanent</td><td><code>va-announcements</code></td></tr>
       <tr><td><span class="legend-pill pfx-team">team-</span></td><td>Functional teams. Day-to-day work.</td><td>Permanent</td><td><code>team-finance-ap</code></td></tr>
-      <tr><td><span class="legend-pill pfx-clinic">clinic-</span></td><td>Branch / clinic operations.</td><td>Permanent</td><td><code>clinic-mv-mb</code></td></tr>
-      <tr><td><span class="legend-pill pfx-brand">brand-</span></td><td>Brand-level coordination across branches.</td><td>Permanent</td><td><code>brand-floof</code></td></tr>
-      <tr><td><span class="legend-pill pfx-proj">proj-</span></td><td>Time-bound projects with a defined end.</td><td>Archive on done</td><td><code>proj-pricing-2026</code></td></tr>
-      <tr><td><span class="legend-pill pfx-vendor">vendor-</span></td><td>External partner / vendor channels.</td><td>Permanent unless ended</td><td><code>vendor-ecre8</code></td></tr>
+      <tr><td><span class="legend-pill pfx-clinic">clinic-</span></td><td>Branch / clinic / location operations.</td><td>Permanent</td><td><code>clinic-mv-mb</code></td></tr>
+      <tr><td><span class="legend-pill pfx-vendor">vendor-</span></td><td>External partner / vendor channels (2 only: eCRE8 + Synergi).</td><td>Permanent unless ended</td><td><code>vendor-ecre8</code></td></tr>
       <tr><td><span class="legend-pill pfx-help">help-</span></td><td>Service desk style. Anyone can ask.</td><td>Permanent</td><td><code>help-it</code></td></tr>
       <tr><td><span class="legend-pill pfx-social">social-</span></td><td>Non-work, opt-in.</td><td>Permanent</td><td><code>social-pets</code></td></tr>
     </tbody>
@@ -544,28 +529,28 @@
   <p>Today: every clinic = one giant chat with vets + nurses + reception + assistants. Bad signal-to-noise. <strong>Option B fix (May 6 meeting):</strong> 5 channels per active location — branch staff post directly into their location's <code>-inventory</code> / <code>-maintenance</code> channel; Michael &amp; Judit retain central <code>team-ops-*</code> hubs for cross-clinic patterns. One Master List per function with views filtered by branch — see Lists section.</p>
 
   <div class="flowbox">
-    <h4>The 5-channel pattern (per location)</h4>
+    <h4>The 5-channel pattern (per location) — standardised holders v1.3</h4>
     <div class="flow-step">
       <span class="flow-pill" style="background:#58a058;">clinic-XXX</span>
-      <span class="flow-note">🌐 all staff — branch news, handovers · Branch manager owns</span>
+      <span class="flow-note">🌐 all staff — branch news, handovers · <strong>Branch manager owns</strong></span>
     </div>
     <div class="flow-step">
       <span class="flow-pill" style="background:#2563a8;">clinic-XXX-med</span>
-      <span class="flow-note">🔒 vets + nurses + medical assistants — clinical</span>
+      <span class="flow-note">🔒 vets + nurses + medical · holder = <strong>Scott + Sandy</strong></span>
     </div>
     <div class="flow-step">
       <span class="flow-pill" style="background:#a55a3a;">clinic-XXX-fd</span>
-      <span class="flow-note">🔒 reception + front-desk — bookings, CX · Aida co-owns</span>
+      <span class="flow-note">🔒 reception + front-desk · holder = <strong>Aida</strong></span>
     </div>
     <div class="flow-step">
       <span class="flow-pill" style="background:#8a5a2a;">clinic-XXX-inventory</span>
-      <span class="flow-note">🔒 🆕 stock requests · branch + Michael's team · feeds Inventory Master List</span>
+      <span class="flow-note">🔒 stock requests · holder = <strong>Michael</strong> · feeds Inventory Master List</span>
     </div>
     <div class="flow-step">
       <span class="flow-pill" style="background:#d44e4e;">clinic-XXX-maintenance</span>
-      <span class="flow-note">🔒 🆕 facility tickets · branch + Judit's team · feeds Maintenance Master List</span>
+      <span class="flow-note">🔒 facility tickets · holder = <strong>Judit</strong> · feeds Maintenance Master List</span>
     </div>
-    <p style="margin-top:1rem;font-size:.85rem;"><strong>Optional 6th</strong> if branch manager asks: <code>clinic-XXX-mgmt</code> 🔒 (clinic mgr + vet lead + reception lead).</p>
+    <p style="margin-top:1rem;font-size:.85rem;"><strong>Why standardised holders:</strong> staff always know who answers each sub-channel, regardless of which branch. Branch manager owns the umbrella; dept heads functionally lead each sub.</p>
   </div>
 
   <h3>Active locations — 11 clinics + HQ × 5 = 60 channels at full rollout</h3>
@@ -583,8 +568,8 @@
       <tr><td><code>clinic-mv-mob</code></td><td>Modern Vet</td><td>Mobile Clinic</td><td>Rahaf ❓</td><td>🟢 active</td></tr>
       <tr><td><code>clinic-bovc-dip</code></td><td>BOVC</td><td>DIP</td><td>❓</td><td>🟢 active</td></tr>
       <tr><td><code>clinic-bovc-d2</code></td><td>BOVC</td><td>D2</td><td>—</td><td>❌ closed (May 6) · dropped</td></tr>
-      <tr><td><code>clinic-vv</code></td><td>Vienna Vet</td><td>(single site)</td><td>Aida (CX) + lead TBC</td><td>🟢 active · was Amy</td></tr>
-      <tr><td><code>clinic-tvrc</code></td><td>TVRC</td><td>Referral Center (was TVRH)</td><td>❓</td><td>🟢 active · oncology + CT focus</td></tr>
+      <tr><td><code>clinic-vv</code></td><td>Vienna Vet</td><td>(single site)</td><td>Aida + branch lead TBC</td><td>🟢 active · was Amy</td></tr>
+      <tr><td><code>clinic-tvrc</code></td><td>TVRC</td><td>Referral Center (was TVRH)</td><td><strong>Aida</strong></td><td>🟢 active · oncology + CT focus</td></tr>
       <tr><td><code>clinic-hq</code> 🆕</td><td>VA Head Office</td><td>(admin staff, not a clinic)</td><td>Mansoor / Scott</td><td>🟢 active</td></tr>
     </tbody>
   </table>
@@ -596,16 +581,11 @@
 </section>
 
 <section id="brands">
-  <h2>Brand-level coordination</h2>
-  <p>For when something affects all branches of one brand (or a brand-wide product like Floof).</p>
-
-  <div class="grid grid-3">
-    <div class="card"><h4>brand-mv 🔒</h4><p>Modern Vet brand-level.<br/>7 branches + Hospital.<br/><em>Owner: Scott</em></p></div>
-    <div class="card"><h4>brand-bovc 🔒</h4><p>Blue Oasis brand.<br/>DIP only (D2 closed).<br/>Long-term consolidation flagged.<br/><em>Owner: Scott</em></p></div>
-    <div class="card"><h4>brand-vv 🔒</h4><p>Vienna Vet + rescue.<br/><em>Owner: Aida + branch lead TBC</em><br/><small>(was Amy, reassigned May 6)</small></p></div>
-    <div class="card"><h4>brand-tvrc 🔒</h4><p>Referral Center.<br/>Oncology + CT focus.<br/><em>Owner: TVRC lead TBD</em></p></div>
-    <div class="card"><h4>brand-floof 🔒</h4><p>Floof e-commerce / app.<br/>Mansoor's summer revenue priority.<br/><em>Owners: Andrew + Michael</em><br/><small>(was Kavita, reassigned May 6)</small></p></div>
-    <div class="card"><h4>brand-hq 🆕 🔒</h4><p>Head Office admin coordination.<br/>HR · finance · leadership ops at HQ.<br/><em>Owner: Mansoor / Scott</em></p></div>
+  <h2>Brand-level coordination — REMOVED in v1.3</h2>
+  <div class="qbox" style="border-color:var(--bronze);background:#faf3eb;">
+    <h4>Why removed</h4>
+    <p>All brands (Modern Vet, Blue Oasis, Vienna Vet, TVRC, Floof) are part of Vet Alliance. Brand-level coordination happens at the org level via <code>va-management</code> or per-clinic. Branding itself is a marketing function — it sits inside the marketing cluster, not its own channel set.</p>
+    <p style="margin-bottom:0;"><strong>Floof</strong> still gets first-class attention via the Marketing master list (work-stream = Floof) since it's the summer revenue priority. Re-evaluate if it grows into a multi-team operation needing its own cluster.</p>
   </div>
 </section>
 
@@ -614,7 +594,7 @@
 
   <div class="grid grid-2">
     <div class="card">
-      <h3>help-* — service desks (6)</h3>
+      <h3>help-* — service desks (7)</h3>
       <p style="font-size:.85rem;">The "front door" for every dept. Anyone can ask. Owner triages.</p>
       <ul class="channel-list">
         <li><span class="ch">help-marketing</span> <span class="meta-tag rename">rename</span> Andrew</li>
@@ -623,21 +603,16 @@
         <li><span class="ch">help-finance</span> <span class="meta-tag new">new</span> Harshita</li>
         <li><span class="ch">help-bizdev</span> <span class="meta-tag new">new</span> Hadi</li>
         <li><span class="ch">help-ops</span> <span class="meta-tag new">new</span> Judit + Scott</li>
+        <li><span class="ch">help-scheduling</span> <span class="meta-tag new">new</span> Dima — staff-facing scheduling Q&amp;A</li>
       </ul>
     </div>
 
     <div class="card">
-      <h3>vendor-* — external (8 · ⚠️ under review)</h3>
-      <p style="font-size:.85rem;">Slack Connect where vendor agrees, internal-only otherwise. <strong>May 6 action item:</strong> Andrew to double-check vendor list; Synergi + eCRE8 confirmed needed, rest pending verification.</p>
+      <h3>vendor-* — external (2 — trimmed v1.3)</h3>
+      <p style="font-size:.85rem;">Trimmed to the two vendors where Slack Connect genuinely speeds up the loop. All other vendor work folds into the relevant <code>team-*</code> channel (Eurovets stock → <code>team-ops-purchasing</code>; UDO migration → <code>team-ops-inventory</code>; ezyVet/Nexwerx → <code>team-tech-software</code>; Ashurst legal → DM Mansoor).</p>
       <ul class="channel-list">
-        <li><span class="ch">vendor-ecre8</span> Andrew · ✅ confirmed</li>
-        <li><span class="ch">vendor-synergi</span> AbdulRahman · ✅ confirmed</li>
-        <li><span class="ch">vendor-nexwerx</span> AbdulRahman · 🟡 verify</li>
-        <li><span class="ch">vendor-gulfrider</span> Michael · 🟡 verify</li>
-        <li><span class="ch">vendor-eurovets</span> Michael · 🟡 verify</li>
-        <li><span class="ch">vendor-udo</span> Michael + AbdulRahman · 🟡 verify</li>
-        <li><span class="ch">vendor-ashurst</span> Mansoor · 🟡 verify</li>
-        <li><span class="ch">vendor-ezyvet</span> AbdulRahman · 🟡 verify</li>
+        <li><span class="ch">vendor-ecre8</span> Andrew · digital agency</li>
+        <li><span class="ch">vendor-synergi</span> AbdulRahman · IT MSP</li>
       </ul>
     </div>
   </div>
@@ -946,7 +921,7 @@ Is it not work?
 <section id="numbers">
   <h2>By the numbers</h2>
   <div class="num-summary">
-    <p style="margin-top:0;">Going from 16 channels today → ~110 active for Phase 3 (excl. marketing/IT which are separate). Total at full rollout including everything: ~145. The jump from v1.0 (~80) is the Option B per-clinic inventory + maintenance + HQ + extra CX.</p>
+    <p style="margin-top:0;">Going from 16 channels today → <strong>~85 active</strong> for Phase 3 (excl. marketing/IT). Total at full rollout incl. marketing/IT: <strong>~116</strong>. v1.3 trimmed ~25 channels by removing brand-* + proj-* clusters and shrinking vendors to 2.</p>
     <div class="num-grid">
       <div class="num-stat"><span class="n">5</span><span class="l">va-</span></div>
       <div class="num-stat"><span class="n">10+5</span><span class="l">team- mkt+IT (stub)</span></div>
@@ -958,11 +933,9 @@ Is it not work?
       <div class="num-stat"><span class="n">5</span><span class="l">team-finance-</span></div>
       <div class="num-stat"><span class="n">4</span><span class="l">team-bizdev- 🆕</span></div>
       <div class="num-stat"><span class="n">60</span><span class="l">clinic- (12×5)</span></div>
-      <div class="num-stat"><span class="n">6</span><span class="l">brand-</span></div>
-      <div class="num-stat"><span class="n">6</span><span class="l">help-</span></div>
-      <div class="num-stat"><span class="n">8</span><span class="l">vendor-</span></div>
-      <div class="num-stat"><span class="n">~12</span><span class="l">proj-</span></div>
-      <div class="num-stat"><span class="n">3</span><span class="l">social-</span></div>
+      <div class="num-stat"><span class="n">7</span><span class="l">help-</span></div>
+      <div class="num-stat"><span class="n">2</span><span class="l">vendor- (trimmed)</span></div>
+      <div class="num-stat"><span class="n">4</span><span class="l">social-</span></div>
     </div>
   </div>
 </section>
