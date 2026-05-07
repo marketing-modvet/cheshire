@@ -67,7 +67,6 @@
   }
   .grid-2 { grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); }
   .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-  .grid-4 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
 
   .card {
     background: white;
@@ -80,21 +79,6 @@
   .card h4 { margin-top: 0; }
   .card.accent { border-top: 3px solid var(--gold); }
 
-  .pill {
-    display: inline-block;
-    background: var(--teal);
-    color: white;
-    padding: 3px 10px;
-    border-radius: 12px;
-    font-size: .8rem;
-    font-weight: 600;
-    margin-right: 4px;
-    margin-bottom: 3px;
-  }
-  .pill.muted { background: #aaa; }
-  .pill.gold { background: var(--gold); color: var(--teal-deep); }
-
-  /* Channel chip */
   .ch {
     font-family: 'Menlo', 'Monaco', monospace;
     background: #eef0e8;
@@ -123,6 +107,20 @@
   tr:last-child td { border-bottom: none; }
   tr:hover { background: #f7f8f4; }
 
+  /* Privacy tier badges */
+  .tier {
+    display: inline-block;
+    font-size: .75rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .tier-1 { background: #d6efd1; color: #335c2c; }
+  .tier-2 { background: #fae3a3; color: #6b4d00; }
+  .tier-3 { background: #f4c4c4; color: #6e1f1f; }
+
   /* The 6-prefix tile bar */
   .prefix-bar {
     display: flex;
@@ -148,7 +146,7 @@
   .pfx-vendor{ background: #6b4d8a; }
   .pfx-social{ background: #aa8030; }
 
-  /* Tree visualisation */
+  /* Tree */
   .tree {
     background: var(--teal-deep);
     color: var(--cream);
@@ -165,34 +163,6 @@
   .tree .own { color: #95c8c4; }
   .tree .note { color: #c5b07a; font-style: italic; }
 
-  /* Flow diagram */
-  .flow-row {
-    display: flex;
-    align-items: center;
-    gap: .8rem;
-    flex-wrap: wrap;
-    margin: .6rem 0;
-  }
-  .flow-pill {
-    display: inline-block;
-    background: var(--teal);
-    color: white;
-    padding: 5px 12px;
-    border-radius: 16px;
-    font-size: .85rem;
-    font-family: 'Menlo', monospace;
-  }
-  .flow-arrow {
-    color: var(--gold);
-    font-size: 1.2rem;
-    font-weight: 700;
-  }
-  .flow-note {
-    color: var(--muted);
-    font-size: .85rem;
-    font-style: italic;
-  }
-
   .callout {
     background: #fff8e6;
     border: 1px solid var(--gold);
@@ -201,37 +171,24 @@
     margin: 1.5rem 0;
   }
   .callout h4 { color: var(--teal-deep); margin-top: 0; }
-
-  .stat-row {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin: 2rem 0;
+  .callout-ask {
+    background: #e8f1f2;
+    border: 2px solid var(--teal);
   }
-  .stat {
-    flex: 1 1 120px;
+
+  /* Department detail block */
+  .dept-block {
     background: white;
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1rem;
-    text-align: center;
+    border-left: 5px solid var(--teal);
+    border-radius: 8px;
+    padding: 1.5rem 1.8rem;
+    margin: 1.5rem 0;
   }
-  .stat .n {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.4rem;
-    font-weight: 700;
-    color: var(--gold);
-    display: block;
-    line-height: 1;
-  }
-  .stat .l {
-    font-size: 0.78rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: .4rem;
-    display: block;
-  }
+  .dept-block h3 { margin-top: 0; }
+  .dept-block .lead { color: var(--muted); font-size: .9rem; margin-top: -.3rem; margin-bottom: .8rem; font-style: italic; }
+  .dept-block ul { padding-left: 1.2rem; margin: .5rem 0; }
+  .dept-block ul li { margin: .25rem 0; }
 
   footer {
     background: var(--teal-deep);
@@ -262,7 +219,7 @@
 
 <div class="intro">
   <p>Vet Alliance is moving company communication onto Slack. Today, work conversations are scattered across WhatsApp groups, emails, DMs, and ad-hoc chats. That makes things slow, easy to miss, and impossible to search later.</p>
-  <p>This document explains how we're organising Slack so <strong>every message has an obvious home</strong>, every team has the channels they need, and nothing falls between the cracks. <strong>Privacy is a first-class design goal:</strong> branches see only their own channels, dept heads see across all branches, finance and HR are isolated from clinical chatter, and so on.</p>
+  <p>This document explains how we're organising Slack so <strong>every message has an obvious home</strong>, every team has the channels they need, and nothing falls between the cracks. <strong>Privacy is a first-class design goal:</strong> sensitive functions stay isolated, while operational ones are visible enough to help everyone do their job.</p>
   <p style="margin-bottom:0;">It's designed to scale to ~200 staff across 11 clinics + Head Office, while staying simple enough that a new joiner can find their way around on day one.</p>
 </div>
 
@@ -278,8 +235,8 @@
     <p>Every channel has a clear holder who triages messages, keeps it tidy, and answers questions.</p>
   </div>
   <div class="card accent">
-    <h4>Master Lists for tasks</h4>
-    <p>Real work lives in lists, not chat. One master list per function. Branches see only their slice.</p>
+    <h4>Lists, not chat, for tasks</h4>
+    <p>Real work lives in lists attached to channels. Three privacy tiers depending on what the data is.</p>
   </div>
 </div>
 
@@ -296,25 +253,13 @@
   <div class="prefix-tile pfx-social"><span class="p">social-</span><span class="desc">Off-topic<br/>opt-in</span></div>
 </div>
 
-<table>
-  <thead><tr><th>Prefix</th><th>Purpose</th><th>Example</th></tr></thead>
-  <tbody>
-    <tr><td><code>va-</code></td><td>Org-wide. Announcements, leadership, all-hands.</td><td><code>va-announcements</code></td></tr>
-    <tr><td><code>team-</code></td><td>Functional teams (operations, clinical, finance, HR, marketing, IT, customer experience, business development). Day-to-day work.</td><td><code>team-finance-ap</code></td></tr>
-    <tr><td><code>clinic-</code></td><td>Branch / clinic / location operations. Each location has 5 sub-channels.</td><td><code>clinic-mv-mb</code></td></tr>
-    <tr><td><code>help-</code></td><td>Service desks. Anyone in the company can ask. The dept user-group answers.</td><td><code>help-it</code></td></tr>
-    <tr><td><code>vendor-</code></td><td>External partner channels (2 only: digital agency + IT).</td><td><code>vendor-ecre8</code></td></tr>
-    <tr><td><code>social-</code></td><td>Non-work chat. Opt-in.</td><td><code>social-pets</code></td></tr>
-  </tbody>
-</table>
-
 <h2>How the structure looks</h2>
 
 <div class="tree"><span class="pfx">va-</span>                                            (Vet Alliance org-wide · 5 channels)
 ├─ va-announcements              <span class="own">posting locked to leadership</span>
 ├─ va-general                    <span class="own">watercooler, kudos</span>
 ├─ va-leadership      🔒         <span class="own">Mansoor + direct reports</span>
-├─ va-management      🔒         <span class="own">all team leads + branch managers</span>
+├─ va-management      🔒         <span class="own">all team leads</span>
 └─ va-policies                   <span class="own">read-only · IT/HR/SOP releases</span>
 
 <span class="pfx">team-</span>                                          (Functional teams · ~40 channels)
@@ -343,16 +288,28 @@
 │   ├─ team-cc-handoffs                  <span class="own">⚡ bridge: CC ↔ reception</span>
 │   └─ team-cc-callgear                  <span class="own">CallGear admin</span>
 ├─ PEOPLE / HR                   <span class="own">Shari</span>
+│   ├─ team-people (leadership)
+│   ├─ team-people-recruitment
+│   ├─ team-people-licensing-visa        <span class="own">Yusuf + Shari</span>
+│   └─ team-people-leave-payroll
 ├─ FINANCE                       <span class="own">Harshita</span>
+│   ├─ team-finance (leadership)
+│   ├─ team-finance-ap                   <span class="own">Pauline + Harshita</span>
+│   ├─ team-finance-ar                   <span class="own">Harshita</span>
+│   ├─ team-finance-discounts            <span class="own">Sandy + Aida</span>
+│   └─ team-finance-pricing              <span class="own">Mansoor + Scott</span>
 └─ BUSINESS DEVELOPMENT          <span class="own">Hadi</span>
+    ├─ team-bizdev (leadership)
+    ├─ team-bizdev-partnerships
+    ├─ team-bizdev-expansion
+    └─ team-bizdev-pipeline
 
 <span class="pfx">clinic-</span>                                        (Locations · 60 channels = 12 × 5)
-│   <span class="note">Standardised holders: branch manager owns the umbrella;</span>
-│   <span class="note">Scott + Sandy = medical, Aida = reception, Michael = inventory, Judit = maintenance.</span>
+│   <span class="note">Sandy + Scott own all clinics except VV/TVRC (Aida); branch staff see only their own location.</span>
 ├─ Modern Vet (8 branches × 5 = 40)
 │   ├─ MB · Palm · DT · JVC · JLT · Azizi · Khawaneej · Mobile
 ├─ Blue Oasis (DIP)        × 5 = 5
-├─ Vienna Vet              × 5 = 5
+├─ Vienna Vet              × 5 = 5            <span class="own">Aida</span>
 ├─ TVRC                    × 5 = 5            <span class="own">Aida</span>
 └─ HQ (Head Office)        × 2-5 = 2-5        <span class="own">Mansoor / Scott</span>
 
@@ -376,7 +333,7 @@
 
 <p>Today, every clinic shares one giant chat where vets, nurses, reception, and assistants are all mixed together. Important medical messages get lost in front-desk chatter, and vice versa.</p>
 
-<p><strong>Each location now gets 5 dedicated channels, all private to that branch.</strong> JLT staff see only JLT channels. Downtown sees only Downtown. The same dept head holds each function across every location — they're members of all 12 branches' relevant channels, while branch staff see only their own.</p>
+<p><strong>Each location now gets 5 dedicated channels.</strong> Branch staff see only their own location's channels — they don't see other branches. The same dept head holds each function across every location, so they're members of all 12 branches' relevant channels and can spot patterns across clinics.</p>
 
 <table>
   <thead><tr><th>Channel</th><th>Who's in it</th><th>Functional holder (across all clinics)</th></tr></thead>
@@ -390,15 +347,15 @@
 </table>
 
 <div class="callout">
-  <h4>Privacy + cross-clinic visibility</h4>
-  <p>All clinic channels are <strong>private</strong>. Branch staff see only their own location's 5 channels — not Downtown's bookings, not Palm's stock orders, not JLT's billing.</p>
-  <p style="margin-bottom:0;">Cross-clinic visibility lives with the dept heads. Sandy + Scott are members of every clinic's `med` channel. Aida is in every `fd`. Michael is in every `inventory`. Judit is in every `maintenance`. They see across all branches; staff don't.</p>
+  <h4>Branch isolation, dept-head visibility</h4>
+  <p>JLT staff see only JLT channels. Downtown sees only Downtown. No cross-branch chatter for staff.</p>
+  <p style="margin-bottom:0;">Sandy + Scott are members of every clinic's medical channel. Aida is in every front-desk channel. Michael is in every inventory channel. Judit is in every maintenance channel. They see across all branches; staff don't.</p>
 </div>
 
 <h3>Active locations</h3>
 
 <table>
-  <thead><tr><th>Location</th><th>Channel code</th><th>Holder (umbrella)</th></tr></thead>
+  <thead><tr><th>Location</th><th>Channel code</th><th>Holder</th></tr></thead>
   <tbody>
     <tr><td>Modern Vet — Main Branch (Hospital)</td><td><code>clinic-mv-mb</code></td><td>Sandy + Scott</td></tr>
     <tr><td>Modern Vet — Palm</td><td><code>clinic-mv-palm</code></td><td>Sandy + Scott</td></tr>
@@ -415,159 +372,185 @@
   </tbody>
 </table>
 
+<h2>Departments — detail by team</h2>
+
+<p>Each functional team has its own cluster of channels. The detail below shows what each one looks like.</p>
+
+<div class="dept-block">
+  <h3>🏭 Operations <span class="tier tier-1">Mostly open</span></h3>
+  <div class="lead">Lead: Scott · Procurement: Michael · Maintenance: Judit · Licensing: Scott + Yusuf</div>
+  <ul>
+    <li><code>team-ops</code> — leadership + weekly priorities</li>
+    <li><code>team-ops-warehouse</code> · <code>team-ops-inventory</code> · <code>team-ops-smartflow</code></li>
+    <li><code>team-ops-purchasing</code> · <code>team-ops-floof-orders</code></li>
+    <li><code>team-ops-approvals-equipment</code> · <code>team-ops-approvals-medicine</code></li>
+    <li><code>team-ops-maintenance</code> · <code>team-ops-fitout</code> · <code>team-ops-licensing</code></li>
+  </ul>
+</div>
+
+<div class="dept-block">
+  <h3>🩺 Clinical <span class="tier tier-2">Dept + management</span></h3>
+  <div class="lead">Lead: Scott + Dr. Dieter + Dr. Rami · Nurses: Sandy · Rescue: Aida</div>
+  <ul>
+    <li><code>team-clinical</code> — clinical leadership, cross-clinic medical decisions</li>
+    <li><code>team-clinical-vets</code> — all licensed vets (CPD, case discussions)</li>
+    <li><code>team-clinical-nurses</code> — all nurses</li>
+    <li><code>team-clinical-medical-product</code> — product evaluations, formulary decisions</li>
+    <li><code>team-clinical-rescue</code> — rescue group coordination, TNR, advocacy</li>
+    <li><code>team-clinical-emergency</code> — emergency / on-call protocols</li>
+  </ul>
+</div>
+
+<div class="dept-block">
+  <h3>📞 Customer Experience <span class="tier tier-2">Dept + management</span></h3>
+  <div class="lead">Lead: Aida</div>
+  <ul>
+    <li><code>team-cx</code> — CX leadership</li>
+    <li><code>team-cx-scheduling</code> — vet/nurse scheduling team's internal work (existing private — kept)</li>
+    <li><code>team-cx-complaints</code> — customer complaints (non-medical), escalations</li>
+    <li><code>team-cx-experience</code> — service standards, NPS, reputation/5-star reviews</li>
+    <li><code>team-cx-training</code> — reception + call-centre training</li>
+  </ul>
+</div>
+
+<div class="dept-block">
+  <h3>☎️ Call Centre (separate entity) <span class="tier tier-2">Dept + management</span></h3>
+  <div class="lead">Lead: TBC under Aida</div>
+  <ul>
+    <li><code>team-cc</code> — Call Centre team channel (internal CC ops, shift handovers)</li>
+    <li><code>team-cc-handoffs</code> — <strong>the bridge</strong> · CC ↔ reception leads from every clinic · this is where bookings made by CC get clinic-side context, walk-ins/no-shows, callbacks</li>
+    <li><code>team-cc-callgear</code> — CallGear admin, tag taxonomy, attribution</li>
+  </ul>
+</div>
+
+<div class="dept-block">
+  <h3>👥 People / HR <span class="tier tier-3">Strictly private</span></h3>
+  <div class="lead">Lead: Shari</div>
+  <ul>
+    <li><code>team-people</code> — HR leadership + policy</li>
+    <li><code>team-people-recruitment</code> — vet, nurse, reception hiring pipelines</li>
+    <li><code>team-people-licensing-visa</code> — visas, doctor licensing, MOCA renewals · co-led with Yusuf</li>
+    <li><code>team-people-leave-payroll</code> — leave balances, OT, callouts, payroll</li>
+  </ul>
+  <p style="font-size:.85rem;color:var(--muted);margin-top:.8rem;margin-bottom:0;">All HR channels are strictly private to HR + management. Personal data, salaries, performance information.</p>
+</div>
+
+<div class="dept-block">
+  <h3>💰 Finance <span class="tier tier-3">Strictly private</span></h3>
+  <div class="lead">Lead: Harshita (Head of Finance)</div>
+  <ul>
+    <li><code>team-finance</code> — finance leadership</li>
+    <li><code>team-finance-ap</code> — accounts payable · supplier invoices · weekly PO/invoice cross-check · Pauline + Harshita</li>
+    <li><code>team-finance-ar</code> — accounts receivable · collections · aging</li>
+    <li><code>team-finance-discounts</code> — discount logging + audit · Sandy + Aida</li>
+    <li><code>team-finance-pricing</code> — pricing changes · rescue rates · Mansoor + Scott</li>
+  </ul>
+  <p style="font-size:.85rem;color:var(--muted);margin-top:.8rem;margin-bottom:0;">All finance channels are strictly private to finance + management. Customer billing, supplier contracts, salaries, branch-level revenue.</p>
+</div>
+
+<div class="dept-block">
+  <h3>📈 Business Development <span class="tier tier-2">Dept + management</span></h3>
+  <div class="lead">Lead: Hadi (Chief Development Officer)</div>
+  <ul>
+    <li><code>team-bizdev</code> — BD leadership, strategic priorities</li>
+    <li><code>team-bizdev-partnerships</code> — external partnerships, B2B deals (rescue groups, corporate, insurers)</li>
+    <li><code>team-bizdev-expansion</code> — new branches, fit-out pipeline, M&amp;A discussions</li>
+    <li><code>team-bizdev-pipeline</code> — active deals + leads tracker</li>
+  </ul>
+</div>
+
+<div class="dept-block">
+  <h3>📈 Marketing <span class="tier tier-1">Mostly open</span></h3>
+  <div class="lead">Lead: Andrew · Already running, no new channels needed</div>
+  <ul>
+    <li>10 sub-channels for content, social, paid, SEO, PR, website, lifecycle, reputation, analytics + leadership</li>
+    <li>Inbound from rest of company via <code>help-marketing</code></li>
+  </ul>
+</div>
+
+<div class="dept-block">
+  <h3>💻 Tech / IT <span class="tier tier-2">Dept + management</span></h3>
+  <div class="lead">Lead: AbdulRahman · Already running, light additions</div>
+  <ul>
+    <li>5 sub-channels for IT, software, data, AI + leadership</li>
+    <li>Inbound from rest of company via <code>help-it</code></li>
+  </ul>
+</div>
+
 <h2>Lists — where work actually lives</h2>
 
-<p>Channels are for conversation. <strong>Lists are where work is tracked.</strong> Each functional channel has a list with task / assignee / status / due / notes columns, plus function-specific extras (Maintenance adds severity + vendor; Inventory adds supplier + status; etc.).</p>
+<p>Channels are for conversation. <strong>Lists are where work is tracked.</strong> Each functional channel has a list with task / assignee / status / due / notes columns, plus function-specific extras.</p>
 
-<p>To respect branch privacy, we use a <strong>dual-list pattern</strong>:</p>
+<p>Not every list needs the same level of privacy. We use <strong>three tiers</strong> based on what kind of data ends up in the list:</p>
 
-<div class="grid grid-2">
+<div class="grid grid-3">
   <div class="card">
-    <h4>Per-clinic list</h4>
-    <p>Each clinic sub-channel has its own list. Only branch staff + the relevant dept head can see it.</p>
-    <p style="font-size:.85rem;color:var(--muted);margin-bottom:0;"><em>JLT staff see only JLT's tickets, Downtown sees only Downtown's, etc.</em></p>
+    <h4><span class="tier tier-1">Tier 1</span> Open to everyone</h4>
+    <p style="font-size:.92rem;">Operational, non-sensitive. Useful for cross-clinic learning. <strong>One master list with views per branch.</strong></p>
+    <ul style="font-size:.88rem;color:var(--muted);">
+      <li>Maintenance tickets</li>
+      <li>IT support tickets</li>
+      <li>Marketing requests</li>
+      <li>SOPs / clinical product evaluations</li>
+    </ul>
   </div>
   <div class="card">
-    <h4>Master aggregator (dept head's private channel)</h4>
-    <p>The dept head also has a master list in their own private team channel — populated automatically from every branch list, tagged with branch.</p>
-    <p style="font-size:.85rem;color:var(--muted);margin-bottom:0;"><em>Judit has one master Maintenance list with items from all 12 branches — no other branches see it.</em></p>
+    <h4><span class="tier tier-2">Tier 2</span> Dept + management</h4>
+    <p style="font-size:.92rem;">Operational within a function, not for staff outside that function. <strong>Single list in private dept channel that includes management.</strong></p>
+    <ul style="font-size:.88rem;color:var(--muted);">
+      <li>Inventory + purchasing</li>
+      <li>CX complaints</li>
+      <li>Scheduling decisions</li>
+      <li>BizDev pipeline</li>
+      <li>Project tracker</li>
+      <li>Clinical cases</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4><span class="tier tier-3">Tier 3</span> Strictly private</h4>
+    <p style="font-size:.92rem;">Sensitive data. Branch must not see other branch; staff must not see dept-level. <strong>Per-clinic list + dept master list with sync.</strong></p>
+    <ul style="font-size:.88rem;color:var(--muted);">
+      <li>Finance — AP, AR, discounts, pricing</li>
+      <li>HR — recruitment, payroll, visa</li>
+      <li>Per-clinic reception/FD customer issues</li>
+    </ul>
   </div>
 </div>
 
-<h3>One master per function</h3>
-
-<table>
-  <thead><tr><th>Function</th><th>Owner</th><th>Master list lives in</th></tr></thead>
-  <tbody>
-    <tr><td>Maintenance</td><td>Judit</td><td><code>team-ops-maintenance</code> (private)</td></tr>
-    <tr><td>Inventory</td><td>Michael</td><td><code>team-ops-inventory</code> (private)</td></tr>
-    <tr><td>Purchasing &amp; Approvals</td><td>Michael</td><td><code>team-ops-purchasing</code> (private)</td></tr>
-    <tr><td>Customer Experience</td><td>Aida</td><td><code>team-cx</code> (private)</td></tr>
-    <tr><td>Marketing</td><td>Andrew</td><td><code>team-marketing</code> (private)</td></tr>
-    <tr><td>People / HR</td><td>Shari</td><td><code>team-people</code> (private)</td></tr>
-    <tr><td>Finance</td><td>Harshita</td><td><code>team-finance</code> (private)</td></tr>
-    <tr><td>Business Development</td><td>Hadi</td><td><code>team-bizdev</code> (private)</td></tr>
-    <tr><td>IT</td><td>AbdulRahman</td><td><code>team-tech</code> (private)</td></tr>
-    <tr><td>Clinical</td><td>Scott + Dieter + Rami</td><td><code>team-clinical</code> (private)</td></tr>
-  </tbody>
-</table>
-
-<h3>Worked example: a broken AC at JLT</h3>
+<h3>Worked example: a broken AC at JLT (Tier 1 — open)</h3>
 
 <ol>
   <li>JLT reception notices the AC is broken in the waiting room.</li>
   <li>They post in <code>clinic-mv-jlt-maintenance</code> and click <strong>"Add to list"</strong>.</li>
-  <li>The item appears in JLT's local maintenance list. <strong>Only JLT staff and Judit see it.</strong> Downtown, Palm, MB — don't.</li>
-  <li>Within minutes, the item also appears in Judit's master Maintenance list (in her private dept channel), tagged Branch = JLT.</li>
-  <li>Judit assigns severity, vendor, status. Updates flow back to JLT's local list.</li>
-  <li>JLT sees the update right inside their own channel — without seeing anything from other branches.</li>
+  <li>The item lands in the master Maintenance list, tagged Branch = JLT.</li>
+  <li>Each clinic has a view of the list filtered to their branch — JLT staff mainly see JLT items.</li>
+  <li>Judit assigns severity, vendor, status. Updates flow to the master list.</li>
+  <li>Cross-clinic patterns (3 branches with HVAC issues this week) are visible to Judit so she can negotiate with the vendor in bulk.</li>
 </ol>
 
-<div class="callout">
-  <h4>Why this matters</h4>
-  <p>Real privacy. JLT staff can't see Downtown's maintenance backlog. Reception staff at MB can't see VV's bookings. Branches stay focused on their own work.</p>
-  <p style="margin-bottom:0;">Cross-clinic patterns (3 branches with HVAC issues this week → negotiate with same vendor in bulk) are visible to the dept head only — which is exactly where that decision belongs.</p>
+<h3>Worked example: customer billing query at JLT (Tier 3 — strictly private)</h3>
+
+<ol>
+  <li>JLT reception logs a billing query in their own private FD list (in <code>clinic-mv-jlt-fd</code>).</li>
+  <li>The item lives only in JLT's list. <strong>Other branches do NOT see it.</strong></li>
+  <li>The item also syncs into Aida's master CX list (in her private team channel) and Harshita's finance audit list — but no other branch's staff sees JLT's customer details.</li>
+  <li>Aida + Harshita coordinate the resolution. The branch sees status updates inside their own channel.</li>
+</ol>
+
+<h2>What we need from each department head</h2>
+
+<div class="callout callout-ask">
+  <h4>Please review your section above and reply with:</h4>
+  <ol style="margin-bottom:0;line-height:1.8;">
+    <li><strong>Channel list</strong> — confirm the channels for your dept look right, or propose changes (additions, removals, renames).</li>
+    <li><strong>Members per channel</strong> — for each of your team's channels, who should be added? (names + roles).</li>
+    <li><strong>Privacy preferences</strong> — for each channel, who should see it? Options: (a) everyone in the company, (b) your dept + management only, (c) strictly your dept only. Default suggestions are above; flag anything you'd like changed.</li>
+    <li><strong>Cross-dept visitors</strong> — who from other departments should also be members of your channels? (e.g. Aida sits in clinical-rescue, Sandy in finance-discounts, etc.)</li>
+    <li><strong>Anything missing</strong> — channels, lists, or coordination patterns we haven't captured.</li>
+  </ol>
 </div>
 
-<h2>How teams talk to each other</h2>
-
-<p>Slack only works if people know <strong>where to send asks</strong>. Four mechanisms wire the structure together:</p>
-
-<div class="grid grid-2">
-  <div class="card">
-    <h4>1. The "front door" — <code>help-*</code></h4>
-    <p>Anyone in the company can post in a help channel. The dept user-group monitors and triages — same business day response.</p>
-    <p style="font-size:.85rem;color:var(--muted);"><em>Example: a vet needs a poster reprinted → <code>help-marketing</code> → Andrew picks it up.</em></p>
-  </div>
-  <div class="card">
-    <h4>2. Direct dept ↔ dept channels</h4>
-    <p>For recurring patterns (Call Centre ↔ Reception, branch ↔ inventory), depts use shared channels directly — no <code>help-*</code> middleman.</p>
-    <p style="font-size:.85rem;color:var(--muted);"><em>Example: <code>team-cc-handoffs</code> bridges Call Centre and reception leads.</em></p>
-  </div>
-  <div class="card">
-    <h4>3. Strategic decisions — <code>va-management</code></h4>
-    <p>Anything affecting 3+ departments or needing leadership air-cover goes here. All team leads see it. Decisions get logged in a pinned canvas.</p>
-  </div>
-  <div class="card">
-    <h4>4. Read-only — <code>va-announcements</code></h4>
-    <p>Outcomes, policy changes, big news. Posting locked to 9 leaders. Everyone reads.</p>
-  </div>
-</div>
-
-<h3>The "Where do I post this?" cheat sheet</h3>
-
-<div class="tree" style="font-size:.85rem;">Is it a question/request to another dept?
-   ├─ Yes, recurring pattern (CC↔reception, branch↔inventory) → direct channel
-   └─ Yes, one-off                                          → the relevant <span class="pfx">help-*</span>
-
-Is it a decision that needs 3+ depts or leadership?
-   → <span class="pfx">va-management</span>
-
-Is it news everyone needs to know?
-   → <span class="pfx">va-announcements</span> (with author from authorised posters)
-
-Is it just within my team?
-   → <span class="pfx">team-*</span> sub-channel  or  <span class="pfx">clinic-XXX-*</span> sub-channel
-
-Is it not work?
-   → <span class="pfx">social-*</span> (random / pets / celebrations / marketplace)</div>
-
-<h2>By the numbers</h2>
-
-<div class="stat-row">
-  <div class="stat"><span class="n">~85</span><span class="l">Active channels at full rollout</span></div>
-  <div class="stat"><span class="n">12</span><span class="l">Locations</span></div>
-  <div class="stat"><span class="n">10</span><span class="l">Functional teams</span></div>
-  <div class="stat"><span class="n">10</span><span class="l">Master lists</span></div>
-  <div class="stat"><span class="n">3</span><span class="l">Weeks to roll out</span></div>
-</div>
-
-<h2>Rollout plan — 3 weeks</h2>
-
-<table>
-  <thead><tr><th>Week</th><th>What goes live</th><th>Who's involved</th></tr></thead>
-  <tbody>
-    <tr><td><strong>Prep</strong> (Days 1–2)</td><td>Confirm structure with leadership · invite remaining staff to Slack · set up user groups · prep master lists</td><td>Andrew + dept heads</td></tr>
-    <tr><td><strong>Week 1</strong></td><td>Rename existing channels to new prefix system · build operations + clinical + customer experience clusters (~30 channels)</td><td>Marketing dept + Scott, Michael, Judit, Aida, Dr. Rami</td></tr>
-    <tr><td><strong>Week 2</strong></td><td>People + finance + business development clusters · pilot 5-channel split with Main Branch hospital · brief Anissa</td><td>Shari, Harshita, Hadi, Anissa</td></tr>
-    <tr><td><strong>Week 3</strong></td><td>Pilot review · roll out 5-channel split to all remaining locations + HQ · vendor channels · cleanup</td><td>All branch managers</td></tr>
-  </tbody>
-</table>
-
-<h2>For dept heads — your slice</h2>
-
-<table>
-  <thead><tr><th>You</th><th>What you own</th><th>What you need to confirm</th></tr></thead>
-  <tbody>
-    <tr><td>Scott + Sandy</td><td>All clinic umbrellas (except VV/TVRC) · medical sub-channels across all clinics · clinical leadership (with Dieter + Rami) · licensing (with Yusuf)</td><td>Khawaneej + Azizi codes · rescue scope · medical roster per branch</td></tr>
-    <tr><td>Michael</td><td>Inventory + ordering across all clinics · purchasing approvals · Floof orders</td><td>Procurement team rosters per channel</td></tr>
-    <tr><td>Judit</td><td>Maintenance across all clinics · fit-outs · facility tickets via master list</td><td>Maintenance team + vendor list</td></tr>
-    <tr><td>Aida</td><td>Reception across all clinics · customer experience · <strong>Vienna Vet + TVRC umbrella holder</strong> · rescue · CC handoffs</td><td>Call Centre roster · CC lead identity · VV interim branch lead</td></tr>
-    <tr><td>Dr. Dieter / Dr. Rami</td><td>Clinical leadership · vets · nurses · medical product evaluation</td><td>Vet/nurse rosters per brand</td></tr>
-    <tr><td>Shari</td><td>HR · recruitment · payroll · visa &amp; licensing</td><td>HR team channel membership</td></tr>
-    <tr><td>Harshita</td><td>Finance — AP, AR, discounts, pricing</td><td>AP/AR team split (Vijo, Husain, Mahroof, Mohammed Saeed)</td></tr>
-    <tr><td>Hadi</td><td>Business development · partnerships · expansion · pipeline</td><td>BD team membership (if any)</td></tr>
-    <tr><td>AbdulRahman</td><td>IT · software · data · AI · 2 vendor channels (Synergi + ezyVet upstream)</td><td>Tech vendor confirmations</td></tr>
-    <tr><td>Andrew</td><td>Marketing · Floof revenue + product · brand voice across the org · this rollout</td><td>Floof scope · final structure sign-off</td></tr>
-  </tbody>
-</table>
-
-<h2>What to do next</h2>
-
-<div class="grid grid-3">
-  <div class="card">
-    <h4>1 · Review your slice</h4>
-    <p>Look at the section that applies to your dept. Check the channels, owners, and master list look right.</p>
-  </div>
-  <div class="card">
-    <h4>2 · Fill the gaps</h4>
-    <p>Names of team members per channel. Anything missing or wrong. Reply to Andrew with your thoughts.</p>
-  </div>
-  <div class="card">
-    <h4>3 · We build</h4>
-    <p>Once everyone signs off, we roll out over 3 weeks. Pilot with the hospital first, then everyone else.</p>
-  </div>
-</div>
+<p style="font-size:.95rem;">Send your reply to Andrew. Once everyone has signed off on their slice, we'll consolidate, align with leadership, and roll out at the right pace for your team. We'll take it as fast as you're ready — no fixed deadline, but the sooner the structure is clear, the sooner the company stops losing things in WhatsApp threads.</p>
 
 </div>
 
