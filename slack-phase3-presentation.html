@@ -262,7 +262,7 @@
 
 <div class="intro">
   <p>Vet Alliance is moving company communication onto Slack. Today, work conversations are scattered across WhatsApp groups, emails, DMs, and ad-hoc chats. That makes things slow, easy to miss, and impossible to search later.</p>
-  <p>This document explains how we're organising Slack so <strong>every message has an obvious home</strong>, every team has the channels they need, and nothing falls between the cracks.</p>
+  <p>This document explains how we're organising Slack so <strong>every message has an obvious home</strong>, every team has the channels they need, and nothing falls between the cracks. <strong>Privacy is a first-class design goal:</strong> branches see only their own channels, dept heads see across all branches, finance and HR are isolated from clinical chatter, and so on.</p>
   <p style="margin-bottom:0;">It's designed to scale to ~200 staff across 11 clinics + Head Office, while staying simple enough that a new joiner can find their way around on day one.</p>
 </div>
 
@@ -376,78 +376,97 @@
 
 <p>Today, every clinic shares one giant chat where vets, nurses, reception, and assistants are all mixed together. Important medical messages get lost in front-desk chatter, and vice versa.</p>
 
-<p><strong>Each location now gets 5 dedicated channels</strong>, with the same person holding each function across all locations:</p>
+<p><strong>Each location now gets 5 dedicated channels, all private to that branch.</strong> JLT staff see only JLT channels. Downtown sees only Downtown. The same dept head holds each function across every location — they're members of all 12 branches' relevant channels, while branch staff see only their own.</p>
 
 <table>
-  <thead><tr><th>Channel</th><th>Who's in it</th><th>Functional holder</th></tr></thead>
+  <thead><tr><th>Channel</th><th>Who's in it</th><th>Functional holder (across all clinics)</th></tr></thead>
   <tbody>
-    <tr><td><code>clinic-XXX</code></td><td>All branch staff — handovers, branch news</td><td>Branch manager</td></tr>
-    <tr><td><code>clinic-XXX-med</code></td><td>Vets + nurses + medical assistants — clinical</td><td><strong>Scott + Sandy</strong></td></tr>
-    <tr><td><code>clinic-XXX-fd</code></td><td>Reception + front-desk — bookings, customer care</td><td><strong>Aida</strong></td></tr>
-    <tr><td><code>clinic-XXX-inventory</code></td><td>Branch staff + procurement team — stock requests</td><td><strong>Michael</strong></td></tr>
-    <tr><td><code>clinic-XXX-maintenance</code></td><td>Branch staff + maintenance team — facility tickets</td><td><strong>Judit</strong></td></tr>
+    <tr><td><code>clinic-XXX</code></td><td>Branch staff — handovers, branch news</td><td><strong>Sandy + Scott</strong> (Aida for VV/TVRC)</td></tr>
+    <tr><td><code>clinic-XXX-med</code></td><td>Branch vets + nurses + medical assistants</td><td><strong>Scott + Sandy</strong></td></tr>
+    <tr><td><code>clinic-XXX-fd</code></td><td>Branch reception + front-desk</td><td><strong>Aida</strong></td></tr>
+    <tr><td><code>clinic-XXX-inventory</code></td><td>Branch staff + procurement team</td><td><strong>Michael</strong></td></tr>
+    <tr><td><code>clinic-XXX-maintenance</code></td><td>Branch staff + maintenance team</td><td><strong>Judit</strong></td></tr>
   </tbody>
 </table>
 
 <div class="callout">
-  <h4>Why standardised holders?</h4>
-  <p style="margin-bottom:0;">Staff always know who answers each sub-channel, regardless of which branch they're in. The branch manager runs the umbrella; dept heads functionally lead each function. No more "who do I ask?" — the channel name tells you.</p>
+  <h4>Privacy + cross-clinic visibility</h4>
+  <p>All clinic channels are <strong>private</strong>. Branch staff see only their own location's 5 channels — not Downtown's bookings, not Palm's stock orders, not JLT's billing.</p>
+  <p style="margin-bottom:0;">Cross-clinic visibility lives with the dept heads. Sandy + Scott are members of every clinic's `med` channel. Aida is in every `fd`. Michael is in every `inventory`. Judit is in every `maintenance`. They see across all branches; staff don't.</p>
 </div>
 
 <h3>Active locations</h3>
 
 <table>
-  <thead><tr><th>Location</th><th>Channel code</th><th>Branch manager</th></tr></thead>
+  <thead><tr><th>Location</th><th>Channel code</th><th>Holder (umbrella)</th></tr></thead>
   <tbody>
-    <tr><td>Modern Vet — Main Branch (Hospital)</td><td><code>clinic-mv-mb</code></td><td>Anissa Benhamou</td></tr>
-    <tr><td>Modern Vet — Palm</td><td><code>clinic-mv-palm</code></td><td>TBC</td></tr>
-    <tr><td>Modern Vet — Downtown</td><td><code>clinic-mv-dt</code></td><td>TBC</td></tr>
-    <tr><td>Modern Vet — JVC</td><td><code>clinic-mv-jvc</code></td><td>TBC</td></tr>
-    <tr><td>Modern Vet — JLT</td><td><code>clinic-mv-jlt</code></td><td>TBC</td></tr>
-    <tr><td>Modern Vet — Azizi Riviera</td><td><code>clinic-mv-az</code></td><td>TBC</td></tr>
-    <tr><td>Modern Vet — Khawaneej</td><td><code>clinic-mv-khw</code></td><td>TBC (re-opens Jun/Jul)</td></tr>
-    <tr><td>Modern Vet — Mobile Clinic</td><td><code>clinic-mv-mob</code></td><td>Rahaf</td></tr>
-    <tr><td>Blue Oasis — DIP</td><td><code>clinic-bovc-dip</code></td><td>TBC</td></tr>
-    <tr><td>Vienna Vet</td><td><code>clinic-vv</code></td><td>Aida + branch lead TBC</td></tr>
+    <tr><td>Modern Vet — Main Branch (Hospital)</td><td><code>clinic-mv-mb</code></td><td>Sandy + Scott</td></tr>
+    <tr><td>Modern Vet — Palm</td><td><code>clinic-mv-palm</code></td><td>Sandy + Scott</td></tr>
+    <tr><td>Modern Vet — Downtown</td><td><code>clinic-mv-dt</code></td><td>Sandy + Scott</td></tr>
+    <tr><td>Modern Vet — JVC</td><td><code>clinic-mv-jvc</code></td><td>Sandy + Scott</td></tr>
+    <tr><td>Modern Vet — JLT</td><td><code>clinic-mv-jlt</code></td><td>Sandy + Scott</td></tr>
+    <tr><td>Modern Vet — Azizi Riviera</td><td><code>clinic-mv-az</code></td><td>Sandy + Scott</td></tr>
+    <tr><td>Modern Vet — Khawaneej</td><td><code>clinic-mv-khw</code></td><td>Sandy + Scott (re-opens Jun/Jul)</td></tr>
+    <tr><td>Modern Vet — Mobile Clinic</td><td><code>clinic-mv-mob</code></td><td>Sandy + Scott</td></tr>
+    <tr><td>Blue Oasis — DIP</td><td><code>clinic-bovc-dip</code></td><td>Sandy + Scott</td></tr>
+    <tr><td>Vienna Vet</td><td><code>clinic-vv</code></td><td><strong>Aida</strong> + branch lead TBC</td></tr>
     <tr><td>TVRC (referral hospital)</td><td><code>clinic-tvrc</code></td><td><strong>Aida</strong></td></tr>
     <tr><td>VA Head Office</td><td><code>clinic-hq</code></td><td>Mansoor / Scott</td></tr>
   </tbody>
 </table>
 
-<h2>Master Lists — where work actually lives</h2>
+<h2>Lists — where work actually lives</h2>
 
-<p>Channels are for conversation. <strong>Lists are where work is tracked.</strong> Instead of every channel having its own task list, we run <strong>one master list per function</strong>, with views attached to channels filtered by branch or work-stream.</p>
+<p>Channels are for conversation. <strong>Lists are where work is tracked.</strong> Each functional channel has a list with task / assignee / status / due / notes columns, plus function-specific extras (Maintenance adds severity + vendor; Inventory adds supplier + status; etc.).</p>
+
+<p>To respect branch privacy, we use a <strong>dual-list pattern</strong>:</p>
+
+<div class="grid grid-2">
+  <div class="card">
+    <h4>Per-clinic list</h4>
+    <p>Each clinic sub-channel has its own list. Only branch staff + the relevant dept head can see it.</p>
+    <p style="font-size:.85rem;color:var(--muted);margin-bottom:0;"><em>JLT staff see only JLT's tickets, Downtown sees only Downtown's, etc.</em></p>
+  </div>
+  <div class="card">
+    <h4>Master aggregator (dept head's private channel)</h4>
+    <p>The dept head also has a master list in their own private team channel — populated automatically from every branch list, tagged with branch.</p>
+    <p style="font-size:.85rem;color:var(--muted);margin-bottom:0;"><em>Judit has one master Maintenance list with items from all 12 branches — no other branches see it.</em></p>
+  </div>
+</div>
+
+<h3>One master per function</h3>
 
 <table>
-  <thead><tr><th>Master list</th><th>Owner</th><th>Used by</th></tr></thead>
+  <thead><tr><th>Function</th><th>Owner</th><th>Master list lives in</th></tr></thead>
   <tbody>
-    <tr><td>Maintenance</td><td>Judit</td><td>All <code>clinic-XXX-maintenance</code> + <code>team-ops-maintenance</code></td></tr>
-    <tr><td>Inventory</td><td>Michael</td><td>All <code>clinic-XXX-inventory</code> + <code>team-ops-inventory</code></td></tr>
-    <tr><td>Purchasing &amp; Approvals</td><td>Michael</td><td><code>team-ops-purchasing</code> + approvals channels</td></tr>
-    <tr><td>Customer Experience</td><td>Aida</td><td><code>team-cx-*</code> + <code>clinic-XXX-fd</code></td></tr>
-    <tr><td>Marketing</td><td>Andrew</td><td><code>team-marketing-*</code> + <code>help-marketing</code></td></tr>
-    <tr><td>People / HR</td><td>Shari</td><td><code>team-people-*</code> + <code>help-people</code></td></tr>
-    <tr><td>Finance</td><td>Harshita</td><td><code>team-finance-*</code> + <code>help-finance</code></td></tr>
-    <tr><td>BizDev pipeline</td><td>Hadi</td><td><code>team-bizdev-*</code> + <code>help-bizdev</code></td></tr>
-    <tr><td>IT</td><td>AbdulRahman</td><td><code>team-tech-*</code> + <code>help-it</code></td></tr>
-    <tr><td>Clinical</td><td>Scott + Dieter + Rami</td><td><code>team-clinical-*</code></td></tr>
+    <tr><td>Maintenance</td><td>Judit</td><td><code>team-ops-maintenance</code> (private)</td></tr>
+    <tr><td>Inventory</td><td>Michael</td><td><code>team-ops-inventory</code> (private)</td></tr>
+    <tr><td>Purchasing &amp; Approvals</td><td>Michael</td><td><code>team-ops-purchasing</code> (private)</td></tr>
+    <tr><td>Customer Experience</td><td>Aida</td><td><code>team-cx</code> (private)</td></tr>
+    <tr><td>Marketing</td><td>Andrew</td><td><code>team-marketing</code> (private)</td></tr>
+    <tr><td>People / HR</td><td>Shari</td><td><code>team-people</code> (private)</td></tr>
+    <tr><td>Finance</td><td>Harshita</td><td><code>team-finance</code> (private)</td></tr>
+    <tr><td>Business Development</td><td>Hadi</td><td><code>team-bizdev</code> (private)</td></tr>
+    <tr><td>IT</td><td>AbdulRahman</td><td><code>team-tech</code> (private)</td></tr>
+    <tr><td>Clinical</td><td>Scott + Dieter + Rami</td><td><code>team-clinical</code> (private)</td></tr>
   </tbody>
 </table>
 
-<h3>Worked example: a broken AC at Main Branch</h3>
+<h3>Worked example: a broken AC at JLT</h3>
 
 <ol>
-  <li>MB reception notices the AC is broken in the waiting room.</li>
-  <li>They post a message in <code>clinic-mv-mb-maintenance</code> and click <strong>"Add to list"</strong>.</li>
-  <li>Slack auto-fills "Branch = MB" because the channel knows where it lives.</li>
-  <li>The item appears in <strong>Judit's master Maintenance list</strong> instantly.</li>
-  <li>Judit assigns severity, picks a vendor, sets a due date.</li>
-  <li>MB sees the status update right inside their own channel — without seeing what's happening at any other branch.</li>
+  <li>JLT reception notices the AC is broken in the waiting room.</li>
+  <li>They post in <code>clinic-mv-jlt-maintenance</code> and click <strong>"Add to list"</strong>.</li>
+  <li>The item appears in JLT's local maintenance list. <strong>Only JLT staff and Judit see it.</strong> Downtown, Palm, MB — don't.</li>
+  <li>Within minutes, the item also appears in Judit's master Maintenance list (in her private dept channel), tagged Branch = JLT.</li>
+  <li>Judit assigns severity, vendor, status. Updates flow back to JLT's local list.</li>
+  <li>JLT sees the update right inside their own channel — without seeing anything from other branches.</li>
 </ol>
 
 <div class="callout">
-  <h4>The benefit</h4>
-  <p style="margin-bottom:0;">Judit has one place to manage all maintenance, across all 12 locations. Each branch sees only their own items. And cross-clinic patterns (e.g. three branches with HVAC issues this week) are visible to Judit so she can deal with the same vendor in bulk.</p>
+  <h4>Why this matters</h4>
+  <p>Real privacy. JLT staff can't see Downtown's maintenance backlog. Reception staff at MB can't see VV's bookings. Branches stay focused on their own work.</p>
+  <p style="margin-bottom:0;">Cross-clinic patterns (3 branches with HVAC issues this week → negotiate with same vendor in bulk) are visible to the dept head only — which is exactly where that decision belongs.</p>
 </div>
 
 <h2>How teams talk to each other</h2>
@@ -520,10 +539,10 @@ Is it not work?
 <table>
   <thead><tr><th>You</th><th>What you own</th><th>What you need to confirm</th></tr></thead>
   <tbody>
-    <tr><td>Scott</td><td>Operations leadership · clinical (with Dieter + Rami) · licensing (with Yusuf) · branch manager network</td><td>Branch manager names · Khawaneej + Azizi codes · rescue scope</td></tr>
+    <tr><td>Scott + Sandy</td><td>All clinic umbrellas (except VV/TVRC) · medical sub-channels across all clinics · clinical leadership (with Dieter + Rami) · licensing (with Yusuf)</td><td>Khawaneej + Azizi codes · rescue scope · medical roster per branch</td></tr>
     <tr><td>Michael</td><td>Inventory + ordering across all clinics · purchasing approvals · Floof orders</td><td>Procurement team rosters per channel</td></tr>
     <tr><td>Judit</td><td>Maintenance across all clinics · fit-outs · facility tickets via master list</td><td>Maintenance team + vendor list</td></tr>
-    <tr><td>Aida</td><td>Customer experience · reception across all clinics · Vienna Vet + TVRC location lead · rescue · CC handoffs</td><td>Call Centre roster · CC lead identity · VV interim branch lead</td></tr>
+    <tr><td>Aida</td><td>Reception across all clinics · customer experience · <strong>Vienna Vet + TVRC umbrella holder</strong> · rescue · CC handoffs</td><td>Call Centre roster · CC lead identity · VV interim branch lead</td></tr>
     <tr><td>Dr. Dieter / Dr. Rami</td><td>Clinical leadership · vets · nurses · medical product evaluation</td><td>Vet/nurse rosters per brand</td></tr>
     <tr><td>Shari</td><td>HR · recruitment · payroll · visa &amp; licensing</td><td>HR team channel membership</td></tr>
     <tr><td>Harshita</td><td>Finance — AP, AR, discounts, pricing</td><td>AP/AR team split (Vijo, Husain, Mahroof, Mohammed Saeed)</td></tr>

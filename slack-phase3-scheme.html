@@ -267,9 +267,10 @@
 
 <header>
   <h1>Vet Alliance — Slack Structure</h1>
-  <div class="subtitle">Phase 3 Scheme · v1.3 · Full company rollout</div>
+  <div class="subtitle">Phase 3 Scheme · v1.4 · Full company rollout</div>
   <div class="meta">Drafted 5 May 2026 · Revised 7 May 2026 · For internal review · Companion presentation: <a href="slack-phase3-presentation.html" style="color:var(--gold-bright);">slack-phase3-presentation.html</a></div>
-  <div class="meta" style="margin-top:.5rem;">v1.3: vendors trimmed to 2 · <strong>brand-*</strong> &amp; <strong>proj-*</strong> removed · standardised per-clinic holders · BizDev under Hadi · social-marketplace</div>
+  <div class="meta" style="margin-top:.5rem;"><strong>v1.4: ALL clinic channels private</strong> · Sandy + Scott own all clinics except VV/TVRC · dual-list pattern (per-clinic + private master) replaces master+views (which doesn't actually preserve privacy)</div>
+  <div class="meta" style="margin-top:.5rem;">v1.3: vendors trimmed to 2 · brand-* &amp; proj-* removed · BizDev under Hadi · social-marketplace</div>
   <div class="meta">v1.2: BizDev cluster · CC separate entity · inter-dept comms · worked Lists example</div>
   <div class="meta">v1.1: Option B per-clinic inventory/maintenance · HQ + TVRC · Master Lists · Amy→Aida · Kavita→Andrew</div>
 </header>
@@ -529,10 +530,10 @@
   <p>Today: every clinic = one giant chat with vets + nurses + reception + assistants. Bad signal-to-noise. <strong>Option B fix (May 6 meeting):</strong> 5 channels per active location — branch staff post directly into their location's <code>-inventory</code> / <code>-maintenance</code> channel; Michael &amp; Judit retain central <code>team-ops-*</code> hubs for cross-clinic patterns. One Master List per function with views filtered by branch — see Lists section.</p>
 
   <div class="flowbox">
-    <h4>The 5-channel pattern (per location) — standardised holders v1.3</h4>
+    <h4>The 5-channel pattern (per location) — v1.4: ALL PRIVATE</h4>
     <div class="flow-step">
       <span class="flow-pill" style="background:#58a058;">clinic-XXX</span>
-      <span class="flow-note">🌐 all staff — branch news, handovers · <strong>Branch manager owns</strong></span>
+      <span class="flow-note">🔒 branch staff — handovers, branch news · holder = <strong>Sandy + Scott</strong> (Aida for VV/TVRC)</span>
     </div>
     <div class="flow-step">
       <span class="flow-pill" style="background:#2563a8;">clinic-XXX-med</span>
@@ -544,13 +545,14 @@
     </div>
     <div class="flow-step">
       <span class="flow-pill" style="background:#8a5a2a;">clinic-XXX-inventory</span>
-      <span class="flow-note">🔒 stock requests · holder = <strong>Michael</strong> · feeds Inventory Master List</span>
+      <span class="flow-note">🔒 stock requests · holder = <strong>Michael</strong></span>
     </div>
     <div class="flow-step">
       <span class="flow-pill" style="background:#d44e4e;">clinic-XXX-maintenance</span>
-      <span class="flow-note">🔒 facility tickets · holder = <strong>Judit</strong> · feeds Maintenance Master List</span>
+      <span class="flow-note">🔒 facility tickets · holder = <strong>Judit</strong></span>
     </div>
-    <p style="margin-top:1rem;font-size:.85rem;"><strong>Why standardised holders:</strong> staff always know who answers each sub-channel, regardless of which branch. Branch manager owns the umbrella; dept heads functionally lead each sub.</p>
+    <p style="margin-top:1rem;font-size:.85rem;"><strong>Privacy:</strong> JLT staff see only JLT channels. Downtown sees only Downtown. Cross-clinic visibility lives with the dept heads (Sandy, Scott, Michael, Judit, Aida) via membership across all branches — not via shared channels. Slack channel membership is the privacy boundary.</p>
+    <p style="margin-top:.5rem;font-size:.85rem;"><strong>Branch ownership reality (May 7):</strong> no individual branch managers across MV/BOVC. Sandy + Scott own all clinics. VV branch lead = TBC (post-Amy). TVRC = Aida.</p>
   </div>
 
   <h3>Active locations — 11 clinics + HQ × 5 = 60 channels at full rollout</h3>
@@ -558,19 +560,19 @@
   <table>
     <thead><tr><th>Code</th><th>Brand</th><th>Branch</th><th>Manager</th><th>Status</th></tr></thead>
     <tbody>
-      <tr><td><code>clinic-mv-mb</code></td><td>Modern Vet</td><td>Main Branch (Hospital)</td><td>Anissa Benhamou</td><td>🟢 active · ★ <strong>PILOT</strong></td></tr>
-      <tr><td><code>clinic-mv-palm</code></td><td>Modern Vet</td><td>Palm</td><td>❓</td><td>🟢 active</td></tr>
-      <tr><td><code>clinic-mv-dt</code></td><td>Modern Vet</td><td>Downtown</td><td>❓</td><td>🟢 active (3 vets, downsized)</td></tr>
-      <tr><td><code>clinic-mv-jvc</code></td><td>Modern Vet</td><td>JVC</td><td>❓</td><td>🟢 active</td></tr>
-      <tr><td><code>clinic-mv-jlt</code></td><td>Modern Vet</td><td>JLT</td><td>❓</td><td>🟢 active (3 vets, downsized)</td></tr>
-      <tr><td><code>clinic-mv-az</code></td><td>Modern Vet</td><td>Azizi Riviera</td><td>❓</td><td>🟡 partial Tue–Sat</td></tr>
-      <tr><td><code>clinic-mv-khw</code></td><td>Modern Vet</td><td>Khawaneej</td><td>❓</td><td>🟠 reno · re-open Jun/Jul 2026</td></tr>
-      <tr><td><code>clinic-mv-mob</code></td><td>Modern Vet</td><td>Mobile Clinic</td><td>Rahaf ❓</td><td>🟢 active</td></tr>
-      <tr><td><code>clinic-bovc-dip</code></td><td>BOVC</td><td>DIP</td><td>❓</td><td>🟢 active</td></tr>
+      <tr><td><code>clinic-mv-mb</code></td><td>Modern Vet</td><td>Main Branch (Hospital)</td><td>Sandy + Scott</td><td>🟢 active · ★ <strong>PILOT</strong></td></tr>
+      <tr><td><code>clinic-mv-palm</code></td><td>Modern Vet</td><td>Palm</td><td>Sandy + Scott</td><td>🟢 active</td></tr>
+      <tr><td><code>clinic-mv-dt</code></td><td>Modern Vet</td><td>Downtown</td><td>Sandy + Scott</td><td>🟢 active (3 vets, downsized)</td></tr>
+      <tr><td><code>clinic-mv-jvc</code></td><td>Modern Vet</td><td>JVC</td><td>Sandy + Scott</td><td>🟢 active</td></tr>
+      <tr><td><code>clinic-mv-jlt</code></td><td>Modern Vet</td><td>JLT</td><td>Sandy + Scott</td><td>🟢 active (3 vets, downsized)</td></tr>
+      <tr><td><code>clinic-mv-az</code></td><td>Modern Vet</td><td>Azizi Riviera</td><td>Sandy + Scott</td><td>🟡 partial Tue–Sat</td></tr>
+      <tr><td><code>clinic-mv-khw</code></td><td>Modern Vet</td><td>Khawaneej</td><td>Sandy + Scott</td><td>🟠 reno · re-open Jun/Jul 2026</td></tr>
+      <tr><td><code>clinic-mv-mob</code></td><td>Modern Vet</td><td>Mobile Clinic</td><td>Sandy + Scott</td><td>🟢 active</td></tr>
+      <tr><td><code>clinic-bovc-dip</code></td><td>BOVC</td><td>DIP</td><td>Sandy + Scott</td><td>🟢 active</td></tr>
       <tr><td><code>clinic-bovc-d2</code></td><td>BOVC</td><td>D2</td><td>—</td><td>❌ closed (May 6) · dropped</td></tr>
-      <tr><td><code>clinic-vv</code></td><td>Vienna Vet</td><td>(single site)</td><td>Aida + branch lead TBC</td><td>🟢 active · was Amy</td></tr>
+      <tr><td><code>clinic-vv</code></td><td>Vienna Vet</td><td>(single site)</td><td><strong>Aida</strong> + branch lead TBC</td><td>🟢 active · was Amy</td></tr>
       <tr><td><code>clinic-tvrc</code></td><td>TVRC</td><td>Referral Center (was TVRH)</td><td><strong>Aida</strong></td><td>🟢 active · oncology + CT focus</td></tr>
-      <tr><td><code>clinic-hq</code> 🆕</td><td>VA Head Office</td><td>(admin staff, not a clinic)</td><td>Mansoor / Scott</td><td>🟢 active</td></tr>
+      <tr><td><code>clinic-hq</code></td><td>VA Head Office</td><td>(admin staff, not a clinic)</td><td>Mansoor / Scott</td><td>🟢 active</td></tr>
     </tbody>
   </table>
 
@@ -812,10 +814,28 @@ Is it not work?
 </section>
 
 <section id="lists">
-  <h2>Slack Lists — Master Lists with work-stream views</h2>
-  <p><strong>Mansoor's design (May 6):</strong> instead of a separate list per channel, run <strong>one master list per function</strong> with views attached to channels filtered by branch / work-stream. Dept heads see everything, branches see only their slice. No private info crosses teams.</p>
+  <h2>Slack Lists — privacy-aware dual-list pattern (v1.4)</h2>
 
-  <h3>11 master lists — one per function</h3>
+  <div class="qbox" style="border-color:var(--bronze);background:#faf3eb;">
+    <h4>Important correction (May 7 v1.4)</h4>
+    <p>Slack Lists permissions are tied to <strong>channel membership</strong>, not to views. A view filtered to "Branch = MB" lives inside the underlying list — anyone who can read the host channel sees the WHOLE list, the view just sorts/filters their default rendering.</p>
+    <p style="margin-bottom:0;"><strong>Master + views does NOT give privacy isolation.</strong> Since most clinic channels are private and we want JLT staff to see only JLT's tasks, we use a <strong>dual-list pattern</strong>: per-clinic list inside each clinic channel + master aggregator list in the dept head's private team channel. Cheshire (or Slack workflow) syncs between them.</p>
+  </div>
+
+  <h3>The dual-list pattern</h3>
+  <div class="flowbox">
+    <pre style="font-family:'Menlo',monospace;font-size:.85rem;line-height:1.7;color:var(--teal-deep);margin:0;">clinic-mv-mb-maintenance       → list "MB maintenance"     (only MB staff + Judit)
+clinic-mv-palm-maintenance     → list "Palm maintenance"   (only Palm staff + Judit)
+clinic-mv-jlt-maintenance      → list "JLT maintenance"    (only JLT staff + Judit)
+... (one per branch) ...
+
+team-ops-maintenance           → list "Master Maintenance" (only Judit + maintenance team)
+                                 ↑ Cheshire syncs all branch items here, tagged with branch</pre>
+  </div>
+
+  <p style="font-size:.95rem;"><strong>Result:</strong> JLT staff see only JLT's items. Period. Judit sees the master aggregator with everything. Cross-clinic patterns visible only to Judit — not to any individual branch.</p>
+
+  <h3>11 master lists — one per function (each lives in private dept channel)</h3>
   <table>
     <thead><tr><th>Master list</th><th>Owner</th><th>Filter columns</th><th>Views attached to</th></tr></thead>
     <tbody>
@@ -849,44 +869,44 @@ Is it not work?
   </table>
 
   <div class="flowbox" style="border-color:var(--gold);background:#fff8e6;">
-    <h4>Worked example — Maintenance master list 🆕</h4>
-    <p style="font-size:.85rem;margin-top:0;">What one master list actually looks like once it's running. Same pattern applies to all 11.</p>
+    <h4>Worked example — Maintenance with privacy</h4>
+    <p style="font-size:.85rem;margin-top:0;"><strong>Setup:</strong> 11 lists in 11 private clinic channels (<code>clinic-mv-mb-maintenance</code> → list "MB maintenance", etc.) + 1 master list in <code>team-ops-maintenance</code> (Judit's private channel). Cheshire script (or Slack workflow) mirrors each new item from per-clinic list → master, tagged with branch.</p>
 
-    <h4 style="margin-top:1rem;">The list (Judit's master view, lives in <code>team-ops-maintenance</code>)</h4>
+    <h4 style="margin-top:1rem;">JLT's local list (lives inside <code>clinic-mv-jlt-maintenance</code>)</h4>
     <table style="font-size:.82rem;">
-      <thead><tr><th>Task</th><th>Branch</th><th>Issue type</th><th>Severity</th><th>Status</th><th>Vendor</th><th>Due</th></tr></thead>
+      <thead><tr><th>Task</th><th>Issue type</th><th>Severity</th><th>Status</th><th>Vendor</th></tr></thead>
       <tbody>
-        <tr><td>AC unit reception failing</td><td>MB</td><td>HVAC</td><td>High</td><td>In progress</td><td>CoolTech</td><td>May 9</td></tr>
-        <tr><td>Front door auto-close broken</td><td>Palm</td><td>Carpentry</td><td>Medium</td><td>Backlog</td><td>—</td><td>May 12</td></tr>
-        <tr><td>Lab sink leaking</td><td>VV</td><td>Plumbing</td><td>High</td><td>Blocked</td><td>Pending quote</td><td>—</td></tr>
-        <tr><td>Reception printer</td><td>JLT</td><td>IT/Hardware</td><td>Low</td><td>Done</td><td>Self</td><td>May 6</td></tr>
-        <tr><td style="color:#a61c00;font-weight:600;">Server room temp alarm</td><td>MB</td><td>HVAC</td><td>Urgent</td><td>In progress</td><td>CoolTech</td><td>Today</td></tr>
+        <tr><td>Reception printer</td><td>IT/Hardware</td><td>Low</td><td>Done</td><td>Self</td></tr>
+        <tr><td>Lab AC noisy</td><td>HVAC</td><td>Medium</td><td>Backlog</td><td>—</td></tr>
       </tbody>
     </table>
+    <p style="font-size:.85rem;color:var(--muted);"><strong>Only JLT staff + Judit see this list.</strong> Other branches don't.</p>
 
-    <h4 style="margin-top:1rem;">The views (same data, filtered)</h4>
+    <h4 style="margin-top:1rem;">Judit's master aggregator (lives inside <code>team-ops-maintenance</code> — PRIVATE)</h4>
     <table style="font-size:.82rem;">
-      <thead><tr><th>View name</th><th>Lives in channel</th><th>Filter</th><th>Who sees it</th></tr></thead>
+      <thead><tr><th>Task</th><th>Branch</th><th>Issue type</th><th>Severity</th><th>Status</th><th>Vendor</th></tr></thead>
       <tbody>
-        <tr><td>All maintenance</td><td><code>team-ops-maintenance</code></td><td>none</td><td>Judit + maintenance team</td></tr>
-        <tr><td>MB maintenance</td><td><code>clinic-mv-mb-maintenance</code></td><td>Branch = MB</td><td>Anissa + MB staff + Judit</td></tr>
-        <tr><td>Palm maintenance</td><td><code>clinic-mv-palm-maintenance</code></td><td>Branch = Palm</td><td>Palm manager + staff + Judit</td></tr>
-        <tr><td>VV maintenance</td><td><code>clinic-vv-maintenance</code></td><td>Branch = VV</td><td>VV lead + Aida + Judit</td></tr>
-        <tr><td>All urgent</td><td><code>team-ops-maintenance</code> (pinned)</td><td>Severity = Urgent</td><td>Judit + Scott</td></tr>
+        <tr><td>AC unit reception failing</td><td>MB</td><td>HVAC</td><td>High</td><td>In progress</td><td>CoolTech</td></tr>
+        <tr><td>Front door auto-close broken</td><td>Palm</td><td>Carpentry</td><td>Medium</td><td>Backlog</td><td>—</td></tr>
+        <tr><td>Lab sink leaking</td><td>VV</td><td>Plumbing</td><td>High</td><td>Blocked</td><td>Pending quote</td></tr>
+        <tr><td>Reception printer</td><td>JLT</td><td>IT/Hardware</td><td>Low</td><td>Done</td><td>Self</td></tr>
+        <tr><td>Lab AC noisy</td><td>JLT</td><td>HVAC</td><td>Medium</td><td>Backlog</td><td>—</td></tr>
+        <tr><td style="color:#a61c00;font-weight:600;">Server room temp alarm</td><td>MB</td><td>HVAC</td><td>Urgent</td><td>In progress</td><td>CoolTech</td></tr>
       </tbody>
     </table>
+    <p style="font-size:.85rem;color:var(--muted);"><strong>Only Judit + maintenance team see this aggregator.</strong> Cross-clinic patterns visible to Judit only.</p>
 
     <h4 style="margin-top:1rem;">The flow</h4>
     <ol style="font-size:.85rem;line-height:1.7;">
-      <li>MB reception notices broken AC → posts in <code>clinic-mv-mb-maintenance</code> and clicks "Add to list"</li>
-      <li>Slack auto-fills Branch = MB (channel knows its branch)</li>
-      <li>Item appears in Judit's master list (she sees it instantly)</li>
-      <li>Judit assigns severity, sets status, assigns vendor</li>
-      <li>MB sees status updates in their filtered view inside their own channel</li>
-      <li>When done, item flips to Done; both Judit's master and MB's view reflect it</li>
+      <li>JLT reception notices broken AC → posts in <code>clinic-mv-jlt-maintenance</code> and adds to that channel's list.</li>
+      <li>Item lives only in JLT's list. JLT staff and Judit see it. Downtown, Palm, MB — do NOT see it.</li>
+      <li>Cheshire syncs the item into Judit's master aggregator within minutes.</li>
+      <li>Judit decides what to do, works directly in either list.</li>
+      <li>If she updates status in the master, Cheshire syncs back to JLT's list. JLT staff see the update.</li>
+      <li>Cross-clinic pattern (3 branches with HVAC issues this week) is visible only to Judit.</li>
     </ol>
 
-    <p style="font-size:.85rem;margin-top:1rem;"><strong>Why this beats per-channel lists:</strong> Judit has ONE list to manage instead of 12. Branches see only their items. No private info crosses branches. Cross-clinic patterns (3 branches with the same HVAC issue → contact same vendor in bulk) are visible to Judit but not to individual branches.</p>
+    <p style="font-size:.85rem;margin-top:1rem;"><strong>Trade-offs:</strong> ✅ real privacy · ✅ single master surface · ✅ cross-clinic patterns visible to dept head · ⚠️ sync needs Cheshire script (one-time build) · ⚠️ two-way sync is v2 — v1 starts one-way (branch → master) with manual updates back.</p>
   </div>
 
   <h3>Specialised lists per channel type</h3>
