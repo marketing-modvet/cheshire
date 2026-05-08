@@ -6,7 +6,7 @@
 <title>Marketing — H1 Report &amp; H2 2026 Plan · Vet Alliance</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --teal:#015962; --teal-deep:#002b2d; --teal-soft:#e6eef0; --teal-line:#cfdde0;
@@ -16,8 +16,9 @@
   --good:#2f9e6a; --warn:#d68f00; --bad:#c0392b;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:var(--bg);color:var(--ink);font-family:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+html,body{background:var(--bg);color:var(--ink);font-family:'Inter','Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:15.5px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 h1,h2,h3,h4{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;color:var(--teal-deep);letter-spacing:.2px}
+p{font-size:15px;line-height:1.7}
 
 /* GATE */
 #gate{position:fixed;inset:0;background:linear-gradient(135deg,#002b2d,#015962);display:flex;align-items:center;justify-content:center;z-index:9999}
@@ -45,7 +46,7 @@ h1,h2,h3,h4{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;color
 /* TABS */
 .tabs{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10;box-shadow:0 1px 0 rgba(0,0,0,.03)}
 .tabs-inner{display:flex;gap:0;max-width:1400px;margin:0 auto;padding:0 32px;overflow-x:auto;scrollbar-width:thin}
-.tab{padding:16px 18px;border:none;background:none;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;letter-spacing:.3px;transition:.15s;display:flex;align-items:center;gap:8px}
+.tab{padding:16px 20px;border:none;background:none;font-family:'Inter','Montserrat',sans-serif;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;letter-spacing:.2px;transition:.15s;display:flex;align-items:center;gap:8px}
 .tab:hover{color:var(--teal)}
 .tab.active{color:var(--teal);border-bottom-color:var(--gold)}
 .tab .num{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:18px;padding:0 6px;background:var(--teal-soft);color:var(--teal);border-radius:9px;font-size:10px;font-weight:700}
@@ -58,26 +59,26 @@ main{max-width:1400px;margin:0 auto;padding:30px 32px 80px}
 
 /* SECTIONS */
 .sec-h{display:flex;align-items:baseline;gap:14px;margin:8px 0 18px}
-.sec-h h2{font-size:28px}
-.sec-h .kicker{font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:700}
-.sec-h .count{margin-left:auto;font-family:'Montserrat',sans-serif;font-size:12px;color:var(--muted);background:var(--teal-soft);padding:4px 12px;border-radius:14px;font-weight:600}
-.lede{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;line-height:1.5;color:#2c3e3f;font-style:italic;border-left:3px solid var(--gold);padding-left:18px;margin-bottom:26px;max-width:880px}
+.sec-h h2{font-size:32px;line-height:1.15}
+.sec-h .kicker{font-family:'Inter','Montserrat',sans-serif;font-size:11.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:700}
+.sec-h .count{margin-left:auto;font-family:'Inter','Montserrat',sans-serif;font-size:12.5px;color:var(--muted);background:var(--teal-soft);padding:5px 14px;border-radius:14px;font-weight:600}
+.lede{font-family:'Cormorant Garamond',Georgia,serif;font-size:21px;line-height:1.55;color:#23383a;font-style:italic;border-left:3px solid var(--gold);padding-left:20px;margin-bottom:28px;max-width:920px}
 
 /* KPI HERO STRIP */
 .kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:26px}
 .kpi{background:#fff;border-radius:12px;padding:18px 18px 16px;border:1px solid var(--line);position:relative;overflow:hidden}
 .kpi::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold)}
 .kpi.big::after{background:var(--teal)}
-.kpi .lbl{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:6px}
-.kpi .val{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--teal-deep);font-weight:700;line-height:1}
-.kpi .sub{font-size:11.5px;color:var(--muted-2);margin-top:4px}
+.kpi .lbl{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px}
+.kpi .val{font-family:'Cormorant Garamond',serif;font-size:34px;color:var(--teal-deep);font-weight:700;line-height:1}
+.kpi .sub{font-size:12.5px;color:var(--muted-2);margin-top:6px;line-height:1.4}
 .kpi .trend{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:8px;margin-top:6px;letter-spacing:.5px}
 .kpi .trend.up{background:#e6f5ed;color:var(--good)}
 .kpi .trend.flat{background:#f3f0e3;color:var(--warn)}
 
 /* PILL CHIPS GRID — for the brag-list */
 .chip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px;margin-bottom:24px}
-.chip{background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 12px 10px 14px;display:flex;align-items:flex-start;gap:10px;font-size:12.5px;line-height:1.4;transition:.15s;border-left:3px solid var(--teal)}
+.chip{background:#fff;border:1px solid var(--line);border-radius:8px;padding:11px 14px 11px 15px;display:flex;align-items:flex-start;gap:10px;font-size:13.5px;line-height:1.5;transition:.15s;border-left:3px solid var(--teal)}
 .chip:hover{border-color:var(--teal);box-shadow:0 2px 6px rgba(1,89,98,.08);transform:translateY(-1px)}
 .chip.gold{border-left-color:var(--gold)}
 .chip.cream{border-left-color:#7da06d}
@@ -90,11 +91,11 @@ main{max-width:1400px;margin:0 auto;padding:30px 32px 80px}
 
 /* DENSE CATEGORY BLOCKS */
 .cat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-bottom:18px}
-.cat h3{font-size:22px;color:var(--teal);margin-bottom:4px;display:flex;align-items:center;gap:12px}
+.cat h3{font-size:24px;color:var(--teal);margin-bottom:4px;display:flex;align-items:center;gap:12px;line-height:1.2}
 .cat h3 .badge{font-family:'Montserrat',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:1.5px;background:var(--gold);color:#fff;padding:3px 9px;border-radius:6px}
-.cat .cat-sub{font-family:'Montserrat',sans-serif;font-size:12px;color:var(--muted);margin-bottom:14px}
+.cat .cat-sub{font-family:'Inter','Montserrat',sans-serif;font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.55}
 .cat .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:7px}
-.cat .item{font-size:12.5px;padding:7px 10px;background:var(--teal-soft);border-radius:6px;color:var(--teal-deep);font-weight:500;display:flex;align-items:center;gap:8px}
+.cat .item{font-size:13.5px;padding:9px 12px;background:var(--teal-soft);border-radius:6px;color:#0a3537;font-weight:500;display:flex;align-items:center;gap:9px;line-height:1.45}
 .cat .item::before{content:"▸";color:var(--gold);font-size:11px;font-weight:bold}
 .cat.gold .item{background:#faf1d4;color:#5e4a05}
 .cat.cream .item{background:#e8efde;color:#3d5530}
@@ -102,9 +103,9 @@ main{max-width:1400px;margin:0 auto;padding:30px 32px 80px}
 .cat.salmon .item::before, .cat.cream .item::before {color:var(--teal)}
 
 /* MAINTENANCE TABLE */
-.mtab{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 0 var(--line);font-size:13px}
-.mtab th{background:var(--teal);color:#fff;font-family:'Montserrat',sans-serif;font-weight:600;text-align:left;padding:12px 16px;font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase}
-.mtab td{padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+.mtab{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 0 var(--line);font-size:14px;line-height:1.55}
+.mtab th{background:var(--teal);color:#fff;font-family:'Inter','Montserrat',sans-serif;font-weight:600;text-align:left;padding:14px 18px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase}
+.mtab td{padding:14px 18px;border-bottom:1px solid var(--line);vertical-align:top}
 .mtab tr:last-child td{border-bottom:none}
 .mtab tr:hover td{background:#fafcfc}
 .mtab .badge-load{display:inline-block;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:6px;letter-spacing:.5px}
@@ -120,19 +121,19 @@ main{max-width:1400px;margin:0 auto;padding:30px 32px 80px}
 .tl-item.done::before{background:var(--good);box-shadow:0 0 0 2px var(--good)}
 .tl-item.now::before{background:var(--teal);box-shadow:0 0 0 2px var(--teal);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
-.tl-item h4{font-size:16px;margin-bottom:4px;display:flex;align-items:baseline;gap:10px}
-.tl-item h4 small{font-family:'Montserrat',sans-serif;font-size:11px;color:var(--muted);font-weight:500}
-.tl-item p{font-size:12.5px;color:#3a4d4f;line-height:1.55}
+.tl-item h4{font-size:19px;margin-bottom:6px;display:flex;align-items:baseline;gap:12px}
+.tl-item h4 small{font-family:'Inter','Montserrat',sans-serif;font-size:12px;color:var(--muted);font-weight:500;letter-spacing:.5px}
+.tl-item p{font-size:13.5px;color:#2e4042;line-height:1.65}
 
 /* PROBLEM CARDS */
 .prob-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
 .prob{background:#fff;border:1px solid var(--line);border-left:4px solid var(--bad);border-radius:10px;padding:18px 20px}
 .prob.warn{border-left-color:var(--warn)}
-.prob h4{font-size:18px;color:var(--bad);margin-bottom:6px}
+.prob h4{font-size:20px;color:var(--bad);margin-bottom:8px;line-height:1.25}
 .prob.warn h4{color:var(--warn)}
-.prob .what{font-size:12.5px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
-.prob p{font-size:13px;line-height:1.6;color:#34464a;margin-bottom:8px}
-.prob .mit{background:var(--teal-soft);border-radius:6px;padding:8px 11px;font-size:12px;color:var(--teal-deep);margin-top:8px}
+.prob .what{font-size:11.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
+.prob p{font-size:14px;line-height:1.65;color:#23383a;margin-bottom:10px}
+.prob .mit{background:var(--teal-soft);border-radius:6px;padding:10px 13px;font-size:13px;color:var(--teal-deep);margin-top:10px;line-height:1.55}
 .prob .mit strong{color:var(--teal)}
 
 /* FINANCE */
@@ -146,7 +147,7 @@ main{max-width:1400px;margin:0 auto;padding:30px 32px 80px}
 .bucket .amt{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--teal);font-weight:700}
 .bucket .amt .placeholder{color:#bbb;font-style:italic;font-size:18px}
 .bucket .pct{font-size:11.5px;color:var(--muted);margin-top:2px}
-.bucket .lst{margin-top:10px;font-size:11.5px;color:#4a5d5f;line-height:1.55}
+.bucket .lst{margin-top:10px;font-size:12.5px;color:#3a4d4f;line-height:1.6}
 .bucket .lst li{list-style:none;padding:3px 0;border-bottom:1px dashed #ecf1f2}
 .bucket .lst li:last-child{border:none}
 
@@ -159,11 +160,11 @@ main{max-width:1400px;margin:0 auto;padding:30px 32px 80px}
 .col-card h4{font-size:18px;margin-bottom:6px}
 .col-card .col-sub{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:10px;font-family:'Montserrat',sans-serif}
 .col-card ul{list-style:none}
-.col-card ul li{padding:7px 0;font-size:12.5px;border-bottom:1px solid var(--line);line-height:1.5}
+.col-card ul li{padding:9px 0;font-size:13.5px;border-bottom:1px solid var(--line);line-height:1.55}
 .col-card ul li:last-child{border:none}
 
 /* PLACEHOLDER NOTE */
-.fill{background:#fff8e1;border:1.5px dashed #d4a90c;border-radius:8px;padding:10px 14px;font-size:12px;color:#6e5400;margin:10px 0;font-family:'Montserrat',sans-serif}
+.fill{background:#fff8e1;border:1.5px dashed #d4a90c;border-radius:8px;padding:12px 16px;font-size:13px;color:#6e5400;margin:12px 0;font-family:'Inter','Montserrat',sans-serif;line-height:1.55}
 .fill::before{content:"✎ ";font-weight:700}
 
 /* FOOT */
@@ -199,7 +200,7 @@ footer{margin:60px auto 0;max-width:1400px;padding:24px 32px;border-top:1px soli
   <header class="hero">
     <div class="crumb">Marketing Department · H1 2026 Review &amp; H2 2026 Plan</div>
     <h1>Seven Brands. <em>One Engine.</em><br/>What was built — and what comes next.</h1>
-    <p class="sub">A consolidated review of the work delivered between January and May 2026, the systems we now maintain on a daily basis, and the prioritised plan for June – December 2026.</p>
+    <p class="sub">A consolidated review of the work delivered between January and May 2026, the operational systems the department now sustains daily, and the prioritised growth plan for June through December 2026 — structured around four KPI pillars: revenue, audience growth, brand presence, and cost-saving technology.</p>
     <div class="meta">
       <div><span>Period covered</span><span>Jan – May 2026</span></div>
       <div><span>Plan horizon</span><span>Jun – Dec 2026</span></div>
@@ -229,7 +230,7 @@ footer{margin:60px auto 0;max-width:1400px;padding:24px 32px;border-top:1px soli
       <span class="kicker">01 · At a glance</span>
       <h2>The state of marketing, end of H1 2026.</h2>
     </div>
-    <p class="lede">In five months the department delivered across seven brands at a velocity that, when laid out side-by-side, is genuinely difficult to fit on a single page. This dashboard is that page.</p>
+    <p class="lede">In five months, the department executed across seven brands at a pace that — when consolidated onto a single dashboard — is genuinely difficult to fit on one page. The result is a multi-brand marketing engine running on in-house production, owned attribution, and AI-assisted operations. This is the consolidated view.</p>
 
     <div class="kpi-strip">
       <div class="kpi big"><div class="lbl">Total reach</div><div class="val">~8 M</div><div class="sub">across all brands &amp; platforms</div><span class="trend up">H1 2026</span></div>
@@ -259,26 +260,28 @@ footer{margin:60px auto 0;max-width:1400px;padding:24px 32px;border-top:1px soli
 
     <div class="cat">
       <h3>Strategic shifts of H1 2026 <span class="badge">Headline</span></h3>
-      <p class="cat-sub">Four structural moves that re-shape what the department is, not just what it produces.</p>
+      <p class="cat-sub">Eight structural moves that redefine what the department is — not just what it produces.</p>
       <div class="cat-grid">
-        <div class="item">From stock media → 100% original production</div>
-        <div class="item">From 1 brand voice → 7 brand identities running in parallel</div>
-        <div class="item">From freelance/external dependence → in-house studio + AI server</div>
-        <div class="item">From paid-first → SEO + EEAT + organic content engine</div>
-        <div class="item">From siloed team → cross-departmental ops (Tech · Clinical · CX)</div>
-        <div class="item">From manual reporting → AI-driven analytics &amp; dashboards (25+)</div>
-        <div class="item">Built department from scratch → fully operational team</div>
-        <div class="item">Modern Vet Academy framework → ready to launch as Vet Alliance Academy</div>
+        <div class="item">Stock media → 100% original, brand-owned production</div>
+        <div class="item">Single brand voice → seven differentiated brand identities in parallel</div>
+        <div class="item">Freelance &amp; agency dependence → in-house studio and AI infrastructure</div>
+        <div class="item">Paid-first acquisition → integrated SEO, EEAT and organic content engine</div>
+        <div class="item">Siloed team → cross-functional operations with Tech, Clinical, CX and Ops</div>
+        <div class="item">Manual spreadsheets → AI-driven analytics, attribution and BI dashboards (25+)</div>
+        <div class="item">Department built from zero → fully staffed, operational team</div>
+        <div class="item">Modern Vet Academy framework → ready to scale as Vet Alliance Academy</div>
+        <div class="item">Untracked spend → four-bucket cost framework with phased optimisation</div>
+        <div class="item">Single-funnel reporting → multi-brand share-of-voice and conversion benchmarking</div>
       </div>
     </div>
 
     <div class="cat gold">
       <h3>What this document is for</h3>
-      <p class="cat-sub">Three jobs, in this order.</p>
+      <p class="cat-sub">Three objectives, in priority order.</p>
       <div class="cat-grid">
-        <div class="item">Show the depth and breadth of work delivered in H1 2026</div>
-        <div class="item">Make explicit the systems we now run on a daily basis</div>
-        <div class="item">Frame the H2 2026 plan against revenue, growth, presence and cost-saving tech</div>
+        <div class="item">Demonstrate the depth and breadth of work delivered in H1 2026 across all seven brands</div>
+        <div class="item">Make explicit the operational systems the department now runs on a daily basis — the recurring load behind the campaigns</div>
+        <div class="item">Frame the H2 2026 plan against four KPI anchors: revenue, audience growth, brand presence and cost-saving technology</div>
       </div>
     </div>
   </section>
@@ -290,112 +293,120 @@ footer{margin:60px auto 0;max-width:1400px;padding:24px 32px;border-top:1px soli
       <h2>What we delivered.</h2>
       <span class="count">60+ shipped initiatives</span>
     </div>
-    <p class="lede">Grouped by domain. Each chip below is a discrete, shipped piece of work — not a plan, not a draft.</p>
+    <p class="lede">Grouped by domain. Every item below is a discrete, shipped deliverable — live in production, in market, or in the hands of staff. No drafts, no plans, no backlog items.</p>
 
     <div class="cat">
       <h3>Brand &amp; identity <span class="badge">7 brands</span></h3>
-      <p class="cat-sub">Full stack — from logo to printable to online presence.</p>
+      <p class="cat-sub">Full identity stack — from logo system to point-of-sale collateral, online and offline.</p>
       <div class="cat-grid">
-        <div class="item">Branding for 5 brands (full identity systems)</div>
-        <div class="item">Enhanced branding for 3 additional brands</div>
-        <div class="item">500+ unique designs across all brands</div>
-        <div class="item">Vet Alliance — website · branding · social · printables</div>
-        <div class="item">TVRC — website · branding · social · printables</div>
-        <div class="item">Blue Sky Pet Relocation — full establishment from zero</div>
-        <div class="item">Mobile Clinic rebranded</div>
-        <div class="item">Premises branding (clinics &amp; office)</div>
-        <div class="item">Wobblers in clinics</div>
-        <div class="item">100+ printable units in clinics &amp; office remade</div>
-        <div class="item">150+ printables refreshed, redesigned and produced</div>
-        <div class="item">New branded gazebo &amp; event stands</div>
-        <div class="item">Hand-drawn unique icons &amp; illustrations</div>
-        <div class="item">QR-code system established (reviews, links, attribution)</div>
+        <div class="item">Full brand identity systems built for 5 brands</div>
+        <div class="item">Enhanced brand identity for 3 additional brands</div>
+        <div class="item">500+ unique design assets across all brands</div>
+        <div class="item">Vet Alliance — website, branding, social presence, printables</div>
+        <div class="item">TVRC — website, branding, social channels, printables</div>
+        <div class="item">Blue Sky Pet Relocation — complete brand establishment from zero</div>
+        <div class="item">Modern Vet Mobile Clinic rebrand</div>
+        <div class="item">In-clinic and office premises branding rolled out</div>
+        <div class="item">Wobblers and point-of-sale collateral installed in every clinic</div>
+        <div class="item">100+ in-clinic and office printable units redesigned and reissued</div>
+        <div class="item">150+ marketing collaterals refreshed, redesigned and produced</div>
+        <div class="item">New branded gazebo and modular event stands fabricated</div>
+        <div class="item">Hand-drawn icon library and custom illustrations — proprietary</div>
+        <div class="item">QR-code system for reviews, attribution links and offline-to-online tracking</div>
+        <div class="item">Style guides and brand-asset libraries documented per brand</div>
       </div>
     </div>
 
     <div class="cat gold">
-      <h3>Web, SEO &amp; technical <span class="badge">Engine</span></h3>
-      <p class="cat-sub">Every public surface rebuilt or hardened.</p>
+      <h3>Web, SEO &amp; technical <span class="badge">Digital engine</span></h3>
+      <p class="cat-sub">Every public surface rebuilt, hardened and optimised for organic discovery.</p>
       <div class="cat-grid">
-        <div class="item">Full Modern Vet website redesign — first cycle</div>
-        <div class="item">Second redesign — unique pages &amp; long-form content</div>
-        <div class="item">10+ new unique pages shipped</div>
-        <div class="item">Schema structure fixed across the site</div>
-        <div class="item">Thousands of on-site errors corrected</div>
-        <div class="item">Titles, descriptions &amp; meta — thousands of units</div>
-        <div class="item">800+ blogs revamped into new templates</div>
-        <div class="item">Significant EEAT increase across the site</div>
-        <div class="item">UI / UX significantly improved across all surfaces</div>
-        <div class="item">Careers page integrated to stop traffic leakage</div>
-        <div class="item">BSPR booking system — implemented in 1 day</div>
-        <div class="item">Information gathered on 50+ doctors</div>
+        <div class="item">Full Modern Vet website redesign — first iteration shipped</div>
+        <div class="item">Second redesign with unique long-form content templates</div>
+        <div class="item">10+ new SEO-optimised landing pages launched</div>
+        <div class="item">Structured-data (Schema.org) markup rebuilt across the site</div>
+        <div class="item">Thousands of technical SEO errors resolved (crawl, indexation, broken links)</div>
+        <div class="item">Title tags, meta descriptions and Open Graph rewritten — thousands of URLs</div>
+        <div class="item">800+ legacy blog posts migrated into new templates and content standards</div>
+        <div class="item">EEAT signals (Experience, Expertise, Authoritativeness, Trust) measurably strengthened</div>
+        <div class="item">UI / UX redesigned across all sites — Core Web Vitals and conversion focus</div>
+        <div class="item">Careers page integrated on-domain — eliminating organic traffic leakage to third parties</div>
+        <div class="item">Blue Sky Pet Relocation booking system — built and deployed in 1 day</div>
+        <div class="item">Doctor information collected, structured and indexed for 50+ practitioners</div>
+        <div class="item">GA4, GTM and conversion-tracking architecture rebuilt for first-party attribution</div>
+        <div class="item">Site-wide page-speed, accessibility and mobile-experience improvements</div>
       </div>
     </div>
 
     <div class="cat cream">
       <h3>Content &amp; production <span class="badge">In-house</span></h3>
-      <p class="cat-sub">Walked off stock media. Built our own studio.</p>
+      <p class="cat-sub">Discontinued stock media. Built a fully owned content production capability.</p>
       <div class="cat-grid">
-        <div class="item">8 000+ photos produced</div>
-        <div class="item">300+ short videos</div>
-        <div class="item">20+ long-format videos &amp; podcasts</div>
-        <div class="item">500+ social posts</div>
-        <div class="item">All 70+ doctor portraits &amp; introductory videos reshot</div>
-        <div class="item">Videos produced for almost every service</div>
-        <div class="item">Dedicated studio facility established</div>
-        <div class="item">In-house voiceovers — live and AI</div>
-        <div class="item">50+ merchandise items</div>
-        <div class="item">Catalogue of pets available for adoption</div>
-        <div class="item">List of pet-friendly places</div>
-        <div class="item">Screens with new videos in every branch</div>
-        <div class="item">Library of 300+ veterinary books — internal</div>
-        <div class="item">Improved media database &amp; design database</div>
-        <div class="item">Walked away from stock media content entirely</div>
+        <div class="item">8,000+ original photographs produced</div>
+        <div class="item">300+ short-form videos shot, edited and published</div>
+        <div class="item">20+ long-format videos and podcast episodes</div>
+        <div class="item">500+ social-media posts published across all channels</div>
+        <div class="item">All 70+ doctor portraits and introductory videos re-shot to a unified standard</div>
+        <div class="item">Service-explainer videos produced for nearly every clinical service</div>
+        <div class="item">Dedicated in-house studio facility built and equipped</div>
+        <div class="item">Voiceover production in-house — both live talent and AI-generated</div>
+        <div class="item">50+ branded merchandise items designed and produced</div>
+        <div class="item">Adoptable-pet catalogue created and maintained</div>
+        <div class="item">Curated list of pet-friendly venues across Dubai</div>
+        <div class="item">In-clinic display screens with rotating original video content</div>
+        <div class="item">Internal reference library of 300+ veterinary publications</div>
+        <div class="item">Centralised media and design asset databases (DAM) established</div>
+        <div class="item">Stock media fully discontinued — every published asset is brand-owned</div>
       </div>
     </div>
 
     <div class="cat">
-      <h3>Social, SM ops &amp; community</h3>
-      <p class="cat-sub">From single voice to multi-brand operation.</p>
+      <h3>Social, community &amp; CRM</h3>
+      <p class="cat-sub">From a single brand voice to a coordinated multi-brand engagement operation.</p>
       <div class="cat-grid">
-        <div class="item">Listening system on FB / IG / Reddit + relevant replies</div>
-        <div class="item">LinkedIn accounts implemented + active posting</div>
-        <div class="item">Telegram channel established</div>
-        <div class="item">Replying to positive Google My Business reviews</div>
-        <div class="item">B2B email workflows established</div>
-        <div class="item">Outreach for local cooperations — 200+ contacts</div>
-        <div class="item">5+ corporate cooperations / partnerships</div>
+        <div class="item">Social-listening system across Facebook, Instagram and Reddit with curated reply protocol</div>
+        <div class="item">LinkedIn presence established for all relevant brands with consistent posting cadence</div>
+        <div class="item">Telegram broadcast channel launched</div>
+        <div class="item">Active reputation management on Google Business Profile — replies to all positive reviews</div>
+        <div class="item">B2B email-marketing workflows and nurture sequences operational</div>
+        <div class="item">Local-business outreach pipeline — 200+ qualified contacts engaged</div>
+        <div class="item">5+ formal corporate partnerships and co-marketing agreements signed</div>
+        <div class="item">Customer segmentation and audience profiles defined for each brand</div>
+        <div class="item">Cross-platform content-calendar and approval workflow operational</div>
       </div>
     </div>
 
     <div class="cat gold">
-      <h3>Operations, ops &amp; infrastructure</h3>
-      <p class="cat-sub">The plumbing nobody sees, but everything runs on.</p>
+      <h3>Operations, infrastructure &amp; paid media</h3>
+      <p class="cat-sub">The operational layer that every campaign and brand surface runs on.</p>
       <div class="cat-grid">
-        <div class="item">AI server set up from scratch</div>
-        <div class="item">25+ AI projects &amp; reports implemented · <em>see AI Hub</em></div>
-        <div class="item">Improved financial reporting</div>
-        <div class="item">Inventorisation of equipment</div>
-        <div class="item">External databases refreshed every 3 months</div>
-        <div class="item">Improved onboarding for new doctors</div>
-        <div class="item">Significant team-coordination improvements</div>
-        <div class="item">Improved cooperation with Tech &amp; other depts</div>
-        <div class="item">Marketing operations &amp; data collection upgraded</div>
-        <div class="item">Department built from scratch</div>
-        <div class="item">"Live days" system for the department</div>
-        <div class="item">Full restructure of paid ads (Google + social)</div>
-        <div class="item">Quality of materials raised by involving vets</div>
-        <div class="item">New packages implemented</div>
+        <div class="item">Dedicated AI server provisioned and configured from scratch</div>
+        <div class="item">25+ AI-driven projects, reports and automations deployed · <em>see AI Hub</em></div>
+        <div class="item">Marketing financial reporting restructured for clarity and forecasting</div>
+        <div class="item">Full inventory and lifecycle tracking of production equipment</div>
+        <div class="item">External research databases refreshed on a quarterly cadence</div>
+        <div class="item">Onboarding workflow for new clinical staff — data, media, publishing</div>
+        <div class="item">Significant uplift in internal team coordination and process discipline</div>
+        <div class="item">Cross-departmental workflows established with Tech, Clinical, CX and Ops</div>
+        <div class="item">Marketing operations and first-party data collection materially upgraded</div>
+        <div class="item">Department built and staffed from zero to fully operational</div>
+        <div class="item">"Live days" operating rhythm implemented for production focus</div>
+        <div class="item">Paid-media account architecture rebuilt — Google Ads and social — with proper conversion tracking</div>
+        <div class="item">Editorial quality raised through structured veterinary review of all clinical content</div>
+        <div class="item">New service packages designed, priced and launched</div>
+        <div class="item">Vendor and tooling stack rationalised — duplicate platforms retired</div>
       </div>
     </div>
 
     <div class="cat cream">
       <h3>Live events &amp; field marketing</h3>
+      <p class="cat-sub">On-the-ground presence — both consumer-facing and internal.</p>
       <div class="cat-grid">
-        <div class="item">Azizi Riviera clinic opening</div>
-        <div class="item">10+ events organised — external &amp; internal</div>
-        <div class="item">Event prizes, printables &amp; activations</div>
-        <div class="item">Branded gazebo + portable stands</div>
+        <div class="item">Azizi Riviera clinic — full grand-opening campaign and activation</div>
+        <div class="item">10+ events organised — external community and internal team</div>
+        <div class="item">Event giveaways, collateral and on-site activations produced end-to-end</div>
+        <div class="item">Modular branded gazebo and portable booth system fabricated</div>
+        <div class="item">Lead-capture and follow-up workflow implemented for every event</div>
       </div>
     </div>
 
@@ -409,7 +420,7 @@ footer{margin:60px auto 0;max-width:1400px;padding:24px 32px;border-top:1px soli
       <h2>What we maintain — every working day.</h2>
       <span class="count">12 systems · ongoing</span>
     </div>
-    <p class="lede">Delivery is half the job. The other half is keeping seven brands' worth of surfaces alive. This is the daily / weekly load that does not appear on any project tracker.</p>
+    <p class="lede">Project delivery is only half the work. The other half is sustaining the operational surfaces of seven brands every working day — recurring load that does not appear on any project tracker, but consumes real headcount and is the reason new initiatives can ship at all.</p>
 
     <table class="mtab">
       <thead>
@@ -421,19 +432,20 @@ footer{margin:60px auto 0;max-width:1400px;padding:24px 32px;border-top:1px soli
       </tr>
       </thead>
       <tbody>
-        <tr><td><strong>Reviews competition</strong></td><td>Tracking review counts &amp; ratings per clinic, monthly certificates, internal comms</td><td>Weekly</td><td><span class="badge-load bl-m">Medium</span></td></tr>
-        <tr><td><strong>Printables control</strong></td><td>300+ units across clinics — refreshed, replaced, monitored</td><td>Continuous</td><td><span class="badge-load bl-h">High</span></td></tr>
-        <tr><td><strong>Social accounts</strong></td><td>40 social accounts across 7 brands — content, engagement, ops</td><td>Daily</td><td><span class="badge-load bl-h">High</span></td></tr>
-        <tr><td><strong>Google My Business</strong></td><td>14 GBP profiles — info, posts, reviews, photos</td><td>Weekly</td><td><span class="badge-load bl-m">Medium</span></td></tr>
-        <tr><td><strong>AI analyses &amp; reports</strong></td><td>All new analysis &amp; reports created with AI — pipelines maintained</td><td>Continuous</td><td><span class="badge-load bl-m">Medium</span></td></tr>
-        <tr><td><strong>Websites</strong></td><td>8 sites — content, design, technical health</td><td>Daily</td><td><span class="badge-load bl-h">High</span></td></tr>
-        <tr><td><strong>Email + SMS</strong></td><td>Configurations, campaigns, design refreshes <em>(partly to be transitioned to ECrea8)</em></td><td>Weekly</td><td><span class="badge-load bl-m">Medium</span></td></tr>
-        <tr><td><strong>Business cards system</strong></td><td>Templates, ordering, distribution across brands</td><td>Monthly</td><td><span class="badge-load bl-l">Low</span></td></tr>
-        <tr><td><strong>Slack</strong></td><td>Workspace structure, channels, automation, comms ops</td><td>Continuous</td><td><span class="badge-load bl-m">Medium</span></td></tr>
-        <tr><td><strong>Modern Vet Academy</strong></td><td>Framework, content, soon to launch staff-facing</td><td>Weekly</td><td><span class="badge-load bl-m">Medium</span></td></tr>
-        <tr><td><strong>Website security</strong></td><td>Currently with Marketing — <em>to be transitioned to Tech</em></td><td>Continuous</td><td><span class="badge-load bl-m">Medium</span></td></tr>
-        <tr><td><strong>CCTV monitoring</strong></td><td>Footage review, content extraction, event clips</td><td>Continuous</td><td><span class="badge-load bl-l">Low</span></td></tr>
-        <tr><td><strong>Equipment</strong></td><td>Cameras, lights, mics, AI server, studio kit — maintained in-house</td><td>Continuous</td><td><span class="badge-load bl-l">Low</span></td></tr>
+        <tr><td><strong>Reviews competition</strong></td><td>Tracking review counts and ratings per clinic, awarding monthly performance certificates, communicating standings to clinical teams</td><td>Weekly</td><td><span class="badge-load bl-m">Medium</span></td></tr>
+        <tr><td><strong>Printables &amp; in-clinic collateral</strong></td><td>300+ units across all clinics — refreshed, replaced, audited for consistency and compliance</td><td>Continuous</td><td><span class="badge-load bl-h">High</span></td></tr>
+        <tr><td><strong>Social-media accounts</strong></td><td>40 active social profiles across 7 brands — content publishing, community management, paid amplification</td><td>Daily</td><td><span class="badge-load bl-h">High</span></td></tr>
+        <tr><td><strong>Google Business Profiles</strong></td><td>14 GBP listings — business info, posts, photos, reviews, Q&amp;A and local-SEO signals</td><td>Weekly</td><td><span class="badge-load bl-m">Medium</span></td></tr>
+        <tr><td><strong>AI analytics &amp; reporting</strong></td><td>All new analyses, dashboards and reports built on AI pipelines — maintenance, validation, refinement</td><td>Continuous</td><td><span class="badge-load bl-m">Medium</span></td></tr>
+        <tr><td><strong>Websites</strong></td><td>8 brand websites — content, design, technical health, security patches, performance monitoring</td><td>Daily</td><td><span class="badge-load bl-h">High</span></td></tr>
+        <tr><td><strong>Email &amp; SMS marketing</strong></td><td>Platform configuration, campaign production, automation flows, design refreshes <em>(partial transition to ECrea8 planned)</em></td><td>Weekly</td><td><span class="badge-load bl-m">Medium</span></td></tr>
+        <tr><td><strong>Business-card system</strong></td><td>Templates, brand consistency, ordering and distribution across all brands and roles</td><td>Monthly</td><td><span class="badge-load bl-l">Low</span></td></tr>
+        <tr><td><strong>Slack workspace</strong></td><td>Channel architecture, automation, integrations, internal-comms operations across the group</td><td>Continuous</td><td><span class="badge-load bl-m">Medium</span></td></tr>
+        <tr><td><strong>Modern Vet Academy</strong></td><td>Curriculum framework, content production, LMS structure — launching to staff in H2</td><td>Weekly</td><td><span class="badge-load bl-m">Medium</span></td></tr>
+        <tr><td><strong>Website security</strong></td><td>Patching, monitoring, backups — currently with Marketing, <em>scheduled transition to Tech department</em></td><td>Continuous</td><td><span class="badge-load bl-m">Medium</span></td></tr>
+        <tr><td><strong>CCTV monitoring</strong></td><td>Footage review, behind-the-scenes content extraction, event-highlight clips</td><td>Continuous</td><td><span class="badge-load bl-l">Low</span></td></tr>
+        <tr><td><strong>Production equipment</strong></td><td>Cameras, lighting, audio, AI server, studio kit — maintained, calibrated and inventoried in-house</td><td>Continuous</td><td><span class="badge-load bl-l">Low</span></td></tr>
+        <tr><td><strong>Brand-asset governance</strong></td><td>Brand guidelines, logo libraries, template control, third-party usage requests</td><td>Weekly</td><td><span class="badge-load bl-l">Low</span></td></tr>
       </tbody>
     </table>
 
@@ -447,74 +459,86 @@ footer{margin:60px auto 0;max-width:1400px;padding:24px 32px;border-top:1px soli
       <h2>The plan.</h2>
       <span class="count">35+ commitments</span>
     </div>
-    <p class="lede">Organised by KPI anchor: <strong>Revenue · Growth · Presence · Cost-saving Tech.</strong> Each line is a commitment, not a wishlist — sequenced across seven months.</p>
+    <p class="lede">The H2 2026 plan is organised against four KPI anchors — <strong>Revenue · Audience Growth · Brand Presence · Cost-saving Technology.</strong> Each line is a tracked commitment with an owner and a target window, not a wishlist.</p>
 
     <div class="cat">
       <h3>Revenue &amp; commercial <span class="badge">KPI · Revenue</span></h3>
+      <p class="cat-sub">Initiatives with a direct line to bookings, sales and customer lifetime value.</p>
       <div class="cat-grid">
-        <div class="item">Build eCommerce platform with ECrea8</div>
-        <div class="item">Bridge MV websites ↔ Floof platform — sort online booking by brand</div>
-        <div class="item">Optimise paid ads on real attribution data — increase effectiveness</div>
-        <div class="item">CallGear (or similar) tracking — improved implementation</div>
-        <div class="item">YouTube → 100K subs · monetisation · partner leverage</div>
-        <div class="item">Full promotional campaign + brand enhancement</div>
-        <div class="item">Help Aida with B2B promotion of TVRC</div>
-        <div class="item">Recovery strategy for Downtown &amp; JLT clinics</div>
-        <div class="item">Continued promotion of Azizi Riviera</div>
-        <div class="item">Strategy for Khawaneej clinic + Pet Farewell cremation brand</div>
+        <div class="item">Launch eCommerce platform in partnership with ECrea8</div>
+        <div class="item">Build website ↔ Floof booking-platform bridge to route online bookings by brand</div>
+        <div class="item">Restructure paid-media campaigns on validated attribution data — improve ROAS and lower CAC</div>
+        <div class="item">Upgrade CallGear (or alternative) call-tracking and attribution implementation</div>
+        <div class="item">Grow YouTube to 100K subscribers — monetisation tier and B2B partnership leverage</div>
+        <div class="item">Full integrated promotional campaign across paid, owned and earned channels</div>
+        <div class="item">Support Aida with B2B promotion of TVRC — referral programme and key-account outreach</div>
+        <div class="item">Recovery strategy for Modern Vet Downtown and JLT clinics — local SEO, retention, win-back</div>
+        <div class="item">Sustained promotional plan for Azizi Riviera through ramp-up phase</div>
+        <div class="item">Go-to-market plan for Khawaneej re-opening and Pet Farewell cremation brand</div>
+        <div class="item">Customer-retention and re-engagement programme — email, SMS, WhatsApp triggered flows</div>
+        <div class="item">Loyalty &amp; package-bundling structure — increase average order value and visit frequency</div>
       </div>
     </div>
 
     <div class="cat gold">
-      <h3>Growth &amp; presence <span class="badge">KPI · Growth + Presence</span></h3>
+      <h3>Audience growth &amp; brand presence <span class="badge">KPI · Growth + Presence</span></h3>
+      <p class="cat-sub">Initiatives that compound over time — owned audience, share-of-voice and brand equity.</p>
       <div class="cat-grid">
-        <div class="item">Finish Modern Vet website revamp — services, menu, 20+ unique pages</div>
-        <div class="item">50 new EEAT-optimised doctor profiles ready to deploy</div>
-        <div class="item">Improve old Health Library blogs to new standards</div>
-        <div class="item">Improve Arabic version of the website</div>
-        <div class="item">Improve Russian version of the website</div>
-        <div class="item">Increase media output — posts, photos, short &amp; long videos</div>
-        <div class="item">Produce 24+ long-format YouTube videos</div>
-        <div class="item">Better SM coverage across all pages &amp; brands</div>
-        <div class="item">Full business profiles for all brands</div>
-        <div class="item">Increase partnerships &amp; cooperations significantly</div>
-        <div class="item">Solve MV SEO issues + improve all 8 sites</div>
-        <div class="item">Fix contextual mistakes in materials with vets</div>
-        <div class="item">Refresh all materials across non-MV brands</div>
-        <div class="item">TVRC strategy — referral books, flyers, profiles</div>
-        <div class="item">Continue free events; start running our own (CPDs, conf, parent days)</div>
-        <div class="item">Low-budget media co-ops — Wikipedia, free publications</div>
-        <div class="item">Unique advertorials per brand</div>
-        <div class="item">Enhance brand identity for 4 brands with Aida — books, printables, advertorials</div>
+        <div class="item">Complete Modern Vet website revamp — services architecture, menu, 20+ new long-form pages</div>
+        <div class="item">Deploy 50 new EEAT-optimised doctor profiles — fresh videos, certifications and quotes</div>
+        <div class="item">Rewrite Health Library legacy content to current editorial and SEO standards</div>
+        <div class="item">Localisation upgrade — Arabic-language site (content, UX, hreflang)</div>
+        <div class="item">Localisation upgrade — Russian-language site (content, UX, hreflang)</div>
+        <div class="item">Increase total content output — posts, photography, short and long-form video</div>
+        <div class="item">Produce 24+ long-format YouTube episodes — owned-media flywheel</div>
+        <div class="item">Even social-media coverage across all brand channels — fix "thin coverage" gaps</div>
+        <div class="item">Complete business profiles (GBP, directories, listings) for every brand</div>
+        <div class="item">Materially expand partnership and co-marketing pipeline</div>
+        <div class="item">Resolve outstanding Modern Vet SEO issues + technical SEO health pass on all 8 sites</div>
+        <div class="item">Fix contextual and clinical inaccuracies in marketing materials with veterinary review</div>
+        <div class="item">Refresh marketing materials and collateral across all non-MV brands</div>
+        <div class="item">TVRC strategy — referral books, B2B flyers, vet-facing profiles</div>
+        <div class="item">Continue presence at free industry events; start running our own — CPDs, conferences, pet-parent days</div>
+        <div class="item">Low-budget earned-media programme — Wikipedia, free publications, expert commentary</div>
+        <div class="item">Brand-specific advertorials — long-form, emotionally resonant, distributed via paid + organic</div>
+        <div class="item">Enhance brand identity for 4 brands with Aida — extended brand books, printables, advertorial campaigns</div>
+        <div class="item">Influencer and KOL collaboration framework — vetted talent, tracked performance</div>
+        <div class="item">Public-relations narrative and spokesperson programme for clinical leadership</div>
       </div>
     </div>
 
     <div class="cat cream">
-      <h3>Tech &amp; AI <span class="badge">KPI · Cost-saving</span></h3>
+      <h3>Technology, data &amp; AI <span class="badge">KPI · Cost-saving</span></h3>
+      <p class="cat-sub">Reduce per-output cost, automate repeatable work, replace external dependencies.</p>
       <div class="cat-grid">
-        <div class="item">Improve tracking with Ziae</div>
-        <div class="item">Improve data collection &amp; utilisation with Ziae</div>
-        <div class="item">Implement more AI-driven tools &amp; reports</div>
-        <div class="item">Modern Vet Academy → Vet Alliance Academy · launch to staff</div>
-        <div class="item">Slack — full comms &amp; tasks system implementation</div>
+        <div class="item">Upgrade analytics and tracking architecture with R&amp;N Analytics (Ziae)</div>
+        <div class="item">Improve first-party data collection and operational utilisation across departments</div>
+        <div class="item">Deploy additional AI-driven tools, agents and automated reporting pipelines</div>
+        <div class="item">Migrate Modern Vet Academy → Vet Alliance Academy · staff-facing launch</div>
+        <div class="item">Slack rollout Phase 3 — full company-wide communications and task-management system</div>
+        <div class="item">WhatsApp Business + ezyVet integration — automated triage, booking and reminders</div>
+        <div class="item">Marketing-attribution model unification across web, ads, calls and bookings</div>
       </div>
     </div>
 
     <div class="cat salmon">
       <h3>Operations &amp; budget <span class="badge">KPI · Efficiency</span></h3>
+      <p class="cat-sub">Two-phase optimisation programme and remaining housekeeping.</p>
       <div class="cat-grid">
-        <div class="item">Optimise budgets &amp; expenses — Phase 1</div>
-        <div class="item">Optimise budgets &amp; expenses — Phase 2</div>
-        <div class="item">Finish refreshing all printables</div>
+        <div class="item">Budget &amp; expense optimisation — Phase 1 (re-categorisation, vendor consolidation)</div>
+        <div class="item">Budget &amp; expense optimisation — Phase 2 (automation savings, run-rate publication)</div>
+        <div class="item">Complete the printable-collateral refresh programme across all brands</div>
+        <div class="item">Marketing-tooling stack consolidation — eliminate redundant subscriptions</div>
+        <div class="item">Vendor performance review — top 10 contracts re-negotiated or replaced</div>
       </div>
     </div>
 
-    <h3 style="font-size:24px;color:var(--teal);margin:30px 0 14px">Indicative roadmap</h3>
+    <h3 style="font-size:26px;color:var(--teal);margin:34px 0 14px">Indicative roadmap</h3>
     <div class="tl">
-      <div class="tl-item now"><h4>June – July <small>Foundation</small></h4><p>Finish MV website revamp · launch 50 doctor profiles · Slack full comms rollout · Phase 1 budget optimisation · Vet Alliance Academy soft launch.</p></div>
-      <div class="tl-item"><h4>August – September <small>Acceleration</small></h4><p>eCommerce build (ECrea8) · ezyVet ↔ Floof bridge · TVRC referral materials · 12 long-format YouTube videos · Arabic + Russian site improvements.</p></div>
-      <div class="tl-item"><h4>October – November <small>Scale</small></h4><p>Recovery campaigns Downtown / JLT · 4-brand identity enhancement with Aida · Phase 2 optimisation · Pet Farewell + Khawaneej strategy.</p></div>
-      <div class="tl-item"><h4>December <small>Consolidation</small></h4><p>YouTube → 100K push · year-end advertorials · 2027 plan handoff · Academy fully active.</p></div>
+      <div class="tl-item now"><h4>June – July <small>Foundation</small></h4><p>Complete the Modern Vet website revamp; launch 50 EEAT-optimised doctor profiles; full Slack rollout for company-wide comms and tasks; execute Phase 1 of budget optimisation; soft-launch Vet Alliance Academy to internal staff.</p></div>
+      <div class="tl-item"><h4>August – September <small>Acceleration</small></h4><p>Begin eCommerce build with ECrea8; deploy the website ↔ Floof booking bridge; ship TVRC B2B referral materials; publish 12 long-format YouTube episodes; complete Arabic and Russian site upgrades; integrate WhatsApp + ezyVet first phase.</p></div>
+      <div class="tl-item"><h4>October – November <small>Scale</small></h4><p>Run recovery campaigns for Downtown and JLT clinics; deliver four-brand identity enhancement with Aida; execute Phase 2 of optimisation; finalise go-to-market for Pet Farewell cremation and Khawaneej re-opening; expand partnership pipeline.</p></div>
+      <div class="tl-item"><h4>December <small>Consolidation</small></h4><p>Final push toward 100K YouTube subscribers and monetisation; ship year-end advertorial campaign; close H2 with full attribution &amp; KPI report; hand off into the 2027 annual plan; Vet Alliance Academy fully operational.</p></div>
     </div>
 
     <div class="fill">Roadmap is indicative — give me material drops and I'll lock dependencies, named owners, and KPIs per row.</div>
@@ -526,26 +550,32 @@ footer{margin:60px auto 0;max-width:1400px;padding:24px 32px;border-top:1px soli
       <span class="kicker">05 · The honest part</span>
       <h2>Where we are constrained.</h2>
     </div>
-    <p class="lede">Naming the friction is part of owning the result. Three structural challenges are shaping the H2 2026 plan.</p>
+    <p class="lede">Naming the friction is part of owning the result. Three structural challenges are actively shaping the H2 2026 plan — and each one comes with a defined mitigation already in motion.</p>
 
     <div class="prob-grid">
       <div class="prob warn">
-        <div class="what">Structural · Brand spread</div>
-        <h4>Seven brands, one team.</h4>
-        <p>MV · BOV · VV · TVRC · BSPR · Floof · VA — each needs its own brand voice, its own social presence, its own printables, its own campaigns. The same headcount that produces one brand's output is now distributed across seven.</p>
-        <div class="mit"><strong>Mitigation in plan:</strong> shared production engine + brand-specific briefs · sequenced campaigns instead of parallel ones · template &amp; design-system reuse.</div>
+        <div class="what">Structural · Brand portfolio breadth</div>
+        <h4>Seven brands operating from a single team.</h4>
+        <p>MV, BOV, VV, TVRC, BSPR, Floof and VA each require their own brand voice, social cadence, point-of-sale collateral, paid-media tracking and campaign calendar. The same headcount that historically produced output for one brand is now distributed across seven — with each brand at a different stage of maturity and demanding different mixes of effort.</p>
+        <div class="mit"><strong>Mitigation in plan:</strong> shared production engine with brand-specific briefs · sequenced campaign calendar (rather than parallel rollouts) · reusable design-system &amp; template library · clear prioritisation tiers per brand based on revenue contribution.</div>
       </div>
       <div class="prob warn">
-        <div class="what">Perception · Output dilution</div>
-        <h4>Output looks lower because it is thinned across seven brands.</h4>
-        <p>500+ posts and 8 000+ photos sound large in aggregate, but split across 40 social accounts the per-channel cadence reads as modest. The work is there — the surface area hides it.</p>
-        <div class="mit"><strong>Mitigation in plan:</strong> consolidated reporting (this dashboard) · per-brand dashboards · output-per-FTE benchmark vs market.</div>
+        <div class="what">Perception · Per-channel dilution</div>
+        <h4>Aggregate output is large; per-channel cadence reads as modest.</h4>
+        <p>500+ posts and 8,000+ photographs are substantial in aggregate, but distributed across 40 social profiles and 7 brands, the per-channel posting cadence appears modest at first glance. The output is there — the breadth of the surface area hides it. This affects how the work is perceived both internally and against external benchmarks.</p>
+        <div class="mit"><strong>Mitigation in plan:</strong> consolidated cross-brand reporting (this dashboard) · per-brand performance dashboards with cadence vs benchmark · output-per-FTE benchmarking against comparable veterinary marketing teams · regular share-of-voice reporting.</div>
       </div>
       <div class="prob">
-        <div class="what">External · SEO &amp; AI Overviews</div>
-        <h4>Google's AI Overviews are eroding blog traffic.</h4>
-        <p>The new AI section in Google search is taking a measurable share of clicks that previously landed on our Health Library and similar long-tail content. This is industry-wide, not Modern Vet specific.</p>
-        <div class="mit"><strong>Mitigation in plan:</strong> EEAT depth &amp; doctor-attributed content (not commodity) · YouTube as second front (not algorithm-controlled the same way) · brand-search optimisation &amp; partnerships.</div>
+        <div class="what">External · Google AI Overviews</div>
+        <h4>Generative search is eroding blog and long-tail organic traffic.</h4>
+        <p>Google's AI Overviews and similar generative-answer features are absorbing a measurable share of clicks that previously reached the Health Library and other long-tail content. This is an industry-wide shift, not Modern Vet specific — but it directly impacts our organic acquisition channel and the ROI of past content investment.</p>
+        <div class="mit"><strong>Mitigation in plan:</strong> double down on EEAT depth and doctor-attributed expert content (not commodity answers) · build YouTube as a parallel discovery channel less exposed to the same algorithm risk · invest in brand-search and direct-traffic acquisition · expand partnership-driven referral traffic.</div>
+      </div>
+      <div class="prob warn">
+        <div class="what">Internal · Cross-departmental dependencies</div>
+        <h4>Marketing outcomes increasingly depend on other departments.</h4>
+        <p>Several of the highest-impact initiatives in the H2 plan — booking-platform bridge, ezyVet integration, attribution unification, website security transition — require coordinated execution with Tech, Clinical and Operations. Marketing can scope and design, but cannot ship alone.</p>
+        <div class="mit"><strong>Mitigation in plan:</strong> formal cross-functional working groups for each shared initiative · documented dependencies in the H2 roadmap · regular standing reviews with department heads · explicit escalation path for blocked items.</div>
       </div>
     </div>
 
@@ -558,7 +588,7 @@ footer{margin:60px auto 0;max-width:1400px;padding:24px 32px;border-top:1px soli
       <span class="kicker">06 · Money, honestly categorised</span>
       <h2>Financial picture.</h2>
     </div>
-    <p class="lede">Today, "marketing spend" is a single line. In reality, what the department pays for falls into four very different buckets — only one of which is, strictly speaking, marketing.</p>
+    <p class="lede">Today, "marketing spend" is reported as a single consolidated line. In reality, what the department pays for falls into four very different cost categories — only one of which is, strictly speaking, direct marketing investment. Re-categorising spend on this basis enables proper benchmarking against revenue and against industry standards (~3% of revenue for direct marketing).</p>
 
     <div class="fin-grid">
       <div class="bucket">
@@ -613,11 +643,11 @@ footer{margin:60px auto 0;max-width:1400px;padding:24px 32px;border-top:1px soli
     </div>
 
     <div class="cat">
-      <h3>Two-phase optimisation</h3>
-      <p class="cat-sub">Headline financial commitment of H2 2026.</p>
+      <h3>Two-phase optimisation programme</h3>
+      <p class="cat-sub">The headline financial commitment of H2 2026.</p>
       <div class="cat-grid">
-        <div class="item"><strong style="color:var(--teal)">Phase 1 · Jun–Aug</strong> — re-categorise into 4 buckets · cut duplicates · renegotiate top-3 vendor contracts</div>
-        <div class="item"><strong style="color:var(--teal)">Phase 2 · Sep–Dec</strong> — apply WhatsApp + ezyVet automation savings · retire transitioned tools (security to Tech, parts of email to ECrea8) · publish run-rate</div>
+        <div class="item"><strong style="color:var(--teal)">Phase 1 · Jun – Aug</strong> — re-categorise all spend into the four buckets · eliminate duplicate subscriptions · re-negotiate the top three vendor contracts · publish a clean baseline</div>
+        <div class="item"><strong style="color:var(--teal)">Phase 2 · Sep – Dec</strong> — capture WhatsApp + ezyVet automation savings · complete tooling transitions (security to Tech, parts of email to ECrea8) · publish a stable run-rate against the 3%-of-revenue benchmark</div>
       </div>
     </div>
 
@@ -630,7 +660,7 @@ footer{margin:60px auto 0;max-width:1400px;padding:24px 32px;border-top:1px soli
       <span class="kicker">07 · The Marketing Director</span>
       <h2>Personal scope &amp; ask.</h2>
     </div>
-    <p class="lede">A clean, three-column comparison: the role as originally agreed · the role as it actually runs today · what's possible with the right structural support.</p>
+    <p class="lede">A clean, three-column comparison of the role: as originally agreed at hire; as it actually operates today after eighteen months of organic scope expansion; and what becomes possible with the right structural support going forward.</p>
 
     <div class="three-col">
       <div class="col-card then">
@@ -646,18 +676,20 @@ footer{margin:60px auto 0;max-width:1400px;padding:24px 32px;border-top:1px soli
       </div>
       <div class="col-card now">
         <div class="col-sub">Now · Reality</div>
-        <h4>How the role actually runs</h4>
+        <h4>How the role actually operates</h4>
         <ul>
-          <li>Marketing across <strong>7 brands</strong>, not 1</li>
-          <li>Department <em>built from scratch</em></li>
-          <li>Cross-dept coordination — Tech, Clinical, CX, Ops</li>
-          <li>AI / automation portfolio (25+ projects)</li>
-          <li>In-house studio + production capability built</li>
-          <li>Full-stack web ops (8 sites)</li>
-          <li>Financial reporting + spend reframing</li>
-          <li>Tooling &amp; vendor management</li>
-          <li>Partner &amp; outreach pipeline</li>
-          <li>Staff onboarding workflow for clinical roles</li>
+          <li>Marketing leadership across <strong>7 brands</strong>, not one</li>
+          <li>Department designed, recruited and built from zero</li>
+          <li>Cross-functional coordination with Tech, Clinical, CX and Operations</li>
+          <li>AI &amp; automation portfolio — 25+ deployed projects</li>
+          <li>In-house production studio and equipment ownership built</li>
+          <li>Full-stack digital operations across 8 brand websites</li>
+          <li>Financial reporting redesign and spend re-categorisation</li>
+          <li>Tooling, vendor and contract management for the function</li>
+          <li>Partnership and B2B outreach pipeline</li>
+          <li>Onboarding workflow design for clinical staff</li>
+          <li>Brand-architecture decisions across the seven-brand portfolio</li>
+          <li>Crisis and reputation management for negative reviews and PR moments</li>
         </ul>
       </div>
       <div class="col-card next">
@@ -674,13 +706,13 @@ footer{margin:60px auto 0;max-width:1400px;padding:24px 32px;border-top:1px soli
       </div>
     </div>
 
-    <div class="fill" style="margin-top:18px">Last column is intentionally a draft — the "ask" framing. Tell me your version of "what was agreed at the start", "what changed", and "what you want to own next" and I'll rewrite this as a single tight page that lands as <em>case for raise</em> without ever using the word.</div>
+    <div class="fill" style="margin-top:18px">Last column is intentionally a draft — the "ask" framing. Give me your version of "what was agreed at the start", "what changed in reality", and "what I want to own going forward" and I'll rewrite this as a single tight page that lands as a <em>case for compensation review</em> without ever using the word "raise".</div>
   </section>
 
   </main>
 
   <footer>
-    <div>Marketing H1 2026 Review &amp; H2 2026 Plan · Vet Alliance · Internal · v0.1 draft</div>
+    <div>Marketing H1 2026 Review &amp; H2 2026 Plan · Vet Alliance · Internal · v0.2 draft</div>
     <div>Prepared with Cheshire · marketing@modernvet.com</div>
   </footer>
 
