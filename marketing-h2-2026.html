@@ -167,6 +167,59 @@ main{max-width:1400px;margin:0 auto;padding:30px 32px 80px}
 .fill{background:#fff8e1;border:1.5px dashed #d4a90c;border-radius:8px;padding:12px 16px;font-size:13px;color:#6e5400;margin:12px 0;font-family:'Inter','Montserrat',sans-serif;line-height:1.55}
 .fill::before{content:"✎ ";font-weight:700}
 
+/* FINANCE — V2 TABLES */
+.fin-headline{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:24px}
+.fin-headline .pill{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;border-top:4px solid var(--teal)}
+.fin-headline .pill.b2{border-top-color:var(--gold)}
+.fin-headline .pill.b3{border-top-color:#7da06d}
+.fin-headline .pill.b4{border-top-color:#a06d7d}
+.fin-headline .lbl{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:6px}
+.fin-headline .val{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--teal-deep);font-weight:700;line-height:1}
+.fin-headline .val .unit{font-size:14px;color:var(--muted-2);font-weight:500;margin-left:4px}
+.fin-headline .sub{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.5}
+
+.ftab{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 0 var(--line);font-size:13.5px;line-height:1.5;margin-bottom:8px}
+.ftab th{background:var(--teal);color:#fff;font-family:'Inter','Montserrat',sans-serif;font-weight:600;text-align:right;padding:12px 14px;font-size:11.5px;letter-spacing:1.3px;text-transform:uppercase;white-space:nowrap}
+.ftab th:first-child{text-align:left}
+.ftab td{padding:11px 14px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top;font-variant-numeric:tabular-nums}
+.ftab td:first-child{text-align:left;font-weight:500;color:var(--teal-deep)}
+.ftab td.note{font-size:12px;color:var(--muted);font-style:italic;text-align:left;padding-left:6px}
+.ftab tr.cat-row td{background:#f4f7f7;font-weight:700;color:var(--teal);text-transform:uppercase;font-size:11.5px;letter-spacing:1.3px;border-top:2px solid var(--teal-line)}
+.ftab tr.total-row td{background:#fafdfd;font-weight:700;color:var(--teal-deep);border-top:1.5px solid var(--teal-line)}
+.ftab tr.grand-row td{background:linear-gradient(90deg,var(--teal),#017684);color:#fff;font-weight:700;font-size:14px;letter-spacing:.4px}
+.ftab tr.grand-row td:first-child{color:#fff}
+.ftab tr:hover:not(.cat-row):not(.total-row):not(.grand-row) td{background:#fafcfc}
+.ftab .col-apr{background:#fff8e1}
+.ftab .col-p1{background:#e6f5ed}
+.ftab .col-p2{background:#e6f5ed;font-weight:600}
+.ftab th.col-apr{background:#d4a90c;color:#fff}
+.ftab th.col-p1, .ftab th.col-p2{background:#1a7547;color:#fff}
+.ftab .delta-down{color:#1a7547;font-weight:600}
+.ftab .delta-up{color:#a83918;font-weight:600}
+
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin:6px 0 18px;font-size:12px;color:var(--muted)}
+.legend .lg{display:flex;align-items:center;gap:6px}
+.legend .sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+
+.note-card{background:#fff8e1;border-left:4px solid #d4a90c;border-radius:8px;padding:14px 18px;margin:14px 0;font-size:13.5px;line-height:1.6;color:#5e4a05}
+.note-card strong{color:#856404;display:block;margin-bottom:4px;font-size:13px;letter-spacing:.3px;text-transform:uppercase;font-weight:700}
+
+.target-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:16px 0 22px}
+.target-strip .tg{background:#fff;border-radius:10px;padding:14px 16px;border:1px solid var(--line);border-left:4px solid var(--teal)}
+.target-strip .tg.future{border-left-color:var(--gold);background:#fffaf0}
+.target-strip .tg .tag{font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:4px}
+.target-strip .tg .ratio{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--teal);font-weight:700;line-height:1}
+.target-strip .tg .desc{font-size:12.5px;color:var(--muted);margin-top:4px;line-height:1.5}
+
+.emp-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+@media (max-width:780px){.emp-list{grid-template-columns:1fr}}
+.emp-list .row{background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:13px;display:flex;align-items:flex-start;gap:10px;border-left:3px solid var(--teal-line)}
+.emp-list .row.cut{border-left-color:#d4a90c}
+.emp-list .row.replace{border-left-color:#a06d7d}
+.emp-list .row.keep{border-left-color:#7da06d}
+.emp-list .row .who{font-weight:600;color:var(--teal-deep);min-width:120px}
+.emp-list .row .what{color:var(--muted);font-size:12.5px}
+
 /* FOOT */
 footer{margin:60px auto 0;max-width:1400px;padding:24px 32px;border-top:1px solid var(--line);font-family:'Montserrat',sans-serif;font-size:11px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
@@ -395,6 +448,7 @@ footer{margin:60px auto 0;max-width:1400px;padding:24px 32px;border-top:1px soli
         <div class="item">Editorial quality raised through structured veterinary review of all clinical content</div>
         <div class="item">New service packages designed, priced and launched</div>
         <div class="item">Vendor and tooling stack rationalised — duplicate platforms retired</div>
+        <div class="item">Lieu-days tracking system built and operated for the marketing team</div>
       </div>
     </div>
 
@@ -511,13 +565,16 @@ footer{margin:60px auto 0;max-width:1400px;padding:24px 32px;border-top:1px soli
       <h3>Technology, data &amp; AI <span class="badge">KPI · Cost-saving</span></h3>
       <p class="cat-sub">Reduce per-output cost, automate repeatable work, replace external dependencies.</p>
       <div class="cat-grid">
-        <div class="item">Upgrade analytics and tracking architecture with R&amp;N Analytics (Ziae)</div>
+        <div class="item">Upgrade analytics and tracking architecture in cooperation with R&amp;N Analytics (Ziae)</div>
         <div class="item">Improve first-party data collection and operational utilisation across departments</div>
         <div class="item">Deploy additional AI-driven tools, agents and automated reporting pipelines</div>
+        <div class="item">Build a portfolio of role-specific AI agents — one per function (content, design, paid-media, ops, analytics)</div>
+        <div class="item">Provide marketing support for the new Scheduling Application rollout — UX, comms, training collateral</div>
         <div class="item">Migrate Modern Vet Academy → Vet Alliance Academy · staff-facing launch</div>
         <div class="item">Slack rollout Phase 3 — full company-wide communications and task-management system</div>
         <div class="item">WhatsApp Business + ezyVet integration — automated triage, booking and reminders</div>
         <div class="item">Marketing-attribution model unification across web, ads, calls and bookings</div>
+        <div class="item">AI-driven creative production at scale — voiceover, image, video assistants in active use</div>
       </div>
     </div>
 
@@ -650,7 +707,25 @@ footer{margin:60px auto 0;max-width:1400px;padding:24px 32px;border-top:1px soli
         <div class="what">Internal · Cross-departmental dependencies</div>
         <h4>Marketing outcomes increasingly depend on other departments.</h4>
         <p>Several of the highest-impact initiatives in the H2 plan — booking-platform bridge, ezyVet integration, attribution unification, website security transition — require coordinated execution with Tech, Clinical and Operations. Marketing can scope and design, but cannot ship alone.</p>
-        <div class="mit"><strong>Mitigation in plan:</strong> formal cross-functional working groups for each shared initiative · documented dependencies in the H2 roadmap · regular standing reviews with department heads · explicit escalation path for blocked items.</div>
+        <div class="mit"><strong>Mitigation in plan:</strong> formal cross-functional working groups for each shared initiative · documented dependencies inside the H2 plan · regular standing reviews with department heads · explicit escalation path for blocked items.</div>
+      </div>
+      <div class="prob warn">
+        <div class="what">Capability · Onboarding &amp; training load</div>
+        <h4>New hires arrive without veterinary or niche knowledge.</h4>
+        <p>To control headcount cost, recent hires have been brought in at junior or generalist level rather than as veterinary-marketing specialists. The trade-off is significant onboarding and training load — both general marketing skill-building and Modern-Vet-specific clinical context. Output ramp-up is slower than it would be with senior, in-niche hires.</p>
+        <div class="mit"><strong>Mitigation in plan:</strong> Vet Alliance Academy as a structured internal training programme · documented playbooks per function · AI agents acting as on-demand subject-matter coaches · senior team members tasked with mentorship time.</div>
+      </div>
+      <div class="prob">
+        <div class="what">Operational · Cross-department project load</div>
+        <h4>Marketing carries meaningful project load for other departments.</h4>
+        <p>Not strictly a problem — it's how an integrated company should work — but worth naming for capacity planning. Marketing actively participates in projects led by Tech, Clinical, CX, Ops and HR, contributing creative, content, comms and design work that doesn't appear in marketing's own project list.</p>
+        <div class="mit"><strong>Mitigation in plan:</strong> visible accounting of cross-department contributions in the maintenance view · service-level guidelines for inbound requests · explicit prioritisation against marketing's own initiatives.</div>
+      </div>
+      <div class="prob warn">
+        <div class="what">Historic · Data tracking gaps</div>
+        <h4>End-to-end attribution has been incomplete.</h4>
+        <p>Marketing reporting and ROI analysis have historically been limited by gaps in the data-tracking stack — inconsistent UTM discipline, partial call-tracking coverage, fragmented booking attribution and incomplete cross-domain measurement. Decisions about where to invest paid-media budget have been made on imperfect information.</p>
+        <div class="mit"><strong>Mitigation in plan:</strong> the tracking-architecture upgrade with R&amp;N Analytics is the headline H2 dependency · expected to provide reliable end-to-end attribution by mid-H2 · paid-media budget recommendations from Q3 onward will reflect validated data, not estimates.</div>
       </div>
     </div>
 
@@ -663,70 +738,195 @@ footer{margin:60px auto 0;max-width:1400px;padding:24px 32px;border-top:1px soli
       <span class="kicker">07 · Money, honestly categorised</span>
       <h2>Financial picture.</h2>
     </div>
-    <p class="lede">Today, "marketing spend" is reported as a single consolidated line. In reality, what the department pays for falls into four very different cost categories — only one of which is, strictly speaking, direct marketing investment. Re-categorising spend on this basis enables proper benchmarking against revenue and against industry standards (~3% of revenue for direct marketing).</p>
+    <p class="lede">Marketing spend is engineered to a clear target ratio: <strong>~3.5% of revenue at AED 7M monthly revenue</strong>, dropping to <strong>3.0% once revenue stabilises at AED 8M</strong>. Inside that envelope, a dedicated reserve is preserved for new projects, opportunistic events and capability investment. The plan below shows the baseline, the first optimisation step (April), and the two phased reductions for H2.</p>
 
-    <div class="fin-grid">
-      <div class="bucket">
-        <div class="blbl">Bucket 01</div>
-        <h4>Direct marketing</h4>
-        <div class="amt"><span class="placeholder">AED —</span></div>
-        <div class="pct">% of total · <em>tbc</em></div>
-        <ul class="lst">
-          <li>Paid ads — Google &amp; social</li>
-          <li>Influencer / advertorials</li>
-          <li>Event activation costs</li>
-          <li>SEO / external SEO contracts</li>
-          <li>Email / SMS sending platforms</li>
-        </ul>
+    <div class="fin-headline">
+      <div class="pill">
+        <div class="lbl">Baseline avg · Dec–Mar</div>
+        <div class="val">264,102<span class="unit"> AED / mo</span></div>
+        <div class="sub">Average of four months prior to optimisation</div>
       </div>
-      <div class="bucket b2">
-        <div class="blbl">Bucket 02</div>
-        <h4>Shared company</h4>
-        <div class="amt"><span class="placeholder">AED —</span></div>
-        <div class="pct">% of total · <em>tbc</em></div>
-        <ul class="lst">
-          <li>Branding for all 7 brands</li>
-          <li>Premises printables &amp; signage</li>
-          <li>Internal comms surfaces (Slack ops, Academy)</li>
-          <li>Cross-dept design support</li>
-        </ul>
+      <div class="pill b2">
+        <div class="lbl">Step 1 · April (executed)</div>
+        <div class="val">233,069<span class="unit"> AED</span></div>
+        <div class="sub">First wave of cuts — −6.4% vs Dec on Modern Vet ads alone</div>
       </div>
-      <div class="bucket b3">
-        <div class="blbl">Bucket 03</div>
-        <h4>Operational</h4>
-        <div class="amt"><span class="placeholder">AED —</span></div>
-        <div class="pct">% of total · <em>tbc</em></div>
-        <ul class="lst">
-          <li>Studio &amp; production kit</li>
-          <li>Equipment maintenance</li>
-          <li>External databases &amp; tools subscriptions</li>
-          <li>Stock photography licences <em>(now retired)</em></li>
-        </ul>
+      <div class="pill b3">
+        <div class="lbl">Phase 1 · from June</div>
+        <div class="val">245,000<span class="unit"> AED</span></div>
+        <div class="sub">3.5% of AED 7M revenue · incl. 11,721 reserve</div>
       </div>
-      <div class="bucket b4">
-        <div class="blbl">Bucket 04</div>
-        <h4>Tech &amp; AI</h4>
-        <div class="amt"><span class="placeholder">AED —</span></div>
-        <div class="pct">% of total · <em>tbc</em></div>
-        <ul class="lst">
-          <li>AI server &amp; LLM credits</li>
-          <li>Analytics, GTM, tracking stack</li>
-          <li>Booking-system tooling (BSPR, Floof bridge)</li>
-          <li>Reporting automations</li>
-        </ul>
+      <div class="pill b4">
+        <div class="lbl">Phase 2 · from September</div>
+        <div class="val">240,000<span class="unit"> AED</span></div>
+        <div class="sub">3.0% of AED 8M revenue · incl. 30,716 reserve</div>
       </div>
     </div>
+
+    <div class="target-strip">
+      <div class="tg"><div class="tag">Current ratio target</div><div class="ratio">3.5%</div><div class="desc">at AED 7M monthly revenue — active envelope</div></div>
+      <div class="tg future"><div class="tag">Future ratio target</div><div class="ratio">3.0%</div><div class="desc">when revenue stabilises at AED 8M</div></div>
+      <div class="tg"><div class="tag">P1 reserve preserved</div><div class="ratio">~AED 12K</div><div class="desc">for events, equipment, new projects</div></div>
+      <div class="tg"><div class="tag">P2 reserve preserved</div><div class="ratio">~AED 31K</div><div class="desc">larger reserve once Phase 2 savings land</div></div>
+    </div>
+
+    <div class="note-card">
+      <strong>⚠ Important caveat · Paid Advertising</strong>
+      Paid-ads spend (Google Ads, paid social) shown for Phase 1 and Phase 2 is a planning baseline, not a fixed cap. Once the new attribution and tracking system being built with R&amp;N Analytics is live, budget will be re-allocated against validated performance data — channels and brands with proven ROAS will receive more, under-performing lines will be cut. Total paid-ads investment may move <strong>up or down</strong> from the figures below depending on what the data reveals. The total marketing envelope (% of revenue) remains the constraint.
+    </div>
+
+    <h3 style="font-size:24px;color:var(--teal);margin:30px 0 12px">Spend by category · historical &amp; planned</h3>
+    <p class="cat-sub" style="font-size:13px;color:var(--muted);margin-bottom:14px">All figures in AED. Dec–Mar columns are actuals from the budget tracker. April is the executed first-step reduction. Phase 1 / Phase 2 are the planned envelopes.</p>
+
+    <div class="legend">
+      <div class="lg"><span class="sw" style="background:#fff8e1;border:1px solid #d4a90c"></span> April · first step</div>
+      <div class="lg"><span class="sw" style="background:#e6f5ed;border:1px solid #1a7547"></span> Phase 1 / Phase 2 · planned</div>
+    </div>
+
+    <div style="overflow-x:auto;margin-bottom:20px">
+    <table class="ftab">
+      <thead>
+        <tr>
+          <th style="min-width:240px">Category / line</th>
+          <th>Dec 2025</th>
+          <th>Jan 2026</th>
+          <th>Feb 2026</th>
+          <th>Mar 2026</th>
+          <th>Avg Dec–Mar</th>
+          <th class="col-apr">Apr 2026</th>
+          <th class="col-p1">Phase 1 · Jun</th>
+          <th class="col-p2">Phase 2 · Sep</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- ADWORDS -->
+        <tr class="cat-row"><td colspan="9">Paid advertising · Google Ads</td></tr>
+        <tr><td>Modern Vet</td><td>80,360</td><td>91,037</td><td>99,529</td><td>103,015</td><td>93,485</td><td class="col-apr">57,248</td><td class="col-p1">70,000</td><td class="col-p2">65,000</td></tr>
+        <tr><td>Vienna Vet</td><td>3,189</td><td>3,833</td><td>6,436</td><td>8,022</td><td>5,370</td><td class="col-apr">7,855</td><td class="col-p1">7,000</td><td class="col-p2">7,000</td></tr>
+        <tr><td>Blue Sky Pet Relocation</td><td>4,098</td><td>3,900</td><td>2,537</td><td>5,472</td><td>4,002</td><td class="col-apr">5,358</td><td class="col-p1">3,000</td><td class="col-p2">3,000</td></tr>
+        <tr><td>Blue Oasis Vet</td><td>10,363</td><td>13,534</td><td>13,736</td><td>17,004</td><td>13,659</td><td class="col-apr">11,443</td><td class="col-p1">10,000</td><td class="col-p2">10,000</td></tr>
+        <tr><td>Floof</td><td>3,913</td><td>150</td><td>145</td><td>5</td><td>1,053</td><td class="col-apr">13</td><td class="col-p1">0</td><td class="col-p2">0</td></tr>
+        <tr class="total-row"><td>Subtotal · Google Ads</td><td>101,924</td><td>112,454</td><td>122,383</td><td>133,518</td><td>117,570</td><td class="col-apr">81,917</td><td class="col-p1">90,000</td><td class="col-p2">85,000</td></tr>
+
+        <!-- PAID SOCIAL -->
+        <tr class="cat-row"><td colspan="9">Paid advertising · Social media</td></tr>
+        <tr class="total-row"><td>Meta Ads (all brands) + verification</td><td>13,989</td><td>12,302</td><td>8,513</td><td>15,051</td><td>12,464</td><td class="col-apr">13,325</td><td class="col-p1">14,000</td><td class="col-p2">14,000</td></tr>
+
+        <!-- SOFTWARE / TOOLS (consolidated) -->
+        <tr class="cat-row"><td colspan="9">Software, tools &amp; subscriptions</td></tr>
+        <tr class="total-row"><td>All marketing tools &amp; SaaS · consolidated <span style="color:var(--muted);font-weight:400;font-size:12px">(Adobe, Canva, Ahrefs, SEMRush, MailChimp, MidJourney, Stripo, Jotform, etc.)</span></td><td>5,383</td><td>5,465</td><td>5,223</td><td>7,081</td><td>5,788</td><td class="col-apr">5,650</td><td class="col-p1">3,724</td><td class="col-p2">3,724</td></tr>
+
+        <!-- AI EXPENSES (consolidated) -->
+        <tr class="cat-row"><td colspan="9">AI &amp; automation</td></tr>
+        <tr class="total-row"><td>All AI services &amp; agents · consolidated <span style="color:var(--muted);font-weight:400;font-size:12px">(Anthropic, ElevenLabs, Higgsfield, Brave, GPT bots)</span></td><td>240</td><td>240</td><td>702</td><td>1,777</td><td>740</td><td class="col-apr">3,606</td><td class="col-p1">5,110</td><td class="col-p2">7,110</td></tr>
+
+        <!-- EMPLOYEES -->
+        <tr class="cat-row"><td colspan="9">Employees &amp; freelancers</td></tr>
+        <tr><td>Pavel <span style="color:var(--muted);font-weight:400">· PPC Specialist</span></td><td>7,800</td><td>5,500</td><td>8,100</td><td>7,500</td><td>7,225</td><td class="col-apr">5,500</td><td class="col-p1">5,500</td><td class="col-p2">1,500</td></tr>
+        <tr><td>Iryna <span style="color:var(--muted);font-weight:400">· Developer</span></td><td>2,000</td><td>2,000</td><td>2,000</td><td>2,000</td><td>2,000</td><td class="col-apr">2,000</td><td class="col-p1">2,000</td><td class="col-p2">0</td></tr>
+        <tr><td>Alex <span style="color:var(--muted);font-weight:400">· SEO Specialist</span></td><td>5,500</td><td>5,500</td><td>5,500</td><td>5,500</td><td>5,500</td><td class="col-apr">5,500</td><td class="col-p1">5,500</td><td class="col-p2">5,500</td></tr>
+        <tr><td>Eugene <span style="color:var(--muted);font-weight:400">· Junior Marketing Manager</span></td><td>3,000</td><td>3,250</td><td>3,300</td><td>3,000</td><td>3,138</td><td class="col-apr">3,000</td><td class="col-p1">3,000</td><td class="col-p2">3,300</td></tr>
+        <tr><td>Liliya <span style="color:var(--muted);font-weight:400">· Russian Translator / Content Mgr</span></td><td>2,000</td><td>2,000</td><td>2,000</td><td>2,000</td><td>2,000</td><td class="col-apr">2,000</td><td class="col-p1">2,000</td><td class="col-p2">2,000</td></tr>
+        <tr><td>Muhammad <span style="color:var(--muted);font-weight:400">· Content Writer / Arabic Translator</span></td><td>4,094</td><td>0</td><td>8,188</td><td>4,094</td><td>4,094</td><td class="col-apr">4,094</td><td class="col-p1">4,094</td><td class="col-p2">0</td></tr>
+        <tr><td>SEO Sherpa <span style="color:var(--muted);font-weight:400">· SEO Agency for Vienna Vet</span></td><td>19,860</td><td>19,863</td><td>19,863</td><td>19,866</td><td>19,863</td><td class="col-apr">19,865</td><td class="col-p1">6,600</td><td class="col-p2">0</td></tr>
+        <tr><td>Kate <span style="color:var(--muted);font-weight:400">· Designer</span></td><td>5,559</td><td>5,669</td><td>2,852</td><td>8,309</td><td>5,597</td><td class="col-apr">5,780</td><td class="col-p1">5,600</td><td class="col-p2">2,500</td></tr>
+        <tr><td>Andrew <span style="color:var(--muted);font-weight:400">· Marketing Director</span></td><td>23,000</td><td>23,000</td><td>23,000</td><td>23,000</td><td>23,000</td><td class="col-apr">23,000</td><td class="col-p1">30,000</td><td class="col-p2">30,000</td></tr>
+        <tr><td>Yohann <span style="color:var(--muted);font-weight:400">· Social Media &amp; Events Manager</span></td><td>8,000</td><td>8,000</td><td>8,000</td><td>8,000</td><td>8,000</td><td class="col-apr">8,000</td><td class="col-p1">8,000</td><td class="col-p2">9,000</td></tr>
+        <tr><td>Kyrylo <span style="color:var(--muted);font-weight:400">· Content Producer</span></td><td>10,000</td><td>10,000</td><td>10,000</td><td>10,000</td><td>10,000</td><td class="col-apr">10,000</td><td class="col-p1">10,000</td><td class="col-p2">12,000</td></tr>
+        <tr><td>Vrinda <span style="color:var(--muted);font-weight:400">· Marketing Operations Manager</span></td><td>0</td><td>0</td><td>4,000</td><td>4,000</td><td>2,000</td><td class="col-apr">4,000</td><td class="col-p1">4,000</td><td class="col-p2">4,500</td></tr>
+        <tr class="total-row"><td>Subtotal · Employees &amp; freelancers</td><td>90,812</td><td>84,781</td><td>96,803</td><td>97,270</td><td>92,417</td><td class="col-apr">92,740</td><td class="col-p1">86,294</td><td class="col-p2">70,300</td></tr>
+
+        <!-- MEDIA / PRINTABLES / ONE-TIME -->
+        <tr class="cat-row"><td colspan="9">Media, printables, cooperation &amp; one-time</td></tr>
+        <tr><td>SMS package</td><td>3,500</td><td>3,500</td><td>3,500</td><td>3,500</td><td>3,500</td><td class="col-apr">3,500</td><td class="col-p1">3,500</td><td class="col-p2">3,500</td></tr>
+        <tr><td>Locobuzz</td><td>1,928</td><td>0</td><td>27,825</td><td>0</td><td>7,438</td><td class="col-apr">0</td><td class="col-p1">0</td><td class="col-p2">0</td></tr>
+        <tr><td>Printables</td><td>4,725</td><td>777</td><td>2,247</td><td>1,004</td><td>2,188</td><td class="col-apr">4,000</td><td class="col-p1">5,000</td><td class="col-p2">3,000</td></tr>
+        <tr><td>Links · all websites</td><td>7,000</td><td>7,000</td><td>7,000</td><td>7,000</td><td>7,000</td><td class="col-apr">7,000</td><td class="col-p1">7,000</td><td class="col-p2">6,000</td></tr>
+        <tr><td>Equipment</td><td>783</td><td>543</td><td>1,036</td><td>386</td><td>687</td><td class="col-apr">2,858</td><td class="col-p1">4,000</td><td class="col-p2">2,000</td></tr>
+        <tr><td>Other (voiceover, databases, Azizi flyers, parking, AI course, etc.)</td><td>523</td><td>0</td><td>0</td><td>720</td><td>311</td><td class="col-apr">3,974</td><td class="col-p1">150</td><td class="col-p2">150</td></tr>
+        <tr class="total-row"><td>Subtotal · Media, printables &amp; one-time</td><td>18,458</td><td>11,820</td><td>41,608</td><td>12,609</td><td>21,124</td><td class="col-apr">21,332</td><td class="col-p1">19,650</td><td class="col-p2">14,650</td></tr>
+
+        <!-- SHARED -->
+        <tr class="cat-row"><td colspan="9">Shared with other departments</td></tr>
+        <tr><td>Megan <span style="color:var(--muted);font-weight:400">· SM Manager (shared with Clinical)</span></td><td>6,500</td><td>6,500</td><td>6,500</td><td>6,500</td><td>6,500</td><td class="col-apr">6,500</td><td class="col-p1">6,500</td><td class="col-p2">6,500</td></tr>
+        <tr><td>Rimma <span style="color:var(--muted);font-weight:400">· SM Manager (shared with Clinical)</span></td><td>2,000</td><td>2,000</td><td>2,000</td><td>2,000</td><td>2,000</td><td class="col-apr">0</td><td class="col-p1">0</td><td class="col-p2">0</td></tr>
+        <tr><td>Tech specialists ×2 <span style="color:var(--muted);font-weight:400">· shared with Tech dept</span></td><td>0</td><td>0</td><td>5,000</td><td>5,000</td><td>2,500</td><td class="col-apr">5,000</td><td class="col-p1">5,000</td><td class="col-p2">5,000</td></tr>
+        <tr><td>Noorudheen <span style="color:var(--muted);font-weight:400">· UI/UX (shared with Tech)</span></td><td>3,000</td><td>3,000</td><td>3,000</td><td>3,000</td><td>3,000</td><td class="col-apr">3,000</td><td class="col-p1">3,000</td><td class="col-p2">3,000</td></tr>
+        <tr class="total-row"><td>Subtotal · Shared</td><td>11,500</td><td>11,500</td><td>16,500</td><td>16,500</td><td>14,000</td><td class="col-apr">14,500</td><td class="col-p1">14,500</td><td class="col-p2">14,500</td></tr>
+
+        <!-- RESERVE -->
+        <tr class="cat-row"><td colspan="9">Reserved budget</td></tr>
+        <tr><td>Reserve · equipment, new projects, extra AI, software, campaigns</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="col-apr">—</td><td class="col-p1">11,721</td><td class="col-p2">30,716</td></tr>
+
+        <!-- GRAND TOTAL -->
+        <tr class="grand-row"><td>TOTAL marketing envelope</td><td>242,306</td><td>238,562</td><td>291,732</td><td>283,806</td><td>264,102</td><td class="col-apr">233,069</td><td class="col-p1">245,000</td><td class="col-p2">240,000</td></tr>
+        <tr class="total-row"><td>% of revenue · implied</td><td colspan="5" style="color:var(--muted);font-style:italic">historical baseline</td><td class="col-apr">—</td><td class="col-p1">3.5% of 7M</td><td class="col-p2">3.0% of 8M</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3 style="font-size:24px;color:var(--teal);margin:30px 0 12px">Two-phase optimisation programme</h3>
+    <p class="cat-sub" style="font-size:13px;color:var(--muted);margin-bottom:14px">Three sequenced steps already designed. Step zero — the April first-pass cut — is in the books. Phases 1 and 2 follow.</p>
 
     <div class="cat">
-      <h3>Two-phase optimisation programme</h3>
-      <p class="cat-sub">The headline financial commitment of H2 2026.</p>
+      <h3 style="font-size:18px">Step 0 · April 2026 — first-pass reduction <span class="badge">Executed</span></h3>
+      <p class="cat-sub">A single-month early cut to validate the optimisation logic before locking the H2 plan.</p>
       <div class="cat-grid">
-        <div class="item"><strong style="color:var(--teal)">Phase 1 · Jun – Aug</strong> — re-categorise all spend into the four buckets · eliminate duplicate subscriptions · re-negotiate the top three vendor contracts · publish a clean baseline</div>
-        <div class="item"><strong style="color:var(--teal)">Phase 2 · Sep – Dec</strong> — capture WhatsApp + ezyVet automation savings · complete tooling transitions (security to Tech, parts of email to ECrea8) · publish a stable run-rate against the 3%-of-revenue benchmark</div>
+        <div class="item">Modern Vet Google Ads cut from AED 103K (Mar) → 57K (−44%)</div>
+        <div class="item">Total marketing envelope down from 264K avg → 233K (−12%)</div>
+        <div class="item">Bookings impact monitored — used to validate Phase 1 paid-ads baseline</div>
+        <div class="item">Result: cleaner read on which paid spend was actually working</div>
       </div>
     </div>
 
-    <div class="fill">Drop the last 6 months of expense lines (CSV / sheet / list — whatever you have) and I'll fill all four buckets with real numbers + percentages, plus the % of overall revenue (3% target).</div>
+    <div class="cat gold">
+      <h3 style="font-size:18px">Phase 1 · from June 2026 — baseline + reserve <span class="badge">AED 245K / mo</span></h3>
+      <p class="cat-sub">3.5% of AED 7M revenue. Includes ~12K reserve for events, equipment and new projects.</p>
+      <div class="cat-grid">
+        <div class="item">Re-categorise all spend into the four operational buckets</div>
+        <div class="item">Eliminate duplicate SaaS and consolidate the marketing tools stack</div>
+        <div class="item">Re-negotiate top vendor contracts (paid social, Ahrefs, SEMRush, agencies)</div>
+        <div class="item">SEO Sherpa contract significantly reduced as in-house SEO matures</div>
+        <div class="item">Reserved budget activated for opportunistic events and new projects</div>
+      </div>
+    </div>
+
+    <div class="cat cream">
+      <h3 style="font-size:18px">Phase 2 · from September 2026 — lower run-rate + larger reserve <span class="badge">AED 240K / mo</span></h3>
+      <p class="cat-sub">3.0% of AED 8M stabilised revenue. Reserve grows to ~31K as automation savings land.</p>
+      <div class="cat-grid">
+        <div class="item">Capture savings from WhatsApp + ezyVet automation programme</div>
+        <div class="item">Complete tooling transitions (security to Tech, parts of email/CRM to ECrea8)</div>
+        <div class="item">Pavel → project-based engagement, monitoring an AI-driven paid-ads control system</div>
+        <div class="item">SEO Sherpa contract retired — fully in-house</div>
+        <div class="item">Iryna (developer) role transitioned out as Tech department absorbs web dev</div>
+        <div class="item">Muhammad (Arabic content) backlog cleared, AI assistants take ongoing load</div>
+        <div class="item">Kate (designer) moved to project-based engagement</div>
+        <div class="item">Run-rate published against the 3%-of-revenue benchmark</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:24px;color:var(--teal);margin:30px 0 12px">Team transitions in the optimisation</h3>
+    <p class="cat-sub" style="font-size:13px;color:var(--muted);margin-bottom:14px">How the team structure evolves alongside the budget reduction — framed at the function level, not as headcount cuts.</p>
+    <div class="emp-list">
+      <div class="row cut"><div><div class="who">Pavel · PPC</div><div class="what">Move to project-based engagement to monitor the AI-driven paid-ads control system being built (P2)</div></div></div>
+      <div class="row replace"><div><div class="who">Iryna · Developer</div><div class="what">Function transitioned to Tech department; role retired in P2</div></div></div>
+      <div class="row keep"><div><div class="who">Liliya · Translator</div><div class="what">Retained — critical source of database content and similar internal services</div></div></div>
+      <div class="row replace"><div><div class="who">Muhammad · Arabic content</div><div class="what">Backlog cleared by P2; ongoing Arabic load handled by AI assistants</div></div></div>
+      <div class="row replace"><div><div class="who">SEO Sherpa</div><div class="what">External agency contract phased out as Vienna Vet SEO comes fully in-house</div></div></div>
+      <div class="row cut"><div><div class="who">Kate · Designer</div><div class="what">Move to project-based engagement to align cost with output volatility</div></div></div>
+      <div class="row keep"><div><div class="who">Eugene · Marketing Mgr</div><div class="what">Retained, modest progression in P2</div></div></div>
+      <div class="row keep"><div><div class="who">Yohann · SM &amp; Events</div><div class="what">Retained, progression in P2</div></div></div>
+      <div class="row keep"><div><div class="who">Kyrylo · Content Producer</div><div class="what">Retained, progression in P2</div></div></div>
+      <div class="row keep"><div><div class="who">Vrinda · Marketing Ops</div><div class="what">Retained, progression in P2</div></div></div>
+      <div class="row keep"><div><div class="who">Alex · SEO</div><div class="what">Retained at current level</div></div></div>
+      <div class="row keep"><div><div class="who">Andrew · Marketing Director</div><div class="what">Compensation review aligned with the scope expansion documented in the Personal tab</div></div></div>
+    </div>
+
+    <div class="note-card" style="margin-top:18px">
+      <strong>⚠ Methodology notes</strong>
+      Dec–Mar averages are a four-month arithmetic mean from the live budget tracker. April figures are actuals from the executed first-pass reduction. Phase 1 / Phase 2 are planned envelopes; individual line items inside the paid-advertising buckets will be re-allocated as the new attribution stack delivers data. Non-marketing expenses (Cloudflare, Google Workspace, hosting, telephony, domain registrations etc.) sit outside this envelope and are reported separately at ~AED 12–17K/mo.
+    </div>
   </section>
 
   <!-- =========== PERSONAL =========== -->
