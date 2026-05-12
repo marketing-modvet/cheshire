@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>book.floof.ae — Purchase Tracking Tech Task</title>
+<style>
+  :root {
+    --navy: #0f2942;
+    --teal: #015962;
+    --accent: #00a8b5;
+    --light: #f4f8fa;
+    --border: #d0dde6;
+    --green: #1a8754;
+    --green-bg: #d1f0e2;
+    --yellow: #856404;
+    --yellow-bg: #fff3cd;
+    --red: #842029;
+    --red-bg: #f8d7da;
+    --blue: #0d6efd;
+    --blue-bg: #cfe2ff;
+    --text: #1a2b3c;
+    --muted: #5a7284;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #eef3f7;
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .page-header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--teal) 100%);
+    color: white;
+    padding: 48px 60px 40px;
+  }
+  .page-header .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .page-header h1 {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+  }
+  .page-header p {
+    font-size: 16px;
+    opacity: 0.8;
+    max-width: 680px;
+  }
+  .meta-row {
+    display: flex;
+    gap: 28px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    font-size: 13px;
+    opacity: 0.75;
+  }
+  .meta-item strong {
+    opacity: 1;
+    color: white;
+    display: block;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  .toc {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin-bottom: 36px;
+  }
+  .toc h2 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .toc ol {
+    padding-left: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 32px;
+  }
+  .toc a {
+    color: var(--teal);
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .toc a:hover { text-decoration: underline; }
+
+  section {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+
+  .section-header {
+    padding: 20px 28px 18px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .section-num {
+    background: var(--navy);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .section-num.green { background: var(--green); }
+  .section-num.teal { background: var(--teal); }
+  .section-num.accent { background: var(--accent); }
+
+  .section-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .section-header .brand-tag {
+    margin-left: auto;
+    background: var(--light);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.4px;
+  }
+
+  .section-body { padding: 24px 28px; }
+
+  h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 22px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--light);
+  }
+  h3:first-child { margin-top: 0; }
+
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  ul, ol {
+    padding-left: 22px;
+    margin-bottom: 14px;
+  }
+  li { margin-bottom: 5px; }
+
+  code {
+    background: #f0f4f8;
+    border: 1px solid #dce4ed;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: 'Consolas', 'Cascadia Code', monospace;
+    font-size: 13px;
+    color: #c7254e;
+  }
+
+  pre {
+    background: #1e2d3d;
+    color: #c9d9e8;
+    border-radius: 8px;
+    padding: 18px 22px;
+    font-family: 'Consolas', 'Cascadia Code', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 14px 0;
+  }
+  pre .comment { color: #6a8fa8; }
+  pre .key { color: #79c0ff; }
+  pre .str { color: #a5d6a7; }
+  pre .num { color: #ffab70; }
+  pre .kw { color: #ff7b72; }
+
+  .callout {
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .callout-body { font-size: 14px; }
+  .callout-body strong { display: block; margin-bottom: 3px; }
+  .callout.warning { background: var(--yellow-bg); border-left: 3px solid #ffc107; color: var(--yellow); }
+  .callout.info { background: var(--blue-bg); border-left: 3px solid var(--blue); color: #084298; }
+  .callout.success { background: var(--green-bg); border-left: 3px solid var(--green); color: var(--green); }
+  .callout.danger { background: var(--red-bg); border-left: 3px solid #dc3545; color: var(--red); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 14px;
+  }
+  th {
+    background: var(--navy);
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: var(--light); }
+
+  .pill {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .pill.green { background: var(--green-bg); color: var(--green); }
+  .pill.blue { background: var(--blue-bg); color: #084298; }
+  .pill.yellow { background: var(--yellow-bg); color: var(--yellow); }
+  .pill.grey { background: #e9ecef; color: #495057; }
+
+  .checklist { list-style: none; padding: 0; }
+  .checklist li {
+    padding: 7px 0 7px 30px;
+    position: relative;
+    border-bottom: 1px solid var(--light);
+    font-size: 14px;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li::before {
+    content: '☐';
+    position: absolute;
+    left: 0;
+    color: var(--muted);
+    font-size: 16px;
+  }
+
+  .arch-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .arch-card {
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    position: relative;
+  }
+  .arch-card.active { border-color: var(--teal); }
+  .arch-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .arch-card .path {
+    font-family: monospace;
+    font-size: 12px;
+    background: var(--light);
+    padding: 3px 8px;
+    border-radius: 4px;
+    color: var(--teal);
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .arch-card ul {
+    padding-left: 16px;
+    margin: 0;
+  }
+  .arch-card li { font-size: 12px; margin-bottom: 3px; color: var(--muted); }
+  .arch-card li strong { color: var(--text); }
+
+  .step {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    align-items: flex-start;
+  }
+  .step-num {
+    background: var(--accent);
+    color: white;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-body { flex: 1; }
+  .step-body strong { display: block; margin-bottom: 4px; font-size: 15px; }
+
+  .footer {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    padding: 20px;
+    border-top: 1px solid var(--border);
+    margin-top: 16px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="badge">Technical Implementation Task</div>
+  <h1>book.floof.ae — Multi-Brand Purchase Tracking</h1>
+  <p>GTM integration for Modern Vet, Blue Oasis Vet, and Vienna Vet on the shared booking platform. Each brand requires path-scoped GTM loading and a standardised dataLayer purchase event.</p>
+  <div class="meta-row">
+    <div class="meta-item"><strong>Prepared by</strong>Marketing Team</div>
+    <div class="meta-item"><strong>Date</strong>12 May 2026</div>
+    <div class="meta-item"><strong>Platform</strong>book.floof.ae (TELR)</div>
+    <div class="meta-item"><strong>Priority</strong>High</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <nav class="toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#overview">Overview &amp; Architecture</a></li>
+      <li><a href="#datalayer">dataLayer Specification</a></li>
+      <li><a href="#modernvet">Modern Vet — Path Scoping</a></li>
+      <li><a href="#blueoasis">Blue Oasis Vet — Full Setup</a></li>
+      <li><a href="#viennavet">Vienna Vet — Full Setup</a></li>
+      <li><a href="#testing">Testing &amp; Verification</a></li>
+      <li><a href="#gads">Google Ads Conversion Import</a></li>
+    </ol>
+  </nav>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <h2>Overview &amp; Architecture</h2>
+    </div>
+    <div class="section-body">
+      <p>
+        The booking platform at <strong>book.floof.ae</strong> serves three brands on separate URL paths.
+        Each brand has its own GTM container, GA4 property, and Google Ads account. The goal is to load
+        the correct brand container on its path only, and fire a <code>purchase</code> dataLayer event
+        on successful TELR payment — enabling conversion tracking in GA4 and Google Ads for all three brands.
+      </p>
+
+      <div class="arch-grid">
+        <div class="arch-card active">
+          <h4>Modern Vet</h4>
+          <span class="path">/modernvet</span>
+          <ul>
+            <li><strong>GTM:</strong> GTM-KRHZL582</li>
+            <li><strong>GA4:</strong> G-JE3Q11XD2D</li>
+            <li><strong>Ads:</strong> AW-785228984</li>
+            <li><strong>Status:</strong> Move to path-scope</li>
+          </ul>
+        </div>
+        <div class="arch-card active">
+          <h4>Blue Oasis Vet</h4>
+          <span class="path">/blueoasis</span>
+          <ul>
+            <li><strong>GTM:</strong> GTM-T34SNLNX</li>
+            <li><strong>GA4:</strong> G-NKZDMGH906</li>
+            <li><strong>Ads:</strong> AW-11359212559</li>
+            <li><strong>Status:</strong> New — add snippet</li>
+          </ul>
+        </div>
+        <div class="arch-card active">
+          <h4>Vienna Vet</h4>
+          <span class="path">/viennavet</span>
+          <ul>
+            <li><strong>GTM:</strong> GTM-54LH5J37</li>
+            <li><strong>GA4:</strong> G-G7TN8L4GV5</li>
+            <li><strong>Ads:</strong> AW-16713819669</li>
+            <li><strong>Status:</strong> New — add snippet</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body">
+          <strong>Cross-brand contamination risk</strong>
+          If GTM-KRHZL582 (Modern Vet) currently loads globally on book.floof.ae, it will receive BOV and VV conversions too. Path-scoping is essential before the other two containers go live.
+        </div>
+      </div>
+
+      <h3>What Marketing has already configured</h3>
+      <table>
+        <tr>
+          <th>Item</th>
+          <th>Blue Oasis</th>
+          <th>Vienna Vet</th>
+        </tr>
+        <tr>
+          <td>GA4 booking data stream created</td>
+          <td><span class="pill green">✓ Done</span></td>
+          <td><span class="pill green">✓ Done</span></td>
+        </tr>
+        <tr>
+          <td>GA4 <code>purchase</code> marked as conversion</td>
+          <td><span class="pill green">✓ Done</span></td>
+          <td><span class="pill green">✓ Done</span></td>
+        </tr>
+        <tr>
+          <td>GTM — dataLayer variables added</td>
+          <td><span class="pill green">✓ Done</span></td>
+          <td><span class="pill green">✓ Done</span></td>
+        </tr>
+        <tr>
+          <td>GTM — purchase trigger added</td>
+          <td><span class="pill green">✓ Done</span></td>
+          <td><span class="pill green">✓ Done</span></td>
+        </tr>
+        <tr>
+          <td>GTM — GA4 config &amp; purchase tags added</td>
+          <td><span class="pill green">✓ Done</span></td>
+          <td><span class="pill green">✓ Done</span></td>
+        </tr>
+        <tr>
+          <td>GTM — Conversion Linker tag added</td>
+          <td><span class="pill green">✓ Done</span></td>
+          <td><span class="pill green">✓ Done</span></td>
+        </tr>
+        <tr>
+          <td>GTM container published</td>
+          <td><span class="pill green">✓ v14 live</span></td>
+          <td><span class="pill green">✓ v42 live</span></td>
+        </tr>
+        <tr>
+          <td>GA4 ↔ Google Ads link</td>
+          <td><span class="pill green">✓ Linked</span></td>
+          <td><span class="pill green">✓ Linked</span></td>
+        </tr>
+      </table>
+
+      <p><strong>Dev tasks remaining:</strong> (1) path-scope the GTM snippet loading, (2) fire the <code>purchase</code> dataLayer event on TELR success. That's it.</p>
+    </div>
+  </section>
+
+  <!-- DATALAYER SPEC -->
+  <section id="datalayer">
+    <div class="section-header">
+      <div class="section-num teal">2</div>
+      <h2>dataLayer Specification — Purchase Event</h2>
+    </div>
+    <div class="section-body">
+      <p>
+        Fire this event immediately after TELR confirms a successful payment — before any page redirect.
+        The same structure applies to all three brands; only the field values differ per booking.
+      </p>
+
+      <pre><code><span class="comment">// Fire this on successful TELR payment (same structure for all 3 brands)</span>
+<span class="kw">window</span>.dataLayer = <span class="kw">window</span>.dataLayer || [];
+<span class="kw">window</span>.dataLayer.push({
+  <span class="key">'event'</span>: <span class="str">'purchase'</span>,
+  <span class="key">'ecommerce'</span>: {
+    <span class="key">'transaction_id'</span>: <span class="str">'TELR-12345'</span>,       <span class="comment">// unique TELR transaction/order ID</span>
+    <span class="key">'value'</span>:          <span class="num">350</span>,                   <span class="comment">// actual service price in AED — varies per product</span>
+    <span class="key">'currency'</span>:       <span class="str">'AED'</span>,
+    <span class="key">'affiliation'</span>:    <span class="str">'Modern Vet Hospital'</span>, <span class="comment">// brand/clinic name (e.g. "Blue Oasis Vet", "Vienna Vet")</span>
+    <span class="key">'items'</span>: [{
+      <span class="key">'item_name'</span>:  <span class="str">'Standard Consultation'</span>, <span class="comment">// actual service name — varies per booking</span>
+      <span class="key">'price'</span>:      <span class="num">350</span>,                    <span class="comment">// same as value above</span>
+      <span class="key">'quantity'</span>:   <span class="num">1</span>,
+      <span class="key">'item_id'</span>:    <span class="str">'CONSULT-STD'</span>           <span class="comment">// optional: internal product/service ID</span>
+    }],
+    <span class="key">'email'</span>:          <span class="str">'client@email.com'</span>,    <span class="comment">// client email from booking form</span>
+    <span class="key">'phone_number'</span>:   <span class="str">'+971501234567'</span>        <span class="comment">// client phone from booking form</span>
+  }
+});</code></pre>
+
+      <h3>Field reference</h3>
+      <table>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Required</th>
+          <th>Notes</th>
+        </tr>
+        <tr>
+          <td><code>event</code></td>
+          <td>string</td>
+          <td><span class="pill green">Required</span></td>
+          <td>Must be exactly <code>'purchase'</code> — this is the GTM trigger</td>
+        </tr>
+        <tr>
+          <td><code>ecommerce.transaction_id</code></td>
+          <td>string</td>
+          <td><span class="pill green">Required</span></td>
+          <td>Unique per booking — use TELR order/transaction ID</td>
+        </tr>
+        <tr>
+          <td><code>ecommerce.value</code></td>
+          <td>number</td>
+          <td><span class="pill green">Required</span></td>
+          <td>Actual price paid in AED — not a fixed amount, pulled from booking data</td>
+        </tr>
+        <tr>
+          <td><code>ecommerce.currency</code></td>
+          <td>string</td>
+          <td><span class="pill green">Required</span></td>
+          <td>Always <code>'AED'</code></td>
+        </tr>
+        <tr>
+          <td><code>ecommerce.items[0].item_name</code></td>
+          <td>string</td>
+          <td><span class="pill green">Required</span></td>
+          <td>Name of the service booked — pulled from booking data (e.g. "Standard Consultation", "Dental Cleaning")</td>
+        </tr>
+        <tr>
+          <td><code>ecommerce.affiliation</code></td>
+          <td>string</td>
+          <td><span class="pill yellow">Recommended</span></td>
+          <td>Brand/clinic name — helps distinguish multi-location data in GA4</td>
+        </tr>
+        <tr>
+          <td><code>ecommerce.email</code></td>
+          <td>string</td>
+          <td><span class="pill yellow">Recommended</span></td>
+          <td>Client email — used for enhanced conversions in Google Ads</td>
+        </tr>
+        <tr>
+          <td><code>ecommerce.phone_number</code></td>
+          <td>string</td>
+          <td><span class="pill grey">Optional</span></td>
+          <td>Client phone in E.164 format — used for enhanced conversions</td>
+        </tr>
+      </table>
+
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <div class="callout-body">
+          <strong>When to fire</strong>
+          Fire the dataLayer push on the TELR payment success callback — ideally before any redirect to a confirmation page. If there is a dedicated confirmation/thank-you page, the push can also fire on page load of that page using data stored in the session or query params.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODERN VET -->
+  <section id="modernvet">
+    <div class="section-header">
+      <div class="section-num green">3</div>
+      <h2>Modern Vet — Path Scoping</h2>
+      <span class="brand-tag">GTM-KRHZL582</span>
+    </div>
+    <div class="section-body">
+      <p>
+        Modern Vet tracking is already working. The only required change is to <strong>scope the GTM snippet
+        to <code>/modernvet</code> pages only</strong>. Currently GTM-KRHZL582 loads globally on all
+        <code>book.floof.ae</code> pages — this must be fixed before the other brand containers go live,
+        otherwise Modern Vet's GA4 and Google Ads accounts will receive conversions from Blue Oasis and Vienna Vet bookings.
+      </p>
+
+      <div class="callout danger">
+        <span class="callout-icon">🚨</span>
+        <div class="callout-body">
+          <strong>Do this first, before adding BOV and VV snippets</strong>
+          Scoping MV to <code>/modernvet</code> is a prerequisite. Adding the other brand snippets without this fix will corrupt Modern Vet's conversion data.
+        </div>
+      </div>
+
+      <h3>Change required</h3>
+      <p>Remove the global GTM-KRHZL582 snippet from the shared page template and load it conditionally:</p>
+
+      <pre><code><span class="comment">// Load GTM-KRHZL582 ONLY on /modernvet pages</span>
+<span class="kw">if</span> (window.location.pathname.startsWith(<span class="str">'/modernvet'</span>)) {
+  <span class="comment">// Google Tag Manager</span>
+  (<span class="kw">function</span>(w,d,s,l,i){w[l]=w[l]||[];w[l].push({<span class="str">'gtm.start'</span>:
+  <span class="kw">new</span> Date().getTime(),<span class="str">event</span>:<span class="str">'gtm.js'</span>});var f=d.getElementsByTagName(s)[<span class="num">0</span>],
+  j=d.createElement(s),dl=l!=<span class="str">'dataLayer'</span>?<span class="str">'&amp;l='</span>+l:<span class="str">''</span>;j.async=<span class="kw">true</span>;j.src=
+  <span class="str">'https://www.googletagmanager.com/gtm.js?id='</span>+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,<span class="str">'script'</span>,<span class="str">'dataLayer'</span>,<span class="str">'GTM-KRHZL582'</span>);
+  <span class="comment">// End Google Tag Manager</span>
+}</code></pre>
+
+      <p>Or equivalently, if your routing is template-based, simply include the snippet only in the Modern Vet brand template/layout.</p>
+
+      <h3>dataLayer push — no changes needed</h3>
+      <p>The MV dataLayer push is already implemented. Verify it matches the specification in Section 2 above — particularly that <code>value</code> is the actual service price (not a hardcoded number) and <code>items[0].item_name</code> contains the service name.</p>
+
+      <h3>Checklist</h3>
+      <ul class="checklist">
+        <li>GTM-KRHZL582 removed from global template — loads only on <code>/modernvet</code> path</li>
+        <li>Verified GTM-KRHZL582 does NOT load on <code>/blueoasis</code> or <code>/viennavet</code></li>
+        <li>dataLayer <code>purchase</code> event confirmed firing on TELR success</li>
+        <li><code>ecommerce.value</code> is dynamic (actual price, not hardcoded)</li>
+        <li><code>ecommerce.items[0].item_name</code> contains actual service name</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- BLUE OASIS -->
+  <section id="blueoasis">
+    <div class="section-header">
+      <div class="section-num teal">4</div>
+      <h2>Blue Oasis Vet — Full Setup</h2>
+      <span class="brand-tag">GTM-T34SNLNX</span>
+    </div>
+    <div class="section-body">
+      <p>
+        GTM container GTM-T34SNLNX is already configured and published with all required tags.
+        The dev task is to (1) load this container on <code>/blueoasis</code> pages and (2) fire
+        the <code>purchase</code> dataLayer event on successful payment.
+      </p>
+
+      <h3>Step 1 — Add GTM snippet to /blueoasis pages</h3>
+      <p>Add this snippet in the <code>&lt;head&gt;</code> of all Blue Oasis booking pages (scoped to <code>/blueoasis</code> only):</p>
+
+      <pre><code><span class="comment">&lt;!-- Google Tag Manager — Blue Oasis Vet --&gt;</span>
+&lt;script&gt;(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-T34SNLNX');&lt;/script&gt;
+<span class="comment">&lt;!-- End Google Tag Manager --&gt;</span></code></pre>
+
+      <p>Also add the noscript fallback immediately after the opening <code>&lt;body&gt;</code> tag:</p>
+
+      <pre><code><span class="comment">&lt;!-- Google Tag Manager (noscript) --&gt;</span>
+&lt;noscript&gt;&lt;iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T34SNLNX"
+height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;&lt;/noscript&gt;
+<span class="comment">&lt;!-- End Google Tag Manager (noscript) --&gt;</span></code></pre>
+
+      <h3>Step 2 — Fire purchase event on TELR success</h3>
+      <p>On successful TELR payment for a Blue Oasis booking:</p>
+
+      <pre><code>window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({
+  <span class="key">'event'</span>: <span class="str">'purchase'</span>,
+  <span class="key">'ecommerce'</span>: {
+    <span class="key">'transaction_id'</span>: telrTransactionId,      <span class="comment">// from TELR response</span>
+    <span class="key">'value'</span>:          bookingPrice,            <span class="comment">// actual price in AED</span>
+    <span class="key">'currency'</span>:       <span class="str">'AED'</span>,
+    <span class="key">'affiliation'</span>:    <span class="str">'Blue Oasis Vet'</span>,
+    <span class="key">'items'</span>: [{
+      <span class="key">'item_name'</span>:  serviceName,             <span class="comment">// e.g. "Standard Consultation"</span>
+      <span class="key">'price'</span>:      bookingPrice,
+      <span class="key">'quantity'</span>:   <span class="num">1</span>
+    }],
+    <span class="key">'email'</span>:          clientEmail,
+    <span class="key">'phone_number'</span>:   clientPhone
+  }
+});</code></pre>
+
+      <h3>What's pre-configured in GTM-T34SNLNX (no action needed)</h3>
+      <table>
+        <tr><th>Item</th><th>Name</th><th>Value</th></tr>
+        <tr><td>GA4 Config Tag</td><td>GA4 - book.floof.ae/blueoasis</td><td>Measurement ID: <code>G-NKZDMGH906</code></td></tr>
+        <tr><td>GA4 Event Tag</td><td>GA4 - Purchase</td><td>Fires on <code>purchase</code> event</td></tr>
+        <tr><td>Conversion Linker</td><td>GAds - Conversion Linker - Booking</td><td>Cross-domain: blueoasispetcare.com ↔ book.floof.ae</td></tr>
+        <tr><td>Trigger</td><td>purchase</td><td>Custom event: <code>event === 'purchase'</code></td></tr>
+        <tr><td>Trigger</td><td>book.floof.ae</td><td>Page URL contains <code>book.floof.ae/blueoasis</code></td></tr>
+        <tr><td>Variables</td><td>ecommerce.*</td><td>transaction_id, value, currency, items, email</td></tr>
+      </table>
+
+      <h3>Checklist</h3>
+      <ul class="checklist">
+        <li>GTM-T34SNLNX snippet added in <code>&lt;head&gt;</code> of <code>/blueoasis</code> pages</li>
+        <li>Noscript fallback added after <code>&lt;body&gt;</code> tag</li>
+        <li>GTM-T34SNLNX confirmed NOT loading on <code>/modernvet</code> or <code>/viennavet</code></li>
+        <li>dataLayer <code>purchase</code> event fires on TELR success</li>
+        <li><code>ecommerce.value</code> is dynamic (actual booking price)</li>
+        <li><code>ecommerce.items[0].item_name</code> is dynamic (service name)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- VIENNA VET -->
+  <section id="viennavet">
+    <div class="section-header">
+      <div class="section-num accent">5</div>
+      <h2>Vienna Vet — Full Setup</h2>
+      <span class="brand-tag">GTM-54LH5J37</span>
+    </div>
+    <div class="section-body">
+      <p>
+        GTM container GTM-54LH5J37 is already configured and published with all required tags.
+        The dev task is to (1) load this container on <code>/viennavet</code> pages and (2) fire
+        the <code>purchase</code> dataLayer event on successful payment.
+      </p>
+
+      <h3>Step 1 — Add GTM snippet to /viennavet pages</h3>
+      <p>Add this snippet in the <code>&lt;head&gt;</code> of all Vienna Vet booking pages:</p>
+
+      <pre><code><span class="comment">&lt;!-- Google Tag Manager — Vienna Vet --&gt;</span>
+&lt;script&gt;(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-54LH5J37');&lt;/script&gt;
+<span class="comment">&lt;!-- End Google Tag Manager --&gt;</span></code></pre>
+
+      <p>Noscript fallback after opening <code>&lt;body&gt;</code> tag:</p>
+
+      <pre><code><span class="comment">&lt;!-- Google Tag Manager (noscript) --&gt;</span>
+&lt;noscript&gt;&lt;iframe src="https://www.googletagmanager.com/ns.html?id=GTM-54LH5J37"
+height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;&lt;/noscript&gt;
+<span class="comment">&lt;!-- End Google Tag Manager (noscript) --&gt;</span></code></pre>
+
+      <h3>Step 2 — Fire purchase event on TELR success</h3>
+
+      <pre><code>window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({
+  <span class="key">'event'</span>: <span class="str">'purchase'</span>,
+  <span class="key">'ecommerce'</span>: {
+    <span class="key">'transaction_id'</span>: telrTransactionId,      <span class="comment">// from TELR response</span>
+    <span class="key">'value'</span>:          bookingPrice,            <span class="comment">// actual price in AED</span>
+    <span class="key">'currency'</span>:       <span class="str">'AED'</span>,
+    <span class="key">'affiliation'</span>:    <span class="str">'Vienna Vet'</span>,
+    <span class="key">'items'</span>: [{
+      <span class="key">'item_name'</span>:  serviceName,             <span class="comment">// e.g. "Annual Vaccination"</span>
+      <span class="key">'price'</span>:      bookingPrice,
+      <span class="key">'quantity'</span>:   <span class="num">1</span>
+    }],
+    <span class="key">'email'</span>:          clientEmail,
+    <span class="key">'phone_number'</span>:   clientPhone
+  }
+});</code></pre>
+
+      <h3>What's pre-configured in GTM-54LH5J37 (no action needed)</h3>
+      <table>
+        <tr><th>Item</th><th>Name</th><th>Value</th></tr>
+        <tr><td>GA4 Config Tag</td><td>GA4 - book.floof.ae/viennavet</td><td>Measurement ID: <code>G-G7TN8L4GV5</code></td></tr>
+        <tr><td>GA4 Event Tag</td><td>GA4 - Purchase</td><td>Fires on <code>purchase</code> event</td></tr>
+        <tr><td>Conversion Linker</td><td>GAds - Conversion Linker - Booking</td><td>Cross-domain: viennavet.com ↔ book.floof.ae</td></tr>
+        <tr><td>Trigger</td><td>purchase</td><td>Custom event: <code>event === 'purchase'</code></td></tr>
+        <tr><td>Trigger</td><td>book.floof.ae</td><td>Page URL contains <code>book.floof.ae/viennavet</code></td></tr>
+        <tr><td>Variables</td><td>ecommerce.*</td><td>transaction_id, value, currency, items, email</td></tr>
+      </table>
+
+      <h3>Checklist</h3>
+      <ul class="checklist">
+        <li>GTM-54LH5J37 snippet added in <code>&lt;head&gt;</code> of <code>/viennavet</code> pages</li>
+        <li>Noscript fallback added after <code>&lt;body&gt;</code> tag</li>
+        <li>GTM-54LH5J37 confirmed NOT loading on <code>/modernvet</code> or <code>/blueoasis</code></li>
+        <li>dataLayer <code>purchase</code> event fires on TELR success</li>
+        <li><code>ecommerce.value</code> is dynamic (actual booking price)</li>
+        <li><code>ecommerce.items[0].item_name</code> is dynamic (service name)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- TESTING -->
+  <section id="testing">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <h2>Testing &amp; Verification</h2>
+    </div>
+    <div class="section-body">
+
+      <div class="callout success">
+        <span class="callout-icon">✅</span>
+        <div class="callout-body">
+          <strong>Test before going live</strong>
+          Use GTM Preview + GA4 DebugView to verify each brand before deploying to production.
+        </div>
+      </div>
+
+      <h3>Method 1 — GTM Preview Mode</h3>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Open GTM → Container → Preview</strong>
+          Enter <code>https://book.floof.ae/[brandpath]</code> and click Connect.
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Verify page load tags fire</strong>
+          On page load: GA4 Config tag and Conversion Linker should appear in the Tags Fired list.
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Complete a test booking</strong>
+          Trigger the TELR success flow. Check the GTM summary panel — you should see a <code>purchase</code> event appear, with both the GA4 Purchase tag firing.
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <strong>Verify dataLayer values</strong>
+          Click the purchase event → Data Layer tab. Confirm <code>ecommerce.value</code> is the correct price and <code>ecommerce.items[0].item_name</code> is the service name.
+        </div>
+      </div>
+
+      <h3>Method 2 — GA4 DebugView</h3>
+      <p>
+        Go to <strong>analytics.google.com → [Brand Property] → Admin → DebugView</strong>. Complete a test booking — the <code>purchase</code> event should appear within seconds with all parameters visible.
+      </p>
+
+      <h3>Cross-brand isolation check (critical)</h3>
+      <table>
+        <tr>
+          <th>Action</th>
+          <th>Expected result</th>
+        </tr>
+        <tr>
+          <td>Complete booking on <code>/blueoasis</code></td>
+          <td>Appears in BOV GA4 only. NOT in MV or VV GA4.</td>
+        </tr>
+        <tr>
+          <td>Complete booking on <code>/viennavet</code></td>
+          <td>Appears in VV GA4 only. NOT in MV or BOV GA4.</td>
+        </tr>
+        <tr>
+          <td>Complete booking on <code>/modernvet</code></td>
+          <td>Appears in MV GA4 only. NOT in BOV or VV GA4.</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- GOOGLE ADS -->
+  <section id="gads">
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <h2>Google Ads — Conversion Import from GA4</h2>
+    </div>
+    <div class="section-body">
+      <p>
+        Once the first real bookings are tracked in GA4 (allow 24–48 hours after go-live),
+        the marketing team will complete this step — no dev action required.
+      </p>
+
+      <h3>Steps (per brand, done in Google Ads UI)</h3>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Open the brand's Google Ads account</strong>
+          Blue Oasis: 342-920-5760 · Vienna Vet: 503-678-3933
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Goals → Conversions → New conversion action</strong>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Import → Google Analytics 4 → select <code>purchase</code></strong>
+          This imports the purchase event that GTM is now sending to each brand's GA4 property.
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <strong>Set conversion value to "Use transaction-specific value"</strong>
+          This uses the actual booking amount passed in the dataLayer.
+        </div>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <div class="callout-body">
+          GA4 ↔ Google Ads account linking is already configured for both Blue Oasis and Vienna Vet — the import option will be available as soon as the first purchase events appear in GA4.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    Prepared by Marketing — Vet Alliance · book.floof.ae Tracking Setup · May 2026
+  </div>
+
+</div>
+</body>
+</html>
