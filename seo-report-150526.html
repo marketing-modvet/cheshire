@@ -220,16 +220,6 @@
 </div>
 <p>Branded performance is the foundation — owners who already know the name are getting straight to us on mobile, every time.</p>
 
-<h2>🔧 Context: April 30 Dev Work Still In Progress</h2>
-<p>Schema, grammar, and alt-tag fixes from the April 30 audit are still rolling out. None of this week's gains required them — the climb on commercial head terms is happening on the current published state. Once dev work lands (schema priceRange + aggregateRating + opening hours, "in the Dubai" cleanup, Russian day names on <code>/all-locations/*</code>, fusion_imageframe alt tags), we'd expect another lift specifically on emergency / open-now / local-pack queries.</p>
-
-<h2>🚨 Tracking Note — Google Ads Attribution Fix (May 7)</h2>
-<div class="nginx-note">
-  <p>For full context: between <strong>15 April 21:14 UTC</strong> and <strong>7 May 13:44 UTC</strong> (~3 weeks), the origin nginx config was stripping <code>gad_source</code>, <code>gbraid</code>, and <code>_gl</code> query parameters from incoming URLs. This silently broke Google Ads attribution in GA4 for that window — paid traffic was landing fine, but the attribution chain was severed.</p>
-  <p><strong>Resolved 7 May 13:44 UTC</strong> at the nginx config level (<code>/etc/nginx/sites-enabled/modernvet.com</code>). GA4 paid-search attribution should show measurable recovery over 7–14 days post-fix as the data window rolls forward.</p>
-  <p>Booking-flow attribution (Google Ad → <code>/booking/</code> → <code>book.floof.ae/modernvet</code>) still has a separate Cloudflare-layer issue under review — params are being stripped at the redirect rule level, not at origin. That's a Cloudflare admin task.</p>
-</div>
-
 <div class="takeaway">
 <h2>✅ Takeaway</h2>
 <p>This was a <strong>good week on mobile</strong>. The commercial Dubai-geo head terms moved into the Top 10, branded queries are rock solid, and the unranked bucket shrank by 8. The minor wobble in Top 10 count is offset by the quality of what <em>did</em> climb — these are the keywords that drive real consultation bookings.</p>
