@@ -175,6 +175,78 @@
     background: #e8f1f2;
     border: 2px solid var(--teal);
   }
+  .callout-update {
+    background: #f0f7ee;
+    border: 2px solid #58a058;
+  }
+  .callout-update h4 { color: #2d5e2d; }
+  .callout-missing {
+    background: #fdf3e8;
+    border: 2px solid #d97706;
+  }
+  .callout-missing h4 { color: #92400e; }
+
+  .status-row {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    margin: .35rem 0;
+    font-size: .95rem;
+  }
+  .status-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    min-width: 90px;
+    text-align: center;
+  }
+  .status-badge.locked { background: #d1e7d1; color: #1e4620; border: 1px solid #58a058; }
+  .status-badge.review { background: #fef3c7; color: #78350f; border: 1px solid #d97706; }
+  .status-badge.missing { background: #fde2e2; color: #7c1d1d; border: 1px solid #c53030; }
+  .status-badge.new { background: #dbeafe; color: #1e3a8a; border: 1px solid #3b82f6; }
+  .status-badge.phase4 { background: #ede9fe; color: #4c1d95; border: 1px solid #8b5cf6; }
+
+  .change-list {
+    list-style: none;
+    padding: 0;
+    margin: .5rem 0 0;
+  }
+  .change-list li {
+    padding: .4rem .6rem;
+    margin: .3rem 0;
+    background: rgba(255,255,255,0.55);
+    border-left: 3px solid #58a058;
+    border-radius: 4px;
+    font-size: .95rem;
+  }
+  .change-list li strong { color: #2d5e2d; }
+
+  .missing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  .missing-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-top: 4px solid #d97706;
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+  }
+  .missing-card h4 {
+    margin: 0 0 .5rem;
+    color: #92400e;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+  }
+  .missing-card ul { margin: .3rem 0 0; padding-left: 1.2rem; }
+  .missing-card ul li { margin: .25rem 0; font-size: .9rem; }
 
   /* Department detail block */
   .dept-block {
@@ -221,6 +293,51 @@
   <p>Vet Alliance is moving company communication onto Slack. Today, work conversations are scattered across WhatsApp groups, emails, DMs, and ad-hoc chats. That makes things slow, easy to miss, and impossible to search later.</p>
   <p>This document explains how we're organising Slack so <strong>every message has an obvious home</strong>, every team has the channels they need, and nothing falls between the cracks. <strong>Privacy is a first-class design goal:</strong> sensitive functions stay isolated, while operational ones are visible enough to help everyone do their job.</p>
   <p style="margin-bottom:0;">It's designed to scale to ~200 staff across 11 clinics + Head Office, while staying simple enough that a new joiner can find their way around on day one.</p>
+</div>
+
+<div class="callout callout-update">
+  <h4>✨ What's new in v1.8 (18 May 2026)</h4>
+  <p style="margin:.4rem 0 .6rem;">First round of feedback from CTO, Aida, Shari, Sandy, Judit, and Scott has been folded into the structure. The high-level design is unchanged; specific channels were added, renamed, or clarified.</p>
+  <ul class="change-list">
+    <li><strong>Added:</strong> <code>help-ezyvet</code> — central ezyVet support desk (CTO request, AbdulRahman owns)</li>
+    <li><strong>Added:</strong> <code>clinic-mv-mob-bookings</code> — Mobile Van bookings: Dr Rahaf, Prakash, Call Centre team (Scott)</li>
+    <li><strong>Added:</strong> <code>team-clinical-nurses-announcements</code> — restricted posting for SOPs & policy updates (Sandy)</li>
+    <li><strong>Renamed:</strong> <code>team-cx</code> → <code>team-cx-leadership</code> (Aida — clarity vs <code>team-cx-experience</code>)</li>
+    <li><strong>Moved + renamed:</strong> <code>team-cc-handoffs</code> → <code>team-cx-handoffs</code> (Aida — sits under CX umbrella)</li>
+    <li><strong>Renamed:</strong> <code>team-clinical</code> → <code>team-clinical-leadership</code> (Sandy — leadership-only, not all-vets/nurses)</li>
+    <li><strong>Renamed:</strong> <code>team-ops-fitout</code> → <code>team-ops-projects</code> (Judit — not all projects are fit-outs)</li>
+    <li><strong>Expanded:</strong> People/HR cluster grew from 4 → 8 channels (Shari's full proposal accepted)</li>
+    <li><strong>Drafted:</strong> CX complaint escalation playbook — 3-tier flow for Aida to confirm or revise</li>
+    <li><strong>Pending sync:</strong> Maintenance design — two options on the table for Judit's review next week</li>
+  </ul>
+</div>
+
+<h2>Where we are right now</h2>
+
+<div class="grid grid-2">
+  <div class="card" style="border-top: 4px solid #58a058;">
+    <h4 style="color:#2d5e2d;">✅ Locked in</h4>
+    <p style="margin:.4rem 0;font-size:.92rem;">Design decisions confirmed and ready to build once rosters are in.</p>
+    <div class="status-row"><span class="status-badge locked">Locked</span> 6 channel prefixes + naming convention</div>
+    <div class="status-row"><span class="status-badge locked">Locked</span> Privacy model (closed-by-default)</div>
+    <div class="status-row"><span class="status-badge locked">Locked</span> Per-clinic 4–5 channel pattern</div>
+    <div class="status-row"><span class="status-badge locked">Locked</span> Leadership: Michael=COO, Scott=Clinical, Sandy=Nursing, Harshita=Finance, Hadi=CDO, Aida=CX</div>
+    <div class="status-row"><span class="status-badge locked">Locked</span> HR structure (Shari's 8-channel proposal)</div>
+    <div class="status-row"><span class="status-badge locked">Locked</span> Finance team roster</div>
+    <div class="status-row"><span class="status-badge locked">Locked</span> Master Lists + branch-view design</div>
+  </div>
+
+  <div class="card" style="border-top: 4px solid #d97706;">
+    <h4 style="color:#92400e;">🔄 Awaiting your input</h4>
+    <p style="margin:.4rem 0;font-size:.92rem;">Items that need a reply before we can lock and build. See “What we still need” below for the full list.</p>
+    <div class="status-row"><span class="status-badge review">Review</span> Aida: complaint escalation playbook + training charter</div>
+    <div class="status-row"><span class="status-badge review">Review</span> Judit: maintenance Option A vs B (sync next week)</div>
+    <div class="status-row"><span class="status-badge review">Review</span> Scott: branch lead names + Mobile umbrella decision</div>
+    <div class="status-row"><span class="status-badge review">Review</span> Michael: ops cluster v1.8 sign-off</div>
+    <div class="status-row"><span class="status-badge review">Review</span> Harshita: AP vs AR team allocation</div>
+    <div class="status-row"><span class="status-badge review">Review</span> Hadi: BizDev cluster + team roster</div>
+    <div class="status-row"><span class="status-badge review">Review</span> AbdulRahman: IT user group + vendor scope</div>
+  </div>
 </div>
 
 <h2>The big idea</h2>
@@ -538,6 +655,111 @@
   <li>The item also syncs into Aida's master CX list (in her private team channel) and Harshita's finance audit list — but no other branch's staff sees JLT's customer details.</li>
   <li>Aida + Harshita coordinate the resolution. The branch sees status updates inside their own channel.</li>
 </ol>
+
+<h2>What we still need — missing information by department</h2>
+
+<p>Below is the precise list of what's still needed before each department's channels can be built. The structure is locked; what we're chasing now is <strong>rosters, sign-offs, and a handful of clarifications</strong>.</p>
+
+<div class="missing-grid">
+
+  <div class="missing-card">
+    <h4>📞 CX / Call Centre — Aida</h4>
+    <ul>
+      <li><strong>Call Centre agent roster</strong> — full list of CC agents (names + emails) for the <code>@callcentre</code> user group</li>
+      <li><strong>Reception leads per branch</strong> — one name per branch (12 branches)</li>
+      <li><strong>VV interim branch lead</strong> — post-Amy, who covers branch-level day-to-day?</li>
+      <li><strong>Decisions:</strong> <code>team-cx-training</code> charter (pick a focus); confirm 3-tier complaint escalation playbook</li>
+    </ul>
+  </div>
+
+  <div class="missing-card">
+    <h4>🩺 Clinical — Scott + Sandy + Rami</h4>
+    <ul>
+      <li><strong>All-vets roster per brand</strong> — <code>@vets-mv</code>, <code>@vets-bovc</code>, <code>@vets-vv</code>, <code>@vets-tvrc</code></li>
+      <li><strong>Pending Slack invites:</strong> Dr Rami, Dr Nour, Dr Waseem</li>
+      <li><strong>All-nurses roster</strong> — once Sandy finishes onboarding nurses this week</li>
+      <li><strong>Decisions:</strong> branch lead names for MV Palm/DT/JVC/JLT/BOVC DIP/TVRC; Mobile umbrella keep or drop; rescue: single or per-clinic; HQ sub-channels needed?</li>
+    </ul>
+  </div>
+
+  <div class="missing-card">
+    <h4>🛠️ Maintenance / Projects — Judit</h4>
+    <ul>
+      <li><strong>Sync next week</strong> — walk through Slack basics + lock maintenance design</li>
+      <li><strong>Decision:</strong> Option A (central only, like current WhatsApp) vs Option B (master+views)</li>
+      <li><strong>Confirm membership</strong> for central maintenance channel: FD leads + Shibin + Himanshu + Michael + Scott + Sandy + Aida</li>
+      <li><strong>Projects:</strong> <code>team-ops-projects</code> on-hold until sync</li>
+    </ul>
+  </div>
+
+  <div class="missing-card">
+    <h4>📦 Procurement / Inventory — Michael</h4>
+    <ul>
+      <li><strong>v1.8 sign-off</strong> — still no reply received on the structure</li>
+      <li><strong>Procurement team confirmation</strong> — Michael + Naufal + Iqra + Hillary, plus anyone else?</li>
+      <li><strong>Vendor scope</strong> — any procurement vendors needed beyond eCRE8 + Synergi?</li>
+      <li><strong>Per-branch inventory</strong> confirmation</li>
+    </ul>
+  </div>
+
+  <div class="missing-card">
+    <h4>💰 Finance — Harshita</h4>
+    <ul>
+      <li><strong>Structure confirmed</strong> ✅</li>
+      <li><strong>Team roster captured</strong> — Harshita + Francis + Husain + Vijomon + Abid ✅</li>
+      <li><strong>Remaining:</strong> allocate Francis / Husain / Vijomon / Abid to <code>team-finance-ap</code> vs <code>team-finance-ar</code> (or both)</li>
+    </ul>
+  </div>
+
+  <div class="missing-card">
+    <h4>👥 People / HR — Shari</h4>
+    <ul>
+      <li><strong>Structure confirmed</strong> ✅ — all 8 channels accepted as proposed</li>
+      <li><strong>Operational HR team</strong> — confirm Priya + Leya + Yousuf as <code>@hr</code> members; anyone else?</li>
+      <li><strong>Privacy:</strong> should Mansoor see <code>team-people-line-managers</code> alongside <code>team-people</code>?</li>
+    </ul>
+  </div>
+
+  <div class="missing-card">
+    <h4>📈 BizDev — Hadi</h4>
+    <ul>
+      <li><strong>v1.8 sign-off</strong> — no reply received yet</li>
+      <li><strong>BD team</strong> — anyone besides Hadi to add to the 4 channels?</li>
+      <li><strong>Confirm</strong> ownership of <code>help-bizdev</code></li>
+    </ul>
+  </div>
+
+  <div class="missing-card">
+    <h4>💻 Tech / IT — AbdulRahman</h4>
+    <ul>
+      <li><strong>Confirm <code>help-ezyvet</code></strong> ownership</li>
+      <li><strong><code>@it</code> user group</strong> — AbdulRahman + Ahmed + anyone else?</li>
+      <li><strong>Tech cluster sign-off</strong> for the 5 channels (currently in active rollout but no formal v1.8 confirmation)</li>
+      <li><strong>IT-side vendor channels</strong> — any beyond eCRE8 + Synergi?</li>
+    </ul>
+  </div>
+
+  <div class="missing-card">
+    <h4>🏢 Head Office + Cross-org</h4>
+    <ul>
+      <li><strong>HQ admin staff roster</strong> (Mansoor + Scott)</li>
+      <li><strong>Khawaneej + Azizi Riviera codes</strong> — proposed <code>khw</code> + <code>az</code></li>
+      <li><strong>Final v1.8 sign-off</strong> from Mansoor before build kickoff</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="callout callout-missing">
+  <h4>📥 Phase 4 candidates (deferred for now)</h4>
+  <p style="margin:.4rem 0 0;">These have been parked until after the main rollout. We'll revisit once Phase 3 is live and we know what people actually need.</p>
+  <ul style="margin:.6rem 0 0;">
+    <li><strong>Branch-lead CX escalation channel</strong> (Aida's suggestion) — for service issues that don't fit complaints or scheduling</li>
+    <li><strong>Per-branch ordering channel rethink</strong> (Sandy's question) — keep current pattern for now</li>
+    <li><strong>Medical assistants channels</strong> — add when they transition to Slack</li>
+    <li><strong>Additional nursing sub-channels</strong> — split out if Sandy needs them post-rollout</li>
+  </ul>
+</div>
 
 <h2>What we need from each department head</h2>
 
