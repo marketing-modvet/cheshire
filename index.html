@@ -248,7 +248,7 @@
     <h1>Modern Vet — <span class="accent">Mission Control</span></h1>
     <p>Single hub for every tool, report, and asset Cheshire and Andrew have built. Dashboards, intelligence, mockups, automations — all one click away.</p>
     <div class="hero-meta">
-      <span><strong>Last updated:</strong> May 5, 2026</span>
+      <span><strong>Last updated:</strong> May 18, 2026</span>
       <span><strong>Owner:</strong> Andrew (Marketing Director)</span>
       <span><strong>Built by:</strong> Andrew × Cheshire 😸</span>
     </div>
@@ -262,7 +262,7 @@
     <div class="kpi"><div class="kpi-num" id="kpi-tools">—</div><div class="kpi-label">Tools live</div></div>
     <div class="kpi"><div class="kpi-num" id="kpi-reports">—</div><div class="kpi-label">Reports shipped</div></div>
     <div class="kpi"><div class="kpi-num">151</div><div class="kpi-label">Clinics tracked</div></div>
-    <div class="kpi"><div class="kpi-num">1,313</div><div class="kpi-label">Veta KB entries (v4)</div></div>
+    <div class="kpi"><div class="kpi-num">1,900</div><div class="kpi-label">Veta KB entries (v5.1)</div></div>
     <div class="kpi"><div class="kpi-num">7</div><div class="kpi-label">Months ahead (plan)</div></div>
   </div>
 
@@ -388,11 +388,17 @@
       <p>Knowledge base, audits, sim reports, deployment guide</p>
     </div>
     <div class="tiles">
-      <a class="tile cat-veta" href="veta-v2-launch.html" data-cat="veta">
+      <a class="tile cat-veta" href="veta-v5.2-launch.html" data-cat="veta">
         <div class="tile-icon">🚀</div>
-        <div class="tile-title">Veta v2 Launch Report (May 5)</div>
-        <div class="tile-desc">Full rebuild with 1,313 humanized entries. Live on ElevenLabs + Hetzner. Test pass rate 14/15. <strong>Latest.</strong></div>
+        <div class="tile-title">Veta v5.2 Launch Report (May 18)</div>
+        <div class="tile-desc">Major update: 1,313 → <strong>1,900 entries</strong>. Real Google Routes distances. 374 entries rewritten for tone + 587 new. Same-day v5.2 patch: WhatsApp rhythm, no info dumps, no unprompted pet-name asks. <strong>Latest.</strong></div>
         <div class="tile-foot"><span class="pill pill-live">Live</span><span class="pill pill-new">Latest</span><span class="pill pill-locked">Pwd</span></div>
+      </a>
+      <a class="tile cat-veta is-old" href="veta-v2-launch.html" data-cat="veta">
+        <div class="tile-icon">📜</div>
+        <div class="tile-title">Veta v2 Launch Report (May 5)</div>
+        <div class="tile-desc">Previous version with 1,313 humanized entries. Superseded by v5.1.</div>
+        <div class="tile-foot"><span class="pill pill-old">Outdated</span></div>
       </a>
       <a class="tile cat-veta" href="https://elevenlabs.io/app/talk-to?agent_id=agent_2701kqwnryy2ewdapx7kxvqyr1zk" target="_blank" rel="noopener" data-cat="veta">
         <div class="tile-icon">💬</div>
@@ -662,9 +668,21 @@
     <div class="veta-track">
       <div class="vt-head">
         <h3>KB &amp; Bot Versions</h3>
-        <div class="vt-meta">Current: <strong>KB v3.5 (1,018 entries)</strong> · 100% sim hit · Telegram beta</div>
+        <div class="vt-meta">Current: <strong>KB v5.1 (1,900 entries)</strong> · Real Routes API distances · ElevenLabs + Hetzner LIVE</div>
       </div>
       <ul class="vt-list">
+        <li class="vt-row major">
+          <span class="vt-version">KB v5.1</span>
+          <span class="vt-date">May 18</span>
+          <span class="vt-what"><strong>Major humanization + densification</strong><em>374 entries rewritten, 587 new entries (12 categories), real Google Routes distances for 74 Dubai areas. No fabricated km, no AI-tell phrases, no aggressive booking close.</em></span>
+          <span class="vt-stat">1,900</span>
+        </li>
+        <li class="vt-row major">
+          <span class="vt-version">KB v4</span>
+          <span class="vt-date">May 5</span>
+          <span class="vt-what"><strong>v2 launch — first humanization pass</strong><em>Opus rebuild from 974 → 1,313 entries. Deployed to ElevenLabs + Hetzner.</em></span>
+          <span class="vt-stat">1,313</span>
+        </li>
         <li class="vt-row major">
           <span class="vt-version">Telegram</span>
           <span class="vt-date">Apr 28</span>
@@ -753,6 +771,35 @@
         <div class="tl-counter"><strong id="tl-count">0</strong> deliverables tracked</div>
       </div>
       <ul class="tl-list" id="tl-list">
+
+        <li class="tl-item">
+          <div class="tl-date">May 18</div>
+          <div class="tl-body">
+            <span class="tl-tag">tech</span><strong>Floof Booking Widget — Iframe Integration Testing</strong>
+            <em>Floof booking widget embedded directly on modernvet.com / viennavet.com / blueoasisvet.com (no header/footer, clean inline). Same-domain experience replaces redirect to book.floof.ae. Testing all week, launches Thu–Fri. Visuals look great.</em>
+          </div>
+        </li>
+        <li class="tl-item">
+          <div class="tl-date">May 18</div>
+          <div class="tl-body">
+            <span class="tl-tag">tech</span><strong>Conversion Tracking — Per-Brand Split + Iframe-Ready</strong>
+            <em>Each brand on its own isolated tracking stack (GTM + GA4 + Google Ads). No cross-contamination, clean revenue attribution per brand. Becomes fully first-party once iframe widget goes live this week.</em>
+          </div>
+        </li>
+        <li class="tl-item">
+          <div class="tl-date">May 18</div>
+          <div class="tl-body">
+            <span class="tl-tag">veta</span><strong>Veta v5.2 — Live</strong>
+            <em>1,313 → 1,900 entries. Real Google Routes distances (74 Dubai areas × 7 branches). 374 entries rewritten + 587 new. Same-day v5.2 patch added WhatsApp-rhythm rules (no info dumps, no unprompted pet-name asks).</em>
+          </div>
+        </li>
+        <li class="tl-item">
+          <div class="tl-date">May 18</div>
+          <div class="tl-body">
+            <span class="tl-tag">ops</span><strong>Slack Phase 3 v1.9 — Finance restructure</strong>
+            <em>Removed team-finance-ar (folded into AP). Added team-finance-management-accounts-pnl (Mansoor + Harshita + Hadi). Michael added to pricing leadership. Scott owns team-finance-discounts.</em>
+          </div>
+        </li>
 
         <li class="tl-item">
           <div class="tl-date">May 5</div>

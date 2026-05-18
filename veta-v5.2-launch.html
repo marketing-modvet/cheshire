@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veta v5.2 — Launch Report (18 May 2026)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e2e8f0; line-height: 1.6; }
+
+  /* Auth overlay */
+  #auth-overlay { position: fixed; inset: 0; background: #0f1117; display: flex; align-items: center; justify-content: center; z-index: 9999; }
+  .auth-box { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 16px; padding: 48px 40px; text-align: center; max-width: 380px; width: 90%; }
+  .auth-box h2 { color: #2dd4bf; font-size: 1.4rem; margin-bottom: 8px; }
+  .auth-box p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 24px; }
+  .auth-box input { width: 100%; padding: 12px 16px; background: #0f1117; border: 1px solid #374151; border-radius: 8px; color: #e2e8f0; font-size: 1rem; outline: none; margin-bottom: 12px; }
+  .auth-box input:focus { border-color: #2dd4bf; }
+  .auth-box button { width: 100%; padding: 12px; background: #2dd4bf; border: none; border-radius: 8px; color: #0f1117; font-size: 1rem; cursor: pointer; font-weight: 600; }
+  .auth-box button:hover { background: #14b8a6; }
+  .auth-error { color: #f87171; font-size: 0.85rem; margin-top: 8px; display: none; }
+
+  #main-content { display: none; }
+
+  .header { background: linear-gradient(135deg, #014e57 0%, #015962 100%); padding: 56px 32px; border-bottom: 1px solid #2d3748; }
+  .header-inner { max-width: 1100px; margin: 0 auto; }
+  .header-tag { display: inline-block; background: #2dd4bf22; border: 1px solid #2dd4bf66; color: #2dd4bf; padding: 4px 14px; border-radius: 20px; font-size: 0.8rem; margin-bottom: 16px; font-weight: 500; }
+  h1 { font-size: 2.4rem; font-weight: 700; color: #f1f5f9; margin-bottom: 12px; letter-spacing: -0.02em; }
+  .header-sub { color: #cbd5e1; font-size: 1.1rem; margin-bottom: 20px; max-width: 800px; }
+  .header-meta { color: #94a3b8; font-size: 0.9rem; }
+  .header-meta strong { color: #e2e8f0; }
+  .header-actions { display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 8px; font-size: 0.95rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.15s; }
+  .btn-primary { background: #2dd4bf; color: #0f1117; }
+  .btn-primary:hover { background: #14b8a6; transform: translateY(-1px); }
+  .btn-secondary { background: #ffffff15; color: #e2e8f0; border: 1px solid #ffffff30; }
+  .btn-secondary:hover { background: #ffffff25; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 32px; }
+
+  .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 40px; }
+  .stat-card { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 12px; padding: 20px; text-align: center; }
+  .stat-card .num { font-size: 2.4rem; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+  .stat-card .lbl { color: #64748b; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .stat-card .delta { color: #94a3b8; font-size: 0.78rem; margin-top: 4px; }
+  .stat-card.teal .num { color: #2dd4bf; }
+  .stat-card.green .num { color: #34d399; }
+  .stat-card.purple .num { color: #a78bfa; }
+  .stat-card.orange .num { color: #fb923c; }
+  .stat-card.blue .num { color: #60a5fa; }
+
+  section { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+  section h2 { color: #2dd4bf; font-size: 1.4rem; margin-bottom: 8px; font-weight: 700; }
+  section .section-sub { color: #94a3b8; font-size: 0.92rem; margin-bottom: 20px; }
+  section p { color: #cbd5e1; margin-bottom: 12px; }
+  section ul { padding-left: 22px; color: #cbd5e1; margin-bottom: 12px; }
+  section li { margin-bottom: 6px; }
+  section strong { color: #f1f5f9; }
+  section code { background: #0f1117; padding: 2px 8px; border-radius: 4px; color: #2dd4bf; font-size: 0.88em; }
+
+  .compare-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.9rem; }
+  .compare-table th { background: #0f1117; color: #2dd4bf; padding: 10px 14px; text-align: left; border-bottom: 1px solid #2d3748; font-weight: 600; }
+  .compare-table td { padding: 12px 14px; border-bottom: 1px solid #2d3748; color: #cbd5e1; vertical-align: top; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .before { color: #f87171; font-family: 'SF Mono', Monaco, monospace; font-size: 0.85rem; }
+  .compare-table .after { color: #34d399; font-family: 'SF Mono', Monaco, monospace; font-size: 0.85rem; }
+
+  .category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 16px 0; }
+  .cat-pill { background: #0f1117; border: 1px solid #2d3748; border-radius: 8px; padding: 14px; }
+  .cat-pill .ct { font-size: 1.6rem; color: #2dd4bf; font-weight: 700; }
+  .cat-pill .name { color: #cbd5e1; font-size: 0.88rem; margin-top: 4px; }
+
+  .quote-box { background: #0f1117; border-left: 3px solid #2dd4bf; padding: 14px 18px; margin: 12px 0; font-style: italic; color: #cbd5e1; border-radius: 4px; }
+  .quote-box strong { color: #2dd4bf; font-style: normal; display: block; margin-bottom: 4px; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .quote-box .label-old { color: #f87171; }
+  .quote-box .label-new { color: #34d399; }
+
+  .deploy-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 16px 0; }
+  .deploy-card { background: #0f1117; border: 1px solid #2d3748; border-radius: 8px; padding: 16px; }
+  .deploy-card .deploy-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .deploy-card .badge-live { background: #34d39922; color: #34d399; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; font-weight: 600; }
+  .deploy-card h3 { color: #f1f5f9; font-size: 1rem; font-weight: 600; }
+  .deploy-card p { color: #94a3b8; font-size: 0.85rem; margin: 0; }
+  .deploy-card a { color: #60a5fa; font-size: 0.85rem; word-break: break-all; }
+</style>
+</head>
+<body>
+
+<div id="auth-overlay">
+  <div class="auth-box">
+    <h2>🔒 Internal Report</h2>
+    <p>Modern Vet Marketing — Veta v5.2 Launch</p>
+    <input type="password" id="auth-input" placeholder="Password" onkeypress="if(event.key==='Enter')checkAuth()">
+    <button onclick="checkAuth()">Unlock</button>
+    <div class="auth-error" id="auth-error">Wrong password</div>
+  </div>
+</div>
+
+<div id="main-content">
+  <header class="header">
+    <div class="header-inner">
+      <span class="header-tag">📊 INTERNAL REPORT · LIVE</span>
+      <h1>Veta v5.2 — Major Humanization & Densification Update</h1>
+      <p class="header-sub">Veta now answers with verified Google Routes distances for 74 Dubai areas, sounds less robotic, doesn't push aggressively, and has 587 new entries densifying coverage. Deployed to ElevenLabs + Hetzner master Veta.</p>
+      <div class="header-meta"><strong>Shipped:</strong> 18 May 2026 · <strong>Owner:</strong> Andrew × Cheshire · <strong>Status:</strong> Live in production</div>
+      <div class="header-actions">
+        <a class="btn btn-primary" href="https://elevenlabs.io/app/talk-to?agent_id=agent_2701kqwnryy2ewdapx7kxvqyr1zk" target="_blank">💬 Try Veta now</a>
+        <a class="btn btn-secondary" href="index.html">← Back to hub</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- ═══ HEADLINE STATS ═══ -->
+    <div class="stats-row">
+      <div class="stat-card teal"><div class="num">1,900</div><div class="lbl">KB entries</div><div class="delta">+587 vs v2 (1,313)</div></div>
+      <div class="stat-card green"><div class="num">374</div><div class="lbl">Entries rewritten</div><div class="delta">tone + brand + facts</div></div>
+      <div class="stat-card purple"><div class="num">518</div><div class="lbl">Real distances</div><div class="delta">74 areas × 7 branches</div></div>
+      <div class="stat-card orange"><div class="num">0</div><div class="lbl">Banned phrases</div><div class="delta">verified across all 1,900</div></div>
+      <div class="stat-card blue"><div class="num">$16</div><div class="lbl">Total spend</div><div class="delta">Opus 4.7 + Routes API</div></div>
+    </div>
+
+    <!-- ═══ WHAT CHANGED ═══ -->
+    <section>
+      <h2>What Changed</h2>
+      <p class="section-sub">Side-by-side, the things colleagues and managers will actually notice.</p>
+      <table class="compare-table">
+        <tr><th>Issue</th><th>Veta v2 (before)</th><th>Veta v5.2 (after)</th></tr>
+        <tr>
+          <td><strong>Fabricated distances</strong></td>
+          <td class="before">DIP → JVC = 7.8 km<br>Damac Hills 2 → JVC = 11.3 km<br>(both invented)</td>
+          <td class="after">DIP → JVC = 12 km, 17 min<br>Damac Hills 2 → JVC = 27 km, 28 min<br>(real Google Routes data)</td>
+        </tr>
+        <tr>
+          <td><strong>AI-tell phrases</strong></td>
+          <td class="before">"Sure!", "Of course!", "Perfect.", decorative 👍 / 😊</td>
+          <td class="after">Zero across all 1,900 entries</td>
+        </tr>
+        <tr>
+          <td><strong>Aggressive booking close</strong></td>
+          <td class="before">"Want me to book you in?" repeated 3 turns in a row</td>
+          <td class="after">Soft "anything else?" — pushed once, then dropped</td>
+        </tr>
+        <tr>
+          <td><strong>Vet roster dumps</strong></td>
+          <td class="before">10-doctor lists with all credentials</td>
+          <td class="after">2-3 most relevant names, capped</td>
+        </tr>
+        <tr>
+          <td><strong>Blue Oasis framing</strong></td>
+          <td class="before">"BOV specialises in exotics" (factually wrong)</td>
+          <td class="after">Stays out of the conversation entirely (per brand rules)</td>
+        </tr>
+        <tr>
+          <td><strong>Booking forms</strong></td>
+          <td class="before">"1. Pet name 2. Time 3. Phone" — feels robotic</td>
+          <td class="after">Inline conversational asks ("What's your pet's name, and can I grab a number?")</td>
+        </tr>
+        <tr>
+          <td><strong>Languages</strong></td>
+          <td class="before">Sometimes suggested other clinics for Mandarin/Hindi/German speakers</td>
+          <td class="after">Honest denial — no language vets at MV, no redirect</td>
+        </tr>
+        <tr>
+          <td><strong>Competitor mentions</strong></td>
+          <td class="before">Engaged in price/distance comparisons</td>
+          <td class="after">Neutral acknowledgement, MV option offered without pushing</td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- ═══ v5.2 SAME-DAY PATCH ═══ -->
+    <section>
+      <h2>v5.2 — Same-day Conversational Patch</h2>
+      <p class="section-sub">After v5.1 deployed, Andrew tested it and flagged a reply that felt too long, info-dumped both vaccine packages, and asked for the pet's name out of the blue. v5.2 fixes those patterns with 5 strict conversational rules.</p>
+      <ul>
+        <li><strong>Max ~50-60 words per reply</strong> — WhatsApp rhythm, not email rhythm.</li>
+        <li><strong>Never dump both vaccine packages</strong> — ask "first round or up to date?" first, then send only the relevant one.</li>
+        <li><strong>Pet's name only for active booking / records / pre-op</strong> — never asked out of the blue for pricing or location queries.</li>
+        <li><strong>One follow-up question at a time</strong> — don't pile up.</li>
+        <li><strong>Banned phrases extended</strong> — "Happy to help / Happy to assist / Glad to help" all out.</li>
+      </ul>
+      <p>19 KB entries rewritten in this patch ($0.20 Opus spend). System prompt + KB redeployed to both surfaces.</p>
+    </section>
+
+    <!-- ═══ SAMPLE BEFORE/AFTER ═══ -->
+    <section>
+      <h2>Sample Before/After</h2>
+      <p class="section-sub">Real entries from the KB, showing the rewrite work.</p>
+
+      <p style="color:#94a3b8;margin-top:14px;font-size:0.9rem;"><strong style="color:#cbd5e1;">Q:</strong> "I live in DIP. Where's the closest vet?"</p>
+      <div class="quote-box">
+        <strong class="label-old">v2 (May 5):</strong>
+        Your closest is JVC, about 7.8 km away — Platinum Residences. Consult AED 249 plus VAT. Want me to book you in?
+      </div>
+      <div class="quote-box">
+        <strong class="label-new">v5.2 (May 18):</strong>
+        From Green Community, your closest is MV JVC — around 15-20 min by car off-peak (12 km), open 7am–10pm. Consultation AED 249 plus VAT. Hospital on Al Wasl is further out (around 31 km) if you ever need 24/7. Mobile Clinic at AED 499 plus VAT also comes to you, includes consult.
+      </div>
+
+      <p style="color:#94a3b8;margin-top:24px;font-size:0.9rem;"><strong style="color:#cbd5e1;">Q:</strong> "Blue Oasis is closer to me. Can you match their price?"</p>
+      <div class="quote-box">
+        <strong class="label-old">v2:</strong>
+        Blue Oasis specialises in exotics. For your dog I'd come to us — JVC is nearby. Want me to book you in?
+      </div>
+      <div class="quote-box">
+        <strong class="label-new">v5.2:</strong>
+        Totally your call. If you'd rather come to us, MV JVC is your closest at around 6 km — consultation AED 249 plus VAT. Mobile Clinic at AED 499 plus VAT is another option if convenient. Let me know if you'd like to chat through what your pet needs.
+      </div>
+
+      <p style="color:#94a3b8;margin-top:24px;font-size:0.9rem;"><strong style="color:#cbd5e1;">Q:</strong> "Do you do vaccinations?" (v5.2 patch sample)</p>
+      <div class="quote-box">
+        <strong class="label-old">v5.1 (info dump):</strong>
+        Yes, full vaccinations for dogs and cats. If your pet's up to date, the Annual Vaccine Package is AED 349 at branches or AED 535 at Hospital — consult, core vaccine, rabies, deworming and the municipality tag. If they're new or skipped last year, the New Pet Package covers two consults and two sets of vaccines plus rabies, deworming and the tag — AED 549 at branches, AED 699 at Hospital. When were they last vaccinated?
+      </div>
+      <div class="quote-box">
+        <strong class="label-new">v5.2 (ask first, send the right one):</strong>
+        Yes, we do full vaccinations for dogs and cats. Quick question — is this their first round, or are they up to date from last year? I'll send you the right package.
+      </div>
+
+      <p style="color:#94a3b8;margin-top:24px;font-size:0.9rem;"><strong style="color:#cbd5e1;">Q:</strong> "Booking confirmation — JVC, 2pm tomorrow"</p>
+      <div class="quote-box">
+        <strong class="label-old">v2:</strong>
+        Perfect. Booked at JVC for tomorrow 2pm. Anything else? 👍
+      </div>
+      <div class="quote-box">
+        <strong class="label-new">v5.2:</strong>
+        Booked at JVC for tomorrow 2pm. See you then — let me know if anything changes.
+      </div>
+    </section>
+
+    <!-- ═══ 587 NEW ENTRIES BREAKDOWN ═══ -->
+    <section>
+      <h2>587 New Entries — Coverage Densification</h2>
+      <p class="section-sub">The goal of bulking up the KB: prepare for migration to a cheaper LLM (Haiku or local) in future. The more questions covered with strong fixed replies, the less the model has to improvise.</p>
+      <div class="category-grid">
+        <div class="cat-pill"><div class="ct">48</div><div class="name">Dubai area → branch routing</div></div>
+        <div class="cat-pill"><div class="ct">82</div><div class="name">Triage variants (limping, vomiting, toxic ingestion…)</div></div>
+        <div class="cat-pill"><div class="ct">83</div><div class="name">Booking flow variants</div></div>
+        <div class="cat-pill"><div class="ct">90</div><div class="name">General conversational variants</div></div>
+        <div class="cat-pill"><div class="ct">50</div><div class="name">Pricing edge cases</div></div>
+        <div class="cat-pill"><div class="ct">40</div><div class="name">Empathy moments (loss, terminal, anxious owner)</div></div>
+        <div class="cat-pill"><div class="ct">40</div><div class="name">Service availability edge cases</div></div>
+        <div class="cat-pill"><div class="ct">40</div><div class="name">Branch-specific edge cases</div></div>
+        <div class="cat-pill"><div class="ct">34</div><div class="name">Doctor-specific queries</div></div>
+        <div class="cat-pill"><div class="ct">30</div><div class="name">Complaint handling</div></div>
+        <div class="cat-pill"><div class="ct">30</div><div class="name">Multi-pet / multi-service</div></div>
+        <div class="cat-pill"><div class="ct">20</div><div class="name">Competitor-mention handling (neutral)</div></div>
+      </div>
+    </section>
+
+    <!-- ═══ DEPLOYMENT ═══ -->
+    <section>
+      <h2>Deployment Status</h2>
+      <p class="section-sub">Both surfaces are live with v5.2.</p>
+      <div class="deploy-list">
+        <div class="deploy-card">
+          <div class="deploy-head"><h3>ElevenLabs Agent</h3><span class="badge-live">LIVE</span></div>
+          <p>System prompt v5.2, new KB doc (1,900 entries, 478 KB). Old doc deleted.</p>
+          <a href="https://elevenlabs.io/app/talk-to?agent_id=agent_2701kqwnryy2ewdapx7kxvqyr1zk" target="_blank">Public chat URL</a>
+        </div>
+        <div class="deploy-card">
+          <div class="deploy-head"><h3>Hetzner Master Veta</h3><span class="badge-live">LIVE</span></div>
+          <p>ChromaDB rebuilt with 1,900 docs. Previous version backed up to <code>chroma_db_pre_v5.2_2026-05-18</code>.</p>
+          <a href="https://vetalliance.website" target="_blank">vetalliance.website</a>
+        </div>
+        <div class="deploy-card">
+          <div class="deploy-head"><h3>Telegram Test Bot</h3><span class="badge-live">LIVE</span></div>
+          <p>Pulls from Hetzner master Veta → automatically running v5.2 now.</p>
+          <a href="https://t.me/veta_modernvet_consultantbot" target="_blank">@veta_modernvet_consultantbot</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ DISTANCES — VERIFIED EXAMPLES ═══ -->
+    <section>
+      <h2>Verified Distance Examples</h2>
+      <p class="section-sub">A sampler of the 518 verified data points now powering Veta's location answers (Google Routes API, drive-time off-peak).</p>
+      <table class="compare-table">
+        <tr><th>From</th><th>To nearest branch</th><th>Distance</th><th>Drive time</th></tr>
+        <tr><td>Green Community DIP</td><td>MV JVC</td><td>12 km</td><td>17 min</td></tr>
+        <tr><td>Damac Hills 2 / Akoya</td><td>MV JVC</td><td>27 km</td><td>28 min</td></tr>
+        <tr><td>Motor City</td><td>MV JVC</td><td>9 km</td><td>15 min</td></tr>
+        <tr><td>Arabian Ranches 3</td><td>MV Azizi Riviera</td><td>21 km</td><td>17 min</td></tr>
+        <tr><td>Palm Jumeirah</td><td>MV Palm</td><td>1 km</td><td>3 min</td></tr>
+        <tr><td>Dubai Hills Estate</td><td>MV Hospital</td><td>10 km</td><td>18 min</td></tr>
+        <tr><td>Mirdif</td><td>MV Khawaneej (closed)*</td><td>17 km</td><td>20 min</td></tr>
+        <tr><td>International City</td><td>MV Azizi Riviera</td><td>18 km</td><td>18 min</td></tr>
+        <tr><td>Sobha Hartland</td><td>MV Azizi Riviera</td><td>4 km</td><td>9 min</td></tr>
+        <tr><td>Jebel Ali</td><td>MV JLT</td><td>25 km</td><td>23 min</td></tr>
+      </table>
+      <p style="font-size:0.85rem;color:#94a3b8;margin-top:8px;">* Khawaneej is currently closed for renovation, reopens June/July 2026. Veta routes Mirdif to the next nearest open branch.</p>
+    </section>
+
+    <!-- ═══ WHAT'S NEXT ═══ -->
+    <section>
+      <h2>What's Next</h2>
+      <ul>
+        <li><strong>Friday 22 May</strong> — Weekly feedback-loop cron runs automatically; pulls last 7 days of real Veta conversations, runs them through Opus analysis, flags any new drift patterns or fact errors.</li>
+        <li><strong>Migration test</strong> — With 1,900 entries densifying coverage, we can start testing whether Veta runs acceptably on Haiku (much cheaper) instead of Sonnet 4.6. The denser the KB, the less the model has to think.</li>
+        <li><strong>Verified facts maintenance</strong> — As branches change hours, prices, or open new locations, we update the KB and rebuild ChromaDB + ElevenLabs in one pass (10 minutes end-to-end).</li>
+        <li><strong>Production WhatsApp wiring</strong> — Veta is still on the internal ElevenLabs + Telegram surfaces only. Next step: replace the current v3 WhatsApp bot with v5.2.</li>
+      </ul>
+    </section>
+
+  </div>
+</div>
+
+<script>
+  function checkAuth() {
+    var pwd = document.getElementById('auth-input').value;
+    if (pwd === 'modvet2026' || pwd === 'vetalliance2026') {
+      document.getElementById('auth-overlay').style.display = 'none';
+      document.getElementById('main-content').style.display = 'block';
+      sessionStorage.setItem('veta_v52_auth', '1');
+    } else {
+      document.getElementById('auth-error').style.display = 'block';
+    }
+  }
+  if (sessionStorage.getItem('veta_v52_auth') === '1') {
+    document.getElementById('auth-overlay').style.display = 'none';
+    document.getElementById('main-content').style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
