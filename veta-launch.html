@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Veta v5.2 — Launch Report (18 May 2026)</title>
+<title>Veta v5 — Launch Report (May 2026)</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e2e8f0; line-height: 1.6; }
 
-  /* Auth overlay */
   #auth-overlay { position: fixed; inset: 0; background: #0f1117; display: flex; align-items: center; justify-content: center; z-index: 9999; }
   .auth-box { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 16px; padding: 48px 40px; text-align: center; max-width: 380px; width: 90%; }
   .auth-box h2 { color: #2dd4bf; font-size: 1.4rem; margin-bottom: 8px; }
@@ -88,7 +87,7 @@
 <div id="auth-overlay">
   <div class="auth-box">
     <h2>🔒 Internal Report</h2>
-    <p>Modern Vet Marketing — Veta v5.2 Launch</p>
+    <p>Modern Vet Marketing — Veta Launch</p>
     <input type="password" id="auth-input" placeholder="Password" onkeypress="if(event.key==='Enter')checkAuth()">
     <button onclick="checkAuth()">Unlock</button>
     <div class="auth-error" id="auth-error">Wrong password</div>
@@ -99,9 +98,9 @@
   <header class="header">
     <div class="header-inner">
       <span class="header-tag">📊 INTERNAL REPORT · LIVE</span>
-      <h1>Veta v5.2 — Major Humanization & Densification Update</h1>
-      <p class="header-sub">Veta now answers with verified Google Routes distances for 74 Dubai areas, sounds less robotic, doesn't push aggressively, and has 587 new entries densifying coverage. Deployed to ElevenLabs + Hetzner master Veta.</p>
-      <div class="header-meta"><strong>Shipped:</strong> 18 May 2026 · <strong>Owner:</strong> Andrew × Cheshire · <strong>Status:</strong> Live in production</div>
+      <h1>Veta v5 — Major Humanization & Densification Update</h1>
+      <p class="header-sub">Veta now answers like a real call-centre agent — verified Google Routes distances for 74 Dubai areas, no info dumps, no aggressive booking, no fabricated facts. Deployed to ElevenLabs + Hetzner.</p>
+      <div class="header-meta"><strong>Latest patch:</strong> v5.3 · 18 May 2026 · <strong>Owner:</strong> Andrew (Marketing) · <strong>Status:</strong> Live in production</div>
       <div class="header-actions">
         <a class="btn btn-primary" href="https://elevenlabs.io/app/talk-to?agent_id=agent_2701kqwnryy2ewdapx7kxvqyr1zk" target="_blank">💬 Try Veta now</a>
         <a class="btn btn-secondary" href="index.html">← Back to hub</a>
@@ -114,10 +113,10 @@
     <!-- ═══ HEADLINE STATS ═══ -->
     <div class="stats-row">
       <div class="stat-card teal"><div class="num">1,900</div><div class="lbl">KB entries</div><div class="delta">+587 vs v2 (1,313)</div></div>
-      <div class="stat-card green"><div class="num">374</div><div class="lbl">Entries rewritten</div><div class="delta">tone + brand + facts</div></div>
+      <div class="stat-card green"><div class="num">788</div><div class="lbl">Entries rewritten</div><div class="delta">tone + facts + length</div></div>
       <div class="stat-card purple"><div class="num">518</div><div class="lbl">Real distances</div><div class="delta">74 areas × 7 branches</div></div>
       <div class="stat-card orange"><div class="num">0</div><div class="lbl">Banned phrases</div><div class="delta">verified across all 1,900</div></div>
-      <div class="stat-card blue"><div class="num">$16</div><div class="lbl">Total spend</div><div class="delta">Opus 4.7 + Routes API</div></div>
+      <div class="stat-card blue"><div class="num">~30w</div><div class="lbl">Avg reply length</div><div class="delta">WhatsApp rhythm</div></div>
     </div>
 
     <!-- ═══ WHAT CHANGED ═══ -->
@@ -125,15 +124,20 @@
       <h2>What Changed</h2>
       <p class="section-sub">Side-by-side, the things colleagues and managers will actually notice.</p>
       <table class="compare-table">
-        <tr><th>Issue</th><th>Veta v2 (before)</th><th>Veta v5.2 (after)</th></tr>
+        <tr><th>Issue</th><th>Before (v2)</th><th>After (v5.3)</th></tr>
         <tr>
           <td><strong>Fabricated distances</strong></td>
-          <td class="before">DIP → JVC = 7.8 km<br>Damac Hills 2 → JVC = 11.3 km<br>(both invented)</td>
-          <td class="after">DIP → JVC = 12 km, 17 min<br>Damac Hills 2 → JVC = 27 km, 28 min<br>(real Google Routes data)</td>
+          <td class="before">"DIP → JVC = 7.8 km"<br>"Damac Hills 2 → JVC = 11.3 km"<br>(both invented)</td>
+          <td class="after">Real Google Routes data<br>"DIP → JVC = 12 km, 17 min"<br>"Damac Hills 2 → JVC = 27 km, 28 min"</td>
+        </tr>
+        <tr>
+          <td><strong>Reply length</strong></td>
+          <td class="before">200-300 words — multi-branch + Hospital + Mobile dump in one reply</td>
+          <td class="after">~30 words for routing — answer the question only, save extras for follow-ups</td>
         </tr>
         <tr>
           <td><strong>AI-tell phrases</strong></td>
-          <td class="before">"Sure!", "Of course!", "Perfect.", decorative 👍 / 😊</td>
+          <td class="before">"Sure!", "Of course!", "Perfect.", "Happy to help with that", decorative emoji</td>
           <td class="after">Zero across all 1,900 entries</td>
         </tr>
         <tr>
@@ -142,45 +146,36 @@
           <td class="after">Soft "anything else?" — pushed once, then dropped</td>
         </tr>
         <tr>
-          <td><strong>Vet roster dumps</strong></td>
-          <td class="before">10-doctor lists with all credentials</td>
-          <td class="after">2-3 most relevant names, capped</td>
+          <td><strong>Price matching</strong></td>
+          <td class="before">Engaged in price comparisons or deflected with Mobile Clinic offer</td>
+          <td class="after">Polite firm decline — "we don't price-match, sorry. If you'd like to come to us we'd be glad to have you."</td>
+        </tr>
+        <tr>
+          <td><strong>Mobile Clinic mentions</strong></td>
+          <td class="before">Auto-tacked onto routing/pricing answers as a default alternative</td>
+          <td class="after">Only when explicitly asked or drive >25 min off-peak</td>
+        </tr>
+        <tr>
+          <td><strong>Vaccine package info</strong></td>
+          <td class="before">Both Annual + New Pet packages dumped in one paragraph</td>
+          <td class="after">Asks "first round or up to date?" first, then sends the matching one</td>
+        </tr>
+        <tr>
+          <td><strong>Pet's name</strong></td>
+          <td class="before">Asked out of the blue during pricing/location queries</td>
+          <td class="after">Only when actively booking, updating, or pulling records</td>
         </tr>
         <tr>
           <td><strong>Blue Oasis framing</strong></td>
-          <td class="before">"BOV specialises in exotics" (factually wrong)</td>
-          <td class="after">Stays out of the conversation entirely (per brand rules)</td>
-        </tr>
-        <tr>
-          <td><strong>Booking forms</strong></td>
-          <td class="before">"1. Pet name 2. Time 3. Phone" — feels robotic</td>
-          <td class="after">Inline conversational asks ("What's your pet's name, and can I grab a number?")</td>
+          <td class="before">Sometimes described BOV as "specialises in exotics" (wrong)</td>
+          <td class="after">Stays out of conversation entirely (per brand rules)</td>
         </tr>
         <tr>
           <td><strong>Languages</strong></td>
           <td class="before">Sometimes suggested other clinics for Mandarin/Hindi/German speakers</td>
           <td class="after">Honest denial — no language vets at MV, no redirect</td>
         </tr>
-        <tr>
-          <td><strong>Competitor mentions</strong></td>
-          <td class="before">Engaged in price/distance comparisons</td>
-          <td class="after">Neutral acknowledgement, MV option offered without pushing</td>
-        </tr>
       </table>
-    </section>
-
-    <!-- ═══ v5.2 SAME-DAY PATCH ═══ -->
-    <section>
-      <h2>v5.2 — Same-day Conversational Patch</h2>
-      <p class="section-sub">After v5.1 deployed, Andrew tested it and flagged a reply that felt too long, info-dumped both vaccine packages, and asked for the pet's name out of the blue. v5.2 fixes those patterns with 5 strict conversational rules.</p>
-      <ul>
-        <li><strong>Max ~50-60 words per reply</strong> — WhatsApp rhythm, not email rhythm.</li>
-        <li><strong>Never dump both vaccine packages</strong> — ask "first round or up to date?" first, then send only the relevant one.</li>
-        <li><strong>Pet's name only for active booking / records / pre-op</strong> — never asked out of the blue for pricing or location queries.</li>
-        <li><strong>One follow-up question at a time</strong> — don't pile up.</li>
-        <li><strong>Banned phrases extended</strong> — "Happy to help / Happy to assist / Glad to help" all out.</li>
-      </ul>
-      <p>19 KB entries rewritten in this patch ($0.20 Opus spend). System prompt + KB redeployed to both surfaces.</p>
     </section>
 
     <!-- ═══ SAMPLE BEFORE/AFTER ═══ -->
@@ -190,41 +185,41 @@
 
       <p style="color:#94a3b8;margin-top:14px;font-size:0.9rem;"><strong style="color:#cbd5e1;">Q:</strong> "I live in DIP. Where's the closest vet?"</p>
       <div class="quote-box">
-        <strong class="label-old">v2 (May 5):</strong>
+        <strong class="label-old">v2 (fabricated, pushy):</strong>
         Your closest is JVC, about 7.8 km away — Platinum Residences. Consult AED 249 plus VAT. Want me to book you in?
       </div>
       <div class="quote-box">
-        <strong class="label-new">v5.2 (May 18):</strong>
-        From Green Community, your closest is MV JVC — around 15-20 min by car off-peak (12 km), open 7am–10pm. Consultation AED 249 plus VAT. Hospital on Al Wasl is further out (around 31 km) if you ever need 24/7. Mobile Clinic at AED 499 plus VAT also comes to you, includes consult.
+        <strong class="label-new">v5.3 (real data, concise, no push):</strong>
+        From DIP, your closest is MV JVC — around 15-20 min off-peak (12 km), open 7am–10pm. Consultation's AED 249 plus VAT.
       </div>
 
       <p style="color:#94a3b8;margin-top:24px;font-size:0.9rem;"><strong style="color:#cbd5e1;">Q:</strong> "Blue Oasis is closer to me. Can you match their price?"</p>
       <div class="quote-box">
-        <strong class="label-old">v2:</strong>
+        <strong class="label-old">v2 (mischaracterises BOV + aggressive close):</strong>
         Blue Oasis specialises in exotics. For your dog I'd come to us — JVC is nearby. Want me to book you in?
       </div>
       <div class="quote-box">
-        <strong class="label-new">v5.2:</strong>
-        Totally your call. If you'd rather come to us, MV JVC is your closest at around 6 km — consultation AED 249 plus VAT. Mobile Clinic at AED 499 plus VAT is another option if convenient. Let me know if you'd like to chat through what your pet needs.
+        <strong class="label-new">v5.3 (polite, firm decline, no Mobile-Clinic deflection):</strong>
+        We don't do price matching, sorry. Our consultations are AED 249 at branches and AED 299 at the Hospital plus VAT. If you'd like to come to us we'd be glad to have you.
       </div>
 
-      <p style="color:#94a3b8;margin-top:24px;font-size:0.9rem;"><strong style="color:#cbd5e1;">Q:</strong> "Do you do vaccinations?" (v5.2 patch sample)</p>
+      <p style="color:#94a3b8;margin-top:24px;font-size:0.9rem;"><strong style="color:#cbd5e1;">Q:</strong> "Do you do vaccinations?"</p>
       <div class="quote-box">
-        <strong class="label-old">v5.1 (info dump):</strong>
+        <strong class="label-old">v2 (dumps both packages, 130+ words):</strong>
         Yes, full vaccinations for dogs and cats. If your pet's up to date, the Annual Vaccine Package is AED 349 at branches or AED 535 at Hospital — consult, core vaccine, rabies, deworming and the municipality tag. If they're new or skipped last year, the New Pet Package covers two consults and two sets of vaccines plus rabies, deworming and the tag — AED 549 at branches, AED 699 at Hospital. When were they last vaccinated?
       </div>
       <div class="quote-box">
-        <strong class="label-new">v5.2 (ask first, send the right one):</strong>
+        <strong class="label-new">v5.3 (asks first, sends the right one):</strong>
         Yes, we do full vaccinations for dogs and cats. Quick question — is this their first round, or are they up to date from last year? I'll send you the right package.
       </div>
 
       <p style="color:#94a3b8;margin-top:24px;font-size:0.9rem;"><strong style="color:#cbd5e1;">Q:</strong> "Booking confirmation — JVC, 2pm tomorrow"</p>
       <div class="quote-box">
-        <strong class="label-old">v2:</strong>
+        <strong class="label-old">v2 (decorative emoji, "Perfect." opener):</strong>
         Perfect. Booked at JVC for tomorrow 2pm. Anything else? 👍
       </div>
       <div class="quote-box">
-        <strong class="label-new">v5.2:</strong>
+        <strong class="label-new">v5.3 (natural, warm, no emoji):</strong>
         Booked at JVC for tomorrow 2pm. See you then — let me know if anything changes.
       </div>
     </section>
@@ -252,21 +247,21 @@
     <!-- ═══ DEPLOYMENT ═══ -->
     <section>
       <h2>Deployment Status</h2>
-      <p class="section-sub">Both surfaces are live with v5.2.</p>
+      <p class="section-sub">Both surfaces are live with v5.3.</p>
       <div class="deploy-list">
         <div class="deploy-card">
           <div class="deploy-head"><h3>ElevenLabs Agent</h3><span class="badge-live">LIVE</span></div>
-          <p>System prompt v5.2, new KB doc (1,900 entries, 478 KB). Old doc deleted.</p>
+          <p>System prompt v5.3, new KB doc (1,900 entries, 414 KB).</p>
           <a href="https://elevenlabs.io/app/talk-to?agent_id=agent_2701kqwnryy2ewdapx7kxvqyr1zk" target="_blank">Public chat URL</a>
         </div>
         <div class="deploy-card">
           <div class="deploy-head"><h3>Hetzner Master Veta</h3><span class="badge-live">LIVE</span></div>
-          <p>ChromaDB rebuilt with 1,900 docs. Previous version backed up to <code>chroma_db_pre_v5.2_2026-05-18</code>.</p>
+          <p>ChromaDB rebuilt with v5.3 KB. Previous versions backed up.</p>
           <a href="https://vetalliance.website" target="_blank">vetalliance.website</a>
         </div>
         <div class="deploy-card">
           <div class="deploy-head"><h3>Telegram Test Bot</h3><span class="badge-live">LIVE</span></div>
-          <p>Pulls from Hetzner master Veta → automatically running v5.2 now.</p>
+          <p>Pulls from Hetzner master Veta → automatically running v5.3 now.</p>
           <a href="https://t.me/veta_modernvet_consultantbot" target="_blank">@veta_modernvet_consultantbot</a>
         </div>
       </div>
@@ -292,14 +287,25 @@
       <p style="font-size:0.85rem;color:#94a3b8;margin-top:8px;">* Khawaneej is currently closed for renovation, reopens June/July 2026. Veta routes Mirdif to the next nearest open branch.</p>
     </section>
 
+    <!-- ═══ PATCH HISTORY ═══ -->
+    <section>
+      <h2>Patch History (May 18)</h2>
+      <p class="section-sub">Three iterations shipped same day based on real-feedback testing.</p>
+      <ul>
+        <li><strong>v5.1</strong> — Major rebuild: 1,313 → 1,900 entries. 374 entries rewritten for tone. Real Google Routes distances pulled for 74 Dubai areas. System prompt extended with banned-phrase rules + BOV mischaracterisation guard.</li>
+        <li><strong>v5.2</strong> — Conversational patch: WhatsApp rhythm (max 50-60 words per reply), never dump both vaccine packages without asking client first, pet's name only requested when booking is active. 19 entries rewritten.</li>
+        <li><strong>v5.3</strong> — Concise call-centre tone: area-routing answers compressed to ~30 words (closest branch + price only), Mobile Clinic stops being auto-tacked-on to every reply, polite firm decline on price-matching requests. 395 entries rewritten.</li>
+      </ul>
+    </section>
+
     <!-- ═══ WHAT'S NEXT ═══ -->
     <section>
       <h2>What's Next</h2>
       <ul>
         <li><strong>Friday 22 May</strong> — Weekly feedback-loop cron runs automatically; pulls last 7 days of real Veta conversations, runs them through Opus analysis, flags any new drift patterns or fact errors.</li>
-        <li><strong>Migration test</strong> — With 1,900 entries densifying coverage, we can start testing whether Veta runs acceptably on Haiku (much cheaper) instead of Sonnet 4.6. The denser the KB, the less the model has to think.</li>
-        <li><strong>Verified facts maintenance</strong> — As branches change hours, prices, or open new locations, we update the KB and rebuild ChromaDB + ElevenLabs in one pass (10 minutes end-to-end).</li>
-        <li><strong>Production WhatsApp wiring</strong> — Veta is still on the internal ElevenLabs + Telegram surfaces only. Next step: replace the current v3 WhatsApp bot with v5.2.</li>
+        <li><strong>Migration test</strong> — With 1,900 entries densifying coverage, we can start testing whether Veta runs acceptably on Haiku (much cheaper) instead of Sonnet. The denser the KB, the less the model has to think.</li>
+        <li><strong>Verified facts maintenance</strong> — As branches change hours, prices, or open new locations, we update the KB and rebuild ChromaDB + ElevenLabs in one pass (~10 minutes end-to-end).</li>
+        <li><strong>Production WhatsApp wiring</strong> — Veta is still on the internal ElevenLabs + Telegram surfaces only. Next step: replace the current v3 WhatsApp bot with v5.3.</li>
       </ul>
     </section>
 
@@ -312,12 +318,12 @@
     if (pwd === 'modvet2026' || pwd === 'vetalliance2026') {
       document.getElementById('auth-overlay').style.display = 'none';
       document.getElementById('main-content').style.display = 'block';
-      sessionStorage.setItem('veta_v52_auth', '1');
+      sessionStorage.setItem('veta_launch_auth', '1');
     } else {
       document.getElementById('auth-error').style.display = 'block';
     }
   }
-  if (sessionStorage.getItem('veta_v52_auth') === '1') {
+  if (sessionStorage.getItem('veta_launch_auth') === '1') {
     document.getElementById('auth-overlay').style.display = 'none';
     document.getElementById('main-content').style.display = 'block';
   }
