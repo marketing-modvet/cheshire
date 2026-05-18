@@ -290,14 +290,47 @@
 <div class="container">
 
 <div class="intro">
-  <p>Vet Alliance is moving company communication onto Slack. Today, work conversations are scattered across WhatsApp groups, emails, DMs, and ad-hoc chats. That makes things slow, easy to miss, and impossible to search later.</p>
-  <p>This document explains how we're organising Slack so <strong>every message has an obvious home</strong>, every team has the channels they need, and nothing falls between the cracks. <strong>Privacy is a first-class design goal:</strong> sensitive functions stay isolated, while operational ones are visible enough to help everyone do their job.</p>
-  <p style="margin-bottom:0;">It's designed to scale to ~200 staff across 11 clinics + Head Office, while staying simple enough that a new joiner can find their way around on day one.</p>
+  <p>Vet Alliance is moving company communication onto Slack. <strong>This page is the live status dashboard for the Phase 3 rollout</strong> — what's locked in, what's changed since you last looked, and what we still need from each of you to finish the structure.</p>
+  <p style="margin-bottom:0;">The full design rationale and channel-by-channel detail is below the dashboard if you want the deeper context.</p>
 </div>
 
+<!-- ============================================================
+     MAIN DASHBOARD — status + changes + what's missing
+     ============================================================ -->
+
+<h2 style="margin-top:1.5rem;">📊 Status dashboard</h2>
+
+<div class="grid grid-2">
+  <div class="card" style="border-top: 4px solid #58a058;">
+    <h4 style="color:#2d5e2d;">✅ Locked in — ready to deploy</h4>
+    <p style="margin:.4rem 0;font-size:.92rem;">Design decisions confirmed. We'll start building these the moment rosters are in.</p>
+    <div class="status-row"><span class="status-badge locked">Locked</span> 6 channel prefixes + naming convention</div>
+    <div class="status-row"><span class="status-badge locked">Locked</span> Privacy model (closed-by-default)</div>
+    <div class="status-row"><span class="status-badge locked">Locked</span> Per-clinic 4–5 channel pattern</div>
+    <div class="status-row"><span class="status-badge locked">Locked</span> Leadership ownership across all clusters</div>
+    <div class="status-row"><span class="status-badge locked">Locked</span> HR structure (Shari's 8-channel proposal)</div>
+    <div class="status-row"><span class="status-badge locked">Locked</span> Finance roster + structure</div>
+    <div class="status-row"><span class="status-badge locked">Locked</span> Master Lists + branch-view design</div>
+  </div>
+
+  <div class="card" style="border-top: 4px solid #d97706;">
+    <h4 style="color:#92400e;">🔄 Awaiting reply — one item per dept head</h4>
+    <p style="margin:.4rem 0;font-size:.92rem;">Each dept head has a short list of items to confirm. Full detail in cards below.</p>
+    <div class="status-row"><span class="status-badge review">Aida</span> Escalation playbook + training charter + CC/reception rosters</div>
+    <div class="status-row"><span class="status-badge review">Judit</span> Maintenance Option A vs B (sync next week)</div>
+    <div class="status-row"><span class="status-badge review">Scott</span> Branch lead names + Mobile umbrella + rescue scope</div>
+    <div class="status-row"><span class="status-badge review">Michael</span> Ops cluster v1.8 sign-off + procurement roster</div>
+    <div class="status-row"><span class="status-badge review">Harshita</span> AP vs AR team allocation</div>
+    <div class="status-row"><span class="status-badge review">Hadi</span> BizDev cluster + team roster</div>
+    <div class="status-row"><span class="status-badge review">AbdulRahman</span> IT user group + vendor scope + cluster sign-off</div>
+  </div>
+</div>
+
+<h2>✨ What's new in v1.8</h2>
+
 <div class="callout callout-update">
-  <h4>✨ What's new in v1.8 (18 May 2026)</h4>
-  <p style="margin:.4rem 0 .6rem;">First round of feedback from CTO, Aida, Shari, Sandy, Judit, and Scott has been folded into the structure. The high-level design is unchanged; specific channels were added, renamed, or clarified.</p>
+  <h4>Changes since v1.7 (18 May 2026)</h4>
+  <p style="margin:.4rem 0 .6rem;">First round of feedback from CTO, Aida, Shari, Sandy, Judit, and Scott folded in. High-level design unchanged; specific channels added, renamed, or clarified.</p>
   <ul class="change-list">
     <li><strong>Added:</strong> <code>help-ezyvet</code> — central ezyVet support desk (CTO request, AbdulRahman owns)</li>
     <li><strong>Added:</strong> <code>clinic-mv-mob-bookings</code> — Mobile Van bookings: Dr Rahaf, Prakash, Call Centre team (Scott)</li>
@@ -312,33 +345,115 @@
   </ul>
 </div>
 
-<h2>Where we are right now</h2>
+<h2>📋 What we still need — per department</h2>
 
-<div class="grid grid-2">
-  <div class="card" style="border-top: 4px solid #58a058;">
-    <h4 style="color:#2d5e2d;">✅ Locked in</h4>
-    <p style="margin:.4rem 0;font-size:.92rem;">Design decisions confirmed and ready to build once rosters are in.</p>
-    <div class="status-row"><span class="status-badge locked">Locked</span> 6 channel prefixes + naming convention</div>
-    <div class="status-row"><span class="status-badge locked">Locked</span> Privacy model (closed-by-default)</div>
-    <div class="status-row"><span class="status-badge locked">Locked</span> Per-clinic 4–5 channel pattern</div>
-    <div class="status-row"><span class="status-badge locked">Locked</span> Leadership: Michael=COO, Scott=Clinical, Sandy=Nursing, Harshita=Finance, Hadi=CDO, Aida=CX</div>
-    <div class="status-row"><span class="status-badge locked">Locked</span> HR structure (Shari's 8-channel proposal)</div>
-    <div class="status-row"><span class="status-badge locked">Locked</span> Finance team roster</div>
-    <div class="status-row"><span class="status-badge locked">Locked</span> Master Lists + branch-view design</div>
+<p>Below is the precise list of what's still needed before each department's channels can be built. The structure is locked; what we're chasing now is <strong>rosters, sign-offs, and a handful of clarifications</strong>.</p>
+
+<div class="missing-grid">
+
+  <div class="missing-card">
+    <h4>📞 CX / Call Centre — Aida</h4>
+    <ul>
+      <li><strong>Call Centre agent roster</strong> — full list (names + emails) for the <code>@callcentre</code> user group</li>
+      <li><strong>Reception leads per branch</strong> — one name per branch (12 branches)</li>
+      <li><strong>VV interim branch lead</strong> — post-Amy, who covers branch-level day-to-day?</li>
+      <li><strong>Decision:</strong> <code>team-cx-training</code> charter — pick a focus (resources / discussions / audits / SOP rollouts / split)</li>
+      <li><strong>Decision:</strong> confirm or revise the 3-tier complaint escalation playbook</li>
+    </ul>
   </div>
 
-  <div class="card" style="border-top: 4px solid #d97706;">
-    <h4 style="color:#92400e;">🔄 Awaiting your input</h4>
-    <p style="margin:.4rem 0;font-size:.92rem;">Items that need a reply before we can lock and build. See “What we still need” below for the full list.</p>
-    <div class="status-row"><span class="status-badge review">Review</span> Aida: complaint escalation playbook + training charter</div>
-    <div class="status-row"><span class="status-badge review">Review</span> Judit: maintenance Option A vs B (sync next week)</div>
-    <div class="status-row"><span class="status-badge review">Review</span> Scott: branch lead names + Mobile umbrella decision</div>
-    <div class="status-row"><span class="status-badge review">Review</span> Michael: ops cluster v1.8 sign-off</div>
-    <div class="status-row"><span class="status-badge review">Review</span> Harshita: AP vs AR team allocation</div>
-    <div class="status-row"><span class="status-badge review">Review</span> Hadi: BizDev cluster + team roster</div>
-    <div class="status-row"><span class="status-badge review">Review</span> AbdulRahman: IT user group + vendor scope</div>
+  <div class="missing-card">
+    <h4>🩺 Clinical — Scott + Sandy + Rami</h4>
+    <ul>
+      <li><strong>All-vets roster per brand</strong> — <code>@vets-mv</code>, <code>@vets-bovc</code>, <code>@vets-vv</code>, <code>@vets-tvrc</code></li>
+      <li><strong>Pending Slack invites:</strong> Dr Rami, Dr Nour, Dr Waseem</li>
+      <li><strong>All-nurses roster</strong> — once Sandy finishes onboarding nurses this week</li>
+      <li><strong>Decisions:</strong> branch lead names for MV Palm/DT/JVC/JLT/BOVC DIP/TVRC; Mobile umbrella keep or drop; rescue: single or per-clinic; HQ sub-channels needed?</li>
+    </ul>
   </div>
+
+  <div class="missing-card">
+    <h4>🛠️ Maintenance / Projects — Judit</h4>
+    <ul>
+      <li><strong>Sync next week</strong> — walk through Slack basics + lock maintenance design</li>
+      <li><strong>Decision:</strong> Option A (central only, like current WhatsApp) vs Option B (master+views)</li>
+      <li><strong>Confirm membership</strong> for central maintenance: FD leads + Shibin + Himanshu + Michael + Scott + Sandy + Aida</li>
+      <li><strong>Projects:</strong> <code>team-ops-projects</code> on-hold until sync</li>
+    </ul>
+  </div>
+
+  <div class="missing-card">
+    <h4>📦 Procurement / Inventory — Michael</h4>
+    <ul>
+      <li><strong>v1.8 sign-off</strong> — still no reply received on the structure</li>
+      <li><strong>Procurement team confirmation</strong> — Michael + Naufal + Iqra + Hillary, plus anyone else?</li>
+      <li><strong>Vendor scope</strong> — any procurement vendors needed beyond eCRE8 + Synergi?</li>
+      <li><strong>Per-branch inventory</strong> confirmation</li>
+    </ul>
+  </div>
+
+  <div class="missing-card">
+    <h4>💰 Finance — Harshita</h4>
+    <ul>
+      <li><strong>Structure confirmed</strong> ✅</li>
+      <li><strong>Team roster captured</strong> — Harshita + Francis + Husain + Vijomon + Abid ✅</li>
+      <li><strong>Remaining:</strong> allocate Francis / Husain / Vijomon / Abid to <code>team-finance-ap</code> vs <code>team-finance-ar</code></li>
+    </ul>
+  </div>
+
+  <div class="missing-card">
+    <h4>👥 People / HR — Shari</h4>
+    <ul>
+      <li><strong>Structure confirmed</strong> ✅ — all 8 channels accepted as proposed</li>
+      <li><strong>Operational HR team</strong> — confirm Priya + Leya + Yousuf as <code>@hr</code> members; anyone else?</li>
+      <li><strong>Privacy:</strong> should Mansoor see <code>team-people-line-managers</code> alongside <code>team-people</code>?</li>
+    </ul>
+  </div>
+
+  <div class="missing-card">
+    <h4>📈 BizDev — Hadi</h4>
+    <ul>
+      <li><strong>v1.8 sign-off</strong> — no reply received yet</li>
+      <li><strong>BD team</strong> — anyone besides Hadi to add to the 4 channels?</li>
+      <li><strong>Confirm</strong> ownership of <code>help-bizdev</code></li>
+    </ul>
+  </div>
+
+  <div class="missing-card">
+    <h4>💻 Tech / IT — AbdulRahman</h4>
+    <ul>
+      <li><strong>Confirm <code>help-ezyvet</code></strong> ownership</li>
+      <li><strong><code>@it</code> user group</strong> — AbdulRahman + Ahmed + anyone else?</li>
+      <li><strong>Tech cluster sign-off</strong> for the 5 channels (currently in active rollout but no formal v1.8 confirmation)</li>
+      <li><strong>IT-side vendor channels</strong> — any beyond eCRE8 + Synergi?</li>
+    </ul>
+  </div>
+
+  <div class="missing-card">
+    <h4>🏢 Head Office + Cross-org</h4>
+    <ul>
+      <li><strong>HQ admin staff roster</strong> (Mansoor + Scott)</li>
+      <li><strong>Khawaneej + Azizi Riviera codes</strong> — proposed <code>khw</code> + <code>az</code></li>
+      <li><strong>Final v1.8 sign-off</strong> from Mansoor before build kickoff</li>
+    </ul>
+  </div>
+
 </div>
+
+<div class="callout callout-missing">
+  <h4>📥 Phase 4 candidates (deferred for now)</h4>
+  <p style="margin:.4rem 0 0;">These have been parked until after the main rollout. We'll revisit once Phase 3 is live and we know what people actually need.</p>
+  <ul style="margin:.6rem 0 0;">
+    <li><strong>Branch-lead CX escalation channel</strong> (Aida's suggestion) — for service issues that don't fit complaints or scheduling</li>
+    <li><strong>Per-branch ordering channel rethink</strong> (Sandy's question) — keep current pattern for now</li>
+    <li><strong>Medical assistants channels</strong> — add when they transition to Slack</li>
+    <li><strong>Additional nursing sub-channels</strong> — split out if Sandy needs them post-rollout</li>
+  </ul>
+</div>
+
+<hr style="margin: 4rem 0 2rem; border:none; border-top: 2px solid var(--border);">
+
+<p style="text-align:center; color:var(--muted); font-style:italic; font-size:.95rem;">The sections below explain the underlying design — channel families, naming, privacy, per-clinic pattern, lists. Reference material for new readers or anyone wanting deeper context.</p>
 
 <h2>The big idea</h2>
 
@@ -656,125 +771,7 @@
   <li>Aida + Harshita coordinate the resolution. The branch sees status updates inside their own channel.</li>
 </ol>
 
-<h2>What we still need — missing information by department</h2>
-
-<p>Below is the precise list of what's still needed before each department's channels can be built. The structure is locked; what we're chasing now is <strong>rosters, sign-offs, and a handful of clarifications</strong>.</p>
-
-<div class="missing-grid">
-
-  <div class="missing-card">
-    <h4>📞 CX / Call Centre — Aida</h4>
-    <ul>
-      <li><strong>Call Centre agent roster</strong> — full list of CC agents (names + emails) for the <code>@callcentre</code> user group</li>
-      <li><strong>Reception leads per branch</strong> — one name per branch (12 branches)</li>
-      <li><strong>VV interim branch lead</strong> — post-Amy, who covers branch-level day-to-day?</li>
-      <li><strong>Decisions:</strong> <code>team-cx-training</code> charter (pick a focus); confirm 3-tier complaint escalation playbook</li>
-    </ul>
-  </div>
-
-  <div class="missing-card">
-    <h4>🩺 Clinical — Scott + Sandy + Rami</h4>
-    <ul>
-      <li><strong>All-vets roster per brand</strong> — <code>@vets-mv</code>, <code>@vets-bovc</code>, <code>@vets-vv</code>, <code>@vets-tvrc</code></li>
-      <li><strong>Pending Slack invites:</strong> Dr Rami, Dr Nour, Dr Waseem</li>
-      <li><strong>All-nurses roster</strong> — once Sandy finishes onboarding nurses this week</li>
-      <li><strong>Decisions:</strong> branch lead names for MV Palm/DT/JVC/JLT/BOVC DIP/TVRC; Mobile umbrella keep or drop; rescue: single or per-clinic; HQ sub-channels needed?</li>
-    </ul>
-  </div>
-
-  <div class="missing-card">
-    <h4>🛠️ Maintenance / Projects — Judit</h4>
-    <ul>
-      <li><strong>Sync next week</strong> — walk through Slack basics + lock maintenance design</li>
-      <li><strong>Decision:</strong> Option A (central only, like current WhatsApp) vs Option B (master+views)</li>
-      <li><strong>Confirm membership</strong> for central maintenance channel: FD leads + Shibin + Himanshu + Michael + Scott + Sandy + Aida</li>
-      <li><strong>Projects:</strong> <code>team-ops-projects</code> on-hold until sync</li>
-    </ul>
-  </div>
-
-  <div class="missing-card">
-    <h4>📦 Procurement / Inventory — Michael</h4>
-    <ul>
-      <li><strong>v1.8 sign-off</strong> — still no reply received on the structure</li>
-      <li><strong>Procurement team confirmation</strong> — Michael + Naufal + Iqra + Hillary, plus anyone else?</li>
-      <li><strong>Vendor scope</strong> — any procurement vendors needed beyond eCRE8 + Synergi?</li>
-      <li><strong>Per-branch inventory</strong> confirmation</li>
-    </ul>
-  </div>
-
-  <div class="missing-card">
-    <h4>💰 Finance — Harshita</h4>
-    <ul>
-      <li><strong>Structure confirmed</strong> ✅</li>
-      <li><strong>Team roster captured</strong> — Harshita + Francis + Husain + Vijomon + Abid ✅</li>
-      <li><strong>Remaining:</strong> allocate Francis / Husain / Vijomon / Abid to <code>team-finance-ap</code> vs <code>team-finance-ar</code> (or both)</li>
-    </ul>
-  </div>
-
-  <div class="missing-card">
-    <h4>👥 People / HR — Shari</h4>
-    <ul>
-      <li><strong>Structure confirmed</strong> ✅ — all 8 channels accepted as proposed</li>
-      <li><strong>Operational HR team</strong> — confirm Priya + Leya + Yousuf as <code>@hr</code> members; anyone else?</li>
-      <li><strong>Privacy:</strong> should Mansoor see <code>team-people-line-managers</code> alongside <code>team-people</code>?</li>
-    </ul>
-  </div>
-
-  <div class="missing-card">
-    <h4>📈 BizDev — Hadi</h4>
-    <ul>
-      <li><strong>v1.8 sign-off</strong> — no reply received yet</li>
-      <li><strong>BD team</strong> — anyone besides Hadi to add to the 4 channels?</li>
-      <li><strong>Confirm</strong> ownership of <code>help-bizdev</code></li>
-    </ul>
-  </div>
-
-  <div class="missing-card">
-    <h4>💻 Tech / IT — AbdulRahman</h4>
-    <ul>
-      <li><strong>Confirm <code>help-ezyvet</code></strong> ownership</li>
-      <li><strong><code>@it</code> user group</strong> — AbdulRahman + Ahmed + anyone else?</li>
-      <li><strong>Tech cluster sign-off</strong> for the 5 channels (currently in active rollout but no formal v1.8 confirmation)</li>
-      <li><strong>IT-side vendor channels</strong> — any beyond eCRE8 + Synergi?</li>
-    </ul>
-  </div>
-
-  <div class="missing-card">
-    <h4>🏢 Head Office + Cross-org</h4>
-    <ul>
-      <li><strong>HQ admin staff roster</strong> (Mansoor + Scott)</li>
-      <li><strong>Khawaneej + Azizi Riviera codes</strong> — proposed <code>khw</code> + <code>az</code></li>
-      <li><strong>Final v1.8 sign-off</strong> from Mansoor before build kickoff</li>
-    </ul>
-  </div>
-
-</div>
-
-<div class="callout callout-missing">
-  <h4>📥 Phase 4 candidates (deferred for now)</h4>
-  <p style="margin:.4rem 0 0;">These have been parked until after the main rollout. We'll revisit once Phase 3 is live and we know what people actually need.</p>
-  <ul style="margin:.6rem 0 0;">
-    <li><strong>Branch-lead CX escalation channel</strong> (Aida's suggestion) — for service issues that don't fit complaints or scheduling</li>
-    <li><strong>Per-branch ordering channel rethink</strong> (Sandy's question) — keep current pattern for now</li>
-    <li><strong>Medical assistants channels</strong> — add when they transition to Slack</li>
-    <li><strong>Additional nursing sub-channels</strong> — split out if Sandy needs them post-rollout</li>
-  </ul>
-</div>
-
-<h2>What we need from each department head</h2>
-
-<div class="callout callout-ask">
-  <h4>Please review your section above and reply with:</h4>
-  <ol style="margin-bottom:0;line-height:1.8;">
-    <li><strong>Channel list</strong> — confirm the channels for your dept look right, or propose changes (additions, removals, renames).</li>
-    <li><strong>Members per channel</strong> — for each of your team's channels, who should be added? (names + roles).</li>
-    <li><strong>Privacy preferences</strong> — for each channel, who should see it? Options: (a) everyone in the company, (b) your dept + management only, (c) strictly your dept only. Default suggestions are above; flag anything you'd like changed.</li>
-    <li><strong>Cross-dept visitors</strong> — who from other departments should also be members of your channels? (e.g. Aida sits in clinical-rescue, Sandy in finance-discounts, etc.)</li>
-    <li><strong>Anything missing</strong> — channels, lists, or coordination patterns we haven't captured.</li>
-  </ol>
-</div>
-
-<p style="font-size:.95rem;">Send your reply to Andrew. Once everyone has signed off on their slice, we'll consolidate, align with leadership, and roll out at the right pace for your team. We'll take it as fast as you're ready — no fixed deadline, but the sooner the structure is clear, the sooner the company stops losing things in WhatsApp threads.</p>
+<!-- Bottom dashboard duplicate removed in v1.8 — dashboard now at top of page -->
 
 </div>
 
