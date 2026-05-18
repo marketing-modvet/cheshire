@@ -406,7 +406,7 @@
     <div class="status-row"><span class="status-badge review">Judit</span> Maintenance Option A vs B (sync next week)</div>
     <div class="status-row"><span class="status-badge review">Scott+Sandy</span> Clinical rosters + branch leads + Mobile umbrella + rescue scope</div>
     <div class="status-row"><span class="status-badge review">Hadi</span> BizDev cluster sign-off + team roster</div>
-    <div class="status-row"><span class="status-badge review">Mansoor+Scott</span> HQ admin roster + Khawaneej/AZ codes + final sign-off</div>
+    <div class="status-row"><span class="status-badge review">Mansoor+Scott</span> Khawaneej/AZ branch codes + final v1.8 sign-off</div>
   </div>
 </div>
 
@@ -476,12 +476,12 @@
   </div>
 
   <div class="missing-card">
-    <h4>🏢 Head Office + Cross-org — Mansoor + Scott</h4>
+    <h4>🏢 Cross-org — Mansoor + Scott</h4>
     <ul>
-      <li><strong>HQ admin staff roster</strong> (Mansoor + Scott)</li>
       <li><strong>Khawaneej + Azizi Riviera codes</strong> — proposed <code>khw</code> + <code>az</code></li>
       <li><strong>Final v1.8 sign-off</strong> from Mansoor before build kickoff</li>
     </ul>
+    <p style="margin:.5rem 0 0;font-size:.85rem;color:var(--muted);font-style:italic;">Head Office admin already covered by <code>va-management</code> — no separate <code>clinic-hq</code> needed.</p>
   </div>
 
 </div>
@@ -535,7 +535,6 @@
     <li><strong>Per-clinic umbrella + med channels · ~22 channels</strong> — need branch lead names + branch staff rosters (MV Palm/DT/JVC/JLT/Az/Khw, BOVC DIP, VV, TVRC). <em>Owner: Scott + Sandy.</em></li>
     <li><strong>Call Centre · 2 channels</strong> — need full CC agent roster. <em>Owner: Aida.</em></li>
     <li><strong>Mobile Van bookings</strong> — Dr Rahaf + Prakash + CC team (CC roster pending).</li>
-    <li><strong>HQ · 1 channel</strong> — need HQ admin staff list. <em>Owner: Mansoor + Scott.</em></li>
     <li><strong>BizDev · 4 channels</strong> — Hadi is the only confirmed member; need any other BD team members. <em>Owner: Hadi.</em></li>
   </ul>
   <p style="margin:.8rem 0 0;font-size:.9rem;"><strong>Already have full rosters for:</strong> va-*, marketing, tech/IT, ops (all 11 channels), HR (all 8), finance (all 5), help-*, vendor-*, social-*.</p>
@@ -644,7 +643,7 @@
   <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members need">👥 need</span><span class="ch-name">clinic-XXX-inventory</span><span class="ch-note">Michael + procurement confirmed; need per-branch staff with ordering role</span></div>
   <div class="channel-line"><span class="ch-tag options">OPT</span><span class="ch-members partial">👥 partial</span><span class="ch-name">clinic-XXX-maintenance</span><span class="ch-note">depends on Judit Option A vs B; if B, need per-branch FD leads</span></div>
   <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-members partial">👥 partial</span><span class="ch-name">clinic-mv-mob-bookings</span><span class="ch-note">Dr Rahaf + Prakash confirmed; CC team roster pending (Aida)</span></div>
-  <div class="channel-line"><span class="ch-tag pending">WAIT</span><span class="ch-members need">👥 need</span><span class="ch-name">clinic-hq</span><span class="ch-note">HQ admin roster pending (Mansoor + Scott)</span></div>
+  <p style="margin:.6rem 0 0;font-size:.85rem;color:var(--muted);font-style:italic;">No dedicated <code>clinic-hq</code> — Head Office staff coordinate via <code>va-management</code>.</p>
 </div>
 
 <div class="structure-cluster">
@@ -770,8 +769,7 @@
 │   ├─ MB · Palm · DT · JVC · JLT · Azizi · Khawaneej · Mobile
 ├─ Blue Oasis (DIP)        × 5 = 5
 ├─ Vienna Vet              × 5 = 5            <span class="own">Aida</span>
-├─ TVRC                    × 5 = 5            <span class="own">Aida</span>
-└─ HQ (Head Office)        × 2-5 = 2-5        <span class="own">Mansoor / Michael</span>
+└─ TVRC                    × 5 = 5            <span class="own">Aida</span>
 
 <span class="pfx">help-</span>                                           (Service desks · 7 channels · all 🌐 public)
 ├─ help-marketing            🌐  <span class="own">Andrew</span>
@@ -828,9 +826,10 @@
     <tr><td>Blue Oasis — DIP</td><td><code>clinic-bovc-dip</code></td><td>Michael + Sandy</td></tr>
     <tr><td>Vienna Vet</td><td><code>clinic-vv</code></td><td><strong>Aida</strong> + branch lead TBC</td></tr>
     <tr><td>TVRC (referral hospital)</td><td><code>clinic-tvrc</code></td><td><strong>Aida</strong></td></tr>
-    <tr><td>VA Head Office</td><td><code>clinic-hq</code></td><td>Mansoor / Michael</td></tr>
   </tbody>
 </table>
+
+<p style="font-size:.9rem;color:var(--muted);font-style:italic;">Head Office staff aren't a clinic — they coordinate through <code>va-management</code> and the relevant functional channels (finance, HR, marketing, etc.). No dedicated <code>clinic-hq</code>.</p>
 
 <h2>Departments — detail by team</h2>
 
