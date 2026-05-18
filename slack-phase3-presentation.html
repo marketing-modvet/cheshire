@@ -248,6 +248,77 @@
   .missing-card ul { margin: .3rem 0 0; padding-left: 1.2rem; }
   .missing-card ul li { margin: .25rem 0; font-size: .9rem; }
 
+  /* Structure with applied changes */
+  .structure-cluster {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2rem 1.4rem;
+    margin: 1rem 0;
+  }
+  .structure-cluster h3 {
+    margin: 0 0 .8rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.05rem;
+    color: var(--teal-deep);
+    padding-bottom: .5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .5rem;
+  }
+  .structure-cluster h3 .cluster-status {
+    font-size: .7rem;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+  .cluster-status.locked { background: #d1e7d1; color: #1e4620; }
+  .cluster-status.partial { background: #fef3c7; color: #78350f; }
+  .channel-line {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .25rem 0;
+    font-size: .9rem;
+    font-family: 'Menlo', 'Monaco', monospace;
+    line-height: 1.4;
+  }
+  .channel-line .ch-tag {
+    display: inline-block;
+    min-width: 26px;
+    text-align: center;
+    font-size: .75rem;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    flex-shrink: 0;
+  }
+  .ch-tag.ok { background: #d1e7d1; color: #1e4620; }
+  .ch-tag.new { background: #dbeafe; color: #1e3a8a; }
+  .ch-tag.pending { background: #fef3c7; color: #78350f; }
+  .ch-tag.options { background: #ede9fe; color: #4c1d95; }
+  .channel-line .ch-name { color: var(--teal-deep); font-weight: 600; }
+  .channel-line .ch-note { color: var(--muted); font-family: 'Montserrat', sans-serif; font-size: .82rem; font-style: italic; }
+  .structure-legend {
+    background: #f8f9f6;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: .9rem 1.2rem;
+    margin: 1rem 0 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    font-size: .88rem;
+  }
+  .structure-legend .legend-item { display: flex; align-items: center; gap: .4rem; }
+
   /* Department detail block */
   .dept-block {
     background: white;
@@ -303,26 +374,26 @@
 <div class="grid grid-2">
   <div class="card" style="border-top: 4px solid #58a058;">
     <h4 style="color:#2d5e2d;">✅ Locked in — ready to deploy</h4>
-    <p style="margin:.4rem 0;font-size:.92rem;">Design decisions confirmed. We'll start building these the moment rosters are in.</p>
+    <p style="margin:.4rem 0;font-size:.92rem;">Design decisions confirmed. We'll start building these the moment all rosters are in.</p>
     <div class="status-row"><span class="status-badge locked">Locked</span> 6 channel prefixes + naming convention</div>
     <div class="status-row"><span class="status-badge locked">Locked</span> Privacy model (closed-by-default)</div>
     <div class="status-row"><span class="status-badge locked">Locked</span> Per-clinic 4–5 channel pattern</div>
     <div class="status-row"><span class="status-badge locked">Locked</span> Leadership ownership across all clusters</div>
-    <div class="status-row"><span class="status-badge locked">Locked</span> HR structure (Shari's 8-channel proposal)</div>
-    <div class="status-row"><span class="status-badge locked">Locked</span> Finance roster + structure</div>
     <div class="status-row"><span class="status-badge locked">Locked</span> Master Lists + branch-view design</div>
+    <div class="status-row"><span class="status-badge locked">Locked</span> <strong>HR</strong> structure + roster (Shari)</div>
+    <div class="status-row"><span class="status-badge locked">Locked</span> <strong>Finance</strong> structure + roster (Harshita)</div>
+    <div class="status-row"><span class="status-badge locked">Locked</span> <strong>Tech / IT</strong> cluster + ezyVet ownership (AbdulRahman)</div>
+    <div class="status-row"><span class="status-badge locked">Locked</span> <strong>Ops / Inventory</strong> cluster + vendor scope (Michael)</div>
   </div>
 
   <div class="card" style="border-top: 4px solid #d97706;">
-    <h4 style="color:#92400e;">🔄 Awaiting reply — one item per dept head</h4>
-    <p style="margin:.4rem 0;font-size:.92rem;">Each dept head has a short list of items to confirm. Full detail in cards below.</p>
-    <div class="status-row"><span class="status-badge review">Aida</span> Escalation playbook + training charter + CC/reception rosters</div>
+    <h4 style="color:#92400e;">🔄 Awaiting reply</h4>
+    <p style="margin:.4rem 0;font-size:.92rem;">Items that still need a reply before we can finish locking the structure. Detail in cards below.</p>
+    <div class="status-row"><span class="status-badge review">Aida</span> Training-channel charter + escalation playbook (call to confirm)</div>
     <div class="status-row"><span class="status-badge review">Judit</span> Maintenance Option A vs B (sync next week)</div>
-    <div class="status-row"><span class="status-badge review">Scott</span> Branch lead names + Mobile umbrella + rescue scope</div>
-    <div class="status-row"><span class="status-badge review">Michael</span> Ops cluster v1.8 sign-off + procurement roster</div>
-    <div class="status-row"><span class="status-badge review">Harshita</span> AP vs AR team allocation</div>
-    <div class="status-row"><span class="status-badge review">Hadi</span> BizDev cluster + team roster</div>
-    <div class="status-row"><span class="status-badge review">AbdulRahman</span> IT user group + vendor scope + cluster sign-off</div>
+    <div class="status-row"><span class="status-badge review">Scott+Sandy</span> Clinical rosters + branch leads + Mobile umbrella + rescue scope</div>
+    <div class="status-row"><span class="status-badge review">Hadi</span> BizDev cluster sign-off + team roster</div>
+    <div class="status-row"><span class="status-badge review">Mansoor+Scott</span> HQ admin roster + Khawaneej/AZ codes + final sign-off</div>
   </div>
 </div>
 
@@ -347,7 +418,7 @@
 
 <h2>📋 What we still need — per department</h2>
 
-<p>Below is the precise list of what's still needed before each department's channels can be built. The structure is locked; what we're chasing now is <strong>rosters, sign-offs, and a handful of clarifications</strong>.</p>
+<p>Five departments still have items pending. The other four (HR, Finance, Tech/IT, Ops/Inventory) are fully confirmed and ready to build.</p>
 
 <div class="missing-grid">
 
@@ -357,8 +428,8 @@
       <li><strong>Call Centre agent roster</strong> — full list (names + emails) for the <code>@callcentre</code> user group</li>
       <li><strong>Reception leads per branch</strong> — one name per branch (12 branches)</li>
       <li><strong>VV interim branch lead</strong> — post-Amy, who covers branch-level day-to-day?</li>
-      <li><strong>Decision:</strong> <code>team-cx-training</code> charter — pick a focus (resources / discussions / audits / SOP rollouts / split)</li>
-      <li><strong>Decision:</strong> confirm or revise the 3-tier complaint escalation playbook</li>
+      <li><strong>Decision (Andrew to ask Aida directly):</strong> <code>team-cx-training</code> charter — pick a focus</li>
+      <li><strong>Decision (pending call):</strong> Complaint escalation playbook — <strong>2 options on the table</strong>, awaiting Aida's confirmation in next call</li>
     </ul>
   </div>
 
@@ -383,34 +454,6 @@
   </div>
 
   <div class="missing-card">
-    <h4>📦 Procurement / Inventory — Michael</h4>
-    <ul>
-      <li><strong>v1.8 sign-off</strong> — still no reply received on the structure</li>
-      <li><strong>Procurement team confirmation</strong> — Michael + Naufal + Iqra + Hillary, plus anyone else?</li>
-      <li><strong>Vendor scope</strong> — any procurement vendors needed beyond eCRE8 + Synergi?</li>
-      <li><strong>Per-branch inventory</strong> confirmation</li>
-    </ul>
-  </div>
-
-  <div class="missing-card">
-    <h4>💰 Finance — Harshita</h4>
-    <ul>
-      <li><strong>Structure confirmed</strong> ✅</li>
-      <li><strong>Team roster captured</strong> — Harshita + Francis + Husain + Vijomon + Abid ✅</li>
-      <li><strong>Remaining:</strong> allocate Francis / Husain / Vijomon / Abid to <code>team-finance-ap</code> vs <code>team-finance-ar</code></li>
-    </ul>
-  </div>
-
-  <div class="missing-card">
-    <h4>👥 People / HR — Shari</h4>
-    <ul>
-      <li><strong>Structure confirmed</strong> ✅ — all 8 channels accepted as proposed</li>
-      <li><strong>Operational HR team</strong> — confirm Priya + Leya + Yousuf as <code>@hr</code> members; anyone else?</li>
-      <li><strong>Privacy:</strong> should Mansoor see <code>team-people-line-managers</code> alongside <code>team-people</code>?</li>
-    </ul>
-  </div>
-
-  <div class="missing-card">
     <h4>📈 BizDev — Hadi</h4>
     <ul>
       <li><strong>v1.8 sign-off</strong> — no reply received yet</li>
@@ -420,17 +463,7 @@
   </div>
 
   <div class="missing-card">
-    <h4>💻 Tech / IT — AbdulRahman</h4>
-    <ul>
-      <li><strong>Confirm <code>help-ezyvet</code></strong> ownership</li>
-      <li><strong><code>@it</code> user group</strong> — AbdulRahman + Ahmed + anyone else?</li>
-      <li><strong>Tech cluster sign-off</strong> for the 5 channels (currently in active rollout but no formal v1.8 confirmation)</li>
-      <li><strong>IT-side vendor channels</strong> — any beyond eCRE8 + Synergi?</li>
-    </ul>
-  </div>
-
-  <div class="missing-card">
-    <h4>🏢 Head Office + Cross-org</h4>
+    <h4>🏢 Head Office + Cross-org — Mansoor + Scott</h4>
     <ul>
       <li><strong>HQ admin staff roster</strong> (Mansoor + Scott)</li>
       <li><strong>Khawaneej + Azizi Riviera codes</strong> — proposed <code>khw</code> + <code>az</code></li>
@@ -438,6 +471,16 @@
     </ul>
   </div>
 
+</div>
+
+<div class="callout" style="background:#e8f5e9;border-color:#58a058;">
+  <h4 style="color:#2d5e2d;">✅ Already complete — no further input needed</h4>
+  <ul style="margin:.5rem 0 0;line-height:1.7;">
+    <li><strong>HR / People (Shari)</strong> — all 8 channels accepted, roster confirmed (Shari + Priya + Leya + Yousuf), Mansoor sits in <code>team-people</code></li>
+    <li><strong>Finance (Harshita)</strong> — structure confirmed; full team in all finance channels: Harshita + Francis + Husain + Vijomon + Abid</li>
+    <li><strong>Tech / IT (AbdulRahman)</strong> — cluster confirmed, <code>help-ezyvet</code> ownership confirmed, IT vendor scope confirmed (eCRE8 + Synergi only)</li>
+    <li><strong>Ops / Inventory (Michael)</strong> — cluster confirmed, procurement team confirmed, no additional vendor channels needed</li>
+  </ul>
 </div>
 
 <div class="callout callout-missing">
@@ -449,6 +492,144 @@
     <li><strong>Medical assistants channels</strong> — add when they transition to Slack</li>
     <li><strong>Additional nursing sub-channels</strong> — split out if Sandy needs them post-rollout</li>
   </ul>
+</div>
+
+<h2>📐 Full structure with applied changes</h2>
+
+<p>Every channel cluster after the v1.8 changes were applied. Tags show whether each channel is confirmed, new in v1.8, pending input, or has options to choose from.</p>
+
+<div class="structure-legend">
+  <div class="legend-item"><span class="ch-tag ok">OK</span> Confirmed, ready to build</div>
+  <div class="legend-item"><span class="ch-tag new">NEW</span> Added/renamed in v1.8</div>
+  <div class="legend-item"><span class="ch-tag pending">WAIT</span> Pending input from dept head</div>
+  <div class="legend-item"><span class="ch-tag options">OPT</span> Options on table — awaiting decision</div>
+</div>
+
+<div class="structure-cluster">
+  <h3>🏢 Vet Alliance org-wide · <code>va-*</code> <span class="cluster-status locked">Locked</span></h3>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">va-announcements</span><span class="ch-note">read-only, 9 leaders post</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">va-general</span><span class="ch-note">watercooler, kudos</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">va-leadership</span><span class="ch-note">private, exec team</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">va-management</span><span class="ch-note">team leads + branch managers</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">va-policies</span><span class="ch-note">read-only policy publishing</span></div>
+</div>
+
+<div class="structure-cluster">
+  <h3>📈 Marketing · <code>team-marketing-*</code> <span class="cluster-status locked">Locked</span></h3>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">10 channels — already in active rollout</span><span class="ch-note">Andrew owns; see scheme doc for full list</span></div>
+</div>
+
+<div class="structure-cluster">
+  <h3>💻 Tech / IT · <code>team-tech-*</code> <span class="cluster-status locked">Locked</span></h3>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-tech</span><span class="ch-note">AbdulRahman — leadership</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-tech-it</span><span class="ch-note">hardware, access</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-tech-software</span><span class="ch-note">apps, integrations</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-tech-data</span><span class="ch-note">analytics, reporting</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-tech-ai</span><span class="ch-note">AI/automation initiatives</span></div>
+</div>
+
+<div class="structure-cluster">
+  <h3>📦 Operations · <code>team-ops-*</code> <span class="cluster-status locked">Locked</span></h3>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-ops</span><span class="ch-note">Scott + Michael — ops leadership</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-ops-warehouse</span><span class="ch-note">Michael</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-ops-inventory</span><span class="ch-note">Michael — central + per-branch lists</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-ops-floof-orders</span><span class="ch-note">Michael</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-ops-smartflow</span><span class="ch-note">Michael — only public ops channel</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-ops-purchasing</span><span class="ch-note">Michael</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-ops-approvals-equipment</span><span class="ch-note">Michael</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-ops-approvals-medicine</span><span class="ch-note">Michael</span></div>
+  <div class="channel-line"><span class="ch-tag options">OPT</span><span class="ch-name">team-ops-maintenance</span><span class="ch-note">Judit — Option A (central only) vs Option B (master+views)</span></div>
+  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-name">team-ops-projects</span><span class="ch-note">Judit — renamed from <code>team-ops-fitout</code>; on-hold</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-ops-licensing</span><span class="ch-note">Scott + Yusuf</span></div>
+</div>
+
+<div class="structure-cluster">
+  <h3>🩺 Clinical · <code>team-clinical-*</code> <span class="cluster-status partial">Awaiting rosters</span></h3>
+  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-name">team-clinical-leadership</span><span class="ch-note">renamed from <code>team-clinical</code> — Scott + Dieter + Rami</span></div>
+  <div class="channel-line"><span class="ch-tag pending">WAIT</span><span class="ch-name">team-clinical-vets</span><span class="ch-note">Dr Rami — awaiting full vet roster</span></div>
+  <div class="channel-line"><span class="ch-tag pending">WAIT</span><span class="ch-name">team-clinical-nurses</span><span class="ch-note">Sandy — awaiting nurse roster (onboarding this week)</span></div>
+  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-name">team-clinical-nurses-announcements</span><span class="ch-note">Sandy — restricted posting, SOPs only</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-clinical-medical-product</span><span class="ch-note">Rami + Michael</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-clinical-rescue</span><span class="ch-note">Aida</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-clinical-emergency</span><span class="ch-note">Scott — on-call protocols</span></div>
+</div>
+
+<div class="structure-cluster">
+  <h3>📞 Customer Experience · <code>team-cx-*</code> <span class="cluster-status partial">Awaiting Aida</span></h3>
+  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-name">team-cx-leadership</span><span class="ch-note">renamed from <code>team-cx</code></span></div>
+  <div class="channel-line"><span class="ch-tag options">OPT</span><span class="ch-name">team-cx-complaints</span><span class="ch-note">escalation playbook — 2 options awaiting Aida's call</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-cx-experience</span><span class="ch-note">NPS, reviews, reputation</span></div>
+  <div class="channel-line"><span class="ch-tag pending">WAIT</span><span class="ch-name">team-cx-training</span><span class="ch-note">charter pending Aida (Andrew asks directly)</span></div>
+  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-name">team-cx-handoffs</span><span class="ch-note">moved from CC — CC ↔ reception bridge</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-cx-scheduling</span><span class="ch-note">already exists — Dima</span></div>
+</div>
+
+<div class="structure-cluster">
+  <h3>🎙️ Call Centre · <code>team-cc-*</code> <span class="cluster-status partial">Awaiting CC roster</span></h3>
+  <div class="channel-line"><span class="ch-tag pending">WAIT</span><span class="ch-name">team-cc</span><span class="ch-note">awaiting CC agent roster</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-cc-callgear</span><span class="ch-note">Andrew + CC lead</span></div>
+</div>
+
+<div class="structure-cluster">
+  <h3>👥 People / HR · <code>team-people-*</code> <span class="cluster-status locked">Locked</span></h3>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-people</span><span class="ch-note">Shari + Mansoor + Hadi + Harshita</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-people-recruitment</span><span class="ch-note">Shari + Priya + Leya</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-people-licensing-visa</span><span class="ch-note">Shari + Leya + Yousuf</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-people-leave-payroll</span><span class="ch-note">Shari + Leya</span></div>
+  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-name">team-people-clinical</span><span class="ch-note">Shari + Leya + Scott + Sandy</span></div>
+  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-name">team-people-scheduling</span><span class="ch-note">Shari + Leya + Scott + Sandy + Dmitry + Aida</span></div>
+  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-name">team-people-line-managers</span><span class="ch-note">all line managers — see scheme</span></div>
+  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-name">team-people-finance</span><span class="ch-note">Shari + Leya + Harshita + Vijo + Husain</span></div>
+</div>
+
+<div class="structure-cluster">
+  <h3>💰 Finance · <code>team-finance-*</code> <span class="cluster-status locked">Locked</span></h3>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-finance</span><span class="ch-note">Harshita — leadership</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-finance-ap</span><span class="ch-note">full team (Francis, Husain, Vijomon, Abid)</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-finance-ar</span><span class="ch-note">full team (Francis, Husain, Vijomon, Abid)</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-finance-discounts</span><span class="ch-note">Sandy + Aida</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">team-finance-pricing</span><span class="ch-note">Mansoor + Scott</span></div>
+</div>
+
+<div class="structure-cluster">
+  <h3>📈 Business Development · <code>team-bizdev-*</code> <span class="cluster-status partial">Awaiting Hadi</span></h3>
+  <div class="channel-line"><span class="ch-tag pending">WAIT</span><span class="ch-name">team-bizdev</span><span class="ch-note">Hadi — awaiting cluster sign-off</span></div>
+  <div class="channel-line"><span class="ch-tag pending">WAIT</span><span class="ch-name">team-bizdev-partnerships</span><span class="ch-note">Hadi</span></div>
+  <div class="channel-line"><span class="ch-tag pending">WAIT</span><span class="ch-name">team-bizdev-expansion</span><span class="ch-note">Hadi + Mansoor</span></div>
+  <div class="channel-line"><span class="ch-tag pending">WAIT</span><span class="ch-name">team-bizdev-pipeline</span><span class="ch-note">Hadi — leads tracker</span></div>
+</div>
+
+<div class="structure-cluster">
+  <h3>🏥 Per-clinic · <code>clinic-*</code> <span class="cluster-status partial">Awaiting branch leads</span></h3>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">clinic-XXX</span><span class="ch-note">umbrella — Sandy + Scott (Aida for VV/TVRC)</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">clinic-XXX-med</span><span class="ch-note">Scott + Sandy</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">clinic-XXX-fd</span><span class="ch-note">Aida — awaiting reception leads</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">clinic-XXX-inventory</span><span class="ch-note">Michael</span></div>
+  <div class="channel-line"><span class="ch-tag options">OPT</span><span class="ch-name">clinic-XXX-maintenance</span><span class="ch-note">depends on Judit's Option A vs B</span></div>
+  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-name">clinic-mv-mob-bookings</span><span class="ch-note">Scott — Dr Rahaf + Prakash + CC team</span></div>
+  <div class="channel-line"><span class="ch-tag pending">WAIT</span><span class="ch-name">clinic-hq</span><span class="ch-note">awaiting HQ admin roster</span></div>
+</div>
+
+<div class="structure-cluster">
+  <h3>❓ Help desks · <code>help-*</code> <span class="cluster-status locked">Locked</span></h3>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">help-it</span><span class="ch-note">AbdulRahman</span></div>
+  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-name">help-ezyvet</span><span class="ch-note">AbdulRahman — CTO request</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">help-marketing</span><span class="ch-note">Andrew</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">help-people</span><span class="ch-note">Shari</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">help-finance</span><span class="ch-note">Harshita</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">help-ops</span><span class="ch-note">Judit + Scott</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">help-bizdev</span><span class="ch-note">Hadi</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">help-scheduling</span><span class="ch-note">Dima</span></div>
+</div>
+
+<div class="structure-cluster">
+  <h3>🤝 Vendors + Social · <code>vendor-*</code> / <code>social-*</code> <span class="cluster-status locked">Locked</span></h3>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">vendor-ecre8</span><span class="ch-note">Andrew</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">vendor-synergi</span><span class="ch-note">AbdulRahman</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">social-random</span><span class="ch-note">opt-in</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">social-pets</span><span class="ch-note">opt-in</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">social-celebrations</span><span class="ch-note">opt-in</span></div>
+  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-name">social-marketplace</span><span class="ch-note">opt-in — buy/sell/giveaway between staff</span></div>
 </div>
 
 <hr style="margin: 4rem 0 2rem; border:none; border-top: 2px solid var(--border);">
