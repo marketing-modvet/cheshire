@@ -100,7 +100,7 @@
       <span class="header-tag">📊 INTERNAL REPORT · LIVE</span>
       <h1>Veta v5 — Major Humanization & Densification Update</h1>
       <p class="header-sub">Veta now answers like a real call-centre agent — verified Google Routes distances for 74 Dubai areas, no info dumps, no aggressive booking, no fabricated facts. Deployed to ElevenLabs + Hetzner.</p>
-      <div class="header-meta"><strong>Latest patch:</strong> v5.4 · 19 May 2026 · <strong>Owner:</strong> Andrew (Marketing) · <strong>Status:</strong> Live in production</div>
+      <div class="header-meta"><strong>Latest patch:</strong> v5.5 · 19 May 2026 · <strong>Owner:</strong> Andrew (Marketing) · <strong>Status:</strong> Live in production</div>
       <div class="header-actions">
         <a class="btn btn-primary" href="https://elevenlabs.io/app/talk-to?agent_id=agent_2701kqwnryy2ewdapx7kxvqyr1zk" target="_blank">💬 Try Veta now</a>
       </div>
@@ -123,7 +123,7 @@
       <h2>What Changed</h2>
       <p class="section-sub">Side-by-side, the things colleagues and managers will actually notice.</p>
       <table class="compare-table">
-        <tr><th>Issue</th><th>Before (v2)</th><th>After (v5.4)</th></tr>
+        <tr><th>Issue</th><th>Before (v2)</th><th>After (v5.5)</th></tr>
         <tr>
           <td><strong>Fabricated distances</strong></td>
           <td class="before">"DIP → JVC = 7.8 km"<br>"Damac Hills 2 → JVC = 11.3 km"<br>(both invented)</td>
@@ -188,7 +188,7 @@
         Your closest is JVC, about 7.8 km away — Platinum Residences. Consult AED 249 plus VAT. Want me to book you in?
       </div>
       <div class="quote-box">
-        <strong class="label-new">v5.4 (real data, concise, no push):</strong>
+        <strong class="label-new">v5.5 (real data, concise, no push):</strong>
         From DIP, your closest is MV JVC — around 15-20 min off-peak (12 km), open 7am–10pm. Consultation's AED 249 plus VAT.
       </div>
 
@@ -198,7 +198,7 @@
         Blue Oasis specialises in exotics. For your dog I'd come to us — JVC is nearby. Want me to book you in?
       </div>
       <div class="quote-box">
-        <strong class="label-new">v5.4 (polite, firm decline, no Mobile-Clinic deflection):</strong>
+        <strong class="label-new">v5.5 (polite, firm decline, no Mobile-Clinic deflection):</strong>
         We don't do price matching, sorry. Our consultations are AED 249 at branches and AED 299 at the Hospital plus VAT. If you'd like to come to us we'd be glad to have you.
       </div>
 
@@ -208,7 +208,7 @@
         Yes, full vaccinations for dogs and cats. If your pet's up to date, the Annual Vaccine Package is AED 349 at branches or AED 535 at Hospital — consult, core vaccine, rabies, deworming and the municipality tag. If they're new or skipped last year, the New Pet Package covers two consults and two sets of vaccines plus rabies, deworming and the tag — AED 549 at branches, AED 699 at Hospital. When were they last vaccinated?
       </div>
       <div class="quote-box">
-        <strong class="label-new">v5.4 (asks first, sends the right one):</strong>
+        <strong class="label-new">v5.5 (asks first, sends the right one):</strong>
         Yes, we do full vaccinations for dogs and cats. Quick question — is this their first round, or are they up to date from last year? I'll send you the right package.
       </div>
 
@@ -218,7 +218,7 @@
         Perfect. Booked at JVC for tomorrow 2pm. Anything else? 👍
       </div>
       <div class="quote-box">
-        <strong class="label-new">v5.4 (natural, warm, no emoji):</strong>
+        <strong class="label-new">v5.5 (natural, warm, no emoji):</strong>
         Booked at JVC for tomorrow 2pm. See you then — let me know if anything changes.
       </div>
     </section>
@@ -246,21 +246,21 @@
     <!-- ═══ DEPLOYMENT ═══ -->
     <section>
       <h2>Deployment Status</h2>
-      <p class="section-sub">Both surfaces are live with v5.4.</p>
+      <p class="section-sub">Both surfaces are live with v5.5.</p>
       <div class="deploy-list">
         <div class="deploy-card">
           <div class="deploy-head"><h3>ElevenLabs Agent</h3><span class="badge-live">LIVE</span></div>
-          <p>System prompt v5.4, new KB doc (1,900 entries, 420 KB).</p>
+          <p>System prompt v5.5, new KB doc (1,900 entries, 419 KB).</p>
           <a href="https://elevenlabs.io/app/talk-to?agent_id=agent_2701kqwnryy2ewdapx7kxvqyr1zk" target="_blank">Public chat URL</a>
         </div>
         <div class="deploy-card">
           <div class="deploy-head"><h3>Hetzner Master Veta</h3><span class="badge-live">LIVE</span></div>
-          <p>ChromaDB rebuilt with v5.4 KB. Previous versions backed up.</p>
+          <p>ChromaDB rebuilt with v5.5 KB. Previous versions backed up.</p>
           <a href="https://vetalliance.website" target="_blank">vetalliance.website</a>
         </div>
         <div class="deploy-card">
           <div class="deploy-head"><h3>Telegram Test Bot</h3><span class="badge-live">LIVE</span></div>
-          <p>Pulls from Hetzner master Veta → automatically running v5.4 now.</p>
+          <p>Pulls from Hetzner master Veta → automatically running v5.5 now.</p>
           <a href="https://t.me/veta_modernvet_consultantbot" target="_blank">@veta_modernvet_consultantbot</a>
         </div>
       </div>
@@ -294,7 +294,8 @@
         <li><strong>v5.1</strong> — Major rebuild: 1,313 → 1,900 entries. 374 entries rewritten for tone. Real Google Routes distances pulled for 74 Dubai areas. System prompt extended with banned-phrase rules + BOV mischaracterisation guard.</li>
         <li><strong>v5.2</strong> — Conversational patch: WhatsApp rhythm (max 50-60 words per reply), never dump both vaccine packages without asking client first, pet's name only requested when booking is active. 19 entries rewritten.</li>
         <li><strong>v5.3</strong> — Concise call-centre tone: area-routing answers compressed to ~30 words (closest branch + price only), Mobile Clinic stops being auto-tacked-on to every reply, polite firm decline on price-matching requests. 395 entries rewritten.</li>
-        <li><strong>v5.4</strong> — Dash sweep + tone polish: all 1,293 em-dash and non-range en-dash entries rewritten by Opus to remove the biggest WhatsApp AI tell. Filler words (honestly, essentially, basically) stripped. Run-on sentences smoothed. System prompt updated with explicit dash ban + filler ban. Zero em dashes remaining in KB.</li>
+        <li><strong>v5.4</strong> — Dash sweep: all 1,293 em-dash and non-range en-dash entries rewritten by Opus to remove the biggest WhatsApp AI tell. Filler words (honestly, essentially, basically) stripped. Run-on sentences smoothed. System prompt updated with explicit dash ban + filler ban. Zero em dashes remaining in KB.</li>
+        <li><strong>v5.5</strong> — Quality pass: Opus scored all 1,900 entries for WhatsApp naturalness. 159 entries rewritten (formulaic doctor bios, weak openers, robotic phrasing, stiff connectors, awkward comma splices). Score distribution: 1,053 perfect (5), 688 good (4), 159 fixed (≤3). Total Opus spend $37.82.</li>
       </ul>
     </section>
 
@@ -305,7 +306,7 @@
         <li><strong>Friday 22 May</strong> — Weekly feedback-loop cron runs automatically; pulls last 7 days of real Veta conversations, runs them through Opus analysis, flags any new drift patterns or fact errors.</li>
         <li><strong>Migration test</strong> — With 1,900 entries densifying coverage, we can start testing whether Veta runs acceptably on Haiku (much cheaper) instead of Sonnet. The denser the KB, the less the model has to think.</li>
         <li><strong>Verified facts maintenance</strong> — As branches change hours, prices, or open new locations, we update the KB and rebuild ChromaDB + ElevenLabs in one pass (~10 minutes end-to-end).</li>
-        <li><strong>Production WhatsApp wiring</strong> — Veta is still on the internal ElevenLabs + Telegram surfaces only. Next step: replace the current v3 WhatsApp bot with v5.4.</li>
+        <li><strong>Production WhatsApp wiring</strong> — Veta is still on the internal ElevenLabs + Telegram surfaces only. Next step: replace the current v3 WhatsApp bot with v5.5.</li>
       </ul>
     </section>
 
