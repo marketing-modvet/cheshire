@@ -5,7 +5,7 @@
 <title>Vet Alliance Holding — Veterinary Services Profile</title>
 <style>
 @page {
-  size: 297mm 3100mm;
+  size: 297mm 2760mm;
   margin: 0;
 }
 
@@ -40,11 +40,15 @@ html, body {
 /* ============================================================ */
 .hero-photo {
   width: 100%;
-  height: 160mm;
-  background-image: url('assets/photos/VetAlliance-clean.png');
-  background-size: cover;
-  background-position: center;
-  position: relative;
+  background-color: #095C64;
+  padding: 12mm 0;
+  text-align: center;
+}
+.hero-photo img {
+  max-width: 210mm;
+  width: 70%;
+  height: auto;
+  display: inline-block;
 }
 .hero-band {
   width: 100%;
@@ -369,46 +373,37 @@ html, body {
   border: 1.5px solid var(--sage);
   border-left: 6mm solid var(--teal-deep);
   border-radius: 4mm;
-  padding: 0;
+  padding: 6mm 8mm 8mm;
   margin-top: 8mm;
-  overflow: hidden;
   page-break-inside: avoid;
 }
 .clinic-card-rich.flagship { border-left-color: var(--accent-gold); }
-.clinic-card-rich .top-row {
+.clinic-card-rich .clinic-head {
   display: grid;
-  grid-template-columns: 75mm 1fr;
-  gap: 0;
+  grid-template-columns: 50mm 1fr 40mm;
+  gap: 8mm;
+  align-items: center;
+  margin-bottom: 5mm;
+  padding-bottom: 5mm;
+  border-bottom: 1px solid var(--sage);
 }
 .clinic-card-rich .clinic-photo {
-  height: 50mm;
+  width: 50mm;
+  height: 36mm;
   background-size: cover;
   background-position: center;
-}
-.clinic-card-rich .clinic-head {
-  padding: 6mm 8mm 4mm;
-  display: flex;
-  align-items: center;
-  gap: 6mm;
-}
-.clinic-card-rich .clinic-logo {
-  height: 14mm;
-  width: 30mm;
-  object-fit: contain;
-  object-position: left center;
-  flex-shrink: 0;
+  border-radius: 2mm;
 }
 .clinic-card-rich .clinic-head-text h3 {
-  font-size: 15pt;
+  font-size: 16pt;
   font-weight: 800;
   color: var(--teal-deep);
-  margin: 0;
+  margin: 0 0 2mm 0;
   letter-spacing: -0.005em;
-  line-height: 1.1;
+  line-height: 1.15;
 }
 .clinic-card-rich .clinic-head-text .badge {
   display: inline-block;
-  margin-top: 2mm;
   background: var(--teal-deep);
   color: #fff;
   font-size: 8pt;
@@ -422,8 +417,13 @@ html, body {
   background: var(--accent-gold);
   color: #5a4a00;
 }
+.clinic-card-rich .clinic-logo {
+  width: 40mm;
+  height: 24mm;
+  object-fit: contain;
+  object-position: center right;
+}
 .clinic-card-rich .clinic-body {
-  padding: 4mm 8mm 8mm;
   display: grid;
   grid-template-columns: 1.3fr 1fr 1.1fr;
   gap: 7mm;
@@ -483,8 +483,8 @@ html, body {
 }
 .specialists-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4mm 6mm;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4mm 4mm;
 }
 .spec {
   font-size: 9pt;
@@ -506,7 +506,7 @@ html, body {
   font-size: 8.5pt;
 }
 
-/* Compact clinic card (for the 5 MV day clinics) */
+/* Compact clinic card (for the 6 MV day clinics) */
 .compact-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -518,16 +518,22 @@ html, body {
   border: 1.5px solid var(--sage);
   border-left: 4mm solid var(--teal-deep);
   border-radius: 3mm;
-  overflow: hidden;
+  padding: 5mm 6mm 6mm;
+  display: grid;
+  grid-template-columns: 40mm 1fr;
+  gap: 5mm;
+  align-items: start;
   page-break-inside: avoid;
 }
 .clinic-card-compact .photo {
-  height: 40mm;
+  width: 40mm;
+  height: 30mm;
   background-size: cover;
   background-position: center;
+  border-radius: 2mm;
 }
 .clinic-card-compact .body {
-  padding: 5mm 6mm 6mm;
+  padding: 0;
 }
 .clinic-card-compact .body h4 {
   font-size: 12pt;
@@ -679,7 +685,9 @@ html, body {
 <!-- ============================================================ -->
 <!-- HERO PAGE — full-bleed photo + logo                          -->
 <!-- ============================================================ -->
-<section class="hero-photo"></section>
+<section class="hero-photo">
+  <img src="assets/photos/VetAlliance-clean.png" alt="Vet Alliance Building">
+</section>
 <section class="hero-band">
   <img class="hero-band-logo" src="assets/logos/vetalliance-sage.png" alt="Vet Alliance Holding">
   <div class="hero-band-title">Veterinary Services Profile</div>
@@ -698,7 +706,7 @@ html, body {
   </p>
 
   <div class="keystats">
-    <div class="ks"><strong>10</strong><span>Clinics Across Dubai</span></div>
+    <div class="ks"><strong>11</strong><span>Clinics Across Dubai</span></div>
     <div class="ks"><strong>70+</strong><span>Veterinarians</span></div>
     <div class="ks"><strong>24/7</strong><span>Emergency Hospital</span></div>
     <div class="ks"><strong>30+</strong><span>Languages Spoken</span></div>
@@ -714,7 +722,7 @@ html, body {
     </div>
     <div class="item">
       <h3>Our Network</h3>
-      <p>A 24/7 multi-specialty hospital, a referral centre (TVRC), seven general-practice clinics across Dubai,
+      <p>A 24/7 multi-specialty hospital, a referral centre (TVRC), eight general-practice clinics across Dubai,
         and a fully-equipped mobile veterinary unit. A single coordinated team across the full clinical pathway.</p>
     </div>
     <div class="item">
@@ -749,7 +757,7 @@ html, body {
     <div class="why-card">
       <div class="num">1</div>
       <h4>Multi-Clinic Network Across Dubai</h4>
-      <p>Ten locations covering every major area of the city — from Palm Jumeirah and JLT through Downtown,
+      <p>Eleven clinics covering every major area of the city — from Palm Jumeirah and JLT through Downtown,
         JVC, Al Wasl, Umm Suqeim and Dubai Investment Park — under one operational umbrella.</p>
     </div>
     <div class="why-card">
@@ -768,7 +776,7 @@ html, body {
     <div class="why-card">
       <div class="num">4</div>
       <h4>Advanced Diagnostics &amp; Referral-Level Care</h4>
-      <p>In-house X-ray and ultrasound at every clinic. CT and MRI at the hospital and at the referral centre.
+      <p>In-house X-ray and ultrasound across the network. CT and MRI at the hospital and at the referral centre.
         Endoscopy, echocardiography, full in-house lab, and dedicated isolation wards.</p>
     </div>
     <div class="why-card">
@@ -802,42 +810,28 @@ html, body {
 
   <div class="svc-grid">
     <div class="svc-tile"><img src="assets/icons/01-consultation.png" alt=""><div class="title">Consultation</div></div>
-    <div class="svc-tile"><img src="assets/icons/02-dental.png" alt=""><div class="title">Dental Care</div></div>
-    <div class="svc-tile"><img src="assets/icons/03-vaccination.png" alt=""><div class="title">Vaccination</div></div>
-    <div class="svc-tile"><img src="assets/icons/04-spay-neuter.png" alt=""><div class="title">Spay &amp; Neuter</div></div>
-    <div class="svc-tile"><img src="assets/icons/05-dermatology.png" alt=""><div class="title">Dermatology</div></div>
-    <div class="svc-tile"><img src="assets/icons/06-ophthalmology.png" alt=""><div class="title">Ophthalmology</div></div>
-    <div class="svc-tile"><img src="assets/icons/07-orthopedic-surgery.png" alt=""><div class="title">Orthopaedics</div></div>
-    <div class="svc-tile"><img src="assets/icons/08-neurology.png" alt=""><div class="title">Neurology</div></div>
-    <div class="svc-tile"><img src="assets/icons/09-soft-tissue-surgery.png" alt=""><div class="title">Soft Tissue &amp; General Surgery</div></div>
-    <div class="svc-tile"><img src="assets/icons/10-cardiology.png" alt=""><div class="title">Cardiology</div></div>
     <div class="svc-tile"><img src="assets/icons/11-24-hour-emergency.png" alt=""><div class="title">24-Hour Emergency</div></div>
-    <div class="svc-tile"><img src="assets/icons/12-neuro-spinal-surgery.png" alt=""><div class="title">Neuro &amp; Spinal Surgery</div></div>
+    <div class="svc-tile"><img src="assets/icons/03-vaccination.png" alt=""><div class="title">Vaccination</div></div>
+    <div class="svc-tile"><img src="assets/icons/02-dental.png" alt=""><div class="title">Dental Care</div></div>
+    <div class="svc-tile"><img src="assets/icons/04-spay-neuter.png" alt=""><div class="title">Spay &amp; Neuter</div></div>
     <div class="svc-tile"><img src="assets/icons/13-internal-medicine.png" alt=""><div class="title">Internal Medicine</div></div>
-    <div class="svc-tile"><img src="assets/icons/14-hydrotherapy.png" alt=""><div class="title">Hydrotherapy</div></div>
-    <div class="svc-tile"><img src="assets/icons/15-oncology.png" alt=""><div class="title">Oncology</div></div>
     <div class="svc-tile"><img src="assets/icons/16-nutrition.png" alt=""><div class="title">Nutrition</div></div>
+
+    <div class="svc-tile"><img src="assets/icons/09-soft-tissue-surgery.png" alt=""><div class="title">Soft Tissue &amp; General Surgery</div></div>
+    <div class="svc-tile"><img src="assets/icons/07-orthopedic-surgery.png" alt=""><div class="title">Orthopaedics</div></div>
+    <div class="svc-tile"><img src="assets/icons/12-neuro-spinal-surgery.png" alt=""><div class="title">Neuro &amp; Spinal Surgery</div></div>
+    <div class="svc-tile"><img src="assets/icons/21-hospitalisation.png" alt=""><div class="title">Hospitalisation</div></div>
+    <div class="svc-tile"><img src="assets/icons/10-cardiology.png" alt=""><div class="title">Cardiology</div></div>
+    <div class="svc-tile"><img src="assets/icons/08-neurology.png" alt=""><div class="title">Neurology</div></div>
+    <div class="svc-tile"><img src="assets/icons/06-ophthalmology.png" alt=""><div class="title">Ophthalmology</div></div>
+
+    <div class="svc-tile"><img src="assets/icons/05-dermatology.png" alt=""><div class="title">Dermatology</div></div>
+    <div class="svc-tile"><img src="assets/icons/15-oncology.png" alt=""><div class="title">Oncology</div></div>
+    <div class="svc-tile"><img src="assets/icons/19-xray-ultrasound.png" alt=""><div class="title">X-Ray &amp; Ultrasound</div></div>
     <div class="svc-tile"><img src="assets/icons/17-ct-scan.png" alt=""><div class="title">CT Scan</div></div>
     <div class="svc-tile"><img src="assets/icons/18-mri.png" alt=""><div class="title">MRI</div></div>
-    <div class="svc-tile"><img src="assets/icons/19-xray-ultrasound.png" alt=""><div class="title">X-Ray &amp; Ultrasound</div></div>
     <div class="svc-tile"><img src="assets/icons/20-physiotherapy.png" alt=""><div class="title">Physiotherapy</div></div>
-    <div class="svc-tile"><img src="assets/icons/21-hospitalisation.png" alt=""><div class="title">Hospitalisation</div></div>
-  </div>
-
-  <div class="highlight-services">
-    <h4>Highlighted Capabilities For Institutional Partners</h4>
-    <div class="highlight-row">
-      <div class="h-tile"><img src="assets/icons/11-24-hour-emergency.png" alt=""><div class="title">24/7 Emergency</div></div>
-      <div class="h-tile"><img src="assets/icons/07-orthopedic-surgery.png" alt=""><div class="title">Orthopaedics</div></div>
-      <div class="h-tile"><img src="assets/icons/02-dental.png" alt=""><div class="title">Dental Care</div></div>
-      <div class="h-tile"><img src="assets/icons/19-xray-ultrasound.png" alt=""><div class="title">Imaging (X-ray + Ultrasound)</div></div>
-      <div class="h-tile"><img src="assets/icons/17-ct-scan.png" alt=""><div class="title">CT Scan</div></div>
-      <div class="h-tile"><img src="assets/icons/18-mri.png" alt=""><div class="title">MRI</div></div>
-      <div class="h-tile"><img src="assets/icons/09-soft-tissue-surgery.png" alt=""><div class="title">Surgery</div></div>
-      <div class="h-tile"><img src="assets/icons/21-hospitalisation.png" alt=""><div class="title">Hospitalisation</div></div>
-      <div class="h-tile"><img src="assets/icons/20-physiotherapy.png" alt=""><div class="title">Physiotherapy</div></div>
-      <div class="h-tile"><img src="assets/icons/14-hydrotherapy.png" alt=""><div class="title">Hydrotherapy</div></div>
-    </div>
+    <div class="svc-tile"><img src="assets/icons/14-hydrotherapy.png" alt=""><div class="title">Hydrotherapy</div></div>
   </div>
 </section>
 
@@ -845,12 +839,13 @@ html, body {
 <!-- GOVERNMENT / INSTITUTIONAL                                    -->
 <!-- ============================================================ -->
 <div class="gov-block">
-  <h2>Government &amp; Institutional Veterinary Services</h2>
+  <h2>Built To Partner With Government &amp; Institutional Operators</h2>
   <p class="lead">
-    Vet Alliance supports government, security, and institutional partners that operate working dogs and
-    other service animals. We provide structured, accountable veterinary care backed by the full diagnostic
-    and surgical capability of the group — from a routine vaccine round at a kennel through to overnight
-    emergency surgery on a working dog.
+    Vet Alliance is ready to support government, security, and institutional partners running working-dog
+    units and service-animal programmes. We can provide structured, accountable veterinary care across the
+    full clinical pathway — from on-site vaccine rounds at the kennels through to overnight emergency
+    surgery on a working dog — with the full diagnostic, surgical, and hospitalisation capacity of the
+    group behind every patient. We're set up to take this on and to make the partnership work end-to-end.
   </p>
 
   <div class="gov-grid">
@@ -910,8 +905,8 @@ html, body {
         </svg>
       </div>
       <h4>Medical Reporting &amp; Case Documentation</h4>
-      <p>Full written case reports, treatment summaries, imaging exports, and follow-up plans issued for
-        every institutional patient. Records auditable on request.</p>
+      <p>We can issue full written case reports, treatment summaries, imaging exports and follow-up plans for
+        every patient on the contract. Records stay auditable and available on request.</p>
     </div>
 
     <div class="gov-card">
@@ -923,16 +918,17 @@ html, body {
         </svg>
       </div>
       <h4>Dedicated Coordination</h4>
-      <p>A single named contact handles bookings, follow-ups, and escalations for the partner. Bypasses the
-        standard call-centre queue with priority routing.</p>
+      <p>We can assign a single named contact to handle bookings, follow-ups, and escalations for the
+        partner, with priority routing that bypasses the standard call-centre queue.</p>
     </div>
   </div>
 
   <div class="gov-footer">
-    <strong>How partnerships are structured.</strong>
+    <strong>How we'd structure the partnership.</strong>
     Each institutional partner is set up with a master account covering all enrolled animals, agreed pricing,
     monthly consolidated billing, and a named coordinator. Reports, vaccination certificates, and case files
-    are issued on the partner's letterhead requirements where needed.
+    are issued to the partner's letterhead requirements where needed. We're ready to tailor the structure to
+    fit how your unit operates day to day.
   </div>
 </div>
 
@@ -945,21 +941,21 @@ html, body {
 </div>
 
 <section class="section" style="padding-bottom: 22mm;">
-  <p class="clinic-section-intro">Ten locations across Dubai. A single phone line: <strong>800-82</strong>
-    (toll-free in UAE) · WhatsApp <strong>050 630 4573</strong>. All clinics share the same medical records
-    system, so cases can move between locations without the client repeating the history.</p>
+  <p class="clinic-section-intro">Eleven clinics across Dubai. A single phone line: <strong>800-82</strong>
+    (toll-free in UAE) · WhatsApp <strong>050 630 4573</strong> (24/7). All clinics share the same medical
+    records system, so cases can move between locations without the client repeating the history.</p>
 
   <!-- ========== HOSPITAL ========== -->
   <div class="clinic-group-title">24/7 Hospital</div>
 
   <div class="clinic-card-rich flagship">
-    <div class="clinic-photo" style="background-image: url('assets/photos/MV-Hospital.jpg');"></div>
     <div class="clinic-head">
-      <img class="clinic-logo" src="assets/logos/ModernVet.svg" alt="Modern Vet">
+      <div class="clinic-photo" style="background-image: url('assets/photos/MV-Hospital.jpg');"></div>
       <div class="clinic-head-text">
         <h3>Modern Vet Hospital — Al Wasl</h3>
         <div class="badge">Flagship · 24/7 Hospital</div>
       </div>
+      <img class="clinic-logo" src="assets/logos/ModernVet.svg" alt="Modern Vet">
     </div>
     <div class="clinic-body">
       <div class="clinic-about">
@@ -972,9 +968,8 @@ html, body {
         <h5>Operations</h5>
         <div class="row"><span class="lab">Hours</span> 24/7, year-round</div>
         <div class="row"><span class="lab">Phone</span> 800-82</div>
-        <div class="row"><span class="lab">WhatsApp</span> 050 630 4573</div>
+        <div class="row"><span class="lab">WhatsApp</span> 050 630 4573 (24/7)</div>
         <div class="row"><span class="lab">Parking</span> On-site</div>
-        <div class="row"><a href="https://maps.app.goo.gl/?q=Modern+Vet+Hospital+Al+Wasl+Dubai">View on Google Maps →</a></div>
       </div>
       <div class="clinic-services">
         <h5>Specialties &amp; Facilities</h5>
@@ -996,22 +991,22 @@ html, body {
 
   <!-- Modern Vet JLT, JVC, Palm, Downtown, Azizi, Khawaneej (re-opening), Blue Oasis, Vienna -->
 
-  <!-- BLUE OASIS — rich card (general practice with MRI capability, on the group) -->
+  <!-- BLUE OASIS — rich card -->
   <div class="clinic-card-rich">
-    <div class="clinic-photo" style="background-image: url('assets/photos/BlueOasis.jpg');"></div>
     <div class="clinic-head">
-      <img class="clinic-logo" src="assets/logos/blueoasisvet.png" alt="Blue Oasis Vet">
+      <div class="clinic-photo" style="background-image: url('assets/photos/BlueOasis.jpg');"></div>
       <div class="clinic-head-text">
         <h3>Blue Oasis Veterinary Clinic</h3>
         <div class="badge">General Practice · Dubai Investment Park</div>
       </div>
+      <img class="clinic-logo" src="assets/logos/blueoasisvet.png" alt="Blue Oasis Vet">
     </div>
     <div class="clinic-body">
       <div class="clinic-about">
         <p>A full-service general-practice clinic in Dubai Investment Park, established 2008. Operates as a
           multi-disciplinary facility with on-site MRI and advanced diagnostics, supporting cases that need
           deeper imaging or extended hospitalisation.</p>
-        <p>Part of the Vet Alliance group since the network was formed.</p>
+        <p>Part of the Vet Alliance group.</p>
       </div>
       <div class="clinic-meta">
         <h5>Operations</h5>
@@ -1019,7 +1014,6 @@ html, body {
         <div class="row"><span class="lab">Hours</span> Mon–Fri 9am–9pm · Sat–Sun 10am–8pm</div>
         <div class="row"><span class="lab">Emergency</span> 050 557 8834 (24/7 SOS)</div>
         <div class="row"><span class="lab">Phone</span> 04 884 8580</div>
-        <div class="row"><a href="https://maps.app.goo.gl/?q=Blue+Oasis+Veterinary+Clinic+Green+Community+Dubai">View on Google Maps →</a></div>
       </div>
       <div class="clinic-services">
         <h5>Services Available</h5>
@@ -1039,21 +1033,20 @@ html, body {
 
   <!-- VIENNA VET — rich card -->
   <div class="clinic-card-rich">
-    <div class="clinic-photo" style="background-image: url('assets/photos/ViennaVet.jpg');"></div>
     <div class="clinic-head">
-      <img class="clinic-logo" src="assets/logos/viennavet.png" alt="Vienna Vet">
+      <div class="clinic-photo" style="background-image: url('assets/photos/ViennaVet.jpg');"></div>
       <div class="clinic-head-text">
         <h3>Vienna Vet</h3>
         <div class="badge">General Practice · Umm Suqeim 2</div>
       </div>
+      <img class="clinic-logo" src="assets/logos/viennavet.png" alt="Vienna Vet">
     </div>
     <div class="clinic-body">
       <div class="clinic-about">
-        <p>A full-service general-practice clinic in Umm Suqeim 2, established 2013 by Dr. Michaela
-          Gradinger (University of Veterinary Medicine, Vienna). One of a small number of clinics in the
-          region holding ISFM Gold-Standard cat-friendly accreditation.</p>
-        <p>Part of the Vet Alliance group, providing general-practice coverage for the Umm Suqeim area
-          including extended hours and a 24/7 SOS line.</p>
+        <p>A full-service general-practice clinic in Umm Suqeim 2, established 2013. One of a small number
+          of clinics in the region holding ISFM Gold-Standard cat-friendly accreditation.</p>
+        <p>Part of the Vet Alliance group, providing general-practice coverage for the Umm Suqeim area with
+          extended hours and a 24/7 SOS line.</p>
       </div>
       <div class="clinic-meta">
         <h5>Operations</h5>
@@ -1061,7 +1054,6 @@ html, body {
         <div class="row"><span class="lab">Hours</span> Sun–Fri 8am–10pm</div>
         <div class="row"><span class="lab">Emergency</span> 050 283 3450 (24/7 SOS)</div>
         <div class="row"><span class="lab">Phone</span> 04 330 8555</div>
-        <div class="row"><a href="https://maps.app.goo.gl/?q=Vienna+Vet+Villa+55+Al+Thanya+Umm+Suqeim">View on Google Maps →</a></div>
       </div>
       <div class="clinic-services">
         <h5>Services Available</h5>
@@ -1069,10 +1061,10 @@ html, body {
           <li>Consultations &amp; vaccinations</li>
           <li>Soft tissue &amp; dental surgery</li>
           <li>Advanced dentistry &amp; oral surgery</li>
-          <li>X-ray and ultrasound</li>
-          <li>Internal medicine &amp; dermatology</li>
+          <li>X-ray imaging</li>
           <li>Cat-friendly handling (ISFM Gold)</li>
           <li>Pet boarding &amp; grooming</li>
+          <li>Microchipping &amp; preventive care</li>
           <li>24/7 SOS line</li>
         </ul>
       </div>
@@ -1089,8 +1081,7 @@ html, body {
         <div class="addr">Fortune Tower, Cluster C, Jumeirah Lake Towers</div>
         <div class="row"><span class="lab">Hours</span> 7am – 10pm, daily</div>
         <div class="row"><span class="lab">Phone</span> 800-82</div>
-        <div class="row"><span class="lab">Services</span> Consults, vaccinations, dental, soft-tissue surgery, X-ray, ultrasound</div>
-        <div class="row"><a href="https://maps.app.goo.gl/?q=Modern+Vet+JLT+Fortune+Tower">Google Maps →</a></div>
+        <div class="row"><span class="lab">Services</span> Consults, vaccinations, dental, soft-tissue surgery, in-house imaging</div>
       </div>
     </div>
 
@@ -1101,8 +1092,7 @@ html, body {
         <div class="addr">Platinum Residences, Jumeirah Village Circle</div>
         <div class="row"><span class="lab">Hours</span> 7am – 10pm, daily</div>
         <div class="row"><span class="lab">Phone</span> 800-82</div>
-        <div class="row"><span class="lab">Services</span> Consults, vaccinations, dental, surgery, X-ray, ultrasound, in-house exotics specialist</div>
-        <div class="row"><a href="https://maps.app.goo.gl/?q=Modern+Vet+JVC+Platinum+Residences">Google Maps →</a></div>
+        <div class="row"><span class="lab">Services</span> Consults, vaccinations, dental, soft-tissue surgery, in-house imaging</div>
       </div>
     </div>
 
@@ -1113,8 +1103,7 @@ html, body {
         <div class="addr">Golden Mile Galleria, Building 4, Palm Jumeirah</div>
         <div class="row"><span class="lab">Hours</span> 7am – 10pm, daily</div>
         <div class="row"><span class="lab">Phone</span> 800-82</div>
-        <div class="row"><span class="lab">Services</span> Consults, vaccinations, dental, surgery, X-ray, ultrasound, cardiology workup</div>
-        <div class="row"><a href="https://maps.app.goo.gl/?q=Modern+Vet+Palm+Golden+Mile+Galleria">Google Maps →</a></div>
+        <div class="row"><span class="lab">Services</span> Consults, vaccinations, dental, surgery, X-ray &amp; ultrasound, cardiology workup</div>
       </div>
     </div>
 
@@ -1125,8 +1114,7 @@ html, body {
         <div class="addr">South Ridge Tower, Downtown Dubai</div>
         <div class="row"><span class="lab">Hours</span> 7am – 10pm, daily</div>
         <div class="row"><span class="lab">Phone</span> 800-82</div>
-        <div class="row"><span class="lab">Services</span> Consults, vaccinations, dental, surgery, X-ray, ultrasound, feline-friendly certified</div>
-        <div class="row"><a href="https://maps.app.goo.gl/?q=Modern+Vet+Downtown+South+Ridge">Google Maps →</a></div>
+        <div class="row"><span class="lab">Services</span> Consults, vaccinations, dental, soft-tissue surgery, in-house imaging</div>
       </div>
     </div>
 
@@ -1137,8 +1125,7 @@ html, body {
         <div class="addr">Azizi Riviera 28, Nad Al Sheba 1</div>
         <div class="row"><span class="lab">Hours</span> Tue – Sat · 10am – 6pm</div>
         <div class="row"><span class="lab">Phone</span> 800-82</div>
-        <div class="row"><span class="lab">Services</span> Consults, vaccinations, dental, X-ray, ultrasound, minor surgery</div>
-        <div class="row"><a href="https://maps.app.goo.gl/?q=Modern+Vet+Azizi+Riviera">Google Maps →</a></div>
+        <div class="row"><span class="lab">Services</span> Consults, vaccinations, dental, in-house imaging, minor surgery</div>
       </div>
     </div>
 
@@ -1150,7 +1137,6 @@ html, body {
         <div class="row"><span class="lab">Status</span> Currently under renovation</div>
         <div class="row"><span class="lab">Phone</span> 800-82</div>
         <div class="row"><span class="lab">Services</span> Full general practice on re-opening</div>
-        <div class="row"><span class="lab">In meantime</span> Modern Vet Hospital (Al Wasl) or Mobile Clinic</div>
       </div>
     </div>
 
@@ -1160,13 +1146,13 @@ html, body {
   <div class="clinic-group-title">Referral Hospital</div>
 
   <div class="clinic-card-rich flagship">
-    <div class="clinic-photo" style="background-image: url('assets/photos/TVRC.jpg');"></div>
     <div class="clinic-head">
-      <img class="clinic-logo" src="assets/logos/tvrc.png" alt="TVRC">
+      <div class="clinic-photo" style="background-image: url('assets/photos/TVRC.jpg');"></div>
       <div class="clinic-head-text">
         <h3>TVRC — The Veterinary Referral Centre</h3>
         <div class="badge">UAE's First Referral-Only Specialty Hospital</div>
       </div>
+      <img class="clinic-logo" src="assets/logos/tvrc.png" alt="TVRC">
     </div>
     <div class="clinic-body">
       <div class="clinic-about">
@@ -1175,8 +1161,8 @@ html, body {
           services.</p>
         <p>The team consists of <strong>board-certified specialists with international training and
           experience</strong>. TVRC is the escalation route for any case in the network that requires
-          specialist input — complex neurosurgery, cardiology, ophthalmology, oncology and chemotherapy,
-          advanced dermatology, and MRI/CT imaging.</p>
+          specialist input — complex neurosurgery, cardiology, oncology and chemotherapy, advanced
+          dermatology, and MRI/CT imaging.</p>
       </div>
       <div class="clinic-meta">
         <h5>Operations</h5>
@@ -1189,11 +1175,10 @@ html, body {
       <div class="clinic-services">
         <h5>Specialist Disciplines</h5>
         <ul>
-          <li>Diagnostic imaging (MRI, CT, X-ray, US)</li>
+          <li>Diagnostic imaging (MRI, CT, X-ray, ultrasound)</li>
           <li>Neurology &amp; neurosurgery</li>
-          <li>Ophthalmology (cataract, glaucoma, IO surgery)</li>
           <li>Cardiology</li>
-          <li>Dermatology (European board-certified)</li>
+          <li>Dermatology (board-certified)</li>
           <li>Orthopaedic &amp; soft tissue surgery</li>
           <li>Oncology &amp; chemotherapy</li>
           <li>Internal medicine &amp; endoscopy</li>
@@ -1205,12 +1190,11 @@ html, body {
     <div class="specialists">
       <h5>Specialist Team Highlights</h5>
       <div class="specialists-grid">
-        <div class="spec"><strong>Dr. Dieter Malleczek</strong><br>Diagnostic Imaging · Austria<br><span>20+ yrs MRI, X-ray, ultrasound, ortho/neuro</span></div>
-        <div class="spec"><strong>Dr. Cristina Epifanio</strong><br>Neurology · Spain<br><span>GPCert Neurology (ESAVS), small animal neurology</span></div>
-        <div class="spec"><strong>Dr. Rui Oliveira</strong><br>Ophthalmology · Portugal<br><span>Pioneer of intraocular surgery, RCVS certified</span></div>
-        <div class="spec"><strong>Dr. Muhammad Waseem Aslam</strong><br>Cardiology · Pakistan / Australia<br><span>Internal medicine, ECC, cardiorespiratory</span></div>
-        <div class="spec"><strong>Dr. Roy Hassoun</strong><br>Neurosurgery · Lebanon / France<br><span>Ortho implants, neurosurgery, MIS</span></div>
-        <div class="spec"><strong>Dr. Rares Capitan</strong><br>Dermatology · Romania<br><span>European board-certified (DipECVD)</span></div>
+        <div class="spec"><strong>Dr. Dieter Malleczek</strong><br>Diagnostic Imaging<br><span>20+ yrs MRI, X-ray, ultrasound, ortho/neuro</span></div>
+        <div class="spec"><strong>Dr. Cristina Epifanio</strong><br>Neurology<br><span>GPCert Neurology (ESAVS), small animal neurology</span></div>
+        <div class="spec"><strong>Dr. Muhammad Waseem Aslam</strong><br>Cardiology<br><span>Internal medicine, ECC, cardiorespiratory</span></div>
+        <div class="spec"><strong>Dr. Roy Hassoun</strong><br>Neurosurgery<br><span>Orthopaedic implants, neurosurgery, MIS</span></div>
+        <div class="spec"><strong>Dr. Rares Capitan</strong><br>Dermatology<br><span>European board-certified (DipECVD)</span></div>
       </div>
     </div>
   </div>
@@ -1266,7 +1250,7 @@ html, body {
       <div class="row"><strong>Headquarters:</strong> Street 70, Dubai Investment Park 1 — Green Community Village, Dubai</div>
       <div class="row"><strong>Email:</strong> <a href="mailto:info@vetallianceholding.com">info@vetallianceholding.com</a></div>
       <div class="row"><strong>Group Phone (24/7):</strong> 800-82 · International: +971 800 82</div>
-      <div class="row"><strong>WhatsApp:</strong> 050 630 4573 (monitored 7am – 10pm)</div>
+      <div class="row"><strong>WhatsApp:</strong> 050 630 4573 (24/7)</div>
     </div>
     <div>
       <h3>Online</h3>
