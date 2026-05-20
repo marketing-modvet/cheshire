@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Dashed circle border (matching cardiology) -->
+  <circle cx="100" cy="100" r="85" fill="none" stroke="#015b63" stroke-width="1.5"
+          stroke-dasharray="6 2.5" stroke-linecap="round"/>
+
+  <!-- MRI: clear cylindrical scanner with bore tunnel + patient table sliding in -->
+  <g fill="none" stroke="#015b63" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Front face: large ellipse (scanner front, 3/4 perspective) -->
+    <ellipse cx="92" cy="100" rx="22" ry="28"/>
+    <!-- Bore opening: smaller dark ellipse inside -->
+    <ellipse cx="92" cy="100" rx="11" ry="15"/>
+    <!-- Side body: lines extending right showing scanner depth -->
+    <path d="M 92 72 L 138 72"/>
+    <path d="M 92 128 L 138 128"/>
+    <!-- Right back face (smaller ellipse showing 3D depth) -->
+    <path d="M 138 72 Q 144 72 144 100 Q 144 128 138 128"/>
+    <!-- Back face inner bore (depth) -->
+    <path d="M 138 88 Q 142 88 142 100 Q 142 112 138 112"/>
+
+    <!-- Patient bed/table sliding into bore from the left -->
+    <line x1="92" y1="115" x2="50" y2="115"/>
+    <line x1="92" y1="119" x2="50" y2="119"/>
+    <!-- Bed support legs -->
+    <line x1="56" y1="119" x2="56" y2="138"/>
+    <line x1="84" y1="119" x2="84" y2="138"/>
+    <line x1="52" y1="138" x2="88" y2="138"/>
+
+    <!-- Magnet field accent: two small curved arcs above the scanner -->
+    <path d="M 78 64 Q 100 56 122 64"/>
+    <path d="M 84 58 Q 100 52 116 58"/>
+  </g>
+</svg>

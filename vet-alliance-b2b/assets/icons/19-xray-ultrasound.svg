@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Dashed circle border -->
+  <circle cx="100" cy="100" r="85" fill="none" stroke="#015b63" stroke-width="1.5"
+          stroke-dasharray="6 2.5" stroke-linecap="round"/>
+
+  <!-- X-Ray + Ultrasound combined glyph (unified stroke weight throughout) -->
+  <g fill="none" stroke="#015b63" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+
+    <!-- X-ray film (rectangle) -->
+    <rect x="56" y="60" width="58" height="80" rx="3" ry="3"/>
+
+    <!-- Ribcage on the film: spine + ribs -->
+    <line x1="85" y1="72" x2="85" y2="128"/>
+    <!-- Left ribs (curved) -->
+    <path d="M 84 82 Q 71 86 67 96"/>
+    <path d="M 84 96 Q 69 100 65 110"/>
+    <path d="M 84 108 Q 69 112 67 122"/>
+    <!-- Right ribs (curved) -->
+    <path d="M 86 82 Q 99 86 103 96"/>
+    <path d="M 86 96 Q 101 100 105 110"/>
+    <path d="M 86 108 Q 101 112 103 122"/>
+
+    <!-- Ultrasound probe positioned at right -->
+    <g transform="translate(133 86)">
+      <!-- Probe body (rounded block) -->
+      <rect x="-7" y="0" width="14" height="18" rx="3" ry="3"/>
+      <!-- Handle -->
+      <rect x="-4" y="-12" width="8" height="12" rx="1.5" ry="1.5"/>
+      <!-- Wave fan downward from probe -->
+      <path d="M -9 22 Q 0 26 9 22"/>
+      <path d="M -12 30 Q 0 34 12 30"/>
+      <path d="M -15 38 Q 0 44 15 38"/>
+    </g>
+  </g>
+</svg>
