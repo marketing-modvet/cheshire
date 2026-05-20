@@ -5,7 +5,7 @@
 <title>Vet Alliance Holding — Veterinary Services Profile</title>
 <style>
 @page {
-  size: 297mm 2760mm;
+  size: 297mm 2950mm;
   margin: 0;
 }
 
@@ -380,7 +380,7 @@ html, body {
 .clinic-card-rich.flagship { border-left-color: var(--accent-gold); }
 .clinic-card-rich .clinic-head {
   display: grid;
-  grid-template-columns: 50mm 1fr 40mm;
+  grid-template-columns: 50mm 1fr 60mm;
   gap: 8mm;
   align-items: center;
   margin-bottom: 5mm;
@@ -418,8 +418,8 @@ html, body {
   color: #5a4a00;
 }
 .clinic-card-rich .clinic-logo {
-  width: 40mm;
-  height: 24mm;
+  width: 60mm;
+  height: 36mm;
   object-fit: contain;
   object-position: center right;
 }
@@ -483,26 +483,46 @@ html, body {
 }
 .specialists-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 4mm 4mm;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4mm 5mm;
 }
 .spec {
   font-size: 9pt;
   line-height: 1.4;
-  padding: 3mm 4mm;
+  padding: 4mm 4mm 4mm 4mm;
   background: #F8FBF3;
   border-left: 2px solid var(--teal-deep);
   border-radius: 1.5mm;
+  display: grid;
+  grid-template-columns: 22mm 1fr;
+  gap: 4mm;
+  align-items: center;
 }
-.spec strong {
+.spec .portrait {
+  width: 22mm;
+  height: 22mm;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  background: #ECE6D3;
+}
+.spec .text strong {
   color: var(--teal-deep);
-  font-size: 9.5pt;
+  font-size: 10pt;
+  display: block;
+  margin-bottom: 0.5mm;
 }
-.spec span {
+.spec .text .role {
+  font-size: 9pt;
+  font-weight: 600;
+  color: var(--teal-deep);
+  opacity: 0.9;
+}
+.spec .text .note {
   display: block;
   margin-top: 1mm;
   color: var(--teal-text);
-  opacity: 0.8;
+  opacity: 0.85;
   font-size: 8.5pt;
 }
 
@@ -1011,7 +1031,7 @@ html, body {
       <div class="clinic-meta">
         <h5>Operations</h5>
         <div class="row"><span class="lab">Address</span> Green Community Village, Dubai Investment Park</div>
-        <div class="row"><span class="lab">Hours</span> Mon–Fri 9am–9pm · Sat–Sun 10am–8pm</div>
+        <div class="row"><span class="lab">Hours</span> Mon–Sun · 9am–9pm</div>
         <div class="row"><span class="lab">Emergency</span> 050 557 8834 (24/7 SOS)</div>
         <div class="row"><span class="lab">Phone</span> 04 884 8580</div>
       </div>
@@ -1130,11 +1150,11 @@ html, body {
     </div>
 
     <div class="clinic-card-compact coming">
-      <div class="photo" style="background-image: url('assets/photos/MV-Khawaneej.jpg');"></div>
+      <div class="photo" style="background-image: url('assets/photos/MV-Khawaneej.jpg'); background-size: contain; background-color: #ECE6D3; background-repeat: no-repeat;"></div>
       <div class="body">
         <h4>Modern Vet — Khawaneej</h4>
         <div class="addr">Al Khawaneej, Dubai · Re-opening 2026</div>
-        <div class="row"><span class="lab">Status</span> Currently under renovation</div>
+        <div class="row"><span class="lab">Status</span> Opening Soon</div>
         <div class="row"><span class="lab">Phone</span> 800-82</div>
         <div class="row"><span class="lab">Services</span> Full general practice on re-opening</div>
       </div>
@@ -1190,11 +1210,54 @@ html, body {
     <div class="specialists">
       <h5>Specialist Team Highlights</h5>
       <div class="specialists-grid">
-        <div class="spec"><strong>Dr. Dieter Malleczek</strong><br>Diagnostic Imaging<br><span>20+ yrs MRI, X-ray, ultrasound, ortho/neuro</span></div>
-        <div class="spec"><strong>Dr. Cristina Epifanio</strong><br>Neurology<br><span>GPCert Neurology (ESAVS), small animal neurology</span></div>
-        <div class="spec"><strong>Dr. Muhammad Waseem Aslam</strong><br>Cardiology<br><span>Internal medicine, ECC, cardiorespiratory</span></div>
-        <div class="spec"><strong>Dr. Roy Hassoun</strong><br>Neurosurgery<br><span>Orthopaedic implants, neurosurgery, MIS</span></div>
-        <div class="spec"><strong>Dr. Rares Capitan</strong><br>Dermatology<br><span>European board-certified (DipECVD)</span></div>
+        <div class="spec">
+          <img class="portrait" src="assets/doctors/DrDieter.jpg" alt="">
+          <div class="text">
+            <strong>Dr. Dieter Malleczek</strong>
+            <div class="role">Diagnostic Imaging</div>
+            <span class="note">20+ yrs MRI, X-ray, ultrasound, ortho/neuro</span>
+          </div>
+        </div>
+        <div class="spec">
+          <img class="portrait" src="assets/doctors/DrCristina.jpg" alt="">
+          <div class="text">
+            <strong>Dr. Cristina Epifanio</strong>
+            <div class="role">Neurology</div>
+            <span class="note">GPCert Neurology (ESAVS), small animal neurology</span>
+          </div>
+        </div>
+        <div class="spec">
+          <img class="portrait" src="assets/doctors/DrWaseem.jpg" alt="">
+          <div class="text">
+            <strong>Dr. Muhammad Waseem Aslam</strong>
+            <div class="role">Cardiology</div>
+            <span class="note">Internal medicine, ECC, cardiorespiratory</span>
+          </div>
+        </div>
+        <div class="spec">
+          <img class="portrait" src="assets/doctors/DrRoyHassoun.jpg" alt="">
+          <div class="text">
+            <strong>Dr. Roy Hassoun</strong>
+            <div class="role">Neurosurgery</div>
+            <span class="note">Orthopaedic implants, neurosurgery, MIS</span>
+          </div>
+        </div>
+        <div class="spec">
+          <img class="portrait" src="assets/doctors/DrRares.jpg" alt="">
+          <div class="text">
+            <strong>Dr. Rares Capitan</strong>
+            <div class="role">Dermatology</div>
+            <span class="note">European board-certified (DipECVD)</span>
+          </div>
+        </div>
+        <div class="spec">
+          <img class="portrait" src="assets/doctors/DrMonica.jpg" alt="">
+          <div class="text">
+            <strong>Dr. Monica Clemente</strong>
+            <div class="role">Oncology</div>
+            <span class="note">Veterinary oncology &amp; chemotherapy</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
