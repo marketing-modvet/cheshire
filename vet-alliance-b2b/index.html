@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Vet Alliance Holding — Veterinary Services Profile</title>
+<style>
+@page {
+  size: 297mm 2740mm;  /* tall single page like the original — extended for B2B content */
+  margin: 0;
+}
+
+:root {
+  --teal-deep: #095C64;
+  --teal-dark: #0B5760;
+  --teal-darker: #084F58;
+  --teal-text: #1F4A52;
+  --sage: #CFE5C2;
+  --sage-light: #E8F0DE;
+  --sage-band: #DCE8C8;
+  --navy: #1A2A4A;
+  --white: #FFFFFF;
+  --gray-line: #D8DCD0;
+  --accent-gold: #E8C547;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: 'Mulish', 'Avenir Next', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11pt;
+  line-height: 1.55;
+  color: var(--teal-text);
+  background: #fff;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.page {
+  width: 297mm;
+  position: relative;
+}
+
+/* ====== COVER ====== */
+.cover {
+  width: 100%;
+  height: 297mm;
+  background: #095C64;  /* exact match to extracted logo background — no gradient seam */
+  color: var(--sage);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+}
+.cover .date {
+  position: absolute;
+  top: 40mm;
+  left: 0; right: 0;
+  font-size: 14pt;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sage);
+  opacity: 0.8;
+}
+.cover .cover-logo-img {
+  width: 165mm;
+  height: auto;
+  margin-bottom: 12mm;
+  display: block;
+}
+.cover .subtitle {
+  font-size: 18pt;
+  font-weight: 300;
+  color: var(--sage);
+  letter-spacing: 0.04em;
+}
+.cover .tagline {
+  position: absolute;
+  bottom: 60mm;
+  left: 0; right: 0;
+  font-size: 12pt;
+  font-weight: 400;
+  color: var(--sage);
+  opacity: 0.85;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.cover .cover-rule {
+  position: absolute;
+  bottom: 50mm;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30mm;
+  height: 1px;
+  background: var(--sage);
+  opacity: 0.5;
+}
+.cover .cover-foot {
+  position: absolute;
+  bottom: 28mm;
+  left: 0; right: 0;
+  text-align: center;
+  font-size: 9.5pt;
+  font-weight: 600;
+  color: var(--sage);
+  opacity: 0.7;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ====== SECTION BANDS (sage with ellipsis title) ====== */
+.section-band {
+  width: 100%;
+  background: var(--sage-band);
+  padding: 14mm 30mm;
+  font-size: 18pt;
+  font-weight: 600;
+  color: var(--teal-deep);
+  line-height: 1.3;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.section, .gov-block, .footer {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.branch-card, .why-card, .gov-card, .svc-tile, .brand-card {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.section-band .ellipsis { color: var(--teal-deep); opacity: 0.6; }
+
+.section {
+  width: 100%;
+  padding: 20mm 30mm;
+  position: relative;
+}
+.section h2 {
+  font-size: 22pt;
+  font-weight: 700;
+  color: var(--teal-deep);
+  margin-bottom: 8mm;
+  letter-spacing: -0.01em;
+}
+.section h3 {
+  font-size: 13pt;
+  font-weight: 700;
+  color: var(--teal-deep);
+  margin-top: 6mm;
+  margin-bottom: 2mm;
+}
+.section p { margin-bottom: 4mm; max-width: 220mm; }
+.section ul { margin: 2mm 0 4mm 6mm; }
+.section li { margin-bottom: 1.5mm; }
+
+/* Right-side mint sidebar continuity */
+.section::after {
+  content: "";
+  position: absolute;
+  top: 0; right: 0;
+  width: 12mm;
+  height: 100%;
+  background: var(--sage);
+  opacity: 0.55;
+}
+
+/* ====== ABOUT BLOCK ====== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10mm 14mm;
+  margin-top: 6mm;
+}
+.about-grid .item h3 {
+  margin-top: 0;
+}
+
+/* ====== WHY VET ALLIANCE ====== */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8mm 10mm;
+  margin-top: 6mm;
+}
+.why-card {
+  background: var(--white);
+  border: 1.5px solid var(--sage);
+  border-radius: 6mm;
+  padding: 8mm 8mm 6mm 8mm;
+  position: relative;
+}
+.why-card .num {
+  position: absolute;
+  top: -4mm; left: 6mm;
+  background: var(--teal-deep);
+  color: var(--white);
+  width: 10mm; height: 10mm;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 12pt;
+}
+.why-card h4 {
+  font-size: 12pt;
+  font-weight: 700;
+  color: var(--teal-deep);
+  margin-bottom: 2mm;
+  margin-top: 2mm;
+}
+.why-card p {
+  font-size: 10.5pt;
+  margin-bottom: 0;
+}
+
+/* ====== HIGHLIGHTED SERVICES (icon grid) ====== */
+.svc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10mm 6mm;
+  margin-top: 8mm;
+}
+.svc-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 4mm 2mm;
+}
+.svc-tile .ring {
+  width: 28mm; height: 28mm;
+  border: 2px dashed var(--teal-deep);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 4mm;
+  background: #fff;
+}
+.svc-tile .ring svg { width: 14mm; height: 14mm; }
+.svc-tile .title {
+  font-size: 11pt;
+  font-weight: 700;
+  color: var(--teal-deep);
+  margin-bottom: 1mm;
+}
+.svc-tile .desc {
+  font-size: 9.5pt;
+  color: var(--teal-text);
+  line-height: 1.4;
+}
+
+/* ====== GOVERNMENT / INSTITUTIONAL ====== */
+.gov-block {
+  background: linear-gradient(180deg, #0F5F6B 0%, #0D5560 100%);
+  color: var(--white);
+  padding: 20mm 30mm 22mm;
+  position: relative;
+}
+.gov-block::after {
+  content: "";
+  position: absolute;
+  top: 0; right: 0;
+  width: 12mm; height: 100%;
+  background: var(--sage); opacity: 0.7;
+}
+.gov-block h2 {
+  font-size: 22pt;
+  font-weight: 700;
+  color: var(--sage);
+  margin-bottom: 3mm;
+}
+.gov-block .lead {
+  font-size: 13pt;
+  font-weight: 400;
+  color: var(--sage-light);
+  margin-bottom: 10mm;
+  max-width: 220mm;
+  line-height: 1.55;
+}
+.gov-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7mm;
+}
+.gov-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(207,229,194,0.35);
+  border-radius: 5mm;
+  padding: 7mm 7mm 6mm;
+}
+.gov-card .icon {
+  width: 10mm; height: 10mm;
+  border-radius: 50%;
+  background: var(--sage);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 4mm;
+}
+.gov-card .icon svg { width: 6mm; height: 6mm; }
+.gov-card h4 {
+  font-size: 12pt;
+  font-weight: 700;
+  color: var(--sage);
+  margin-bottom: 2mm;
+}
+.gov-card p {
+  font-size: 10pt;
+  color: #E8F0DE;
+  line-height: 1.5;
+}
+.gov-footer {
+  margin-top: 10mm;
+  padding-top: 6mm;
+  border-top: 1px solid rgba(207,229,194,0.3);
+  font-size: 10.5pt;
+  color: var(--sage-light);
+}
+.gov-footer strong { color: var(--sage); }
+
+/* ====== BRANCH CARDS ====== */
+.branch-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8mm;
+  margin-top: 6mm;
+}
+.branch-card {
+  background: #fff;
+  border: 1.5px solid var(--sage);
+  border-left: 6mm solid var(--teal-deep);
+  border-radius: 4mm;
+  padding: 7mm 9mm;
+  display: grid;
+  grid-template-columns: 1.6fr 1.5fr 1.3fr;
+  gap: 8mm;
+  align-items: start;
+}
+.branch-card.flagship {
+  border-left-color: var(--accent-gold);
+  background: linear-gradient(180deg, #fff 0%, #F8FBF3 100%);
+}
+.branch-card .b-head h3 {
+  font-size: 14pt;
+  color: var(--teal-deep);
+  margin: 0 0 1mm 0;
+  font-weight: 800;
+}
+.branch-card .b-head .badge {
+  display: inline-block;
+  background: var(--teal-deep);
+  color: #fff;
+  font-size: 8.5pt;
+  font-weight: 700;
+  padding: 1mm 3mm;
+  border-radius: 1.5mm;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 2mm;
+}
+.branch-card.flagship .b-head .badge { background: var(--accent-gold); color: #5a4a00; }
+.branch-card .b-head .addr {
+  font-size: 10pt;
+  color: var(--teal-text);
+  margin-bottom: 2mm;
+}
+.branch-card .b-head a {
+  font-size: 9.5pt;
+  color: var(--teal-deep);
+  text-decoration: underline;
+}
+.branch-card .b-meta {
+  font-size: 10pt;
+}
+.branch-card .b-meta .row {
+  margin-bottom: 2mm;
+}
+.branch-card .b-meta .lab {
+  font-weight: 700; color: var(--teal-deep); display: inline-block; min-width: 24mm;
+}
+.branch-card .b-svc {
+  font-size: 9.5pt;
+  color: var(--teal-text);
+}
+.branch-card .b-svc h5 {
+  font-size: 10pt; font-weight: 700;
+  color: var(--teal-deep); margin-bottom: 1.5mm;
+}
+.branch-card .b-svc ul { margin: 0 0 0 4mm; }
+.branch-card .b-svc li { margin-bottom: 0.6mm; font-size: 9.5pt; }
+
+/* ====== NETWORK BRANDS ROW ====== */
+.brands-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6mm 8mm;
+  margin-top: 6mm;
+}
+.brand-card {
+  background: #fff;
+  border: 1px solid var(--gray-line);
+  border-radius: 3mm;
+  padding: 6mm;
+}
+.brand-card h4 {
+  font-size: 12pt; font-weight: 700;
+  color: var(--teal-deep);
+  margin-bottom: 2mm;
+}
+.brand-card p {
+  font-size: 10pt; margin: 0;
+  color: var(--teal-text);
+}
+
+/* ====== CONTACT FOOTER ====== */
+.footer {
+  background: var(--teal-deep);
+  color: var(--sage);
+  padding: 22mm 30mm 22mm;
+  text-align: left;
+  page-break-inside: avoid;
+}
+.footer h3 {
+  font-size: 14pt; color: var(--sage);
+  margin-bottom: 4mm; font-weight: 700;
+}
+.footer .row { margin-bottom: 2mm; font-size: 11pt; }
+.footer a { color: var(--sage); text-decoration: none; }
+.footer .thank {
+  margin-top: 14mm;
+  margin-bottom: 6mm;
+  font-size: 36pt;
+  font-weight: 800;
+  color: var(--sage);
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+.footer .thank-tag {
+  text-align: center;
+  font-size: 10pt;
+  color: var(--sage);
+  opacity: 0.7;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 2mm;
+}
+
+/* watermark logo bottom-right of every section */
+.watermark {
+  position: absolute;
+  bottom: 6mm; right: 16mm;
+  display: flex; align-items: center; gap: 2mm;
+  opacity: 0.5;
+}
+.watermark img { width: 10mm; }
+.watermark span {
+  font-size: 8pt; color: var(--teal-deep);
+  font-weight: 700; letter-spacing: 0.06em;
+}
+
+/* puppy+kitten photo */
+.timeline-photo {
+  position: absolute;
+  right: 30mm;
+  bottom: 14mm;
+  width: 75mm;
+  filter: grayscale(100%) contrast(1.05);
+}
+
+</style>
+</head>
+<body>
+
+<!-- ========================================================== -->
+<!-- COVER PAGE                                                  -->
+<!-- ========================================================== -->
+<section class="cover">
+  <div class="date">May 2026</div>
+
+  <!-- Use the actual extracted Vet Alliance logo + wordmark from the source PDF.
+       The image's teal background matches our cover teal so it blends seamlessly. -->
+  <img class="cover-logo-img" src="cover-logo-tight.png" alt="Vet Alliance Holding">
+  <div class="subtitle">Veterinary Services Profile</div>
+  <div class="tagline">Multi-Specialty Veterinary Care · Dubai</div>
+  <div class="cover-rule"></div>
+  <div class="cover-foot">Vet Alliance Holding · United Arab Emirates</div>
+</section>
+
+<!-- ========================================================== -->
+<!-- ABOUT US                                                   -->
+<!-- ========================================================== -->
+<section class="section" style="page-break-before: avoid;">
+  <h2>About Vet Alliance</h2>
+  <p style="font-size:12pt; max-width:220mm;">
+    Vet Alliance Holding is the UAE's largest veterinary group, operating a network of clinics across Dubai under
+    a single quality and clinical standard. We provide preventive, routine, emergency, surgical and referral-level
+    care for companion animals, working dogs, and institutional patients.
+  </p>
+
+  <div class="about-grid">
+    <div class="item">
+      <h3>Certifications &amp; Quality</h3>
+      <p>Every clinic in the network is fully licensed by the Dubai Municipality and audited against a unified
+        clinical and infection-control standard. All branches operate on the same medical records system,
+        which means a patient's full history follows them between branches.</p>
+    </div>
+    <div class="item">
+      <h3>Our Network</h3>
+      <p>A 24/7 multi-specialty hospital, a referral centre (TVRC), and a chain of comprehensive day clinics
+        across Dubai. Sister brands cover exotics, charity/TNR, and pet relocation, giving partners a single
+        point of contact for the full spectrum of veterinary needs.</p>
+    </div>
+    <div class="item">
+      <h3>Clinical Team</h3>
+      <p>Over 60 veterinarians across the group, supported by RVNs and trained support staff. The team spans
+        more than 30 languages and covers internal medicine, surgery, orthopaedics, cardiology, neurology,
+        ophthalmology, dermatology, oncology, and rehabilitation.</p>
+    </div>
+    <div class="item">
+      <h3>Operational Reliability</h3>
+      <p>Shared diagnostics, shared records, shared protocols. Cases can move between a branch and the
+        hospital without losing continuity, and complex cases route to the referral centre under one
+        coordinated team. Open every day of the year, including public holidays.</p>
+    </div>
+  </div>
+
+  <div class="watermark"><span>VET ALLIANCE HOLDING</span></div>
+</section>
+
+<!-- ========================================================== -->
+<!-- WHY VET ALLIANCE                                            -->
+<!-- ========================================================== -->
+<div class="section-band">
+  <span class="ellipsis">…</span> A Single Partner For Routine, Urgent, And Complex Veterinary Care
+  <span class="ellipsis">…</span>
+</div>
+
+<section class="section" style="background:#fff;">
+  <h2>Why Vet Alliance</h2>
+  <p>For institutional and corporate partners, working with Vet Alliance means one accountable veterinary
+    group covering the full clinical pathway — without referring out of network.</p>
+
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="num">1</div>
+      <h4>Multi-Specialty Network Across Dubai</h4>
+      <p>Six locations covering every major area of the city, plus a 24/7 hospital and a referral centre under
+        one operational umbrella.</p>
+    </div>
+    <div class="why-card">
+      <div class="num">2</div>
+      <h4>24/7 Emergency Support</h4>
+      <p>Modern Vet Hospital on Al Wasl Road runs 24 hours a day, every day of the year, with veterinarians
+        and nursing staff on-site overnight. No appointment required for emergencies.</p>
+    </div>
+    <div class="why-card">
+      <div class="num">3</div>
+      <h4>Experienced Veterinary Team</h4>
+      <p>60+ vets across general practice, surgery, internal medicine, and specialist disciplines.
+        Surgeons hold international post-graduate qualifications and the team has performed several UAE firsts
+        in cardiac, ophthalmic, and neurological surgery.</p>
+    </div>
+    <div class="why-card">
+      <div class="num">4</div>
+      <h4>Advanced Diagnostics &amp; Referral-Level Care</h4>
+      <p>In-house X-ray and ultrasound at every branch. CT and MRI at the hospital and the referral centre.
+        Endoscopy, echocardiography, full in-house lab, and dedicated isolation wards.</p>
+    </div>
+    <div class="why-card">
+      <div class="num">5</div>
+      <h4>Strong Coordination Between Branches</h4>
+      <p>One medical records system, one phone line, one WhatsApp. Cases hand off cleanly between a local
+        branch and the hospital without the client repeating the history.</p>
+    </div>
+    <div class="why-card">
+      <div class="num">6</div>
+      <h4>Routine, Urgent, And Complex Cases</h4>
+      <p>From vaccinations and routine checks through to orthopaedic surgery, neurosurgery, and intensive
+        care. The same group handles preventive care and the most complex referral work.</p>
+    </div>
+  </div>
+
+  <div class="watermark"><span>VET ALLIANCE HOLDING</span></div>
+</section>
+
+<!-- ========================================================== -->
+<!-- HIGHLIGHTED SERVICES                                       -->
+<!-- ========================================================== -->
+<div class="section-band">
+  <span class="ellipsis">…</span> Highlighted Veterinary Services
+  <span class="ellipsis">…</span>
+</div>
+
+<section class="section">
+  <p style="font-size:11.5pt; margin-top:2mm;">The services below are available across the network. Routine work is delivered at the local branches;
+    advanced imaging, complex surgery, and intensive care are concentrated at Modern Vet Hospital and TVRC.</p>
+
+  <div class="svc-grid">
+    <!-- 24/7 EMERGENCY -->
+    <div class="svc-tile">
+      <div class="ring">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#0F5F6B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="32" cy="32" r="22"/>
+          <polyline points="32 18 32 32 42 38"/>
+          <text x="32" y="56" font-family="Mulish" font-weight="700" font-size="11" fill="#0F5F6B" text-anchor="middle">24/7</text>
+        </svg>
+      </div>
+      <div class="title">24/7 Emergency Care</div>
+      <div class="desc">On-site overnight team, walk-in emergencies, no appointment required at the hospital.</div>
+    </div>
+
+    <!-- ORTHOPEDICS -->
+    <div class="svc-tile">
+      <div class="ring">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#0F5F6B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 14c0 4 4 6 4 10s-4 6-4 10 4 6 4 10-4 6-4 10"/>
+          <path d="M42 14c0 4-4 6-4 10s4 6 4 10-4 6-4 10 4 6 4 10"/>
+          <circle cx="22" cy="14" r="3"/><circle cx="42" cy="14" r="3"/>
+          <circle cx="22" cy="50" r="3"/><circle cx="42" cy="50" r="3"/>
+        </svg>
+      </div>
+      <div class="title">Orthopaedics</div>
+      <div class="desc">Fracture repair, TPLO, joint reconstruction, hip replacement, sports medicine.</div>
+    </div>
+
+    <!-- DENTAL -->
+    <div class="svc-tile">
+      <div class="ring">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#0F5F6B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 18c0-4 5-6 12-6s12 2 12 6c0 6-2 14-4 22-1 4-2 8-4 8s-2-6-4-10c-1-2-2-2-3 0-2 4-2 10-4 10s-3-4-4-8c-2-8-1-16-1-22z"/>
+        </svg>
+      </div>
+      <div class="title">Dental Care</div>
+      <div class="desc">Scaling, polishing, extractions, and dental radiography across all branches.</div>
+    </div>
+
+    <!-- DIAGNOSTIC IMAGING -->
+    <div class="svc-tile">
+      <div class="ring">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#0F5F6B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="12" y="14" width="40" height="28" rx="2"/>
+          <path d="M18 32c4-6 8-6 14 0s10 6 14 0"/>
+          <line x1="20" y1="46" x2="44" y2="46"/>
+          <line x1="32" y1="46" x2="32" y2="52"/>
+        </svg>
+      </div>
+      <div class="title">Diagnostic Imaging</div>
+      <div class="desc">X-ray and ultrasound at every branch; CT and MRI at the hospital and TVRC.</div>
+    </div>
+
+    <!-- SURGERY & HOSPITALIZATION -->
+    <div class="svc-tile">
+      <div class="ring">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#0F5F6B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 14l8 18m0 0l-8 18m8-18l20 8m-20-8l20-8"/>
+          <circle cx="46" cy="22" r="3"/>
+          <circle cx="46" cy="42" r="3"/>
+        </svg>
+      </div>
+      <div class="title">Surgery &amp; Hospitalisation</div>
+      <div class="desc">Soft tissue, orthopaedic, neuro and oncologic surgery. Inpatient wards 24/7.</div>
+    </div>
+
+    <!-- PHYSIO & HYDROTHERAPY -->
+    <div class="svc-tile">
+      <div class="ring">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#0F5F6B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 44c4-3 6-3 10 0s6 3 10 0 6-3 10 0 6 3 10 0 6-3 10 0"/>
+          <path d="M8 50c4-3 6-3 10 0s6 3 10 0 6-3 10 0 6 3 10 0 6-3 10 0"/>
+          <circle cx="24" cy="22" r="6"/>
+          <path d="M30 28l10 6"/>
+        </svg>
+      </div>
+      <div class="title">Physiotherapy &amp; Hydrotherapy</div>
+      <div class="desc">Underwater treadmill, rehab programmes, post-surgical recovery and sports conditioning.</div>
+    </div>
+
+    <!-- Additional row: preventive, internal med, specialty -->
+    <div class="svc-tile">
+      <div class="ring">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#0F5F6B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 28l8 8 28-28"/>
+          <path d="M50 36v14H14V14h22"/>
+        </svg>
+      </div>
+      <div class="title">Preventive &amp; Routine Care</div>
+      <div class="desc">Vaccinations, parasite control, wellness exams, microchipping, nutrition planning.</div>
+    </div>
+
+    <div class="svc-tile">
+      <div class="ring">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#0F5F6B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M32 12v40M12 32h40"/>
+          <circle cx="32" cy="32" r="20"/>
+        </svg>
+      </div>
+      <div class="title">Internal Medicine</div>
+      <div class="desc">Endocrinology, gastroenterology, oncology, urology, infectious disease workup.</div>
+    </div>
+
+    <div class="svc-tile">
+      <div class="ring">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#0F5F6B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="32" cy="22" r="8"/>
+          <path d="M16 52c2-10 8-14 16-14s14 4 16 14"/>
+          <path d="M44 22h8M44 22l4-4M44 22l4 4"/>
+        </svg>
+      </div>
+      <div class="title">Specialist Referrals</div>
+      <div class="desc">Cardiology, neurology, ophthalmology, dermatology, oncology — through TVRC.</div>
+    </div>
+  </div>
+
+  <div class="watermark"><span>VET ALLIANCE HOLDING</span></div>
+</section>
+
+<!-- ========================================================== -->
+<!-- GOVERNMENT / INSTITUTIONAL                                  -->
+<!-- ========================================================== -->
+<div class="gov-block">
+  <h2>Government &amp; Institutional Veterinary Services</h2>
+  <p class="lead">
+    Vet Alliance supports government, security, and institutional partners that operate working dogs and other
+    service animals. We provide structured, accountable veterinary care backed by the full diagnostic and
+    surgical capability of the group — from a routine vaccine round at a kennel through to overnight emergency
+    surgery on a working dog.
+  </p>
+
+  <div class="gov-grid">
+    <div class="gov-card">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0F5F6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7v5c0 5.55 3.84 10 10 11 6.16-1 10-5.45 10-11V7l-10-5z"/>
+        </svg>
+      </div>
+      <h4>Care For Working Dogs</h4>
+      <p>Dedicated clinical handling for K9 units and service-dog programmes, including high-drive working
+        breeds and patients in active deployment.</p>
+    </div>
+
+    <div class="gov-card">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0F5F6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 14c0 4-3 7-7 7s-7-3-7-7 3-9 7-9 7 5 7 9z"/>
+          <path d="M12 5v16"/><path d="M5 14h14"/>
+        </svg>
+      </div>
+      <h4>Preventive &amp; Routine</h4>
+      <p>Annual vaccinations, scheduled health checks, parasite control, dental scaling, microchipping, and
+        kennel-side wellness assessments.</p>
+    </div>
+
+    <div class="gov-card">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0F5F6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2v6m0 0l-3-3m3 3l3-3"/>
+          <circle cx="12" cy="16" r="5"/>
+          <path d="M2 22c2-4 6-6 10-6s8 2 10 6"/>
+        </svg>
+      </div>
+      <h4>Emergency &amp; Urgent Care</h4>
+      <p>24/7 walk-in emergency triage at Modern Vet Hospital. Direct line for partner referrals with no
+        booking delays.</p>
+    </div>
+
+    <div class="gov-card">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0F5F6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="14" rx="2"/>
+          <path d="M3 10h18M7 14h4"/>
+        </svg>
+      </div>
+      <h4>Diagnostics, Surgery &amp; Hospitalisation</h4>
+      <p>In-house lab, X-ray, ultrasound, CT and MRI. Surgical theatres for soft-tissue, orthopaedic, and
+        neurological work. Inpatient wards with overnight monitoring.</p>
+    </div>
+
+    <div class="gov-card">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0F5F6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h12l4 4v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+          <path d="M8 12h8M8 16h6M8 8h4"/>
+        </svg>
+      </div>
+      <h4>Medical Reporting &amp; Case Documentation</h4>
+      <p>Full written case reports, treatment summaries, imaging exports, and follow-up plans issued for every
+        institutional patient. Records auditable on request.</p>
+    </div>
+
+    <div class="gov-card">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#095C64" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 14a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/>
+          <path d="M4 22c0-4 4-6 8-6s8 2 8 6"/>
+          <path d="M18 8h3M19.5 6.5v3"/>
+        </svg>
+      </div>
+      <h4>Dedicated Coordination</h4>
+      <p>A single named contact handles bookings, follow-ups, and escalations for the partner. Bypasses the
+        standard call-centre queue with priority routing.</p>
+    </div>
+  </div>
+
+  <div class="gov-footer">
+    <strong>How partnerships are structured:</strong>
+    Each institutional partner is set up with a master account covering all enrolled animals, agreed pricing,
+    monthly consolidated billing, and a named coordinator. Reports, vaccination certificates, and case files
+    are issued on the partner's letterhead requirements where needed.
+  </div>
+</div>
+
+<!-- ========================================================== -->
+<!-- BRANCHES                                                   -->
+<!-- ========================================================== -->
+<div class="section-band">
+  <span class="ellipsis">…</span> Our Branches Across Dubai
+  <span class="ellipsis">…</span>
+</div>
+
+<section class="section" style="padding-bottom: 22mm;">
+  <h2>Branch Directory</h2>
+  <p>The hospital handles 24/7 emergency and all complex/specialist work. The branches handle daytime
+    consultations, vaccinations, dentistry, soft-tissue surgery, and in-house imaging. All branches share the
+    same medical records system and a single phone number: <strong>800-82</strong> (toll-free in UAE) ·
+    WhatsApp <strong>050 630 4573</strong>.</p>
+
+  <div class="branch-grid">
+
+    <!-- HOSPITAL -->
+    <div class="branch-card flagship">
+      <div class="b-head">
+        <div class="badge">Flagship · 24/7 Hospital</div>
+        <h3>Modern Vet Hospital — Al Wasl</h3>
+        <div class="addr">793 Al Wasl Road, Al Safa 2, Dubai</div>
+        <a href="https://maps.app.goo.gl/?q=Modern+Vet+Hospital+Al+Wasl+Dubai">View on Google Maps →</a>
+      </div>
+      <div class="b-meta">
+        <div class="row"><span class="lab">Hours</span> 24/7, year-round</div>
+        <div class="row"><span class="lab">Phone</span> 800-82 · +971 800 82</div>
+        <div class="row"><span class="lab">WhatsApp</span> 050 630 4573</div>
+        <div class="row"><span class="lab">Parking</span> On-site</div>
+      </div>
+      <div class="b-svc">
+        <h5>Specialties &amp; Facilities</h5>
+        <ul>
+          <li>24/7 emergency &amp; critical care</li>
+          <li>Surgical theatres (soft-tissue, ortho, neuro)</li>
+          <li>CT scan, MRI, X-ray, ultrasound</li>
+          <li>In-house laboratory</li>
+          <li>Cardiology, ophthalmology, oncology</li>
+          <li>Isolation &amp; inpatient wards</li>
+          <li>Hydrotherapy &amp; physiotherapy</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- JLT -->
+    <div class="branch-card">
+      <div class="b-head">
+        <div class="badge">Day Clinic</div>
+        <h3>Modern Vet — JLT</h3>
+        <div class="addr">Fortune Tower, Cluster C, JLT, Dubai</div>
+        <a href="https://maps.app.goo.gl/?q=Modern+Vet+JLT+Fortune+Tower">View on Google Maps →</a>
+      </div>
+      <div class="b-meta">
+        <div class="row"><span class="lab">Hours</span> 7am – 10pm, daily</div>
+        <div class="row"><span class="lab">Phone</span> 800-82</div>
+        <div class="row"><span class="lab">Parking</span> Building &amp; visitor</div>
+        <div class="row"><span class="lab">Access</span> Wheelchair accessible</div>
+      </div>
+      <div class="b-svc">
+        <h5>Services Available</h5>
+        <ul>
+          <li>Consultations &amp; vaccinations</li>
+          <li>Dental scaling &amp; polishing</li>
+          <li>Soft-tissue &amp; general surgery</li>
+          <li>X-ray and ultrasound</li>
+          <li>Microchipping &amp; preventive care</li>
+          <li>Russian-speaking veterinarian</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- JVC -->
+    <div class="branch-card">
+      <div class="b-head">
+        <div class="badge">Day Clinic</div>
+        <h3>Modern Vet — JVC</h3>
+        <div class="addr">Platinum Residences, Jumeirah Village Circle, Dubai</div>
+        <a href="https://maps.app.goo.gl/?q=Modern+Vet+JVC+Platinum+Residences">View on Google Maps →</a>
+      </div>
+      <div class="b-meta">
+        <div class="row"><span class="lab">Hours</span> 7am – 10pm, daily</div>
+        <div class="row"><span class="lab">Phone</span> 800-82</div>
+        <div class="row"><span class="lab">Parking</span> Street &amp; building</div>
+      </div>
+      <div class="b-svc">
+        <h5>Services Available</h5>
+        <ul>
+          <li>Consultations &amp; vaccinations</li>
+          <li>Dental scaling &amp; polishing</li>
+          <li>Soft-tissue &amp; general surgery</li>
+          <li>X-ray and ultrasound</li>
+          <li>Exotic-animal consultations (in-house specialist)</li>
+          <li>Microchipping &amp; preventive care</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PALM -->
+    <div class="branch-card">
+      <div class="b-head">
+        <div class="badge">Day Clinic</div>
+        <h3>Modern Vet — Palm Jumeirah</h3>
+        <div class="addr">Golden Mile Galleria, Building 4, Palm Jumeirah, Dubai</div>
+        <a href="https://maps.app.goo.gl/?q=Modern+Vet+Palm+Golden+Mile+Galleria">View on Google Maps →</a>
+      </div>
+      <div class="b-meta">
+        <div class="row"><span class="lab">Hours</span> 7am – 10pm, daily</div>
+        <div class="row"><span class="lab">Phone</span> 800-82</div>
+        <div class="row"><span class="lab">Parking</span> Mall parking</div>
+        <div class="row"><span class="lab">Access</span> Wheelchair accessible</div>
+      </div>
+      <div class="b-svc">
+        <h5>Services Available</h5>
+        <ul>
+          <li>Consultations &amp; vaccinations</li>
+          <li>Dental scaling &amp; polishing</li>
+          <li>Soft-tissue &amp; general surgery</li>
+          <li>X-ray and ultrasound</li>
+          <li>Cardiology workup (Russian-speaking specialist)</li>
+          <li>Ophthalmic eye care</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- DOWNTOWN -->
+    <div class="branch-card">
+      <div class="b-head">
+        <div class="badge">Day Clinic</div>
+        <h3>Modern Vet — Downtown</h3>
+        <div class="addr">South Ridge Tower, Downtown Dubai</div>
+        <a href="https://maps.app.goo.gl/?q=Modern+Vet+Downtown+South+Ridge">View on Google Maps →</a>
+      </div>
+      <div class="b-meta">
+        <div class="row"><span class="lab">Hours</span> 7am – 10pm, daily</div>
+        <div class="row"><span class="lab">Phone</span> 800-82</div>
+        <div class="row"><span class="lab">Parking</span> On-site visitor</div>
+        <div class="row"><span class="lab">Access</span> Wheelchair accessible</div>
+      </div>
+      <div class="b-svc">
+        <h5>Services Available</h5>
+        <ul>
+          <li>Consultations &amp; vaccinations</li>
+          <li>Dental scaling &amp; polishing</li>
+          <li>Soft-tissue &amp; general surgery</li>
+          <li>X-ray and ultrasound</li>
+          <li>Feline-friendly certified (full)</li>
+          <li>Portuguese-speaking veterinarian</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- AZIZI RIVIERA -->
+    <div class="branch-card">
+      <div class="b-head">
+        <div class="badge">Day Clinic · Part-time</div>
+        <h3>Modern Vet — Azizi Riviera</h3>
+        <div class="addr">Azizi Riviera 28, Nad Al Sheba 1, Dubai</div>
+        <a href="https://maps.app.goo.gl/?q=Modern+Vet+Azizi+Riviera">View on Google Maps →</a>
+      </div>
+      <div class="b-meta">
+        <div class="row"><span class="lab">Hours</span> Tue – Sat · 10am – 6pm</div>
+        <div class="row"><span class="lab">Phone</span> 800-82</div>
+        <div class="row"><span class="lab">Parking</span> Building &amp; street</div>
+      </div>
+      <div class="b-svc">
+        <h5>Services Available</h5>
+        <ul>
+          <li>Consultations &amp; vaccinations</li>
+          <li>Dental scaling &amp; polishing</li>
+          <li>X-ray and ultrasound</li>
+          <li>Microchipping &amp; preventive care</li>
+          <li>Minor surgical procedures</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- TVRC -->
+    <div class="branch-card">
+      <div class="b-head">
+        <div class="badge">Referral Centre · B2B</div>
+        <h3>TVRC — The Vet Referral Centre</h3>
+        <div class="addr">Dubai · referral-only access</div>
+        <a href="https://maps.app.goo.gl/?q=TVRC+Vet+Referral+Centre+Dubai">View on Google Maps →</a>
+      </div>
+      <div class="b-meta">
+        <div class="row"><span class="lab">Access</span> Veterinary referral only</div>
+        <div class="row"><span class="lab">Phone</span> 800-82</div>
+        <div class="row"><span class="lab">For</span> Complex / specialist cases</div>
+      </div>
+      <div class="b-svc">
+        <h5>Specialist Disciplines</h5>
+        <ul>
+          <li>Cardiology</li>
+          <li>Neurology &amp; neurosurgery</li>
+          <li>Internal medicine</li>
+          <li>Advanced dermatology</li>
+          <li>CT &amp; MRI imaging</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- MOBILE -->
+    <div class="branch-card">
+      <div class="b-head">
+        <div class="badge">Mobile Service</div>
+        <h3>Mobile Veterinary Clinic</h3>
+        <div class="addr">On-site visits across Dubai</div>
+        <a href="https://modernvet.com">modernvet.com →</a>
+      </div>
+      <div class="b-meta">
+        <div class="row"><span class="lab">Hours</span> By appointment</div>
+        <div class="row"><span class="lab">Phone</span> 800-82</div>
+        <div class="row"><span class="lab">For</span> Kennel-side visits</div>
+      </div>
+      <div class="b-svc">
+        <h5>Best Suited For</h5>
+        <ul>
+          <li>On-site vaccination rounds at kennels</li>
+          <li>Routine health checks for working dogs</li>
+          <li>Sample collection &amp; minor treatments</li>
+          <li>Partner-site assessments before transport</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="watermark"><span>VET ALLIANCE HOLDING</span></div>
+</section>
+
+<!-- ========================================================== -->
+<!-- MAP PLACEHOLDER (Andrew handles this himself)              -->
+<!-- ========================================================== -->
+<section class="section" style="background:#F5F1E8; padding: 14mm 30mm 16mm;">
+  <h2 style="color:var(--teal-deep);">Network Map</h2>
+  <p style="margin-bottom:6mm;">Locations across Dubai — covering from Palm Jumeirah through Downtown, Al Wasl, JLT, JVC, Nad Al Sheba and beyond.</p>
+  <div style="width:100%; height: 200mm; background: #ECE6D3; border: 1px dashed #B8AC8C; border-radius: 4mm; display:flex; align-items:center; justify-content:center; color:#7A6E54; font-size:14pt; font-weight:600; letter-spacing:0.04em;">
+    [ MAP PLACEHOLDER — replace with original Dubai map illustration ]
+  </div>
+</section>
+
+<!-- ========================================================== -->
+<!-- NETWORK BRANDS (sister entities)                            -->
+<!-- ========================================================== -->
+<div class="section-band">
+  <span class="ellipsis">…</span> The Vet Alliance Network
+  <span class="ellipsis">…</span>
+</div>
+
+<section class="section">
+  <h2>Sister Brands &amp; Services</h2>
+  <p>Within the same holding group, additional brands extend our coverage for areas outside core companion-animal
+    general practice.</p>
+
+  <div class="brands-grid">
+    <div class="brand-card">
+      <h4>Vienna Vet</h4>
+      <p>Dedicated TNR programme and charity/rescue veterinary care. Suited for partners working with
+        community animals and welfare programmes.</p>
+    </div>
+    <div class="brand-card">
+      <h4>Blue Oasis Veterinary Clinic</h4>
+      <p>Exotic animal medicine, avian work, and routine exotic surgery — for partners handling species
+        outside the typical canine/feline scope.</p>
+    </div>
+    <div class="brand-card">
+      <h4>Blue Sky Pet Relocation</h4>
+      <p>Health certification, export permits, and transport logistics for animals being relocated
+        internationally. Useful for service-animal redeployment and overseas postings.</p>
+    </div>
+    <div class="brand-card">
+      <h4>Pet Taxi</h4>
+      <p>Scheduled and on-demand pet transport, including out-of-hours pickup, for moving patients between
+        partner sites and our clinics.</p>
+    </div>
+    <div class="brand-card">
+      <h4>Pet Funeral Services</h4>
+      <p>Respectful end-of-life support including private and communal cremation, with coordination handled
+        through any branch.</p>
+    </div>
+    <div class="brand-card">
+      <h4>Floof</h4>
+      <p>Online booking, e-commerce, and vet-curated pet essentials. Used by clinic clients to book
+        appointments and purchase verified products across the network.</p>
+    </div>
+  </div>
+
+  <div class="watermark"><span>VET ALLIANCE HOLDING</span></div>
+</section>
+
+<!-- ========================================================== -->
+<!-- CONTACT / FOOTER                                            -->
+<!-- ========================================================== -->
+<section class="footer">
+  <div class="footer-grid" style="display:grid; grid-template-columns: 1.4fr 1fr; gap: 18mm; margin-bottom: 14mm;">
+    <div>
+      <h3>Get In Touch</h3>
+      <div class="row"><strong>Headquarters:</strong> Street 70, Dubai Investment Park 1 — Green Community Village, Dubai</div>
+      <div class="row"><strong>Email:</strong> <a href="mailto:info@vetallianceholding.com">info@vetallianceholding.com</a></div>
+      <div class="row"><strong>Group Phone (24/7):</strong> 800-82 · International: +971 800 82</div>
+      <div class="row"><strong>WhatsApp:</strong> 050 630 4573 (monitored 7am – 10pm)</div>
+    </div>
+    <div>
+      <h3>Online</h3>
+      <div class="row"><strong>Website:</strong> <a href="https://vetallianceholding.com">vetallianceholding.com</a></div>
+      <div class="row"><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/vetallianceae">linkedin.com/company/vetallianceae</a></div>
+      <div class="row"><strong>Instagram:</strong> <a href="https://www.instagram.com/vetallianceae">@vetallianceae</a></div>
+      <div class="row"><strong>Facebook:</strong> <a href="https://www.facebook.com/vetallianceae">facebook.com/vetallianceae</a></div>
+    </div>
+  </div>
+
+  <div style="text-align: center; padding-top: 6mm; border-top: 1px solid rgba(207,229,194,0.25);">
+    <img src="cover-logo-tight.png" alt="Vet Alliance Holding" style="width: 80mm; height: auto; margin-bottom: 8mm; display: inline-block;">
+    <div class="thank" style="color:#E8F0DE;">THANK YOU</div>
+    <div class="thank-tag">For Considering Vet Alliance Holding</div>
+  </div>
+</section>
+
+</body>
+</html>
