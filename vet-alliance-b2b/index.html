@@ -5,7 +5,7 @@
 <title>Vet Alliance Holding — Veterinary Services Profile</title>
 <style>
 @page {
-  size: 297mm 2740mm;  /* tall single page like the original — extended for B2B content */
+  size: 297mm 3090mm;  /* tall single page — extended for B2B content + sister clinics */
   margin: 0;
 }
 
@@ -40,74 +40,35 @@ html, body {
   position: relative;
 }
 
-/* ====== COVER ====== */
-.cover {
+/* ====== MASTHEAD (compact, replaces cover) ====== */
+.masthead {
   width: 100%;
-  height: 297mm;
-  background: #095C64;  /* exact match to extracted logo background — no gradient seam */
+  background: #095C64;
   color: var(--sage);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+  padding: 18mm 30mm 16mm;
   text-align: center;
+  position: relative;
 }
-.cover .date {
-  position: absolute;
-  top: 40mm;
-  left: 0; right: 0;
-  font-size: 14pt;
-  font-weight: 300;
+.masthead-logo {
+  display: block;
+  margin: 0 auto 6mm;
+  width: 95mm;
+  height: auto;
+}
+.masthead-title {
+  font-size: 18pt;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--sage);
+}
+.masthead-sub {
+  margin-top: 2mm;
+  font-size: 10pt;
+  font-weight: 400;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--sage);
-  opacity: 0.8;
-}
-.cover .cover-logo-img {
-  width: 165mm;
-  height: auto;
-  margin-bottom: 12mm;
-  display: block;
-}
-.cover .subtitle {
-  font-size: 18pt;
-  font-weight: 300;
-  color: var(--sage);
-  letter-spacing: 0.04em;
-}
-.cover .tagline {
-  position: absolute;
-  bottom: 60mm;
-  left: 0; right: 0;
-  font-size: 12pt;
-  font-weight: 400;
-  color: var(--sage);
-  opacity: 0.85;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-.cover .cover-rule {
-  position: absolute;
-  bottom: 50mm;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 30mm;
-  height: 1px;
-  background: var(--sage);
-  opacity: 0.5;
-}
-.cover .cover-foot {
-  position: absolute;
-  bottom: 28mm;
-  left: 0; right: 0;
-  text-align: center;
-  font-size: 9.5pt;
-  font-weight: 600;
   color: var(--sage);
   opacity: 0.7;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
 }
 
 /* ====== SECTION BANDS (sage with ellipsis title) ====== */
@@ -167,6 +128,56 @@ html, body {
 }
 
 /* ====== ABOUT BLOCK ====== */
+.about-row {
+  display: grid;
+  grid-template-columns: 1fr 90mm;
+  gap: 12mm;
+  align-items: start;
+  margin-bottom: 8mm;
+}
+.about-photo-slot {
+  width: 90mm;
+  height: 70mm;
+  position: relative;
+  border-radius: 3mm;
+  overflow: hidden;
+}
+.photo-slot {
+  background: #ECE6D3;
+  border: 1px dashed #B8AC8C;
+}
+.photo-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: relative;
+  z-index: 2;
+  display: block;
+}
+.photo-slot .photo-placeholder {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 11pt;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #7A6E54;
+  line-height: 1.4;
+  z-index: 1;
+  padding: 4mm;
+}
+.photo-slot .photo-placeholder small {
+  font-size: 8pt;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  opacity: 0.85;
+  margin-top: 2mm;
+}
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -386,27 +397,190 @@ html, body {
 .branch-card .b-svc ul { margin: 0 0 0 4mm; }
 .branch-card .b-svc li { margin-bottom: 0.6mm; font-size: 9.5pt; }
 
-/* ====== NETWORK BRANDS ROW ====== */
-.brands-grid {
+/* ====== SISTER CLINIC CARDS (rich, branch-style) ====== */
+.sister-card {
+  background: #fff;
+  border: 1.5px solid var(--sage);
+  border-left: 6mm solid var(--teal-deep);
+  border-radius: 4mm;
+  padding: 7mm 9mm 9mm;
+  margin-top: 8mm;
+  page-break-inside: avoid;
+}
+.sister-card-flagship {
+  border-left-color: var(--accent-gold);
+  background: linear-gradient(180deg, #fff 0%, #FBF7E6 100%);
+}
+.sister-header {
+  display: grid;
+  grid-template-columns: 38mm 1fr;
+  gap: 8mm;
+  align-items: center;
+  margin-bottom: 6mm;
+  padding-bottom: 5mm;
+  border-bottom: 1px solid var(--sage);
+}
+.sister-logo-slot {
+  width: 38mm;
+  height: 28mm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 1px dashed #B8AC8C;
+  border-radius: 2mm;
+  background: #F7F4E8;
+}
+.sister-logo-slot img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+}
+.sister-logo-slot .logo-placeholder {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 8.5pt;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #B8AC8C;
+  line-height: 1.3;
+  z-index: 1;
+}
+.sister-title h3 {
+  font-size: 17pt;
+  font-weight: 800;
+  color: var(--teal-deep);
+  margin: 0 0 1mm 0;
+  letter-spacing: -0.005em;
+}
+.sister-tag {
+  font-size: 10pt;
+  font-weight: 600;
+  color: var(--teal-deep);
+  opacity: 0.85;
+  letter-spacing: 0.02em;
+}
+.sister-body {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 8mm;
+  align-items: start;
+}
+.sister-about p {
+  font-size: 10.5pt;
+  margin-bottom: 3mm;
+  line-height: 1.55;
+}
+.sister-about p:last-child { margin-bottom: 0; }
+.sister-meta h5,
+.sister-services h5 {
+  font-size: 10.5pt;
+  font-weight: 800;
+  color: var(--teal-deep);
+  margin-bottom: 3mm;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.sister-meta .row {
+  font-size: 10pt;
+  margin-bottom: 1.8mm;
+  line-height: 1.4;
+}
+.sister-meta .lab {
+  font-weight: 700;
+  color: var(--teal-deep);
+  display: inline-block;
+  min-width: 22mm;
+}
+.sister-meta a {
+  color: var(--teal-deep);
+  font-size: 9.5pt;
+  text-decoration: underline;
+}
+.sister-services ul {
+  margin: 0;
+  padding-left: 4mm;
+}
+.sister-services li {
+  font-size: 9.8pt;
+  margin-bottom: 1mm;
+  line-height: 1.4;
+}
+.sister-extra {
+  margin-top: 6mm;
+  padding-top: 5mm;
+  border-top: 1px solid var(--sage);
+}
+.sister-extra h5 {
+  font-size: 10.5pt;
+  font-weight: 800;
+  color: var(--teal-deep);
+  margin-bottom: 4mm;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.glance-strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4mm;
+  margin: 6mm 0 4mm;
+  padding: 6mm 4mm;
+  background: var(--sage-light);
+  border-radius: 3mm;
+}
+.glance {
+  text-align: center;
+  padding: 2mm;
+  border-right: 1px solid rgba(15,95,107,0.18);
+}
+.glance:last-child { border-right: none; }
+.glance strong {
+  display: block;
+  font-size: 20pt;
+  font-weight: 800;
+  color: var(--teal-deep);
+  line-height: 1.1;
+  margin-bottom: 1mm;
+  letter-spacing: -0.01em;
+}
+.glance span {
+  font-size: 8.5pt;
+  font-weight: 600;
+  color: var(--teal-text);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.25;
+  display: block;
+}
+.specialists-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 6mm 8mm;
-  margin-top: 6mm;
+  gap: 4mm 6mm;
 }
-.brand-card {
-  background: #fff;
-  border: 1px solid var(--gray-line);
-  border-radius: 3mm;
-  padding: 6mm;
+.spec {
+  font-size: 9.5pt;
+  line-height: 1.4;
+  padding: 3mm 4mm;
+  background: #F8FBF3;
+  border-left: 2px solid var(--teal-deep);
+  border-radius: 1.5mm;
 }
-.brand-card h4 {
-  font-size: 12pt; font-weight: 700;
+.spec strong {
   color: var(--teal-deep);
-  margin-bottom: 2mm;
+  font-size: 10pt;
 }
-.brand-card p {
-  font-size: 10pt; margin: 0;
+.spec span {
+  display: block;
+  margin-top: 1mm;
   color: var(--teal-text);
+  opacity: 0.8;
+  font-size: 9pt;
 }
 
 /* ====== CONTACT FOOTER ====== */
@@ -469,30 +643,33 @@ html, body {
 <body>
 
 <!-- ========================================================== -->
-<!-- COVER PAGE                                                  -->
+<!-- MASTHEAD (compact header instead of full cover)             -->
 <!-- ========================================================== -->
-<section class="cover">
-  <div class="date">May 2026</div>
-
-  <!-- Use the actual extracted Vet Alliance logo + wordmark from the source PDF.
-       The image's teal background matches our cover teal so it blends seamlessly. -->
-  <img class="cover-logo-img" src="cover-logo-tight.png" alt="Vet Alliance Holding">
-  <div class="subtitle">Veterinary Services Profile</div>
-  <div class="tagline">Multi-Specialty Veterinary Care · Dubai</div>
-  <div class="cover-rule"></div>
-  <div class="cover-foot">Vet Alliance Holding · United Arab Emirates</div>
+<section class="masthead">
+  <img class="masthead-logo" src="cover-logo-tight.png" alt="Vet Alliance Holding">
+  <div class="masthead-title">Veterinary Services Profile</div>
+  <div class="masthead-sub">Multi-Specialty Veterinary Care · Dubai · May 2026</div>
 </section>
 
 <!-- ========================================================== -->
 <!-- ABOUT US                                                   -->
 <!-- ========================================================== -->
 <section class="section" style="page-break-before: avoid;">
-  <h2>About Vet Alliance</h2>
-  <p style="font-size:12pt; max-width:220mm;">
-    Vet Alliance Holding is the UAE's largest veterinary group, operating a network of clinics across Dubai under
-    a single quality and clinical standard. We provide preventive, routine, emergency, surgical and referral-level
-    care for companion animals, working dogs, and institutional patients.
-  </p>
+  <div class="about-row">
+    <div class="about-text">
+      <h2>About Vet Alliance</h2>
+      <p style="font-size:12pt; max-width:160mm;">
+        Vet Alliance Holding is the UAE's largest veterinary group, operating a network of clinics across Dubai under
+        a single quality and clinical standard. We provide preventive, routine, emergency, surgical and referral-level
+        care for companion animals, working dogs, and institutional patients.
+      </p>
+    </div>
+    <div class="about-photo-slot photo-slot" data-slot="hero">
+      <!-- ASSET SLOT: Hero photo. Drop file at assets/photos/hero.jpg (or .png) -->
+      <img src="assets/photos/hero.jpg" alt="">
+      <div class="photo-placeholder">HERO PHOTO<br><small>(e.g. team shot, hospital exterior, or signature surgical moment)</small></div>
+    </div>
+  </div>
 
   <div class="about-grid">
     <div class="item">
@@ -1049,48 +1226,202 @@ html, body {
 </section>
 
 <!-- ========================================================== -->
-<!-- NETWORK BRANDS (sister entities)                            -->
+<!-- SISTER CLINICS (detailed)                                   -->
 <!-- ========================================================== -->
 <div class="section-band">
-  <span class="ellipsis">…</span> The Vet Alliance Network
+  <span class="ellipsis">…</span> Sister Clinics In The Vet Alliance Network
   <span class="ellipsis">…</span>
 </div>
 
-<section class="section">
-  <h2>Sister Brands &amp; Services</h2>
-  <p>Within the same holding group, additional brands extend our coverage for areas outside core companion-animal
-    general practice.</p>
+<section class="section" style="padding-bottom: 18mm;">
+  <p>Three additional clinics operate inside the Vet Alliance Holding group, each filling a specific clinical
+    role. Modern Vet remains the primary general-practice and emergency network; the clinics below provide
+    cat-friendly first-opinion care, exotic and avian medicine, and referral-level specialist work.</p>
 
-  <div class="brands-grid">
-    <div class="brand-card">
-      <h4>Vienna Vet</h4>
-      <p>Dedicated TNR programme and charity/rescue veterinary care. Suited for partners working with
-        community animals and welfare programmes.</p>
+  <div class="glance-strip">
+    <div class="glance"><strong>3</strong><span>Sister Clinics</span></div>
+    <div class="glance"><strong>6+</strong><span>Board-Certified Specialists</span></div>
+    <div class="glance"><strong>24/7</strong><span>Emergency Coverage</span></div>
+    <div class="glance"><strong>1st</strong><span>Referral-Only Hospital in UAE</span></div>
+    <div class="glance"><strong>ISFM</strong><span>Gold-Standard Cat-Friendly</span></div>
+  </div>
+
+  <!-- ============ BLUE OASIS VET ============ -->
+  <div class="sister-card">
+    <div class="sister-header">
+      <div class="sister-logo-slot">
+        <!-- ASSET SLOT: Blue Oasis logo. Place file at assets/icons/blue-oasis-logo.png -->
+        <img src="assets/icons/blue-oasis-logo.png" alt="Blue Oasis Vet" onerror="this.style.display='none'">
+        <div class="logo-placeholder">BLUE OASIS<br>LOGO</div>
+      </div>
+      <div class="sister-title">
+        <h3>Blue Oasis Veterinary Clinic</h3>
+        <div class="sister-tag">Multi-Disciplinary Hospital · Established 2008 · 16+ Years</div>
+      </div>
     </div>
-    <div class="brand-card">
-      <h4>Blue Oasis Veterinary Clinic</h4>
-      <p>Exotic animal medicine, avian work, and routine exotic surgery — for partners handling species
-        outside the typical canine/feline scope.</p>
+
+    <div class="sister-body">
+      <div class="sister-about">
+        <p>A full-service, multi-disciplinary veterinary hospital based in Dubai Investment Park. Blue Oasis
+          serves nearly twenty thousand clients and operates a hospital-grade facility built around the motto
+          “We Care More.” The team combines European-trained veterinarians with advanced imaging and an
+          in-house lab.</p>
+        <p><strong>Role in the network:</strong> Blue Oasis is the network's go-to for exotic animal
+          medicine, avian work, MRI-led neurological assessments, and complex spay/neuter packages. Multiple
+          referral pathways exist for MRI, cytology, and oncology cases.</p>
+      </div>
+
+      <div class="sister-meta">
+        <h5>Location &amp; Contact</h5>
+        <div class="row"><span class="lab">Address</span> Dubai Investment Park, Green Community Village, Dubai</div>
+        <div class="row"><span class="lab">Hours</span> Mon–Fri 9am–9pm · Sat–Sun 10am–8pm</div>
+        <div class="row"><span class="lab">Emergency</span> 24/7 SOS — 050 557 8834</div>
+        <div class="row"><span class="lab">Phone</span> 04 884 8580</div>
+        <div class="row"><span class="lab">Web</span> blueoasispetcare.com</div>
+        <div class="row"><a href="https://maps.app.goo.gl/?q=Blue+Oasis+Veterinary+Clinic+Green+Community+Dubai">View on Google Maps →</a></div>
+      </div>
+
+      <div class="sister-services">
+        <h5>Services &amp; Capabilities</h5>
+        <ul>
+          <li>MRI (advanced imaging for neurology &amp; soft tissue)</li>
+          <li>Digital X-ray and ultrasound</li>
+          <li>Full in-house diagnostic laboratory</li>
+          <li>Surgical suite (soft tissue &amp; orthopaedic)</li>
+          <li>Intensive care &amp; hospitalisation</li>
+          <li>Exotic &amp; avian medicine</li>
+          <li>Dental care &amp; oral surgery</li>
+          <li>Physiotherapy &amp; rehabilitation</li>
+          <li>Gold bead implant therapy</li>
+          <li>Microchipping &amp; vaccinations</li>
+          <li>Housecall service</li>
+          <li>24/7 emergency response</li>
+        </ul>
+      </div>
     </div>
-    <div class="brand-card">
-      <h4>Blue Sky Pet Relocation</h4>
-      <p>Health certification, export permits, and transport logistics for animals being relocated
-        internationally. Useful for service-animal redeployment and overseas postings.</p>
+  </div>
+
+  <!-- ============ VIENNA VET ============ -->
+  <div class="sister-card">
+    <div class="sister-header">
+      <div class="sister-logo-slot">
+        <!-- ASSET SLOT: Vienna Vet logo. Place file at assets/icons/vienna-vet-logo.png -->
+        <img src="assets/icons/vienna-vet-logo.png" alt="Vienna Vet" onerror="this.style.display='none'">
+        <div class="logo-placeholder">VIENNA VET<br>LOGO</div>
+      </div>
+      <div class="sister-title">
+        <h3>Vienna Vet</h3>
+        <div class="sister-tag">ISFM Gold-Standard Cat-Friendly Clinic · Established 2013</div>
+      </div>
     </div>
-    <div class="brand-card">
-      <h4>Pet Taxi</h4>
-      <p>Scheduled and on-demand pet transport, including out-of-hours pickup, for moving patients between
-        partner sites and our clinics.</p>
+
+    <div class="sister-body">
+      <div class="sister-about">
+        <p>Founded by Dr. Michaela Gradinger (University of Veterinary Medicine, Vienna), Vienna Vet is one of
+          a small number of clinics in the region holding the <strong>ISFM Gold-Standard cat-friendly
+          accreditation</strong>. The team handles small animal medicine end-to-end and includes UAE
+          specialists in advanced veterinary dentistry and exotic animal care.</p>
+        <p><strong>Role in the network:</strong> Vienna Vet is the network's choice for cat-focused
+          care, advanced dentistry/oral surgery (including UAE-first canine prosthodontics), exotic species
+          consultations (birds, reptiles, rodents, small mammals), and small surgical procedures on
+          non-traditional species.</p>
+      </div>
+
+      <div class="sister-meta">
+        <h5>Location &amp; Contact</h5>
+        <div class="row"><span class="lab">Address</span> Villa 55, Al Thanya Street, Umm Suqeim 2, Dubai</div>
+        <div class="row"><span class="lab">Hours</span> Sun–Fri 8am–10pm</div>
+        <div class="row"><span class="lab">Emergency</span> 24/7 SOS — 050 283 3450</div>
+        <div class="row"><span class="lab">Phone</span> 04 330 8555</div>
+        <div class="row"><span class="lab">Web</span> viennavet.com</div>
+        <div class="row"><a href="https://maps.app.goo.gl/?q=Vienna+Vet+Villa+55+Al+Thanya+Umm+Suqeim+Dubai">View on Google Maps →</a></div>
+      </div>
+
+      <div class="sister-services">
+        <h5>Services &amp; Capabilities</h5>
+        <ul>
+          <li>ISFM Gold cat-friendly clinic</li>
+          <li>Advanced dentistry &amp; oral surgery</li>
+          <li>Endodontics, prosthodontics, orthodontics</li>
+          <li>Periodontal &amp; laser dental treatment</li>
+          <li>Small animal surgery (soft tissue, dental)</li>
+          <li>Exotic medicine (birds, reptiles, rodents)</li>
+          <li>Abdominal ultrasound (specialist-led)</li>
+          <li>Diagnostic imaging &amp; in-house lab</li>
+          <li>Internal medicine &amp; dermatology</li>
+          <li>Vaccinations &amp; wellness exams</li>
+          <li>Pet boarding &amp; grooming</li>
+          <li>24/7 emergency line</li>
+        </ul>
+      </div>
     </div>
-    <div class="brand-card">
-      <h4>Pet Funeral Services</h4>
-      <p>Respectful end-of-life support including private and communal cremation, with coordination handled
-        through any branch.</p>
+  </div>
+
+  <!-- ============ TVRC ============ -->
+  <div class="sister-card sister-card-flagship">
+    <div class="sister-header">
+      <div class="sister-logo-slot">
+        <!-- ASSET SLOT: TVRC logo. Place file at assets/icons/tvrc-logo.png -->
+        <img src="assets/icons/tvrc-logo.png" alt="TVRC" onerror="this.style.display='none'">
+        <div class="logo-placeholder">TVRC<br>LOGO</div>
+      </div>
+      <div class="sister-title">
+        <h3>TVRC — The Veterinary Referral Centre</h3>
+        <div class="sister-tag" style="color:#5A4A00;">UAE's First Referral-Only Veterinary Specialty Hospital</div>
+      </div>
     </div>
-    <div class="brand-card">
-      <h4>Floof</h4>
-      <p>Online booking, e-commerce, and vet-curated pet essentials. Used by clinic clients to book
-        appointments and purchase verified products across the network.</p>
+
+    <div class="sister-body">
+      <div class="sister-about">
+        <p>TVRC is a referral-only specialty hospital and the UAE's first dedicated facility of its kind. It
+          accepts patients on a referral or second-opinion basis from veterinary partners and does not run
+          first-opinion or vaccination services. The team consists of <strong>board-certified specialists</strong>
+          with international training and experience.</p>
+        <p><strong>Role in the network:</strong> TVRC is the escalation route for any case that needs
+          board-certified specialist input — complex neurosurgery, cardiology workups, ophthalmology procedures,
+          oncology and chemotherapy, advanced dermatology, and MRI/CT imaging. The hospital also offers ICU-level
+          monitoring for critical-care patients.</p>
+      </div>
+
+      <div class="sister-meta">
+        <h5>Location &amp; Contact</h5>
+        <div class="row"><span class="lab">Address</span> Dubai (referral-only access)</div>
+        <div class="row"><span class="lab">Hours</span> Mon–Sat 8am–6pm</div>
+        <div class="row"><span class="lab">Phone</span> 04 370 5598</div>
+        <div class="row"><span class="lab">WhatsApp</span> +971 56 670 3236</div>
+        <div class="row"><span class="lab">Web</span> tvrc.ae</div>
+        <div class="row"><span class="lab">Access</span> Referral or second-opinion only</div>
+      </div>
+
+      <div class="sister-services">
+        <h5>Specialist Disciplines</h5>
+        <ul>
+          <li><strong>Diagnostic Imaging:</strong> MRI, CT, digital X-ray, ultrasound</li>
+          <li><strong>Neurology &amp; Neurosurgery</strong></li>
+          <li><strong>Ophthalmology</strong> (cataract, glaucoma, intraocular surgery)</li>
+          <li><strong>Cardiology</strong> &amp; cardiorespiratory medicine</li>
+          <li><strong>Dermatology</strong> (European board-certified)</li>
+          <li><strong>Orthopaedic Surgery</strong> &amp; implants</li>
+          <li><strong>Soft Tissue Surgery</strong></li>
+          <li><strong>Oncology &amp; Chemotherapy</strong></li>
+          <li><strong>Internal Medicine &amp; Endoscopy</strong></li>
+          <li><strong>Critical Care &amp; ICU monitoring</strong></li>
+          <li><strong>Rehabilitation &amp; Physiotherapy</strong></li>
+          <li><strong>24-hour Emergency Medicine</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sister-extra">
+      <h5>Specialist Team Highlights</h5>
+      <div class="specialists-grid">
+        <div class="spec"><strong>Dr. Dieter Malleczek</strong><br>Diagnostic Imaging · Austria<br><span>20+ yrs MRI, X-ray, ultrasound, ortho/neuro</span></div>
+        <div class="spec"><strong>Dr. Cristina Epifanio</strong><br>Neurology · Spain<br><span>GPCert Neurology (ESAVS), small animal neurology</span></div>
+        <div class="spec"><strong>Dr. Rui Oliveira</strong><br>Ophthalmology · Portugal<br><span>Pioneer of intraocular surgery, RCVS certified</span></div>
+        <div class="spec"><strong>Dr. Muhammad Waseem Aslam</strong><br>Cardiology · Pakistan / Australia<br><span>Internal medicine, ECC, cardiorespiratory</span></div>
+        <div class="spec"><strong>Dr. Roy Hassoun</strong><br>Neurosurgery · Lebanon / France<br><span>Ortho implants, neurosurgery, MIS</span></div>
+        <div class="spec"><strong>Dr. Rares Capitan</strong><br>Dermatology · Romania<br><span>European board-certified (DipECVD)</span></div>
+      </div>
     </div>
   </div>
 
