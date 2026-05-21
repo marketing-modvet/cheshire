@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Marketing Brief · May 2026 · Vet Alliance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --teal: #015962;
+  --teal-mid: #017a86;
+  --teal-light: #e6f3f5;
+  --gold: #c8a96e;
+  --bronze: #9a7040;
+  --ink: #1a1f24;
+  --soft: #6b7280;
+  --border: #e5eaec;
+  --bg: #f7f9fa;
+  --card: #ffffff;
+  --green: #166534;
+  --green-bg: #dcfce7;
+  --amber: #92400e;
+  --amber-bg: #fef3c7;
+  --red: #991b1b;
+  --red-bg: #fee2e2;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; }
+
+/* ── AUTH ── */
+#auth-screen {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  background: var(--teal);
+}
+.auth-box {
+  background: white; border-radius: 12px; padding: 48px 40px; width: 340px; text-align: center;
+}
+.auth-box h2 { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--teal); margin-bottom: 6px; }
+.auth-box p { font-size: 13px; color: var(--soft); margin-bottom: 24px; }
+.auth-box input {
+  width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 6px;
+  font-size: 14px; margin-bottom: 12px; font-family: inherit;
+}
+.auth-box button {
+  width: 100%; padding: 12px; background: var(--teal); color: white; border: none;
+  border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; letter-spacing: .3px;
+}
+.auth-box button:hover { background: var(--teal-mid); }
+.auth-err { color: var(--red); font-size: 12px; margin-top: 8px; display: none; }
+
+/* ── MAIN ── */
+#main { display: none; }
+
+header {
+  background: var(--teal); padding: 32px 48px 28px; color: white;
+}
+.header-inner { max-width: 1100px; margin: 0 auto; }
+.eyebrow { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; opacity: .7; margin-bottom: 8px; }
+header h1 { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 400; line-height: 1.2; }
+header h1 em { color: var(--gold); font-style: italic; }
+.header-meta { display: flex; gap: 24px; margin-top: 14px; flex-wrap: wrap; }
+.header-meta span { font-size: 12px; opacity: .75; display: flex; align-items: center; gap: 5px; }
+
+.wrap { max-width: 1100px; margin: 0 auto; padding: 40px 48px 64px; }
+
+/* ── SECTION HEADS ── */
+.sec-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 24px; margin-top: 48px; }
+.sec-head:first-child { margin-top: 0; }
+.sec-label {
+  font-size: 10px; letter-spacing: 1.6px; text-transform: uppercase; font-weight: 600;
+  color: white; background: var(--teal); padding: 3px 10px; border-radius: 20px;
+}
+.sec-label.gold { background: var(--gold); }
+.sec-label.soon { background: var(--amber); }
+.sec-head h2 { font-size: 18px; font-weight: 600; color: var(--ink); }
+.sec-sub { font-size: 13px; color: var(--soft); margin-top: -18px; margin-bottom: 24px; }
+
+/* ── STATS GRID ── */
+.stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+.stat {
+  background: var(--card); border-radius: 8px; padding: 22px 20px 18px;
+  border: 1px solid var(--border); position: relative; overflow: hidden;
+}
+.stat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--teal); }
+.stat.gold::before { background: var(--gold); }
+.stat.green::before { background: #16a34a; }
+.stat-icon { font-size: 22px; margin-bottom: 8px; }
+.stat-val { font-size: 28px; font-weight: 700; color: var(--teal); line-height: 1; margin-bottom: 4px; }
+.stat-val.gold { color: var(--gold); }
+.stat-label { font-size: 12px; color: var(--soft); font-weight: 500; }
+.stat-delta {
+  display: inline-flex; align-items: center; gap: 3px; font-size: 11px;
+  padding: 2px 7px; border-radius: 20px; margin-top: 6px; font-weight: 600;
+}
+.up { background: var(--green-bg); color: var(--green); }
+.hot { background: var(--amber-bg); color: var(--amber); }
+
+/* ── TRAFFIC VISUAL ── */
+.traffic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.traffic-card {
+  background: var(--card); border-radius: 8px; padding: 24px; border: 1px solid var(--border);
+}
+.traffic-card h3 { font-size: 13px; font-weight: 600; color: var(--soft); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 18px; }
+.bar-row { margin-bottom: 14px; }
+.bar-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; }
+.bar-label span:last-child { font-weight: 600; color: var(--teal); }
+.bar-track { background: var(--teal-light); border-radius: 4px; height: 8px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; background: var(--teal); transition: width .6s ease; }
+.bar-fill.gold { background: var(--gold); }
+.bar-fill.mid { background: var(--teal-mid); }
+.bar-fill-prev { height: 100%; border-radius: 4px; background: #cdd9db; }
+.bar-compare { display: flex; gap: 8px; margin-bottom: 5px; }
+.bar-compare .bar-track { flex: 1; }
+.bar-compare-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--soft); }
+
+/* ── BULLETS ── */
+.bullets { background: var(--card); border-radius: 8px; padding: 24px; border: 1px solid var(--border); }
+.bullets ul { list-style: none; }
+.bullets ul li {
+  padding: 9px 0 9px 24px; border-bottom: 1px solid var(--border); font-size: 14px;
+  line-height: 1.5; position: relative; color: var(--ink);
+}
+.bullets ul li:last-child { border-bottom: none; }
+.bullets ul li::before { content: '→'; position: absolute; left: 0; color: var(--teal); font-weight: 700; font-size: 12px; top: 11px; }
+
+/* ── COMING SOON ── */
+.soon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.soon-card {
+  background: var(--card); border-radius: 8px; padding: 18px 18px 16px;
+  border: 1px solid var(--border); border-left: 4px solid var(--gold);
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.soon-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+.soon-title { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+.soon-desc { font-size: 12px; color: var(--soft); line-height: 1.5; }
+.badge-ready {
+  display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 20px;
+  margin-top: 6px; font-weight: 600; letter-spacing: .3px;
+  background: var(--green-bg); color: var(--green);
+}
+.badge-review {
+  display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 20px;
+  margin-top: 6px; font-weight: 600; letter-spacing: .3px;
+  background: var(--amber-bg); color: var(--amber);
+}
+
+/* ── TEXT EXPORT BOX ── */
+.text-export {
+  background: #f1f5f9; border-radius: 8px; padding: 24px 26px; margin-top: 48px;
+  border: 1px solid var(--border);
+}
+.text-export h3 { font-size: 13px; font-weight: 600; color: var(--soft); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 16px; }
+.text-export pre {
+  font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.7;
+  white-space: pre-wrap; color: var(--ink);
+}
+.copy-btn {
+  margin-top: 14px; padding: 8px 18px; background: var(--teal); color: white;
+  border: none; border-radius: 5px; font-size: 12px; font-weight: 600; cursor: pointer;
+  letter-spacing: .3px;
+}
+.copy-btn:hover { background: var(--teal-mid); }
+
+/* ── DIVIDER ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+footer {
+  text-align: center; padding: 24px; font-size: 12px; color: var(--soft);
+  border-top: 1px solid var(--border);
+}
+
+@media(max-width:680px){
+  header { padding: 24px 20px; }
+  .wrap { padding: 24px 20px 48px; }
+  .traffic-grid { grid-template-columns: 1fr; }
+  header h1 { font-size: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- AUTH -->
+<div id="auth-screen">
+  <div class="auth-box">
+    <h2>Marketing Brief</h2>
+    <p>May 2026 · Vet Alliance Group</p>
+    <input type="password" id="pwd" placeholder="Password" onkeydown="if(event.key==='Enter')check()"/>
+    <button onclick="check()">Access</button>
+    <div class="auth-err" id="err">Incorrect password</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+<header>
+  <div class="header-inner">
+    <div class="eyebrow">Vet Alliance Group · Marketing Department</div>
+    <h1>May 2026 — <em>Performance Brief</em></h1>
+    <div class="header-meta">
+      <span>📅 Reporting period: 1 – 21 May 2026</span>
+      <span>📊 Annual reference: May 2025 – May 2026</span>
+      <span>🔒 Confidential</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ══════════ MONTHLY ══════════ -->
+  <div class="sec-head">
+    <span class="sec-label">This Month</span>
+    <h2>May 2026 — Key Numbers</h2>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-icon">🌐</div>
+      <div class="stat-val">79K+</div>
+      <div class="stat-label">Total website visits (MV + VV + BOV)</div>
+      <div class="stat-delta up">▲ MV +49% vs prior month</div>
+    </div>
+    <div class="stat gold">
+      <div class="stat-icon">▶️</div>
+      <div class="stat-val gold">117K</div>
+      <div class="stat-label">YouTube subscribers (total)</div>
+      <div class="stat-delta hot">+107,500 this month · 310% view spike</div>
+    </div>
+    <div class="stat">
+      <div class="stat-icon">📈</div>
+      <div class="stat-val">25%</div>
+      <div class="stat-label">Keywords in Google Top 10</div>
+      <div class="stat-delta up">▲ +5 pts month-on-month</div>
+    </div>
+    <div class="stat green">
+      <div class="stat-icon">📅</div>
+      <div class="stat-val">84</div>
+      <div class="stat-label">Online bookings from website</div>
+      <div class="stat-delta up">Tracked since conversion tracking went live</div>
+    </div>
+    <div class="stat">
+      <div class="stat-icon">👥</div>
+      <div class="stat-val">+5K</div>
+      <div class="stat-label">New social media followers</div>
+      <div class="stat-delta up">Across all platforms this month</div>
+    </div>
+    <div class="stat">
+      <div class="stat-icon">🤖</div>
+      <div class="stat-val">3 AIs</div>
+      <div class="stat-label">Now cite Modern Vet</div>
+      <div class="stat-delta up">Google AIO · Copilot · ChatGPT</div>
+    </div>
+  </div>
+
+  <!-- Traffic Breakdown -->
+  <div style="margin-top:24px">
+    <div class="traffic-grid">
+      <div class="traffic-card">
+        <h3>Website Traffic — May 2026</h3>
+        <div class="bar-row">
+          <div class="bar-label"><span>Modern Vet</span><span>55,000 visits</span></div>
+          <div class="bar-compare">
+            <div class="bar-track" title="Previous: 37K"><div class="bar-fill-prev" style="width:67%"></div></div>
+            <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+          </div>
+          <div class="bar-compare-labels"><span>← Apr 37K</span><span>May 55K →</span></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label"><span>Vienna Vet</span><span>~20,000 visits</span></div>
+          <div class="bar-track"><div class="bar-fill mid" style="width:36%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label"><span>Blue Oasis Vet</span><span>~4,000 visits</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:7%; background:var(--teal-mid)"></div></div>
+        </div>
+      </div>
+      <div class="traffic-card">
+        <h3>SEO Signals — May 21 Snapshot</h3>
+        <div class="bar-row">
+          <div class="bar-label"><span>Keywords in Top 10</span><span>25% (+5 pts)</span></div>
+          <div class="bar-track"><div class="bar-fill gold" style="width:25%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label"><span>Avg. position (tracked set)</span><span>21 (↑2)</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:60%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label"><span>UAE organic traffic (Ahrefs)</span><span>2,200 (+63%)</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:45%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label"><span>"vets" keyword position jump</span><span>+29 places</span></div>
+          <div class="bar-track"><div class="bar-fill gold" style="width:80%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ ANNUAL ══════════ -->
+  <hr class="divider" style="margin: 40px 0 0"/>
+  <div class="sec-head" style="margin-top:32px">
+    <span class="sec-label gold">Full Year</span>
+    <h2>May 2025 – May 2026 — What Was Built</h2>
+  </div>
+  <p class="sec-sub">Twelve months of output across 7 brands, built largely in-house.</p>
+
+  <div class="stats">
+    <div class="stat gold">
+      <div class="stat-icon">📣</div>
+      <div class="stat-val gold">100K+</div>
+      <div class="stat-label">Total subscribers across all platforms</div>
+      <div class="stat-delta hot">YT 117K · MV 27K · LinkedIn 3K · TikTok 5K+</div>
+    </div>
+    <div class="stat">
+      <div class="stat-icon">👁️</div>
+      <div class="stat-val">15M+</div>
+      <div class="stat-label">Total views generated</div>
+      <div class="stat-delta up">8M+ total reach</div>
+    </div>
+    <div class="stat">
+      <div class="stat-icon">📸</div>
+      <div class="stat-val">8,000+</div>
+      <div class="stat-label">Photos produced</div>
+      <div class="stat-delta up">All in-house · zero agency spend</div>
+    </div>
+    <div class="stat">
+      <div class="stat-icon">🎬</div>
+      <div class="stat-val">300+</div>
+      <div class="stat-label">Short-form videos produced</div>
+      <div class="stat-delta up">+ 20 long-format podcasts/productions</div>
+    </div>
+    <div class="stat">
+      <div class="stat-icon">🎨</div>
+      <div class="stat-val">500+</div>
+      <div class="stat-label">Unique designs created</div>
+      <div class="stat-delta up">+ 150+ printables refreshed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-icon">💡</div>
+      <div class="stat-val">25+</div>
+      <div class="stat-label">AI tools and automations deployed</div>
+      <div class="stat-delta up">Reports · assistants · dashboards</div>
+    </div>
+  </div>
+
+  <div style="margin-top:20px">
+    <div class="bullets">
+      <ul>
+        <li>Full digital presence built for <strong>5 brands</strong> — Vet Alliance, TVRC, Blue Sky Pet Relocation, Blue Oasis Vet, Vienna Vet — websites, branding, social, printables</li>
+        <li><strong>150+ email templates</strong> coded; B2B workflow sequences live; eCRE8 Klaviyo flows in final review across all clinic brands</li>
+        <li><strong>500+ social posts</strong> published; 40 social accounts managed across 7 brands; social listening system on FB, Instagram, Reddit</li>
+        <li>Booking <strong>conversion tracking live</strong> on Modern Vet, Vienna Vet, Blue Oasis — real transaction IDs, AED values, item names flowing into GA4 and Google Ads</li>
+        <li>SEO: <strong>12,800 backlinks</strong>, 923 referring domains, DR 53; 10+ new landing pages; 800+ blog pages revamped; schema rebuilt; thousands of technical errors resolved</li>
+        <li><strong>Studio facility established</strong>; voiceover library (human + AI) operational; all doctor portraits and intro videos reshot — 70+ practitioners</li>
+        <li><strong>10+ external and internal events</strong> organised with full collateral; Azizi Riviera clinic opening campaign; 5+ brand partnerships secured</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══════════ COMING SOON ══════════ -->
+  <hr class="divider" style="margin: 40px 0 0"/>
+  <div class="sec-head" style="margin-top:32px">
+    <span class="sec-label soon">Launching Soon</span>
+    <h2>Ready to Release — Next 4–8 Weeks</h2>
+  </div>
+  <p class="sec-sub">Projects completed or in final stages — awaiting deploy or internal approval.</p>
+
+  <div class="soon-grid">
+    <div class="soon-card">
+      <div class="soon-icon">🌐</div>
+      <div>
+        <div class="soon-title">Modern Vet Website Revamp</div>
+        <div class="soon-desc">20+ new SEO-optimised pages, new services architecture and menu — production complete.</div>
+        <span class="badge-ready">Ready to deploy</span>
+      </div>
+    </div>
+    <div class="soon-card">
+      <div class="soon-icon">👨‍⚕️</div>
+      <div>
+        <div class="soon-title">50 New Doctor Profiles</div>
+        <div class="soon-desc">EEAT-optimised profiles with new videos, certifications, and quotes for 50 practitioners.</div>
+        <span class="badge-ready">Ready to deploy</span>
+      </div>
+    </div>
+    <div class="soon-card">
+      <div class="soon-icon">🎓</div>
+      <div>
+        <div class="soon-title">Vet Alliance Academy</div>
+        <div class="soon-desc">Rebranded from Modern Vet Academy — curriculum, LMS and content production complete. Staff onboarding next.</div>
+        <span class="badge-ready">Built · staff training pending</span>
+      </div>
+    </div>
+    <div class="soon-card">
+      <div class="soon-icon">💬</div>
+      <div>
+        <div class="soon-title">Company-Wide Slack Rollout</div>
+        <div class="soon-desc">Phase 3 full-company structure finalised — ~85 channels across all departments and clinic locations.</div>
+        <span class="badge-ready">Structure approved</span>
+      </div>
+    </div>
+    <div class="soon-card">
+      <div class="soon-icon">🤖</div>
+      <div>
+        <div class="soon-title">Veta AI — WhatsApp + ezyVet</div>
+        <div class="soon-desc">AI clinic assistant live (117K-subscriber scale tested). Expanding to WhatsApp Business + ezyVet integration for call-centre deflection.</div>
+        <span class="badge-review">Integration in progress</span>
+      </div>
+    </div>
+    <div class="soon-card">
+      <div class="soon-icon">📧</div>
+      <div>
+        <div class="soon-title">Klaviyo Email Flows (eCRE8)</div>
+        <div class="soon-desc">Welcome, post-visit, winback and retention flows across 5 clinic brands — in final design and copy review.</div>
+        <span class="badge-review">Final review</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ TEXT EXPORT ══════════ -->
+  <div class="text-export">
+    <h3>📋 Copy-paste version — for board report</h3>
+    <pre id="board-text">MARKETING DEPARTMENT — MAY 2026 UPDATE
+
+This Month (May 2026)
+• Website traffic up 49% — Modern Vet reached 55,000 monthly visitors (from 37K); Vienna Vet averaged 20,000; Blue Oasis 4,000. 84 online bookings confirmed this month.
+• YouTube channel grew by 107,000 subscribers in 28 days — now at 117,000 total. Monthly views hit 926,000 (310% increase vs baseline). Top performing video: 190,000+ views.
+• SEO: 25% of tracked keywords now in Google Top 10 (+5 pts month-on-month), average position improved, "vets" keyword jumped 29 positions. Modern Vet is now cited by Google AI Overviews, Copilot, and ChatGPT.
+• Social media: +5,000 new followers across all platforms this month.
+
+Full Year (May 2025 – May 2026)
+• Built to 100,000+ combined subscribers across all platforms (YouTube 117K, Modern Vet 27K, LinkedIn 3K, TikTok 5K); 15M+ total views; 8M+ reach.
+• 8,000+ photos, 300+ short-form videos, 20+ long-format productions, 500+ designs, 150+ email templates — all in-house.
+• 25+ AI-powered tools and automations deployed; full digital presence built for 5 brands; booking conversion tracking live across 3 clinic brands.
+
+Launching Imminently
+• Modern Vet website revamp: 20+ new SEO pages and new services architecture — ready to go live.
+• 50 new EEAT-optimised doctor profiles with videos, certifications and quotes — production complete.
+• Vet Alliance Academy — built and ready for staff launch.
+• Company-wide Slack rollout — channel structure finalised across all departments and clinics.
+• Veta AI agent expanding to WhatsApp + ezyVet for automated booking and call-centre deflection.
+• Klaviyo email flows (eCRE8) — in final review, launch imminent.</pre>
+    <button class="copy-btn" onclick="copyText()">Copy to clipboard</button>
+  </div>
+
+</div><!-- /wrap -->
+
+<footer>Vet Alliance Group · Marketing Department · May 2026 · Confidential</footer>
+</div><!-- /main -->
+
+<script>
+function check(){
+  const p = document.getElementById('pwd').value;
+  if(p === 'modvet2026' || p === 'vetalliance2026'){
+    document.getElementById('auth-screen').style.display = 'none';
+    document.getElementById('main').style.display = 'block';
+  } else {
+    document.getElementById('err').style.display = 'block';
+  }
+}
+function copyText(){
+  const t = document.getElementById('board-text').textContent;
+  navigator.clipboard.writeText(t).then(()=>{
+    const b = document.querySelector('.copy-btn');
+    b.textContent = '✓ Copied!'; b.style.background = '#16a34a';
+    setTimeout(()=>{ b.textContent = 'Copy to clipboard'; b.style.background = ''; }, 2000);
+  });
+}
+document.getElementById('pwd').addEventListener('keydown', e => { if(e.key === 'Enter') check(); });
+</script>
+</body>
+</html>
