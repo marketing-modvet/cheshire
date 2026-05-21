@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ModernVet SEO Brief — 21 May 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 18mm 16mm; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #1a2438; line-height: 1.55; font-size: 10.5pt; margin: 0; padding: 0;
+    background: #fff;
+  }
+  .page { max-width: 800px; margin: 0 auto; padding: 32px 28px 48px; }
+  h1 {
+    color: #1a3a5c; border-bottom: 3px solid #e85a4f;
+    padding-bottom: 8px; font-size: 22pt; margin-bottom: 4px;
+  }
+  h2 {
+    color: #1a3a5c; margin-top: 28px; font-size: 13pt;
+    border-left: 4px solid #e85a4f; padding-left: 10px;
+  }
+  h3 { color: #2d4a6b; font-size: 11pt; margin-top: 16px; margin-bottom: 6px; }
+  .meta { color: #6b7280; font-size: 9.5pt; margin-bottom: 16px; }
+  .meta strong { color: #1a3a5c; }
+
+  /* ── HEADLINE BOX ── */
+  .headline {
+    background: #fff7f5; border-left: 4px solid #e85a4f;
+    padding: 12px 16px; margin: 16px 0 24px; border-radius: 4px;
+  }
+  .headline strong { color: #c44a3f; }
+
+  /* ── GOOD NEWS BOX ── */
+  .good {
+    background: #f0fdf4; border-left: 4px solid #16a34a;
+    padding: 12px 16px; margin: 16px 0; border-radius: 4px;
+  }
+  .good strong { color: #15803d; }
+
+  /* ── KPI STRIP ── */
+  .kpi-strip {
+    display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 24px;
+  }
+  .kpi {
+    flex: 1; min-width: 110px; background: #f8fafc;
+    border: 1px solid #e2e8f0; border-radius: 6px;
+    padding: 12px 14px; text-align: center;
+  }
+  .kpi .val { font-size: 20pt; font-weight: 700; color: #1a3a5c; line-height: 1; }
+  .kpi .val.up { color: #16a34a; }
+  .kpi .val.down { color: #dc2626; }
+  .kpi .lbl { font-size: 8pt; color: #6b7280; margin-top: 4px; }
+  .kpi .delta { font-size: 8.5pt; font-weight: 600; margin-top: 3px; }
+  .kpi .delta.up { color: #16a34a; }
+  .kpi .delta.down { color: #dc2626; }
+  .kpi .delta.neutral { color: #6b7280; }
+
+  /* ── TABLES ── */
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 9.5pt; }
+  th { background: #1a3a5c; color: #fff; text-align: left; padding: 6px 8px; font-weight: 600; }
+  td { padding: 5px 8px; border-bottom: 1px solid #e8ecef; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  .up-val { color: #15803d; font-weight: 600; }
+  .down-val { color: #dc2626; font-weight: 600; }
+  .stable-val { color: #6b7280; }
+  .pos-badge {
+    display: inline-block; min-width: 28px; text-align: center;
+    border-radius: 3px; padding: 1px 5px; font-weight: 700; font-size: 9pt;
+  }
+  .pos-top { background: #dcfce7; color: #15803d; }
+  .pos-mid { background: #fef9c3; color: #854d0e; }
+  .pos-low { background: #fee2e2; color: #991b1b; }
+
+  /* ── AI CITATIONS ── */
+  .ai-grid { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+  .ai-badge {
+    border-radius: 20px; padding: 4px 12px; font-size: 9pt; font-weight: 600;
+  }
+  .ai-yes { background: #dcfce7; color: #15803d; }
+  .ai-no  { background: #f1f5f9; color: #94a3b8; }
+
+  /* ── MOVERS ── */
+  .mover-grid { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+  .mover {
+    background: #f0fdf4; border: 1px solid #bbf7d0;
+    border-radius: 6px; padding: 8px 12px; font-size: 9pt;
+  }
+  .mover .kw { font-weight: 600; color: #1a3a5c; }
+  .mover .mv { color: #15803d; font-weight: 700; font-size: 10pt; }
+  .mover .pos { color: #6b7280; font-size: 8.5pt; }
+  .mover-down {
+    background: #fff1f2; border-color: #fecdd3;
+  }
+  .mover-down .mv { color: #dc2626; }
+
+  /* ── TRAFFIC BARS ── */
+  .bar-wrap { margin: 8px 0; }
+  .bar-row-label { display: flex; justify-content: space-between; font-size: 9.5pt; margin-bottom: 3px; }
+  .bar-track { background: #e2e8f0; border-radius: 3px; height: 10px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; background: #1a3a5c; }
+  .bar-fill.accent { background: #e85a4f; }
+  .bar-fill.mid { background: #2d6a8a; }
+
+  /* ── FOOTER ── */
+  .report-footer {
+    margin-top: 40px; padding-top: 12px;
+    border-top: 1px solid #e2e8f0;
+    font-size: 8.5pt; color: #9ca3af; text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>modernvet.com — SEO Brief</h1>
+<div class="meta">
+  <strong>Period:</strong> 15 May → 21 May 2026 &nbsp;·&nbsp;
+  <strong>Snapshot date:</strong> 21 May 2026 &nbsp;·&nbsp;
+  <strong>Sources:</strong> SE Ranking (mobile, Dubai UAE) · Ahrefs · PR-CY
+</div>
+
+<div class="headline">
+  <strong>Summary:</strong> Positive week. 25% of tracked keywords in Top 10 — up 5 pts. Organic UA traffic +63% MoM via Ahrefs. "Vets" keyword jumped 29 positions in one week. Website traffic hit 55K for May. Modern Vet is now cited in Google AI Overviews, Copilot, and ChatGPT.
+</div>
+
+<!-- ══ KPIs ══ -->
+<h2>Key Metrics — Snapshot</h2>
+
+<div class="kpi-strip">
+  <div class="kpi">
+    <div class="val up">25%</div>
+    <div class="lbl">Keywords in Top 10</div>
+    <div class="delta up">▲ +5 pts WoW</div>
+  </div>
+  <div class="kpi">
+    <div class="val">21</div>
+    <div class="lbl">Avg. Position</div>
+    <div class="delta up">▲ improved 2</div>
+  </div>
+  <div class="kpi">
+    <div class="val up">263</div>
+    <div class="lbl">Traffic Forecast</div>
+    <div class="delta up">▲ +78 WoW</div>
+  </div>
+  <div class="kpi">
+    <div class="val">53</div>
+    <div class="lbl">Domain Rating</div>
+    <div class="delta neutral">Stable*</div>
+  </div>
+  <div class="kpi">
+    <div class="val up">923</div>
+    <div class="lbl">Ref. Domains</div>
+    <div class="delta up">▲ +51 MoM</div>
+  </div>
+  <div class="kpi">
+    <div class="val up">2,200</div>
+    <div class="lbl">UAE Organic Traffic</div>
+    <div class="delta up">▲ +63% MoM</div>
+  </div>
+</div>
+
+<p style="font-size:8.5pt;color:#6b7280;margin-top:-10px">*DR slight dip from 55→53 is consistent with active competitor-spam disavow cleanup — not a real authority loss. Ref. domains and backlinks are both growing.</p>
+
+<!-- ══ KEYWORD RANKINGS ══ -->
+<h2>Keyword Rankings — Mobile · Dubai UAE</h2>
+<p style="font-size:9pt;color:#6b7280;margin:4px 0 10px">20 keywords tracked. Week-on-week change May 20 → May 21.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Keyword</th>
+      <th>Vol.</th>
+      <th>Position</th>
+      <th>Change</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>pet vet near me</td><td>210</td><td><span class="pos-badge pos-top">6</span></td><td class="up-val">▲ 1</td></tr>
+    <tr><td>vet clinic near me</td><td>30</td><td><span class="pos-badge pos-top">7</span></td><td class="stable-val">—</td></tr>
+    <tr><td>vet near me</td><td>500</td><td><span class="pos-badge pos-top">8</span></td><td class="stable-val">—</td></tr>
+    <tr><td>pet hospital near me</td><td>210</td><td><span class="pos-badge pos-top">9</span></td><td class="stable-val">—</td></tr>
+    <tr><td>animal hospital near me</td><td>210</td><td><span class="pos-badge pos-top">9</span></td><td class="up-val">▲ 3</td></tr>
+    <tr><td>vet Dubai</td><td>20</td><td><span class="pos-badge pos-mid">14</span></td><td class="up-val">▲ 2</td></tr>
+    <tr><td>Dubai Vet</td><td>10</td><td><span class="pos-badge pos-mid">15</span></td><td class="up-val">▲ 6</td></tr>
+    <tr><td>animal hospital Dubai</td><td>20</td><td><span class="pos-badge pos-mid">17</span></td><td class="down-val">▼ 1</td></tr>
+    <tr><td>vet in Dubai</td><td>320</td><td><span class="pos-badge pos-mid">18</span></td><td class="stable-val">—</td></tr>
+    <tr><td>vet clinic</td><td>6,600</td><td><span class="pos-badge pos-mid">18</span></td><td class="up-val">▲ 12</td></tr>
+    <tr><td>Pet Hospital Dubai</td><td>480</td><td><span class="pos-badge pos-mid">19</span></td><td class="up-val">▲ 1</td></tr>
+    <tr><td>Veterinary Hospital Dubai</td><td>480</td><td><span class="pos-badge pos-mid">21</span></td><td class="down-val">▼ 9</td></tr>
+    <tr><td>vet clinic Dubai</td><td>20</td><td><span class="pos-badge pos-mid">22</span></td><td class="down-val">▼ 1</td></tr>
+    <tr><td>Dubai Vet Clinic</td><td>1,900</td><td><span class="pos-badge pos-mid">23</span></td><td class="stable-val">—</td></tr>
+    <tr><td><strong>vets</strong></td><td>390</td><td><span class="pos-badge pos-low">25</span></td><td class="up-val"><strong>▲ 29 🔥</strong></td></tr>
+    <tr><td>vet</td><td>12,100</td><td><span class="pos-badge pos-low">26</span></td><td class="down-val">▼ 14</td></tr>
+    <tr><td>animal hospital</td><td>260</td><td><span class="pos-badge pos-low">28</span></td><td class="up-val">▲ 3</td></tr>
+    <tr><td>Veterinary Clinic Dubai</td><td>410</td><td><span class="pos-badge pos-low">33</span></td><td class="up-val">▲ 1</td></tr>
+    <tr><td>pet veterinary clinic</td><td>260</td><td><span class="pos-badge pos-low">52</span></td><td class="stable-val">—</td></tr>
+  </tbody>
+</table>
+
+<!-- ══ TOP MOVERS ══ -->
+<h2>Top Movers This Week</h2>
+
+<div class="mover-grid">
+  <div class="mover">
+    <div class="kw">vets</div>
+    <div class="mv">▲ +29</div>
+    <div class="pos">Now #25 · vol 390</div>
+  </div>
+  <div class="mover">
+    <div class="kw">vet clinic</div>
+    <div class="mv">▲ +12</div>
+    <div class="pos">Now #18 · vol 6.6K</div>
+  </div>
+  <div class="mover">
+    <div class="kw">Dubai Vet</div>
+    <div class="mv">▲ +6</div>
+    <div class="pos">Now #15 · vol 10</div>
+  </div>
+  <div class="mover">
+    <div class="kw">animal hospital near me</div>
+    <div class="mv">▲ +3</div>
+    <div class="pos">Now #9 · vol 210</div>
+  </div>
+  <div class="mover">
+    <div class="kw">animal hospital</div>
+    <div class="mv">▲ +3</div>
+    <div class="pos">Now #28 · vol 260</div>
+  </div>
+  <div class="mover mover-down">
+    <div class="kw">Veterinary Hospital Dubai</div>
+    <div class="mv">▼ −9</div>
+    <div class="pos">Now #21 · vol 480</div>
+  </div>
+  <div class="mover mover-down">
+    <div class="kw">vet</div>
+    <div class="mv">▼ −14</div>
+    <div class="pos">Now #26 · vol 12.1K</div>
+  </div>
+</div>
+
+<p style="font-size:8.5pt;color:#6b7280;margin-top:6px">Note on "vet" (vol 12,100) dropping 14 positions: single-word hyper-competitive term with high daily volatility — typical fluctuation, not a trend concern.</p>
+
+<!-- ══ AUTHORITY & BACKLINKS ══ -->
+<h2>Domain Authority &amp; Backlinks (Ahrefs)</h2>
+
+<table>
+  <thead>
+    <tr><th>Metric</th><th>Value</th><th>Change</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Domain Rating (DR)</td><td>53</td><td class="down-val">▼ 2 (disavow cleanup*)</td></tr>
+    <tr><td>Ahrefs Rank</td><td>512,932</td><td class="stable-val">—</td></tr>
+    <tr><td>Total Backlinks</td><td>12,800</td><td class="up-val">▲ +618 MoM</td></tr>
+    <tr><td>Referring Domains</td><td>923</td><td class="up-val">▲ +51 MoM</td></tr>
+    <tr><td>UAE Organic Keywords</td><td>66</td><td class="stable-val">▼ 1 (stable)</td></tr>
+    <tr><td>UAE Organic Traffic</td><td>2,200</td><td class="up-val">▲ +855 (+63% MoM)</td></tr>
+    <tr><td>UAE Keywords in Top 3</td><td>25</td><td class="up-val">▲ +10</td></tr>
+    <tr><td>Organic Traffic Value</td><td>$1,700</td><td class="up-val">▲ +$546 MoM</td></tr>
+  </tbody>
+</table>
+<p style="font-size:8.5pt;color:#6b7280">*DR minor dip consistent with previous months — active competitor-spam disavow + cleanup. Ref domains are growing (+51), confirming underlying authority is healthy.</p>
+
+<!-- ══ AI VISIBILITY ══ -->
+<h2>AI Search Visibility</h2>
+<p style="font-size:9.5pt;margin:4px 0 10px">Modern Vet now appears as a cited source in 3 of 6 major AI search platforms — a strong EEAT signal reflecting structured data, content depth, and authority built this year.</p>
+
+<div class="ai-grid">
+  <span class="ai-badge ai-yes">✓ Google AI Overviews</span>
+  <span class="ai-badge ai-yes">✓ ChatGPT</span>
+  <span class="ai-badge ai-yes">✓ Microsoft Copilot</span>
+  <span class="ai-badge ai-no">○ Gemini</span>
+  <span class="ai-badge ai-no">○ Perplexity</span>
+  <span class="ai-badge ai-no">○ Grok</span>
+</div>
+
+<!-- ══ WEBSITE TRAFFIC ══ -->
+<h2>Website Traffic — May 2026</h2>
+
+<div class="bar-wrap">
+  <div class="bar-row-label"><span><strong>Modern Vet</strong></span><span><strong>55,000 visits</strong> <span style="color:#16a34a;font-size:9pt">▲ +49% vs Apr (37K)</span></span></div>
+  <div class="bar-track"><div class="bar-fill accent" style="width:100%"></div></div>
+</div>
+<div class="bar-wrap">
+  <div class="bar-row-label"><span>Vienna Vet</span><span>~20,000 visits avg.</span></div>
+  <div class="bar-track"><div class="bar-fill mid" style="width:36%"></div></div>
+</div>
+<div class="bar-wrap">
+  <div class="bar-row-label"><span>Blue Oasis Vet</span><span>~4,000 visits avg.</span></div>
+  <div class="bar-track"><div class="bar-fill" style="width:7%"></div></div>
+</div>
+
+<div class="good" style="margin-top:16px">
+  <strong>84 online bookings</strong> confirmed from website this month. Conversion tracking now live and verified across Modern Vet, Vienna Vet, and Blue Oasis — real AED transaction data flowing into GA4 and Google Ads.
+</div>
+
+<!-- ══ ONGOING WORK ══ -->
+<h2>Ongoing Technical Work</h2>
+<ul style="font-size:9.5pt;padding-left:18px;line-height:1.8">
+  <li>Schema.org structured data cleanup — dev in progress (aggregateRating, priceRange, opening hours)</li>
+  <li>Doctor profile pages — 50 EEAT-optimised profiles production-complete, awaiting deployment</li>
+  <li>Modern Vet website revamp — 20+ new pages and new services architecture ready to deploy</li>
+  <li>Health Library blog revamp — legacy content rewrite to current SEO/EEAT standards ongoing</li>
+  <li>Arabic-language site localisation — planned for H2 2026</li>
+  <li>Cloudflare booking redirect param-strip — pending fix by CTO (affects Google Ads attribution on /booking/)</li>
+</ul>
+
+<div class="report-footer">
+  modernvet.com · SEO Brief · 21 May 2026 · Marketing Department · Vet Alliance Group · Confidential
+</div>
+
+</div>
+</body>
+</html>
