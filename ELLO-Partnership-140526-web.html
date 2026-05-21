@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modern Vet × ELLO — Partnership Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy-mid: #132040;
+    --gold: #c9983a;
+    --gold-light: #e8ba6a;
+    --cream: #f8f3eb;
+    --cream-dark: #efe7d8;
+    --salmon: #e07a5f;
+    --white: #ffffff;
+    --text-muted: #8a9ab5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(10, 22, 40, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201, 152, 58, 0.2);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--gold-light);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold-light); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 100px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 80%, rgba(201,152,58,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(224,122,95,0.07) 0%, transparent 60%);
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  .hero-eyebrow::before,
+  .hero-eyebrow::after {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+    vertical-align: middle;
+    margin: 0 14px;
+    opacity: 0.6;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    position: relative;
+    margin-bottom: 10px;
+  }
+
+  .hero-title span {
+    color: var(--gold-light);
+    font-style: italic;
+  }
+
+  .hero-x {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    font-weight: 300;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.3em;
+    display: block;
+    margin: 12px 0;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    max-width: 480px;
+    line-height: 1.7;
+    margin-top: 32px;
+    position: relative;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 48px;
+    padding: 12px 28px;
+    border: 1px solid rgba(201,152,58,0.35);
+    border-radius: 40px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--gold-light);
+    letter-spacing: 0.06em;
+    position: relative;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.25);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .scroll-hint::after {
+    content: '';
+    width: 1px;
+    height: 36px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.25), transparent);
+    animation: scrollLine 1.8s ease-in-out infinite;
+  }
+
+  @keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 96px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--salmon);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    font-weight: 400;
+    color: var(--navy);
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+
+  .section-title em {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .section-intro {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: #4a5a74;
+    line-height: 1.75;
+    max-width: 580px;
+    margin-bottom: 64px;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--cream-dark), transparent);
+    margin: 0;
+  }
+
+  /* ── OFFER CARDS ── */
+  .offers-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .offer-card {
+    background: var(--white);
+    border: 1px solid rgba(10,22,40,0.07);
+    border-radius: 16px;
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .offer-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 60px rgba(10,22,40,0.1);
+  }
+
+  .offer-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--salmon));
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .offer-card:hover::before { opacity: 1; }
+
+  .offer-card.featured {
+    grid-column: 1 / -1;
+    background: var(--navy);
+    color: var(--white);
+    border-color: transparent;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .offer-card.featured::before { opacity: 1; }
+
+  .offer-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    color: var(--cream-dark);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .offer-card.featured .offer-number {
+    color: rgba(255,255,255,0.12);
+  }
+
+  .offer-icon {
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .offer-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .offer-card.featured .offer-title {
+    color: var(--white);
+    font-size: 1.8rem;
+  }
+
+  .offer-body {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: #5a6a82;
+    line-height: 1.65;
+  }
+
+  .offer-card.featured .offer-body {
+    color: rgba(255,255,255,0.6);
+  }
+
+  .offer-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--navy);
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+    align-self: flex-start;
+    margin-top: 8px;
+  }
+
+  .price-block {
+    background: rgba(201,152,58,0.12);
+    border: 1px solid rgba(201,152,58,0.25);
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-width: 160px;
+  }
+
+  .price-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 6px;
+  }
+
+  .price-was {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.35);
+    text-decoration: line-through;
+    margin-bottom: 2px;
+  }
+
+  .price-now {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+
+  .price-aed {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 2px;
+  }
+
+  /* ── REACH STATS ── */
+  .stats-bar {
+    background: var(--navy);
+    padding: 64px 48px;
+    display: flex;
+    gap: 0;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .stats-bar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 100% at 50% 0%, rgba(201,152,58,0.06) 0%, transparent 70%);
+  }
+
+  .stat-item {
+    flex: 1;
+    max-width: 260px;
+    text-align: center;
+    padding: 0 32px;
+    position: relative;
+  }
+
+  .stat-item + .stat-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10%;
+    bottom: 10%;
+    width: 1px;
+    background: rgba(255,255,255,0.1);
+  }
+
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.2rem;
+    font-weight: 300;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.08em;
+    line-height: 1.5;
+  }
+
+  /* ── FUTURE SECTION ── */
+  .future-section {
+    background: var(--cream-dark);
+    padding: 96px 0;
+  }
+
+  .future-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  .future-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 48px;
+  }
+
+  .future-step {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 32px;
+    align-items: start;
+    padding: 36px 0;
+    border-bottom: 1px solid rgba(10,22,40,0.08);
+    position: relative;
+  }
+
+  .future-step:last-child { border-bottom: none; }
+
+  .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    opacity: 0.5;
+  }
+
+  .step-content {}
+
+  .step-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--salmon);
+    background: rgba(224,122,95,0.12);
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .step-desc {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: #5a6a82;
+    line-height: 1.65;
+    max-width: 540px;
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: var(--navy);
+    padding: 120px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 50% 80% at 30% 50%, rgba(201,152,58,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 70% 50%, rgba(224,122,95,0.06) 0%, transparent 60%);
+  }
+
+  .cta-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .cta-title em { color: var(--gold-light); font-style: italic; }
+
+  .cta-sub {
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.7;
+    max-width: 460px;
+    margin: 0 auto 48px;
+    position: relative;
+  }
+
+  .cta-contact {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 36px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--navy);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .cta-contact:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px rgba(201,152,58,0.35);
+  }
+
+  .cta-website {
+    display: block;
+    margin-top: 20px;
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 24px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.1em;
+  }
+
+  .footer-note {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── FULL-WIDTH WRAPPERS ── */
+  .full-width { max-width: none; padding: 0; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    section { padding: 72px 24px; }
+    .offers-grid { grid-template-columns: 1fr; }
+    .offer-card.featured { grid-template-columns: 1fr; }
+    .price-block { min-width: auto; }
+    .stats-bar { flex-direction: column; align-items: center; gap: 40px; padding: 64px 24px; }
+    .stat-item + .stat-item::before { display: none; }
+    .future-inner { padding: 0 24px; }
+    .future-section { padding: 72px 0; }
+    .future-step { grid-template-columns: 56px 1fr; }
+    .cta-section { padding: 80px 24px; }
+    footer { flex-direction: column; gap: 8px; text-align: center; padding: 20px 24px; }
+  }
+
+  /* Animations */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Modern Vet × ELLO</div>
+  <ul class="nav-links">
+    <li><a href="#offer">Client Benefits</a></li>
+    <li><a href="#future">Beyond Launch</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-eyebrow">Partnership Proposal · 2026</p>
+  <h1 class="hero-title">
+    Modern Vet
+    <span class="hero-x">×</span>
+    <span>ELLO</span>
+  </h1>
+  <p class="hero-subtitle">
+    A strategic partnership built on shared values — exceptional care for pets and the people who love them.
+  </p>
+  <div class="hero-badge">Cooperation Summary</div>
+  <p style="position: relative; margin-top: 18px; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.3);">Prepared 14 May 2026</p>
+  <div class="scroll-hint">Scroll</div>
+</div>
+
+<!-- OFFER SECTION -->
+<section id="offer">
+  <p class="section-label fade-up">What We Bring to the Table</p>
+  <h2 class="section-title fade-up">Benefits for <em>every</em><br>ELLO client</h2>
+  <p class="section-intro fade-up">
+    From day one, ELLO clients joining Modern Vet will feel the difference — with exclusive benefits designed to build trust, deepen loyalty, and make their experience truly special.
+  </p>
+
+  <div class="offers-grid">
+
+    <!-- Featured card: Welcome Credit -->
+    <div class="offer-card featured fade-up">
+      <div>
+        <div class="offer-number">01</div>
+        <div class="offer-title">Welcome Credit for New Clients</div>
+        <p class="offer-body">
+          Every ELLO client who is <strong style="color: var(--gold-light)">new to Modern Vet</strong> receives a <strong style="color: var(--gold-light)">100 AED credit</strong> applied directly to their first visit. A warm welcome that speaks louder than any ad.
+        </p>
+        <div class="offer-badge" style="margin-top: 20px;">✦ New Clients Only · 100 AED First-Visit Credit</div>
+      </div>
+      <div class="price-block">
+        <div class="price-label">New Client Gets</div>
+        <div class="price-now">100</div>
+        <div class="price-aed">AED off · first visit</div>
+      </div>
+    </div>
+
+    <!-- Kennel Package -->
+    <div class="offer-card fade-up">
+      <div class="offer-number">02</div>
+      <span class="offer-icon">🐾</span>
+      <div class="offer-title">Special Wellness Package</div>
+      <p class="offer-body">
+        <strong>25% discount</strong> on a bundled care package — available to <strong style="color: var(--gold);">all ELLO clients</strong>, new and existing.
+        <br><br>
+        <span style="font-size:0.82rem; color: #8a9ab5; line-height: 1.7; display: block;">
+          <strong style="color: var(--navy);">Kennel Cough Vaccination</strong> — includes Consultation<br>
+          <strong style="color: var(--navy);">Deworming</strong> — includes Admission<br>
+          <em style="color: #a8b5cc; font-size:0.78rem;">Final pricing to be confirmed by 15 May 2026. Discount codes will be provided to ELLO upon launch.</em>
+        </span>
+      </p>
+      <div style="margin-top: 16px;">
+        <div class="offer-badge" style="background: linear-gradient(135deg, #1a3055, #243d6a); color: var(--gold-light);">
+          All Clients · 25% Off · Wellness Bundle
+        </div>
+      </div>
+    </div>
+
+    <!-- Social Media -->
+    <div class="offer-card fade-up">
+      <div class="offer-number">03</div>
+      <span class="offer-icon">📱</span>
+      <div class="offer-title">Social Media Cross-Promotion</div>
+      <p class="offer-body">
+        Dedicated co-branded content across Modern Vet's social channels, reaching a highly engaged community of pet owners across Dubai and the UAE.
+      </p>
+      <div style="margin-top: 16px;">
+        <div class="offer-badge" style="background: linear-gradient(135deg, #1a3055, #243d6a); color: var(--gold-light);">
+          All Clients
+        </div>
+      </div>
+    </div>
+
+    <!-- Media Production -->
+    <div class="offer-card fade-up">
+      <div class="offer-number">04</div>
+      <span class="offer-icon">🎬</span>
+      <div class="offer-title">Professional Media Production</div>
+      <p class="offer-body">
+        Modern Vet's in-house production team creates high-quality photo and video content for ELLO — giving your brand polished, shareable assets for cross-promotion.
+      </p>
+      <div style="margin-top: 16px;">
+        <div class="offer-badge" style="background: linear-gradient(135deg, #1a3055, #243d6a); color: var(--gold-light);">
+          All Clients
+        </div>
+      </div>
+    </div>
+
+    <!-- Website feature -->
+    <div class="offer-card fade-up" style="grid-column: 1 / -1; background: var(--cream-dark); border-color: rgba(201,152,58,0.2);">
+      <div class="offer-number">05</div>
+      <span class="offer-icon">🌐</span>
+      <div class="offer-title">Featured on the Modern Vet Website</div>
+      <p class="offer-body" style="max-width: 640px;">
+        ELLO will be showcased in the dedicated <strong>Partners section</strong> of modernvet.com — one of Dubai's top veterinary platforms, with over <strong style="color: var(--gold)">50,000 unique visitors per month</strong>. A permanent, high-visibility placement in front of pet owners actively seeking trusted services.
+      </p>
+    </div>
+
+    <!-- ELLO Printables in MV Clinics -->
+    <div class="offer-card fade-up" style="grid-column: 1 / -1;">
+      <div class="offer-number">06</div>
+      <span class="offer-icon">✨</span>
+      <div class="offer-title">ELLO Printables in Modern Vet Clinics</div>
+      <p class="offer-body" style="max-width: 640px;">
+        ELLO-branded printable materials — flyers, leaflets, info cards — displayed across <strong>Modern Vet clinic locations</strong> in Dubai. Direct, tangible reach to pet owners at the moment they're already engaged with their pet's care.
+      </p>
+      <div style="margin-top: 16px;">
+        <div class="offer-badge" style="background: linear-gradient(135deg, #1a3055, #243d6a); color: var(--gold-light);">
+          All Clients
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FUTURE ROADMAP -->
+<div class="future-section" id="future">
+  <div class="future-inner">
+    <p class="section-label fade-up">As the Partnership Grows</p>
+    <h2 class="section-title fade-up">Beyond <em>the launch</em></h2>
+    <p class="section-intro fade-up">
+      As we learn what works for our shared clients, we'll keep evolving the partnership together.
+    </p>
+
+    <div class="future-steps">
+
+      <div class="future-step fade-up">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <div class="step-tag">Expanding Offers</div>
+          <div class="step-title">More tailored offers over time</div>
+          <p class="step-desc">
+            Seasonal packages, combined bundles, and loyalty rewards that grow naturally as we see what ELLO clients respond to.
+          </p>
+        </div>
+      </div>
+
+      <div class="future-step fade-up">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <div class="step-tag">Content Opportunities</div>
+          <div class="step-title">Occasional feature spots on YouTube</div>
+          <p class="step-desc">
+            Where it fits naturally, ELLO may be included in Modern Vet's video content — a complementary touchpoint, not a primary channel.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Modern Vet × ELLO</div>
+  <div class="footer-note">Looking forward to building this together · marketing@modernvet.com</div>
+</footer>
+
+<!-- Scroll animations -->
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
