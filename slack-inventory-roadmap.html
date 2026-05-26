@@ -229,11 +229,14 @@
 <header>
   <span class="tag">Implementation Roadmap</span>
   <h1>Slack Inventory &amp; Procurement App</h1>
-  <p class="subtitle">From WhatsApp chaos to structured approvals — a 9-week MVP-to-live plan</p>
+  <p class="subtitle">From WhatsApp chaos to structured approvals — a 6-week MVP-to-live plan</p>
   <div class="meta">
     <div><strong>Prepared for</strong>Michael Newman (Modern Vet)<br>Chloe + team (Sinergi)</div>
-    <div><strong>Document date</strong>26 May 2026</div>
+    <div><strong>Document date</strong>26 May 2026 (rev. 18:55 UTC)</div>
     <div><strong>Development start</strong>1 June 2026</div>
+  </div>
+  <div class="meta" style="margin-top:18px;padding-top:18px;">
+    <div style="grid-column:1/-1;"><strong>Scope</strong>Modern Vet builds. Hosting is on dedicated, independent infrastructure (Modern Vet helps set it up, separate from Cheshire/OpenClaw). Sinergi/Michael team owns operations after handover.</div>
   </div>
 </header>
 
@@ -266,7 +269,7 @@
 <thead><tr><th>Layer</th><th>Tool</th><th>Why</th><th>Cost</th></tr></thead>
 <tbody>
 <tr><td><strong>Slack app framework</strong></td><td>Slack Bolt (Node.js)</td><td>Official, well-documented, native modals + interactive buttons + block kit</td><td>Free</td></tr>
-<tr><td><strong>Hosting</strong></td><td>Modern Vet OpenClaw server OR Render/Railway</td><td>Reuse existing infra (no new monthly cost) — or isolated hosting if preferred</td><td>$0 or $7–20/mo</td></tr>
+<tr><td><strong>Hosting</strong></td><td>Dedicated, independent infrastructure (Render, Railway, Fly.io, or small Hetzner VPS)</td><td>Modern Vet helps set it up but it does NOT share infrastructure with Cheshire/OpenClaw or other Modern Vet workloads. Independent app = independent uptime, independent secrets, independent ownership.</td><td>$5–25/mo</td></tr>
 <tr><td><strong>Product master</strong></td><td>Google Sheets (MVP)</td><td>Per spec. Cached in memory, refreshed every 5 min. Migration path to DB later.</td><td>Free</td></tr>
 <tr><td><strong>Request repository</strong></td><td>Google Sheets (Sinergi template)</td><td>Already designed — 31 columns, append-only audit trail</td><td>Free</td></tr>
 <tr><td><strong>Google integration</strong></td><td>Google Sheets API v4 + service account</td><td>Reuse Cheshire's existing service account</td><td>Free</td></tr>
@@ -282,7 +285,7 @@
 </table>
 
 <div class="callout success">
-  <p><strong>Total monthly run-cost:</strong> $0 if reusing OpenClaw server, $7–20/mo if isolated.<br>
+  <p><strong>Total monthly run-cost:</strong> $5–25/mo on dedicated independent hosting (Modern Vet helps set up, Sinergi/Michael own ongoing operations + billing).<br>
   <strong>Total build cost:</strong> developer time only.</p>
 </div>
 
@@ -366,14 +369,15 @@
 <div class="phase">
   <div class="phase-header">
     <span class="phase-name">Phase 0 — Pre-build setup</span>
-    <span class="phase-date">Jun 01–07 (1 week)</span>
+    <span class="phase-date">Jun 01–05 (5 days)</span>
   </div>
   <ul>
     <li>Michael compiles product master export from EzyVet → Google Sheet</li>
     <li>HR + Andrew compile user + Slack ID list per branch</li>
-    <li>AbdulRahman/Andrew creates the Slack app in Vet Alliance workspace + grants scopes</li>
-    <li>Andrew sets up GitHub repo + deploys hello-world Slack app to confirm infrastructure</li>
-    <li>Sinergi + Modern Vet kickoff call — align on Phase 1 scope</li>
+    <li>Modern Vet helps provision dedicated hosting environment (Render, Railway, Hetzner VPS — independent from Cheshire/OpenClaw infrastructure)</li>
+    <li>Slack app created in Vet Alliance workspace + scopes granted</li>
+    <li>GitHub repo + hello-world Slack app deployed to confirm infrastructure</li>
+    <li>Sinergi + Modern Vet kickoff call</li>
   </ul>
   <p><strong>Output:</strong> all pre-reqs ready, hello-world app posts to a test channel.</p>
 </div>
@@ -381,47 +385,45 @@
 <div class="phase">
   <div class="phase-header">
     <span class="phase-name">Phase 1 — Core MVP</span>
-    <span class="phase-date">Jun 08–28 (3 weeks)</span>
+    <span class="phase-date">Jun 08–21 (2 weeks)</span>
   </div>
-  <h4>Week 1 — Foundations</h4>
+  <h4>Week 1 — Foundations + Request form</h4>
   <ul>
     <li>Slack app scaffolding (Bolt)</li>
     <li>Google Sheets connector (read product master + user mapping into memory; write to request repository)</li>
     <li>Fuse.js product search index, refreshed every 5 min</li>
     <li><code>/inventory</code> slash command opens a modal</li>
-  </ul>
-  <h4>Week 2 — Request form + repository</h4>
-  <ul>
     <li>Modal: product search → quantity → urgency → branch → notes</li>
     <li>On submit: write row to Google Sheet, generate Request ID, status=Submitted</li>
-    <li>Auto-fill SKU / Category / Subcategory / UOM / Assigned Approver from product master</li>
+    <li>Auto-fill SKU / Category / Subcategory / UOM / Assigned Approver</li>
     <li>Confirmation DM to requester</li>
   </ul>
-  <h4>Week 3 — Approval flow</h4>
+  <h4>Week 2 — Approval flow</h4>
   <ul>
     <li>Approver receives interactive notification with <strong>Reject / Transfer / Purchase</strong> buttons</li>
     <li>Each decision opens its own modal for required fields</li>
     <li>"Prepared By" auto-filled from approver's Slack user</li>
+    <li>Status transitions: Submitted → Approved/Rejected with notification to requester</li>
   </ul>
-  <p><strong>Output:</strong> single happy-path flow works end-to-end for one product / one approver / one branch.</p>
+  <p><strong>Output:</strong> end-to-end happy path works for one product / one approver / one branch.</p>
 </div>
 
 <div class="phase">
   <div class="phase-header">
-    <span class="phase-name">Phase 2 — Operational queues + status tracking</span>
-    <span class="phase-date">Jun 29 – Jul 12 (2 weeks)</span>
+    <span class="phase-name">Phase 2 — Queues + status tracking</span>
+    <span class="phase-date">Jun 22 – Jul 05 (2 weeks)</span>
   </div>
-  <h4>Week 4 — Queue views</h4>
+  <h4>Week 3 — Queue views</h4>
   <ul>
     <li>3 operational queue views: Rejected / Transfer / Purchase</li>
     <li>Filter by status, assigned approver, branch, urgency</li>
     <li>"Mark TO Created" / "Mark PO Created" buttons → enter EzyVet reference</li>
-    <li>Status progression: Submitted → Approved → TO/PO Created → In Transfer/Ordered → Received → Closed</li>
+    <li>Status progression: Approved → TO/PO Created → In Transfer/Ordered → Received → Closed</li>
   </ul>
-  <h4>Week 5 — Notifications + edge cases</h4>
+  <h4>Week 4 — Notifications + edge cases</h4>
   <ul>
-    <li>Slack notifications on every status change to requester</li>
-    <li>Reminders to approvers if pending &gt;4h, &gt;24h</li>
+    <li>Status-change notifications to requester</li>
+    <li>Approver reminders at 4h + 24h</li>
     <li>Error handling: product not found, user not in mapping, sheet write failures</li>
     <li>Admin slash command <code>/inventory-admin</code> for ops manager view</li>
   </ul>
@@ -430,36 +432,36 @@
 
 <div class="phase">
   <div class="phase-header">
-    <span class="phase-name">Phase 3 — JLT pilot</span>
-    <span class="phase-date">Jul 13–26 (2 weeks)</span>
+    <span class="phase-name">Phase 3 — Pilot + Full rollout combined</span>
+    <span class="phase-date">Jul 06–12 (1 week)</span>
   </div>
+  <h4>Days 1–2 — JLT pilot launch</h4>
   <ul>
-    <li><strong>Week 6:</strong> Train JLT branch (15-min Loom + canvas in <code>clinic-jlt-inventory</code>). Train category managers (Pauline, Ivan, Aneesh). Daily check-ins, fix bugs in flight. Track requests/day, avg approval time, error rate.</li>
-    <li><strong>Week 7:</strong> Tune based on real usage. Add quick fixes. Decide: ready for full rollout, or one more pilot week?</li>
+    <li>Pre-recorded 15-min Loom + canvas published in <code>clinic-jlt-inventory</code></li>
+    <li>Category managers (Pauline, Ivan, Aneesh) onboarded same day</li>
+    <li>Live monitoring, fix bugs in flight</li>
   </ul>
-  <p><strong>Output:</strong> pilot signed off by Michael.</p>
-</div>
-
-<div class="phase">
-  <div class="phase-header">
-    <span class="phase-name">Phase 4 — Full rollout</span>
-    <span class="phase-date">Jul 27 – Aug 09 (2 weeks)</span>
-  </div>
+  <h4>Days 3–5 — Cascade rollout</h4>
   <ul>
-    <li>Roll out one cluster at a time: MV first, then BOV, then VV, then TVRC, then Mobile</li>
+    <li>If pilot stable by Day 2: roll out one cluster per day (MV → BOV → VV → TVRC → Mobile)</li>
+    <li>Same Loom + canvas reused per branch — no fresh training material needed</li>
     <li>Sunset WhatsApp inventory groups (Michael's announcement)</li>
-    <li>Full branch training (canvases + 15-min walk-through per clinic)</li>
-    <li>Monitor &amp; support</li>
   </ul>
-  <p><strong>Output:</strong> live across the group.</p>
+  <h4>Days 6–7 — Stabilisation + handover</h4>
+  <ul>
+    <li>Bug fixes from full-rollout feedback</li>
+    <li><strong>Handover to Sinergi/Michael team</strong> for operational ownership (hosting, monitoring, future iterations)</li>
+    <li>Documentation pack delivered: runbook, on-call procedure, env vars, deployment process</li>
+  </ul>
+  <p><strong>Output:</strong> live across the group, WhatsApp inventory requests stopped, Sinergi/Michael own operation.</p>
 </div>
 
 <div class="phase">
   <div class="phase-header">
-    <span class="phase-name">Phase 5 — Phase 2 enhancements</span>
-    <span class="phase-date">Post Aug 10 (ongoing)</span>
+    <span class="phase-name">Phase 4 — Sinergi-owned enhancements</span>
+    <span class="phase-date">Post Jul 12 (ongoing, not Modern Vet)</span>
   </div>
-  <p>Candidates (not committed):</p>
+  <p>Candidates (Sinergi/Michael decide priority):</p>
   <ul>
     <li>EzyVet API integration (auto-create PO/TO drafts)</li>
     <li>Backup approver routing</li>
@@ -472,26 +474,24 @@
 <h2 id="timeline">Timeline at a glance</h2>
 
 <div class="timeline">
-Jun 01  ─┬─ Phase 0 — Pre-build setup<br>
-Jun 07  ─┘   (data + access + decisions)<br>
+Jun 01  ─┬─ Phase 0 — Pre-build setup (5 days)<br>
+Jun 05  ─┘<br>
 <br>
-Jun 08  ─┬─ Phase 1 — Core MVP (3 weeks)<br>
-Jun 28  ─┘   Request form, approval flow, repository<br>
+Jun 08  ─┬─ Phase 1 — Core MVP (2 weeks)<br>
+Jun 21  ─┘   Form + approval flow<br>
 <br>
-Jun 29  ─┬─ Phase 2 — Queues + status (2 weeks)<br>
-Jul 12  ─┘<br>
+Jun 22  ─┬─ Phase 2 — Queues + status (2 weeks)<br>
+Jul 05  ─┘<br>
 <br>
-Jul 13  ─┬─ Phase 3 — JLT pilot (2 weeks)<br>
-Jul 26  ─┘<br>
+Jul 06  ─┬─ Phase 3 — Pilot + full rollout (1 week)<br>
+Jul 12  ─┘   JLT → cascade → handover<br>
 <br>
-Jul 27  ─┬─ Phase 4 — Full rollout (2 weeks)<br>
-Aug 09  ─┘<br>
-<br>
-Aug 10  ──── Phase 5 — Ongoing enhancements
+Jul 13  ──── Phase 4 — Sinergi-owned enhancements
 </div>
 
 <div class="callout success">
-  <p><strong>Total MVP-to-live:</strong> ~9–10 weeks from 1 June 2026 kickoff.</p>
+  <p><strong>Total MVP-to-live:</strong> 6 weeks from 1 June 2026 kickoff.<br>
+  Single dedicated dev, focused build, no operational overhang on Modern Vet.</p>
 </div>
 
 <h2 id="effort">6. Effort estimate</h2>
@@ -500,15 +500,14 @@ Aug 10  ──── Phase 5 — Ongoing enhancements
 <thead><tr><th>Phase</th><th>Dev days</th><th>Modern Vet days</th><th>Sinergi days</th></tr></thead>
 <tbody>
 <tr><td>Phase 0 — Setup</td><td>1</td><td>2 (Michael data prep)</td><td>1 (kickoff)</td></tr>
-<tr><td>Phase 1 — Core MVP</td><td>12</td><td>1 (review demo)</td><td>3 (advisory)</td></tr>
+<tr><td>Phase 1 — Core MVP</td><td>8</td><td>1 (review demo)</td><td>2 (advisory)</td></tr>
 <tr><td>Phase 2 — Queues</td><td>8</td><td>1 (review demo)</td><td>2 (advisory)</td></tr>
-<tr><td>Phase 3 — Pilot</td><td>4</td><td>5 (training + support)</td><td>2 (advisory)</td></tr>
-<tr><td>Phase 4 — Rollout</td><td>4</td><td>8 (training across branches)</td><td>2 (advisory)</td></tr>
-<tr style="font-weight:600;background:var(--soft);"><td>Total</td><td>~29 dev days</td><td>~17 Modern Vet days</td><td>~10 Sinergi days</td></tr>
+<tr><td>Phase 3 — Pilot + rollout</td><td>5</td><td>4 (training + support)</td><td>2 (advisory + handover)</td></tr>
+<tr style="font-weight:600;background:var(--soft);"><td>Total</td><td>~22 dev days</td><td>~8 Modern Vet days</td><td>~7 Sinergi days</td></tr>
 </tbody>
 </table>
 
-<p><strong>One developer at 5 days/week = ~6 weeks of dev work spread across 9–10 calendar weeks.</strong></p>
+<p><strong>Single dedicated developer, ~4.5 weeks of focused work spread across 6 calendar weeks.</strong></p>
 
 <h2 id="risks">7. Risks &amp; mitigations</h2>
 
