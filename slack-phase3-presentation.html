@@ -368,7 +368,7 @@
 <header>
   <h1>Vet Alliance — Slack Structure</h1>
   <div class="subtitle">A clear home for every conversation.</div>
-  <div class="meta">May 2026 · v1.8 · Prepared by the Marketing department for company rollout</div>
+  <div class="meta">26 May 2026 · v1.9 · Prepared by the Marketing department for company rollout</div>
 </header>
 
 <div class="container">
@@ -376,6 +376,11 @@
 <div class="intro">
   <p>Vet Alliance is moving company communication onto Slack. <strong>This page is the live status dashboard for the Phase 3 rollout</strong> — what's locked in, what's changed since you last looked, and what we still need from each of you to finish the structure.</p>
   <p style="margin-bottom:0;">The full design rationale and channel-by-channel detail is below the dashboard if you want the deeper context.</p>
+</div>
+
+<div class="callout" style="background:#fff8e6;border-left-color:#d97706;">
+  <h4 style="color:#92400e;margin-top:0;">⏱️ Build starts after 1 June 2026</h4>
+  <p style="margin:.4rem 0 0;">In parallel: development of the <strong>Slack Inventory &amp; Procurement App</strong> with Sinergi begins 1 June. 6-week MVP-to-live plan. <a href="slack-inventory-roadmap.html" style="color:#92400e;text-decoration:underline;">See roadmap →</a></p>
 </div>
 
 <!-- ============================================================
@@ -402,39 +407,47 @@
   <div class="card" style="border-top: 4px solid #d97706;">
     <h4 style="color:#92400e;">🔄 Awaiting reply</h4>
     <p style="margin:.4rem 0;font-size:.92rem;">Items that still need a reply before we can finish locking the structure. Detail in cards below.</p>
+    <div class="status-row"><span class="status-badge review">Scott+Sandy+Dieter+Rami</span> <strong>Full Clinical cluster</strong> — structure not yet submitted (highest-impact gap)</div>
     <div class="status-row"><span class="status-badge review">Aida</span> Training-channel charter + escalation playbook (call to confirm)</div>
-    <div class="status-row"><span class="status-badge review">Judit</span> Maintenance Option A vs B (sync next week)</div>
-    <div class="status-row"><span class="status-badge review">Scott+Sandy</span> Clinical rosters + branch leads + Mobile umbrella + rescue scope</div>
     <div class="status-row"><span class="status-badge review">Hadi</span> BizDev cluster sign-off + team roster</div>
-    <div class="status-row"><span class="status-badge review">Mansoor+Scott</span> Khawaneej/AZ branch codes + final v1.8 sign-off</div>
+    <div class="status-row"><span class="status-badge review">Scott</span> Khawaneej / Azizi Riviera branch codes (proposed <code>khw</code> + <code>az</code>)</div>
+    <div class="status-row"><span class="status-badge review">Scott+Aida</span> VV interim branch lead (post-Amy)</div>
   </div>
 </div>
 
-<h2>✨ What's new in v1.8</h2>
+<h2>✨ What's new in v1.9</h2>
 
 <div class="callout callout-update">
-  <h4>Changes since v1.7 (18 May 2026)</h4>
-  <p style="margin:.4rem 0 .6rem;">First round of feedback from CTO, Aida, Shari, Sandy, Judit, and Scott folded in. High-level design unchanged; specific channels added, renamed, or clarified.</p>
+  <h4>Changes since v1.8 (26 May 2026)</h4>
+  <p style="margin:.4rem 0 .6rem;">Refinements based on Andrew's 26 May decisions + Sinergi's inventory project input. No structural redesign; specific channels collapsed, member rosters updated, and Judit's clinic-list design locked.</p>
   <ul class="change-list">
-    <li><strong>Added:</strong> <code>help-ezyvet</code> — central ezyVet support desk (CTO request, AbdulRahman owns)</li>
-    <li><strong>Added:</strong> <code>clinic-mv-mob-bookings</code> — Mobile Van bookings: Dr Rahaf, Prakash, Call Centre team (Scott)</li>
-    <li><strong>Added:</strong> <code>team-clinical-nurses-announcements</code> — restricted posting for SOPs & policy updates (Sandy)</li>
-    <li><strong>Renamed:</strong> <code>team-cx</code> → <code>team-cx-leadership</code> (Aida — clarity vs <code>team-cx-experience</code>)</li>
-    <li><strong>Moved + renamed:</strong> <code>team-cc-handoffs</code> → <code>team-cx-handoffs</code> (Aida — sits under CX umbrella)</li>
-    <li><strong>Renamed:</strong> <code>team-clinical</code> → <code>team-clinical-leadership</code> (Sandy — leadership-only, not all-vets/nurses)</li>
-    <li><strong>Renamed:</strong> <code>team-ops-fitout</code> → <code>team-ops-projects</code> (Judit — not all projects are fit-outs)</li>
-    <li><strong>Expanded:</strong> HR cluster grew from 4 → 8 channels (Shari's full proposal accepted)</li>
-    <li><strong>Renamed:</strong> <code>team-people-*</code> → <code>team-hr-*</code> (Shari's request — stick with classic HR naming)</li>
-    <li><strong>Drafted:</strong> CX complaint escalation playbook — 3-tier flow for Aida to confirm or revise</li>
-    <li><strong>Pending sync:</strong> Maintenance design — two options on the table for Judit's review next week</li>
+    <li><strong>Collapsed:</strong> Finance simplified to a single <code>team-finance</code> channel — <code>team-finance-ap</code> removed (general finances only needed). <code>team-finance-discounts</code>, <code>team-finance-pricing</code>, and <code>team-finance-management-accounts-pnl</code> retained as separate channels.</li>
+    <li><strong>Members updated:</strong> <code>team-ops-maintenance</code> roster expanded — Scott, Sandy, Mansoor added (now: Judit, Shibin, Himanshu, Michael, Scott, Sandy, Aida, Mansoor + all branch FD leads).</li>
+    <li><strong>Locked design:</strong> Clinic lists structure — single limited cross-org group, one rep per clinic + office, anchored on reception emails. One master Slack List split per clinic via workflows + custom views. Supersedes the older 3-channel-per-clinic split idea.</li>
+    <li><strong>Locked design:</strong> Maintenance Option A (central <code>team-ops-maintenance</code> only, no per-clinic maintenance channels). Per Andrew's 26 May decision.</li>
+    <li><strong>NEW workstream:</strong> <strong>Slack Inventory &amp; Procurement App</strong> with Sinergi + Michael. Structured Slack workflow (NOT a chatbot) replacing WhatsApp inventory requests. 6-week build starts 1 June 2026. <a href="slack-inventory-roadmap.html">See roadmap →</a></li>
+    <li><strong>Locked mapping:</strong> Category manager mapping for inventory app revised by Michael (Pauline / Ivan / Aneesh own 43 of 98 sub-categories; rest are billable line items not requiring stock approval).</li>
+    <li><strong>Sign-off note:</strong> Architecture was approved by Mansoor at the 6 May meeting. v1.9 changes are refinements and do not require fresh CEO sign-off.</li>
   </ul>
 </div>
 
 <h2>📋 What we still need — per department</h2>
 
-<p>Five departments still have items pending. The other four (HR, Finance, Tech/IT, Ops/Inventory) are fully confirmed and ready to build.</p>
+<p>Three departments still have items pending. HR, Finance, Tech/IT, Ops/Inventory, and the Maintenance + Judit clinic-list designs are all fully locked and ready to build.</p>
 
 <div class="missing-grid">
+
+  <div class="missing-card" style="border-left:4px solid #d04040;">
+    <h4 style="color:#a02020;">🩺 Clinical — Scott, Sandy, Dieter, Rami <span style="background:#fde0e0;color:#a02020;font-size:.7rem;padding:2px 8px;border-radius:8px;margin-left:6px;">HIGHEST-IMPACT GAP</span></h4>
+    <p style="margin:.4rem 0;font-size:.9rem;"><strong>Status: no formal structure submission received yet.</strong> All clinical channels + user groups + per-clinic rosters are blocked on this.</p>
+    <ul>
+      <li><strong>Confirm</strong> the 7-channel clinical cluster (leadership / vets / nurses / cases / rescue / medical-product / nurses-announcements)</li>
+      <li><strong>All-vets roster per brand</strong> — <code>@vets-mv</code>, <code>@vets-bovc</code>, <code>@vets-vv</code>, <code>@vets-tvrc</code></li>
+      <li><strong>Pending Slack invites:</strong> Dr Rami, Dr Nour, Dr Waseem</li>
+      <li><strong>All-nurses roster</strong> — once Sandy finishes onboarding nurses</li>
+      <li><strong>Decisions:</strong> branch lead names for MV Palm / DT / JVC / JLT / BOVC DIP / TVRC; Mobile umbrella keep or drop; rescue: single channel or per-clinic split</li>
+    </ul>
+  </div>
 
   <div class="missing-card">
     <h4>📞 CX / Call Centre — Aida</h4>
@@ -442,45 +455,24 @@
       <li><strong>Call Centre agent roster</strong> — full list (names + emails) for the <code>@callcentre</code> user group</li>
       <li><strong>Reception leads per branch</strong> — one name per branch (12 branches)</li>
       <li><strong>VV interim branch lead</strong> — post-Amy, who covers branch-level day-to-day?</li>
-      <li><strong>Decision (Andrew to ask Aida directly):</strong> <code>team-cx-training</code> charter — pick a focus</li>
-      <li><strong>Decision (pending call):</strong> Complaint escalation playbook — <strong>2 options on the table</strong>, awaiting Aida's confirmation in next call</li>
-    </ul>
-  </div>
-
-  <div class="missing-card">
-    <h4>🩺 Clinical — Scott + Sandy + Rami</h4>
-    <ul>
-      <li><strong>All-vets roster per brand</strong> — <code>@vets-mv</code>, <code>@vets-bovc</code>, <code>@vets-vv</code>, <code>@vets-tvrc</code></li>
-      <li><strong>Pending Slack invites:</strong> Dr Rami, Dr Nour, Dr Waseem</li>
-      <li><strong>All-nurses roster</strong> — once Sandy finishes onboarding nurses this week</li>
-      <li><strong>Decisions:</strong> branch lead names for MV Palm/DT/JVC/JLT/BOVC DIP/TVRC; Mobile umbrella keep or drop; rescue: single or per-clinic; HQ sub-channels needed?</li>
-    </ul>
-  </div>
-
-  <div class="missing-card">
-    <h4>🛠️ Maintenance / Projects — Judit</h4>
-    <ul>
-      <li><strong>Sync next week</strong> — walk through Slack basics + lock maintenance design</li>
-      <li><strong>Decision:</strong> Option A (central only, like current WhatsApp) vs Option B (master+views)</li>
-      <li><strong>Confirm membership</strong> for central maintenance: FD leads + Shibin + Himanshu + Michael + Scott + Sandy + Aida</li>
-      <li><strong>Projects:</strong> <code>team-ops-projects</code> on-hold until sync</li>
+      <li><strong>Decision:</strong> <code>team-cx-training</code> charter — pick a focus (resources / discussions / audits&amp;coaching / rollout&amp;SOPs / split)</li>
+      <li><strong>Decision:</strong> Complaint escalation playbook — confirm or revise the drafted 3-tier flow</li>
     </ul>
   </div>
 
   <div class="missing-card">
     <h4>📈 BizDev — Hadi</h4>
     <ul>
-      <li><strong>v1.8 sign-off</strong> — no reply received yet</li>
+      <li><strong>v1.9 sign-off</strong> — confirm the 4-channel BizDev cluster</li>
       <li><strong>BD team</strong> — anyone besides Hadi to add to the 4 channels?</li>
       <li><strong>Confirm</strong> ownership of <code>help-bizdev</code></li>
     </ul>
   </div>
 
   <div class="missing-card">
-    <h4>🏢 Cross-org — Mansoor + Scott</h4>
+    <h4>🏢 Cross-org — Scott</h4>
     <ul>
-      <li><strong>Khawaneej + Azizi Riviera codes</strong> — proposed <code>khw</code> + <code>az</code></li>
-      <li><strong>Final v1.8 sign-off</strong> from Mansoor before build kickoff</li>
+      <li><strong>Khawaneej + Azizi Riviera codes</strong> — proposed <code>khw</code> + <code>az</code> — confirm</li>
     </ul>
     <p style="margin:.5rem 0 0;font-size:.85rem;color:var(--muted);font-style:italic;">Head Office admin already covered by <code>va-management</code> — no separate <code>clinic-hq</code> needed.</p>
   </div>
@@ -491,9 +483,11 @@
   <h4 style="color:#2d5e2d;">✅ Already complete — no further input needed</h4>
   <ul style="margin:.5rem 0 0;line-height:1.7;">
     <li><strong>HR (Shari)</strong> — all 8 channels accepted, roster confirmed (Shari + Priya + Leya + Yousuf), Mansoor sits in <code>team-hr</code></li>
-    <li><strong>Finance (Harshita)</strong> — structure confirmed; full team in all finance channels: Harshita + Francis + Husain + Vijomon + Abid</li>
-    <li><strong>Tech / IT (AbdulRahman)</strong> — cluster confirmed, <code>help-ezyvet</code> ownership confirmed, IT vendor scope confirmed (eCRE8 + Synergi only)</li>
+    <li><strong>Finance (Harshita)</strong> — <strong>v1.9: collapsed to a single <code>team-finance</code></strong> + discounts + pricing + management-accounts-pnl. Team: Harshita + Francis + Husain + Vijomon + Abid</li>
+    <li><strong>Tech / IT (AbdulRahman)</strong> — cluster confirmed, <code>help-ezyvet</code> ownership confirmed, IT vendor scope confirmed (eCRE8 + Sinergi only)</li>
     <li><strong>Ops / Inventory (Michael)</strong> — cluster confirmed, procurement team confirmed, no additional vendor channels needed</li>
+    <li><strong>Maintenance (Judit)</strong> — <strong>v1.9: Option A locked</strong> (central <code>team-ops-maintenance</code> only, no per-clinic). Roster: Judit + Shibin + Himanshu + Michael + Scott + Sandy + Aida + Mansoor + branch FD leads</li>
+    <li><strong>Clinic lists (Judit's design)</strong> — <strong>v1.9: locked.</strong> Single limited cross-org group (1 rep per clinic + office, reception-email anchored) + master list split per clinic via workflows</li>
   </ul>
 </div>
 
