@@ -231,14 +231,13 @@
   <h1>Slack Inventory &amp; Procurement App</h1>
   <p class="subtitle">A structured Slack workflow to replace WhatsApp inventory requests across Modern Vet — built collaboratively with Sinergi.</p>
   <div class="meta">
-    <div><strong>From</strong>Andrew Bahna<br>Marketing Director, Modern Vet</div>
-    <div><strong>To</strong>Chloe + Sinergi team<br>cc: Michael Newman, Modern Vet Ops</div>
-    <div><strong>Build window</strong>1 June – 12 July 2026<br>(6 weeks to live)</div>
+    <div><strong>Document date</strong>26 May 2026 · v1.1</div>
+    <div><strong>Build window</strong>8 June – 19 July 2026<br>(6 weeks to live)</div>
   </div>
 </header>
 
 <div class="callout">
-  <p><strong>What this document is.</strong> Sinergi sent us a detailed spec for a Slack-based inventory request and approval app. This is our response: how we propose to build it, what we need from each side, and the timeline. The intent is to read this together with Michael, agree on the approach, and start work on 1 June.</p>
+  <p><strong>What this document is.</strong> Sinergi sent us a detailed spec for a Slack-based inventory request and approval app. This is our response: how we propose to build it, what we need from each side, and the timeline. The intent is to read this together with Michael, agree on the approach, and start the build the week of 8 June.</p>
   <p style="margin:0;"><strong>What it is not.</strong> Sinergi's original spec stands. This document doesn't change the workflow, the EzyVet boundary, or the request-line model — only the technical implementation plan layered on top.</p>
 </div>
 
@@ -262,7 +261,7 @@
 
 <p>Sinergi&apos;s spec proposes a structured Slack application (not a chatbot) that lets branch staff submit inventory requests through searchable product selectors, routes those requests to the correct category manager, and tracks the lifecycle from submission to PO/TO fulfilment in EzyVet. The audit trail lives in a Google Sheet repository (the 31-column template Sinergi provided).</p>
 
-<p>Modern Vet&apos;s proposal: <strong>we build the application over 6 weeks starting 1 June 2026, deploy it to dedicated independent infrastructure that we help set up, and hand it over to Sinergi + Michael&apos;s team for ongoing operation at go-live.</strong> EzyVet stays the system of record throughout, exactly as the spec specifies.</p>
+<p>Modern Vet&apos;s proposal: <strong>we build the application over 6 weeks starting the week of 8 June 2026, deploy it to dedicated independent infrastructure that we help set up, and hand it over to Sinergi + Michael&apos;s team for ongoing operation at go-live.</strong> EzyVet stays the system of record throughout, exactly as the spec specifies.</p>
 
 <div class="callout success">
   <p style="margin:0;"><strong>Target outcome:</strong> WhatsApp inventory groups sunsetted by mid-July. Branch staff submit through Slack. Pauline, Ivan, Aneesh approve through Slack. Procurement creates POs/TOs in EzyVet against approved request lines. Full audit trail in Google Sheets.</p>
@@ -362,13 +361,13 @@
 <h2 id="phases">6. Build plan — 6 phases over 6 weeks</h2>
 
 <div class="callout">
-  <p style="margin:0;">All dates assume kick-off on <strong>1 June 2026</strong>. The plan was compressed from an earlier 9–10 week draft by merging the form + approval phases, recording training material once and reusing it per branch, and fusing pilot with full rollout in week 6.</p>
+  <p style="margin:0;">All dates assume Phase 0 kick-off on <strong>Monday 8 June 2026</strong>, with the week of 1 June used for the alignment call and final pre-work. The plan was compressed from an earlier 9–10 week draft by merging the form + approval phases, recording training material once and reusing it per branch, and fusing pilot with full rollout in the final week.</p>
 </div>
 
 <div class="phase">
   <div class="phase-header">
     <span class="phase-name">Phase 0 — Pre-build setup</span>
-    <span class="phase-date">Jun 01–05 (5 days)</span>
+    <span class="phase-date">Jun 08–12 (5 days)</span>
   </div>
   <ul>
     <li>Michael exports product master from EzyVet → Google Sheet</li>
@@ -384,7 +383,7 @@
 <div class="phase">
   <div class="phase-header">
     <span class="phase-name">Phase 1 — Core MVP</span>
-    <span class="phase-date">Jun 08–21 (2 weeks)</span>
+    <span class="phase-date">Jun 15–26 (2 weeks)</span>
   </div>
   <h4>Week 1 — Foundations + request form</h4>
   <ul>
@@ -410,7 +409,7 @@
 <div class="phase">
   <div class="phase-header">
     <span class="phase-name">Phase 2 — Operational queues &amp; status tracking</span>
-    <span class="phase-date">Jun 22 – Jul 05 (2 weeks)</span>
+    <span class="phase-date">Jun 29 – Jul 10 (2 weeks)</span>
   </div>
   <h4>Week 3 — Queue views</h4>
   <ul>
@@ -432,7 +431,7 @@
 <div class="phase">
   <div class="phase-header">
     <span class="phase-name">Phase 3 — Pilot + full rollout combined</span>
-    <span class="phase-date">Jul 06–12 (1 week)</span>
+    <span class="phase-date">Jul 13–19 (1 week)</span>
   </div>
   <h4>Days 1–2 — JLT pilot launch</h4>
   <ul>
@@ -457,7 +456,7 @@
 <div class="phase">
   <div class="phase-header">
     <span class="phase-name">Phase 4 — Post-handover enhancements</span>
-    <span class="phase-date">After Jul 12 — Sinergi-owned</span>
+    <span class="phase-date">After Jul 19 — Sinergi-owned</span>
   </div>
   <p>Candidates Sinergi may want to prioritise (not part of the MVP scope):</p>
   <ul>
@@ -472,23 +471,26 @@
 <h2 id="timeline">Timeline at a glance</h2>
 
 <div class="timeline">
-Jun 01  ─┬─ Phase 0 — Pre-build setup (5 days)<br>
-Jun 05  ─┘<br>
+Jun 01  ────  Read this proposal · schedule alignment call<br>
+Jun 02–06 ──  Alignment call + pre-reqs preparation<br>
 <br>
-Jun 08  ─┬─ Phase 1 — Core MVP (2 weeks)<br>
-Jun 21  ─┘   Form + approval flow<br>
+Jun 08  ─┬─ Phase 0 — Pre-build setup (5 days)<br>
+Jun 12  ─┘<br>
 <br>
-Jun 22  ─┬─ Phase 2 — Queues + status (2 weeks)<br>
-Jul 05  ─┘<br>
+Jun 15  ─┬─ Phase 1 — Core MVP (2 weeks)<br>
+Jun 26  ─┘   Form + approval flow<br>
 <br>
-Jul 06  ─┬─ Phase 3 — Pilot + full rollout (1 week)<br>
-Jul 12  ─┘   JLT → cascade → handover<br>
+Jun 29  ─┬─ Phase 2 — Queues + status (2 weeks)<br>
+Jul 10  ─┘<br>
 <br>
-Jul 13  ────  Phase 4 — Sinergi-owned enhancements
+Jul 13  ─┬─ Phase 3 — Pilot + full rollout (1 week)<br>
+Jul 19  ─┘   JLT → cascade → handover<br>
+<br>
+Jul 20  ────  Phase 4 — Sinergi-owned enhancements
 </div>
 
 <div class="callout success">
-  <p style="margin:0;"><strong>Total MVP-to-live:</strong> 6 weeks from 1 June 2026 kickoff. Single dedicated developer, focused build, clean operational handover.</p>
+  <p style="margin:0;"><strong>Total MVP-to-live:</strong> 6 build weeks (8 June – 19 July 2026), with the week of 1 June used for alignment and pre-work. Single dedicated developer, focused build, clean operational handover.</p>
 </div>
 
 <h2 id="effort">7. Effort split</h2>
@@ -540,15 +542,13 @@ Jul 13  ────  Phase 4 — Sinergi-owned enhancements
 
 <ol>
   <li><strong>Sinergi reviews this document</strong> and shares any disagreement on the technology choices, scope split, or timeline.</li>
-  <li><strong>30-minute alignment call</strong> with Sinergi + Michael + Andrew, ideally before <strong>Sunday 31 May</strong>, to resolve the open questions in §9 and lock the kick-off date.</li>
-  <li><strong>Phase 0 begins Monday 1 June.</strong> First milestone: hello-world Slack app live, all pre-requisites in place by end of week 1.</li>
+  <li><strong>30-minute alignment call</strong> with Sinergi + Michael + Andrew during the week of <strong>1–6 June</strong>, to resolve the open questions in §9 and confirm the kick-off date.</li>
+  <li><strong>Phase 0 begins Monday 8 June.</strong> First milestone: hello-world Slack app live, all pre-requisites in place by end of that week.</li>
 </ol>
 
 <p>If Sinergi has a different preferred technology stack, a different timeline, or wants to take on more of the build themselves — happy to discuss. The spec is the foundation; the implementation plan is open for adjustment.</p>
 
-<p style="margin-top:30px;font-size:15px;"><strong>Andrew Bahna</strong><br>
-Marketing Director, Modern Vet / Vet Alliance<br>
-<a href="mailto:marketing@modernvet.com" style="color:var(--teal);">marketing@modernvet.com</a></p>
+
 
 <footer>
   <p>Modern Vet · 26 May 2026 · v1.1</p>
