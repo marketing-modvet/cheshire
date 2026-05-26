@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slack Inventory App — Implementation Roadmap</title>
+<style>
+  :root {
+    --teal: #015962;
+    --teal-light: #2b8a92;
+    --salmon: #f08080;
+    --bg: #fafafa;
+    --ink: #1a2730;
+    --muted: #607080;
+    --line: #e0e6ea;
+    --soft: #f0f5f7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+    padding: 0;
+  }
+  .container { max-width: 980px; margin: 0 auto; padding: 60px 40px 80px; }
+  header {
+    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%);
+    color: white;
+    padding: 60px 40px;
+    border-radius: 12px;
+    margin-bottom: 50px;
+    box-shadow: 0 4px 24px rgba(1, 89, 98, 0.15);
+  }
+  header .tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 42px;
+    font-weight: 600;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  header .subtitle { font-size: 18px; opacity: 0.92; font-weight: 300; }
+  header .meta {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    font-size: 13px;
+  }
+  header .meta div { opacity: 0.92; }
+  header .meta strong { display: block; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; opacity: 0.7; margin-bottom: 4px; font-weight: 600; }
+
+  h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--teal);
+    margin-top: 50px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--teal);
+  }
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--teal);
+    margin-top: 30px;
+    margin-bottom: 12px;
+  }
+  h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-top: 20px;
+    margin-bottom: 8px;
+  }
+  p { margin-bottom: 14px; }
+  ul, ol { margin: 12px 0 14px 24px; }
+  li { margin-bottom: 6px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+    font-size: 14px;
+    background: white;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  th {
+    background: var(--soft);
+    color: var(--teal);
+    text-align: left;
+    padding: 10px 14px;
+    font-weight: 600;
+    font-size: 13px;
+    border-bottom: 2px solid var(--line);
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover { background: #fafcfc; }
+
+  code {
+    background: var(--soft);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 13px;
+    color: var(--teal);
+  }
+  pre {
+    background: #1a2730;
+    color: #e0e6ea;
+    padding: 20px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 16px 0 24px;
+  }
+
+  .callout {
+    background: var(--soft);
+    border-left: 4px solid var(--teal);
+    padding: 16px 20px;
+    margin: 20px 0;
+    border-radius: 4px;
+  }
+  .callout.warning { border-left-color: var(--salmon); background: #fef5f5; }
+  .callout.success { border-left-color: #4caf50; background: #f0f8f0; }
+  .callout p:last-child { margin-bottom: 0; }
+
+  .phase {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 24px;
+    margin: 20px 0;
+    transition: box-shadow 0.2s;
+  }
+  .phase:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+  .phase-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .phase-name { font-weight: 600; color: var(--teal); font-size: 18px; }
+  .phase-date { font-size: 13px; color: var(--muted); font-family: monospace; }
+
+  .timeline {
+    background: var(--ink);
+    color: #c0d0d8;
+    padding: 28px;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    line-height: 1.8;
+    margin: 20px 0;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-right: 4px;
+  }
+  .badge.green { background: #e0f5e0; color: #2e6b2e; }
+  .badge.yellow { background: #fff4d0; color: #8a6500; }
+  .badge.red { background: #fde0e0; color: #a03030; }
+  .badge.blue { background: #d8eaff; color: #1a5fa0; }
+
+  .toc {
+    background: var(--soft);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin-bottom: 30px;
+  }
+  .toc h3 { margin-top: 0; color: var(--teal); }
+  .toc ol { margin-left: 20px; }
+  .toc a { color: var(--ink); text-decoration: none; }
+  .toc a:hover { color: var(--teal); text-decoration: underline; }
+
+  footer {
+    margin-top: 60px;
+    padding-top: 30px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 13px;
+    text-align: center;
+  }
+
+  @media (max-width: 720px) {
+    .container { padding: 30px 20px; }
+    h1 { font-size: 32px; }
+    h2 { font-size: 24px; }
+    header { padding: 40px 24px; }
+    header .meta { grid-template-columns: 1fr; gap: 16px; }
+    table { font-size: 13px; }
+    th, td { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <span class="tag">Implementation Roadmap</span>
+  <h1>Slack Inventory &amp; Procurement App</h1>
+  <p class="subtitle">From WhatsApp chaos to structured approvals — a 9-week MVP-to-live plan</p>
+  <div class="meta">
+    <div><strong>Prepared for</strong>Michael Newman (Modern Vet)<br>Chloe + team (Sinergi)</div>
+    <div><strong>Document date</strong>26 May 2026</div>
+    <div><strong>Development start</strong>1 June 2026</div>
+  </div>
+</header>
+
+<div class="toc">
+  <h3>Contents</h3>
+  <ol>
+    <li><a href="#purpose">Purpose</a></li>
+    <li><a href="#stack">Recommended technology stack</a></li>
+    <li><a href="#rationale">Why these choices</a></li>
+    <li><a href="#prereqs">Pre-requisites before dev starts</a></li>
+    <li><a href="#phases">Roadmap — phases &amp; timeline</a></li>
+    <li><a href="#effort">Effort estimate</a></li>
+    <li><a href="#risks">Risks &amp; mitigations</a></li>
+    <li><a href="#questions">Open questions</a></li>
+    <li><a href="#next">Next step</a></li>
+  </ol>
+</div>
+
+<h2 id="purpose">1. Purpose</h2>
+
+<p>Replace WhatsApp / Google Forms / manual chasing for inventory requests with a structured Slack application. EzyVet remains the system of record. Slack handles <strong>request → approval → routing → status</strong>, with a Google Sheet repository as the audit trail.</p>
+
+<div class="callout">
+  <p><strong>This is not an AI chatbot.</strong> It's a structured operational workflow — searchable product selectors, structured forms, decision buttons, notifications, status tracking.</p>
+</div>
+
+<h2 id="stack">2. Recommended technology stack</h2>
+
+<table>
+<thead><tr><th>Layer</th><th>Tool</th><th>Why</th><th>Cost</th></tr></thead>
+<tbody>
+<tr><td><strong>Slack app framework</strong></td><td>Slack Bolt (Node.js)</td><td>Official, well-documented, native modals + interactive buttons + block kit</td><td>Free</td></tr>
+<tr><td><strong>Hosting</strong></td><td>Modern Vet OpenClaw server OR Render/Railway</td><td>Reuse existing infra (no new monthly cost) — or isolated hosting if preferred</td><td>$0 or $7–20/mo</td></tr>
+<tr><td><strong>Product master</strong></td><td>Google Sheets (MVP)</td><td>Per spec. Cached in memory, refreshed every 5 min. Migration path to DB later.</td><td>Free</td></tr>
+<tr><td><strong>Request repository</strong></td><td>Google Sheets (Sinergi template)</td><td>Already designed — 31 columns, append-only audit trail</td><td>Free</td></tr>
+<tr><td><strong>Google integration</strong></td><td>Google Sheets API v4 + service account</td><td>Reuse Cheshire's existing service account</td><td>Free</td></tr>
+<tr><td><strong>EzyVet integration</strong></td><td>Manual for MVP (PO/TO numbers entered back into sheet)</td><td>Reduces MVP scope. Phase 2 evaluates EzyVet API.</td><td>Free</td></tr>
+<tr><td><strong>User mapping</strong></td><td>Google Sheet</td><td>Editable by ops team without code changes</td><td>Free</td></tr>
+<tr><td><strong>Search / fuzzy matching</strong></td><td>Fuse.js (in-memory)</td><td>Sub-50ms typeahead across thousands of SKUs</td><td>Free</td></tr>
+<tr><td><strong>Slack workspace</strong></td><td>Vet Alliance Slack (existing)</td><td>Business+ plan, lists supported, tokens configured</td><td>Already paid</td></tr>
+<tr><td><strong>Source control</strong></td><td>GitHub private repo</td><td>Sinergi can collaborate via PRs if they want</td><td>Free</td></tr>
+<tr><td><strong>CI/CD</strong></td><td>GitHub Actions → server deploy</td><td>Standard pattern</td><td>Free</td></tr>
+<tr><td><strong>Monitoring</strong></td><td>Slack alerts to <code>#tech-alerts</code></td><td>Reuse Cheshire infra</td><td>Free</td></tr>
+<tr><td><strong>Secrets</strong></td><td>Server .env (chmod 600)</td><td>Standard</td><td>Free</td></tr>
+</tbody>
+</table>
+
+<div class="callout success">
+  <p><strong>Total monthly run-cost:</strong> $0 if reusing OpenClaw server, $7–20/mo if isolated.<br>
+  <strong>Total build cost:</strong> developer time only.</p>
+</div>
+
+<h2 id="rationale">3. Why these choices</h2>
+
+<h3>Slack Bolt (vs raw API or alternatives)</h3>
+<ul>
+  <li>Official framework, maintained by Slack</li>
+  <li>First-class support for modals (the request form), interactive buttons, block kit</li>
+  <li>Massive community + docs</li>
+  <li>Fits the Node-based Cheshire stack</li>
+</ul>
+
+<h3>Google Sheets (vs proper database)</h3>
+<ul>
+  <li>Spec explicitly requires it for MVP</li>
+  <li>Ops team can edit user/location/category mapping without involving dev</li>
+  <li>Audit trail is human-readable</li>
+  <li>31-column repository works fine up to ~10K rows; well beyond Year 1 volume</li>
+  <li>Easy migration to PostgreSQL when needed (same schema)</li>
+</ul>
+
+<h3>No EzyVet API in MVP</h3>
+<ul>
+  <li>Risk-reduces MVP scope significantly</li>
+  <li>Procurement still creates POs/TOs in EzyVet the way they do today</li>
+  <li>PO/TO numbers entered back into Slack flow via "Mark as PO Created" button</li>
+  <li>Phase 2: does EzyVet have an API? If yes, automate. If no, keep manual loop.</li>
+</ul>
+
+<h3>Fuse.js for product search</h3>
+<ul>
+  <li>Slack's native select menus don't fuzzy-search well across 2K+ items</li>
+  <li>In-memory Fuse index rebuilt every 5 min from product master sheet</li>
+  <li>Type "amox" → see "Amoxicillin 500mg Tablets"</li>
+</ul>
+
+<h2 id="prereqs">4. Pre-requisites before dev starts</h2>
+
+<h3>4.1 Data (from Michael + Modern Vet ops)</h3>
+<table>
+<thead><tr><th>Item</th><th>Status</th><th>Owner</th></tr></thead>
+<tbody>
+<tr><td>Product master dataset (SKU, Name, Category, Subcategory, UOM, Active flag, Search Keywords, Default Supplier, Assigned Category Manager)</td><td><span class="badge yellow">Confirm</span> — does Michael have this in EzyVet-exportable form?</td><td>Michael</td></tr>
+<tr><td>User &amp; Location mapping (Slack User ID, Branch, Role, Categories)</td><td><span class="badge red">To build</span></td><td>Michael + Andrew (Slack IDs)</td></tr>
+<tr><td>Category manager mapping</td><td><span class="badge green">Locked</span> — Michael's revised version</td><td>Done</td></tr>
+<tr><td>Branch list with codes</td><td><span class="badge yellow">Confirm</span> — Khawaneej + Azizi Riviera</td><td>Scott</td></tr>
+</tbody>
+</table>
+
+<h3>4.2 Access</h3>
+<table>
+<thead><tr><th>Item</th><th>Status</th><th>Owner</th></tr></thead>
+<tbody>
+<tr><td>Slack app creation in Vet Alliance workspace (new app, not Cheshire)</td><td><span class="badge red">Pending</span></td><td>Andrew + AbdulRahman</td></tr>
+<tr><td>Slack scopes: <code>commands</code>, <code>chat:write</code>, <code>users:read</code>, <code>channels:read</code>, <code>im:write</code>, <code>app_mentions:read</code></td><td><span class="badge red">Pending</span></td><td>Andrew</td></tr>
+<tr><td>Google service account with Sheets access</td><td><span class="badge green">Reuse existing</span> — Cheshire's already set up</td><td>Done</td></tr>
+<tr><td>Hosting target + domain</td><td><span class="badge yellow">Decide</span> — reuse OpenClaw or isolated</td><td>Andrew</td></tr>
+<tr><td>EzyVet API docs (Phase 2 only)</td><td><span class="badge blue">Phase 2</span></td><td>Michael + AbdulRahman</td></tr>
+</tbody>
+</table>
+
+<h3>4.3 Decisions</h3>
+<table>
+<thead><tr><th>Decision</th><th>Default</th><th>Owner</th></tr></thead>
+<tbody>
+<tr><td>Pilot scope</td><td>1 clinic pilot (JLT)</td><td>Michael</td></tr>
+<tr><td>Approval timeout for unresponsive category manager</td><td>No hard timeout MVP — reminders at 4h + 24h</td><td>Michael</td></tr>
+<tr><td>Backup approvers for leave coverage</td><td>Deferred to Phase 2</td><td>Michael</td></tr>
+<tr><td>User-location mapping owner</td><td>Michael compiles, Andrew adds Slack IDs</td><td>Both</td></tr>
+<tr><td>App name + icon</td><td>"ModernVet Inventory" — Michael picks</td><td>Michael</td></tr>
+</tbody>
+</table>
+
+<h2 id="phases">5. Roadmap — phases &amp; timeline</h2>
+
+<div class="callout">
+  <p>All dates assume kick-off on <strong>2026-06-01</strong>.</p>
+</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <span class="phase-name">Phase 0 — Pre-build setup</span>
+    <span class="phase-date">Jun 01–07 (1 week)</span>
+  </div>
+  <ul>
+    <li>Michael compiles product master export from EzyVet → Google Sheet</li>
+    <li>HR + Andrew compile user + Slack ID list per branch</li>
+    <li>AbdulRahman/Andrew creates the Slack app in Vet Alliance workspace + grants scopes</li>
+    <li>Andrew sets up GitHub repo + deploys hello-world Slack app to confirm infrastructure</li>
+    <li>Sinergi + Modern Vet kickoff call — align on Phase 1 scope</li>
+  </ul>
+  <p><strong>Output:</strong> all pre-reqs ready, hello-world app posts to a test channel.</p>
+</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <span class="phase-name">Phase 1 — Core MVP</span>
+    <span class="phase-date">Jun 08–28 (3 weeks)</span>
+  </div>
+  <h4>Week 1 — Foundations</h4>
+  <ul>
+    <li>Slack app scaffolding (Bolt)</li>
+    <li>Google Sheets connector (read product master + user mapping into memory; write to request repository)</li>
+    <li>Fuse.js product search index, refreshed every 5 min</li>
+    <li><code>/inventory</code> slash command opens a modal</li>
+  </ul>
+  <h4>Week 2 — Request form + repository</h4>
+  <ul>
+    <li>Modal: product search → quantity → urgency → branch → notes</li>
+    <li>On submit: write row to Google Sheet, generate Request ID, status=Submitted</li>
+    <li>Auto-fill SKU / Category / Subcategory / UOM / Assigned Approver from product master</li>
+    <li>Confirmation DM to requester</li>
+  </ul>
+  <h4>Week 3 — Approval flow</h4>
+  <ul>
+    <li>Approver receives interactive notification with <strong>Reject / Transfer / Purchase</strong> buttons</li>
+    <li>Each decision opens its own modal for required fields</li>
+    <li>"Prepared By" auto-filled from approver's Slack user</li>
+  </ul>
+  <p><strong>Output:</strong> single happy-path flow works end-to-end for one product / one approver / one branch.</p>
+</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <span class="phase-name">Phase 2 — Operational queues + status tracking</span>
+    <span class="phase-date">Jun 29 – Jul 12 (2 weeks)</span>
+  </div>
+  <h4>Week 4 — Queue views</h4>
+  <ul>
+    <li>3 operational queue views: Rejected / Transfer / Purchase</li>
+    <li>Filter by status, assigned approver, branch, urgency</li>
+    <li>"Mark TO Created" / "Mark PO Created" buttons → enter EzyVet reference</li>
+    <li>Status progression: Submitted → Approved → TO/PO Created → In Transfer/Ordered → Received → Closed</li>
+  </ul>
+  <h4>Week 5 — Notifications + edge cases</h4>
+  <ul>
+    <li>Slack notifications on every status change to requester</li>
+    <li>Reminders to approvers if pending &gt;4h, &gt;24h</li>
+    <li>Error handling: product not found, user not in mapping, sheet write failures</li>
+    <li>Admin slash command <code>/inventory-admin</code> for ops manager view</li>
+  </ul>
+  <p><strong>Output:</strong> full request lifecycle works. Ready for pilot.</p>
+</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <span class="phase-name">Phase 3 — JLT pilot</span>
+    <span class="phase-date">Jul 13–26 (2 weeks)</span>
+  </div>
+  <ul>
+    <li><strong>Week 6:</strong> Train JLT branch (15-min Loom + canvas in <code>clinic-jlt-inventory</code>). Train category managers (Pauline, Ivan, Aneesh). Daily check-ins, fix bugs in flight. Track requests/day, avg approval time, error rate.</li>
+    <li><strong>Week 7:</strong> Tune based on real usage. Add quick fixes. Decide: ready for full rollout, or one more pilot week?</li>
+  </ul>
+  <p><strong>Output:</strong> pilot signed off by Michael.</p>
+</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <span class="phase-name">Phase 4 — Full rollout</span>
+    <span class="phase-date">Jul 27 – Aug 09 (2 weeks)</span>
+  </div>
+  <ul>
+    <li>Roll out one cluster at a time: MV first, then BOV, then VV, then TVRC, then Mobile</li>
+    <li>Sunset WhatsApp inventory groups (Michael's announcement)</li>
+    <li>Full branch training (canvases + 15-min walk-through per clinic)</li>
+    <li>Monitor &amp; support</li>
+  </ul>
+  <p><strong>Output:</strong> live across the group.</p>
+</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <span class="phase-name">Phase 5 — Phase 2 enhancements</span>
+    <span class="phase-date">Post Aug 10 (ongoing)</span>
+  </div>
+  <p>Candidates (not committed):</p>
+  <ul>
+    <li>EzyVet API integration (auto-create PO/TO drafts)</li>
+    <li>Backup approver routing</li>
+    <li>Analytics dashboard: top requests, slowest approvers, branch volume</li>
+    <li>Slack workflow templates for repeat orders</li>
+    <li>Migration to proper database if SKU count &gt;5K</li>
+  </ul>
+</div>
+
+<h2 id="timeline">Timeline at a glance</h2>
+
+<div class="timeline">
+Jun 01  ─┬─ Phase 0 — Pre-build setup<br>
+Jun 07  ─┘   (data + access + decisions)<br>
+<br>
+Jun 08  ─┬─ Phase 1 — Core MVP (3 weeks)<br>
+Jun 28  ─┘   Request form, approval flow, repository<br>
+<br>
+Jun 29  ─┬─ Phase 2 — Queues + status (2 weeks)<br>
+Jul 12  ─┘<br>
+<br>
+Jul 13  ─┬─ Phase 3 — JLT pilot (2 weeks)<br>
+Jul 26  ─┘<br>
+<br>
+Jul 27  ─┬─ Phase 4 — Full rollout (2 weeks)<br>
+Aug 09  ─┘<br>
+<br>
+Aug 10  ──── Phase 5 — Ongoing enhancements
+</div>
+
+<div class="callout success">
+  <p><strong>Total MVP-to-live:</strong> ~9–10 weeks from 1 June 2026 kickoff.</p>
+</div>
+
+<h2 id="effort">6. Effort estimate</h2>
+
+<table>
+<thead><tr><th>Phase</th><th>Dev days</th><th>Modern Vet days</th><th>Sinergi days</th></tr></thead>
+<tbody>
+<tr><td>Phase 0 — Setup</td><td>1</td><td>2 (Michael data prep)</td><td>1 (kickoff)</td></tr>
+<tr><td>Phase 1 — Core MVP</td><td>12</td><td>1 (review demo)</td><td>3 (advisory)</td></tr>
+<tr><td>Phase 2 — Queues</td><td>8</td><td>1 (review demo)</td><td>2 (advisory)</td></tr>
+<tr><td>Phase 3 — Pilot</td><td>4</td><td>5 (training + support)</td><td>2 (advisory)</td></tr>
+<tr><td>Phase 4 — Rollout</td><td>4</td><td>8 (training across branches)</td><td>2 (advisory)</td></tr>
+<tr style="font-weight:600;background:var(--soft);"><td>Total</td><td>~29 dev days</td><td>~17 Modern Vet days</td><td>~10 Sinergi days</td></tr>
+</tbody>
+</table>
+
+<p><strong>One developer at 5 days/week = ~6 weeks of dev work spread across 9–10 calendar weeks.</strong></p>
+
+<h2 id="risks">7. Risks &amp; mitigations</h2>
+
+<table>
+<thead><tr><th>Risk</th><th>Likelihood</th><th>Impact</th><th>Mitigation</th></tr></thead>
+<tbody>
+<tr><td>Product master in EzyVet not cleanly exportable</td><td>Medium</td><td>High</td><td>Phase 0 dependency — confirm Week 1</td></tr>
+<tr><td>User mapping incomplete (missing Slack accounts)</td><td>High</td><td>Medium</td><td>Slack rollout (parallel project) is onboarding 200 staff — coordinate timing</td></tr>
+<tr><td>Category managers slow to approve</td><td>Medium</td><td>High</td><td>Reminders at 4h + 24h; add backup approvers in Phase 2</td></tr>
+<tr><td>Branch staff resist switching from WhatsApp</td><td>High</td><td>Medium</td><td>Pilot with engaged JLT team first; leadership backing; show benefits</td></tr>
+<tr><td>Sinergi unavailable during build</td><td>Low</td><td>Medium</td><td>Spec is detailed enough to build standalone; Sinergi consulted at phase gates only</td></tr>
+<tr><td>Google Sheets API rate limits</td><td>Low</td><td>Low</td><td>Cache product master; only hit API on writes</td></tr>
+<tr><td>Slack API rate limits</td><td>Low</td><td>Low</td><td>Batch notifications, exponential backoff</td></tr>
+<tr><td>Production bug loses a request</td><td>Low</td><td>High</td><td>Append-only sheet writes (never UPDATE); local file logging; daily backups</td></tr>
+</tbody>
+</table>
+
+<h2 id="questions">8. Open questions</h2>
+
+<h3>For Sinergi</h3>
+<ol>
+  <li><strong>Backup approvers</strong> — for MVP we route directly to category manager. If they're on leave, who covers? Sinergi's recommendation?</li>
+  <li><strong>Branch auto-fill</strong> — auto-fill from user mapping, or manual selection? We lean toward auto-fill with manual override.</li>
+  <li><strong>Multi-line requests</strong> — one product per request line per spec. Does Michael want a "request multiple products at once" UX?</li>
+  <li><strong>Receipt confirmation</strong> — who confirms in Slack once PO/TO is received? Receiver in user mapping, or EzyVet status webhook?</li>
+  <li><strong>Multi-currency / price</strong> — should request lines include estimated price?</li>
+  <li><strong>Reporting</strong> — what monthly/weekly reports does Michael want out of the repository sheet?</li>
+</ol>
+
+<h3>For Michael</h3>
+<ol>
+  <li><strong>Product master export</strong> — can you provide a clean EzyVet export with all required fields?</li>
+  <li><strong>Approver SLA</strong> — what's an acceptable response time?</li>
+  <li><strong>Pilot clinic</strong> — JLT, or somewhere else?</li>
+  <li><strong>Slack training</strong> — who runs branch training when we roll out?</li>
+  <li><strong>Phase 5 priorities</strong> — once MVP is live: EzyVet API, analytics dashboard, or repeat-order workflows first?</li>
+</ol>
+
+<h2 id="next">9. Next step</h2>
+
+<ol>
+  <li>Michael + Sinergi review this document</li>
+  <li>Confirm or amend in a 30-min call before 2026-06-01</li>
+  <li>Resolve the open questions in §8</li>
+  <li>Lock the kickoff date</li>
+  <li>Start Phase 0</li>
+</ol>
+
+<footer>
+  <p>Prepared by Modern Vet Marketing &amp; Tech · 26 May 2026 · v1.0</p>
+  <p>Companion documents in <code>projects/slack-inventory-app/</code>: <code>workflow-spec-sinergi.docx</code>, <code>categories-revised-michael.xlsx</code>, <code>request-repository-template.xlsx</code></p>
+</footer>
+
+</div>
+</body>
+</html>
