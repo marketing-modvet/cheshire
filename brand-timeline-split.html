@@ -5,7 +5,7 @@
 <title>Vet Alliance — Brand Timeline (Draft v4)</title>
 <style>
   /* ============ PAGE / PRINT ============ */
-  @page { size: 1200mm 320mm; margin: 0; }
+  @page { size: 1100mm 320mm; margin: 0; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
@@ -40,7 +40,7 @@
 
   .canvas {
     position: relative;
-    width: 1200mm;
+    width: 1100mm;
     height: 320mm;
     padding: 14mm 22mm 12mm 22mm;
     background:
@@ -61,32 +61,32 @@
   .brand { display: flex; align-items: center; gap: 6mm; }
   .brand-logo { height: 20mm; width: auto; }
   .brand-text h1 {
-    font-size: 10mm;
+    font-size: 11mm;
     letter-spacing: -0.4mm;
     color: var(--va-teal);
     font-weight: 800;
     line-height: 1;
   }
   .brand-text .sub {
-    font-size: 3.6mm;
+    font-size: 4mm;
     color: var(--muted);
-    margin-top: 2mm;
-    letter-spacing: 1mm;
+    margin-top: 2.2mm;
+    letter-spacing: 1.2mm;
     text-transform: uppercase;
     font-weight: 500;
   }
   .legend {
     display: flex;
     flex-direction: column;
-    gap: 2mm;
-    font-size: 3.4mm;
+    gap: 2.2mm;
+    font-size: 3.8mm;
     color: var(--ink);
     text-transform: uppercase;
     letter-spacing: 1mm;
     font-weight: 600;
   }
-  .legend-item { display: flex; align-items: center; gap: 2.5mm; }
-  .legend .dot { width: 4mm; height: 4mm; border-radius: 50%; display: inline-block; }
+  .legend-item { display: flex; align-items: center; gap: 2.8mm; }
+  .legend .dot { width: 4.5mm; height: 4.5mm; border-radius: 50%; display: inline-block; }
   .dot.mv  { background: var(--mv-navy); }
   .dot.bov { background: var(--bov-blue); }
   .dot.va  { background: var(--va-teal); }
@@ -98,23 +98,34 @@
     height: 270mm;
   }
 
-  /* TRACK label cartouches — sit BEHIND the rail start, no overshoot. */
+  /* TRACK label cartouches — white logos sit inside white chip, then brand-color text.
+     Since WeasyPrint doesn't support CSS filter, we use pre-made WHITE logo PNGs. */
   .track-cart {
     position: absolute;
     display: flex; align-items: center; gap: 3mm;
-    padding: 2.5mm 5mm;
+    padding: 2.5mm 5mm 2.5mm 3mm;
     border-radius: 2mm;
     font-weight: 800;
     text-transform: uppercase;
-    font-size: 4mm;
-    letter-spacing: 1.5mm;
+    font-size: 4.6mm;
+    letter-spacing: 1.6mm;
     z-index: 5;
     white-space: nowrap;
   }
-  .cart-mv  { left: 0; top: 75mm;  background: var(--mv-navy); color: #fff; }
+  .cart-mv  { left: 0; top: 73mm;  background: var(--mv-navy);  color: #fff; }
   .cart-bov { left: 0; top: 179mm; background: var(--bov-blue); color: #fff; }
-  .cart-va  { right: 0; top: 122mm; background: var(--va-teal); color: #fff; }
-  .track-cart img { height: 5mm; filter: brightness(0) invert(1); }
+  .cart-va  { right: 0; top: 122mm; background: var(--va-teal);  color: #fff; }
+  /* logo chip inside cartouche: white background, native-color logo */
+  .track-cart .chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 1.4mm;
+    padding: 1.2mm 2mm;
+    height: 7.5mm;
+  }
+  .track-cart .chip img { height: 5.5mm; width: auto; display: block; }
 
   /* RAILS - start AFTER the cartouche, so cartouche never overshoots */
   .rail {
@@ -131,19 +142,19 @@
     z-index: -1;
   }
   .rail-mv  {
-    left: 62mm; top: 84mm;
-    width: 588mm;
+    left: 70mm; top: 84mm;
+    width: 530mm;
     background: var(--mv-navy);
   }
   .rail-bov {
-    left: 62mm; top: 188mm;
-    width: 588mm;
+    left: 70mm; top: 188mm;
+    width: 530mm;
     background: var(--bov-blue);
   }
   .rail-va {
     right: 65mm;
     top: 132mm;
-    width: 360mm;
+    width: 320mm;
     height: 5mm;
     border-radius: 2.5mm;
     background: var(--va-teal);
@@ -162,7 +173,7 @@
   /* Y-MERGE between rails and unified rail */
   .merge {
     position: absolute;
-    left: 648mm;
+    left: 598mm;
     top: 80mm;
     width: 200mm;
     height: 116mm;
@@ -173,7 +184,7 @@
   /* ============ EVENT NODES ============ */
   .node {
     position: absolute;
-    width: 75mm;
+    width: 78mm;
     text-align: left;
     display: flex;
     flex-direction: column;
@@ -181,7 +192,7 @@
   }
   .node .yearbar { display: flex; align-items: baseline; gap: 2mm; justify-content: center; width: 100%; }
   .node .year {
-    font-size: 8.5mm;
+    font-size: 9.5mm;
     font-weight: 800;
     line-height: 1;
     letter-spacing: -0.3mm;
@@ -192,27 +203,27 @@
 
   .node .events {
     margin-top: 2.5mm;
-    font-size: 3.2mm;
+    font-size: 3.8mm;
     line-height: 1.4;
     color: var(--ink);
     width: 100%;
   }
   .node .events li {
     list-style: none;
-    margin-bottom: 1.2mm;
+    margin-bottom: 1.4mm;
     text-align: left;
-    padding-left: 6.5mm;   /* indent text past the icon */
+    padding-left: 7mm;     /* indent text past the icon */
     position: relative;
-    min-height: 5mm;
+    min-height: 5.5mm;
   }
   .node .events li .ic {
     position: absolute;
     left: 0;
-    top: 0.5mm;
+    top: 0.6mm;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 4.4mm; height: 4.4mm;
+    width: 5mm; height: 5mm;
     color: var(--icon);    /* NEUTRAL ink color so icons read on any rail */
   }
   .node .events li .ic svg { width: 100%; height: 100%; }
@@ -222,80 +233,19 @@
   .node.bov .events li strong { color: var(--bov-blue); }
   .node.va  .events li strong { color: var(--va-teal); }
 
-  /* ============ PENNANT FLAG SYSTEM ============ */
-  /* Two distinct flag orientations:
-     - "above" rail nodes: card sits ABOVE rail, flag points UP from rail toward card
-     - "below" rail nodes: card sits BELOW rail, flag points DOWN from rail toward card
-     The pin (circle) always sits ON the rail.
-     The pole rises 16mm OUT from the pin in the flag's direction.
-     The pennant flies from the top of the pole (above-flag) or bottom (below-flag). */
-
+  /* ============ PENNANT FLAG SYSTEM (SVG) ============ */
+  /* Use a single inline SVG for the whole flag (pole + triangular pennant + pin).
+     WeasyPrint doesn't support clip-path on divs, so SVG is the reliable path. */
   .flag {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     width: 12mm;
+    height: 22mm;
     pointer-events: none;
     z-index: 4;
   }
-  .flag .pole {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0.5mm;
-    height: 16mm;
-    background: var(--pole);
-    border-radius: 0.3mm;
-  }
-  .flag .pennant {
-    position: absolute;
-    left: 50%;
-    width: 8mm;
-    height: 5mm;
-    background: var(--sage);
-  }
-  .flag .pennant.mv  { background: var(--mv-navy); }
-  .flag .pennant.bov { background: var(--bov-blue); }
-  .flag .pennant.va  { background: var(--va-teal); }
-
-  .flag .pin {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 3.5mm; height: 3.5mm;
-    border-radius: 50%;
-    background: #fff;
-    border: 1.1mm solid var(--va-teal);
-    z-index: 6;
-  }
-  .flag.mv  .pin { border-color: var(--mv-navy); }
-  .flag.bov .pin { border-color: var(--bov-blue); }
-  .flag.va  .pin { border-color: var(--va-teal); }
-
-  /* ABOVE-rail flag: flag rises UPWARD from the rail toward the card above.
-     - pin sits at the bottom of the flag block (the rail)
-     - pole rises up from the pin
-     - pennant is at the top of the pole, flag points RIGHT
-     Layout: total height = 20mm. pin at bottom, pole y 0..16, pennant 1..6 */
-  .flag.up { height: 20mm; }
-  .flag.up .pole    { top: 1mm; }
-  .flag.up .pennant {
-    top: 1mm;
-    clip-path: polygon(0 0, 100% 50%, 0 100%);
-  }
-  .flag.up .pin { bottom: -1.75mm; }
-
-  /* BELOW-rail flag: flag hangs DOWNWARD from the rail toward the card below.
-     - pin at the top of the flag block (the rail)
-     - pole hangs down from pin
-     - pennant at the bottom of the pole, flag points RIGHT */
-  .flag.down { height: 20mm; }
-  .flag.down .pole    { bottom: 1mm; }
-  .flag.down .pennant {
-    bottom: 1mm;
-    clip-path: polygon(0 0, 100% 50%, 0 100%);
-  }
-  .flag.down .pin { top: -1.75mm; }
+  .flag svg { width: 100%; height: 100%; display: block; overflow: visible; }
 
   /* node padding so card clears the flag */
   .node.above {
@@ -314,9 +264,9 @@
   /* ============ UNION ============ */
   .union {
     position: absolute;
-    left: 638mm;
+    left: 590mm;
     top: 92mm;
-    width: 240mm;
+    width: 232mm;
     height: 86mm;
     display: flex;
     flex-direction: column;
@@ -336,9 +286,9 @@
   .union .union-year {
     background: linear-gradient(135deg, var(--va-teal) 0%, #074047 100%);
     color: #fff;
-    font-size: 10mm;
+    font-size: 11mm;
     font-weight: 900;
-    padding: 2.5mm 10mm;
+    padding: 2.8mm 11mm;
     border-radius: 2mm;
     letter-spacing: -0.3mm;
     margin-bottom: 1.5mm;
@@ -346,70 +296,70 @@
   }
   .union .formed {
     background: #fff;
-    border: 0.5mm solid var(--va-teal);
+    border: 0.6mm solid var(--va-teal);
     border-radius: 1.8mm;
-    padding: 2.5mm 6mm;
+    padding: 2.8mm 7mm;
     display: flex; align-items: center; gap: 3mm;
     color: var(--va-teal);
-    font-size: 4mm;
+    font-size: 4.4mm;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 1.2mm;
+    letter-spacing: 1.3mm;
     white-space: nowrap;
   }
-  .union .formed img { height: 7mm; }
+  .union .formed img { height: 7.5mm; }
   .union .joiners {
     display: flex;
     gap: 3mm;
-    margin-top: 1.5mm;
+    margin-top: 2mm;
   }
   .union .joiner {
     background: #fff;
     border-radius: 1.8mm;
-    padding: 2mm 4mm;
-    display: flex; align-items: center; gap: 2.5mm;
-    font-size: 3mm;
+    padding: 2.2mm 4.5mm;
+    display: flex; align-items: center; gap: 2.8mm;
+    font-size: 3.4mm;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.5mm;
+    letter-spacing: 0.6mm;
     color: var(--ink);
     white-space: nowrap;
   }
-  .union .joiner img { height: 5.5mm; }
-  .union .joiner.mv  { border-bottom: 1.3mm solid var(--mv-navy); }
-  .union .joiner.bov { border-bottom: 1.3mm solid var(--bov-blue); }
-  .union .joiner .label { color: var(--muted); font-size: 2.2mm; letter-spacing: 0.6mm; }
+  .union .joiner img { height: 6mm; }
+  .union .joiner.mv  { border-bottom: 1.4mm solid var(--mv-navy); }
+  .union .joiner.bov { border-bottom: 1.4mm solid var(--bov-blue); }
+  .union .joiner .label { color: var(--muted); font-size: 2.5mm; letter-spacing: 0.6mm; }
 
   /* ============ TODAY ============ */
   .today {
     position: absolute;
     right: 25mm;
     bottom: 18mm;
-    width: 130mm;
+    width: 140mm;
     background: linear-gradient(135deg, #fff 0%, var(--va-teal-soft) 100%);
-    border: 0.5mm solid var(--va-teal);
+    border: 0.6mm solid var(--va-teal);
     border-radius: 2.5mm;
-    padding: 4mm 6mm;
+    padding: 4.5mm 6mm;
     text-align: center;
   }
   .today .lbl {
-    font-size: 3.4mm;
+    font-size: 3.8mm;
     color: var(--va-teal);
     font-weight: 800;
-    letter-spacing: 1.6mm;
+    letter-spacing: 1.8mm;
     text-transform: uppercase;
   }
   .today .stat {
-    font-size: 7mm;
+    font-size: 8mm;
     font-weight: 800;
     color: var(--va-teal);
     line-height: 1.15;
-    margin-top: 1.5mm;
+    margin-top: 2mm;
   }
   .today .tag {
-    font-size: 3mm;
+    font-size: 3.4mm;
     color: var(--muted);
-    margin-top: 1.5mm;
+    margin-top: 2mm;
     font-style: italic;
   }
 
@@ -478,13 +428,13 @@
 
     <!-- TRACK label cartouches -->
     <div class="track-cart cart-mv">
-      <img src="brand-timeline-assets/logos/modernvet-trim.png" alt="MV"> Modern Vet
+      <span class="chip"><img src="brand-timeline-assets/logos/modernvet-trim.png" alt="MV"></span> Modern Vet
     </div>
     <div class="track-cart cart-bov">
-      <img src="brand-timeline-assets/logos/blueoasisvet-trim.png" alt="BOV"> Blue Oasis Vet
+      <span class="chip"><img src="brand-timeline-assets/logos/blueoasisvet-trim.png" alt="BOV"></span> Blue Oasis Vet
     </div>
     <div class="track-cart cart-va">
-      <img src="brand-timeline-assets/logos/vetalliance-trim.png" alt="VA"> Vet Alliance
+      <span class="chip"><img src="brand-timeline-assets/logos/vetalliance-trim.png" alt="VA"></span> Vet Alliance
     </div>
 
     <!-- RAILS -->
@@ -505,18 +455,26 @@
     <!-- ============ MODERN VET NODES (rail at top=84mm) ============ -->
 
     <!-- 1995 - above -->
-    <div class="node mv above" style="left: 130mm; top: 16mm; height: 68mm;">
+    <div class="node mv above" style="left: 115mm; top: 14mm; height: 70mm;">
       <div class="yearbar"><span class="year">1995</span></div>
       <ul class="events">
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="14" rx="1"/><path d="M12 11v6M9 14h6"/><path d="M8 7V4h8v3"/></svg></span><span class="txt"><strong>Modern Veterinary Clinic founded</strong></span></li>
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11c0-2 1-4 3-5l2 2 3-3 3 1c1 1 1 3 0 4l-1 1v6c0 2-2 3-4 3h-2c-3 0-4-2-4-4z"/><circle cx="10" cy="12" r=".7" fill="currentColor"/></svg></span><span class="txt">1st patient — Snoopy</span></li>
       </ul>
-      <div class="flag up mv"><div class="pole"></div><div class="pennant mv"></div><div class="pin"></div></div>
+      <div class="flag up mv"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
+  <line x1="5.5" y1="3" x2="5.5" y2="20" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <polygon points="5.5,3 11.5,5.5 5.5,8" fill="#1F1F4D"/>
+  <circle cx="5.5" cy="20" r="1.6" fill="#ffffff" stroke="#1F1F4D" stroke-width="1"/>
+</svg></div>
     </div>
 
     <!-- 2007 - below -->
-    <div class="node mv below" style="left: 195mm; top: 84mm;">
-      <div class="flag down mv"><div class="pole"></div><div class="pennant mv"></div><div class="pin"></div></div>
+    <div class="node mv below" style="left: 200mm; top: 84mm;">
+      <div class="flag down mv"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
+  <line x1="5.5" y1="2" x2="5.5" y2="19" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <polygon points="5.5,14 11.5,16.5 5.5,19" fill="#1F1F4D"/>
+  <circle cx="5.5" cy="2" r="1.6" fill="#ffffff" stroke="#1F1F4D" stroke-width="1"/>
+</svg></div>
       <div class="yearbar"><span class="year">2007</span></div>
       <ul class="events">
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8c-2 0-3 1-3 2.5S4 13 6 13l5-5c0-2-1-3-2.5-3S6 6 6 8zM18 16c2 0 3-1 3-2.5S20 11 18 11l-5 5c0 2 1 3 2.5 3s2.5-1 2.5-3z"/></svg></span><span class="txt"><strong>1st Hip Replacement Surgery</strong> in the UAE</span></li>
@@ -525,17 +483,25 @@
     </div>
 
     <!-- 2018 - above -->
-    <div class="node mv above" style="left: 290mm; top: 24mm; height: 60mm;">
+    <div class="node mv above" style="left: 265mm; top: 24mm; height: 60mm;">
       <div class="yearbar"><span class="year">2018</span></div>
       <ul class="events">
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="14" rx="1"/><path d="M12 11v6M9 14h6"/><path d="M8 7V4h8v3"/></svg></span><span class="txt"><strong>JVC Clinic opens</strong></span></li>
       </ul>
-      <div class="flag up mv"><div class="pole"></div><div class="pennant mv"></div><div class="pin"></div></div>
+      <div class="flag up mv"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
+  <line x1="5.5" y1="3" x2="5.5" y2="20" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <polygon points="5.5,3 11.5,5.5 5.5,8" fill="#1F1F4D"/>
+  <circle cx="5.5" cy="20" r="1.6" fill="#ffffff" stroke="#1F1F4D" stroke-width="1"/>
+</svg></div>
     </div>
 
     <!-- 2020 - below -->
-    <div class="node mv below" style="left: 425mm; top: 84mm;">
-      <div class="flag down mv"><div class="pole"></div><div class="pennant mv"></div><div class="pin"></div></div>
+    <div class="node mv below" style="left: 405mm; top: 84mm;">
+      <div class="flag down mv"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
+  <line x1="5.5" y1="2" x2="5.5" y2="19" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <polygon points="5.5,14 11.5,16.5 5.5,19" fill="#1F1F4D"/>
+  <circle cx="5.5" cy="2" r="1.6" fill="#ffffff" stroke="#1F1F4D" stroke-width="1"/>
+</svg></div>
       <div class="yearbar"><span class="year">2020</span></div>
       <ul class="events">
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="14" rx="1"/><path d="M12 11v6M9 14h6"/><path d="M8 7V4h8v3"/></svg></span><span class="txt"><strong>JLT Clinic opens</strong></span></li>
@@ -545,19 +511,27 @@
     </div>
 
     <!-- 2021 - above -->
-    <div class="node mv above" style="left: 485mm; top: 4mm; height: 80mm;">
+    <div class="node mv above" style="left: 458mm; top: 4mm; height: 80mm;">
       <div class="yearbar"><span class="year">2021</span></div>
       <ul class="events">
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="14" rx="1"/><path d="M12 11v6M9 14h6"/><path d="M8 7V4h8v3"/></svg></span><span class="txt"><strong>Downtown Clinic opens</strong></span></li>
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 10c0 5.5-7 10-7 10z"/></svg></span><span class="txt">1st Open Heart Surgery in the UAE</span></li>
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14a8 8 0 11-9-9 6 6 0 009 9z"/></svg></span><span class="txt">1st 24-Hour Hospital</span></li>
       </ul>
-      <div class="flag up mv"><div class="pole"></div><div class="pennant mv"></div><div class="pin"></div></div>
+      <div class="flag up mv"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
+  <line x1="5.5" y1="3" x2="5.5" y2="20" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <polygon points="5.5,3 11.5,5.5 5.5,8" fill="#1F1F4D"/>
+  <circle cx="5.5" cy="20" r="1.6" fill="#ffffff" stroke="#1F1F4D" stroke-width="1"/>
+</svg></div>
     </div>
 
     <!-- 2022 - below -->
-    <div class="node mv below" style="left: 575mm; top: 84mm;">
-      <div class="flag down mv"><div class="pole"></div><div class="pennant mv"></div><div class="pin"></div></div>
+    <div class="node mv below" style="left: 540mm; top: 84mm;">
+      <div class="flag down mv"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
+  <line x1="5.5" y1="2" x2="5.5" y2="19" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <polygon points="5.5,14 11.5,16.5 5.5,19" fill="#1F1F4D"/>
+  <circle cx="5.5" cy="2" r="1.6" fill="#ffffff" stroke="#1F1F4D" stroke-width="1"/>
+</svg></div>
       <div class="yearbar"><span class="year">2022</span></div>
       <ul class="events">
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V10M12 10c-3-3-7-3-9-1 2-1 5 0 6 2M12 10c3-3 7-3 9-1-2-1-5 0-6 2M12 10c-1-3-3-5-6-5 2 1 3 3 3 5M12 10c1-3 3-5 6-5-2 1-3 3-3 5"/></svg></span><span class="txt"><strong>Palm Clinic opens</strong></span></li>
@@ -567,47 +541,67 @@
     </div>
 
     <!-- 2023 - above (closer to merge) -->
-    <div class="node mv above" style="left: 622mm; top: 16mm; height: 68mm;">
+    <div class="node mv above" style="left: 590mm; top: 14mm; height: 70mm;">
       <div class="yearbar"><span class="year">2023</span></div>
       <ul class="events">
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="14" rx="1"/><path d="M12 11v6M9 14h6"/><path d="M8 7V4h8v3"/></svg></span><span class="txt"><strong>Khawaneej Clinic opens</strong></span></li>
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M9 6l12 12M9 18L21 6"/></svg></span><span class="txt">263,036 T-N-R's performed</span></li>
       </ul>
-      <div class="flag up mv"><div class="pole"></div><div class="pennant mv"></div><div class="pin"></div></div>
+      <div class="flag up mv"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
+  <line x1="5.5" y1="3" x2="5.5" y2="20" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <polygon points="5.5,3 11.5,5.5 5.5,8" fill="#1F1F4D"/>
+  <circle cx="5.5" cy="20" r="1.6" fill="#ffffff" stroke="#1F1F4D" stroke-width="1"/>
+</svg></div>
     </div>
 
     <!-- ============ BLUE OASIS NODES (rail at top=184mm) ============ -->
 
-    <!-- 2008 - above -->
-    <div class="node bov above" style="left: 100mm; top: 120mm; height: 68mm;">
+    <!-- 2008 - above (placed LOW to avoid 2007 MV-below card) -->
+    <div class="node bov above" style="left: 95mm; top: 138mm; height: 50mm;">
       <div class="yearbar"><span class="year">2008</span></div>
       <ul class="events">
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="14" rx="1"/><path d="M12 11v6M9 14h6"/><path d="M8 7V4h8v3"/></svg></span><span class="txt"><strong>Blue Oasis Vet founded</strong></span></li>
       </ul>
-      <div class="flag up bov"><div class="pole"></div><div class="pennant bov"></div><div class="pin"></div></div>
+      <div class="flag up bov"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
+  <line x1="5.5" y1="3" x2="5.5" y2="20" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <polygon points="5.5,3 11.5,5.5 5.5,8" fill="#2B8CCB"/>
+  <circle cx="5.5" cy="20" r="1.6" fill="#ffffff" stroke="#2B8CCB" stroke-width="1"/>
+</svg></div>
     </div>
 
     <!-- 2016 - below -->
-    <div class="node bov below" style="left: 220mm; top: 188mm;">
-      <div class="flag down bov"><div class="pole"></div><div class="pennant bov"></div><div class="pin"></div></div>
+    <div class="node bov below" style="left: 215mm; top: 188mm;">
+      <div class="flag down bov"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
+  <line x1="5.5" y1="2" x2="5.5" y2="19" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <polygon points="5.5,14 11.5,16.5 5.5,19" fill="#2B8CCB"/>
+  <circle cx="5.5" cy="2" r="1.6" fill="#ffffff" stroke="#2B8CCB" stroke-width="1"/>
+</svg></div>
       <div class="yearbar"><span class="year">2016</span></div>
       <ul class="events">
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12V7a5 5 0 0114 0v5"/><path d="M5 12v5a5 5 0 005 5h0M19 12v5a5 5 0 01-5 5h0"/><path d="M5 12h4M15 12h4"/></svg></span><span class="txt"><strong>First Vet MRI</strong> in private practice</span></li>
       </ul>
     </div>
 
-    <!-- 2019 - above -->
-    <div class="node bov above" style="left: 335mm; top: 120mm; height: 68mm;">
+    <!-- 2019 - above (placed LOW to stay clear of 2020 MV's wider card) -->
+    <div class="node bov above" style="left: 300mm; top: 138mm; height: 50mm;">
       <div class="yearbar"><span class="year">2019</span></div>
       <ul class="events">
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 14l8-2 4-9 2 1-2 8 7 1 1 2-7 1-2 8-2-1 1-7-8-2z"/></svg></span><span class="txt"><strong>Blue Sky Pet Relocation founded</strong></span></li>
       </ul>
-      <div class="flag up bov"><div class="pole"></div><div class="pennant bov"></div><div class="pin"></div></div>
+      <div class="flag up bov"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
+  <line x1="5.5" y1="3" x2="5.5" y2="20" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <polygon points="5.5,3 11.5,5.5 5.5,8" fill="#2B8CCB"/>
+  <circle cx="5.5" cy="20" r="1.6" fill="#ffffff" stroke="#2B8CCB" stroke-width="1"/>
+</svg></div>
     </div>
 
     <!-- 2022 BOV - below -->
-    <div class="node bov below" style="left: 510mm; top: 188mm;">
-      <div class="flag down bov"><div class="pole"></div><div class="pennant bov"></div><div class="pin"></div></div>
+    <div class="node bov below" style="left: 470mm; top: 188mm;">
+      <div class="flag down bov"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
+  <line x1="5.5" y1="2" x2="5.5" y2="19" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <polygon points="5.5,14 11.5,16.5 5.5,19" fill="#2B8CCB"/>
+  <circle cx="5.5" cy="2" r="1.6" fill="#ffffff" stroke="#2B8CCB" stroke-width="1"/>
+</svg></div>
       <div class="yearbar"><span class="year">2022</span></div>
       <ul class="events">
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="14" rx="1"/><path d="M12 11v6M9 14h6"/><path d="M8 7V4h8v3"/></svg></span><span class="txt"><strong>Blue Oasis D2 Clinic opens</strong></span></li>
@@ -636,7 +630,7 @@
     <!-- ============ VET ALLIANCE NODES ============ -->
 
     <!-- Late 2024 - above -->
-    <div class="node va above" style="left: 870mm; top: 58mm; height: 74mm;">
+    <div class="node va above" style="left: 820mm; top: 56mm; height: 76mm;">
       <div class="yearbar"><span class="year">Late 2024</span></div>
       <ul class="events">
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 14l8-2 4-9 2 1-2 8 7 1 1 2-7 1-2 8-2-1 1-7-8-2z"/></svg></span><span class="txt"><strong>Blue Sky Pet Relocation joins</strong></span></li>
@@ -644,12 +638,20 @@
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v6a4 4 0 008 0V4"/><circle cx="17" cy="15" r="3"/><path d="M10 14v1a4 4 0 004 4"/></svg></span><span class="txt">1st V-Clamp Surgery in the region</span></li>
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="16" cy="9" r="2.5"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5M14 20c0-2 2-4 5-4"/></svg></span><span class="txt">200th employee joins</span></li>
       </ul>
-      <div class="flag up va"><div class="pole"></div><div class="pennant va"></div><div class="pin"></div></div>
+      <div class="flag up va"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
+  <line x1="5.5" y1="3" x2="5.5" y2="20" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <polygon points="5.5,3 11.5,5.5 5.5,8" fill="#0B5C63"/>
+  <circle cx="5.5" cy="20" r="1.6" fill="#ffffff" stroke="#0B5C63" stroke-width="1"/>
+</svg></div>
     </div>
 
     <!-- 2025 - below -->
-    <div class="node va below" style="left: 990mm; top: 132mm;">
-      <div class="flag down va"><div class="pole"></div><div class="pennant va"></div><div class="pin"></div></div>
+    <div class="node va below" style="left: 935mm; top: 132mm;">
+      <div class="flag down va"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
+  <line x1="5.5" y1="2" x2="5.5" y2="19" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <polygon points="5.5,14 11.5,16.5 5.5,19" fill="#0B5C63"/>
+  <circle cx="5.5" cy="2" r="1.6" fill="#ffffff" stroke="#0B5C63" stroke-width="1"/>
+</svg></div>
       <div class="yearbar"><span class="year">2025</span></div>
       <ul class="events">
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="14" rx="1"/><path d="M12 11v6M9 14h6"/><path d="M8 7V4h8v3"/></svg></span><span class="txt"><strong>Opened GCC's 1st Veterinary Referral Centre</strong></span></li>
