@@ -267,14 +267,12 @@
 
 <header>
   <h1>Vet Alliance — Slack Structure</h1>
-  <div class="subtitle">Phase 3 Scheme · v1.8 · Full company rollout</div>
-  <div class="meta">Drafted 5 May 2026 · Revised 18 May 2026 · For internal review · Companion presentation: <a href="slack-phase3-presentation.html" style="color:var(--gold-bright);">slack-phase3-presentation.html</a></div>
-  <div class="meta" style="margin-top:.5rem;"><strong>v1.9 (26 May 2026):</strong> Finance collapsed to single <code>team-finance</code> (AP/AR dropped) + new <code>team-finance-management-accounts-pnl</code> · Maintenance Option A locked (central only, no per-clinic) · Judit's clinic-list design locked (one cross-org rep group + master list split via workflows) · Mansoor sign-off downgraded (architecture approved May 6) · Per-clinic count reduced from 5 → 4 channels — total clinic count ~49 not 60.</div>
-  <div class="meta" style="margin-top:.5rem;"><strong>v1.8 (dept-head round 1):</strong> +help-ezyvet (CTO) · team-cx → team-cx-leadership · team-cc-handoffs → team-cx-handoffs · team-clinical → team-clinical-leadership · team-ops-fitout → team-ops-projects (Judit) · +team-clinical-nurses-announcements (Sandy) · +clinic-mv-mob-bookings (Scott) · HR expanded to 8 channels (Shari) · CX escalation playbook drafted (Aida confirms)</div>
-  <div class="meta" style="margin-top:.5rem;">v1.4: ALL clinic channels private · Sandy + Scott own all clinics except VV/TVRC · dual-list pattern</div>
-  <div class="meta">v1.3: vendors trimmed to 2 · brand-* &amp; proj-* removed · BizDev under Hadi · social-marketplace</div>
-  <div class="meta">v1.2: BizDev cluster · CC separate entity · inter-dept comms</div>
-  <div class="meta">v1.1: Option B per-clinic inventory/maintenance · HQ + TVRC · Master Lists (Note: superseded — v1.9 dropped per-clinic maintenance)</div>
+  <div class="subtitle">Phase 3 Scheme · v1.4 · Full company rollout</div>
+  <div class="meta">Drafted 5 May 2026 · Revised 7 May 2026 · For internal review · Companion presentation: <a href="slack-phase3-presentation.html" style="color:var(--gold-bright);">slack-phase3-presentation.html</a></div>
+  <div class="meta" style="margin-top:.5rem;"><strong>v1.4: ALL clinic channels private</strong> · Sandy + Scott own all clinics except VV/TVRC · dual-list pattern (per-clinic + private master) replaces master+views (which doesn't actually preserve privacy)</div>
+  <div class="meta" style="margin-top:.5rem;">v1.3: vendors trimmed to 2 · brand-* &amp; proj-* removed · BizDev under Hadi · social-marketplace</div>
+  <div class="meta">v1.2: BizDev cluster · CC separate entity · inter-dept comms · worked Lists example</div>
+  <div class="meta">v1.1: Option B per-clinic inventory/maintenance · HQ + TVRC · Master Lists · Amy→Aida · Kavita→Andrew</div>
 </header>
 
 <nav class="nav-toc">
@@ -344,7 +342,7 @@
 │  │   ├─ team-ops-approvals-equipment ✏️    Michael
 │  │   ├─ team-ops-approvals-medicine  ✏️    Michael
 │  │   ├─ team-ops-maintenance         🆕    Judit
-│  │   ├─ team-ops-projects            🆕    Judit (renamed from fitout)
+│  │   ├─ team-ops-fitout              🆕    Judit
 │  │   └─ team-ops-licensing           🆕    Scott + Yusuf
 │  │
 │  ├─ CLINICAL (6 ch · Dr. Rami / Dr. Dieter)
@@ -375,19 +373,19 @@
 │  │
 │  ├─ FINANCE (5 ch · Harshita — Head of Finance)
 │  │   ├─ team-finance                       Harshita
-│  │   ├─ team-finance                       Harshita + Francis + Husain + Vijomon + Abid (v1.9: AP/AR folded in)
-│  │   ├─ team-finance-management-accounts-pnl 📢  🆕 v1.9 (Mansoor + Harshita + Hadi)
+│  │   ├─ team-finance-ap              📢    Pauline + Harshita
+│  │   ├─ team-finance-ar              📢    Harshita
 │  │   ├─ team-finance-discounts       📢    Sandy + Aida
 │  │   └─ team-finance-pricing         📢    Mansoor + Scott
 │  │
-│  └─ BUSINESS DEVELOPMENT (4 ch · Hadi — Chief Development Officer) 🆕
-│      ├─ team-bizdev                        Hadi (BD leadership)
-│      ├─ team-bizdev-partnerships           Hadi
+│  └─ BUSINESS DEVELOPMENT (4 ch · Hadi — Chief Development Officer) 🆕  ⚙ updated per CIO
+│      ├─ team-bizdev                  🔒    Hadi · Aida · Scott ONLY (BD leadership room)
+│      ├─ partnerships-bizdev          🌐    Hadi (HQ-wide — partnership / expansion ideas from any team member)
 │      ├─ team-bizdev-expansion              Hadi + Mansoor
 │      └─ team-bizdev-pipeline         📢    Hadi (active deals tracker)
 │
-├─ clinic-                                           (Locations · v1.9: ~49 ch = 12 × 4 — maintenance is central, not per-clinic)
-│  ├─ Modern Vet (8 branches × 4 = 32)
+├─ clinic-                                           (Locations · 60 ch = 12 × 5)
+│  ├─ Modern Vet (8 branches × 5 = 40)
 │  │   ├─ clinic-mv-mb /-med /-fd /-inventory /-maintenance     Anissa     ★ PILOT
 │  │   ├─ clinic-mv-palm  (5 ch)
 │  │   ├─ clinic-mv-dt    (5 ch · 3 vets, downsized)
@@ -396,13 +394,13 @@
 │  │   ├─ clinic-mv-az    (5 ch · Azizi Riviera, partial Tue–Sat)
 │  │   ├─ clinic-mv-khw   (5 ch · Khawaneej, reno → Jun/Jul)
 │  │   └─ clinic-mv-mob   (5 ch · Mobile Clinic)
-│  ├─ BOVC (1 × 4 = 4 — D2 closed, dropped)
+│  ├─ BOVC (1 × 5 = 5 — D2 closed, dropped)
 │  │   └─ clinic-bovc-dip (5 ch)
-│  ├─ Vienna Vet (1 × 4 = 4)
+│  ├─ Vienna Vet (1 × 5 = 5)
 │  │   └─ clinic-vv  (5 ch · was Amy → Aida + branch lead TBC)
-│  ├─ TVRC (1 × 4 = 4 · was TVRH, rebranded)
+│  ├─ TVRC (1 × 5 = 5 · was TVRH, rebranded)
 │  │   └─ clinic-tvrc  (5 ch · oncology + CT focus)
-│  └─ HQ — removed in v1.8, Head Office staff use va-management
+│  └─ HQ (1 × 2-5 = 2-5 · 🆕 Head Office)
 │      └─ clinic-hq  (general + maintenance · Mansoor/Scott)
 │
 [brand-* REMOVED v1.3 — brands roll into Vet Alliance; branding sits in marketing]
@@ -435,7 +433,7 @@
     <thead><tr><th>Prefix</th><th>Purpose</th><th>Lifecycle</th><th>Example</th></tr></thead>
     <tbody>
       <tr><td><span class="legend-pill pfx-va">va-</span></td><td>Org-wide. Announcements, leadership, all-hands.</td><td>Permanent</td><td><code>va-announcements</code></td></tr>
-      <tr><td><span class="legend-pill pfx-team">team-</span></td><td>Functional teams. Day-to-day work.</td><td>Permanent</td><td><code>team-finance</code></td></tr>
+      <tr><td><span class="legend-pill pfx-team">team-</span></td><td>Functional teams. Day-to-day work.</td><td>Permanent</td><td><code>team-finance-ap</code></td></tr>
       <tr><td><span class="legend-pill pfx-clinic">clinic-</span></td><td>Branch / clinic / location operations.</td><td>Permanent</td><td><code>clinic-mv-mb</code></td></tr>
       <tr><td><span class="legend-pill pfx-vendor">vendor-</span></td><td>External partner / vendor channels (2 only: eCRE8 + Synergi).</td><td>Permanent unless ended</td><td><code>vendor-ecre8</code></td></tr>
       <tr><td><span class="legend-pill pfx-help">help-</span></td><td>Service desk style. Anyone can ask.</td><td>Permanent</td><td><code>help-it</code></td></tr>
@@ -472,7 +470,7 @@
         <li><span class="ch">team-ops-approvals-equipment</span> 🔒📢 <span class="meta-tag rename">rename</span></li>
         <li><span class="ch">team-ops-approvals-medicine</span> 🔒📢 <span class="meta-tag rename">rename</span></li>
         <li><span class="ch">team-ops-maintenance</span> 🔒🔓 <span class="meta-tag new">new</span></li>
-        <li><span class="ch">team-ops-projects</span> 🔒🔓 <span class="meta-tag new">v1.8 (renamed)</span></li>
+        <li><span class="ch">team-ops-fitout</span> 🔒🔓 <span class="meta-tag new">new</span></li>
         <li><span class="ch">team-ops-licensing</span> 🔒🔓 <span class="meta-tag new">new</span></li>
       </ul>
     </div>
@@ -480,7 +478,7 @@
     <div class="card">
       <h3>🩺 Clinical — Dr. Rami / Dieter</h3>
       <ul class="channel-list">
-        <li><span class="ch">team-clinical-leadership</span> 🔒🔓 <span class="meta-tag new">v1.8 (renamed)</span></li>
+        <li><span class="ch">team-clinical</span> 🔒🔓 <span class="meta-tag new">new</span></li>
         <li><span class="ch">team-clinical-vets</span> 🔒🔓 <span class="meta-tag new">new</span></li>
         <li><span class="ch">team-clinical-nurses</span> 🔒🔓 <span class="meta-tag new">new</span></li>
         <li><span class="ch">team-clinical-medical-product</span> 🔒🔓 <span class="meta-tag new">new</span></li>
@@ -493,7 +491,7 @@
     <div class="card">
       <h3>📞 Customer Experience — Aida</h3>
       <ul class="channel-list">
-        <li><span class="ch">team-cx-leadership</span> 🔒🔓 <span class="meta-tag new">v1.8 (renamed)</span></li>
+        <li><span class="ch">team-cx</span> 🔒🔓 <span class="meta-tag new">new</span></li>
         <li><span class="ch">team-cx-reception</span> 🔒🔓 <span class="meta-tag new">new</span></li>
         <li><span class="ch">team-cx-scheduling</span> 🔒🔓 <span class="meta-tag new">new</span></li>
         <li><span class="ch">team-cx-complaints</span> 🔒📢 <span class="meta-tag new">new</span></li>
@@ -517,8 +515,8 @@
       <p style="font-size:.78rem;color:var(--muted);">Hadi = Chief Development Officer (sits in <code>va-leadership</code> for strategy, not day-to-day finance).</p>
       <ul class="channel-list">
         <li><span class="ch">team-finance</span> 🔒🔓 <span class="meta-tag new">new</span></li>
-        <li><span class="ch">team-finance</span> 🔒🔓 <span class="meta-tag new">v1.9 (general, AP/AR folded in)</span></li>
-        <li><span class="ch">team-finance-management-accounts-pnl</span> 🔒📢 <span class="meta-tag new">v1.9 new</span></li>
+        <li><span class="ch">team-finance-ap</span> 🔒📢 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-finance-ar</span> 🔒📢 <span class="meta-tag new">new</span></li>
         <li><span class="ch">team-finance-discounts</span> 🔒📢 <span class="meta-tag new">new</span></li>
         <li><span class="ch">team-finance-pricing</span> 🔒📢 <span class="meta-tag new">new</span></li>
       </ul>
@@ -528,8 +526,8 @@
 </section>
 
 <section id="clinics">
-  <h2>Locations — the structural fix (v1.9)</h2>
-  <p>Today: every clinic = one giant chat with vets + nurses + reception + assistants. Bad signal-to-noise. <strong>v1.9 fix:</strong> 4 channels per active location (general, medical, front-desk, inventory) — branch staff post directly into their location's <code>-inventory</code> channel; Michael retains central <code>team-ops-*</code> hubs for cross-clinic patterns. <strong>Maintenance is central-only</strong> (one <code>team-ops-maintenance</code> channel — Judit's preferred design — branches route via FD leads). One Master List per function with views filtered by branch.</p>
+  <h2>Locations — the structural fix (Option B)</h2>
+  <p>Today: every clinic = one giant chat with vets + nurses + reception + assistants. Bad signal-to-noise. <strong>Option B fix (May 6 meeting):</strong> 5 channels per active location — branch staff post directly into their location's <code>-inventory</code> / <code>-maintenance</code> channel; Michael &amp; Judit retain central <code>team-ops-*</code> hubs for cross-clinic patterns. One Master List per function with views filtered by branch — see Lists section.</p>
 
   <div class="flowbox">
     <h4>The 5-channel pattern (per location) — v1.4: ALL PRIVATE</h4>
@@ -549,12 +547,15 @@
       <span class="flow-pill" style="background:#8a5a2a;">clinic-XXX-inventory</span>
       <span class="flow-note">🔒 stock requests · holder = <strong>Michael</strong></span>
     </div>
-    <p style="margin:.5rem 0;font-size:.85rem;font-style:italic;color:var(--muted);">v1.9: maintenance is handled centrally via <code>team-ops-maintenance</code> — no per-clinic maintenance channel. Branches route requests via their FD lead.</p>
+    <div class="flow-step">
+      <span class="flow-pill" style="background:#d44e4e;">clinic-XXX-maintenance</span>
+      <span class="flow-note">🔒 facility tickets · holder = <strong>Judit</strong></span>
+    </div>
     <p style="margin-top:1rem;font-size:.85rem;"><strong>Privacy:</strong> JLT staff see only JLT channels. Downtown sees only Downtown. Cross-clinic visibility lives with the dept heads (Sandy, Scott, Michael, Judit, Aida) via membership across all branches — not via shared channels. Slack channel membership is the privacy boundary.</p>
     <p style="margin-top:.5rem;font-size:.85rem;"><strong>Branch ownership reality (May 7):</strong> no individual branch managers across MV/BOVC. Sandy + Scott own all clinics. VV branch lead = TBC (post-Amy). TVRC = Aida.</p>
   </div>
 
-  <h3>Active locations — 11 clinics × 4 = ~44 channels at full rollout (no per-clinic maintenance, no HQ cluster)</h3>
+  <h3>Active locations — 11 clinics + HQ × 5 = 60 channels at full rollout</h3>
 
   <table>
     <thead><tr><th>Code</th><th>Brand</th><th>Branch</th><th>Manager</th><th>Status</th></tr></thead>
@@ -644,7 +645,7 @@
         <tr><td><strong>CC ↔ Reception</strong></td><td><code>team-cc-handoffs</code></td><td>CC + reception leads from every clinic</td></tr>
         <tr><td>Reception ↔ Vets</td><td><code>clinic-XXX-fd</code> + <code>clinic-XXX-med</code></td><td>Branch staff (cross-post within branch)</td></tr>
         <tr><td>Inventory ↔ Branch</td><td><code>clinic-XXX-inventory</code></td><td>Branch + Michael's team</td></tr>
-        <tr><td>Maintenance ↔ Branch</td><td><code>team-ops-maintenance</code> (central, v1.9)</td><td>Judit + Shibin + Himanshu + Michael + Scott + Sandy + Aida + Mansoor + FD leads</td></tr>
+        <tr><td>Maintenance ↔ Branch</td><td><code>clinic-XXX-maintenance</code></td><td>Branch + Judit's team</td></tr>
         <tr><td>Finance ↔ Branch</td><td><code>clinic-XXX-fd</code> for billing · <code>team-finance-discounts</code> for approvals</td><td>Reception + Aida + finance</td></tr>
         <tr><td>BizDev ↔ Finance</td><td><code>team-finance-pricing</code> + <code>team-bizdev-pipeline</code> cross-post</td><td>Hadi + Harshita</td></tr>
         <tr><td>BizDev ↔ Clinical</td><td><code>team-clinical-rescue</code></td><td>Hadi + Marta + Scott</td></tr>
@@ -838,7 +839,7 @@ team-ops-maintenance           → list "Master Maintenance" (only Judit + maint
   <table>
     <thead><tr><th>Master list</th><th>Owner</th><th>Filter columns</th><th>Views attached to</th></tr></thead>
     <tbody>
-      <tr><td><strong>Maintenance</strong></td><td>Judit</td><td>Branch · Issue type · Severity</td><td><code>team-ops-maintenance</code> (single central, v1.9 — list views filtered by branch within the same channel)</td></tr>
+      <tr><td><strong>Maintenance</strong></td><td>Judit</td><td>Branch · Issue type · Severity</td><td><code>team-ops-maintenance</code> (full) + each <code>clinic-XXX-maintenance</code> (filtered)</td></tr>
       <tr><td><strong>Inventory</strong></td><td>Michael</td><td>Branch · Item · Supplier</td><td><code>team-ops-inventory</code> + each <code>clinic-XXX-inventory</code></td></tr>
       <tr><td><strong>Purchasing &amp; Approvals</strong></td><td>Michael</td><td>Type · Branch · Status</td><td><code>team-ops-purchasing</code> + <code>team-ops-approvals-*</code></td></tr>
       <tr><td><strong>CX / Reception</strong></td><td>Aida</td><td>Branch · Issue type</td><td><code>team-cx-*</code> + each <code>clinic-XXX-fd</code></td></tr>
@@ -925,8 +926,8 @@ team-ops-maintenance           → list "Master Maintenance" (only Judit + maint
       <tr><td><code>team-cx-complaints</code></td><td>Open complaints</td><td>+ Customer · Channel · Severity · Owner</td></tr>
       <tr><td><code>team-people-recruitment</code></td><td>Open roles</td><td>+ Role · Pipeline stage · Candidates</td></tr>
       <tr><td><code>team-people-licensing-visa</code></td><td>Visa/licence pipeline</td><td>+ Person · Document · Expiry</td></tr>
-      <tr><td><code>team-finance</code></td><td>AP/AR/general (v1.9: collapsed)</td><td>+ Vendor/Customer · Amount · Due · PO match</td></tr>
-      <tr><td><code>team-finance-management-accounts-pnl</code></td><td>P&amp;L review (v1.9 new)</td><td>+ Period · P&amp;L line · Variance</td></tr>
+      <tr><td><code>team-finance-ap</code></td><td>AP queue</td><td>+ Vendor · Amount · Due · PO match</td></tr>
+      <tr><td><code>team-finance-ar</code></td><td>AR aging</td><td>+ Customer · Amount · Days overdue</td></tr>
       <tr><td><code>team-finance-discounts</code></td><td>Discount log</td><td>+ Date · Branch · Customer · Amount · Justification</td></tr>
       <tr><td><code>team-finance-pricing</code></td><td>Pricing changes</td><td>+ Service · From · To · Effective</td></tr>
       <tr><td><code>clinic-XXX-med</code></td><td>Case follow-ups</td><td>+ Patient · Owner · Vet</td></tr>
@@ -951,7 +952,7 @@ team-ops-maintenance           → list "Master Maintenance" (only Judit + maint
       <div class="num-stat"><span class="n">4</span><span class="l">team-people-</span></div>
       <div class="num-stat"><span class="n">5</span><span class="l">team-finance-</span></div>
       <div class="num-stat"><span class="n">4</span><span class="l">team-bizdev- 🆕</span></div>
-      <div class="num-stat"><span class="n">~44</span><span class="l">clinic- (11×4, v1.9)</span></div>
+      <div class="num-stat"><span class="n">60</span><span class="l">clinic- (12×5)</span></div>
       <div class="num-stat"><span class="n">7</span><span class="l">help-</span></div>
       <div class="num-stat"><span class="n">2</span><span class="l">vendor- (trimmed)</span></div>
       <div class="num-stat"><span class="n">4</span><span class="l">social-</span></div>
@@ -997,7 +998,7 @@ team-ops-maintenance           → list "Master Maintenance" (only Judit + maint
 
   <h3>Resolved May 6</h3>
   <ul style="line-height:1.9;">
-    <li>✅ Inventory: <strong>both</strong> central + per-clinic. Maintenance: <strong>central only</strong> (v1.9 — Option A locked)</li>
+    <li>✅ Inventory + maintenance: <strong>both</strong> central + per-clinic (Option B)</li>
     <li>✅ Head Office: <strong>yes</strong>, <code>clinic-hq</code> + <code>brand-hq</code></li>
     <li>✅ TVRH renamed → <strong>TVRC</strong></li>
     <li>✅ Amy ownership → <strong>Aida</strong>; Kavita ownership → <strong>Andrew</strong></li>

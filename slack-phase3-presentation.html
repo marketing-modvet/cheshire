@@ -175,162 +175,6 @@
     background: #e8f1f2;
     border: 2px solid var(--teal);
   }
-  .callout-update {
-    background: #f0f7ee;
-    border: 2px solid #58a058;
-  }
-  .callout-update h4 { color: #2d5e2d; }
-  .callout-missing {
-    background: #fdf3e8;
-    border: 2px solid #d97706;
-  }
-  .callout-missing h4 { color: #92400e; }
-
-  .status-row {
-    display: flex;
-    align-items: center;
-    gap: .6rem;
-    margin: .35rem 0;
-    font-size: .95rem;
-  }
-  .status-badge {
-    display: inline-block;
-    padding: 2px 10px;
-    border-radius: 12px;
-    font-size: .72rem;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    text-transform: uppercase;
-    flex-shrink: 0;
-    min-width: 90px;
-    text-align: center;
-  }
-  .status-badge.locked { background: #d1e7d1; color: #1e4620; border: 1px solid #58a058; }
-  .status-badge.review { background: #fef3c7; color: #78350f; border: 1px solid #d97706; }
-  .status-badge.missing { background: #fde2e2; color: #7c1d1d; border: 1px solid #c53030; }
-  .status-badge.new { background: #dbeafe; color: #1e3a8a; border: 1px solid #3b82f6; }
-  .status-badge.phase4 { background: #ede9fe; color: #4c1d95; border: 1px solid #8b5cf6; }
-
-  .change-list {
-    list-style: none;
-    padding: 0;
-    margin: .5rem 0 0;
-  }
-  .change-list li {
-    padding: .4rem .6rem;
-    margin: .3rem 0;
-    background: rgba(255,255,255,0.55);
-    border-left: 3px solid #58a058;
-    border-radius: 4px;
-    font-size: .95rem;
-  }
-  .change-list li strong { color: #2d5e2d; }
-
-  .missing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1rem;
-    margin: 1rem 0;
-  }
-  .missing-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-top: 4px solid #d97706;
-    border-radius: 8px;
-    padding: 1rem 1.2rem;
-  }
-  .missing-card h4 {
-    margin: 0 0 .5rem;
-    color: #92400e;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1rem;
-  }
-  .missing-card ul { margin: .3rem 0 0; padding-left: 1.2rem; }
-  .missing-card ul li { margin: .25rem 0; font-size: .9rem; }
-
-  /* Structure with applied changes */
-  .structure-cluster {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 1.2rem 1.4rem;
-    margin: 1rem 0;
-  }
-  .structure-cluster h3 {
-    margin: 0 0 .8rem;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.05rem;
-    color: var(--teal-deep);
-    padding-bottom: .5rem;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: .5rem;
-  }
-  .structure-cluster h3 .cluster-status {
-    font-size: .7rem;
-    padding: 3px 10px;
-    border-radius: 12px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    text-transform: uppercase;
-  }
-  .cluster-status.locked { background: #d1e7d1; color: #1e4620; }
-  .cluster-status.partial { background: #fef3c7; color: #78350f; }
-  .channel-line {
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-    padding: .25rem 0;
-    font-size: .9rem;
-    font-family: 'Menlo', 'Monaco', monospace;
-    line-height: 1.4;
-  }
-  .channel-line .ch-tag {
-    display: inline-block;
-    min-width: 26px;
-    text-align: center;
-    font-size: .75rem;
-    padding: 1px 6px;
-    border-radius: 3px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    flex-shrink: 0;
-  }
-  .ch-tag.ok { background: #d1e7d1; color: #1e4620; }
-  .ch-tag.new { background: #dbeafe; color: #1e3a8a; }
-  .ch-tag.pending { background: #fef3c7; color: #78350f; }
-  .ch-tag.options { background: #ede9fe; color: #4c1d95; }
-  .channel-line .ch-name { color: var(--teal-deep); font-weight: 600; }
-  .channel-line .ch-note { color: var(--muted); font-family: 'Montserrat', sans-serif; font-size: .82rem; font-style: italic; }
-  .ch-members {
-    display: inline-block;
-    font-size: .72rem;
-    padding: 1px 6px;
-    border-radius: 3px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    letter-spacing: 0.2px;
-    flex-shrink: 0;
-  }
-  .ch-members.have { background: #e8f5e9; color: #1e4620; border: 1px solid #b5d8b5; }
-  .ch-members.need { background: #fde2e2; color: #7c1d1d; border: 1px solid #f1b5b5; }
-  .ch-members.partial { background: #fef3c7; color: #78350f; border: 1px solid #e9c47e; }
-  .structure-legend {
-    background: #f8f9f6;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: .9rem 1.2rem;
-    margin: 1rem 0 1.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.2rem;
-    font-size: .88rem;
-  }
-  .structure-legend .legend-item { display: flex; align-items: center; gap: .4rem; }
 
   /* Department detail block */
   .dept-block {
@@ -368,303 +212,16 @@
 <header>
   <h1>Vet Alliance — Slack Structure</h1>
   <div class="subtitle">A clear home for every conversation.</div>
-  <div class="meta">26 May 2026 · v1.9 · Prepared by the Marketing department for company rollout</div>
+  <div class="meta">May 2026 · Prepared by the Marketing department for company rollout</div>
 </header>
 
 <div class="container">
 
 <div class="intro">
-  <p>Vet Alliance is moving company communication onto Slack. <strong>This page is the live status dashboard for the Phase 3 rollout</strong> — what's locked in, what's changed since you last looked, and what we still need from each of you to finish the structure.</p>
-  <p style="margin-bottom:0;">The full design rationale and channel-by-channel detail is below the dashboard if you want the deeper context.</p>
+  <p>Vet Alliance is moving company communication onto Slack. Today, work conversations are scattered across WhatsApp groups, emails, DMs, and ad-hoc chats. That makes things slow, easy to miss, and impossible to search later.</p>
+  <p>This document explains how we're organising Slack so <strong>every message has an obvious home</strong>, every team has the channels they need, and nothing falls between the cracks. <strong>Privacy is a first-class design goal:</strong> sensitive functions stay isolated, while operational ones are visible enough to help everyone do their job.</p>
+  <p style="margin-bottom:0;">It's designed to scale to ~200 staff across 11 clinics + Head Office, while staying simple enough that a new joiner can find their way around on day one.</p>
 </div>
-
-<div class="callout" style="background:#fff8e6;border-left-color:#d97706;">
-  <h4 style="color:#92400e;margin-top:0;">⏱️ Build starts after 1 June 2026</h4>
-  <p style="margin:.4rem 0 0;">In parallel: development of the <strong>Slack Inventory &amp; Procurement App</strong> with Sinergi begins 1 June. 6-week MVP-to-live plan. <a href="slack-inventory-roadmap.html" style="color:#92400e;text-decoration:underline;">See roadmap →</a></p>
-</div>
-
-<!-- ============================================================
-     MAIN DASHBOARD — status + changes + what's missing
-     ============================================================ -->
-
-<h2 style="margin-top:1.5rem;">📊 Status dashboard</h2>
-
-<div class="grid grid-2">
-  <div class="card" style="border-top: 4px solid #58a058;">
-    <h4 style="color:#2d5e2d;">✅ Locked in — ready to deploy</h4>
-    <p style="margin:.4rem 0;font-size:.92rem;">Design decisions confirmed. We'll start building these the moment all rosters are in.</p>
-    <div class="status-row"><span class="status-badge locked">Locked</span> 6 channel prefixes + naming convention</div>
-    <div class="status-row"><span class="status-badge locked">Locked</span> Privacy model (closed-by-default)</div>
-    <div class="status-row"><span class="status-badge locked">Locked</span> Per-clinic 4–5 channel pattern</div>
-    <div class="status-row"><span class="status-badge locked">Locked</span> Leadership ownership across all clusters</div>
-    <div class="status-row"><span class="status-badge locked">Locked</span> Master Lists + branch-view design</div>
-    <div class="status-row"><span class="status-badge locked">Locked</span> <strong>HR</strong> structure + roster (Shari)</div>
-    <div class="status-row"><span class="status-badge locked">Locked</span> <strong>Finance</strong> structure + roster (Harshita)</div>
-    <div class="status-row"><span class="status-badge locked">Locked</span> <strong>Tech / IT</strong> cluster + ezyVet ownership (AbdulRahman)</div>
-    <div class="status-row"><span class="status-badge locked">Locked</span> <strong>Ops / Inventory</strong> cluster + vendor scope (Michael)</div>
-  </div>
-
-  <div class="card" style="border-top: 4px solid #d97706;">
-    <h4 style="color:#92400e;">🔄 Awaiting reply</h4>
-    <p style="margin:.4rem 0;font-size:.92rem;">Items that still need a reply before we can finish locking the structure. Detail in cards below.</p>
-    <div class="status-row"><span class="status-badge review">Scott+Sandy+Dieter+Rami</span> <strong>Full Clinical cluster</strong> — structure not yet submitted (highest-impact gap)</div>
-    <div class="status-row"><span class="status-badge review">Aida</span> Training-channel charter + escalation playbook (call to confirm)</div>
-    <div class="status-row"><span class="status-badge review">Hadi</span> BizDev cluster sign-off + team roster</div>
-    <div class="status-row"><span class="status-badge review">Scott</span> Khawaneej / Azizi Riviera branch codes (proposed <code>khw</code> + <code>az</code>)</div>
-    <div class="status-row"><span class="status-badge review">Scott+Aida</span> VV interim branch lead (post-Amy)</div>
-  </div>
-</div>
-
-<h2>✨ What's new in v1.9</h2>
-
-<div class="callout callout-update">
-  <h4>Changes since v1.8 (26 May 2026)</h4>
-  <p style="margin:.4rem 0 .6rem;">Refinements based on Andrew's 26 May decisions + Sinergi's inventory project input. No structural redesign; specific channels collapsed, member rosters updated, and Judit's clinic-list design locked.</p>
-  <ul class="change-list">
-    <li><strong>Collapsed:</strong> Finance simplified to a single <code>team-finance</code> channel — <code>team-finance-ap</code> removed (general finances only needed). <code>team-finance-discounts</code>, <code>team-finance-pricing</code>, and <code>team-finance-management-accounts-pnl</code> retained as separate channels.</li>
-    <li><strong>Members updated:</strong> <code>team-ops-maintenance</code> roster expanded — Scott, Sandy, Mansoor added (now: Judit, Shibin, Himanshu, Michael, Scott, Sandy, Aida, Mansoor + all branch FD leads).</li>
-    <li><strong>Locked design:</strong> Clinic lists structure — single limited cross-org group, one rep per clinic + office, anchored on reception emails. One master Slack List split per clinic via workflows + custom views. Supersedes the older 3-channel-per-clinic split idea.</li>
-    <li><strong>Locked design:</strong> Maintenance Option A (central <code>team-ops-maintenance</code> only, no per-clinic maintenance channels). Per Andrew's 26 May decision.</li>
-    <li><strong>NEW workstream:</strong> <strong>Slack Inventory &amp; Procurement App</strong> with Sinergi + Michael. Structured Slack workflow (NOT a chatbot) replacing WhatsApp inventory requests. 6-week build starts 1 June 2026. <a href="slack-inventory-roadmap.html">See roadmap →</a></li>
-    <li><strong>Locked mapping:</strong> Category manager mapping for inventory app revised by Michael (Pauline / Ivan / Aneesh own 43 of 98 sub-categories; rest are billable line items not requiring stock approval).</li>
-    <li><strong>Sign-off note:</strong> Architecture was approved by Mansoor at the 6 May meeting. v1.9 changes are refinements and do not require fresh CEO sign-off.</li>
-  </ul>
-</div>
-
-<h2>📋 What we still need — per department</h2>
-
-<p>Three departments still have items pending. HR, Finance, Tech/IT, Ops/Inventory, and the Maintenance + Judit clinic-list designs are all fully locked and ready to build.</p>
-
-<div class="missing-grid">
-
-  <div class="missing-card" style="border-left:4px solid #d04040;">
-    <h4 style="color:#a02020;">🩺 Clinical — Scott, Sandy, Dieter, Rami <span style="background:#fde0e0;color:#a02020;font-size:.7rem;padding:2px 8px;border-radius:8px;margin-left:6px;">HIGHEST-IMPACT GAP</span></h4>
-    <p style="margin:.4rem 0;font-size:.9rem;"><strong>Status: no formal structure submission received yet.</strong> All clinical channels + user groups + per-clinic rosters are blocked on this.</p>
-    <ul>
-      <li><strong>Confirm</strong> the 7-channel clinical cluster (leadership / vets / nurses / cases / rescue / medical-product / nurses-announcements)</li>
-      <li><strong>All-vets roster per brand</strong> — <code>@vets-mv</code>, <code>@vets-bovc</code>, <code>@vets-vv</code>, <code>@vets-tvrc</code></li>
-      <li><strong>Pending Slack invites:</strong> Dr Rami, Dr Nour, Dr Waseem</li>
-      <li><strong>All-nurses roster</strong> — once Sandy finishes onboarding nurses</li>
-      <li><strong>Decisions:</strong> branch lead names for MV Palm / DT / JVC / JLT / BOVC DIP / TVRC; Mobile umbrella keep or drop; rescue: single channel or per-clinic split</li>
-    </ul>
-  </div>
-
-  <div class="missing-card">
-    <h4>📞 CX / Call Centre — Aida</h4>
-    <ul>
-      <li><strong>Call Centre agent roster</strong> — full list (names + emails) for the <code>@callcentre</code> user group</li>
-      <li><strong>Reception leads per branch</strong> — one name per branch (12 branches)</li>
-      <li><strong>VV interim branch lead</strong> — post-Amy, who covers branch-level day-to-day?</li>
-      <li><strong>Decision:</strong> <code>team-cx-training</code> charter — pick a focus (resources / discussions / audits&amp;coaching / rollout&amp;SOPs / split)</li>
-      <li><strong>Decision:</strong> Complaint escalation playbook — confirm or revise the drafted 3-tier flow</li>
-    </ul>
-  </div>
-
-  <div class="missing-card">
-    <h4>📈 BizDev — Hadi</h4>
-    <ul>
-      <li><strong>v1.9 sign-off</strong> — confirm the 4-channel BizDev cluster</li>
-      <li><strong>BD team</strong> — anyone besides Hadi to add to the 4 channels?</li>
-      <li><strong>Confirm</strong> ownership of <code>help-bizdev</code></li>
-    </ul>
-  </div>
-
-  <div class="missing-card">
-    <h4>🏢 Cross-org — Scott</h4>
-    <ul>
-      <li><strong>Khawaneej + Azizi Riviera codes</strong> — proposed <code>khw</code> + <code>az</code> — confirm</li>
-    </ul>
-    <p style="margin:.5rem 0 0;font-size:.85rem;color:var(--muted);font-style:italic;">Head Office admin already covered by <code>va-management</code> — no separate <code>clinic-hq</code> needed.</p>
-  </div>
-
-</div>
-
-<div class="callout" style="background:#e8f5e9;border-color:#58a058;">
-  <h4 style="color:#2d5e2d;">✅ Already complete — no further input needed</h4>
-  <ul style="margin:.5rem 0 0;line-height:1.7;">
-    <li><strong>HR (Shari)</strong> — all 8 channels accepted, roster confirmed (Shari + Priya + Leya + Yousuf), Mansoor sits in <code>team-hr</code></li>
-    <li><strong>Finance (Harshita)</strong> — <strong>v1.9: collapsed to a single <code>team-finance</code></strong> + discounts + pricing + management-accounts-pnl. Team: Harshita + Francis + Husain + Vijomon + Abid</li>
-    <li><strong>Tech / IT (AbdulRahman)</strong> — cluster confirmed, <code>help-ezyvet</code> ownership confirmed, IT vendor scope confirmed (eCRE8 + Sinergi only)</li>
-    <li><strong>Ops / Inventory (Michael)</strong> — cluster confirmed, procurement team confirmed, no additional vendor channels needed</li>
-    <li><strong>Maintenance (Judit)</strong> — <strong>v1.9: Option A locked</strong> (central <code>team-ops-maintenance</code> only, no per-clinic). Roster: Judit + Shibin + Himanshu + Michael + Scott + Sandy + Aida + Mansoor + branch FD leads</li>
-    <li><strong>Clinic lists (Judit's design)</strong> — <strong>v1.9: locked.</strong> Single limited cross-org group (1 rep per clinic + office, reception-email anchored) + master list split per clinic via workflows</li>
-  </ul>
-</div>
-
-<div class="callout callout-missing">
-  <h4>📥 Phase 4 candidates (deferred for now)</h4>
-  <p style="margin:.4rem 0 0;">These have been parked until after the main rollout. We'll revisit once Phase 3 is live and we know what people actually need.</p>
-  <ul style="margin:.6rem 0 0;">
-    <li><strong>Branch-lead CX escalation channel</strong> (Aida's suggestion) — for service issues that don't fit complaints or scheduling</li>
-    <li><strong>Per-branch ordering channel rethink</strong> (Sandy's question) — keep current pattern for now</li>
-    <li><strong>Medical assistants channels</strong> — add when they transition to Slack</li>
-    <li><strong>Additional nursing sub-channels</strong> — split out if Sandy needs them post-rollout</li>
-  </ul>
-</div>
-
-<h2>📐 Full structure with applied changes</h2>
-
-<p>Every channel cluster after the v1.8 changes were applied. Tags show whether each channel is confirmed, new in v1.8, pending input, or has options to choose from.</p>
-
-<div class="structure-legend">
-  <div class="legend-item"><strong style="font-size:.8rem;">DESIGN:</strong></div>
-  <div class="legend-item"><span class="ch-tag ok">OK</span> Confirmed, ready to build</div>
-  <div class="legend-item"><span class="ch-tag new">NEW</span> Added/renamed in v1.8</div>
-  <div class="legend-item"><span class="ch-tag pending">WAIT</span> Pending input from dept head</div>
-  <div class="legend-item"><span class="ch-tag options">OPT</span> Options on table — awaiting decision</div>
-</div>
-
-<div class="structure-legend">
-  <div class="legend-item"><strong style="font-size:.8rem;">MEMBERS:</strong></div>
-  <div class="legend-item"><span class="ch-members have">👥 have</span> Full member list confirmed</div>
-  <div class="legend-item"><span class="ch-members partial">👥 partial</span> Owner known, full roster pending</div>
-  <div class="legend-item"><span class="ch-members need">👥 need</span> Member list still missing</div>
-</div>
-
-<div class="callout callout-missing" style="margin-bottom:2rem;">
-  <h4>👥 Channel membership gaps — quick summary</h4>
-  <p style="margin:.4rem 0 .6rem;">Channels where we still need member lists before we can invite people. Everything else has its full roster confirmed.</p>
-  <ul style="margin:.4rem 0 0;line-height:1.7;">
-    <li><strong>Clinical · 7 channels</strong> — need full all-vets list (per brand), all-nurses list, medical-product team. <em>Owner: Scott + Sandy + Rami.</em></li>
-    <li><strong>Per-clinic FD channels · ~12 channels</strong> — need named reception leads per branch (12 branches). <em>Owner: Aida.</em></li>
-    <li><strong>Per-clinic umbrella + med channels · ~22 channels</strong> — need branch lead names + branch staff rosters (MV Palm/DT/JVC/JLT/Az/Khw, BOVC DIP, VV, TVRC). <em>Owner: Scott + Sandy.</em></li>
-    <li><strong>Call Centre · 2 channels</strong> — need full CC agent roster. <em>Owner: Aida.</em></li>
-    <li><strong>Mobile Van bookings</strong> — Dr Rahaf + Prakash + CC team (CC roster pending).</li>
-    <li><strong>BizDev · 4 channels</strong> — Hadi is the only confirmed member; need any other BD team members. <em>Owner: Hadi.</em></li>
-  </ul>
-  <p style="margin:.8rem 0 0;font-size:.9rem;"><strong>Already have full rosters for:</strong> va-*, marketing, tech/IT, ops (all 11 channels), HR (all 8), finance (all 5), help-*, vendor-*, social-*.</p>
-</div>
-
-<div class="structure-cluster">
-  <h3>🏢 Vet Alliance org-wide · <code>va-*</code> <span class="cluster-status locked">Locked</span></h3>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">va-announcements</span><span class="ch-note">all staff (read-only)</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">va-general</span><span class="ch-note">all staff</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">va-leadership</span><span class="ch-note">9 exec members confirmed</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members partial">👥 partial</span><span class="ch-name">va-management</span><span class="ch-note">all leads confirmed; branch managers pending</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">va-policies</span><span class="ch-note">all staff (read-only)</span></div>
-</div>
-
-<div class="structure-cluster">
-  <h3>📈 Marketing · <code>team-marketing-*</code> <span class="cluster-status locked">Locked</span></h3>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">10 channels — already in active rollout</span><span class="ch-note">Andrew owns; Megan, Karam, Yohann, Pavel confirmed</span></div>
-</div>
-
-<div class="structure-cluster">
-  <h3>💻 Tech / IT · <code>team-tech-*</code> <span class="cluster-status locked">Locked</span></h3>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">team-tech</span><span class="ch-note">AbdulRahman + Ahmed + IT team</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">team-tech-it</span><span class="ch-note">IT team</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">team-tech-software</span><span class="ch-note">IT team</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">team-tech-data</span><span class="ch-note">IT team</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">team-tech-ai</span><span class="ch-note">IT team</span></div>
-</div>
-
-<div class="structure-cluster">
-  <h3>📦 Operations · <code>team-ops-*</code> <span class="cluster-status locked">Locked</span></h3>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">team-ops</span><span class="ch-note">Scott + Michael + Judit</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">team-ops-warehouse</span><span class="ch-note">Himanshu + Michael</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">team-ops-inventory</span><span class="ch-note">Michael + Naufal + Iqra + Hillary</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">team-ops-floof-orders</span><span class="ch-note">Michael + procurement team</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">team-ops-smartflow</span><span class="ch-note">all hospital vets + Michael</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">team-ops-purchasing</span><span class="ch-note">Michael + finance team</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">team-ops-approvals-equipment</span><span class="ch-note">Michael + Mansoor + Scott</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">team-ops-approvals-medicine</span><span class="ch-note">Michael + Rami + Scott</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">team-ops-maintenance</span><span class="ch-note">v1.9 locked: central only, no per-clinic. Judit + Shibin + Himanshu + Michael + Scott + Sandy + Aida + Mansoor + branch FD leads</span></div>
-  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-members have">👥 have</span><span class="ch-name">team-ops-projects</span><span class="ch-note">Judit — renamed from fitout</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">team-ops-licensing</span><span class="ch-note">Scott + Yusuf</span></div>
-</div>
-
-<div class="structure-cluster">
-  <h3>🩺 Clinical · <code>team-clinical-*</code> <span class="cluster-status partial">Awaiting rosters</span></h3>
-  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-members have">👥 have</span><span class="ch-name">team-clinical-leadership</span><span class="ch-note">Scott + Dieter + Rami (renamed from <code>team-clinical</code>)</span></div>
-  <div class="channel-line"><span class="ch-tag pending">WAIT</span><span class="ch-members need">👥 need</span><span class="ch-name">team-clinical-vets</span><span class="ch-note">full all-vets roster pending (Rami + Scott)</span></div>
-  <div class="channel-line"><span class="ch-tag pending">WAIT</span><span class="ch-members need">👥 need</span><span class="ch-name">team-clinical-nurses</span><span class="ch-note">nurse roster pending (Sandy onboarding this week)</span></div>
-  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-members need">👥 need</span><span class="ch-name">team-clinical-nurses-announcements</span><span class="ch-note">same audience as <code>-nurses</code> (Sandy)</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members partial">👥 partial</span><span class="ch-name">team-clinical-medical-product</span><span class="ch-note">Rami + Michael confirmed; vet evaluators TBC</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members partial">👥 partial</span><span class="ch-name">team-clinical-rescue</span><span class="ch-note">Aida + Scott + rescue contacts TBC</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members partial">👥 partial</span><span class="ch-name">team-clinical-emergency</span><span class="ch-note">Scott + on-call vet rotation; need full vet roster first</span></div>
-</div>
-
-<div class="structure-cluster">
-  <h3>📞 Customer Experience · <code>team-cx-*</code> <span class="cluster-status partial">Awaiting Aida</span></h3>
-  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-members partial">👥 partial</span><span class="ch-name">team-cx-leadership</span><span class="ch-note">Aida + CC lead + reception leads; reception leads pending</span></div>
-  <div class="channel-line"><span class="ch-tag options">OPT</span><span class="ch-members partial">👥 partial</span><span class="ch-name">team-cx-complaints</span><span class="ch-note">Aida + Scott + reception leads; reception leads pending</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members partial">👥 partial</span><span class="ch-name">team-cx-experience</span><span class="ch-note">Aida + reception leads; reception leads pending</span></div>
-  <div class="channel-line"><span class="ch-tag pending">WAIT</span><span class="ch-members partial">👥 partial</span><span class="ch-name">team-cx-training</span><span class="ch-note">audience depends on charter decision (Andrew asks Aida)</span></div>
-  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-members need">👥 need</span><span class="ch-name">team-cx-handoffs</span><span class="ch-note">CC team + reception leads from every branch; both rosters pending</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">team-cx-scheduling</span><span class="ch-note">already exists — Dima + scheduling team</span></div>
-</div>
-
-<div class="structure-cluster">
-  <h3>🎙️ Call Centre · <code>team-cc-*</code> <span class="cluster-status partial">Awaiting CC roster</span></h3>
-  <div class="channel-line"><span class="ch-tag pending">WAIT</span><span class="ch-members need">👥 need</span><span class="ch-name">team-cc</span><span class="ch-note">full CC agent roster pending (Aida)</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members partial">👥 partial</span><span class="ch-name">team-cc-callgear</span><span class="ch-note">Andrew + CC lead confirmed; agents pending</span></div>
-</div>
-
-<div class="structure-cluster">
-  <h3>👥 HR · <code>team-hr-*</code> <span class="cluster-status locked">Locked</span></h3>
-  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-members have">👥 have</span><span class="ch-name">team-hr</span><span class="ch-note">renamed from <code>team-people</code> — Shari + Mansoor + Hadi + Harshita</span></div>
-  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-members have">👥 have</span><span class="ch-name">team-hr-recruitment</span><span class="ch-note">Shari + Priya + Leya</span></div>
-  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-members have">👥 have</span><span class="ch-name">team-hr-licensing-visa</span><span class="ch-note">Shari + Leya + Yousuf</span></div>
-  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-members have">👥 have</span><span class="ch-name">team-hr-leave-payroll</span><span class="ch-note">Shari + Leya</span></div>
-  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-members have">👥 have</span><span class="ch-name">team-hr-clinical</span><span class="ch-note">Shari + Leya + Scott + Sandy</span></div>
-  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-members have">👥 have</span><span class="ch-name">team-hr-scheduling</span><span class="ch-note">Shari + Leya + Scott + Sandy + Dmitry + Aida</span></div>
-  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-members have">👥 have</span><span class="ch-name">team-hr-line-managers</span><span class="ch-note">10 line managers confirmed</span></div>
-  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-members have">👥 have</span><span class="ch-name">team-hr-finance</span><span class="ch-note">Shari + Leya + Harshita + Vijo + Husain</span></div>
-</div>
-
-<div class="structure-cluster">
-  <h3>💰 Finance · <code>team-finance-*</code> <span class="cluster-status locked">Locked v1.9</span></h3>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">team-finance</span><span class="ch-note">v1.9: general finance — Harshita + Francis + Husain + Vijomon + Abid (AP/AR folded in here)</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">team-finance-discounts</span><span class="ch-note">Scott + Aida + Sandy</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">team-finance-pricing</span><span class="ch-note">Mansoor + Scott + Michael</span></div>
-  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-members have">👥 have</span><span class="ch-name">team-finance-management-accounts-pnl</span><span class="ch-note">v1.9: Mansoor + Harshita + Hadi</span></div>
-</div>
-
-<div class="structure-cluster">
-  <h3>📈 Business Development · <code>team-bizdev-*</code> <span class="cluster-status partial">Awaiting Hadi</span></h3>
-  <div class="channel-line"><span class="ch-tag pending">WAIT</span><span class="ch-members partial">👥 partial</span><span class="ch-name">team-bizdev</span><span class="ch-note">Hadi confirmed; BD team members pending</span></div>
-  <div class="channel-line"><span class="ch-tag pending">WAIT</span><span class="ch-members partial">👥 partial</span><span class="ch-name">team-bizdev-partnerships</span><span class="ch-note">Hadi only confirmed</span></div>
-  <div class="channel-line"><span class="ch-tag pending">WAIT</span><span class="ch-members partial">👥 partial</span><span class="ch-name">team-bizdev-expansion</span><span class="ch-note">Hadi + Mansoor confirmed</span></div>
-  <div class="channel-line"><span class="ch-tag pending">WAIT</span><span class="ch-members partial">👥 partial</span><span class="ch-name">team-bizdev-pipeline</span><span class="ch-note">Hadi only confirmed</span></div>
-</div>
-
-<div class="structure-cluster">
-  <h3>🏥 Per-clinic · <code>clinic-*</code> <span class="cluster-status partial">Awaiting branch leads + staff rosters</span></h3>
-  <p style="margin:0 0 .6rem;font-size:.85rem;color:var(--muted);font-style:italic;">11 clinics + HQ × 4–5 channels each = ~50–60 channels. Memberships listed per-pattern below; per-branch staff rosters are owed by Scott + Sandy.</p>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members need">👥 need</span><span class="ch-name">clinic-XXX</span><span class="ch-note">umbrella — Sandy + Scott confirmed; need branch staff + named branch lead per branch</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members need">👥 need</span><span class="ch-name">clinic-XXX-med</span><span class="ch-note">Scott + Sandy confirmed; need per-branch vets + nurses lists</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members need">👥 need</span><span class="ch-name">clinic-XXX-fd</span><span class="ch-note">Aida confirmed; need reception lead + staff per branch</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members need">👥 need</span><span class="ch-name">clinic-XXX-inventory</span><span class="ch-note">Michael + procurement confirmed; need per-branch staff with ordering role</span></div>
-  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-members partial">👥 partial</span><span class="ch-name">clinic-mv-mob-bookings</span><span class="ch-note">Dr Rahaf + Prakash confirmed; CC team roster pending (Aida)</span></div>
-  <p style="margin:.4rem 0 0;font-size:.82rem;color:var(--muted);font-style:italic;">v1.9: <strong>no per-clinic maintenance channels</strong> — maintenance handled centrally via <code>team-ops-maintenance</code>. Branches request via FD leads (same flow as today's WhatsApp).</p>
-  <p style="margin:.6rem 0 0;font-size:.85rem;color:var(--muted);font-style:italic;">No dedicated <code>clinic-hq</code> — Head Office staff coordinate via <code>va-management</code>.</p>
-</div>
-
-<div class="structure-cluster">
-  <h3>❓ Help desks · <code>help-*</code> <span class="cluster-status locked">Locked</span></h3>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">help-it</span><span class="ch-note">AbdulRahman — open to all staff</span></div>
-  <div class="channel-line"><span class="ch-tag new">NEW</span><span class="ch-members have">👥 have</span><span class="ch-name">help-ezyvet</span><span class="ch-note">AbdulRahman — open to all staff</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">help-marketing</span><span class="ch-note">Andrew — open to all staff</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">help-people</span><span class="ch-note">Shari — open to all staff</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">help-finance</span><span class="ch-note">Harshita — open to all staff</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">help-ops</span><span class="ch-note">Judit + Scott — open to all staff</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">help-bizdev</span><span class="ch-note">Hadi — open to all staff</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">help-scheduling</span><span class="ch-note">Dima — open to all staff</span></div>
-</div>
-
-<div class="structure-cluster">
-  <h3>🤝 Vendors + Social · <code>vendor-*</code> / <code>social-*</code> <span class="cluster-status locked">Locked</span></h3>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">vendor-ecre8</span><span class="ch-note">Andrew + eCRE8 contacts</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">vendor-synergi</span><span class="ch-note">AbdulRahman + Synergi contacts</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">social-random</span><span class="ch-note">opt-in — all staff</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">social-pets</span><span class="ch-note">opt-in — all staff</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">social-celebrations</span><span class="ch-note">opt-in — all staff</span></div>
-  <div class="channel-line"><span class="ch-tag ok">OK</span><span class="ch-members have">👥 have</span><span class="ch-name">social-marketplace</span><span class="ch-note">opt-in — buy/sell/giveaway between staff</span></div>
-</div>
-
-<hr style="margin: 4rem 0 2rem; border:none; border-top: 2px solid var(--border);">
-
-<p style="text-align:center; color:var(--muted); font-style:italic; font-size:.95rem;">The sections below explain the underlying design — channel families, naming, privacy, per-clinic pattern, lists. Reference material for new readers or anyone wanting deeper context.</p>
 
 <h2>The big idea</h2>
 
@@ -698,7 +255,7 @@
 
 <h2>How the structure looks</h2>
 
-<p style="font-size:.85rem;color:var(--muted);">Lock icon 🔒 = private channel. 🌐 = open to everyone in the company. <strong>Updated to v1.9 (26 May 2026)</strong>.</p>
+<p style="font-size:.85rem;color:var(--muted);">Lock icon 🔒 = private channel. 🌐 = open to everyone in the company.</p>
 
 <div class="tree"><span class="pfx">va-</span>                                            (Vet Alliance org-wide · 5 channels)
 ├─ va-announcements              🌐  <span class="own">posting locked to leadership</span>
@@ -719,57 +276,52 @@
 │   ├─ team-ops-purchasing         🔒
 │   ├─ team-ops-approvals-equipment 🔒
 │   ├─ team-ops-approvals-medicine 🔒
-│   ├─ team-ops-maintenance        🔒  <span class="own">v1.9: central only · Judit + Shibin + Himanshu + Michael + Scott + Sandy + Aida + Mansoor + FD leads</span>
-│   ├─ team-ops-projects           🔒  <span class="own">Judit · renamed from fitout</span>
+│   ├─ team-ops-maintenance        🔒  <span class="own">Judit · maintenance team only</span>
+│   ├─ team-ops-fitout             🔒  <span class="own">Judit</span>
 │   └─ team-ops-licensing          🔒  <span class="own">Scott + Yusuf</span>
 ├─ CLINICAL                               <span class="own">Scott (Clinical Director) + Dr. Dieter + Dr. Rami</span>
-│   ├─ team-clinical-leadership    🔒  <span class="own">Scott + Dieter + Rami</span>
-│   ├─ team-clinical-vets          🔒  <span class="own">roster pending</span>
-│   ├─ team-clinical-nurses        🔒  <span class="own">Sandy · roster pending</span>
-│   ├─ team-clinical-nurses-announcements 🔒  <span class="own">Sandy · restricted posting</span>
-│   ├─ team-clinical-cases         🔒  <span class="own">Scott</span>
+│   ├─ team-clinical               🔒  <span class="own">Scott + Dieter + Rami (leadership)</span>
+│   ├─ team-clinical-vets          🔒
+│   ├─ team-clinical-nurses        🔒  <span class="own">Sandy</span>
+│   ├─ team-clinical-emergency     🔒  <span class="own">Scott</span>
 │   ├─ team-clinical-medical-product 🔒  <span class="own">inventory + doctors + management</span>
 │   └─ team-clinical-rescue        🔒  <span class="own">Aida</span>
 ├─ CUSTOMER EXPERIENCE                    <span class="own">Aida</span>
-│   ├─ team-cx-leadership          🔒  <span class="own">Aida</span>
+│   ├─ team-cx                     🔒  <span class="own">Aida (leadership)</span>
 │   ├─ team-cx-scheduling          🔒  <span class="own">Dima · existing private</span>
 │   ├─ team-cx-complaints          🔒
 │   ├─ team-cx-experience          🔒
-│   ├─ team-cx-handoffs            🔒  <span class="own">⚡ bridge: CC ↔ reception (moved from team-cc)</span>
-│   └─ team-cx-training            🔒  <span class="own">charter pending Aida</span>
+│   └─ team-cx-training            🔒
 ├─ CALL CENTRE (separate entity)
 │   ├─ team-cc                     🔒  <span class="own">CC team</span>
+│   ├─ team-cc-handoffs            🔒  <span class="own">⚡ bridge: CC ↔ reception</span>
 │   └─ team-cc-callgear            🔒  <span class="own">CallGear admin</span>
-├─ HR                                     <span class="own">Shari</span>
-│   ├─ team-hr                     🔒  <span class="own">Shari (leadership)</span>
-│   ├─ team-hr-recruitment         🔒
-│   ├─ team-hr-licensing-visa      🔒  <span class="own">Yusuf + Shari</span>
-│   ├─ team-hr-leave-payroll       🔒
-│   ├─ team-hr-onboarding          🔒
-│   ├─ team-hr-scheduling          🔒  <span class="own">Shari + Leya + Scott + Sandy + Dmitry + Aida</span>
-│   ├─ team-hr-line-managers       🔒  <span class="own">10 line managers</span>
-│   └─ team-hr-finance             🔒  <span class="own">Shari + Leya + Harshita + Vijo + Husain</span>
+├─ PEOPLE / HR                            <span class="own">Shari</span>
+│   ├─ team-people                 🔒  <span class="own">Shari (leadership)</span>
+│   ├─ team-people-recruitment     🔒
+│   ├─ team-people-licensing-visa  🔒  <span class="own">Yusuf + Shari</span>
+│   └─ team-people-leave-payroll   🔒
 ├─ FINANCE                                <span class="own">Harshita (Head of Finance)</span>
-│   ├─ team-finance                🔒  <span class="own">v1.9: general · Harshita + Francis + Husain + Vijomon + Abid (AP/AR folded in)</span>
-│   ├─ team-finance-discounts      🔒  <span class="own">Scott + Aida + Sandy</span>
-│   ├─ team-finance-pricing        🔒  <span class="own">Mansoor + Scott + Michael</span>
-│   └─ team-finance-management-accounts-pnl 🔒  <span class="own">v1.9: Mansoor + Harshita + Hadi</span>
+│   ├─ team-finance                🔒  <span class="own">Harshita (leadership)</span>
+│   ├─ team-finance-ap             🔒  <span class="own">Pauline + Harshita</span>
+│   ├─ team-finance-ar             🔒  <span class="own">Harshita</span>
+│   ├─ team-finance-discounts      🔒  <span class="own">Sandy + Aida</span>
+│   └─ team-finance-pricing        🔒  <span class="own">Mansoor + Scott</span>
 └─ BUSINESS DEVELOPMENT                   <span class="own">Hadi (CDO)</span>
-    ├─ team-bizdev                 🔒  <span class="own">Hadi (leadership)</span>
-    ├─ team-bizdev-partnerships    🔒
+    ├─ team-bizdev                 🔒  <span class="own">Hadi · Aida · Scott ONLY</span>
+    ├─ partnerships-bizdev         🌐  <span class="own">Hadi (HQ-wide)</span>
     ├─ team-bizdev-expansion       🔒
     └─ team-bizdev-pipeline        🔒
 
-<span class="pfx">clinic-</span>                                        (Locations · ~49 channels — v1.9: 4 channels per active clinic, no per-clinic maintenance)
+<span class="pfx">clinic-</span>                                        (Locations · 60 channels = 12 × 5)
 │   <span class="note">All clinic channels are 🔒 private. Branch staff see only their own location.</span>
 │   <span class="note">Michael + Sandy own all clinics except VV/TVRC (Aida).</span>
-├─ Modern Vet (8 branches × 4 = 32)
+├─ Modern Vet (8 branches × 5 = 40)
 │   ├─ MB · Palm · DT · JVC · JLT · Azizi · Khawaneej · Mobile
-├─ Blue Oasis (DIP)        × 4 = 4
-├─ Vienna Vet              × 4 = 4            <span class="own">Aida</span>
-└─ TVRC                    × 4 = 4            <span class="own">Aida</span>
-
-<span class="note">v1.9 clinic-list design (Judit): single limited cross-org rep group — 1 rep per clinic + office, reception-email anchored — + master Slack List split per clinic via workflows.</span>
+├─ Blue Oasis (DIP)        × 5 = 5
+├─ Vienna Vet              × 5 = 5            <span class="own">Aida</span>
+├─ TVRC                    × 5 = 5            <span class="own">Aida</span>
+└─ HQ (Head Office)        × 2-5 = 2-5        <span class="own">Mansoor / Michael</span>
 
 <span class="pfx">help-</span>                                           (Service desks · 7 channels · all 🌐 public)
 ├─ help-marketing            🌐  <span class="own">Andrew</span>
@@ -791,7 +343,7 @@
 
 <p>Today, every clinic shares one giant chat where vets, nurses, reception, and assistants are all mixed together. Important medical messages get lost in front-desk chatter, and vice versa.</p>
 
-<p><strong>Each location gets 4 dedicated channels (v1.9).</strong> Branch staff see only their own location's channels — they don't see other branches. The same dept head holds each function across every location, so they're members of all branches' relevant channels and can spot patterns across clinics. <em>Maintenance is handled centrally via <code>team-ops-maintenance</code>, not per-clinic.</em></p>
+<p><strong>Each location now gets 5 dedicated channels.</strong> Branch staff see only their own location's channels — they don't see other branches. The same dept head holds each function across every location, so they're members of all 12 branches' relevant channels and can spot patterns across clinics.</p>
 
 <table>
   <thead><tr><th>Channel</th><th>Who's in it</th><th>Functional holder (across all clinics)</th></tr></thead>
@@ -800,13 +352,14 @@
     <tr><td><code>clinic-XXX-med</code></td><td>Branch vets + nurses + medical assistants</td><td><strong>Scott + Sandy</strong></td></tr>
     <tr><td><code>clinic-XXX-fd</code></td><td>Branch reception + front-desk</td><td><strong>Aida</strong></td></tr>
     <tr><td><code>clinic-XXX-inventory</code></td><td>Branch staff + procurement team</td><td><strong>Michael</strong></td></tr>
+    <tr><td><code>clinic-XXX-maintenance</code></td><td>Branch staff + maintenance team</td><td><strong>Judit</strong></td></tr>
   </tbody>
 </table>
 
 <div class="callout">
   <h4>Branch isolation, dept-head visibility</h4>
   <p>JLT staff see only JLT channels. Downtown sees only Downtown. No cross-branch chatter for staff.</p>
-  <p style="margin-bottom:0;">Scott + Sandy are members of every clinic's medical channel. Aida is in every front-desk channel. Michael is in every inventory channel and umbrella. They see across all branches; staff don't. Maintenance flows through the single central <code>team-ops-maintenance</code> channel — branches route via their FD lead.</p>
+  <p style="margin-bottom:0;">Scott + Sandy are members of every clinic's medical channel. Aida is in every front-desk channel. Michael is in every inventory channel and umbrella. Judit is in every maintenance channel. They see across all branches; staff don't.</p>
 </div>
 
 <h3>Active locations</h3>
@@ -825,10 +378,9 @@
     <tr><td>Blue Oasis — DIP</td><td><code>clinic-bovc-dip</code></td><td>Michael + Sandy</td></tr>
     <tr><td>Vienna Vet</td><td><code>clinic-vv</code></td><td><strong>Aida</strong> + branch lead TBC</td></tr>
     <tr><td>TVRC (referral hospital)</td><td><code>clinic-tvrc</code></td><td><strong>Aida</strong></td></tr>
+    <tr><td>VA Head Office</td><td><code>clinic-hq</code></td><td>Mansoor / Michael</td></tr>
   </tbody>
 </table>
-
-<p style="font-size:.9rem;color:var(--muted);font-style:italic;">Head Office staff aren't a clinic — they coordinate through <code>va-management</code> and the relevant functional channels (finance, HR, marketing, etc.). No dedicated <code>clinic-hq</code>.</p>
 
 <h2>Departments — detail by team</h2>
 
@@ -842,8 +394,8 @@
     <li><code>team-ops-warehouse</code> · <code>team-ops-inventory</code> · <code>team-ops-smartflow</code></li>
     <li><code>team-ops-purchasing</code> · <code>team-ops-floof-orders</code></li>
     <li><code>team-ops-approvals-equipment</code> · <code>team-ops-approvals-medicine</code></li>
-    <li><code>team-ops-maintenance</code> — v1.9: central only · branches request via FD leads (same flow as today's WhatsApp)</li>
-    <li><code>team-ops-projects</code> · <code>team-ops-licensing</code></li>
+    <li><code>team-ops-maintenance</code> — maintenance team only · branches request via their own <code>clinic-XXX-maintenance</code></li>
+    <li><code>team-ops-fitout</code> · <code>team-ops-licensing</code></li>
   </ul>
 </div>
 
@@ -883,13 +435,13 @@
 </div>
 
 <div class="dept-block">
-  <h3>👥 HR <span class="tier tier-3">Strictly private</span></h3>
+  <h3>👥 People / HR <span class="tier tier-3">Strictly private</span></h3>
   <div class="lead">Lead: Shari</div>
   <ul>
-    <li><code>team-hr</code> — HR leadership + policy</li>
-    <li><code>team-hr-recruitment</code> — vet, nurse, reception hiring pipelines</li>
-    <li><code>team-hr-licensing-visa</code> — visas, doctor licensing, MOCA renewals · co-led with Yusuf</li>
-    <li><code>team-hr-leave-payroll</code> — leave balances, OT, callouts, payroll</li>
+    <li><code>team-people</code> — HR leadership + policy</li>
+    <li><code>team-people-recruitment</code> — vet, nurse, reception hiring pipelines</li>
+    <li><code>team-people-licensing-visa</code> — visas, doctor licensing, MOCA renewals · co-led with Yusuf</li>
+    <li><code>team-people-leave-payroll</code> — leave balances, OT, callouts, payroll</li>
   </ul>
   <p style="font-size:.85rem;color:var(--muted);margin-top:.8rem;margin-bottom:0;">All HR channels are strictly private to HR + management. Personal data, salaries, performance information.</p>
 </div>
@@ -899,8 +451,8 @@
   <div class="lead">Lead: Harshita (Head of Finance)</div>
   <ul>
     <li><code>team-finance</code> — finance leadership</li>
-    <li><code>team-finance</code> — v1.9: general finance · AP/AR/day-to-day collapsed here</li>
-    <li><code>team-finance-management-accounts-pnl</code> — v1.9: P&amp;L review · Mansoor + Harshita + Hadi</li>
+    <li><code>team-finance-ap</code> — accounts payable · supplier invoices · weekly PO/invoice cross-check · Pauline + Harshita</li>
+    <li><code>team-finance-ar</code> — accounts receivable · collections · aging</li>
     <li><code>team-finance-discounts</code> — discount logging + audit · Sandy + Aida</li>
     <li><code>team-finance-pricing</code> — pricing changes · rescue rates · Mansoor + Scott</li>
   </ul>
@@ -987,7 +539,20 @@
   <li>Aida + Harshita coordinate the resolution. The branch sees status updates inside their own channel.</li>
 </ol>
 
-<!-- Bottom dashboard duplicate removed in v1.8 — dashboard now at top of page -->
+<h2>What we need from each department head</h2>
+
+<div class="callout callout-ask">
+  <h4>Please review your section above and reply with:</h4>
+  <ol style="margin-bottom:0;line-height:1.8;">
+    <li><strong>Channel list</strong> — confirm the channels for your dept look right, or propose changes (additions, removals, renames).</li>
+    <li><strong>Members per channel</strong> — for each of your team's channels, who should be added? (names + roles).</li>
+    <li><strong>Privacy preferences</strong> — for each channel, who should see it? Options: (a) everyone in the company, (b) your dept + management only, (c) strictly your dept only. Default suggestions are above; flag anything you'd like changed.</li>
+    <li><strong>Cross-dept visitors</strong> — who from other departments should also be members of your channels? (e.g. Aida sits in clinical-rescue, Sandy in finance-discounts, etc.)</li>
+    <li><strong>Anything missing</strong> — channels, lists, or coordination patterns we haven't captured.</li>
+  </ol>
+</div>
+
+<p style="font-size:.95rem;">Send your reply to Andrew. Once everyone has signed off on their slice, we'll consolidate, align with leadership, and roll out at the right pace for your team. We'll take it as fast as you're ready — no fixed deadline, but the sooner the structure is clear, the sooner the company stops losing things in WhatsApp threads.</p>
 
 </div>
 
