@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Vet Alliance — Brand Timeline (Split Draft v2)</title>
+<style>
+  @page { size: 1684mm 400mm; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal: #1f5b6e;
+    --teal-dark: #143f4e;
+    --mv-blue: #1e4d63;
+    --mv-blue-soft: #cfdde5;
+    --bov-blue: #5fc3df;
+    --bov-blue-soft: #d8eff7;
+    --va-gold: #c9a35a;
+    --va-gold-soft: #f1e6cf;
+    --ink: #1a2730;
+    --muted: #6c7a85;
+    --bg: #fafaf6;
+  }
+
+  html, body {
+    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    height: 400mm;
+    overflow: hidden;
+  }
+
+  .canvas {
+    position: relative;
+    width: 1684mm;
+    height: 400mm;
+    padding: 20mm 30mm 18mm 30mm;
+    background:
+      radial-gradient(ellipse at 15% 12%, rgba(43,106,133,0.06), transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(201,163,90,0.05), transparent 40%),
+      radial-gradient(ellipse at 88% 90%, rgba(201,163,90,0.08), transparent 50%),
+      var(--bg);
+  }
+
+  /* ============ HEADER ============ */
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 18mm;
+  }
+  .brand { display: flex; align-items: center; gap: 8mm; }
+  .brand-mark {
+    width: 28mm; height: 28mm;
+    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+    border-radius: 5mm;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 800; font-size: 11mm; letter-spacing: -0.8mm;
+  }
+  .brand-text h1 {
+    font-size: 13mm;
+    letter-spacing: -0.5mm;
+    color: var(--teal-dark);
+    font-weight: 800;
+    line-height: 1;
+  }
+  .brand-text .sub {
+    font-size: 4.5mm;
+    color: var(--muted);
+    margin-top: 2.5mm;
+    letter-spacing: 1.2mm;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .legend {
+    display: flex;
+    flex-direction: column;
+    gap: 3mm;
+    font-size: 4mm;
+    color: var(--ink);
+    text-transform: uppercase;
+    letter-spacing: 1.4mm;
+    font-weight: 600;
+    margin-top: 3mm;
+  }
+  .legend-item { display: flex; align-items: center; gap: 3mm; }
+  .legend .dot {
+    display: inline-block;
+    width: 5mm; height: 5mm;
+    border-radius: 50%;
+  }
+  .dot.mv  { background: var(--mv-blue); }
+  .dot.bov { background: var(--bov-blue); }
+  .dot.va  { background: var(--va-gold); }
+
+  /* ============ TIMELINE ============ */
+  .timeline {
+    position: relative;
+    width: 100%;
+    height: 320mm;
+  }
+
+  /* Track band labels (background pills behind each rail section) */
+  .track-band {
+    position: absolute;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2.5mm;
+    font-size: 5.5mm;
+    padding: 3mm 6mm;
+    border-radius: 2mm;
+  }
+  .lbl-mv  {
+    left: 0; top: 0mm;
+    color: var(--mv-blue);
+    background: var(--mv-blue-soft);
+  }
+  .lbl-bov {
+    left: 0; top: 175mm;
+    color: var(--bov-blue);
+    background: var(--bov-blue-soft);
+  }
+  .lbl-va  {
+    right: 0; top: 0mm;
+    color: var(--va-gold);
+    background: var(--va-gold-soft);
+  }
+
+  /* RAILS */
+  .rail {
+    position: absolute;
+    height: 5mm;
+    border-radius: 2.5mm;
+  }
+  .rail-mv  {
+    left: 0; top: 100mm;
+    width: 870mm;
+    background: var(--mv-blue);
+  }
+  .rail-bov {
+    left: 0; top: 230mm;
+    width: 870mm;
+    background: var(--bov-blue);
+  }
+  .rail-va {
+    right: 0; top: 165mm;
+    width: 540mm;
+    height: 7mm;
+    border-radius: 3.5mm;
+    background: linear-gradient(90deg, var(--va-gold) 0%, var(--va-gold) 100%);
+  }
+
+  /* End caps on rails - little arrow at end */
+  .rail-va::after {
+    content: '';
+    position: absolute;
+    right: -1mm; top: 50%;
+    transform: translateY(-50%);
+    width: 0; height: 0;
+    border-left: 6mm solid var(--va-gold);
+    border-top: 6mm solid transparent;
+    border-bottom: 6mm solid transparent;
+  }
+
+  /* Y-MERGE SVG between rails and unified rail */
+  .merge {
+    position: absolute;
+    left: 870mm;
+    top: 95mm;
+    width: 274mm;
+    height: 145mm;
+  }
+  .merge svg { width: 100%; height: 100%; display: block; }
+
+  /* ============ EVENT NODES ============ */
+  .node {
+    position: absolute;
+    width: 96mm;
+    text-align: center;
+  }
+  .node .year {
+    font-size: 11mm;
+    font-weight: 800;
+    color: var(--teal-dark);
+    line-height: 1;
+    letter-spacing: -0.4mm;
+  }
+  .node.mv  .year { color: var(--mv-blue); }
+  .node.bov .year { color: var(--bov-blue); }
+  .node.va  .year { color: var(--va-gold); }
+
+  .node .events {
+    margin-top: 4mm;
+    font-size: 4mm;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+  .node .events li {
+    list-style: none;
+    margin-bottom: 1.8mm;
+    padding: 0 1mm;
+  }
+  .node .events li strong {
+    color: var(--teal-dark);
+    font-weight: 700;
+  }
+
+  /* connector dot (pin) */
+  .node .pin {
+    position: absolute;
+    left: 50%;
+    width: 7mm; height: 7mm;
+    border-radius: 50%;
+    background: #fff;
+    border: 2.2mm solid var(--teal);
+    transform: translateX(-50%);
+    z-index: 5;
+  }
+  .node.mv  .pin { border-color: var(--mv-blue); }
+  .node.bov .pin { border-color: var(--bov-blue); }
+  .node.va  .pin { border-color: var(--va-gold); }
+
+  /* stem from card to pin */
+  .node .stem {
+    position: absolute;
+    left: 50%;
+    width: 0.5mm;
+    background: rgba(20,63,78,0.25);
+    transform: translateX(-50%);
+    z-index: 4;
+  }
+
+  /* ABOVE-rail layout: card stacks up, pin at bottom on the rail */
+  .node.above { display: flex; flex-direction: column; align-items: center; }
+  .node.above .card { margin-bottom: 6mm; }
+  .node.above .pin  { bottom: -3.5mm; }
+  .node.above .stem { bottom: 4mm; height: 8mm; }
+
+  /* BELOW-rail layout */
+  .node.below { display: flex; flex-direction: column; align-items: center; }
+  .node.below .card { margin-top: 14mm; }
+  .node.below .pin  { top: -3.5mm; }
+  .node.below .stem { top: 4mm; height: 8mm; }
+
+  /* ============ UNION (the Y junction) — focal point ============ */
+  .union {
+    position: absolute;
+    left: 858mm;
+    top: 118mm;
+    width: 298mm;
+    height: 100mm;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5mm;
+    z-index: 8;
+  }
+  /* soft golden halo behind the union to anchor it as focal point */
+  .union::before {
+    content: '';
+    position: absolute;
+    inset: -4mm -10mm;
+    background: radial-gradient(ellipse at center, rgba(201,163,90,0.32) 0%, rgba(201,163,90,0.10) 45%, transparent 70%);
+    z-index: -1;
+    border-radius: 50%;
+  }
+  .union .union-year {
+    background: linear-gradient(135deg, var(--va-gold) 0%, #b08945 100%);
+    color: #fff;
+    font-size: 12mm;
+    font-weight: 900;
+    padding: 3mm 12mm;
+    border-radius: 2.5mm;
+    letter-spacing: -0.3mm;
+    margin-bottom: 2mm;
+    line-height: 1;
+  }
+  .union .badge {
+    background: #fff;
+    border: 0.5mm solid rgba(0,0,0,0.10);
+    border-radius: 2mm;
+    padding: 2.5mm 6mm;
+    font-size: 4mm;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.7mm;
+    color: var(--teal-dark);
+    white-space: nowrap;
+  }
+  .union .badge.formed {
+    background: var(--teal-dark);
+    color: #fff;
+    border-color: transparent;
+    font-size: 5mm;
+    padding: 3.2mm 9mm;
+    letter-spacing: 1.6mm;
+    font-weight: 800;
+  }
+  .union .badge.mv-join  { border-left: 2.2mm solid var(--mv-blue); }
+  .union .badge.bov-join { border-left: 2.2mm solid var(--bov-blue); }
+
+  /* ============ TODAY ENDPOINT ============ */
+  .today {
+    position: absolute;
+    right: 0;
+    top: 240mm;
+    width: 130mm;
+    background: linear-gradient(135deg, #fff 0%, var(--va-gold-soft) 100%);
+    border: 0.6mm solid var(--va-gold);
+    border-radius: 3mm;
+    padding: 5mm 6mm;
+    text-align: center;
+  }
+  .today .lbl {
+    font-size: 4mm;
+    color: var(--va-gold);
+    font-weight: 800;
+    letter-spacing: 2mm;
+    text-transform: uppercase;
+  }
+  .today .stat {
+    font-size: 8mm;
+    font-weight: 800;
+    color: var(--teal-dark);
+    line-height: 1.15;
+    margin-top: 1.5mm;
+  }
+  .today .tag {
+    font-size: 3.6mm;
+    color: var(--muted);
+    margin-top: 2mm;
+    font-style: italic;
+  }
+
+  /* ============ FOOTER ============ */
+  .footer {
+    position: absolute;
+    bottom: 8mm;
+    left: 30mm;
+    right: 30mm;
+    display: flex;
+    justify-content: space-between;
+    font-size: 3.2mm;
+    color: var(--muted);
+    letter-spacing: 0.6mm;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="canvas">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="brand">
+      <div class="brand-mark">VA</div>
+      <div class="brand-text">
+        <h1>Vet Alliance — Our Journey</h1>
+        <div class="sub">Two stories. One alliance.</div>
+      </div>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><span class="dot mv"></span>Modern Vet</div>
+      <div class="legend-item"><span class="dot bov"></span>Blue Oasis Vet</div>
+      <div class="legend-item"><span class="dot va"></span>Vet Alliance</div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="timeline">
+
+    <!-- Track band labels -->
+    <div class="track-band lbl-mv">Modern Vet</div>
+    <div class="track-band lbl-bov">Blue Oasis Vet</div>
+    <div class="track-band lbl-va">Vet Alliance</div>
+
+    <!-- RAILS -->
+    <div class="rail rail-mv"></div>
+    <div class="rail rail-bov"></div>
+    <div class="rail rail-va"></div>
+
+    <!-- Y-MERGE -->
+    <div class="merge">
+      <svg viewBox="0 0 274 145" preserveAspectRatio="none">
+        <!-- MV rail center is at y ≈ 7 (top of merge box) -->
+        <!-- BOV rail center is at y ≈ 137 -->
+        <!-- Unified rail center is at y ≈ 75 -->
+        <path d="M 0 7 C 140 7, 140 75, 274 75"
+              fill="none" stroke="#2b6a85" stroke-width="5" stroke-linecap="round"/>
+        <path d="M 0 137 C 140 137, 140 75, 274 75"
+              fill="none" stroke="#4ea7c4" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- ============ MODERN VET NODES (rail at top=100mm) ============ -->
+
+    <!-- 1995 - above -->
+    <div class="node mv above" style="left: 30mm; top: 30mm; height: 70mm;">
+      <div class="card">
+        <div class="year">1995</div>
+        <ul class="events">
+          <li><strong>Modern Veterinary Clinic founded</strong></li>
+          <li>1st patient: Snoopy</li>
+        </ul>
+      </div>
+      <span class="stem"></span>
+      <span class="pin"></span>
+    </div>
+
+    <!-- 2007 - below -->
+    <div class="node mv below" style="left: 145mm; top: 100mm; height: 80mm;">
+      <span class="pin"></span>
+      <span class="stem"></span>
+      <div class="card">
+        <div class="year">2007</div>
+        <ul class="events">
+          <li><strong>1st Hip Replacement Surgery</strong> in the UAE</li>
+          <li>20 team members</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 2018 - above -->
+    <div class="node mv above" style="left: 260mm; top: 40mm; height: 60mm;">
+      <div class="card">
+        <div class="year">2018</div>
+        <ul class="events">
+          <li><strong>JVC Clinic opens</strong></li>
+        </ul>
+      </div>
+      <span class="stem"></span>
+      <span class="pin"></span>
+    </div>
+
+    <!-- 2020 - below -->
+    <div class="node mv below" style="left: 375mm; top: 100mm; height: 90mm;">
+      <span class="pin"></span>
+      <span class="stem"></span>
+      <div class="card">
+        <div class="year">2020</div>
+        <ul class="events">
+          <li><strong>JLT Clinic opens</strong></li>
+          <li>Pet Taxi launches</li>
+          <li>1,000,000 patients treated</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 2021 - above -->
+    <div class="node mv above" style="left: 495mm; top: 10mm; height: 90mm;">
+      <div class="card">
+        <div class="year">2021</div>
+        <ul class="events">
+          <li><strong>Downtown Clinic opens</strong></li>
+          <li>1st Open Heart Surgery in the UAE</li>
+          <li>1st 24-Hour Hospital</li>
+        </ul>
+      </div>
+      <span class="stem"></span>
+      <span class="pin"></span>
+    </div>
+
+    <!-- 2022 - below -->
+    <div class="node mv below" style="left: 620mm; top: 100mm; height: 90mm;">
+      <span class="pin"></span>
+      <span class="stem"></span>
+      <div class="card">
+        <div class="year">2022</div>
+        <ul class="events">
+          <li><strong>Palm Clinic opens</strong></li>
+          <li>1st Cataract &amp; Glaucoma</li>
+          <li>1st Craniotomy in the UAE</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 2023 - above -->
+    <div class="node mv above" style="left: 745mm; top: 30mm; height: 70mm;">
+      <div class="card">
+        <div class="year">2023</div>
+        <ul class="events">
+          <li><strong>Khawaneej Clinic opens</strong></li>
+          <li>263,036 T-N-R's performed</li>
+        </ul>
+      </div>
+      <span class="stem"></span>
+      <span class="pin"></span>
+    </div>
+
+    <!-- ============ BLUE OASIS NODES (rail at top=230mm) ============ -->
+
+    <!-- 2008 - above -->
+    <div class="node bov above" style="left: 80mm; top: 160mm; height: 70mm;">
+      <div class="card">
+        <div class="year">2008</div>
+        <ul class="events">
+          <li><strong>Blue Oasis Vet founded</strong></li>
+        </ul>
+      </div>
+      <span class="stem"></span>
+      <span class="pin"></span>
+    </div>
+
+    <!-- 2016 - below -->
+    <div class="node bov below" style="left: 280mm; top: 230mm; height: 70mm;">
+      <span class="pin"></span>
+      <span class="stem"></span>
+      <div class="card">
+        <div class="year">2016</div>
+        <ul class="events">
+          <li><strong>First Vet MRI</strong> in private practice</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 2019 - above -->
+    <div class="node bov above" style="left: 480mm; top: 160mm; height: 70mm;">
+      <div class="card">
+        <div class="year">2019</div>
+        <ul class="events">
+          <li><strong>Blue Sky Pet Relocation founded</strong></li>
+        </ul>
+      </div>
+      <span class="stem"></span>
+      <span class="pin"></span>
+    </div>
+
+    <!-- 2022 - below -->
+    <div class="node bov below" style="left: 680mm; top: 230mm; height: 70mm;">
+      <span class="pin"></span>
+      <span class="stem"></span>
+      <div class="card">
+        <div class="year">2022</div>
+        <ul class="events">
+          <li><strong>Blue Oasis D2 Clinic opens</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ============ UNION (the Y junction "2024 founding") ============ -->
+    <div class="union">
+      <div class="union-year">2024</div>
+      <div class="badge formed">Vet Alliance Formed</div>
+      <div class="badge mv-join">Modern Vet — Founding Member</div>
+      <div class="badge bov-join">Blue Oasis Vet — Founding Member</div>
+    </div>
+
+    <!-- ============ VET ALLIANCE NODES (unified rail right side) ============ -->
+    <!-- merge box ends at left = 870+274 = 1144mm. Rail-va starts where? right:0 width:540 => starts at 1684-540=1144mm. Perfect. -->
+    <!-- Rail at top=165mm. Pins land on the rail. -->
+
+    <!-- 2024 post-formation - above (labelled 'Late 2024' to disambiguate from formation year) -->
+    <div class="node va above" style="left: 1190mm; top: 75mm; height: 90mm;">
+      <div class="card">
+        <div class="year" style="font-size: 8mm;">Late 2024</div>
+        <ul class="events">
+          <li><strong>Blue Sky Pet Relocation joins</strong></li>
+          <li><strong>Floof launches</strong></li>
+          <li>1st V-Clamp Surgery in the region</li>
+          <li>200th employee joins</li>
+        </ul>
+      </div>
+      <span class="stem"></span>
+      <span class="pin"></span>
+    </div>
+
+    <!-- 2025 - below -->
+    <div class="node va below" style="left: 1340mm; top: 165mm; height: 90mm;">
+      <span class="pin"></span>
+      <span class="stem"></span>
+      <div class="card">
+        <div class="year">2025</div>
+        <ul class="events">
+          <li><strong>Opened GCC's 1st Veterinary Referral Centre</strong></li>
+          <li><strong>Azizi Riviera Clinic opens</strong></li>
+          <li><strong>Vienna Vet joins</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- TODAY endpoint card (top right) -->
+    <div class="today">
+      <div class="lbl">Today</div>
+      <div class="stat">11 clinics<br>70+ veterinarians</div>
+      <div class="tag">One group. One standard of care.</div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span>Vet Alliance Group &copy; 2026</span>
+    <span>Brand Timeline &middot; Draft v2</span>
+  </div>
+
+</div>
+</body>
+</html>
