@@ -98,12 +98,14 @@
     height: 270mm;
   }
 
-  /* TRACK label cartouches — white logos sit inside white chip, then brand-color text.
-     Since WeasyPrint doesn't support CSS filter, we use pre-made WHITE logo PNGs. */
+  /* TRACK label cartouches — white logos sit inside small chip, properly contained
+     within the cartouche shape (no overflow). */
   .track-cart {
     position: absolute;
-    display: flex; align-items: center; gap: 3mm;
-    padding: 2.5mm 5mm 2.5mm 3mm;
+    display: flex;
+    align-items: center;
+    gap: 3mm;
+    padding: 0 6mm 0 2mm;
     border-radius: 2mm;
     font-weight: 800;
     text-transform: uppercase;
@@ -111,21 +113,31 @@
     letter-spacing: 1.6mm;
     z-index: 5;
     white-space: nowrap;
+    height: 13mm;                    /* taller cartouche; chip 9mm + 2mm margin top/bottom */
+    box-sizing: border-box;
   }
-  .cart-mv  { left: 0; top: 73mm;  background: var(--mv-navy);  color: #fff; }
-  .cart-bov { left: 0; top: 179mm; background: var(--bov-blue); color: #fff; }
-  .cart-va  { right: 0; top: 122mm; background: var(--va-teal);  color: #fff; }
-  /* logo chip inside cartouche: white background, native-color logo */
+  .cart-mv  { left: 0; top: 71mm;  background: var(--mv-navy);  color: #fff; }
+  .cart-bov { left: 0; top: 177mm; background: var(--bov-blue); color: #fff; }
+  .cart-va  { right: 0; top: 120mm; background: var(--va-teal);  color: #fff; }
+  /* logo chip: white background, fits inside cartouche with 2mm margin top/bottom. */
   .track-cart .chip {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     background: #fff;
-    border-radius: 1.4mm;
-    padding: 1.2mm 2mm;
-    height: 7.5mm;
+    border-radius: 1mm;
+    height: 9mm;                     /* cartouche 13mm  -  4mm margin = 9mm chip */
+    width: 14mm;                     /* fixed width so all 3 cartouches have aligned chip */
+    box-sizing: border-box;
+    flex-shrink: 0;
   }
-  .track-cart .chip img { height: 5.5mm; width: auto; display: block; }
+  .track-cart .chip img {
+    max-height: 6mm;
+    max-width: 12mm;
+    width: auto;
+    height: auto;
+    display: block;
+  }
 
   /* RAILS - start AFTER the cartouche, so cartouche never overshoots */
   .rail {
@@ -233,33 +245,30 @@
   .node.bov .events li strong { color: var(--bov-blue); }
   .node.va  .events li strong { color: var(--va-teal); }
 
-  /* ============ PENNANT FLAG SYSTEM (SVG) ============ */
-  /* Use a single inline SVG for the whole flag (pole + triangular pennant + pin).
-     WeasyPrint doesn't support clip-path on divs, so SVG is the reliable path. */
+  /* ============ MARKER SYSTEM (stick + filled circle) ============ */
+  /* Replaced flags with a simple lollipop marker: thin vertical pole with a
+     filled brand-colored circle at the END (the end away from the rail).
+     This reads correctly whether the card is above or below the rail. */
   .flag {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 12mm;
-    height: 22mm;
+    width: 6mm;
+    height: 18mm;
     pointer-events: none;
     z-index: 4;
   }
   .flag svg { width: 100%; height: 100%; display: block; overflow: visible; }
 
-  /* node padding so card clears the flag */
+  /* node padding so card clears the marker */
   .node.above {
-    padding-bottom: 20mm;  /* room for the "up" flag dangling out the bottom toward rail */
+    padding-bottom: 18mm;
   }
-  .node.above .flag {
-    bottom: 0;
-  }
+  .node.above .flag { bottom: 0; }
   .node.below {
-    padding-top: 20mm;     /* room for the "down" flag at the top */
+    padding-top: 18mm;
   }
-  .node.below .flag {
-    top: 0;
-  }
+  .node.below .flag { top: 0; }
 
   /* ============ UNION ============ */
   .union {
@@ -461,19 +470,17 @@
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="14" rx="1"/><path d="M12 11v6M9 14h6"/><path d="M8 7V4h8v3"/></svg></span><span class="txt"><strong>Modern Veterinary Clinic founded</strong></span></li>
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11c0-2 1-4 3-5l2 2 3-3 3 1c1 1 1 3 0 4l-1 1v6c0 2-2 3-4 3h-2c-3 0-4-2-4-4z"/><circle cx="10" cy="12" r=".7" fill="currentColor"/></svg></span><span class="txt">1st patient — Snoopy</span></li>
       </ul>
-      <div class="flag up mv"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
-  <line x1="5.5" y1="3" x2="5.5" y2="20" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
-  <polygon points="5.5,3 11.5,5.5 5.5,8" fill="#1F1F4D"/>
-  <circle cx="5.5" cy="20" r="1.6" fill="#ffffff" stroke="#1F1F4D" stroke-width="1"/>
+      <div class="flag up mv"><svg viewBox="0 0 6 18" xmlns="http://www.w3.org/2000/svg">
+  <line x1="3" y1="2.5" x2="3" y2="18" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <circle cx="3" cy="2.5" r="2" fill="#1F1F4D"/>
 </svg></div>
     </div>
 
     <!-- 2007 - below -->
     <div class="node mv below" style="left: 200mm; top: 84mm;">
-      <div class="flag down mv"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
-  <line x1="5.5" y1="2" x2="5.5" y2="19" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
-  <polygon points="5.5,14 11.5,16.5 5.5,19" fill="#1F1F4D"/>
-  <circle cx="5.5" cy="2" r="1.6" fill="#ffffff" stroke="#1F1F4D" stroke-width="1"/>
+      <div class="flag down mv"><svg viewBox="0 0 6 18" xmlns="http://www.w3.org/2000/svg">
+  <line x1="3" y1="0" x2="3" y2="15.5" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <circle cx="3" cy="15.5" r="2" fill="#1F1F4D"/>
 </svg></div>
       <div class="yearbar"><span class="year">2007</span></div>
       <ul class="events">
@@ -488,19 +495,17 @@
       <ul class="events">
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="14" rx="1"/><path d="M12 11v6M9 14h6"/><path d="M8 7V4h8v3"/></svg></span><span class="txt"><strong>JVC Clinic opens</strong></span></li>
       </ul>
-      <div class="flag up mv"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
-  <line x1="5.5" y1="3" x2="5.5" y2="20" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
-  <polygon points="5.5,3 11.5,5.5 5.5,8" fill="#1F1F4D"/>
-  <circle cx="5.5" cy="20" r="1.6" fill="#ffffff" stroke="#1F1F4D" stroke-width="1"/>
+      <div class="flag up mv"><svg viewBox="0 0 6 18" xmlns="http://www.w3.org/2000/svg">
+  <line x1="3" y1="2.5" x2="3" y2="18" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <circle cx="3" cy="2.5" r="2" fill="#1F1F4D"/>
 </svg></div>
     </div>
 
     <!-- 2020 - below -->
     <div class="node mv below" style="left: 405mm; top: 84mm;">
-      <div class="flag down mv"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
-  <line x1="5.5" y1="2" x2="5.5" y2="19" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
-  <polygon points="5.5,14 11.5,16.5 5.5,19" fill="#1F1F4D"/>
-  <circle cx="5.5" cy="2" r="1.6" fill="#ffffff" stroke="#1F1F4D" stroke-width="1"/>
+      <div class="flag down mv"><svg viewBox="0 0 6 18" xmlns="http://www.w3.org/2000/svg">
+  <line x1="3" y1="0" x2="3" y2="15.5" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <circle cx="3" cy="15.5" r="2" fill="#1F1F4D"/>
 </svg></div>
       <div class="yearbar"><span class="year">2020</span></div>
       <ul class="events">
@@ -518,19 +523,17 @@
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 10c0 5.5-7 10-7 10z"/></svg></span><span class="txt">1st Open Heart Surgery in the UAE</span></li>
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14a8 8 0 11-9-9 6 6 0 009 9z"/></svg></span><span class="txt">1st 24-Hour Hospital</span></li>
       </ul>
-      <div class="flag up mv"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
-  <line x1="5.5" y1="3" x2="5.5" y2="20" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
-  <polygon points="5.5,3 11.5,5.5 5.5,8" fill="#1F1F4D"/>
-  <circle cx="5.5" cy="20" r="1.6" fill="#ffffff" stroke="#1F1F4D" stroke-width="1"/>
+      <div class="flag up mv"><svg viewBox="0 0 6 18" xmlns="http://www.w3.org/2000/svg">
+  <line x1="3" y1="2.5" x2="3" y2="18" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <circle cx="3" cy="2.5" r="2" fill="#1F1F4D"/>
 </svg></div>
     </div>
 
     <!-- 2022 - below -->
     <div class="node mv below" style="left: 540mm; top: 84mm;">
-      <div class="flag down mv"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
-  <line x1="5.5" y1="2" x2="5.5" y2="19" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
-  <polygon points="5.5,14 11.5,16.5 5.5,19" fill="#1F1F4D"/>
-  <circle cx="5.5" cy="2" r="1.6" fill="#ffffff" stroke="#1F1F4D" stroke-width="1"/>
+      <div class="flag down mv"><svg viewBox="0 0 6 18" xmlns="http://www.w3.org/2000/svg">
+  <line x1="3" y1="0" x2="3" y2="15.5" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <circle cx="3" cy="15.5" r="2" fill="#1F1F4D"/>
 </svg></div>
       <div class="yearbar"><span class="year">2022</span></div>
       <ul class="events">
@@ -547,10 +550,9 @@
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="14" rx="1"/><path d="M12 11v6M9 14h6"/><path d="M8 7V4h8v3"/></svg></span><span class="txt"><strong>Khawaneej Clinic opens</strong></span></li>
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M9 6l12 12M9 18L21 6"/></svg></span><span class="txt">263,036 T-N-R's performed</span></li>
       </ul>
-      <div class="flag up mv"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
-  <line x1="5.5" y1="3" x2="5.5" y2="20" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
-  <polygon points="5.5,3 11.5,5.5 5.5,8" fill="#1F1F4D"/>
-  <circle cx="5.5" cy="20" r="1.6" fill="#ffffff" stroke="#1F1F4D" stroke-width="1"/>
+      <div class="flag up mv"><svg viewBox="0 0 6 18" xmlns="http://www.w3.org/2000/svg">
+  <line x1="3" y1="2.5" x2="3" y2="18" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <circle cx="3" cy="2.5" r="2" fill="#1F1F4D"/>
 </svg></div>
     </div>
 
@@ -562,19 +564,17 @@
       <ul class="events">
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="14" rx="1"/><path d="M12 11v6M9 14h6"/><path d="M8 7V4h8v3"/></svg></span><span class="txt"><strong>Blue Oasis Vet founded</strong></span></li>
       </ul>
-      <div class="flag up bov"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
-  <line x1="5.5" y1="3" x2="5.5" y2="20" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
-  <polygon points="5.5,3 11.5,5.5 5.5,8" fill="#2B8CCB"/>
-  <circle cx="5.5" cy="20" r="1.6" fill="#ffffff" stroke="#2B8CCB" stroke-width="1"/>
+      <div class="flag up bov"><svg viewBox="0 0 6 18" xmlns="http://www.w3.org/2000/svg">
+  <line x1="3" y1="2.5" x2="3" y2="18" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <circle cx="3" cy="2.5" r="2" fill="#2B8CCB"/>
 </svg></div>
     </div>
 
     <!-- 2016 - below -->
     <div class="node bov below" style="left: 215mm; top: 188mm;">
-      <div class="flag down bov"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
-  <line x1="5.5" y1="2" x2="5.5" y2="19" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
-  <polygon points="5.5,14 11.5,16.5 5.5,19" fill="#2B8CCB"/>
-  <circle cx="5.5" cy="2" r="1.6" fill="#ffffff" stroke="#2B8CCB" stroke-width="1"/>
+      <div class="flag down bov"><svg viewBox="0 0 6 18" xmlns="http://www.w3.org/2000/svg">
+  <line x1="3" y1="0" x2="3" y2="15.5" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <circle cx="3" cy="15.5" r="2" fill="#2B8CCB"/>
 </svg></div>
       <div class="yearbar"><span class="year">2016</span></div>
       <ul class="events">
@@ -588,19 +588,17 @@
       <ul class="events">
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 14l8-2 4-9 2 1-2 8 7 1 1 2-7 1-2 8-2-1 1-7-8-2z"/></svg></span><span class="txt"><strong>Blue Sky Pet Relocation founded</strong></span></li>
       </ul>
-      <div class="flag up bov"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
-  <line x1="5.5" y1="3" x2="5.5" y2="20" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
-  <polygon points="5.5,3 11.5,5.5 5.5,8" fill="#2B8CCB"/>
-  <circle cx="5.5" cy="20" r="1.6" fill="#ffffff" stroke="#2B8CCB" stroke-width="1"/>
+      <div class="flag up bov"><svg viewBox="0 0 6 18" xmlns="http://www.w3.org/2000/svg">
+  <line x1="3" y1="2.5" x2="3" y2="18" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <circle cx="3" cy="2.5" r="2" fill="#2B8CCB"/>
 </svg></div>
     </div>
 
     <!-- 2022 BOV - below -->
     <div class="node bov below" style="left: 470mm; top: 188mm;">
-      <div class="flag down bov"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
-  <line x1="5.5" y1="2" x2="5.5" y2="19" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
-  <polygon points="5.5,14 11.5,16.5 5.5,19" fill="#2B8CCB"/>
-  <circle cx="5.5" cy="2" r="1.6" fill="#ffffff" stroke="#2B8CCB" stroke-width="1"/>
+      <div class="flag down bov"><svg viewBox="0 0 6 18" xmlns="http://www.w3.org/2000/svg">
+  <line x1="3" y1="0" x2="3" y2="15.5" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <circle cx="3" cy="15.5" r="2" fill="#2B8CCB"/>
 </svg></div>
       <div class="yearbar"><span class="year">2022</span></div>
       <ul class="events">
@@ -638,19 +636,17 @@
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v6a4 4 0 008 0V4"/><circle cx="17" cy="15" r="3"/><path d="M10 14v1a4 4 0 004 4"/></svg></span><span class="txt">1st V-Clamp Surgery in the region</span></li>
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="16" cy="9" r="2.5"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5M14 20c0-2 2-4 5-4"/></svg></span><span class="txt">200th employee joins</span></li>
       </ul>
-      <div class="flag up va"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
-  <line x1="5.5" y1="3" x2="5.5" y2="20" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
-  <polygon points="5.5,3 11.5,5.5 5.5,8" fill="#0B5C63"/>
-  <circle cx="5.5" cy="20" r="1.6" fill="#ffffff" stroke="#0B5C63" stroke-width="1"/>
+      <div class="flag up va"><svg viewBox="0 0 6 18" xmlns="http://www.w3.org/2000/svg">
+  <line x1="3" y1="2.5" x2="3" y2="18" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <circle cx="3" cy="2.5" r="2" fill="#0B5C63"/>
 </svg></div>
     </div>
 
     <!-- 2025 - below -->
     <div class="node va below" style="left: 935mm; top: 132mm;">
-      <div class="flag down va"><svg viewBox="0 0 12 22" xmlns="http://www.w3.org/2000/svg">
-  <line x1="5.5" y1="2" x2="5.5" y2="19" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
-  <polygon points="5.5,14 11.5,16.5 5.5,19" fill="#0B5C63"/>
-  <circle cx="5.5" cy="2" r="1.6" fill="#ffffff" stroke="#0B5C63" stroke-width="1"/>
+      <div class="flag down va"><svg viewBox="0 0 6 18" xmlns="http://www.w3.org/2000/svg">
+  <line x1="3" y1="0" x2="3" y2="15.5" stroke="#2c3a44" stroke-width="0.7" stroke-linecap="round"/>
+  <circle cx="3" cy="15.5" r="2" fill="#0B5C63"/>
 </svg></div>
       <div class="yearbar"><span class="year">2025</span></div>
       <ul class="events">
