@@ -290,45 +290,6 @@
 
 <div class="container">
 
-<section id="rollout-status" style="background:#fff;padding:24px 28px;border-radius:10px;margin-bottom:32px;border:2px solid #015962;">
-  <h2 style="margin-top:0;color:#015962;">🚀 Where we are with the rollout</h2>
-  <p>We're past the architecture phase — most of the heavy lifting is done. Below is a quick view of what's already locked, and what we're still collecting from each team. Once the last few inputs land, <strong>Marketing will push everything through in one coordinated wave</strong> — invites, channels, user groups and lists.</p>
-
-  <div style="background:#e8f1f2;border:2px solid #015962;border-radius:10px;padding:16px 22px;margin:16px 0;">
-    <h4 style="color:#015962;margin-top:0;">📋 Channel list + Task-list schema — we'd love to receive from Channel Heads</h4>
-    <p style="margin-top:0;font-size:.95rem;">Two inputs per dept: <strong>(1) channel list</strong> — channels + members + topic; <strong>(2) task-list schema</strong> — for each work-tracking list, the columns the team needs (e.g. <em>task name, status, due date, owner, priority, details, links</em>) and the values inside each column. Channels = chat; lists = where work lives.</p>
-    <ul style="margin-bottom:0;line-height:1.85;">
-      <li><strong>Clinical — Vets:</strong> per-brand vet rosters (<code>@vets-mv</code>, <code>@vets-bovc</code>, <code>@vets-vv</code>, <code>@vets-tvrc</code>) + Slack invites for Dr Rami, Dr Nour, Dr Waseem — <em>Scott + Rami</em></li>
-      <li><strong>Clinical — Nurses:</strong> final roster once onboarding wraps — <em>Sandy</em></li>
-      <li><strong>CX:</strong> <code>team-cx-training</code> charter + 3-tier complaint escalation playbook — <em>Aida</em></li>
-      <li><strong>Call Centre:</strong> full agent list — names + emails + invites — <em>Aida</em></li>
-      <li><strong>Reception:</strong> one lead per branch × 12 branches — <em>Aida + Scott</em></li>
-      <li><strong>Procurement:</strong> members beyond Michael + Naufal + Iqra + Hillary — <em>Michael</em></li>
-    </ul>
-  </div>
-
-  <div style="background:#fff8e6;border:1px solid #C9A227;border-radius:10px;padding:14px 20px;margin:14px 0;">
-    <h4 style="color:#015962;margin-top:0;">✅ Quick confirmation needed</h4>
-    <ul style="margin-bottom:0;line-height:1.85;">
-      <li><strong>Ops sub-cluster</strong> — confirm structure under v1.10 (everything else in Ops is already done) — <em>Michael</em></li>
-    </ul>
-  </div>
-
-  <div style="background:#eaf4f5;border:1px solid #015962;border-radius:10px;padding:14px 20px;margin:14px 0;">
-    <h4 style="color:#015962;margin-top:0;">✅ Already locked &amp; ready</h4>
-    <ul style="margin-bottom:0;line-height:1.7;font-size:.95rem;">
-      <li>Architecture (Mansoor sign-off, May 6) · BizDev v1.10 (per CIO Hadi) · Finance cluster (4 channels)</li>
-      <li>Maintenance group: Judit, Shibin, Simanshu, Scott, Sandy, Mansoor</li>
-      <li>HR — full setup ready · IT — full setup ready · Vienna Vet branch lead = Aida</li>
-      <li>Marketing cluster (10/10 live) · Operations cluster (7/7 live)</li>
-      <li>Phase 1 foundation (6 public channels, 53 users, 3 onboarding canvases)</li>
-      <li>Khawaneej + Azizi Riviera codes (<code>khw</code>, <code>az</code>) — going with proposed naming</li>
-    </ul>
-  </div>
-
-  <p style="font-size:.95rem;margin-bottom:0;"><strong>Next move:</strong> as soon as channel lists land, Andrew + Marketing push the full build in one coordinated wave — channel creation, bulk invites, user groups, lists, onboarding canvases per cluster. Straight to launch mode.</p>
-</section>
-
 <section id="legend">
   <h2>Legend</h2>
   <div class="legend">
@@ -380,28 +341,30 @@
 │  │   ├─ team-ops-purchasing          ✏️    Michael
 │  │   ├─ team-ops-approvals-equipment ✏️    Michael
 │  │   ├─ team-ops-approvals-medicine  ✏️    Michael
-│  │   ├─ team-ops-maintenance         🆕    Judit
-│  │   ├─ team-ops-fitout              🆕    Judit
+│  │   ├─ team-ops-maintenance         🆕    Judit + Shibin + Himanshu + Michael + Scott + Sandy + Aida + Mansoor + FD leads  ✏️v1.9
+│  │   ├─ team-ops-projects            🆕    Judit  ✏️v1.8 (renamed from team-ops-fitout)
 │  │   └─ team-ops-licensing           🆕    Scott + Yusuf
 │  │
-│  ├─ CLINICAL (6 ch · Dr. Rami / Dr. Dieter)
-│  │   ├─ team-clinical                      Rami
+│  ├─ CLINICAL (7 ch · Scott + Dr. Dieter + Dr. Rami) ✏️v1.8
+│  │   ├─ team-clinical-leadership           Scott + Dieter + Rami  ✏️v1.8 (renamed from team-clinical)
 │  │   ├─ team-clinical-vets                 Rami           — all licensed vets
 │  │   ├─ team-clinical-nurses               Sandy
+│  │   ├─ team-clinical-nurses-announcements 📢  Sandy        — SOP/protocol/policy updates  🆕v1.8
 │  │   ├─ team-clinical-medical-product      Rami + Michael — formulary
 │  │   ├─ team-clinical-rescue               Aida
 │  │   └─ team-clinical-emergency      📢    Scott          — replaces WhatsApp
 │  │
 │  ├─ CUSTOMER EXPERIENCE (5 ch · Aida)
-│  │   ├─ team-cx                            Aida (CX leadership)
+│  │   ├─ team-cx-leadership                 Aida (CX leadership)  ✏️v1.8 (renamed from team-cx)
 │  │   ├─ team-cx-scheduling           🔒    Dima (existing private — keep)
 │  │   ├─ team-cx-complaints           📢    Aida + Scott
 │  │   ├─ team-cx-experience                 Aida
+│  │   ├─ team-cx-handoffs         🆕        Aida + CC lead  ✏️v1.8 (moved from team-cc-handoffs)
 │  │   └─ team-cx-training         🆕        Aida
 │  │
 │  ├─ CALL CENTRE (separate entity · 3 ch · CC lead under Aida)
 │  │   ├─ team-cc                  🆕        CC team channel
-│  │   ├─ team-cc-handoffs         🆕        ⚡ BRIDGE: CC ↔ reception leads
+│  │   ├─ (team-cx-handoffs lives under CX now — moved in v1.8)
 │  │   └─ team-cc-callgear         🆕        CallGear admin + tagging
 │  │
 │  ├─ PEOPLE / HR (4 ch · Shari)
@@ -410,12 +373,11 @@
 │  │   ├─ team-people-licensing-visa         Yusuf? + Shari
 │  │   └─ team-people-leave-payroll    📢    Shari + Harshita
 │  │
-│  ├─ FINANCE (5 ch · Harshita — Head of Finance)
+│  ├─ FINANCE (4 ch · Harshita — Head of Finance) ✏️v1.9 — AP/AR dropped
 │  │   ├─ team-finance                       Harshita
-│  │   ├─ team-finance-ap              📢    Pauline + Harshita
-│  │   ├─ team-finance-ar              📢    Harshita
 │  │   ├─ team-finance-discounts       📢    Sandy + Aida
-│  │   └─ team-finance-pricing         📢    Mansoor + Scott
+│  │   ├─ team-finance-pricing         📢    Mansoor + Scott
+│  │   └─ team-finance-management-accounts-pnl 📢  Mansoor + Harshita + Hadi  🆕v1.9
 │  │
 │  └─ BUSINESS DEVELOPMENT (4 ch · Hadi — Chief Development Officer) 🆕  ⚙ updated per CIO
 │      ├─ team-bizdev                  🔒    Hadi · Aida · Scott ONLY (BD leadership room)
@@ -472,7 +434,7 @@
     <thead><tr><th>Prefix</th><th>Purpose</th><th>Lifecycle</th><th>Example</th></tr></thead>
     <tbody>
       <tr><td><span class="legend-pill pfx-va">va-</span></td><td>Org-wide. Announcements, leadership, all-hands.</td><td>Permanent</td><td><code>va-announcements</code></td></tr>
-      <tr><td><span class="legend-pill pfx-team">team-</span></td><td>Functional teams. Day-to-day work.</td><td>Permanent</td><td><code>team-finance-ap</code></td></tr>
+      <tr><td><span class="legend-pill pfx-team">team-</span></td><td>Functional teams. Day-to-day work.</td><td>Permanent</td><td><code>team-finance-pricing</code></td></tr>
       <tr><td><span class="legend-pill pfx-clinic">clinic-</span></td><td>Branch / clinic / location operations.</td><td>Permanent</td><td><code>clinic-mv-mb</code></td></tr>
       <tr><td><span class="legend-pill pfx-vendor">vendor-</span></td><td>External partner / vendor channels (2 only: eCRE8 + Synergi).</td><td>Permanent unless ended</td><td><code>vendor-ecre8</code></td></tr>
       <tr><td><span class="legend-pill pfx-help">help-</span></td><td>Service desk style. Anyone can ask.</td><td>Permanent</td><td><code>help-it</code></td></tr>
@@ -508,8 +470,8 @@
         <li><span class="ch">team-ops-purchasing</span> 🔒📢 <span class="meta-tag rename">rename</span></li>
         <li><span class="ch">team-ops-approvals-equipment</span> 🔒📢 <span class="meta-tag rename">rename</span></li>
         <li><span class="ch">team-ops-approvals-medicine</span> 🔒📢 <span class="meta-tag rename">rename</span></li>
-        <li><span class="ch">team-ops-maintenance</span> 🔒🔓 <span class="meta-tag new">new</span></li>
-        <li><span class="ch">team-ops-fitout</span> 🔒🔓 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-ops-maintenance</span> 🔒🔓 <span class="meta-tag new">new</span> — Judit, Shibin, Himanshu, Michael, Scott, Sandy, Aida, Mansoor, FD leads <span class="meta-tag rename">expanded v1.9</span></li>
+        <li><span class="ch">team-ops-projects</span> 🔒🔓 <span class="meta-tag new">new</span> <span class="meta-tag rename">renamed from team-ops-fitout v1.8</span></li>
         <li><span class="ch">team-ops-licensing</span> 🔒🔓 <span class="meta-tag new">new</span></li>
       </ul>
     </div>
@@ -517,9 +479,10 @@
     <div class="card">
       <h3>🩺 Clinical — Dr. Rami / Dieter</h3>
       <ul class="channel-list">
-        <li><span class="ch">team-clinical</span> 🔒🔓 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-clinical-leadership</span> 🔒🔓 <span class="meta-tag new">new</span> <span class="meta-tag rename">renamed from team-clinical v1.8</span></li>
         <li><span class="ch">team-clinical-vets</span> 🔒🔓 <span class="meta-tag new">new</span></li>
         <li><span class="ch">team-clinical-nurses</span> 🔒🔓 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-clinical-nurses-announcements</span> 🔒📢 <span class="meta-tag new">new v1.8</span></li>
         <li><span class="ch">team-clinical-medical-product</span> 🔒🔓 <span class="meta-tag new">new</span></li>
         <li><span class="ch">team-clinical-rescue</span> 🔒🔓 <span class="meta-tag new">new</span></li>
         <li><span class="ch">team-clinical-emergency</span> 🔒📢 <span class="meta-tag new">new</span></li>
@@ -530,11 +493,12 @@
     <div class="card">
       <h3>📞 Customer Experience — Aida</h3>
       <ul class="channel-list">
-        <li><span class="ch">team-cx</span> 🔒🔓 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-cx-leadership</span> 🔒🔓 <span class="meta-tag new">new</span> <span class="meta-tag rename">renamed from team-cx v1.8</span></li>
         <li><span class="ch">team-cx-reception</span> 🔒🔓 <span class="meta-tag new">new</span></li>
         <li><span class="ch">team-cx-scheduling</span> 🔒🔓 <span class="meta-tag new">new</span></li>
         <li><span class="ch">team-cx-complaints</span> 🔒📢 <span class="meta-tag new">new</span></li>
         <li><span class="ch">team-cx-experience</span> 🔒🔓 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-cx-handoffs</span> 🔒🔓 <span class="meta-tag new">new v1.8</span> — moved from team-cc-handoffs</li>
       </ul>
       <p style="font-size:.78rem;color:var(--muted);">⚠️ Aida still needs to provide CC roster.</p>
     </div>
@@ -554,10 +518,9 @@
       <p style="font-size:.78rem;color:var(--muted);">Hadi = Chief Development Officer (sits in <code>va-leadership</code> for strategy, not day-to-day finance).</p>
       <ul class="channel-list">
         <li><span class="ch">team-finance</span> 🔒🔓 <span class="meta-tag new">new</span></li>
-        <li><span class="ch">team-finance-ap</span> 🔒📢 <span class="meta-tag new">new</span></li>
-        <li><span class="ch">team-finance-ar</span> 🔒📢 <span class="meta-tag new">new</span></li>
         <li><span class="ch">team-finance-discounts</span> 🔒📢 <span class="meta-tag new">new</span></li>
         <li><span class="ch">team-finance-pricing</span> 🔒📢 <span class="meta-tag new">new</span></li>
+        <li><span class="ch">team-finance-management-accounts-pnl</span> 🔒📢 <span class="meta-tag new">new v1.9</span></li>
       </ul>
     </div>
 
@@ -681,7 +644,7 @@
     <table style="margin-top:.5rem;font-size:.85rem;">
       <thead><tr><th>Pattern</th><th>Channel</th><th>Members</th></tr></thead>
       <tbody>
-        <tr><td><strong>CC ↔ Reception</strong></td><td><code>team-cc-handoffs</code></td><td>CC + reception leads from every clinic</td></tr>
+        <tr><td><strong>CC ↔ Reception</strong></td><td><code>team-cx-handoffs</code></td><td>CC + reception leads from every clinic (moved into CX umbrella v1.8)</td></tr>
         <tr><td>Reception ↔ Vets</td><td><code>clinic-XXX-fd</code> + <code>clinic-XXX-med</code></td><td>Branch staff (cross-post within branch)</td></tr>
         <tr><td>Inventory ↔ Branch</td><td><code>clinic-XXX-inventory</code></td><td>Branch + Michael's team</td></tr>
         <tr><td>Maintenance ↔ Branch</td><td><code>clinic-XXX-maintenance</code></td><td>Branch + Judit's team</td></tr>
@@ -789,7 +752,7 @@
     <h4>The escalation ladder (one-page summary)</h4>
 <div style="font-family:'Menlo',monospace;font-size:.9rem;line-height:1.7;color:var(--teal-deep);white-space:pre;">Day-to-day        ──►  clinic-XXX-*  /  team-* sub-channels
        │
-Direct dept↔dept ──►  see table above (e.g. team-cc-handoffs)
+Direct dept↔dept ──►  see table above (e.g. team-cx-handoffs)
        │
 Cross-team        ──►  help-* (request-driven, monitored by dept user-group)
        │
@@ -845,7 +808,7 @@ Is it not work?
       <li><span class="ch">@marketing</span></li>
       <li><span class="ch">@it</span></li>
       <li><span class="ch">@hr</span></li>
-      <li><span class="ch">@finance</span> — Harshita + AP/AR</li>
+      <li><span class="ch">@finance</span> — Harshita + finance team</li>
       <li><span class="ch">@bizdev</span> — Hadi + BD team 🆕</li>
       <li><span class="ch">@accounts · @procurement</span></li>
     </ul></div>
@@ -965,10 +928,9 @@ team-ops-maintenance           → list "Master Maintenance" (only Judit + maint
       <tr><td><code>team-cx-complaints</code></td><td>Open complaints</td><td>+ Customer · Channel · Severity · Owner</td></tr>
       <tr><td><code>team-people-recruitment</code></td><td>Open roles</td><td>+ Role · Pipeline stage · Candidates</td></tr>
       <tr><td><code>team-people-licensing-visa</code></td><td>Visa/licence pipeline</td><td>+ Person · Document · Expiry</td></tr>
-      <tr><td><code>team-finance-ap</code></td><td>AP queue</td><td>+ Vendor · Amount · Due · PO match</td></tr>
-      <tr><td><code>team-finance-ar</code></td><td>AR aging</td><td>+ Customer · Amount · Days overdue</td></tr>
       <tr><td><code>team-finance-discounts</code></td><td>Discount log</td><td>+ Date · Branch · Customer · Amount · Justification</td></tr>
       <tr><td><code>team-finance-pricing</code></td><td>Pricing changes</td><td>+ Service · From · To · Effective</td></tr>
+      <tr><td><code>team-finance-management-accounts-pnl</code></td><td>Management accounts · P&amp;L review</td><td>+ Period · Branch · Metric</td></tr>
       <tr><td><code>clinic-XXX-med</code></td><td>Case follow-ups</td><td>+ Patient · Owner · Vet</td></tr>
       <tr><td><code>clinic-XXX-fd</code></td><td>Front-desk issues</td><td>+ Customer · Type · Resolution</td></tr>
       <tr><td><code>help-*</code></td><td>Inbound tickets</td><td>+ Requestor · Type · Resolution</td></tr>
@@ -985,11 +947,11 @@ team-ops-maintenance           → list "Master Maintenance" (only Judit + maint
       <div class="num-stat"><span class="n">5</span><span class="l">va-</span></div>
       <div class="num-stat"><span class="n">10+5</span><span class="l">team- mkt+IT (stub)</span></div>
       <div class="num-stat"><span class="n">11</span><span class="l">team-ops-</span></div>
-      <div class="num-stat"><span class="n">6</span><span class="l">team-clinical-</span></div>
-      <div class="num-stat"><span class="n">5</span><span class="l">team-cx-</span></div>
+      <div class="num-stat"><span class="n">7</span><span class="l">team-clinical-</span></div>
+      <div class="num-stat"><span class="n">6</span><span class="l">team-cx-</span></div>
       <div class="num-stat"><span class="n">3</span><span class="l">team-cc- 🆕</span></div>
       <div class="num-stat"><span class="n">4</span><span class="l">team-people-</span></div>
-      <div class="num-stat"><span class="n">5</span><span class="l">team-finance-</span></div>
+      <div class="num-stat"><span class="n">4</span><span class="l">team-finance-</span></div>
       <div class="num-stat"><span class="n">4</span><span class="l">team-bizdev- 🆕</span></div>
       <div class="num-stat"><span class="n">60</span><span class="l">clinic- (12×5)</span></div>
       <div class="num-stat"><span class="n">7</span><span class="l">help-</span></div>
@@ -1009,7 +971,7 @@ team-ops-maintenance           → list "Master Maintenance" (only Judit + maint
       <tr><td><strong>Week 1</strong></td><td>Day 1–2</td><td>All renames (preserves history) · create <code>va-leadership</code> + <code>va-policies</code></td><td>Cheshire</td></tr>
       <tr><td></td><td>Day 3–4</td><td>New ops channels (maintenance/fitout/licensing) · all <code>team-clinical-*</code> (6) · all <code>team-cx-*</code> (5)</td><td>Cheshire</td></tr>
       <tr><td></td><td>Day 5</td><td>Lists + topics + canvases attached — <strong>~30 channels live</strong></td><td>Cheshire</td></tr>
-      <tr><td><strong>Week 2</strong></td><td>Day 1–2</td><td>All <code>team-people-*</code> (4) · all <code>team-finance-*</code> (5) · Lists attached</td><td>Shari + Harshita</td></tr>
+      <tr><td><strong>Week 2</strong></td><td>Day 1–2</td><td>All <code>team-people-*</code> (4) · all <code>team-finance-*</code> (4) · Lists attached</td><td>Shari + Harshita</td></tr>
       <tr><td></td><td>Day 3</td><td>Pilot clinic launch (<code>clinic-mv-mb</code> + -med + -fd) · brief Anissa</td><td>Anissa</td></tr>
       <tr><td></td><td>Day 4–5</td><td>All <code>brand-*</code> (5) — <strong>~25 more channels live</strong> · pilot runs in parallel</td><td>Cheshire</td></tr>
       <tr><td><strong>Week 3</strong></td><td>Day 1</td><td>Pilot review with Anissa · lock clinic pattern</td><td>Andrew</td></tr>

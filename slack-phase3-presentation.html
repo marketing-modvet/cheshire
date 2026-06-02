@@ -223,49 +223,6 @@
   <p style="margin-bottom:0;">It's designed to scale to ~200 staff across 11 clinics + Head Office, while staying simple enough that a new joiner can find their way around on day one.</p>
 </div>
 
-<h2>🚀 Where we are with the rollout</h2>
-
-<p>We're past the architecture phase — most of the heavy lifting is done. Below is a quick view of what's already locked, and what we're still collecting from each team so we can move into final build mode. Once the last few inputs land, <strong>Marketing will push everything through in one coordinated wave</strong> — invites, channels, user groups and lists — rather than dragging it out.</p>
-
-<div class="callout callout-ask">
-  <h4>📋 Channel list + Task-list schema — we'd love to receive from Channel Heads</h4>
-  <p style="margin-top:0;font-size:.95rem;">Two inputs per dept: <strong>(1) channel list</strong> — the channels your team needs (members + topic); <strong>(2) task-list schema</strong> — for each work-tracking list, the columns your team needs: <em>task name, status, due date, owner, priority, details, related links</em>, etc. We use these to set up the Slack Lists where actual work gets tracked. Channels are for chat; lists are where the work lives.</p>
-  <ul style="margin-bottom:0;line-height:1.85;">
-    <li><strong>Clinical — Vets:</strong> per-brand vet rosters (<code>@vets-mv</code>, <code>@vets-bovc</code>, <code>@vets-vv</code>, <code>@vets-tvrc</code>) + Slack invites for Dr Rami, Dr Nour, Dr Waseem — <em>Scott + Rami</em></li>
-    <li><strong>Clinical — Nurses:</strong> final roster once onboarding wraps — <em>Sandy</em></li>
-    <li><strong>CX:</strong> <code>team-cx-training</code> charter + 3-tier complaint escalation playbook — <em>Aida</em></li>
-    <li><strong>Call Centre:</strong> full agent list — names + emails + invites — <em>Aida</em></li>
-    <li><strong>Reception:</strong> one lead per branch × 12 branches — <em>Aida + Scott</em></li>
-    <li><strong>Procurement:</strong> members beyond Michael + Naufal + Iqra + Hillary — <em>Michael</em></li>
-  </ul>
-</div>
-
-<div class="callout">
-  <h4>✅ Quick confirmations needed</h4>
-  <ul style="margin-bottom:0;line-height:1.85;">
-    <li><strong>Ops sub-cluster</strong> — confirm structure under v1.10 (everything else in Ops is already done) — <em>Michael</em></li>
-  </ul>
-</div>
-
-<div class="callout" style="background:#eaf4f5;border-color:var(--teal);">
-  <h4 style="color:var(--teal-deep);">✅ Already locked &amp; ready</h4>
-  <ul style="margin-bottom:0;line-height:1.7;font-size:.95rem;">
-    <li>Architecture (Mansoor sign-off, May 6)</li>
-    <li>BizDev structure v1.10 (per CIO Hadi)</li>
-    <li>Finance cluster (4 channels)</li>
-    <li>Maintenance group: Judit, Shibin, Simanshu, Scott, Sandy, Mansoor</li>
-    <li>HR — full setup ready</li>
-    <li>IT — full setup ready</li>
-    <li>Vienna Vet branch lead = Aida</li>
-    <li>Marketing cluster (10/10 live)</li>
-    <li>Operations cluster (7/7 live)</li>
-    <li>Phase 1 foundation (6 public channels, 53 users, 3 onboarding canvases)</li>
-    <li>Khawaneej + Azizi Riviera codes (<code>khw</code>, <code>az</code>) — going with proposed naming</li>
-  </ul>
-</div>
-
-<p style="font-size:.95rem;margin-top:1.5rem;"><strong>Next move:</strong> as soon as channel lists land from the heads above, Andrew + Marketing push the full build in one coordinated wave — channel creation, bulk invites, user groups, lists, onboarding canvases per cluster. No multi-month rollout — straight to launch mode.</p>
-
 <h2>The big idea</h2>
 
 <div class="grid grid-3">
@@ -319,37 +276,38 @@
 │   ├─ team-ops-purchasing         🔒
 │   ├─ team-ops-approvals-equipment 🔒
 │   ├─ team-ops-approvals-medicine 🔒
-│   ├─ team-ops-maintenance        🔒  <span class="own">Judit · maintenance team only</span>
-│   ├─ team-ops-fitout             🔒  <span class="own">Judit</span>
+│   ├─ team-ops-maintenance        🔒  <span class="own">Judit, Shibin, Himanshu, Michael, Scott, Sandy, Aida, Mansoor + FD leads (v1.9)</span>
+│   ├─ team-ops-projects           🔒  <span class="own">Judit · renamed from team-ops-fitout (v1.8)</span>
 │   └─ team-ops-licensing          🔒  <span class="own">Scott + Yusuf</span>
 ├─ CLINICAL                               <span class="own">Scott (Clinical Director) + Dr. Dieter + Dr. Rami</span>
-│   ├─ team-clinical               🔒  <span class="own">Scott + Dieter + Rami (leadership)</span>
+│   ├─ team-clinical-leadership    🔒  <span class="own">Scott + Dieter + Rami · renamed from team-clinical (v1.8)</span>
 │   ├─ team-clinical-vets          🔒
 │   ├─ team-clinical-nurses        🔒  <span class="own">Sandy</span>
+│   ├─ team-clinical-nurses-announcements 🔒  <span class="own">Sandy · SOP/protocol/policy (v1.8)</span>
 │   ├─ team-clinical-emergency     🔒  <span class="own">Scott</span>
 │   ├─ team-clinical-medical-product 🔒  <span class="own">inventory + doctors + management</span>
 │   └─ team-clinical-rescue        🔒  <span class="own">Aida</span>
 ├─ CUSTOMER EXPERIENCE                    <span class="own">Aida</span>
-│   ├─ team-cx                     🔒  <span class="own">Aida (leadership)</span>
+│   ├─ team-cx-leadership          🔒  <span class="own">Aida · renamed from team-cx (v1.8)</span>
 │   ├─ team-cx-scheduling          🔒  <span class="own">Dima · existing private</span>
 │   ├─ team-cx-complaints          🔒
 │   ├─ team-cx-experience          🔒
+│   ├─ team-cx-handoffs            🔒  <span class="own">Aida + CC lead · moved from team-cc-handoffs (v1.8)</span>
 │   └─ team-cx-training            🔒
 ├─ CALL CENTRE (separate entity)
 │   ├─ team-cc                     🔒  <span class="own">CC team</span>
-│   ├─ team-cc-handoffs            🔒  <span class="own">⚡ bridge: CC ↔ reception</span>
 │   └─ team-cc-callgear            🔒  <span class="own">CallGear admin</span>
+│       <span class="own">(team-cx-handoffs moved into CX umbrella v1.8)</span>
 ├─ PEOPLE / HR                            <span class="own">Shari</span>
 │   ├─ team-people                 🔒  <span class="own">Shari (leadership)</span>
 │   ├─ team-people-recruitment     🔒
 │   ├─ team-people-licensing-visa  🔒  <span class="own">Yusuf + Shari</span>
 │   └─ team-people-leave-payroll   🔒
-├─ FINANCE                                <span class="own">Harshita (Head of Finance)</span>
+├─ FINANCE                                <span class="own">Harshita (Head of Finance) · v1.9: AP/AR dropped</span>
 │   ├─ team-finance                🔒  <span class="own">Harshita (leadership)</span>
-│   ├─ team-finance-ap             🔒  <span class="own">Pauline + Harshita</span>
-│   ├─ team-finance-ar             🔒  <span class="own">Harshita</span>
 │   ├─ team-finance-discounts      🔒  <span class="own">Sandy + Aida</span>
-│   └─ team-finance-pricing        🔒  <span class="own">Mansoor + Scott</span>
+│   ├─ team-finance-pricing        🔒  <span class="own">Mansoor + Scott</span>
+│   └─ team-finance-management-accounts-pnl 🔒  <span class="own">Mansoor + Harshita + Hadi (v1.9)</span>
 └─ BUSINESS DEVELOPMENT                   <span class="own">Hadi (CDO)</span>
     ├─ team-bizdev                 🔒  <span class="own">Hadi · Aida · Scott ONLY</span>
     ├─ partnerships-bizdev         🌐  <span class="own">Hadi (HQ-wide)</span>
@@ -491,13 +449,12 @@
 
 <div class="dept-block">
   <h3>💰 Finance <span class="tier tier-3">Strictly private</span></h3>
-  <div class="lead">Lead: Harshita (Head of Finance)</div>
+  <div class="lead">Lead: Harshita (Head of Finance) — <em>v1.9: AP and AR channels dropped; managed in EzyVet/accounting system, not Slack</em></div>
   <ul>
-    <li><code>team-finance</code> — finance leadership</li>
-    <li><code>team-finance-ap</code> — accounts payable · supplier invoices · weekly PO/invoice cross-check · Pauline + Harshita</li>
-    <li><code>team-finance-ar</code> — accounts receivable · collections · aging</li>
+    <li><code>team-finance</code> — finance leadership + general finance discussion</li>
     <li><code>team-finance-discounts</code> — discount logging + audit · Sandy + Aida</li>
     <li><code>team-finance-pricing</code> — pricing changes · rescue rates · Mansoor + Scott</li>
+    <li><code>team-finance-management-accounts-pnl</code> — management accounts · P&amp;L review · Mansoor + Harshita + Hadi <strong>(new v1.9)</strong></li>
   </ul>
   <p style="font-size:.85rem;color:var(--muted);margin-top:.8rem;margin-bottom:0;">All finance channels are strictly private to finance + management. Customer billing, supplier contracts, salaries, branch-level revenue.</p>
 </div>
@@ -507,7 +464,7 @@
   <div class="lead">Lead: Hadi (Chief Development Officer)</div>
   <ul>
     <li><code>team-bizdev</code> — BD leadership, strategic priorities</li>
-    <li><code>team-bizdev-partnerships</code> — external partnerships, B2B deals (rescue groups, corporate, insurers)</li>
+    <li><code>partnerships-bizdev</code> 🌐 — HQ-wide channel for partnership / expansion ideas from any team member (rescue groups, clinics for sale, medical partnerships across UAE) <strong>(v1.10: renamed from team-bizdev-partnerships, opened up to all HQ)</strong></li>
     <li><code>team-bizdev-expansion</code> — new branches, fit-out pipeline, M&amp;A discussions</li>
     <li><code>team-bizdev-pipeline</code> — active deals + leads tracker</li>
   </ul>
@@ -588,7 +545,6 @@
   <h4>Please review your section above and reply with:</h4>
   <ol style="margin-bottom:0;line-height:1.8;">
     <li><strong>Channel list</strong> — confirm the channels for your dept look right, or propose changes (additions, removals, renames).</li>
-    <li><strong>Task-list schema</strong> — for each work-tracking list your team needs, tell us the columns: e.g. <em>task name, status, due date, owner, priority, details, related links</em>. Plus the values that go in each column (e.g. status options: open / in-progress / blocked / done). Channels are for chat; lists are where work gets tracked.</li>
     <li><strong>Members per channel</strong> — for each of your team's channels, who should be added? (names + roles).</li>
     <li><strong>Privacy preferences</strong> — for each channel, who should see it? Options: (a) everyone in the company, (b) your dept + management only, (c) strictly your dept only. Default suggestions are above; flag anything you'd like changed.</li>
     <li><strong>Cross-dept visitors</strong> — who from other departments should also be members of your channels? (e.g. Aida sits in clinical-rescue, Sandy in finance-discounts, etc.)</li>
