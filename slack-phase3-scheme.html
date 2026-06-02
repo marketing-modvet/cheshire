@@ -267,15 +267,19 @@
 
 <header>
   <h1>Vet Alliance — Slack Structure</h1>
-  <div class="subtitle">Phase 3 Scheme · v1.4 · Full company rollout</div>
-  <div class="meta">Drafted 5 May 2026 · Revised 7 May 2026 · For internal review · Companion presentation: <a href="slack-phase3-presentation.html" style="color:var(--gold-bright);">slack-phase3-presentation.html</a></div>
-  <div class="meta" style="margin-top:.5rem;"><strong>v1.4: ALL clinic channels private</strong> · Sandy + Scott own all clinics except VV/TVRC · dual-list pattern (per-clinic + private master) replaces master+views (which doesn't actually preserve privacy)</div>
-  <div class="meta" style="margin-top:.5rem;">v1.3: vendors trimmed to 2 · brand-* &amp; proj-* removed · BizDev under Hadi · social-marketplace</div>
+  <div class="subtitle">Phase 3 Scheme · v1.10 · Full company rollout</div>
+  <div class="meta">Drafted 5 May 2026 · Revised 1 June 2026 · For internal review · Companion presentation: <a href="slack-phase3-presentation.html" style="color:var(--gold-bright);">slack-phase3-presentation.html</a></div>
+  <div class="meta" style="margin-top:.5rem;"><strong>v1.10:</strong> BizDev restructure per CIO Hadi — <code>team-bizdev</code> private (Hadi + Aida + Scott only), <code>partnerships-bizdev</code> HQ-wide</div>
+  <div class="meta"><strong>v1.9:</strong> Finance cluster collapsed (AP/AR dropped, <code>management-accounts-pnl</code> added) · Maintenance group expanded with Scott/Sandy/Mansoor/Aida + FD leads</div>
+  <div class="meta"><strong>v1.8:</strong> HR cluster 4 → 8 channels · <code>team-clinical</code> → <code>team-clinical-leadership</code> · <code>team-cx</code> → <code>team-cx-leadership</code> · <code>team-cc-handoffs</code> moved into CX · <code>team-ops-fitout</code> → <code>team-ops-projects</code> · <code>team-clinical-nurses-announcements</code> added · <code>clinic-mv-mob-bookings</code> added</div>
+  <div class="meta">v1.4: ALL clinic channels private · Sandy + Scott own all clinics except VV/TVRC · dual-list pattern (per-clinic + private master) replaces master+views (which doesn't actually preserve privacy)</div>
+  <div class="meta">v1.3: vendors trimmed to 2 · brand-* &amp; proj-* removed · BizDev under Hadi · social-marketplace</div>
   <div class="meta">v1.2: BizDev cluster · CC separate entity · inter-dept comms · worked Lists example</div>
   <div class="meta">v1.1: Option B per-clinic inventory/maintenance · HQ + TVRC · Master Lists · Amy→Aida · Kavita→Andrew</div>
 </header>
 
 <nav class="nav-toc">
+  <a href="#rollout-status">Status</a>
   <a href="#legend">Legend</a>
   <a href="#tree">Org Tree</a>
   <a href="#prefixes">6 Prefixes</a>
@@ -289,6 +293,45 @@
 </nav>
 
 <div class="container">
+
+<section id="rollout-status" style="background:#fff;padding:24px 28px;border-radius:10px;margin-bottom:32px;border:2px solid #015962;">
+  <h2 style="margin-top:0;color:#015962;">🚀 Where we are with the rollout</h2>
+  <p>We're past the architecture phase — most of the heavy lifting is done. Below is a quick view of what's already locked, and what we're still collecting from each team. Once the last few inputs land, <strong>Marketing will push everything through in one coordinated wave</strong> — invites, channels, user groups and lists.</p>
+
+  <div style="background:#e8f1f2;border:2px solid #015962;border-radius:10px;padding:16px 22px;margin:16px 0;">
+    <h4 style="color:#015962;margin-top:0;">📋 Channel list + Task-list schema — we'd love to receive from Channel Heads</h4>
+    <p style="margin-top:0;font-size:.95rem;">Two inputs per dept: <strong>(1) channel list</strong> — channels + members + topic; <strong>(2) task-list schema</strong> — for each work-tracking list, the columns the team needs (e.g. <em>task name, status, due date, owner, priority, details, links</em>) and the values inside each column. Channels = chat; lists = where work lives.</p>
+    <ul style="margin-bottom:0;line-height:1.85;">
+      <li><strong>Clinical — Vets:</strong> per-brand vet rosters (<code>@vets-mv</code>, <code>@vets-bovc</code>, <code>@vets-vv</code>, <code>@vets-tvrc</code>) + Slack invites for Dr Rami, Dr Nour, Dr Waseem — <em>Scott + Rami</em></li>
+      <li><strong>Clinical — Nurses:</strong> final roster once onboarding wraps — <em>Sandy</em></li>
+      <li><strong>CX:</strong> <code>team-cx-training</code> charter + 3-tier complaint escalation playbook — <em>Aida</em></li>
+      <li><strong>Call Centre:</strong> full agent list — names + emails + invites — <em>Aida</em></li>
+      <li><strong>Reception:</strong> one lead per branch × 12 branches — <em>Aida + Scott</em></li>
+      <li><strong>Procurement:</strong> members beyond Michael + Naufal + Iqra + Hillary — <em>Michael</em></li>
+    </ul>
+  </div>
+
+  <div style="background:#fff8e6;border:1px solid #C9A227;border-radius:10px;padding:14px 20px;margin:14px 0;">
+    <h4 style="color:#015962;margin-top:0;">✅ Quick confirmation needed</h4>
+    <ul style="margin-bottom:0;line-height:1.85;">
+      <li><strong>Ops sub-cluster</strong> — confirm structure under v1.10 (everything else in Ops is already done) — <em>Michael</em></li>
+    </ul>
+  </div>
+
+  <div style="background:#eaf4f5;border:1px solid #015962;border-radius:10px;padding:14px 20px;margin:14px 0;">
+    <h4 style="color:#015962;margin-top:0;">✅ Already locked &amp; ready</h4>
+    <ul style="margin-bottom:0;line-height:1.7;font-size:.95rem;">
+      <li>Architecture (Mansoor sign-off, May 6) · BizDev v1.10 (per CIO Hadi) · Finance cluster (4 channels)</li>
+      <li>Maintenance group: Judit, Shibin, Simanshu, Scott, Sandy, Mansoor</li>
+      <li>HR — full setup ready · IT — full setup ready · Vienna Vet branch lead = Aida</li>
+      <li>Marketing cluster (10/10 live) · Operations cluster (7/7 live)</li>
+      <li>Phase 1 foundation (6 public channels, 53 users, 3 onboarding canvases)</li>
+      <li>Khawaneej + Azizi Riviera codes (<code>khw</code>, <code>az</code>) — going with proposed naming</li>
+    </ul>
+  </div>
+
+  <p style="font-size:.95rem;margin-bottom:0;"><strong>Next move:</strong> as soon as channel lists land, Andrew + Marketing push the full build in one coordinated wave — channel creation, bulk invites, user groups, lists, onboarding canvases per cluster. Straight to launch mode.</p>
+</section>
 
 <section id="legend">
   <h2>Legend</h2>
