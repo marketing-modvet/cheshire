@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Answer-Engine Visibility Report — Modern Vet — 2026-06-08</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --mv-navy:#0d1b3d;
+  --mv-navy-2:#1a2b5e;
+  --mv-salmon:#ff7567;
+  --mv-salmon-soft:#ffe9e5;
+  --ink:#1a1f36;
+  --muted:#5b6478;
+  --line:#e4e7ef;
+  --bg:#f6f7fb;
+  --bg-card:#ffffff;
+  --good:#22a06b;
+  --warn:#e8a317;
+  --bad:#d24949;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+.wrap{max-width:980px;margin:0 auto;padding:48px 28px 80px}
+header.hero{background:linear-gradient(135deg,var(--mv-navy) 0%,var(--mv-navy-2) 60%,#2a3f7a 100%);color:#fff;border-radius:16px;padding:40px 36px;margin-bottom:36px;box-shadow:0 8px 30px rgba(13,27,61,.15)}
+header.hero .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mv-salmon);font-weight:700;margin-bottom:14px}
+header.hero h1{margin:0 0 12px;font-size:32px;line-height:1.2;letter-spacing:-.02em}
+header.hero .sub{color:#cfd6e8;font-size:15px;max-width:720px}
+header.hero .meta{margin-top:18px;display:flex;gap:24px;flex-wrap:wrap;font-size:13px;color:#a8b3cc}
+header.hero .meta b{color:#fff;font-weight:600}
+.card{background:var(--bg-card);border:1px solid var(--line);border-radius:14px;padding:28px 32px;margin-bottom:22px;box-shadow:0 1px 2px rgba(13,27,61,.04)}
+.card h2{margin:0 0 14px;font-size:22px;letter-spacing:-.01em;color:var(--mv-navy)}
+.card h3{margin:22px 0 10px;font-size:17px;color:var(--mv-navy)}
+.card p{margin:0 0 12px;color:#2a3148}
+.tldr{border-left:4px solid var(--mv-salmon);background:linear-gradient(0deg,#fff,#fffaf9);padding-left:28px}
+.tldr ul{margin:8px 0 0;padding-left:18px}
+.tldr li{margin-bottom:8px}
+.status-ok{color:var(--good);font-weight:600}
+.status-warn{color:var(--warn);font-weight:600}
+.status-bad{color:var(--bad);font-weight:600}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0 4px}
+.kpi{background:#f9faff;border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:6px}
+.kpi .value{font-size:15px;font-weight:700;color:var(--ink)}
+.kpi.good .value{color:var(--good)}
+.kpi.warn .value{color:var(--warn)}
+.kpi.bad .value{color:var(--bad)}
+.query-block{margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
+.query-block:first-of-type{border-top:0;padding-top:0;margin-top:0}
+.query-block .q{display:inline-block;background:#0d1b3d;color:#fff;padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600;margin-bottom:10px}
+.verdict-row{display:flex;align-items:center;gap:10px;margin:6px 0 14px;font-size:14px;flex-wrap:wrap}
+.badge{display:inline-block;background:#f2f3f7;color:var(--muted);font-size:11px;padding:3px 10px;border-radius:999px;font-weight:500;border:1px solid var(--line)}
+.badge.ours{background:var(--mv-salmon-soft);color:#b34038;border-color:#ffd1c9}
+.badge.competitor{background:#fff5e0;color:#9a6a00;border-color:#ffe8a8}
+.badge.directory{background:#eef3ff;color:#1f4ea3;border-color:#cfd9f5}
+img.screenshot{max-width:100%;border:1px solid var(--line);border-radius:10px;display:block;margin:14px 0;box-shadow:0 2px 14px rgba(13,27,61,.08)}
+table{border-collapse:collapse;width:100%;margin:10px 0 14px;font-size:14px}
+table th,table td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+table th{background:#f9faff;font-weight:600;color:var(--mv-navy);font-size:13px}
+table.no-stretch{width:auto}
+ul.findings{padding-left:20px;margin:8px 0 0}
+ul.findings li{margin-bottom:10px}
+.problem-pill{display:inline-block;width:18px;height:18px;border-radius:50%;text-align:center;font-size:11px;line-height:18px;font-weight:700;color:#fff;margin-right:8px;vertical-align:middle}
+.problem-pill.crit{background:var(--bad)}
+.problem-pill.high{background:#e87a35}
+.problem-pill.med{background:var(--warn)}
+.problem-pill.low{background:#7a8aab}
+.footer{margin-top:36px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;text-align:center}
+@media (max-width:680px){
+  .wrap{padding:24px 14px 60px}
+  header.hero{padding:28px 22px}
+  .card{padding:20px 22px}
+  .kpi-row{grid-template-columns:repeat(2,1fr)}
+  header.hero h1{font-size:24px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">SEO · AI Visibility · Internal Report</div>
+  <h1>AI Answer-Engine Visibility Report</h1>
+  <div class="sub">How ChatGPT, Perplexity, Gemini, and Claude rank Modern Vet for procedure-specific searches in Dubai — what we win, where we lose, and the fix plan.</div>
+  <div class="meta">
+    <span><b>Trigger:</b> Megan flag, 8 June 2026</span>
+    <span><b>Prepared by:</b> Marketing</span>
+    <span><b>For:</b> SEO Team + Leadership</span>
+  </div>
+</header>
+
+<div class="card tldr">
+  <h2>TL;DR</h2>
+  <p>Megan's report is <b>partially correct</b>. We tested four live ChatGPT queries:</p>
+  <ul>
+    <li><span class="status-ok">✅ Best vet in Dubai (general)</span> — Modern Vet is <b>#1 in the "Full-Service & Specialist Hospitals" section</b>, described as <i>"One of Dubai's best-known veterinary hospitals... Frequently recommended by pet owners."</i> But the citation badge is <span class="badge directory">vetbai.info</span> (a directory we don't control).</li>
+    <li><span class="status-warn">⚠️ Orthopedic surgery for dogs in Dubai</span> — Modern Vet appears in the answer, but as a "Major Referral Hospital," NOT a top "Orthopedic Specialist." Worse: our description was lifted from a <b>competitor's website</b> (badge: <span class="badge competitor">The Veterinary H…</span>).</li>
+    <li><span class="status-ok">✅ Laparoscopic spay Dubai</span> — Modern Vet is <b>#1 top choice</b>. Badge: <span class="badge ours">Modern Vet</span>. We win.</li>
+    <li><span class="status-ok">✅ Vet physiotherapy Dubai</span> — Modern Vet is <b>#1 for post-surgery rehab</b>. Badge: <span class="badge ours">Modern Vet</span>. We win.</li>
+  </ul>
+  <p style="margin-top:14px"><b>Net read:</b> we are not invisible. But we are being <b>described by a competitor</b> on the orthopedic query, and by a <b>third-party directory</b> on the general query. We need to make modernvet.com the authoritative source AI engines lift copy from.</p>
+</div>
+
+<div class="card">
+  <h2>How AI answer engines pick clinics (the model)</h2>
+  <p>Unlike Google rank, ChatGPT and friends do this before answering a procedure query:</p>
+  <ol>
+    <li><b>Browse 4–12 web pages live</b> for the exact query.</li>
+    <li><b>Cross-reference the named clinics</b> across multiple sources.</li>
+    <li><b>Cite the source used</b> to describe each clinic — shown as the small badge next to the clinic name.</li>
+    <li><b>Down-rank</b> clinics whose top mention comes only from their own marketing site.</li>
+    <li><b>Up-rank</b> clinics with mentions on directories, "best of" listicles, organic editorial, Reddit, and single-specialty domains.</li>
+  </ol>
+  <p>The <b>citation badge</b> is the diagnostic gold mine. Every screenshot tells us exactly which source ChatGPT trusted enough to lift copy from.</p>
+</div>
+
+<div class="card">
+  <h2>Evidence — the four queries</h2>
+
+  <div class="query-block">
+    <div class="q">"best vet in Dubai" — general query</div>
+    <div class="verdict-row"><span class="status-ok">Verdict: we win.</span> Citation badge: <span class="badge directory">vetbai.info</span> — third-party directory.</div>
+    <img class="screenshot" src="screenshots/01-general-best-vet-dubai.png" alt="ChatGPT showing Modern Vet #1 in Full-Service & Specialist Hospitals">
+    <p><b>Read:</b> We do appear at the top. But ChatGPT used a directory to describe us. We don't control that copy.</p>
+  </div>
+
+  <div class="query-block">
+    <div class="q">"who does orthopedic surgery for dogs in Dubai"</div>
+    <div class="verdict-row"><span class="status-warn">Verdict: we appear but are not the top choice.</span> Citation badge: <span class="badge competitor">The Veterinary H…</span> <span class="badge competitor">+1</span> — described by a competitor.</div>
+    <img class="screenshot" src="screenshots/02-orthopedic-surgery-for-dogs.png" alt="ChatGPT showing orthopedic surgery clinics in Dubai, Modern Vet in Major Referral Hospitals section">
+    <p><b>Top 'Orthopedic Specialist' slot</b> went to "Orthopedic Veterinary Clinic" in Arjan — a single-specialty clinic whose domain literally is the procedure. We are in the "Major Referral Hospitals" tier below them.</p>
+    <p><b>Hidden problem:</b> Vienna Vet (our own group brand) is listed separately with badge <span class="badge directory">viennavet.com</span> — better citation than Modern Vet got — and ChatGPT does not know VV is part of the Modern Vet group.</p>
+  </div>
+
+  <div class="query-block">
+    <div class="q">"laparoscopic spay clinic Dubai"</div>
+    <div class="verdict-row"><span class="status-ok">Verdict: we are #1.</span> Citation badge: <span class="badge ours">Modern Vet</span> — our own domain.</div>
+    <img class="screenshot" src="screenshots/03-laparoscopic-spay.png" alt="ChatGPT showing Modern Vet as #1 top choice for laparoscopic spay in Dubai">
+    <p><b>This is the model.</b> Our page exists, is clearly written, AI lifted our copy from our own domain. Every procedure query should look like this.</p>
+  </div>
+
+  <div class="query-block">
+    <div class="q">"vet physiotherapy Dubai"</div>
+    <div class="verdict-row"><span class="status-ok">Verdict: we are #1 for post-surgery rehab.</span> Citation badge: <span class="badge ours">Modern Vet</span>.</div>
+    <img class="screenshot" src="screenshots/04-vet-physiotherapy.png" alt="ChatGPT showing Modern Vet as #1 for post-surgery rehabilitation in Dubai">
+    <p>Physio Evolution is listed as the dedicated single-specialty provider. We win the post-op rehab niche, which is more valuable to us because it's tied to our surgical pipeline.</p>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Pattern: when we win vs lose</h2>
+  <table>
+    <thead><tr><th>We WIN when…</th><th>We LOSE when…</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>The procedure page uses clean English matching the search term ("laparoscopic spay", "physiotherapy")</td>
+        <td>The H1/title is broken English or generic ("Orthopedic Veterinary Dubai", "Healthy Animals Happier Homes")</td>
+      </tr>
+      <tr>
+        <td>The procedure has no single-specialty competitor with the procedure name in their domain</td>
+        <td>A single-specialty clinic has the procedure name in their domain</td>
+      </tr>
+      <tr>
+        <td>Our page has FAQ + Article + Reviews schema</td>
+        <td>The competitor has Reddit/forum mentions of the procedure by name</td>
+      </tr>
+      <tr>
+        <td>The procedure is one we genuinely lead on (lap spay, post-op physio)</td>
+        <td>We compete as a generalist hospital against a sub-specialty positioning</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h2>Already working FOR us</h2>
+  <ul class="findings">
+    <li>Modern Vet Hospital appears in EVERY procedure-query answer above. We are never excluded.</li>
+    <li><code>/our-services/laparoscopic-spay/</code> and <code>/our-services/physiotherapy/</code> are doing their job — AI lifts our own copy.</li>
+    <li>All 25 service pages are in the XML sitemap (<code>post-sitemap.xml</code>). No structural sitemap issue.</li>
+    <li>We are placed on TimeOut Dubai (3 articles) and FACT Magazines (2 articles) — see methodology section.</li>
+    <li>Aggregate rating schema, FAQ schema, and Article schema are present on procedure pages.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>The real problems to fix</h2>
+
+  <h3><span class="problem-pill crit">1</span>Critical</h3>
+  <ul class="findings">
+    <li><b>We are described by competitors' websites on orthopedic queries</b> (badge <span class="badge competitor">The Veterinary H…</span>). Our own ortho page exists but is not authoritative enough for AI to lift the description from.</li>
+    <li><b>The orthopedic page H1 is "Orthopedic Veterinary Dubai"</b> — broken English. AI engines treat this as low-quality and avoid lifting copy from it.</li>
+    <li><b>Vienna Vet competes against Modern Vet</b> in AI answers with no group-link signal. Both brands exist in the same answer with no cross-link.</li>
+  </ul>
+
+  <h3><span class="problem-pill high">2</span>High</h3>
+  <ul class="findings">
+    <li><b>Sponsored content (TimeOut, FACT)</b> is not being cited by AI engines. We need organic editorial mentions, not paid.</li>
+    <li><b><code>/llms.txt</code> is incomplete and stale</b> — only 7 services listed, dated 2025-10-06. Should list all 25.</li>
+    <li><b>No <code>/llms-full.txt</code></b> — modern AI crawlers (Anthropic, OpenAI, Perplexity) increasingly look for this with full markdown bodies of priority pages.</li>
+  </ul>
+
+  <h3><span class="problem-pill med">3</span>Medium</h3>
+  <ul class="findings">
+    <li><b>Dead vanity URLs:</b> <code>/orthopedic-surgery/</code> and <code>/neutering/</code> return 404. Should 301 to the correct <code>/our-services/...</code> pages.</li>
+    <li><b>Page title bug on <code>/our-services/spay-neuter/</code>:</b> "Cat & Dog Neutering Dubai: pet spaying cost" — lowercase, price-led, weak.</li>
+    <li><code>/our-services/spay-neuter/</code> live URL is actually <code>/spay-neuter-old/</code>. The word "old" is in the URL.</li>
+    <li><b>Duplicate H2s</b> on <code>/spay-neuter/</code> ("Cat Sterilization in Dubai" appears twice, same for Dog).</li>
+  </ul>
+
+  <h3><span class="problem-pill low">4</span>Lower</h3>
+  <ul class="findings">
+    <li>No <code>MedicalProcedure</code> JSON-LD schema on procedure pages (we use generic <code>Article</code>).</li>
+    <li>No doctor byline pages for the surgeons performing ortho, lap spay, physio. Single-specialty competitors win partly because they put their named surgeon front and centre.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>Recommended action</h2>
+  <p>See companion document: <b>SEO Team Task Brief</b> (<code>02-SEO-Team-Task-Brief.md</code>). Two-phase plan:</p>
+  <ul>
+    <li><b>Phase 1 — On-site (4 weeks):</b> title/H1/meta rewrites on 6 pages · llms.txt rebuild · llms-full.txt creation · MedicalProcedure schema · 301 redirects · Vienna Vet cross-brand JSON-LD signal · fix the <code>-old</code> slug · de-dupe H2s.</li>
+    <li><b>Phase 2 — Off-site (12 weeks):</b> organic (NOT sponsored) editorial pitches · directory listings on vetbai.info / GoProfiled / Yalah · doctor byline pages · Reddit organic participation · procedure-named GBP review prompts.</li>
+    <li><b>Phase 3 — Monitoring (ongoing):</b> monthly AI-visibility tracking spreadsheet across 10 queries × 4 engines · GA4 AI-referrer segment.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>Methodology &amp; appendix</h2>
+  <p><b>Test queries</b> run live on ChatGPT, 2026-06-08:</p>
+  <ol>
+    <li>"best vet in Dubai" — general query</li>
+    <li>"who does orthopedic surgery for dogs in Dubai"</li>
+    <li>"laparoscopic spay clinic Dubai"</li>
+    <li>"vet physiotherapy Dubai"</li>
+  </ol>
+  <p><b>Site audit:</b> Direct HTTP fetch of priority procedure pages with HTML inspection for title, meta, H1, H2, JSON-LD schema. Sitemap verified against <code>https://modernvet.com/sitemap_index.xml</code>. <code>/llms.txt</code> contents inspected at source. 404 status confirmed on legacy vanity URLs.</p>
+  <p><b>Editorial mentions cross-checked (NOT cited by ChatGPT):</b></p>
+  <ul>
+    <li><a href="https://www.timeoutdubai.com/news/why-modern-vet-is-the-go-to-for-advanced-pet-care-in-dubai-sponsored">TimeOut: Why Modern Vet is the go-to (sponsored)</a></li>
+    <li><a href="https://www.timeoutdubai.com/things-to-do/two-24-7-speciality-veterinary-hospitals-in-dubai-all-pet-parents-should-know-about-sponsored">TimeOut: Two 24/7 specialty hospitals (sponsored)</a></li>
+    <li><a href="https://www.timeoutdubai.com/news/vet-clinics-worth-trying-these-are-the-top-pet-wellness-leaders-in-dubai">TimeOut: Top pet wellness leaders (sponsored)</a></li>
+    <li><a href="https://www.factmagazines.com/uae/dubai/sponsored-content/why-modern-vet-dubai-should-be-your-choice-for-advanced-pet-care">FACT: Why Modern Vet should be your choice (sponsored)</a></li>
+    <li><a href="https://www.factmagazines.com/sponsored-content/10-reasons-why-modern-vet-should-be-your-go-to-for-pet-care-in-dubai">FACT: 10 reasons Modern Vet (sponsored)</a></li>
+  </ul>
+  <p>All five are marked as <b>sponsored content</b> in the URL slug. AI engines de-prioritise sponsored content as a recommendation source. This is itself a finding.</p>
+</div>
+
+<div class="footer">
+  Modern Vet · Marketing · Internal SEO Report · 8 June 2026
+</div>
+
+</div>
+</body>
+</html>
