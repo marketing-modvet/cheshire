@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Page Rewrites — Modern Vet AI Search Audit</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --mv-navy:#0d1b3d;
+  --mv-navy-2:#1a2b5e;
+  --mv-salmon:#ff7567;
+  --mv-salmon-soft:#ffe9e5;
+  --ink:#1a1f36;
+  --muted:#5b6478;
+  --line:#e4e7ef;
+  --bg:#f6f7fb;
+  --bg-card:#ffffff;
+  --good:#22a06b;
+  --warn:#e8a317;
+  --bad:#d24949;
+  --bad-bg:#fff0ed;
+  --good-bg:#eafaf2;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+.wrap{max-width:1100px;margin:0 auto;padding:40px 24px 80px}
+header.hero{background:linear-gradient(135deg,var(--mv-navy) 0%,var(--mv-navy-2) 60%,#2a3f7a 100%);color:#fff;border-radius:16px;padding:36px 32px;margin-bottom:28px}
+header.hero .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mv-salmon);font-weight:700;margin-bottom:14px}
+header.hero h1{margin:0 0 10px;font-size:28px;line-height:1.2;letter-spacing:-.02em}
+header.hero .sub{color:#cfd6e8;font-size:14px;max-width:760px}
+.back-link{display:inline-block;color:#cfd6e8;text-decoration:none;font-size:13px;margin-bottom:14px}
+.back-link:hover{color:#fff}
+.intro{background:var(--bg-card);border:1px solid var(--line);border-radius:12px;padding:24px 28px;margin-bottom:24px}
+.intro h2{margin:0 0 10px;font-size:18px;color:var(--mv-navy)}
+.intro ul{margin:6px 0 0;padding-left:18px;font-size:14px}
+.intro li{margin-bottom:6px;color:#2a3148}
+.page-card{background:var(--bg-card);border:1px solid var(--line);border-radius:14px;padding:24px 28px;margin-bottom:22px;box-shadow:0 1px 2px rgba(13,27,61,.04)}
+.page-card h3{margin:0 0 6px;font-size:18px;color:var(--mv-navy)}
+.page-card .url{font-family:ui-monospace,Menlo,Monaco,Consolas,monospace;font-size:12px;color:var(--muted);word-break:break-all;margin-bottom:18px;padding-bottom:12px;border-bottom:1px dashed var(--line)}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+.side{padding:14px 16px;border-radius:10px;font-size:14px}
+.side.before{background:var(--bad-bg);border:1px solid #ffd0c7}
+.side.after{background:var(--good-bg);border:1px solid #bfe9d2}
+.side h4{margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:.1em;display:flex;align-items:center;gap:6px}
+.side.before h4{color:var(--bad)}
+.side.after h4{color:var(--good)}
+.field{margin-bottom:10px}
+.field:last-child{margin-bottom:0}
+.field-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;margin-bottom:3px}
+.field-value{font-size:14px;line-height:1.45;color:var(--ink);word-break:break-word}
+.field-value.broken{text-decoration:underline wavy var(--bad);text-decoration-skip-ink:none}
+.why{margin-top:14px;padding:12px 14px;background:#f9faff;border-left:3px solid var(--mv-salmon);border-radius:6px;font-size:13.5px;color:#2a3148}
+.why b{color:var(--mv-navy)}
+.checklist{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px 28px;margin-bottom:22px}
+.checklist h2{margin:0 0 14px;font-size:18px;color:var(--mv-navy)}
+.checklist table{width:100%;border-collapse:collapse;font-size:13.5px}
+.checklist th, .checklist td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.checklist th{background:#f9faff;font-weight:600;color:var(--mv-navy);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;text-align:center}
+@media (max-width:780px){
+  .wrap{padding:20px 12px 60px}
+  .compare{grid-template-columns:1fr}
+  .page-card{padding:18px 18px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <a class="back-link" href="./">← Back to full report</a>
+  <div class="eyebrow">SEO · Page Rewrites</div>
+  <h1>Procedure Page Rewrites — Drafts for Approval</h1>
+  <div class="sub">Title, meta, and H1 rewrites for the 6 procedure pages flagged in the AI Search Visibility audit. Side-by-side comparison: current (broken) vs proposed.</div>
+</header>
+
+<div class="intro">
+  <h2>Rewrite rules used</h2>
+  <ul>
+    <li><b>Title:</b> Procedure (clean English) + "Dubai" + "Modern Vet" / ModernVet · 50–60 characters · title case · no price-led phrasing</li>
+    <li><b>Meta:</b> Complete sentence, 130–160 characters · includes procedure name, benefit, and brand · no fragments, no truncated phone numbers</li>
+    <li><b>H1:</b> Procedure name (the way people search it) + "Dubai" · plain English · no marketing fluff slogans</li>
+  </ul>
+</div>
+
+<!-- PAGE 1 -->
+<div class="page-card">
+  <h3>1. Soft Tissue & Orthopedics</h3>
+  <div class="url">https://modernvet.com/our-services/soft-tissue-and-orthopedics/</div>
+  <div class="compare">
+    <div class="side before">
+      <h4>❌ Current</h4>
+      <div class="field"><div class="field-label">Title</div><div class="field-value">Orthopedic for Dogs &amp; Cats: Vet Surgeon Specialist in Dubai</div></div>
+      <div class="field"><div class="field-label">Meta</div><div class="field-value">Orthopedic &amp; Soft Tissue Surgery for Dogs &amp; Cats in Dubai. Professional vet specialists at the Modern Vet clinic will take care of your pet 24/7</div></div>
+      <div class="field"><div class="field-label">H1</div><div class="field-value broken">Orthopedic Veterinary Dubai</div></div>
+    </div>
+    <div class="side after">
+      <h4>✅ Proposed</h4>
+      <div class="field"><div class="field-label">Title</div><div class="field-value">Orthopedic Surgery for Dogs and Cats in Dubai | Modern Vet</div></div>
+      <div class="field"><div class="field-label">Meta</div><div class="field-value">Veterinary orthopedic and soft tissue surgery in Dubai — TPLO, fracture repair, cruciate ligament, hip and joint procedures. 24/7 referral hospital at Modern Vet.</div></div>
+      <div class="field"><div class="field-label">H1</div><div class="field-value">Veterinary Orthopedic Surgery in Dubai</div></div>
+    </div>
+  </div>
+  <div class="why"><b>Why:</b> ChatGPT lifted our description from a competitor's site, not ours. Current H1 reads as machine-translated ("Orthopedic Veterinary Dubai" = broken word order). New H1 puts the procedure name in natural English. Meta names the procedures (TPLO, cruciate) that AI chatbots specifically ask about.</div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page-card">
+  <h3>2. Spay & Neuter (general)</h3>
+  <div class="url">https://modernvet.com/our-services/spay-neuter/  <span style="color:var(--bad)">(currently 301s to /spay-neuter-old/ — separate fix)</span></div>
+  <div class="compare">
+    <div class="side before">
+      <h4>❌ Current</h4>
+      <div class="field"><div class="field-label">Title</div><div class="field-value broken">Cat &amp; Dog Neutering Dubai: pet spaying cost</div></div>
+      <div class="field"><div class="field-label">Meta</div><div class="field-value">Spaying for Pets in Dubai. Veterinary clinic Modern Vet with caring specialists will neutering your cat or dog. We are always open and close to you! Call 800-82</div></div>
+      <div class="field"><div class="field-label">H1</div><div class="field-value broken">Spay &amp; Neuter</div></div>
+    </div>
+    <div class="side after">
+      <h4>✅ Proposed</h4>
+      <div class="field"><div class="field-label">Title</div><div class="field-value">Dog and Cat Spay and Neuter in Dubai | Modern Vet</div></div>
+      <div class="field"><div class="field-label">Meta</div><div class="field-value">Safe, modern spay and neuter surgery for dogs and cats in Dubai. Performed by experienced veterinary surgeons across seven Modern Vet clinics and the 24/7 Hospital.</div></div>
+      <div class="field"><div class="field-label">H1</div><div class="field-value">Spay and Neuter Surgery in Dubai</div></div>
+    </div>
+  </div>
+  <div class="why"><b>Why:</b> Lowercase title with "pet spaying cost" is a weak ranking signal and price-led. Old H1 ("Spay & Neuter") has zero context — no city, no brand. <b>Also flag:</b> duplicate H2 "Cat Sterilization in Dubai" appears twice on this page (same for Dog) — remove duplicates.</div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page-card">
+  <h3>3. Laparoscopic Spay</h3>
+  <div class="url">https://modernvet.com/our-services/laparoscopic-spay/</div>
+  <div class="compare">
+    <div class="side before">
+      <h4>❌ Current</h4>
+      <div class="field"><div class="field-label">Title</div><div class="field-value">Laparoscopic &amp; Keyhole Spay Surgery for Dogs &amp; Cats in Dubai <span style="color:var(--good)">✅ ok</span></div></div>
+      <div class="field"><div class="field-label">Meta</div><div class="field-value">Minimally invasive laparoscopic (keyhole) spay surgery for dogs &amp; cats. Faster recovery, less pain, reduced risk of complications. Learn costs, recovery times, and aftercare tips <span style="color:var(--good)">✅ ok</span></div></div>
+      <div class="field"><div class="field-label">H1</div><div class="field-value broken">Keyhole Spay Dubai</div></div>
+    </div>
+    <div class="side after">
+      <h4>✅ Proposed</h4>
+      <div class="field"><div class="field-label">Title</div><div class="field-value">Laparoscopic &amp; Keyhole Spay Surgery for Dogs &amp; Cats in Dubai | Modern Vet</div></div>
+      <div class="field"><div class="field-label">Meta</div><div class="field-value">(no change)</div></div>
+      <div class="field"><div class="field-label">H1</div><div class="field-value">Laparoscopic (Keyhole) Spay in Dubai</div></div>
+    </div>
+  </div>
+  <div class="why"><b>Why:</b> This page already wins on the ChatGPT lap-spay query — keep it mostly as-is. H1 needs the dominant search term ("laparoscopic") in addition to "keyhole". Brand suffix on title locks our authorship signal.</div>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page-card">
+  <h3>4. Physiotherapy</h3>
+  <div class="url">https://modernvet.com/our-services/physiotherapy/</div>
+  <div class="compare">
+    <div class="side before">
+      <h4>❌ Current</h4>
+      <div class="field"><div class="field-label">Title</div><div class="field-value">Vet Physiotherapy in Dubai | ModernVet</div></div>
+      <div class="field"><div class="field-label">Meta</div><div class="field-value broken">Vet physiotherapy prices. 24 hours physical therapy veterinary.</div></div>
+      <div class="field"><div class="field-label">H1</div><div class="field-value broken">Rehabilitation For Improved Mobility</div></div>
+    </div>
+    <div class="side after">
+      <h4>✅ Proposed</h4>
+      <div class="field"><div class="field-label">Title</div><div class="field-value">Veterinary Physiotherapy and Rehabilitation in Dubai | Modern Vet</div></div>
+      <div class="field"><div class="field-label">Meta</div><div class="field-value">Veterinary physiotherapy and rehabilitation in Dubai. Tailored programmes for post-surgical recovery, neurological conditions, mobility loss, and senior pets at Modern Vet.</div></div>
+      <div class="field"><div class="field-label">H1</div><div class="field-value">Veterinary Physiotherapy and Rehabilitation in Dubai</div></div>
+    </div>
+  </div>
+  <div class="why"><b>Why:</b> Meta is a word-salad fragment — single worst meta on the site. H1 does not contain "physiotherapy" or "Dubai" — AI engines cannot identify the page from the H1 alone. Despite this we still win the query (#1 for post-op rehab), so cleaning this up should push us further ahead.</div>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page-card">
+  <h3>5. Dog Spaying & Neutering</h3>
+  <div class="url">https://modernvet.com/our-services/dog-spaying-neutering/</div>
+  <div class="compare">
+    <div class="side before">
+      <h4>❌ Current</h4>
+      <div class="field"><div class="field-label">Title</div><div class="field-value broken">Dog Spaying | What is it and why should you neutering your dog?</div></div>
+      <div class="field"><div class="field-label">Meta</div><div class="field-value">What is dog spaying and why is it needed? Answers to popular questions about dog neutering in our article. Veterinary clinic Modern Vet in Dubai! Call 800-82</div></div>
+      <div class="field"><div class="field-label">H1</div><div class="field-value broken">Healthy Animals, Happier Homes</div></div>
+    </div>
+    <div class="side after">
+      <h4>✅ Proposed</h4>
+      <div class="field"><div class="field-label">Title</div><div class="field-value">Dog Spaying and Neutering in Dubai | Modern Vet</div></div>
+      <div class="field"><div class="field-label">Meta</div><div class="field-value">Spaying and neutering for dogs in Dubai — what's involved, the right age, recovery and aftercare. Performed by experienced veterinary surgeons at Modern Vet.</div></div>
+      <div class="field"><div class="field-label">H1</div><div class="field-value">Dog Spaying and Neutering in Dubai</div></div>
+    </div>
+  </div>
+  <div class="why"><b>Why:</b> Title contains "why should you neutering your dog?" — broken grammar that AI engines actively penalise as a content-quality signal. H1 is a generic slogan with zero search relevance.</div>
+</div>
+
+<!-- PAGE 6 -->
+<div class="page-card">
+  <h3>6. Cat Spay & Neuter</h3>
+  <div class="url">https://modernvet.com/our-services/cat-spay-and-neuter/</div>
+  <div class="compare">
+    <div class="side before">
+      <h4>❌ Current</h4>
+      <div class="field"><div class="field-label">Title</div><div class="field-value">What Is Cat Neutering? Optimal age, Side effects, Recovery time</div></div>
+      <div class="field"><div class="field-label">Meta</div><div class="field-value">What is cat spaying and why is it needed? Answers to popular questions about cats neutering in our article. Veterinary clinic Modern Vet in Dubai! Call 800-82</div></div>
+      <div class="field"><div class="field-label">H1</div><div class="field-value broken">Safe and Comfortable Procedures</div></div>
+    </div>
+    <div class="side after">
+      <h4>✅ Proposed</h4>
+      <div class="field"><div class="field-label">Title</div><div class="field-value">Cat Spaying and Neutering in Dubai | Modern Vet</div></div>
+      <div class="field"><div class="field-label">Meta</div><div class="field-value">Cat spaying and neutering in Dubai — best age, what to expect on the day, recovery and aftercare. Compassionate surgical care across seven Modern Vet clinics.</div></div>
+      <div class="field"><div class="field-label">H1</div><div class="field-value">Cat Spaying and Neutering in Dubai</div></div>
+    </div>
+  </div>
+  <div class="why"><b>Why:</b> Old title is question-format (better suited to FAQ pages than service pages). H1 is generic marketing fluff with no keyword, brand, or city — AI engines cannot identify the page subject from the H1 alone.</div>
+</div>
+
+<div class="checklist">
+  <h2>SEO team checklist</h2>
+  <table>
+    <thead><tr><th>#</th><th>Page</th><th>Action</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><code>/our-services/soft-tissue-and-orthopedics/</code></td><td>Replace title, meta, H1</td></tr>
+      <tr><td>2</td><td><code>/our-services/spay-neuter/</code></td><td>Replace title, meta, H1 + de-dupe H2s + fix <code>-old</code> slug</td></tr>
+      <tr><td>3</td><td><code>/our-services/laparoscopic-spay/</code></td><td>Append brand to title, replace H1 only</td></tr>
+      <tr><td>4</td><td><code>/our-services/physiotherapy/</code></td><td>Replace title, meta, H1</td></tr>
+      <tr><td>5</td><td><code>/our-services/dog-spaying-neutering/</code></td><td>Replace title, meta, H1</td></tr>
+      <tr><td>6</td><td><code>/our-services/cat-spay-and-neuter/</code></td><td>Replace title, meta, H1</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:14px;font-size:13.5px;color:#2a3148"><b>After deployment, please:</b></p>
+  <ul style="font-size:13.5px;color:#2a3148">
+    <li>Re-submit the XML sitemap in Google Search Console</li>
+    <li>Manually request reindex for each of the 6 URLs</li>
+    <li>Confirm no chained 301s (e.g. <code>/spay-neuter-old/</code> → <code>/spay-neuter/</code> should be a single hop, not a chain)</li>
+    <li>Run a Yoast SEO snippet preview for each page before publishing</li>
+  </ul>
+  <p style="margin-top:14px;font-size:13.5px;color:#2a3148">Marketing will run a second AI-visibility test 4 weeks after deployment to measure citation-badge changes.</p>
+</div>
+
+<div class="footer">
+  Modern Vet · Marketing · Page Rewrites · 8 June 2026 · <a href="./" style="color:var(--muted)">Back to full report</a>
+</div>
+
+</div>
+</body>
+</html>
