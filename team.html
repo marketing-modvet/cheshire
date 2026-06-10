@@ -295,6 +295,21 @@
   .tl-tag.t-mockups { background: rgba(201,215,185,0.4); color: #5a6e44; border-color: rgba(201,215,185,0.6); }
   .tl-tag.t-rd { background: rgba(255,215,0,0.15); color: #8a6f1a; border-color: rgba(255,215,0,0.3); }
 
+  /* Release timetable — show more / less */
+  .tl-item.tl-hidden, .tl-month.tl-hidden { display: none; }
+  .tl-showmore-wrap { text-align: center; margin-top: 18px; }
+  .tl-showmore {
+    font-family: inherit; cursor: pointer;
+    background: var(--va-cream); color: var(--va-teal);
+    border: 1px solid rgba(1,89,98,0.25); border-radius: 4px;
+    padding: 10px 26px; font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    transition: background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .tl-showmore:hover { background: var(--va-teal); color: #fff; border-color: var(--va-teal); }
+  .tl-showmore .tl-count { color: var(--va-gold); font-weight: 700; }
+  .tl-showmore:hover .tl-count { color: var(--va-gold); }
+
   /* ═══ FOOTER ═══ */
   footer {
     text-align: center; padding: 40px 24px;
@@ -970,6 +985,48 @@
   });
   document.getElementById('kpi-tools').textContent = tools;
   document.getElementById('kpi-reports').textContent = reports;
+
+  // Release Timetable — keep latest 5 visible, collapse the rest behind "Show More"
+  (function () {
+    const VISIBLE = 5;
+    const wrap = document.querySelector('.timeline-wrap');
+    if (!wrap) return;
+    const items = Array.from(wrap.querySelectorAll('.tl-item'));
+    if (items.length <= VISIBLE) return;
+    const months = Array.from(wrap.querySelectorAll('.tl-month'));
+    const hidden = items.slice(VISIBLE);
+
+    function applyCollapse(collapsed) {
+      hidden.forEach(it => it.classList.toggle('tl-hidden', collapsed));
+      // Hide month blocks that have no visible items
+      months.forEach(m => {
+        const anyVisible = m.querySelector('.tl-item:not(.tl-hidden)');
+        m.classList.toggle('tl-hidden', collapsed && !anyVisible);
+      });
+    }
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'tl-showmore';
+    const wrapDiv = document.createElement('div');
+    wrapDiv.className = 'tl-showmore-wrap';
+    wrapDiv.appendChild(btn);
+    wrap.appendChild(wrapDiv);
+
+    let collapsed = true;
+    function render() {
+      applyCollapse(collapsed);
+      btn.innerHTML = collapsed
+        ? 'Show More <span class="tl-count">(' + hidden.length + ' more)</span>'
+        : 'Show Less';
+    }
+    btn.addEventListener('click', function () {
+      collapsed = !collapsed;
+      render();
+      if (collapsed) wrapDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+    render();
+  })();
 </script>
 
 <footer>
