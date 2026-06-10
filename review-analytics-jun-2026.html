@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Review Analytics — June 2026 | Vet Alliance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --va-teal: #015962;
+    --va-teal-deep: #002b2d;
+    --va-teal-light: #e8f5f0;
+    --va-teal-mid: #0a7a87;
+    --navy: #1a2744;
+    --accent: #015962;
+    --text: #1e2a3a;
+    --text-muted: #6b7685;
+    --bg: #f5f7f9;
+    --white: #ffffff;
+    --border: #dde3ea;
+    --green: #1a9944;
+    --green-bg: #e8f9ed;
+    --amber: #b56b00;
+    --amber-bg: #fff8e6;
+    --red: #c0392b;
+    --red-bg: #fdf0ef;
+    --grey: #8a9ab0;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.10), 0 2px 4px rgba(0,0,0,0.06);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* ── Lock screen ── */
+  #lock-screen {
+    position: fixed; inset: 0; z-index: 9999;
+    background: linear-gradient(135deg, var(--va-teal-deep) 0%, var(--va-teal) 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .lock-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 40px 48px;
+    width: 360px;
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+  .lock-logo {
+    width: 56px; height: 56px;
+    background: var(--va-teal);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 26px;
+  }
+  .lock-card h2 {
+    font-size: 18px; font-weight: 700; color: var(--va-teal-deep); margin-bottom: 4px;
+  }
+  .lock-card p {
+    font-size: 12px; color: var(--text-muted); margin-bottom: 24px;
+  }
+  .lock-input {
+    width: 100%; padding: 10px 14px;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    font-family: inherit; font-size: 14px; outline: none;
+    transition: border-color 0.2s;
+    margin-bottom: 12px;
+  }
+  .lock-input:focus { border-color: var(--va-teal); }
+  .lock-btn {
+    width: 100%; padding: 10px;
+    background: var(--va-teal); color: var(--white);
+    border: none; border-radius: 8px; font-family: inherit;
+    font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .lock-btn:hover { background: var(--va-teal-mid); }
+  .lock-error {
+    color: var(--red); font-size: 12px; margin-top: 8px; display: none;
+  }
+
+  /* ── Layout ── */
+  #main { display: none; }
+  header {
+    background: linear-gradient(135deg, var(--va-teal-deep) 0%, var(--va-teal) 100%);
+    color: var(--white);
+    padding: 28px 40px 24px;
+  }
+  .header-inner {
+    max-width: 1300px; margin: 0 auto;
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 20px;
+    flex-wrap: wrap;
+  }
+  .header-title { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+  .header-sub { font-size: 13px; opacity: 0.78; }
+  .header-meta { text-align: right; font-size: 12px; opacity: 0.7; }
+
+  main { max-width: 1300px; margin: 0 auto; padding: 32px 24px 60px; }
+
+  /* ── Summary banner ── */
+  .banner {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 18px 24px;
+    display: flex; flex-wrap: wrap; gap: 12px;
+    align-items: center;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 28px;
+    border-left: 4px solid var(--va-teal);
+  }
+  .banner-stat {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: var(--bg);
+  }
+  .banner-stat .val {
+    font-size: 20px; font-weight: 700; color: var(--va-teal);
+  }
+  .banner-stat .lbl {
+    font-size: 12px; color: var(--text-muted); line-height: 1.3;
+  }
+  .banner-divider {
+    width: 1px; height: 36px; background: var(--border);
+    align-self: center;
+  }
+
+  /* ── Section header ── */
+  .section-hdr {
+    margin-bottom: 18px;
+  }
+  .section-hdr h2 {
+    font-size: 17px; font-weight: 700; color: var(--va-teal-deep);
+    margin-bottom: 4px;
+  }
+  .section-hdr p {
+    font-size: 12px; color: var(--text-muted);
+  }
+
+  /* ── Controls ── */
+  .controls {
+    display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; align-items: center;
+  }
+  .search-wrap {
+    position: relative; flex: 1; min-width: 200px; max-width: 380px;
+  }
+  .search-wrap input {
+    width: 100%; padding: 8px 12px 8px 34px;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    font-family: inherit; font-size: 13px; outline: none;
+    transition: border-color 0.2s;
+    background: var(--white);
+  }
+  .search-wrap input:focus { border-color: var(--va-teal); }
+  .search-wrap .icon {
+    position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+    color: var(--text-muted); font-size: 14px; pointer-events: none;
+  }
+  .badge-count {
+    font-size: 12px; color: var(--text-muted);
+  }
+
+  /* ── Card wrapper ── */
+  .card {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    margin-bottom: 36px;
+  }
+
+  /* ── Tables ── */
+  .tbl-wrap {
+    overflow-x: auto;
+  }
+  table {
+    width: 100%; border-collapse: collapse;
+  }
+  thead th {
+    background: var(--va-teal);
+    color: var(--white);
+    padding: 11px 14px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    position: sticky; top: 0;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+  thead th:hover { background: var(--va-teal-mid); }
+  thead th.num { text-align: right; }
+  thead th .sort-arrow { margin-left: 4px; opacity: 0.6; font-size: 10px; }
+  tbody tr { transition: background 0.1s; }
+  tbody tr:hover { background: #f0f4f7 !important; }
+  tbody tr.ours { background: var(--va-teal-light) !important; }
+  tbody tr.ours:hover { background: #d4ede5 !important; }
+  td {
+    padding: 9px 14px; font-size: 13px;
+    border-bottom: 1px solid #eef0f4;
+    vertical-align: middle;
+  }
+  td.num { text-align: right; }
+  td.rank { color: var(--text-muted); font-size: 12px; text-align: right; }
+
+  .clinic-name { font-weight: 500; }
+  .ours .clinic-name { font-weight: 700; }
+
+  .badge-us {
+    display: inline-block;
+    background: var(--va-teal);
+    color: var(--white);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 4px;
+    margin-left: 5px;
+    vertical-align: middle;
+  }
+
+  .delta-pos { color: var(--green); font-weight: 600; }
+  .delta-neg { color: var(--red); font-weight: 600; }
+  .delta-zero { color: var(--grey); }
+
+  /* ── Pill badges for effectiveness ── */
+  .pill {
+    display: inline-block; padding: 2px 8px;
+    border-radius: 12px; font-size: 11px; font-weight: 600;
+    white-space: nowrap;
+  }
+  .pill-green { background: var(--green-bg); color: var(--green); }
+  .pill-amber { background: var(--amber-bg); color: var(--amber); }
+  .pill-red { background: var(--red-bg); color: var(--red); }
+  .pill-grey { background: #f0f1f3; color: var(--grey); }
+
+  /* ── Legend boxes ── */
+  .legend-row {
+    display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 14px;
+  }
+  .legend-box {
+    border: 1px solid var(--border);
+    border-radius: 10px; padding: 12px 16px;
+    flex: 1; min-width: 220px;
+    background: var(--white);
+  }
+  .legend-box h4 {
+    font-size: 12px; font-weight: 700;
+    color: var(--va-teal-deep); margin-bottom: 8px;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 4px;
+  }
+  .legend-item span { font-size: 12px; color: var(--text-muted); }
+
+  /* ── Separator ── */
+  .section-sep {
+    height: 1px; background: var(--border); margin: 36px 0;
+  }
+
+  .no-results {
+    text-align: center; padding: 32px; color: var(--text-muted); font-size: 13px;
+  }
+
+  @media (max-width: 768px) {
+    header { padding: 20px; }
+    main { padding: 16px 12px 40px; }
+    .banner { flex-direction: column; gap: 8px; }
+    .banner-divider { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Lock screen ── -->
+<div id="lock-screen">
+  <div class="lock-card">
+    <div class="lock-logo">📊</div>
+    <h2>Review Analytics</h2>
+    <p>June 2026 · Vet Alliance Internal</p>
+    <input type="password" id="lock-pw" class="lock-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')unlock()"/>
+    <button class="lock-btn" onclick="unlock()">Unlock Report</button>
+    <div class="lock-error" id="lock-err">Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<!-- ── Main report ── -->
+<div id="main">
+
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="header-title">📊 Review Analytics — June 2026</div>
+      <div class="header-sub">Month-over-month Google review growth · All Dubai veterinary clinics · May → June 2026</div>
+    </div>
+    <div class="header-meta">
+      Generated: June 10, 2026<br/>
+      Vet Alliance Marketing
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ══════════════════════════════════════════
+       SECTION 1: ALL CLINICS PROGRESSION
+  ══════════════════════════════════════════ -->
+  <div class="section-hdr">
+    <h2>Review Growth: All Dubai Clinics (May → June 2026)</h2>
+    <p>148 Dubai veterinary clinics tracked · Sorted by new reviews (highest first) · Our clinics highlighted in teal</p>
+  </div>
+
+  <!-- Summary banner -->
+  <div class="banner">
+    <div class="banner-stat">
+      <div>
+        <div class="val">+1,170</div>
+        <div class="lbl">Total new reviews<br/>across all 148 clinics</div>
+      </div>
+    </div>
+    <div class="banner-divider"></div>
+    <div class="banner-stat">
+      <div>
+        <div class="val">+267</div>
+        <div class="lbl">Our clinics (11)<br/>22.8% of all new reviews</div>
+      </div>
+    </div>
+    <div class="banner-divider"></div>
+    <div class="banner-stat">
+      <div>
+        <div class="val" style="color:#c0392b;">5</div>
+        <div class="lbl">Clinics losing<br/>reviews this month</div>
+      </div>
+    </div>
+    <div class="banner-divider"></div>
+    <div class="banner-stat">
+      <div>
+        <div class="val">148</div>
+        <div class="lbl">Clinics<br/>monitored</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="padding:14px 16px 0;">
+      <div class="controls">
+        <div class="search-wrap">
+          <span class="icon">🔍</span>
+          <input type="text" id="search1" placeholder="Search clinic name…" oninput="filterTable1()"/>
+        </div>
+        <div class="badge-count" id="count1">Showing all 148 clinics</div>
+      </div>
+    </div>
+    <div class="tbl-wrap">
+      <table id="table1">
+        <thead>
+          <tr>
+            <th onclick="sortTable(1,0,'num')" title="Rank">#<span class="sort-arrow" id="sa1-0"></span></th>
+            <th onclick="sortTable(1,1,'str')">Clinic<span class="sort-arrow" id="sa1-1"></span></th>
+            <th class="num" onclick="sortTable(1,2,'num')">May Reviews<span class="sort-arrow" id="sa1-2"></span></th>
+            <th class="num" onclick="sortTable(1,3,'num')">June Reviews<span class="sort-arrow" id="sa1-3"></span></th>
+            <th class="num" onclick="sortTable(1,4,'num')">New Reviews<span class="sort-arrow" id="sa1-4">▼</span></th>
+            <th class="num" onclick="sortTable(1,5,'num')">Growth %<span class="sort-arrow" id="sa1-5"></span></th>
+          </tr>
+        </thead>
+        <tbody id="tbody1"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-sep"></div>
+
+  <!-- ══════════════════════════════════════════
+       SECTION 2: OUR CLINIC EFFECTIVENESS
+  ══════════════════════════════════════════ -->
+  <div class="section-hdr">
+    <h2>Review Effectiveness: Our Clinics</h2>
+    <p>11 clinics · Growth rate vs review base + patient conversion rate (May 2026 patient counts)</p>
+  </div>
+
+  <div class="legend-row">
+    <div class="legend-box">
+      <h4>📈 Growth Rate (delta ÷ May reviews)</h4>
+      <div class="legend-item"><span class="pill pill-green">≥ 5%</span><span>Strong growth — well above market average</span></div>
+      <div class="legend-item"><span class="pill pill-amber">2–5%</span><span>Moderate growth — in line with market</span></div>
+      <div class="legend-item"><span class="pill pill-red">&lt; 2%</span><span>Slow growth — below market average</span></div>
+    </div>
+    <div class="legend-box">
+      <h4>🏥 Patient Conversion (new reviews ÷ May patients)</h4>
+      <div class="legend-item"><span class="pill pill-green">≥ 3%</span><span>Excellent — high proportion of patients reviewing</span></div>
+      <div class="legend-item"><span class="pill pill-amber">1–3%</span><span>Good — typical for well-run clinics</span></div>
+      <div class="legend-item"><span class="pill pill-red">&lt; 1%</span><span>Low — opportunity to improve review capture</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="tbl-wrap">
+      <table id="table2">
+        <thead>
+          <tr>
+            <th onclick="sortTable(2,0,'str')">Clinic<span class="sort-arrow" id="sa2-0"></span></th>
+            <th class="num" onclick="sortTable(2,1,'num')">May Reviews<span class="sort-arrow" id="sa2-1"></span></th>
+            <th class="num" onclick="sortTable(2,2,'num')">Jun Reviews<span class="sort-arrow" id="sa2-2"></span></th>
+            <th class="num" onclick="sortTable(2,3,'num')">New Reviews<span class="sort-arrow" id="sa2-3"></span></th>
+            <th class="num" onclick="sortTable(2,4,'num')">Growth Rate<span class="sort-arrow" id="sa2-4"></span></th>
+            <th class="num" onclick="sortTable(2,5,'num')">May Patients<span class="sort-arrow" id="sa2-5"></span></th>
+            <th class="num" onclick="sortTable(2,6,'num')">Patient Conversion<span class="sort-arrow" id="sa2-6"></span></th>
+          </tr>
+        </thead>
+        <tbody id="tbody2"></tbody>
+      </table>
+    </div>
+  </div>
+
+</main>
+</div><!-- /#main -->
+
+<script>
+// ── Password ──
+function unlock() {
+  var pw = document.getElementById('lock-pw').value;
+  if (pw === 'ModernVet2026') {
+    document.getElementById('lock-screen').style.display = 'none';
+    document.getElementById('main').style.display = 'block';
+  } else {
+    document.getElementById('lock-err').style.display = 'block';
+  }
+}
+window.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && document.getElementById('lock-screen').style.display !== 'none') unlock();
+});
+
+// ── Data ──
+var ALL_DATA = [{"name": "Modern Vet JLT", "is_ours": true, "may_reviews": 1745, "jun_reviews": 1823, "delta": 78, "growth_pct": 4.47, "rating": 0, "rank_may": 1, "rank_jun": 1}, {"name": "Blue Oasis Vet (DIP)", "is_ours": true, "may_reviews": 935, "jun_reviews": 996, "delta": 61, "growth_pct": 6.52, "rating": 0, "rank_may": 13, "rank_jun": 13}, {"name": "Modern Vet Palm", "is_ours": true, "may_reviews": 820, "jun_reviews": 869, "delta": 49, "growth_pct": 5.98, "rating": 0, "rank_may": 4, "rank_jun": 4}, {"name": "Modern Vet Hospital", "is_ours": true, "may_reviews": 1779, "jun_reviews": 1804, "delta": 25, "growth_pct": 1.41, "rating": 0, "rank_may": 8, "rank_jun": 8}, {"name": "Vienna Vet", "is_ours": true, "may_reviews": 506, "jun_reviews": 525, "delta": 19, "growth_pct": 3.75, "rating": 0, "rank_may": 40, "rank_jun": 40}, {"name": "Modern Vet JVC", "is_ours": true, "may_reviews": 1143, "jun_reviews": 1155, "delta": 12, "growth_pct": 1.05, "rating": 0, "rank_may": 3, "rank_jun": 3}, {"name": "Modern Vet Downtown", "is_ours": true, "may_reviews": 591, "jun_reviews": 603, "delta": 12, "growth_pct": 2.03, "rating": 0, "rank_may": 12, "rank_jun": 12}, {"name": "Modern Vet Azizi Riviera", "is_ours": true, "may_reviews": 135, "jun_reviews": 144, "delta": 9, "growth_pct": 6.67, "rating": 0, "rank_may": 61, "rank_jun": 58}, {"name": "Modern Vet Al Khawaneej", "is_ours": true, "may_reviews": 63, "jun_reviews": 64, "delta": 1, "growth_pct": 1.59, "rating": 0, "rank_may": 116, "rank_jun": 118}, {"name": "The Veterinary Referral Centre", "is_ours": true, "may_reviews": 19, "jun_reviews": 20, "delta": 1, "growth_pct": 5.26, "rating": 0, "rank_may": 142, "rank_jun": 144}, {"name": "Blue Oasis Vet D2", "is_ours": true, "may_reviews": 328, "jun_reviews": 328, "delta": 0, "growth_pct": 0.0, "rating": 0, "rank_may": 58, "rank_jun": 54}, {"name": "ZAD VETERINARY CLINIC DUBAI", "is_ours": false, "may_reviews": 74, "jun_reviews": 117, "delta": 43, "growth_pct": 58.11, "rating": 0, "rank_may": 71, "rank_jun": 71}, {"name": "Pet Joy Veterinary Clinic", "is_ours": false, "may_reviews": 353, "jun_reviews": 395, "delta": 42, "growth_pct": 11.9, "rating": 0, "rank_may": 55, "rank_jun": 51}, {"name": "Noble Veterinary Clinic DIP", "is_ours": false, "may_reviews": 1216, "jun_reviews": 1257, "delta": 41, "growth_pct": 3.37, "rating": 0, "rank_may": 6, "rank_jun": 6}, {"name": "Noble Veterinary Clinic Jumeirah", "is_ours": false, "may_reviews": 750, "jun_reviews": 787, "delta": 37, "growth_pct": 4.93, "rating": 0, "rank_may": 11, "rank_jun": 11}, {"name": "Petbook veterinary clinic", "is_ours": false, "may_reviews": 380, "jun_reviews": 415, "delta": 35, "growth_pct": 9.21, "rating": 0, "rank_may": 48, "rank_jun": 46}, {"name": "Cute Cat Veterinary Clinic - Dubai", "is_ours": false, "may_reviews": 192, "jun_reviews": 224, "delta": 32, "growth_pct": 16.67, "rating": 0, "rank_may": 26, "rank_jun": 24}, {"name": "Petflix Vet Clinic", "is_ours": false, "may_reviews": 487, "jun_reviews": 514, "delta": 27, "growth_pct": 5.54, "rating": 0, "rank_may": 27, "rank_jun": 29}, {"name": "The City Vet Clinic - Al Wasl Branch", "is_ours": false, "may_reviews": 536, "jun_reviews": 561, "delta": 25, "growth_pct": 4.66, "rating": 0, "rank_may": 82, "rank_jun": 85}, {"name": "Kare Veterinary Clinic LLC", "is_ours": false, "may_reviews": 331, "jun_reviews": 354, "delta": 23, "growth_pct": 6.95, "rating": 0, "rank_may": 31, "rank_jun": 33}, {"name": "Creekside Vet Clinic LLC", "is_ours": false, "may_reviews": 233, "jun_reviews": 254, "delta": 21, "growth_pct": 9.01, "rating": 0, "rank_may": 53, "rank_jun": 68}, {"name": "VetDUB Veterinary Clinic", "is_ours": false, "may_reviews": 171, "jun_reviews": 191, "delta": 20, "growth_pct": 11.7, "rating": 0, "rank_may": 83, "rank_jun": 76}, {"name": "Paw Prints Veterinary Clinic", "is_ours": false, "may_reviews": 93, "jun_reviews": 112, "delta": 19, "growth_pct": 20.43, "rating": 0, "rank_may": 101, "rank_jun": 99}, {"name": "Perfect Dose Veterinary Clinic", "is_ours": false, "may_reviews": 800, "jun_reviews": 817, "delta": 17, "growth_pct": 2.12, "rating": 0, "rank_may": 18, "rank_jun": 18}, {"name": "Intervet Veterinary Clinic L.L.C", "is_ours": false, "may_reviews": 596, "jun_reviews": 613, "delta": 17, "growth_pct": 2.85, "rating": 0, "rank_may": 47, "rank_jun": 45}, {"name": "Parrot Veterinary Clinic - Exclusive clinic for pet birds in Dubai", "is_ours": false, "may_reviews": 67, "jun_reviews": 84, "delta": 17, "growth_pct": 25.37, "rating": 0, "rank_may": 91, "rank_jun": 69}, {"name": "Royal Pets Veterinary Clinic", "is_ours": false, "may_reviews": 777, "jun_reviews": 792, "delta": 15, "growth_pct": 1.93, "rating": 0, "rank_may": 5, "rank_jun": 5}, {"name": "Pet Planet Veterinary Clinic - VET JVC", "is_ours": false, "may_reviews": 137, "jun_reviews": 152, "delta": 15, "growth_pct": 10.95, "rating": 0, "rank_may": 78, "rank_jun": 81}, {"name": "Petopia Veterinary Clinic", "is_ours": false, "may_reviews": 209, "jun_reviews": 224, "delta": 15, "growth_pct": 7.18, "rating": 0, "rank_may": 81, "rank_jun": 84}, {"name": "Pet Paradise Vet Clinic \u0639\u064a\u0627\u062f\u0629 \u062c\u0646\u0629 \u0627\u0644\u062d\u064a\u0648\u0627\u0646\u0627\u062a \u0627\u0644\u0623\u0644\u064a\u0641\u0629 \u0627\u0644\u0628\u064a\u0637\u0631\u064a", "is_ours": false, "may_reviews": 135, "jun_reviews": 148, "delta": 13, "growth_pct": 9.63, "rating": 0, "rank_may": 39, "rank_jun": 57}, {"name": "Pet Connection Veterinary Clinic Dubai Al Barsha 1", "is_ours": false, "may_reviews": 486, "jun_reviews": 499, "delta": 13, "growth_pct": 2.67, "rating": 0, "rank_may": 95, "rank_jun": 97}, {"name": "Super Vet Pet Clinic LLC", "is_ours": false, "may_reviews": 162, "jun_reviews": 175, "delta": 13, "growth_pct": 8.02, "rating": 0, "rank_may": 128, "rank_jun": 131}, {"name": "The Ark Animal Clinic", "is_ours": false, "may_reviews": 545, "jun_reviews": 557, "delta": 12, "growth_pct": 2.2, "rating": 0, "rank_may": 17, "rank_jun": 17}, {"name": "Karas Veterinary Clinic - Downtown", "is_ours": false, "may_reviews": 319, "jun_reviews": 331, "delta": 12, "growth_pct": 3.76, "rating": 0, "rank_may": 34, "rank_jun": 36}, {"name": "Pet Point Veterinary Clinic", "is_ours": false, "may_reviews": 438, "jun_reviews": 450, "delta": 12, "growth_pct": 2.74, "rating": 0, "rank_may": 36, "rank_jun": 37}, {"name": "Kings Vet Clinic Al Wasl Jumeirah", "is_ours": false, "may_reviews": 188, "jun_reviews": 200, "delta": 12, "growth_pct": 6.38, "rating": 0, "rank_may": 93, "rank_jun": 73}, {"name": "PetsFirst Veterinary Clinic and Grooming", "is_ours": false, "may_reviews": 175, "jun_reviews": 187, "delta": 12, "growth_pct": 6.86, "rating": 0, "rank_may": 65, "rank_jun": 77}, {"name": "Vet Clinic Dubai - Town Square Nshama", "is_ours": false, "may_reviews": 438, "jun_reviews": 449, "delta": 11, "growth_pct": 2.51, "rating": 0, "rank_may": 37, "rank_jun": 38}, {"name": "Star Veterinary Clinic - Sustainable City \u2b50", "is_ours": false, "may_reviews": 324, "jun_reviews": 335, "delta": 11, "growth_pct": 3.4, "rating": 0, "rank_may": 60, "rank_jun": 56}, {"name": "Liberty veterinary clinic Aljaddaf", "is_ours": false, "may_reviews": 729, "jun_reviews": 740, "delta": 11, "growth_pct": 1.51, "rating": 0, "rank_may": 70, "rank_jun": 70}, {"name": "Pets Hub Veterinary Clinic", "is_ours": false, "may_reviews": 42, "jun_reviews": 53, "delta": 11, "growth_pct": 26.19, "rating": 0, "rank_may": 138, "rank_jun": 143}, {"name": "Companion Veterinary Clinic", "is_ours": false, "may_reviews": 681, "jun_reviews": 691, "delta": 10, "growth_pct": 1.47, "rating": 0, "rank_may": 14, "rank_jun": 14}, {"name": "Top Vet Clinic", "is_ours": false, "may_reviews": 479, "jun_reviews": 489, "delta": 10, "growth_pct": 2.09, "rating": 0, "rank_may": 16, "rank_jun": 16}, {"name": "Mike\u2019s Veterinary Clinic", "is_ours": false, "may_reviews": 456, "jun_reviews": 465, "delta": 9, "growth_pct": 1.97, "rating": 0, "rank_may": 19, "rank_jun": 19}, {"name": "Pawsitive Veterinary Clinic - Dubai Silicon Oasis", "is_ours": false, "may_reviews": 511, "jun_reviews": 520, "delta": 9, "growth_pct": 1.76, "rating": 0, "rank_may": 96, "rank_jun": 98}, {"name": "Amity Veterinary Clinic", "is_ours": false, "may_reviews": 1431, "jun_reviews": 1439, "delta": 8, "growth_pct": 0.56, "rating": 0, "rank_may": 2, "rank_jun": 2}, {"name": "The Moon Veterinary Clinic LLC", "is_ours": false, "may_reviews": 465, "jun_reviews": 473, "delta": 8, "growth_pct": 1.72, "rating": 0, "rank_may": 7, "rank_jun": 7}, {"name": "Pets Society Veterinary Clinic", "is_ours": false, "may_reviews": 310, "jun_reviews": 318, "delta": 8, "growth_pct": 2.58, "rating": 0, "rank_may": 20, "rank_jun": 20}, {"name": "Doctor Dolittle Veterinary Clinic - \u0639\u064a\u0627\u062f\u0647 \u062f\u0643\u062a\u0648\u0631 \u062f\u0648\u0644\u064a\u062a\u0644 \u062f\u0628\u064a", "is_ours": false, "may_reviews": 410, "jun_reviews": 418, "delta": 8, "growth_pct": 1.95, "rating": 0, "rank_may": 49, "rank_jun": 63}, {"name": "Pet Xpress Vet Clinic", "is_ours": false, "may_reviews": 113, "jun_reviews": 121, "delta": 8, "growth_pct": 7.08, "rating": 0, "rank_may": 115, "rank_jun": 113}, {"name": "Little Hearts Veterinary Clinic", "is_ours": false, "may_reviews": 47, "jun_reviews": 55, "delta": 8, "growth_pct": 17.02, "rating": 0, "rank_may": 143, "rank_jun": 138}, {"name": "Karas Veterinary Clinic", "is_ours": false, "may_reviews": 628, "jun_reviews": 635, "delta": 7, "growth_pct": 1.11, "rating": 0, "rank_may": 23, "rank_jun": 23}, {"name": "territory \u201ca Pet Clinic\u201c J.V.C", "is_ours": false, "may_reviews": 256, "jun_reviews": 263, "delta": 7, "growth_pct": 2.73, "rating": 0, "rank_may": 30, "rank_jun": 32}, {"name": "Al Barsha Veterinary Clinic LLC", "is_ours": false, "may_reviews": 659, "jun_reviews": 666, "delta": 7, "growth_pct": 1.06, "rating": 0, "rank_may": 59, "rank_jun": 55}, {"name": "Mercy Veterinary Clinic \u0639\u064a\u0627\u062f\u0629 \u0645\u064a\u0631\u0633\u064a \u0627\u0644\u0628\u064a\u0637\u0631\u064a\u0629", "is_ours": false, "may_reviews": 180, "jun_reviews": 187, "delta": 7, "growth_pct": 3.89, "rating": 0, "rank_may": 63, "rank_jun": 60}, {"name": "The Hills Veterinary Clinic", "is_ours": false, "may_reviews": 80, "jun_reviews": 87, "delta": 7, "growth_pct": 8.75, "rating": 0, "rank_may": 134, "rank_jun": 134}, {"name": "Purr and Bark Pet Veterinary Clinic", "is_ours": false, "may_reviews": 538, "jun_reviews": 544, "delta": 6, "growth_pct": 1.12, "rating": 0, "rank_may": 10, "rank_jun": 10}, {"name": "The Pet Vet", "is_ours": false, "may_reviews": 460, "jun_reviews": 466, "delta": 6, "growth_pct": 1.3, "rating": 0, "rank_may": 22, "rank_jun": 22}, {"name": "Pets Haven Veterinary Clinic", "is_ours": false, "may_reviews": 356, "jun_reviews": 362, "delta": 6, "growth_pct": 1.69, "rating": 0, "rank_may": 28, "rank_jun": 30}, {"name": "Vets in the City Veterinary Clinic", "is_ours": false, "may_reviews": 189, "jun_reviews": 195, "delta": 6, "growth_pct": 3.17, "rating": 0, "rank_may": 62, "rank_jun": 59}, {"name": "Dreamers Veterinary Clinic", "is_ours": false, "may_reviews": 99, "jun_reviews": 105, "delta": 6, "growth_pct": 6.06, "rating": 0, "rank_may": 88, "rank_jun": 91}, {"name": "BRITISH veterinary hospital", "is_ours": false, "may_reviews": 240, "jun_reviews": 246, "delta": 6, "growth_pct": 2.5, "rating": 0, "rank_may": 130, "rank_jun": 132}, {"name": "DKC Veterinary Clinic", "is_ours": false, "may_reviews": 834, "jun_reviews": 839, "delta": 5, "growth_pct": 0.6, "rating": 0, "rank_may": 41, "rank_jun": 25}, {"name": "Pet First Veterinary Clinic", "is_ours": false, "may_reviews": 259, "jun_reviews": 264, "delta": 5, "growth_pct": 1.93, "rating": 0, "rank_may": 44, "rank_jun": 43}, {"name": "Pet Palace Veterinary Clinic", "is_ours": false, "may_reviews": 263, "jun_reviews": 268, "delta": 5, "growth_pct": 1.9, "rating": 0, "rank_may": 64, "rank_jun": 62}, {"name": "Zabeel Veterinary Hospital", "is_ours": false, "may_reviews": 659, "jun_reviews": 664, "delta": 5, "growth_pct": 0.76, "rating": 0, "rank_may": 75, "rank_jun": 78}, {"name": "VIP Veterinary Clinic", "is_ours": false, "may_reviews": 93, "jun_reviews": 98, "delta": 5, "growth_pct": 5.38, "rating": 0, "rank_may": 80, "rank_jun": 83}, {"name": "Provet Veterinary Clinic", "is_ours": false, "may_reviews": 694, "jun_reviews": 699, "delta": 5, "growth_pct": 0.72, "rating": 0, "rank_may": 85, "rank_jun": 88}, {"name": "Vets Fur Pets", "is_ours": false, "may_reviews": 452, "jun_reviews": 457, "delta": 5, "growth_pct": 1.11, "rating": 0, "rank_may": 109, "rank_jun": 111}, {"name": "VETS & PETS Dubai - Italian Veterinary Clinic", "is_ours": false, "may_reviews": 593, "jun_reviews": 597, "delta": 4, "growth_pct": 0.67, "rating": 0, "rank_may": 9, "rank_jun": 9}, {"name": "Prime Paws Veterinary Clinic LLC", "is_ours": false, "may_reviews": 254, "jun_reviews": 258, "delta": 4, "growth_pct": 1.57, "rating": 0, "rank_may": 29, "rank_jun": 31}, {"name": "Paw Sisters Veterinary Clinic", "is_ours": false, "may_reviews": 279, "jun_reviews": 283, "delta": 4, "growth_pct": 1.43, "rating": 0, "rank_may": 56, "rank_jun": 52}, {"name": "Dr. Well Veterinary Clinic", "is_ours": false, "may_reviews": 180, "jun_reviews": 184, "delta": 4, "growth_pct": 2.22, "rating": 0, "rank_may": 69, "rank_jun": 67}, {"name": "Cure Veterinary Clinic", "is_ours": false, "may_reviews": 94, "jun_reviews": 98, "delta": 4, "growth_pct": 4.26, "rating": 0, "rank_may": 112, "rank_jun": 114}, {"name": "Amore veterinary Clinic", "is_ours": false, "may_reviews": 92, "jun_reviews": 96, "delta": 4, "growth_pct": 4.35, "rating": 0, "rank_may": 135, "rank_jun": 129}, {"name": "Dr. Samir vet clinic", "is_ours": false, "may_reviews": 96, "jun_reviews": 100, "delta": 4, "growth_pct": 4.17, "rating": 0, "rank_may": 146, "rank_jun": 146}, {"name": "Pet Pulse Emergency Veterinary Clinic - Dubai Silicon Oasis (DSO)", "is_ours": false, "may_reviews": 278, "jun_reviews": 281, "delta": 3, "growth_pct": 1.08, "rating": 0, "rank_may": 25, "rank_jun": 27}, {"name": "Clinipets Vet Clinic FZCO", "is_ours": false, "may_reviews": 341, "jun_reviews": 344, "delta": 3, "growth_pct": 0.88, "rating": 0, "rank_may": 32, "rank_jun": 34}, {"name": "SaBB Veterinary Clinic and Laboratory", "is_ours": false, "may_reviews": 249, "jun_reviews": 252, "delta": 3, "growth_pct": 1.2, "rating": 0, "rank_may": 33, "rank_jun": 35}, {"name": "Pet Land Veterinary Clinic - Mirdif \u0623\u0641\u0636\u0644 \u0639\u064a\u0627\u062f\u0629 \u062d\u064a\u0648\u0627\u0646\u0627\u062a \u0623\u0644\u064a\u0641\u0629 \u0628\u0627\u0644\u0642\u0631\u0628 \u0645\u0646\u064a \u0641\u064a \u0645\u0631\u062f\u0641", "is_ours": false, "may_reviews": 240, "jun_reviews": 243, "delta": 3, "growth_pct": 1.25, "rating": 0, "rank_may": 46, "rank_jun": 44}, {"name": "Harmony Vet Clinic", "is_ours": false, "may_reviews": 395, "jun_reviews": 398, "delta": 3, "growth_pct": 0.76, "rating": 0, "rank_may": 45, "rank_jun": 61}, {"name": "Petology Vet Clinic & Pet Shop", "is_ours": false, "may_reviews": 304, "jun_reviews": 307, "delta": 3, "growth_pct": 0.99, "rating": 0, "rank_may": 68, "rank_jun": 66}, {"name": "CardioVet Veterinary Clinic", "is_ours": false, "may_reviews": 149, "jun_reviews": 152, "delta": 3, "growth_pct": 2.01, "rating": 0, "rank_may": 74, "rank_jun": 75}, {"name": "Pawbulance veterinary clinic", "is_ours": false, "may_reviews": 126, "jun_reviews": 129, "delta": 3, "growth_pct": 2.38, "rating": 0, "rank_may": 76, "rank_jun": 79}, {"name": "Crown Veterinary Clinic", "is_ours": false, "may_reviews": 127, "jun_reviews": 130, "delta": 3, "growth_pct": 2.36, "rating": 0, "rank_may": 79, "rank_jun": 82}, {"name": "Animalia Veterinary Clinic LLC", "is_ours": false, "may_reviews": 57, "jun_reviews": 60, "delta": 3, "growth_pct": 5.26, "rating": 0, "rank_may": 97, "rank_jun": 96}, {"name": "THE VETERINARY HOSPITAL", "is_ours": false, "may_reviews": 408, "jun_reviews": 411, "delta": 3, "growth_pct": 0.74, "rating": 0, "rank_may": 102, "rank_jun": 104}, {"name": "Paws and Claws Dubai", "is_ours": false, "may_reviews": 113, "jun_reviews": 116, "delta": 3, "growth_pct": 2.65, "rating": 0, "rank_may": 103, "rank_jun": 105}, {"name": "Pet Bond Veterinary Clinic", "is_ours": false, "may_reviews": 108, "jun_reviews": 111, "delta": 3, "growth_pct": 2.78, "rating": 0, "rank_may": 105, "rank_jun": 107}, {"name": "Synergy Veterinary Clinic", "is_ours": false, "may_reviews": 164, "jun_reviews": 167, "delta": 3, "growth_pct": 1.83, "rating": 0, "rank_may": 114, "rank_jun": 117}, {"name": "Al Hayat Veterinary Clinic", "is_ours": false, "may_reviews": 441, "jun_reviews": 443, "delta": 2, "growth_pct": 0.45, "rating": 0, "rank_may": 15, "rank_jun": 15}, {"name": "Panacea Vets", "is_ours": false, "may_reviews": 447, "jun_reviews": 449, "delta": 2, "growth_pct": 0.45, "rating": 0, "rank_may": 21, "rank_jun": 21}, {"name": "Fairy Tail Veterinary Clinic", "is_ours": false, "may_reviews": 203, "jun_reviews": 205, "delta": 2, "growth_pct": 0.99, "rating": 0, "rank_may": 38, "rank_jun": 39}, {"name": "JVC Express Veterinary Clinic", "is_ours": false, "may_reviews": 398, "jun_reviews": 400, "delta": 2, "growth_pct": 0.5, "rating": 0, "rank_may": 51, "rank_jun": 48}, {"name": "The Pet House Veterinary Clinic", "is_ours": false, "may_reviews": 171, "jun_reviews": 173, "delta": 2, "growth_pct": 1.17, "rating": 0, "rank_may": 54, "rank_jun": 50}, {"name": "Petland wellness Vet clinic", "is_ours": false, "may_reviews": 172, "jun_reviews": 174, "delta": 2, "growth_pct": 1.16, "rating": 0, "rank_may": 57, "rank_jun": 53}, {"name": "Canadian Veterinary Clinic.", "is_ours": false, "may_reviews": 278, "jun_reviews": 280, "delta": 2, "growth_pct": 0.72, "rating": 0, "rank_may": 73, "rank_jun": 74}, {"name": "Rusty Veterinary Clinic", "is_ours": false, "may_reviews": 100, "jun_reviews": 102, "delta": 2, "growth_pct": 2.0, "rating": 0, "rank_may": 77, "rank_jun": 80}, {"name": "Petzone Veterinary Clinic", "is_ours": false, "may_reviews": 583, "jun_reviews": 585, "delta": 2, "growth_pct": 0.34, "rating": 0, "rank_may": 92, "rank_jun": 94}, {"name": "Pet Lovers Veterinary Clinic", "is_ours": false, "may_reviews": 394, "jun_reviews": 396, "delta": 2, "growth_pct": 0.51, "rating": 0, "rank_may": 94, "rank_jun": 95}, {"name": "Winterfell Veterinary & Pet Salon L.L.C", "is_ours": false, "may_reviews": 75, "jun_reviews": 77, "delta": 2, "growth_pct": 2.67, "rating": 0, "rank_may": 107, "rank_jun": 109}, {"name": "Jungle Veterinary Clinic L.L.C", "is_ours": false, "may_reviews": 148, "jun_reviews": 150, "delta": 2, "growth_pct": 1.35, "rating": 0, "rank_may": 108, "rank_jun": 110}, {"name": "Vets For Pets Veterinary Clinic", "is_ours": false, "may_reviews": 149, "jun_reviews": 151, "delta": 2, "growth_pct": 1.34, "rating": 0, "rank_may": 110, "rank_jun": 112}, {"name": "Alpha Vet Clinic Dubai", "is_ours": false, "may_reviews": 162, "jun_reviews": 164, "delta": 2, "growth_pct": 1.23, "rating": 0, "rank_may": 113, "rank_jun": 116}, {"name": "Pet wellness vet clinic Dubai", "is_ours": false, "may_reviews": 101, "jun_reviews": 103, "delta": 2, "growth_pct": 1.98, "rating": 0, "rank_may": 124, "rank_jun": 119}, {"name": "Deira Veterinary Clinic LLC", "is_ours": false, "may_reviews": 275, "jun_reviews": 277, "delta": 2, "growth_pct": 0.73, "rating": 0, "rank_may": 118, "rank_jun": 121}, {"name": "Phoenix Veterinary Clinic", "is_ours": false, "may_reviews": 144, "jun_reviews": 146, "delta": 2, "growth_pct": 1.39, "rating": 0, "rank_may": 133, "rank_jun": 133}, {"name": "Vet Plus | \u0412\u0435\u0442 \u041f\u043b\u044e\u0441", "is_ours": false, "may_reviews": 412, "jun_reviews": 413, "delta": 1, "growth_pct": 0.24, "rating": 0, "rank_may": 24, "rank_jun": 26}, {"name": "Al Falah Veterinary Clinic", "is_ours": false, "may_reviews": 413, "jun_reviews": 414, "delta": 1, "growth_pct": 0.24, "rating": 0, "rank_may": 42, "rank_jun": 42}, {"name": "Kings Vet Clinic Al-Barari", "is_ours": false, "may_reviews": 282, "jun_reviews": 283, "delta": 1, "growth_pct": 0.35, "rating": 0, "rank_may": 50, "rank_jun": 47}, {"name": "Happy Paws Veterinary Clinic LLC", "is_ours": false, "may_reviews": 311, "jun_reviews": 312, "delta": 1, "growth_pct": 0.32, "rating": 0, "rank_may": 72, "rank_jun": 72}, {"name": "Advanced Pet Care Clinic", "is_ours": false, "may_reviews": 351, "jun_reviews": 352, "delta": 1, "growth_pct": 0.28, "rating": 0, "rank_may": 86, "rank_jun": 89}, {"name": "Dubai Camel Hospital", "is_ours": false, "may_reviews": 169, "jun_reviews": 170, "delta": 1, "growth_pct": 0.59, "rating": 0, "rank_may": 99, "rank_jun": 102}, {"name": "Lucky Veterinary Clinic (LVC)", "is_ours": false, "may_reviews": 201, "jun_reviews": 202, "delta": 1, "growth_pct": 0.5, "rating": 0, "rank_may": 100, "rank_jun": 103}, {"name": "PET AVENUE CLINIC", "is_ours": false, "may_reviews": 132, "jun_reviews": 133, "delta": 1, "growth_pct": 0.76, "rating": 0, "rank_may": 104, "rank_jun": 106}, {"name": "Happy tails Veterinary Clinic", "is_ours": false, "may_reviews": 81, "jun_reviews": 82, "delta": 1, "growth_pct": 1.23, "rating": 0, "rank_may": 106, "rank_jun": 108}, {"name": "Umm Suqeim Veterinary Centre", "is_ours": false, "may_reviews": 530, "jun_reviews": 531, "delta": 1, "growth_pct": 0.19, "rating": 0, "rank_may": 121, "rank_jun": 124}, {"name": "Pet Station Veterinary Clinic", "is_ours": false, "may_reviews": 82, "jun_reviews": 83, "delta": 1, "growth_pct": 1.22, "rating": 0, "rank_may": 122, "rank_jun": 125}, {"name": "Majestic Veterinary Clinic", "is_ours": false, "may_reviews": 117, "jun_reviews": 118, "delta": 1, "growth_pct": 0.85, "rating": 0, "rank_may": 123, "rank_jun": 126}, {"name": "Amazon vet clinic", "is_ours": false, "may_reviews": 12, "jun_reviews": 13, "delta": 1, "growth_pct": 8.33, "rating": 0, "rank_may": 126, "rank_jun": 135}, {"name": "Easyvet Veterinary Clinic", "is_ours": false, "may_reviews": 17, "jun_reviews": 18, "delta": 1, "growth_pct": 5.88, "rating": 0, "rank_may": 141, "rank_jun": 140}, {"name": "Pure Life Veterinary Clinic Dubai", "is_ours": false, "may_reviews": 197, "jun_reviews": 197, "delta": 0, "growth_pct": 0.0, "rating": 0, "rank_may": 35, "rank_jun": 41}, {"name": "VIDA VET - Veterinary Clinic, Full Pet Health Care, Emergency Care 24/7", "is_ours": false, "may_reviews": 132, "jun_reviews": 132, "delta": 0, "growth_pct": 0.0, "rating": 0, "rank_may": 52, "rank_jun": 49}, {"name": "Vet in Town Clinic", "is_ours": false, "may_reviews": 135, "jun_reviews": 135, "delta": 0, "growth_pct": 0.0, "rating": 0, "rank_may": 67, "rank_jun": 65}, {"name": "Orthopedic Veterinary Clinic", "is_ours": false, "may_reviews": 56, "jun_reviews": 56, "delta": 0, "growth_pct": 0.0, "rating": 0, "rank_may": 84, "rank_jun": 86}, {"name": "Dogventurez Vet Clinic", "is_ours": false, "may_reviews": 94, "jun_reviews": 94, "delta": 0, "growth_pct": 0.0, "rating": 0, "rank_may": 87, "rank_jun": 90}, {"name": "BIOVET LAB CLINIC", "is_ours": false, "may_reviews": 73, "jun_reviews": 73, "delta": 0, "growth_pct": 0.0, "rating": 0, "rank_may": 90, "rank_jun": 92}, {"name": "Safe care veterinary clinic (scvc)", "is_ours": false, "may_reviews": 113, "jun_reviews": 113, "delta": 0, "growth_pct": 0.0, "rating": 0, "rank_may": 98, "rank_jun": 100}, {"name": "Whiskers and Wags Veterinary Clinic", "is_ours": false, "may_reviews": 62, "jun_reviews": 62, "delta": 0, "growth_pct": 0.0, "rating": 0, "rank_may": 117, "rank_jun": 120}, {"name": "Vetcare Veterinary Medical Centre", "is_ours": false, "may_reviews": 154, "jun_reviews": 154, "delta": 0, "growth_pct": 0.0, "rating": 0, "rank_may": 119, "rank_jun": 122}, {"name": "Falcon Centre (Al Wasl Veterinary Clinic)", "is_ours": false, "may_reviews": 52, "jun_reviews": 52, "delta": 0, "growth_pct": 0.0, "rating": 0, "rank_may": 129, "rank_jun": 127}, {"name": "Dubai Falcon Hospital", "is_ours": false, "may_reviews": 76, "jun_reviews": 76, "delta": 0, "growth_pct": 0.0, "rating": 0, "rank_may": 125, "rank_jun": 128}, {"name": "Ranches Equine Clinic L.L.C", "is_ours": false, "may_reviews": 10, "jun_reviews": 10, "delta": 0, "growth_pct": 0.0, "rating": 0, "rank_may": 127, "rank_jun": 130}, {"name": "The Vet Hub Clinic", "is_ours": false, "may_reviews": 91, "jun_reviews": 91, "delta": 0, "growth_pct": 0.0, "rating": 0, "rank_may": 136, "rank_jun": 137}, {"name": "VETPASS", "is_ours": false, "may_reviews": 11, "jun_reviews": 11, "delta": 0, "growth_pct": 0.0, "rating": 0, "rank_may": 139, "rank_jun": 141}, {"name": "Al Basha Vet Medicine", "is_ours": false, "may_reviews": 3, "jun_reviews": 3, "delta": 0, "growth_pct": 0.0, "rating": 0, "rank_may": 140, "rank_jun": 142}, {"name": "Salsabeel Veterinary Medicines LLC", "is_ours": false, "may_reviews": 8, "jun_reviews": 8, "delta": 0, "growth_pct": 0.0, "rating": 0, "rank_may": 144, "rank_jun": 145}, {"name": "Al Fattal Vet Clinic Shop 119 &120", "is_ours": false, "may_reviews": 4, "jun_reviews": 4, "delta": 0, "growth_pct": 0.0, "rating": 0, "rank_may": 145, "rank_jun": 147}, {"name": "The Pearl Veterinary Clinic", "is_ours": false, "may_reviews": 43, "jun_reviews": 43, "delta": 0, "growth_pct": 0.0, "rating": 0, "rank_may": 147, "rank_jun": 148}, {"name": "Royal Equine Veterinary Clinic", "is_ours": false, "may_reviews": 2, "jun_reviews": 2, "delta": 0, "growth_pct": 0.0, "rating": 0, "rank_may": 148, "rank_jun": 149}, {"name": "European Veterinary Centre", "is_ours": false, "may_reviews": 0, "jun_reviews": 0, "delta": 0, "growth_pct": 0, "rating": 0, "rank_may": 149, "rank_jun": 150}, {"name": "The Cat Vet", "is_ours": false, "may_reviews": 380, "jun_reviews": 379, "delta": -1, "growth_pct": -0.26, "rating": 0, "rank_may": 66, "rank_jun": 64}, {"name": "PETPALS VETERINARY CLINIC", "is_ours": false, "may_reviews": 108, "jun_reviews": 107, "delta": -1, "growth_pct": -0.93, "rating": 0, "rank_may": 89, "rank_jun": 101}, {"name": "2Feet4Paws (& Exotics) Veterinary Clinic", "is_ours": false, "may_reviews": 246, "jun_reviews": 245, "delta": -1, "growth_pct": -0.41, "rating": 0, "rank_may": 111, "rank_jun": 115}, {"name": "Dubai Equine Hospital", "is_ours": false, "may_reviews": 62, "jun_reviews": 61, "delta": -1, "growth_pct": -1.61, "rating": 0, "rank_may": 120, "rank_jun": 123}, {"name": "Nad Al Shiba Veterinary Clinic", "is_ours": false, "may_reviews": 164, "jun_reviews": 163, "delta": -1, "growth_pct": -0.61, "rating": 0, "rank_may": 137, "rank_jun": 139}, {"name": "Meshmesh Veterinary Clinic", "is_ours": false, "may_reviews": 36, "jun_reviews": 34, "delta": -2, "growth_pct": -5.56, "rating": 0, "rank_may": 132, "rank_jun": 136}, {"name": "Pet friends vet clinic", "is_ours": false, "may_reviews": 1057, "jun_reviews": 1053, "delta": -4, "growth_pct": -0.38, "rating": 0, "rank_may": 43, "rank_jun": 28}];
+var OUR_DATA = [{"name": "Modern Vet Azizi Riviera", "is_ours": true, "may_reviews": 135, "jun_reviews": 144, "delta": 9, "growth_pct": 6.67, "rating": 0, "rank_may": 61, "rank_jun": 58}, {"name": "Blue Oasis Vet (DIP)", "is_ours": true, "may_reviews": 935, "jun_reviews": 996, "delta": 61, "growth_pct": 6.52, "rating": 0, "rank_may": 13, "rank_jun": 13}, {"name": "Modern Vet Palm", "is_ours": true, "may_reviews": 820, "jun_reviews": 869, "delta": 49, "growth_pct": 5.98, "rating": 0, "rank_may": 4, "rank_jun": 4}, {"name": "The Veterinary Referral Centre", "is_ours": true, "may_reviews": 19, "jun_reviews": 20, "delta": 1, "growth_pct": 5.26, "rating": 0, "rank_may": 142, "rank_jun": 144}, {"name": "Modern Vet JLT", "is_ours": true, "may_reviews": 1745, "jun_reviews": 1823, "delta": 78, "growth_pct": 4.47, "rating": 0, "rank_may": 1, "rank_jun": 1}, {"name": "Vienna Vet", "is_ours": true, "may_reviews": 506, "jun_reviews": 525, "delta": 19, "growth_pct": 3.75, "rating": 0, "rank_may": 40, "rank_jun": 40}, {"name": "Modern Vet Downtown", "is_ours": true, "may_reviews": 591, "jun_reviews": 603, "delta": 12, "growth_pct": 2.03, "rating": 0, "rank_may": 12, "rank_jun": 12}, {"name": "Modern Vet Al Khawaneej", "is_ours": true, "may_reviews": 63, "jun_reviews": 64, "delta": 1, "growth_pct": 1.59, "rating": 0, "rank_may": 116, "rank_jun": 118}, {"name": "Modern Vet Hospital", "is_ours": true, "may_reviews": 1779, "jun_reviews": 1804, "delta": 25, "growth_pct": 1.41, "rating": 0, "rank_may": 8, "rank_jun": 8}, {"name": "Modern Vet JVC", "is_ours": true, "may_reviews": 1143, "jun_reviews": 1155, "delta": 12, "growth_pct": 1.05, "rating": 0, "rank_may": 3, "rank_jun": 3}, {"name": "Blue Oasis Vet D2", "is_ours": true, "may_reviews": 328, "jun_reviews": 328, "delta": 0, "growth_pct": 0.0, "rating": 0, "rank_may": 58, "rank_jun": 54}];
+
+var PATIENTS = {
+  "Modern Vet Hospital": 2049,
+  "Modern Vet Palm": 1032,
+  "Blue Oasis Vet (DIP)": 1056,
+  "Modern Vet JVC": 902,
+  "Modern Vet Downtown": 735,
+  "Modern Vet JLT": 690,
+  "Blue Oasis Vet D2": 228,
+  "Vienna Vet": 583,
+  "The Veterinary Referral Centre": 165,
+  "Modern Vet Azizi Riviera": 64,
+  "Modern Vet Al Khawaneej": 0
+};
+
+// ── Sort state ──
+var sortState = {
+  1: { col: 4, dir: 'desc', type: 'num' },
+  2: { col: 4, dir: 'desc', type: 'num' }
+};
+
+// ── Table 1 ──
+var filteredData1 = ALL_DATA.slice();
+
+function renderTable1() {
+  var tbody = document.getElementById('tbody1');
+  var html = '';
+  if (filteredData1.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" class="no-results">No clinics match your search.</td></tr>';
+    return;
+  }
+  filteredData1.forEach(function(r, i) {
+    var cls = r.is_ours ? ' class="ours"' : '';
+    var namePart = '<span class="clinic-name">' + esc(r.name) + '</span>';
+    if (r.is_ours) namePart += '<span class="badge-us">US</span>';
+    var deltaClass = r.delta > 0 ? 'delta-pos' : (r.delta < 0 ? 'delta-neg' : 'delta-zero');
+    var deltaSign = r.delta > 0 ? '+' : '';
+    var growthSign = r.growth_pct > 0 ? '+' : '';
+    var growthClass = r.delta > 0 ? 'delta-pos' : (r.delta < 0 ? 'delta-neg' : 'delta-zero');
+    html += '<tr' + cls + '>' +
+      '<td class="rank">' + (i+1) + '</td>' +
+      '<td>' + namePart + '</td>' +
+      '<td class="num">' + r.may_reviews.toLocaleString() + '</td>' +
+      '<td class="num">' + r.jun_reviews.toLocaleString() + '</td>' +
+      '<td class="num"><span class="' + deltaClass + '">' + deltaSign + r.delta + '</span></td>' +
+      '<td class="num"><span class="' + growthClass + '">' + growthSign + r.growth_pct.toFixed(2) + '%</span></td>' +
+      '</tr>';
+  });
+  tbody.innerHTML = html;
+  var total = filteredData1.length;
+  document.getElementById('count1').textContent = total === ALL_DATA.length
+    ? 'Showing all 148 clinics'
+    : 'Showing ' + total + ' of 148 clinics';
+}
+
+function filterTable1() {
+  var q = document.getElementById('search1').value.trim().toLowerCase();
+  filteredData1 = q ? ALL_DATA.filter(function(r) { return r.name.toLowerCase().indexOf(q) !== -1; }) : ALL_DATA.slice();
+  // Re-apply current sort
+  applySort(1);
+  renderTable1();
+}
+
+// ── Table 2 ──
+function renderTable2() {
+  var tbody = document.getElementById('tbody2');
+  var html = '';
+  OUR_DATA.forEach(function(r) {
+    var pts = PATIENTS[r.name];
+    var growthPct = r.may_reviews > 0 ? (r.delta / r.may_reviews * 100) : 0;
+    var growthPill = growthPct >= 5 ? 'pill-green' : (growthPct >= 2 ? 'pill-amber' : 'pill-red');
+    var convCell, convVal;
+    if (r.name === 'Modern Vet Al Khawaneej') {
+      convCell = '<span class="pill pill-grey">— (closed)</span>';
+      convVal = -999;
+    } else if (!pts || pts === 0) {
+      convCell = '<span class="pill pill-grey">—</span>';
+      convVal = -999;
+    } else {
+      var conv = r.delta / pts * 100;
+      convVal = conv;
+      var convPill = conv >= 3 ? 'pill-green' : (conv >= 1 ? 'pill-amber' : 'pill-red');
+      convCell = '<span class="pill ' + convPill + '">' + conv.toFixed(2) + '%</span>';
+    }
+    var ptsDisplay = pts === 0 ? '<em style="color:var(--text-muted)">— (closed)</em>' : (pts ? pts.toLocaleString() : '—');
+    html += '<tr class="ours">' +
+      '<td><span class="clinic-name">' + esc(r.name) + '</span><span class="badge-us">US</span></td>' +
+      '<td class="num">' + r.may_reviews.toLocaleString() + '</td>' +
+      '<td class="num">' + r.jun_reviews.toLocaleString() + '</td>' +
+      '<td class="num"><span class="' + (r.delta > 0 ? 'delta-pos' : (r.delta < 0 ? 'delta-neg' : 'delta-zero')) + '">' + (r.delta > 0 ? '+' : '') + r.delta + '</span></td>' +
+      '<td class="num" data-val="' + growthPct.toFixed(4) + '"><span class="pill ' + growthPill + '">' + growthPct.toFixed(2) + '%</span></td>' +
+      '<td class="num">' + ptsDisplay + '</td>' +
+      '<td class="num" data-val="' + convVal + '">' + convCell + '</td>' +
+      '</tr>';
+  });
+  tbody.innerHTML = html;
+}
+
+// ── Sorting ──
+function sortTable(tableNum, colIdx, type) {
+  var state = sortState[tableNum];
+  if (state.col === colIdx) {
+    state.dir = state.dir === 'asc' ? 'desc' : 'asc';
+  } else {
+    state.col = colIdx;
+    state.dir = 'desc';
+    state.type = type;
+  }
+  // Update arrows
+  for (var i = 0; i < 8; i++) {
+    var el = document.getElementById('sa' + tableNum + '-' + i);
+    if (el) el.textContent = '';
+  }
+  var arrowEl = document.getElementById('sa' + tableNum + '-' + colIdx);
+  if (arrowEl) arrowEl.textContent = state.dir === 'asc' ? '▲' : '▼';
+
+  applySort(tableNum);
+  if (tableNum === 1) renderTable1();
+  else renderTable2();
+}
+
+function applySort(tableNum) {
+  var state = sortState[tableNum];
+  var data = tableNum === 1 ? filteredData1 : OUR_DATA;
+  data.sort(function(a, b) {
+    var va, vb;
+    if (tableNum === 1) {
+      if (state.col === 0) { va = filteredData1.indexOf(a); vb = filteredData1.indexOf(b); }
+      else if (state.col === 1) { va = a.name; vb = b.name; }
+      else if (state.col === 2) { va = a.may_reviews; vb = b.may_reviews; }
+      else if (state.col === 3) { va = a.jun_reviews; vb = b.jun_reviews; }
+      else if (state.col === 4) { va = a.delta; vb = b.delta; }
+      else if (state.col === 5) { va = a.growth_pct; vb = b.growth_pct; }
+    } else {
+      if (state.col === 0) { va = a.name; vb = b.name; }
+      else if (state.col === 1) { va = a.may_reviews; vb = b.may_reviews; }
+      else if (state.col === 2) { va = a.jun_reviews; vb = b.jun_reviews; }
+      else if (state.col === 3) { va = a.delta; vb = b.delta; }
+      else if (state.col === 4) {
+        va = a.may_reviews > 0 ? a.delta / a.may_reviews * 100 : 0;
+        vb = b.may_reviews > 0 ? b.delta / b.may_reviews * 100 : 0;
+      }
+      else if (state.col === 5) { va = PATIENTS[a.name] || 0; vb = PATIENTS[b.name] || 0; }
+      else if (state.col === 6) {
+        va = (PATIENTS[a.name] && PATIENTS[a.name] > 0) ? a.delta / PATIENTS[a.name] * 100 : -999;
+        vb = (PATIENTS[b.name] && PATIENTS[b.name] > 0) ? b.delta / PATIENTS[b.name] * 100 : -999;
+      }
+    }
+    if (typeof va === 'string') {
+      return state.dir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+    }
+    return state.dir === 'asc' ? va - vb : vb - va;
+  });
+}
+
+function esc(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Init ──
+renderTable1();
+renderTable2();
+</script>
+</body>
+</html>
