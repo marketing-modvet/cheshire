@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mac Studio — OpenClaw Setup Guide</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3248;
+    --accent: #7c6fff;
+    --accent2: #5de0c8;
+    --warn: #f5a623;
+    --danger: #e85d5d;
+    --success: #4ecb71;
+    --text: #e8eaf6;
+    --muted: #8890b5;
+    --code-bg: #13151f;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    padding: 24px 16px 80px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* header */
+  .hero {
+    background: linear-gradient(135deg, #1a1d27 0%, #22263a 100%);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px 28px 28px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+  .hero h1 { font-size: 1.9rem; font-weight: 700; margin-bottom: 6px; }
+  .hero h1 span { color: var(--accent2); }
+  .hero .sub { color: var(--muted); font-size: 0.95rem; }
+  .badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .badge.warn { background: var(--warn); color: #1a1206; }
+  .badge.ok { background: var(--success); color: #0d2016; }
+
+  /* sections */
+  .section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-title .icon { font-size: 1.2rem; }
+
+  /* checklist */
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li .box {
+    width: 20px; height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    background: var(--code-bg);
+  }
+  .checklist li strong { color: var(--accent2); }
+  .checklist li .note { color: var(--muted); font-size: 0.85rem; display: block; margin-top: 2px; }
+
+  /* steps */
+  .steps { list-style: none; counter-reset: step; }
+  .step {
+    counter-increment: step;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 18px 18px 60px;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .step::before {
+    content: counter(step);
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    width: 30px; height: 30px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #fff;
+    line-height: 30px;
+    text-align: center;
+  }
+  .step h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; color: var(--accent2); }
+  .step p, .step li { font-size: 0.9rem; color: var(--text); }
+  .step ul { padding-left: 18px; margin-top: 6px; }
+  .step li { margin-bottom: 4px; }
+
+  /* code */
+  code, pre {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.82rem;
+  }
+  code { padding: 2px 6px; color: var(--accent2); }
+  pre {
+    padding: 14px 16px;
+    overflow-x: auto;
+    margin: 10px 0;
+    color: #c8e6ff;
+    line-height: 1.55;
+  }
+  pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    color: inherit;
+    font-size: inherit;
+  }
+
+  /* alert boxes */
+  .alert {
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 0.88rem;
+    border-left: 3px solid;
+  }
+  .alert-warn { background: #2a1f0a; border-color: var(--warn); color: #f0c87a; }
+  .alert-info { background: #0d1a2a; border-color: var(--accent); color: #a0c4ff; }
+  .alert-ok { background: #0d1e14; border-color: var(--success); color: #80e0a0; }
+
+  /* key reference table */
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  th, td { padding: 9px 12px; border: 1px solid var(--border); }
+  th { background: var(--code-bg); color: var(--accent2); font-weight: 600; text-align: left; }
+  td { background: var(--surface2); }
+  td code { font-size: 0.8rem; }
+
+  /* min-to-boot box */
+  .boot-box {
+    background: linear-gradient(135deg, #0d2016 0%, #0d1a2a 100%);
+    border: 1px solid var(--success);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-top: 4px;
+    font-size: 0.9rem;
+  }
+  .boot-box strong { color: var(--success); }
+
+  /* surface table */
+  .surface-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+  .surface-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    text-align: center;
+    font-size: 0.85rem;
+  }
+  .surface-card .sname { font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+  .surface-card .sstat { font-size: 0.75rem; padding: 2px 7px; border-radius: 10px; display: inline-block; margin: 2px; }
+  .s-no { background: #2a1206; color: #e07050; }
+  .s-yes { background: #0d2016; color: var(--success); }
+
+  /* footer */
+  .footer { color: var(--muted); font-size: 0.8rem; text-align: center; margin-top: 40px; }
+
+  @media (max-width: 600px) {
+    .surface-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 1.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Mac Studio <span>OpenClaw Setup</span> 😸</h1>
+  <p class="sub">Personal assistant server — Telegram + Web UI &nbsp;|&nbsp; Build day: Thursday (on-site)</p>
+  <p class="sub" style="margin-top:6px">Prepared by Cheshire · 2026-06-17 &nbsp;·&nbsp; Reference: cheshire-server (OpenClaw 2026.6.6, Node v22.22.2)</p>
+</div>
+
+<!-- MINIMUM TO BOOT -->
+<div class="section">
+  <div class="section-title"><span class="icon">⚡</span>Minimum to Boot</div>
+  <div class="boot-box">
+    <strong>Mac Studio + Ethernet cable</strong><br>
+    + Apple ID &nbsp;·&nbsp; admin password<br>
+    + <strong>Anthropic API key</strong> (Claude = brain)<br>
+    + <strong>OpenAI API key</strong> (gpt-image-2 + memory embeddings)<br>
+    + <strong>Telegram bot token</strong> (from @BotFather)<br>
+    + <strong>Your Telegram user ID:</strong> <code>779214693</code><br>
+    + <strong>Tailscale login</strong> (tailnet <code>liifii77@</code>)<br>
+    + <strong>Syncthing pairing</strong> (PC device ID below)<br>
+    <br>
+    No domain. No Cloudflare. WhatsApp dropped.
+  </div>
+</div>
+
+<!-- PREP CHECKLIST -->
+<div class="section">
+  <div class="section-title"><span class="icon">📦</span>Prep Checklist — Bring to Office</div>
+
+  <p style="font-weight:600; margin-bottom:10px; color: var(--muted); font-size:0.85rem;">PHYSICAL</p>
+  <ul class="checklist">
+    <li><span class="box"></span><div><strong>Mac Studio</strong> + power cable</div></li>
+    <li><span class="box"></span><div><strong>Ethernet cable</strong> — wire the server, do NOT run on Wi-Fi</div></li>
+    <li><span class="box"></span><div><strong>Monitor + keyboard + mouse</strong> for first boot (go headless after)</div></li>
+  </ul>
+
+  <p style="font-weight:600; margin: 18px 0 10px; color: var(--muted); font-size:0.85rem;">ACCOUNTS & CREDENTIALS</p>
+  <ul class="checklist">
+    <li><span class="box"></span><div><strong>Apple ID</strong> — to finish macOS setup</div></li>
+    <li><span class="box"></span><div><strong>Admin password</strong> — for the macOS user running OpenClaw</div></li>
+    <li><span class="box"></span><div><strong>Password manager / secure note</strong> with all API keys</div></li>
+    <li><span class="box"></span><div><strong>Tailscale login</strong> — the <code>liifii77@</code> tailnet (same as cheshire-server + PC)</div></li>
+    <li><span class="box"></span><div><strong>Syncthing</strong> ready on Andrew's PC for pairing</div></li>
+    <li><span class="box"></span><div><strong>GitHub PAT</strong> (optional — only if assistant publishes public pages)</div></li>
+  </ul>
+
+  <p style="font-weight:600; margin: 18px 0 10px; color: var(--muted); font-size:0.85rem;">🗝️ API KEYS</p>
+  <ul class="checklist">
+    <li><span class="box"></span><div><strong>Anthropic API key</strong> — Claude (the brain). Recommend a fresh key with its own spend budget.<span class="note">REQUIRED</span></div></li>
+    <li><span class="box"></span><div><strong>OpenAI API key</strong> — covers <code>gpt-image-2</code> image gen AND embeddings/memory.<span class="note">REQUIRED</span></div></li>
+    <li><span class="box"></span><div><strong>Telegram bot token</strong> — from @BotFather → /newbot.<span class="note">REQUIRED for Telegram surface</span></div></li>
+    <li><span class="box"></span><div><strong>ElevenLabs API key</strong> — voice/TTS (optional, add later)</div></li>
+    <li><span class="box"></span><div><strong>Brave Search API key</strong> — web search (optional)</div></li>
+    <li><span class="box"></span><div><strong>Google service-account JSON</strong> — Gmail/Calendar/Drive via gog (optional)</div></li>
+    <li><span class="box"></span><div><strong>fal / Replicate keys</strong> — extra image/video models (optional)</div></li>
+  </ul>
+</div>
+
+<!-- SETUP MANUAL -->
+<div class="section">
+  <div class="section-title"><span class="icon">🔧</span>Setup Manual — Step by Step</div>
+  <div class="alert alert-info">Follow top to bottom. Reference build: OpenClaw 2026.6.6 · Node v22.22.2 · macOS.</div>
+
+  <ol class="steps">
+
+    <li class="step">
+      <h3>STEP 0 — macOS base</h3>
+      <ul>
+        <li>Boot Mac Studio, sign in with Apple ID, finish setup wizard.</li>
+        <li>Run all <strong>macOS updates</strong>: System Settings → General → Software Update.</li>
+        <li>Create/confirm a dedicated <strong>admin user</strong> that will run OpenClaw.</li>
+        <li>Plug in <strong>Ethernet</strong>. Set a DHCP reservation on the router if possible.</li>
+      </ul>
+    </li>
+
+    <li class="step">
+      <h3>STEP 1 — Server mode (act like a server, not a laptop)</h3>
+      <p>System Settings → <strong>Energy</strong>:</p>
+      <ul>
+        <li>"Prevent automatic sleeping when the display is off" → <strong>ON</strong></li>
+        <li>"Start up automatically after a power failure" → <strong>ON</strong></li>
+        <li>Recommended: enable <strong>Auto-login</strong> for the run user (survives reboots)</li>
+        <li>FileVault: your call — ON = secure, but blocks unattended auto-boot</li>
+      </ul>
+    </li>
+
+    <li class="step">
+      <h3>STEP 2 — Remote access: SSH + Tailscale</h3>
+      <ul>
+        <li>Enable SSH: System Settings → General → Sharing → <strong>Remote Login = ON</strong></li>
+        <li>Install Tailscale:
+          <pre><code>brew install --cask tailscale</code></pre>
+          Or download from <code>tailscale.com</code>
+        </li>
+        <li>Sign in to the <strong><code>liifii77@</code></strong> tailnet (same one as cheshire-server + PC)</li>
+        <li>Verify:
+          <pre><code>tailscale status</code></pre>
+          Should see: <code>cheshire-server 100.68.241.123</code> + <code>liifii (PC) 100.97.203.4</code>
+        </li>
+        <li>Note the Mac Studio's <code>100.x.x.x</code> / MagicDNS name — used for web UI access</li>
+      </ul>
+    </li>
+
+    <li class="step">
+      <h3>STEP 3 — Syncthing (file sync PC ↔ Mac Studio)</h3>
+      <pre><code>brew install syncthing
+syncthing serve --no-browser</code></pre>
+      <ul>
+        <li>GUI at <code>http://127.0.0.1:8384</code> (or via Tailscale from PC)</li>
+        <li>Add Andrew's PC device ID and/or cheshire-server as a remote device; accept on both ends</li>
+        <li>Share working folder(s) — confirm a test file syncs both ways</li>
+      </ul>
+      <div class="alert alert-info"><strong>cheshire-server Syncthing device ID:</strong><br><code>RDDAT47-BC63R66-XMC35EN-45256BA-6ANZZEK-6QET7W2-J46FQR5-DWZMOAP</code></div>
+    </li>
+
+    <li class="step">
+      <h3>STEP 4 — Install Homebrew + Node + OpenClaw</h3>
+      <pre><code># Homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Node 22+ (match reference v22.22.2)
+brew install node
+node --version    # expect v22.x
+
+# OpenClaw (global)
+npm install -g openclaw
+openclaw --version
+
+# Optional: Python (for utility/deploy scripts)
+brew install python</code></pre>
+    </li>
+
+    <li class="step">
+      <h3>STEP 5 — First run / config</h3>
+      <pre><code>openclaw</code></pre>
+      <p>Run the wizard, or edit <code>~/.openclaw/openclaw.json</code> directly (see skeleton below):</p>
+      <ul>
+        <li><strong>Default model:</strong> <code>anthropic/claude-sonnet-4-6</code></li>
+        <li><strong>Image model:</strong> <code>openai/gpt-image-2</code></li>
+        <li>Provide Anthropic + OpenAI API keys during setup</li>
+      </ul>
+    </li>
+
+    <li class="step">
+      <h3>STEP 6 — Telegram surface</h3>
+      <ul>
+        <li>Telegram → <strong>@BotFather</strong> → <code>/newbot</code> → get the bot token</li>
+        <li>Your Telegram user ID (allow-list): <code>779214693</code></li>
+        <li>Add to OpenClaw config: Telegram channel with bot token + allow-list (see skeleton)</li>
+        <li>Restart OpenClaw → message the bot → confirm reply</li>
+      </ul>
+    </li>
+
+    <li class="step">
+      <h3>STEP 7 — Web UI (via Tailscale)</h3>
+      <ul>
+        <li>Find OpenClaw's port (check config or startup output — default varies)</li>
+        <li>From PC/phone <strong>on the tailnet</strong>, browse to:<br>
+          <code>http://&lt;mac-studio-tailscale-name&gt;:&lt;port&gt;</code></li>
+        <li>No domain, no Cloudflare — private over Tailscale only</li>
+      </ul>
+      <div class="alert alert-ok">Du has no static IP — Tailscale handles this perfectly. Server wired, client on Wi-Fi/cellular = works regardless.</div>
+    </li>
+
+    <li class="step">
+      <h3>STEP 8 — Persistence + verify everything</h3>
+      <ul>
+        <li>Confirm OpenClaw auto-starts on reboot (launchd / pm2 / login item)</li>
+        <li>Confirm Syncthing + Tailscale auto-start on reboot</li>
+        <li><strong>Reboot</strong> → confirm assistant returns on Telegram + web UI</li>
+        <li>Test: Telegram message ✓ · web UI load ✓ · gpt-image-2 image gen ✓ · synced file ✓</li>
+      </ul>
+    </li>
+
+  </ol>
+</div>
+
+<!-- CONFIG SKELETON -->
+<div class="section">
+  <div class="section-title"><span class="icon">⚙️</span>openclaw.json Skeleton</div>
+  <div class="alert alert-warn">Replace every &lt;PLACEHOLDER&gt;. Do NOT commit real keys to git.</div>
+  <pre><code>{
+  "models": {
+    "default": "anthropic/claude-sonnet-4-6",
+    "image": "openai/gpt-image-2"
+  },
+  "auth": {
+    "anthropic": { "apiKey": "&lt;ANTHROPIC_API_KEY&gt;" },
+    "openai":    { "apiKey": "&lt;OPENAI_API_KEY&gt;" }
+  },
+  "channels": {
+    "telegram": {
+      "botToken":  "&lt;TELEGRAM_BOT_TOKEN&gt;",
+      "allowFrom": ["779214693"]
+    }
+  }
+  // Web UI: no channel key — accessed privately via Tailscale.
+  // Optional later: elevenlabs, brave, google service account, fal, replicate.
+}</code></pre>
+</div>
+
+<!-- SURFACES OVERVIEW -->
+<div class="section">
+  <div class="section-title"><span class="icon">📡</span>Surfaces Overview</div>
+  <div class="surface-grid">
+    <div class="surface-card">
+      <div class="sname">💬 Telegram</div>
+      <span class="sstat s-no">No public URL</span>
+      <span class="sstat s-no">No Tailscale</span>
+      <span class="sstat s-no">No Cloudflare</span>
+    </div>
+    <div class="surface-card">
+      <div class="sname">🌐 Web UI</div>
+      <span class="sstat s-no">No public URL</span>
+      <span class="sstat s-yes">Tailscale ✓</span>
+      <span class="sstat s-no">No Cloudflare</span>
+    </div>
+    <div class="surface-card">
+      <div class="sname">🔄 Syncthing</div>
+      <span class="sstat s-no">No public URL</span>
+      <span class="sstat s-yes">Tailscale optional</span>
+      <span class="sstat s-no">No Cloudflare</span>
+    </div>
+  </div>
+  <div class="alert alert-ok" style="margin-top:14px">WhatsApp dropped 2026-06-16 → no domain, no Cloudflare tunnel required.</div>
+</div>
+
+<!-- KEY REFERENCE -->
+<div class="section">
+  <div class="section-title"><span class="icon">📋</span>Key Reference — cheshire-server (mirror target)</div>
+  <table>
+    <tr><th>Component</th><th>Details</th></tr>
+    <tr><td>OpenClaw</td><td>2026.6.6 &nbsp;·&nbsp; Node v22.22.2 &nbsp;·&nbsp; global npm</td></tr>
+    <tr><td>Tailscale tailnet</td><td><code>liifii77@</code></td></tr>
+    <tr><td>cheshire-server IP</td><td><code>100.68.241.123</code></td></tr>
+    <tr><td>Andrew's PC (liifii)</td><td><code>100.97.203.4</code></td></tr>
+    <tr><td>Syncthing device ID</td><td><code>RDDAT47-BC63R66-XMC35EN-45256BA-6ANZZEK-6QET7W2-J46FQR5-DWZMOAP</code></td></tr>
+    <tr><td>Andrew's Telegram ID</td><td><code>779214693</code></td></tr>
+    <tr><td>Default model</td><td><code>anthropic/claude-sonnet-4-6</code></td></tr>
+    <tr><td>Image model</td><td><code>openai/gpt-image-2</code></td></tr>
+  </table>
+</div>
+
+<!-- OPEN DECISIONS -->
+<div class="section">
+  <div class="section-title"><span class="icon">🤔</span>Open Decisions (lock before Thursday)</div>
+  <ul class="checklist">
+    <li><span class="box"></span><div><strong>Syncthing topology</strong> — Mac Studio syncs to: PC only? cheshire-server? both?</div></li>
+    <li><span class="box"></span><div><strong>GitHub pages</strong> — does Mac Studio assistant need to publish public pages? If yes → prepare GitHub PAT + decide repo/account (separate from marketing-modvet/cheshire)</div></li>
+    <li><span class="box"></span><div><strong>Spend ceilings</strong> per API key (Anthropic + OpenAI)</div></li>
+    <li><span class="box"></span><div><strong>Static IP / DHCP reservation</strong> for Mac Studio on office LAN (convenience)</div></li>
+  </ul>
+</div>
+
+<div class="footer">
+  Generated by Cheshire 😸 &nbsp;·&nbsp; 2026-06-17<br>
+  Source files: <code>projects/mac-studio-assistant-server/</code> on cheshire-server
+</div>
+
+</body>
+</html>
