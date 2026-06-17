@@ -236,7 +236,7 @@
     + <strong>OpenAI API key</strong> (gpt-image-2 + memory embeddings)<br>
     + <strong>Telegram bot token</strong> (from @BotFather)<br>
     + <strong>Your Telegram user ID:</strong> <code>779214693</code><br>
-    + <strong>Tailscale login</strong> (tailnet <code>liifii77@</code>)<br>
+    + <strong>Tailscale</strong> — create new account at tailscale.com on-site<br>
     + <strong>Syncthing pairing</strong> (PC device ID below)<br>
     <br>
     No domain. No Cloudflare. WhatsApp dropped.
@@ -259,7 +259,7 @@
     <li><span class="box"></span><div><strong>Apple ID</strong> — to finish macOS setup</div></li>
     <li><span class="box"></span><div><strong>Admin password</strong> — for the macOS user running OpenClaw</div></li>
     <li><span class="box"></span><div><strong>Password manager / secure note</strong> with all API keys</div></li>
-    <li><span class="box"></span><div><strong>Tailscale login</strong> — the <code>liifii77@</code> tailnet (same as cheshire-server + PC)</div></li>
+    <li><span class="box"></span><div><strong>Tailscale account</strong> — create new at <code>tailscale.com</code> (new tailnet for this location — separate from home setup)<span class="note">Install on Mac Studio + phone/PC to join the same tailnet</span></div></li>
     <li><span class="box"></span><div><strong>Syncthing</strong> ready on Andrew's PC for pairing</div></li>
     <li><span class="box"></span><div><strong>GitHub PAT</strong> (optional — only if assistant publishes public pages)</div></li>
   </ul>
@@ -312,11 +312,9 @@
           <pre><code>brew install --cask tailscale</code></pre>
           Or download from <code>tailscale.com</code>
         </li>
-        <li>Sign in to the <strong><code>liifii77@</code></strong> tailnet (same one as cheshire-server + PC)</li>
-        <li>Verify:
-          <pre><code>tailscale status</code></pre>
-          Should see: <code>cheshire-server 100.68.241.123</code> + <code>liifii (PC) 100.97.203.4</code>
-        </li>
+        <li><strong>Create a new Tailscale account</strong> at <code>tailscale.com</code> — new tailnet for this location (separate from home).</li>
+        <li>Sign in on Mac Studio. Then install Tailscale on <strong>your phone + PC</strong> and join the same new tailnet.</li>
+        <li>Verify: <pre><code>tailscale status</code></pre> Should show Mac Studio + your devices listed.</li>
         <li>Note the Mac Studio's <code>100.x.x.x</code> / MagicDNS name — used for web UI access</li>
       </ul>
     </li>
@@ -451,9 +449,7 @@ brew install python</code></pre>
   <table>
     <tr><th>Component</th><th>Details</th></tr>
     <tr><td>OpenClaw</td><td>2026.6.6 &nbsp;·&nbsp; Node v22.22.2 &nbsp;·&nbsp; global npm</td></tr>
-    <tr><td>Tailscale tailnet</td><td><code>liifii77@</code></td></tr>
-    <tr><td>cheshire-server IP</td><td><code>100.68.241.123</code></td></tr>
-    <tr><td>Andrew's PC (liifii)</td><td><code>100.97.203.4</code></td></tr>
+    <tr><td>Tailscale tailnet</td><td><strong>New tailnet</strong> — create on-site (separate from home <code>liifii77@</code>)</td></tr>
     <tr><td>Syncthing device ID</td><td><code>RDDAT47-BC63R66-XMC35EN-45256BA-6ANZZEK-6QET7W2-J46FQR5-DWZMOAP</code></td></tr>
     <tr><td>Andrew's Telegram ID</td><td><code>779214693</code></td></tr>
     <tr><td>Default model</td><td><code>anthropic/claude-sonnet-4-6</code></td></tr>
