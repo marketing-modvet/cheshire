@@ -9,19 +9,19 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --teal:       #00b8d4;
-      --teal-hover: #0088bb;
-      --amber:      #f5a623;
+      --teal:       #282552;
+      --teal-hover: #1e1b4b;
+      --amber:      #ee9b63;
       --amber-hover:#e0921a;
-      --navy:       #0d1b2a;
+      --navy:       #282552;
       --white:      #ffffff;
-      --bg:         #f5f7fa;
+      --bg:         #fcf7ee;
       --text:       #1a2332;
       --muted:      #6b7280;
-      --tag-teal-bg:#e0f7fa;
-      --tag-teal-tx:#0891b2;
-      --tag-amb-bg: #fef3e2;
-      --tag-amb-tx: #d97706;
+      --tag-teal-bg:#f7eee8;
+      --tag-teal-tx:#282552;
+      --tag-amb-bg: #fff4ed;
+      --tag-amb-tx: #c07030;
       --radius-card:12px;
       --radius-btn: 8px;
       --shadow-card:0 2px 8px rgba(0,0,0,0.06);
@@ -93,7 +93,7 @@
     .nav-links a:hover,
     .nav-links a.active {
       color: var(--teal);
-      background: #e0f7fa;
+      background: #f7eee8;
     }
     .nav-book {
       background: var(--amber);
@@ -116,7 +116,7 @@
     }
     .hero-label {
       display: inline-block;
-      background: rgba(0,184,212,.15);
+      background: rgba(40,37,82,.15);
       color: var(--teal);
       font-size: 12px;
       font-weight: 600;
@@ -204,7 +204,7 @@
     .filter-tab:hover {
       border-color: var(--teal);
       color: var(--teal);
-      background: #e0f7fa;
+      background: #f7eee8;
     }
     .filter-tab.active {
       background: var(--teal);
@@ -262,7 +262,7 @@
 
     /* ─── FEATURED CARD (col-span 2) ─────────────────────────────── */
     .card-featured {
-      grid-column: span 2;
+      grid-column: span 3;
       background: var(--white);
       border-radius: var(--radius-card);
       box-shadow: var(--shadow-card);
@@ -278,7 +278,7 @@
     .card-featured .card-photo {
       width: 260px;
       flex-shrink: 0;
-      background: #e8f4f8;
+      background: #f7eee8;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -308,7 +308,7 @@
     }
     .card-photo {
       height: 240px;
-      background: #e8f4f8;
+      background: #f7eee8;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -507,7 +507,7 @@
 
     /* ─── BOTTOM CTA BANNER ──────────────────────────────────────── */
     .cta-banner {
-      background: linear-gradient(135deg, #00b8d4 0%, #0088bb 60%, #006fa3 100%);
+      background: linear-gradient(135deg, #282552 0%, #1e1b4b 60%, #006fa3 100%);
       padding: 64px 24px;
       text-align: center;
       margin-top: 32px;
@@ -653,7 +653,6 @@
         <span class="loc-badge">📍 Al Wasl Hospital</span>
       </div>
       <div class="card-body">
-        <div class="card-specialty">Head of Surgery &nbsp;·&nbsp; Soft Tissue & Laparoscopy</div>
         <div class="card-name">Dr. Rami Mdawar</div>
         <p class="card-bio">
           A highly accomplished veterinary surgeon with over 11 years of clinical
@@ -697,7 +696,6 @@
         <span class="loc-badge">📍 JLT</span>
       </div>
       <div class="card-body">
-        <div class="card-specialty">General Practice &nbsp;·&nbsp; Dermatology</div>
         <div class="card-name">Dr. Sofia Anagnos</div>
         <div class="card-tags">
           <span class="tag tag-teal">Dermatology</span>
@@ -734,7 +732,6 @@
         <span class="loc-badge">📍 JVC</span>
       </div>
       <div class="card-body">
-        <div class="card-specialty">Cardiology &nbsp;·&nbsp; Internal Medicine</div>
         <div class="card-name">Dr. Luca Ferretti</div>
         <div class="card-tags">
           <span class="tag tag-teal">Cardiology</span>
@@ -771,7 +768,6 @@
         <span class="loc-badge">📍 Palm</span>
       </div>
       <div class="card-body">
-        <div class="card-specialty">Exotic Animals &nbsp;·&nbsp; Avian</div>
         <div class="card-name">Dr. Yasmin Al Rashidi</div>
         <div class="card-tags">
           <span class="tag tag-teal">Exotic Animals</span>
@@ -808,7 +804,6 @@
         <span class="loc-badge">📍 Downtown</span>
       </div>
       <div class="card-body">
-        <div class="card-specialty">Orthopaedics &nbsp;·&nbsp; Neurology</div>
         <div class="card-name">Dr. Marcus Obi</div>
         <div class="card-tags">
           <span class="tag tag-teal">Orthopaedics</span>
@@ -846,7 +841,6 @@
         <span class="loc-badge">📍 Khawaneej</span>
       </div>
       <div class="card-body">
-        <div class="card-specialty">Dentistry &nbsp;·&nbsp; Oral Surgery</div>
         <div class="card-name">Dr. Elena Volkova</div>
         <div class="card-tags">
           <span class="tag tag-teal">Dental Extractions</span>
