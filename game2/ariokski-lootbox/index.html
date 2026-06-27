@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Гномья Лотерейная Машина</title>
+<style>
+  :root{
+    --gold:#e8c069; --gold-bright:#ffd97a; --ink:#f2e4c4;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  html,body{height:100%}
+  body{
+    font-family:"Trebuchet MS","Segoe UI",sans-serif; color:var(--ink);
+    min-height:100%;
+    background:#0c0907 url("assets/bg.png") center/cover no-repeat fixed;
+    display:flex; flex-direction:column; align-items:center;
+    padding:20px 14px 40px; position:relative; overflow-x:hidden;
+  }
+  body::before{content:""; position:fixed; inset:0; z-index:0;
+    background:radial-gradient(circle at 50% 42%, rgba(0,0,0,.15), rgba(8,6,5,.82) 80%);}
+  .wrap{position:relative; z-index:1; width:100%; max-width:560px; display:flex; flex-direction:column; align-items:center}
+
+  h1{font-size:clamp(22px,5vw,38px); text-align:center; color:var(--gold-bright);
+    text-shadow:0 2px 0 #4a2e08, 0 0 22px rgba(255,200,90,.55); letter-spacing:1px}
+  .sub{color:#e7c98a; font-size:13px; margin:6px 0 18px; text-align:center; text-shadow:0 1px 3px #000}
+
+  .panel{
+    width:100%; background:linear-gradient(180deg, rgba(36,24,14,.74), rgba(14,9,6,.8));
+    border:2px solid var(--gold); border-radius:20px; backdrop-filter:blur(2px);
+    box-shadow:0 0 0 4px rgba(0,0,0,.35), 0 14px 40px rgba(0,0,0,.6), inset 0 0 50px rgba(0,0,0,.5);
+    padding:22px 18px; display:flex; flex-direction:column; align-items:center; position:relative; overflow:hidden;
+  }
+  .machine{width:min(230px,55vw); filter:drop-shadow(0 6px 20px rgba(0,0,0,.7)); margin-bottom:6px}
+
+  /* Сундук / монета */
+  .chest{display:flex; flex-direction:column; align-items:center; gap:16px}
+  .box-emoji{font-size:104px; cursor:pointer; user-select:none;
+    filter:drop-shadow(0 0 20px rgba(255,200,90,.6)); animation:idle 2.6s ease-in-out infinite}
+  .box-emoji:hover{transform:scale(1.05)}
+  @keyframes idle{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-8px) rotate(2deg)}}
+  .shake{animation:shake .5s ease-in-out 3 !important}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-11px) rotate(-7deg)}40%{transform:translateX(11px) rotate(7deg)}60%{transform:translateX(-8px) rotate(-4deg)}80%{transform:translateX(8px) rotate(4deg)}}
+  .coin{position:absolute; top:-10px; left:50%; font-size:34px; opacity:0}
+  .coin.drop{animation:coindrop .6s ease-in forwards}
+  @keyframes coindrop{0%{opacity:1; transform:translate(-50%,-40px) rotate(0)}100%{opacity:0; transform:translate(-50%,120px) rotate(540deg)}}
+
+  .btn{font-family:inherit; font-size:17px; font-weight:bold; cursor:pointer; color:#2a1606;
+    padding:13px 30px; border:none; border-radius:12px;
+    background:linear-gradient(180deg,var(--gold-bright),var(--gold));
+    box-shadow:0 4px 0 #8a6020, 0 6px 14px rgba(0,0,0,.5); text-shadow:0 1px 0 rgba(255,255,255,.4);
+    transition:transform .08s, box-shadow .08s}
+  .btn:active{transform:translateY(3px); box-shadow:0 1px 0 #8a6020}
+  .btn:disabled{opacity:.5; cursor:not-allowed}
+
+  /* Приз */
+  .prize{display:none; flex-direction:column; align-items:center; gap:8px; text-align:center; position:relative}
+  .prize.show{display:flex; animation:pop .55s cubic-bezier(.18,.9,.3,1.35)}
+  @keyframes pop{0%{transform:scale(.2); opacity:0}100%{transform:scale(1); opacity:1}}
+  .rays{position:absolute; top:38%; left:50%; width:340px; height:340px; transform:translate(-50%,-50%); z-index:-1;
+    background:conic-gradient(from 0deg, transparent 0 8deg, var(--glow,#ffd97a) 8deg 14deg, transparent 14deg 20deg);
+    opacity:.28; border-radius:50%; animation:spin 9s linear infinite; -webkit-mask:radial-gradient(circle, transparent 30%, #000 70%); mask:radial-gradient(circle, transparent 30%, #000 70%)}
+  @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+  .prize img{width:190px; height:190px; object-fit:contain; filter:drop-shadow(0 0 28px var(--glow,#ffd97a)); animation:float 2.6s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  .prar{font-size:12px; letter-spacing:3px; text-transform:uppercase; font-weight:bold}
+  .pname{font-size:23px; font-weight:bold; color:var(--rar,#fff); text-shadow:0 0 14px var(--rar,#fff)}
+  .pdesc{font-size:14px; color:#e3d3a6; max-width:320px}
+
+  .controls{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; justify-content:center}
+  .stats{margin-top:10px; font-size:13px; color:#d9bd84; text-shadow:0 1px 2px #000}
+
+  /* история */
+  .history{display:flex; gap:6px; flex-wrap:wrap; justify-content:center; margin-top:14px; max-width:100%}
+  .history .h{width:40px; height:40px; border-radius:8px; border:2px solid #00000055; background:#000a; display:flex; align-items:center; justify-content:center; padding:3px}
+  .history .h img{width:100%; height:100%; object-fit:contain}
+
+  details{width:100%; max-width:560px; margin-top:14px; background:rgba(0,0,0,.45);
+    border:1px solid #5a4424; border-radius:12px; padding:4px 14px; position:relative; z-index:1}
+  summary{cursor:pointer; color:var(--gold); font-weight:bold; padding:8px 0}
+  .odds{list-style:none; font-size:14px}
+  .odds li{display:flex; justify-content:space-between; gap:10px; padding:5px 2px; border-bottom:1px dashed #4a3a1e}
+  .odds li:last-child{border:none}
+  .odds .pct{font-weight:bold; color:var(--gold-bright); white-space:nowrap}
+
+  /* конфетти */
+  .confetti{position:fixed; top:-10px; width:9px; height:14px; z-index:9; pointer-events:none; border-radius:2px}
+  @keyframes fall{to{transform:translateY(105vh) rotate(720deg); opacity:.2}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>⚙️ Гномья Лотерейная Машина ⚙️</h1>
+  <div class="sub">Брось монету — забери награду! Джекпот: <b>Меч из Мифрила</b> ⚔️</div>
+
+  <div class="panel">
+    <span class="coin" id="coin">🪙</span>
+    <img class="machine" src="assets/machine.png" alt="Лотерейная машина">
+
+    <div class="chest" id="chest">
+      <div class="box-emoji" id="boxEmoji" onclick="openBox()">🎁</div>
+      <button class="btn" id="openBtn" onclick="openBox()">🪙 Бросить монету</button>
+    </div>
+
+    <div class="prize" id="prize">
+      <div class="rays" id="rays"></div>
+      <img id="prizeImg" src="" alt="">
+      <div class="prar" id="prizeRar"></div>
+      <div class="pname" id="prizeName"></div>
+      <div class="pdesc" id="prizeDesc"></div>
+    </div>
+
+    <div class="controls">
+      <button class="btn" id="againBtn" style="display:none" onclick="reset()">↻ Ещё раз</button>
+    </div>
+  </div>
+
+  <div class="stats" id="stats">Открыто коробок: 0</div>
+  <div class="history" id="history"></div>
+
+  <details>
+    <summary>📊 Шансы выпадения</summary>
+    <ul class="odds">
+      <li><span>🥧 Купон на 5 пирожков «Пирожковая»</span><span class="pct">40%</span></li>
+      <li><span>⛏️ Дварфийский шлем (обычный)</span><span class="pct">30%</span></li>
+      <li><span>🧪 Малое зелье лечения</span><span class="pct">10%</span></li>
+      <li><span>🗡️ Кинжал +1</span><span class="pct">10%</span></li>
+      <li><span>💍 Золотое кольцо с красным камнем (+1 Инсайт)</span><span class="pct">5%</span></li>
+      <li><span>📜 Купон на 500 золотых (кузни Стормхаммеров)</span><span class="pct">4%</span></li>
+      <li><span>⚔️ Меч из Мифрила</span><span class="pct">1%</span></li>
+    </ul>
+  </details>
+</div>
+
+<script>
+const PRIZES = [
+  {w:40, name:"Купон на 5 пирожков", desc:"Бесплатно в «Пирожковой»",          rar:"Обычный",     col:"#cfcfcf", img:"assets/p1-pirozhki.png"},
+  {w:30, name:"Дварфийский шлем",    desc:"Крепкий обычный шлем",               rar:"Обычный",     col:"#cfcfcf", img:"assets/p2-shlem.png"},
+  {w:10, name:"Малое зелье лечения", desc:"Восстанавливает 2d4+2 ХП",           rar:"Обычный",     col:"#cfcfcf", img:"assets/p3-zelie.png"},
+  {w:10, name:"Кинжал +1",           desc:"Зачарованное оружие",                 rar:"Необычный",   col:"#46e251", img:"assets/p4-kinzhal.png"},
+  {w:5,  name:"Золотое кольцо",      desc:"Красный камень · +1 к Инсайту",       rar:"Необычный",   col:"#46e251", img:"assets/p5-kolco.png"},
+  {w:4,  name:"Купон на 500 золотых",desc:"В кузнях Стормхаммеров",              rar:"Редкий",      col:"#4aa3ff", img:"assets/p6-zoloto.png"},
+  {w:1,  name:"Меч из Мифрила",      desc:"★ ЛЕГЕНДАРНЫЙ ПРИЗ ★",                 rar:"Очень редкий",col:"#c46bff", img:"assets/p7-mech.png"},
+];
+let opened = 0, busy = false;
+
+/* простые звуки через WebAudio (без файлов) */
+let actx;
+function beep(freq, dur, type, vol){
+  try{ actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    const o=actx.createOscillator(), g=actx.createGain();
+    o.type=type||'sine'; o.frequency.value=freq;
+    g.gain.value=vol||0.05; o.connect(g); g.connect(actx.destination);
+    o.start(); g.gain.exponentialRampToValueAtTime(0.0001, actx.currentTime+dur);
+    o.stop(actx.currentTime+dur);
+  }catch(e){}
+}
+function fanfare(){ [523,659,784,1047].forEach((f,i)=>setTimeout(()=>beep(f,.35,'triangle',.08),i*120)); }
+
+function pick(){
+  const total = PRIZES.reduce((s,p)=>s+p.w,0);
+  let r = Math.random()*total;
+  for(const p of PRIZES){ if((r-=p.w) < 0) return p; }
+  return PRIZES[0];
+}
+
+function openBox(){
+  if(busy) return; busy=true;
+  const emoji=document.getElementById('boxEmoji');
+  document.getElementById('openBtn').disabled=true;
+  // монетка
+  const coin=document.getElementById('coin');
+  coin.classList.remove('drop'); void coin.offsetWidth; coin.classList.add('drop');
+  beep(880,.08,'square',.05);
+  setTimeout(()=>{ emoji.classList.add('shake'); beep(220,.1,'sawtooth',.04); },300);
+
+  setTimeout(()=>{
+    const p=pick(); opened++;
+    document.getElementById('chest').style.display='none';
+    emoji.classList.remove('shake');
+
+    const box=document.getElementById('prize');
+    document.getElementById('prizeImg').src=p.img;
+    document.getElementById('prizeImg').style.setProperty('--glow',p.col);
+    document.getElementById('rays').style.setProperty('--glow',p.col);
+    const nm=document.getElementById('prizeName');
+    nm.textContent=p.name; nm.style.setProperty('--rar',p.col);
+    const rr=document.getElementById('prizeRar');
+    rr.textContent=p.rar; rr.style.color=p.col;
+    document.getElementById('prizeDesc').textContent=p.desc;
+    box.classList.add('show');
+
+    // звук по редкости
+    if(p.w<=4){ fanfare(); } else { beep(660,.18,'triangle',.06); }
+    if(p.w<=5) confetti(p.w===1?160:70, p.col);
+
+    // история
+    const h=document.createElement('div'); h.className='h'; h.style.borderColor=p.col;
+    h.innerHTML='<img src="'+p.img+'">'; h.title=p.name;
+    document.getElementById('history').prepend(h);
+
+    document.getElementById('againBtn').style.display='inline-block';
+    document.getElementById('stats').textContent='Открыто коробок: '+opened;
+    busy=false;
+  }, 1750);
+}
+
+function confetti(n, col){
+  const cols=[col,'#ffd97a','#fff','#ff5a5a'];
+  for(let i=0;i<n;i++){
+    const c=document.createElement('div'); c.className='confetti';
+    c.style.left=Math.random()*100+'vw';
+    c.style.background=cols[i%cols.length];
+    c.style.animation='fall '+(2+Math.random()*1.6)+'s linear forwards';
+    c.style.animationDelay=Math.random()*0.5+'s';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),4200);
+  }
+}
+
+function reset(){
+  document.getElementById('prize').classList.remove('show');
+  document.getElementById('againBtn').style.display='none';
+  document.getElementById('boxEmoji').textContent='🎁';
+  document.getElementById('chest').style.display='flex';
+  document.getElementById('openBtn').disabled=false;
+}
+</script>
+</body>
+</html>
