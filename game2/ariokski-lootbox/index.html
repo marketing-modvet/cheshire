@@ -90,15 +90,38 @@
   .odds li:last-child{border:none}
   .odds .pct{font-weight:bold; color:var(--gold-bright); white-space:nowrap}
 
+  /* экран входа */
+  .gate{position:fixed; inset:0; z-index:50; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; padding:24px; text-align:center;
+    background:radial-gradient(circle at 50% 40%, rgba(20,14,8,.86), rgba(6,4,3,.97)); backdrop-filter:blur(3px)}
+  .gate.hide{display:none}
+  .gate h2{color:var(--gold-bright); font-size:clamp(20px,5vw,30px); text-shadow:0 2px 0 #4a2e08,0 0 20px rgba(255,200,90,.5); letter-spacing:1px}
+  .gate p{color:#e7c98a; font-size:14px; max-width:340px}
+  .gate input{font-family:inherit; font-size:18px; text-align:center; color:#2a1606; width:min(320px,80vw);
+    padding:13px 16px; border:2px solid var(--gold); border-radius:12px; background:#f7ecd0; outline:none}
+  .gate input:focus{box-shadow:0 0 0 3px rgba(255,200,90,.5)}
+  .gate .err{color:#ff8a7a; font-size:13px; min-height:16px}
+  .whoami{position:relative; z-index:1; margin:-8px 0 14px; font-size:13px; color:#e7c98a; text-shadow:0 1px 2px #000}
+  .whoami b{color:var(--gold-bright)}
+  .whoami a{color:#bda06a; cursor:pointer; text-decoration:underline; margin-left:8px}
+
   /* конфетти */
   .confetti{position:fixed; top:-10px; width:9px; height:14px; z-index:9; pointer-events:none; border-radius:2px}
   @keyframes fall{to{transform:translateY(105vh) rotate(720deg); opacity:.2}}
 </style>
 </head>
 <body>
+<div class="gate" id="gate">
+  <h2>⚙️ Гномья Лотерейная Машина ⚙️</h2>
+  <p>Введи своё имя авантюриста, чтобы крутить машину и забрать награду.</p>
+  <input id="nameInput" maxlength="24" placeholder="Твоё имя…" autocomplete="off">
+  <div class="err" id="nameErr"></div>
+  <button class="btn" onclick="enterGame()">⚔️ Войти</button>
+</div>
+
 <div class="wrap">
   <h1>⚙️ Гномья Лотерейная Машина ⚙️</h1>
   <div class="sub">Брось монету — забери награду! Джекпот: <b>Меч из Мифрила</b> ⚔️</div>
+  <div class="whoami" id="whoami"></div>
 
   <div class="panel">
     <span class="coin" id="coin">🪙</span>
@@ -139,6 +162,38 @@ const PRIZES = [
 ];
 let opened = 0, busy = false;
 
+/* ===== вход игрока + журнал результатов ===== */
+// ВСТАВЬ СЮДА URL веб-приложения Apps Script (см. инструкцию). Пусто = только локальная запись.
+const LOG_ENDPOINT = "";
+let player = "";
+
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+function enterGame(){
+  const v=document.getElementById('nameInput').value.trim();
+  if(v.length<2){ document.getElementById('nameErr').textContent='Введи имя (минимум 2 символа)'; return; }
+  player=v; try{ localStorage.setItem('ariokski_player', v); }catch(e){}
+  document.getElementById('gate').classList.add('hide');
+  document.getElementById('whoami').innerHTML='Играет: <b>'+escapeHtml(v)+'</b> <a onclick="changeName()">сменить</a>';
+}
+function changeName(){
+  document.getElementById('gate').classList.remove('hide');
+  const i=document.getElementById('nameInput'); i.value=player; i.focus(); i.select();
+}
+function logResult(p){
+  const rec={ts:new Date().toISOString(), nickname:player, prize:p.name, rarity:p.rar, spin:opened};
+  try{ const k='ariokski_log'; const a=JSON.parse(localStorage.getItem(k)||'[]'); a.push(rec); localStorage.setItem(k,JSON.stringify(a)); }catch(e){}
+  if(LOG_ENDPOINT){
+    try{ fetch(LOG_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(rec)}); }catch(e){}
+  }
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  const saved=localStorage.getItem('ariokski_player');
+  if(saved){ const i=document.getElementById('nameInput'); if(i) i.value=saved; }
+  const inp=document.getElementById('nameInput');
+  if(inp){ inp.addEventListener('keydown',e=>{ if(e.key==='Enter') enterGame(); }); inp.focus(); }
+});
+
 /* простые звуки через WebAudio (без файлов) */
 let actx;
 function beep(freq, dur, type, vol){
@@ -171,6 +226,7 @@ function openBox(){
 
   setTimeout(()=>{
     const p=pick(); opened++;
+    logResult(p);
     document.getElementById('chest').style.display='none';
     emoji.classList.remove('shake');
 
