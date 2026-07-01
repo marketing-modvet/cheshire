@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Modern Vet — LTV & CAC Dashboard</title>
+<style>
+  :root {
+    --navy: #0b1f3a;
+    --navy2: #12294d;
+    --salmon: #ff7a59;
+    --salmon2: #ff9478;
+    --green: #2ecc71;
+    --red: #ff5c5c;
+    --amber: #ffb020;
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --text: #1a2536;
+    --muted: #6b7a90;
+    --border: #e4e9f2;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Roboto, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+  header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+    color: #fff;
+    padding: 32px 40px;
+  }
+  header h1 { margin: 0 0 6px; font-size: 28px; letter-spacing: -0.5px; }
+  header p { margin: 0; color: #b8c4d9; font-size: 14px; }
+  header .badge {
+    display: inline-block;
+    background: var(--salmon);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+  .container { max-width: 1280px; margin: 0 auto; padding: 28px 40px 60px; }
+
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .kpi-card {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 20px 22px;
+    box-shadow: 0 2px 10px rgba(20,30,60,0.06);
+    border: 1px solid var(--border);
+  }
+  .kpi-card .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+  .kpi-card .value { font-size: 28px; font-weight: 700; margin-top: 6px; color: var(--navy); }
+  .kpi-card .sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .kpi-card.accent .value { color: var(--salmon); }
+
+  section {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+    box-shadow: 0 2px 10px rgba(20,30,60,0.06);
+    border: 1px solid var(--border);
+  }
+  section h2 {
+    font-size: 18px;
+    margin: 0 0 4px;
+    color: var(--navy);
+  }
+  section .section-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th, td { padding: 10px 12px; text-align: right; border-bottom: 1px solid var(--border); }
+  th:first-child, td:first-child { text-align: left; }
+  th {
+    background: #f8f9fd;
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  tr:hover { background: #fbfcff; }
+  .pill {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight: 700;
+  }
+  .pill.good { background: rgba(46,204,113,0.14); color: #1a9c53; }
+  .pill.warn { background: rgba(255,176,32,0.16); color: #b57900; }
+  .pill.bad { background: rgba(255,92,92,0.14); color: #d43a3a; }
+  .pill.na { background: #eef1f6; color: var(--muted); }
+  .na-cell { color: var(--muted); font-style: italic; }
+
+  .callout {
+    background: #fff7ec;
+    border: 1px solid #ffe1b3;
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: #7a5210;
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+  .callout b { color: #5a3c08; }
+  .callout.info { background: #eef4ff; border-color: #c9dbff; color: #1a3a6b; }
+  .callout.info b { color: #0c2249; }
+
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    padding: 24px;
+  }
+
+  .two-col { display: grid; grid-template-columns: 1.3fr 1fr; gap: 20px; }
+  @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* Pure-SVG chart styles (no JS required) */
+  .svg-chart { width: 100%; height: 320px; overflow: visible; }
+  .svg-chart .gridline { stroke: #eef1f6; stroke-width: 1; }
+  .svg-chart .axis-label { fill: var(--muted); font-size: 10px; }
+  .svg-chart .line-path { fill: none; stroke: var(--salmon); stroke-width: 2.5; }
+  .svg-chart .area-path { fill: rgba(255,122,89,0.14); }
+  .svg-chart .dot { fill: var(--salmon); stroke: #fff; stroke-width: 1.5; }
+  .svg-chart .dot-label { font-size: 9px; fill: var(--navy); font-weight: 600; text-anchor: middle; }
+  .svg-chart .bar { fill: var(--navy); }
+  .svg-chart .bar-label { font-size: 9.5px; fill: var(--navy); font-weight: 600; text-anchor: middle; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Modern Vet — Customer LTV &amp; CAC Dashboard <span class="badge">LIVE DATA</span></h1>
+  <p>Sourced from VetIQ (BigQuery — EzyVet + Shopify/Floof) and Google Ads API · Compiled 1 Jul 2026</p>
+</header>
+
+<div class="container">
+
+  <div class="callout info">
+    <b>Scope note:</b> LTV figures come from VetIQ's customer acquisition dataset, which starts <b>17 Feb 2025</b> (no 2024 data — marketing acquisition tracking began Feb 2025). Data runs through <b>30 Jun 2026</b>. Cost/CAC figures are pulled live from the <b>Modern Vet Google Ads account</b> only — Instagram and Google Maps/GMB don't have a comparable ad-spend API (Maps listings are largely organic/free), so CAC is shown for Google Ads campaigns only.
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="label">Total Acquired Customers</div>
+      <div class="value">1,759</div>
+      <div class="sub">Feb 2025 – Jun 2026</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">Total LTV Revenue</div>
+      <div class="value">4.76M</div>
+      <div class="sub">AED, all channels</div>
+    </div>
+    <div class="kpi-card accent">
+      <div class="label">Network LTV / Customer</div>
+      <div class="value">2,706</div>
+      <div class="sub">AED average</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">Google Ads Spend (matched)</div>
+      <div class="value">697K</div>
+      <div class="sub">AED, across 15 matched campaigns</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">Google Ads Customers (matched)</div>
+      <div class="value">99</div>
+      <div class="sub">of 112 total (2 unmatched)</div>
+    </div>
+  </div>
+
+  <section>
+    <h2>LTV by Acquisition Channel</h2>
+    <div class="section-sub">Full network, Feb 2025 – Jun 2026</div>
+    <table>
+      <thead><tr>
+        <th>Channel</th><th>Customers</th><th>Total LTV Revenue (AED)</th><th>LTV / Customer (AED)</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>Google Ads</td><td>112</td><td>352,440</td><td><b>3,147</b></td></tr>
+        <tr><td>Organic / Direct / Non-Campaign</td><td>670</td><td>1,913,913</td><td>2,857</td></tr>
+        <tr><td>Organic Social / Instagram <span class="pill na">low n</span></td><td>7</td><td>19,602</td><td>2,800</td></tr>
+        <tr><td>Google Maps / GMB</td><td>917</td><td>2,380,041</td><td>2,595</td></tr>
+        <tr><td>Floof (E-commerce)</td><td>53</td><td>94,641</td><td>1,786</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Google Ads — Campaign-Level LTV, Cost &amp; CAC</h2>
+    <div class="section-sub">17 campaigns from VetIQ acquisition data, joined against live Google Ads spend (same date range). Sorted by LTV:CAC ratio.</div>
+    <div class="callout">
+      <b>Read this carefully:</b> most LTV:CAC ratios below are <b>under 1.0</b> — meaning ad spend per acquired customer currently exceeds the revenue that customer has generated <i>so far</i>. This is expected and not necessarily alarming: LTV here is <b>revenue-to-date</b>, not true lifetime value — many customers (especially 2026 cohorts) haven't had time to return for repeat visits yet. Also note cost is total campaign spend ÷ VetIQ's tracked "acquired customers," which may undercount total conversions attributed by Google Ads' own model — so CAC here may run <i>higher</i> than Google Ads' own reported cost-per-conversion. Use this for directional comparison between campaigns, not as an absolute profitability verdict.
+    </div>
+    <table>
+      <thead><tr>
+        <th>Campaign</th><th>Customers</th><th>LTV Revenue (AED)</th><th>LTV / Customer</th><th>Ad Spend (AED)</th><th>CAC (AED)</th><th>LTV : CAC</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>DownTown Srch - Local_day - Near me</td><td>1</td><td>30,712</td><td>30,712</td><td>20,141</td><td>20,141</td><td><span class="pill good">1.52x</span></td></tr>
+        <tr><td>Emergency Daytime Campaign</td><td>18</td><td>73,456</td><td>4,081</td><td>69,421</td><td>3,857</td><td><span class="pill good">1.06x</span></td></tr>
+        <tr><td>Palm Clinic Search Campaign</td><td>8</td><td>23,878</td><td>2,985</td><td>25,752</td><td>3,219</td><td><span class="pill warn">0.93x</span></td></tr>
+        <tr><td>Local Vet PC_new_dxb_en_day_4.25++_CG1</td><td>3</td><td>14,775</td><td>4,925</td><td>16,716</td><td>5,572</td><td><span class="pill warn">0.88x</span></td></tr>
+        <tr><td>Search ll 24 Hours and Emergency (Night-time)</td><td>15</td><td>38,448</td><td>2,563</td><td>56,219</td><td>3,748</td><td><span class="pill warn">0.68x</span></td></tr>
+        <tr><td>Search ll 24 Hours and Emergency ll Night</td><td>13</td><td>32,259</td><td>2,481</td><td>73,540</td><td>5,657</td><td><span class="pill bad">0.44x</span></td></tr>
+        <tr><td>Al Wasl Srch - Local_day - Near Me</td><td>4</td><td>10,442</td><td>2,611</td><td>28,415</td><td>7,104</td><td><span class="pill bad">0.37x</span></td></tr>
+        <tr><td>Search ll Pet Consultations</td><td>11</td><td>23,857</td><td>2,169</td><td>93,985</td><td>8,544</td><td><span class="pill bad">0.25x</span></td></tr>
+        <tr><td>Main Campaign (Services)</td><td>2</td><td>3,441</td><td>1,720</td><td>54,113</td><td>27,057</td><td><span class="pill bad">0.06x</span></td></tr>
+        <tr><td>Vet Near Me</td><td>5</td><td>3,647</td><td>729</td><td>67,800</td><td>13,560</td><td><span class="pill bad">0.05x</span></td></tr>
+        <tr><td>Search ll Mobile clinic</td><td>2</td><td>2,652</td><td>1,326</td><td>75,092</td><td>37,546</td><td><span class="pill bad">0.04x</span></td></tr>
+        <tr><td>Search ll Dental care</td><td>1</td><td>863</td><td>863</td><td>20,145</td><td>20,145</td><td><span class="pill bad">0.04x</span></td></tr>
+        <tr><td>Search ll 24 Hours and Emergency ll Day</td><td>4</td><td>2,186</td><td>546</td><td>95,569</td><td>23,892</td><td><span class="pill bad">0.02x</span></td></tr>
+        <tr><td>JVC General Campaign</td><td>6</td><td>18,925</td><td>3,154</td><td><span class="na-cell">no spend matched</span></td><td>—</td><td><span class="pill na">N/A</span></td></tr>
+        <tr><td>JLT Branch</td><td>6</td><td>17,800</td><td>2,967</td><td><span class="na-cell">no spend matched</span></td><td>—</td><td><span class="pill na">N/A</span></td></tr>
+        <tr><td>mobile vet-2025_S_dxb_en_daytime_5.25++_CG1</td><td>3</td><td>9,022</td><td>3,007</td><td><span class="na-cell">no spend matched</span></td><td>—</td><td><span class="pill na">N/A</span></td></tr>
+        <tr><td>Out of Coverage</td><td>2</td><td>2,214</td><td>1,107</td><td><span class="na-cell">no spend matched</span></td><td>—</td><td><span class="pill na">N/A</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="two-col">
+    <section>
+      <h2>Monthly LTV Per Customer Trend</h2>
+      <div class="section-sub">Feb 2025 – Jun 2026 (17 months) · newer cohorts trend lower simply due to less time to accumulate spend</div>
+      <svg class="svg-chart" viewBox="0 0 720 320" preserveAspectRatio="xMidYMid meet">
+        <line class="gridline" x1="50" y1="20.0" x2="700" y2="20.0"/>
+        <text class="axis-label" x="10" y="24.0">4432</text>
+        <line class="gridline" x1="50" y1="80.0" x2="700" y2="80.0"/>
+        <text class="axis-label" x="10" y="84.0">3729</text>
+        <line class="gridline" x1="50" y1="140.0" x2="700" y2="140.0"/>
+        <text class="axis-label" x="10" y="144.0">3027</text>
+        <line class="gridline" x1="50" y1="200.0" x2="700" y2="200.0"/>
+        <text class="axis-label" x="10" y="204.0">2325</text>
+        <line class="gridline" x1="50" y1="260.0" x2="700" y2="260.0"/>
+        <text class="axis-label" x="10" y="264.0">1623</text>
+        <polygon class="area-path" points="50.0,260 50.0,40.0 90.6,90.6 131.2,132.6 171.9,193.2 212.5,160.4 253.1,192.9 293.8,201.4 334.4,220.0 375.0,151.7 415.6,131.2 456.2,169.2 496.9,192.2 537.5,123.6 578.1,175.1 618.8,230.0 659.4,214.0 700.0,240.0 700.0,260"/>
+        <polyline class="line-path" points="50.0,40.0 90.6,90.6 131.2,132.6 171.9,193.2 212.5,160.4 253.1,192.9 293.8,201.4 334.4,220.0 375.0,151.7 415.6,131.2 456.2,169.2 496.9,192.2 537.5,123.6 578.1,175.1 618.8,230.0 659.4,214.0 700.0,240.0"/>
+        <circle class="dot" cx="50.0" cy="40.0" r="3.5"/>
+        <circle class="dot" cx="90.6" cy="90.6" r="3.5"/>
+        <circle class="dot" cx="131.2" cy="132.6" r="3.5"/>
+        <circle class="dot" cx="171.9" cy="193.2" r="3.5"/>
+        <circle class="dot" cx="212.5" cy="160.4" r="3.5"/>
+        <circle class="dot" cx="253.1" cy="192.9" r="3.5"/>
+        <circle class="dot" cx="293.8" cy="201.4" r="3.5"/>
+        <circle class="dot" cx="334.4" cy="220.0" r="3.5"/>
+        <circle class="dot" cx="375.0" cy="151.7" r="3.5"/>
+        <circle class="dot" cx="415.6" cy="131.2" r="3.5"/>
+        <circle class="dot" cx="456.2" cy="169.2" r="3.5"/>
+        <circle class="dot" cx="496.9" cy="192.2" r="3.5"/>
+        <circle class="dot" cx="537.5" cy="123.6" r="3.5"/>
+        <circle class="dot" cx="578.1" cy="175.1" r="3.5"/>
+        <circle class="dot" cx="618.8" cy="230.0" r="3.5"/>
+        <circle class="dot" cx="659.4" cy="214.0" r="3.5"/>
+        <circle class="dot" cx="700.0" cy="240.0" r="3.5"/>
+        <text class="dot-label" x="50.0" y="32.0" text-anchor="middle">4198</text>
+        <text class="dot-label" x="90.6" y="82.6" text-anchor="middle">3605</text>
+        <text class="dot-label" x="131.2" y="124.6" text-anchor="middle">3114</text>
+        <text class="dot-label" x="171.9" y="185.2" text-anchor="middle">2405</text>
+        <text class="dot-label" x="212.5" y="152.4" text-anchor="middle">2789</text>
+        <text class="dot-label" x="253.1" y="184.9" text-anchor="middle">2408</text>
+        <text class="dot-label" x="293.8" y="193.4" text-anchor="middle">2309</text>
+        <text class="dot-label" x="334.4" y="212.0" text-anchor="middle">2091</text>
+        <text class="dot-label" x="375.0" y="143.7" text-anchor="middle">2890</text>
+        <text class="dot-label" x="415.6" y="123.2" text-anchor="middle">3130</text>
+        <text class="dot-label" x="456.2" y="161.2" text-anchor="middle">2685</text>
+        <text class="dot-label" x="496.9" y="184.2" text-anchor="middle">2416</text>
+        <text class="dot-label" x="537.5" y="115.6" text-anchor="middle">3220</text>
+        <text class="dot-label" x="578.1" y="167.1" text-anchor="middle">2617</text>
+        <text class="dot-label" x="618.8" y="222.0" text-anchor="middle">1975</text>
+        <text class="dot-label" x="659.4" y="206.0" text-anchor="middle">2162</text>
+        <text class="dot-label" x="700.0" y="232.0" text-anchor="middle">1857</text>
+        <text class="axis-label" x="38.0" y="285" transform="rotate(-40 38.0 285)">25-02</text>
+        <text class="axis-label" x="119.2" y="285" transform="rotate(-40 119.2 285)">25-04</text>
+        <text class="axis-label" x="200.5" y="285" transform="rotate(-40 200.5 285)">25-06</text>
+        <text class="axis-label" x="281.8" y="285" transform="rotate(-40 281.8 285)">25-08</text>
+        <text class="axis-label" x="363.0" y="285" transform="rotate(-40 363.0 285)">25-10</text>
+        <text class="axis-label" x="444.2" y="285" transform="rotate(-40 444.2 285)">25-12</text>
+        <text class="axis-label" x="525.5" y="285" transform="rotate(-40 525.5 285)">26-02</text>
+        <text class="axis-label" x="606.8" y="285" transform="rotate(-40 606.8 285)">26-04</text>
+        <text class="axis-label" x="688.0" y="285" transform="rotate(-40 688.0 285)">26-06</text>
+      </svg>
+    </section>
+    <section>
+      <h2>Monthly New Customers</h2>
+      <div class="section-sub">Volume of acquired customers per month</div>
+      <svg class="svg-chart" viewBox="0 0 720 320" preserveAspectRatio="xMidYMid meet">
+        <line class="gridline" x1="50" y1="20.0" x2="700" y2="20.0"/>
+        <text class="axis-label" x="10" y="24.0">186</text>
+        <line class="gridline" x1="50" y1="80.0" x2="700" y2="80.0"/>
+        <text class="axis-label" x="10" y="84.0">140</text>
+        <line class="gridline" x1="50" y1="140.0" x2="700" y2="140.0"/>
+        <text class="axis-label" x="10" y="144.0">93</text>
+        <line class="gridline" x1="50" y1="200.0" x2="700" y2="200.0"/>
+        <text class="axis-label" x="10" y="204.0">46</text>
+        <line class="gridline" x1="50" y1="260.0" x2="700" y2="260.0"/>
+        <text class="axis-label" x="10" y="264.0">0</text>
+        <rect class="bar" x="57.6" y="181.3" width="22.9" height="78.7" rx="2"/>
+        <rect class="bar" x="95.9" y="20.0" width="22.9" height="240.0" rx="2"/>
+        <rect class="bar" x="134.1" y="147.7" width="22.9" height="112.3" rx="2"/>
+        <rect class="bar" x="172.4" y="161.9" width="22.9" height="98.1" rx="2"/>
+        <rect class="bar" x="210.6" y="163.2" width="22.9" height="96.8" rx="2"/>
+        <rect class="bar" x="248.8" y="161.9" width="22.9" height="98.1" rx="2"/>
+        <rect class="bar" x="287.1" y="178.7" width="22.9" height="81.3" rx="2"/>
+        <rect class="bar" x="325.3" y="172.3" width="22.9" height="87.7" rx="2"/>
+        <rect class="bar" x="363.5" y="129.7" width="22.9" height="130.3" rx="2"/>
+        <rect class="bar" x="401.8" y="146.5" width="22.9" height="113.5" rx="2"/>
+        <rect class="bar" x="440.0" y="128.4" width="22.9" height="131.6" rx="2"/>
+        <rect class="bar" x="478.2" y="84.5" width="22.9" height="175.5" rx="2"/>
+        <rect class="bar" x="516.5" y="106.5" width="22.9" height="153.5" rx="2"/>
+        <rect class="bar" x="554.7" y="34.2" width="22.9" height="225.8" rx="2"/>
+        <rect class="bar" x="592.9" y="105.2" width="22.9" height="154.8" rx="2"/>
+        <rect class="bar" x="631.2" y="121.9" width="22.9" height="138.1" rx="2"/>
+        <rect class="bar" x="669.4" y="106.5" width="22.9" height="153.5" rx="2"/>
+        <text class="bar-label" x="69.1" y="175.3">61</text>
+        <text class="bar-label" x="107.4" y="14.0">186</text>
+        <text class="bar-label" x="145.6" y="141.7">87</text>
+        <text class="bar-label" x="183.8" y="155.9">76</text>
+        <text class="bar-label" x="222.1" y="157.2">75</text>
+        <text class="bar-label" x="260.3" y="155.9">76</text>
+        <text class="bar-label" x="298.5" y="172.7">63</text>
+        <text class="bar-label" x="336.8" y="166.3">68</text>
+        <text class="bar-label" x="375.0" y="123.7">101</text>
+        <text class="bar-label" x="413.2" y="140.5">88</text>
+        <text class="bar-label" x="451.5" y="122.4">102</text>
+        <text class="bar-label" x="489.7" y="78.5">136</text>
+        <text class="bar-label" x="527.9" y="100.5">119</text>
+        <text class="bar-label" x="566.2" y="28.2">175</text>
+        <text class="bar-label" x="604.4" y="99.2">120</text>
+        <text class="bar-label" x="642.6" y="115.9">107</text>
+        <text class="bar-label" x="680.9" y="100.5">119</text>
+        <text class="axis-label" x="57.1" y="285" transform="rotate(-40 57.1 285)">25-02</text>
+        <text class="axis-label" x="133.6" y="285" transform="rotate(-40 133.6 285)">25-04</text>
+        <text class="axis-label" x="210.1" y="285" transform="rotate(-40 210.1 285)">25-06</text>
+        <text class="axis-label" x="286.5" y="285" transform="rotate(-40 286.5 285)">25-08</text>
+        <text class="axis-label" x="363.0" y="285" transform="rotate(-40 363.0 285)">25-10</text>
+        <text class="axis-label" x="439.5" y="285" transform="rotate(-40 439.5 285)">25-12</text>
+        <text class="axis-label" x="515.9" y="285" transform="rotate(-40 515.9 285)">26-02</text>
+        <text class="axis-label" x="592.4" y="285" transform="rotate(-40 592.4 285)">26-04</text>
+        <text class="axis-label" x="668.9" y="285" transform="rotate(-40 668.9 285)">26-06</text>
+      </svg>
+    </section>
+  </div>
+
+  <section>
+    <h2>Monthly Detail Table</h2>
+    <table>
+      <thead><tr><th>Month</th><th>Customers</th><th>Revenue (AED)</th><th>LTV / Customer (AED)</th></tr></thead>
+      <tbody>
+        <tr><td>2025-02</td><td>61</td><td>256,049</td><td>4,198</td></tr>
+        <tr><td>2025-03</td><td>186</td><td>670,593</td><td>3,605</td></tr>
+        <tr><td>2025-04</td><td>87</td><td>270,959</td><td>3,115</td></tr>
+        <tr><td>2025-05</td><td>76</td><td>182,810</td><td>2,405</td></tr>
+        <tr><td>2025-06</td><td>75</td><td>209,149</td><td>2,789</td></tr>
+        <tr><td>2025-07</td><td>76</td><td>183,040</td><td>2,408</td></tr>
+        <tr><td>2025-08</td><td>63</td><td>145,444</td><td>2,309</td></tr>
+        <tr><td>2025-09</td><td>68</td><td>142,181</td><td>2,091</td></tr>
+        <tr><td>2025-10</td><td>101</td><td>291,911</td><td>2,890</td></tr>
+        <tr><td>2025-11</td><td>88</td><td>275,460</td><td>3,130</td></tr>
+        <tr><td>2025-12</td><td>102</td><td>273,908</td><td>2,685</td></tr>
+        <tr><td>2026-01</td><td>136</td><td>328,632</td><td>2,416</td></tr>
+        <tr><td>2026-02</td><td>119</td><td>383,157</td><td>3,220</td></tr>
+        <tr><td>2026-03</td><td>175</td><td>458,013</td><td>2,617</td></tr>
+        <tr><td>2026-04</td><td>120</td><td>236,967</td><td>1,975</td></tr>
+        <tr><td>2026-05</td><td>107</td><td>231,331</td><td>2,162</td></tr>
+        <tr><td>2026-06</td><td>119</td><td>221,034</td><td>1,857</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Key Takeaways</h2>
+    <ul style="line-height:1.9; font-size:14px; color:var(--text); padding-left:20px;">
+      <li><b>Google Ads drives the highest LTV/customer</b> (3,147 AED) of any channel, ahead of Organic/Direct (2,857) and Google Maps/GMB (2,595) — despite Maps/GMB bringing in far more volume (917 vs 112 customers).</li>
+      <li><b>Emergency Daytime Campaign</b> is the standout Google Ads performer on both fronts: highest volume (18 customers) and one of the better LTV:CAC ratios (1.06) among campaigns with meaningful spend.</li>
+      <li><b>Search ll Mobile clinic, Search ll 24 Hrs Emergency ll Day, and Search ll Dental care</b> show very low LTV:CAC (0.02–0.04) — high spend relative to acquired-customer revenue so far. Worth a closer look at whether these are newer campaigns still maturing, or genuinely underperforming.</li>
+      <li><b>JVC General Campaign &amp; JLT Branch</b> show zero matched ad spend in Google Ads for this period despite acquiring 6 customers each — likely spend logged under a different campaign name/account, or these conversions came via a different attribution path. Needs reconciliation.</li>
+      <li><b>2 VetIQ campaigns unmatched</b> against Google Ads data ("mobile vet-2025_S_dxb_en_daytime_5.25++_CG1", "Out of Coverage") — possibly renamed/paused campaigns or a different sub-account. Flagged for follow-up.</li>
+      <li><b>Cohort maturity effect:</b> LTV/customer peaked at 4,198 AED for the Feb 2025 cohort (most time to spend) and trends down toward 1,857 AED for Jun 2026 — this is a timing artifact, not a quality decline.</li>
+    </ul>
+  </section>
+
+</div>
+
+<footer>Built by Cheshire · Data: VetIQ (BigQuery) + Google Ads API (Modern Vet, customer 6049720476) · Generated 1 Jul 2026</footer>
+
+</body>
+</html>
