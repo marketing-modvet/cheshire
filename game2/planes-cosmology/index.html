@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Пять Слоёв Сущего — Космология Альраанир</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+:root{
+  --bg: #0b0d14;
+  --bg-panel: #12151f;
+  --bg-panel-2: #171a26;
+  --gold: #c9a45c;
+  --gold-bright: #e8c988;
+  --ink: #d9d3c0;
+  --ink-dim: #a79f8a;
+  --line: #3a3527;
+  --accent-red: #7a2e2e;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background: radial-gradient(ellipse at top, #14182299 0%, var(--bg) 60%), var(--bg);
+  color: var(--ink);
+  font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+.paper-texture{
+  position: fixed; inset:0; pointer-events:none; z-index: 0; opacity:.05;
+  background-image: radial-gradient(circle at 20% 30%, #fff 0, transparent 1px),
+                     radial-gradient(circle at 70% 60%, #fff 0, transparent 1px),
+                     radial-gradient(circle at 40% 80%, #fff 0, transparent 1px);
+  background-size: 140px 140px, 180px 180px, 220px 220px;
+}
+
+.cover{
+  min-height: 100vh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center;
+  padding: 60px 20px;
+  border-bottom: 3px double var(--gold);
+  background:
+    linear-gradient(180deg, rgba(11,13,20,0) 0%, rgba(11,13,20,.85) 78%, var(--bg) 100%),
+    radial-gradient(ellipse at center, #1e2434 0%, #0b0d14 75%);
+  position: relative;
+}
+.cover::before{
+  content:"";
+  position:absolute; inset: 24px;
+  border: 1px solid var(--gold);
+  opacity: .5;
+  pointer-events:none;
+}
+.cover::after{
+  content:"";
+  position:absolute; inset: 32px;
+  border: 1px solid var(--gold);
+  opacity: .25;
+  pointer-events:none;
+}
+.cover .kicker{
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-size: 14px;
+  margin-bottom: 22px;
+}
+.cover h1{
+  font-family: 'Cinzel Decorative', 'Cinzel', serif;
+  font-weight: 900;
+  font-size: 64px;
+  margin: 0 0 18px 0;
+  color: var(--gold-bright);
+  text-shadow: 0 0 30px rgba(232,201,136,.25);
+  line-height: 1.15;
+}
+.cover h2{
+  font-family: 'Cinzel', serif;
+  font-weight: 400;
+  font-size: 22px;
+  color: var(--ink-dim);
+  margin: 0 0 40px 0;
+  max-width: 640px;
+}
+.ornament{
+  width: 200px; height: auto; margin: 10px 0 36px 0; opacity:.8;
+}
+.cover .foreword{
+  max-width: 620px;
+  font-style: italic;
+  color: var(--ink-dim);
+  font-size: 16px;
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+  margin-top: 10px;
+}
+
+.container{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 70px 32px 40px 32px;
+  position: relative; z-index: 1;
+}
+
+.intro-section{
+  padding-bottom: 60px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 10px;
+}
+.intro-section h2.section-title{
+  text-align:center;
+}
+.intro-section p{
+  font-size: 19px;
+  color: var(--ink);
+}
+.intro-section p:first-of-type::first-letter{
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 52px;
+  float: left;
+  line-height: .8;
+  padding: 6px 8px 0 0;
+  color: var(--gold-bright);
+}
+
+.section-title{
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  color: var(--gold-bright);
+  font-size: 15px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0 0 34px 0;
+}
+.section-title .rule{
+  display:block;
+  width: 90px;
+  height: 1px;
+  background: var(--gold);
+  margin: 14px auto 0 auto;
+  opacity:.6;
+}
+
+.plane-card{
+  padding: 60px 0 62px 0;
+  border-bottom: 1px solid var(--line);
+}
+.plane-card:last-of-type{
+  border-bottom: none;
+}
+.plane-header{
+  text-align: center;
+  margin-bottom: 26px;
+}
+.plane-number{
+  font-family: 'Cinzel', serif;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+.plane-name{
+  font-family: 'Cinzel Decorative', 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 42px;
+  color: var(--gold-bright);
+  margin: 0 0 10px 0;
+  letter-spacing: .02em;
+}
+.plane-epithet{
+  font-family: 'Cinzel', serif;
+  font-style: italic;
+  font-size: 17px;
+  color: var(--ink-dim);
+  letter-spacing: .04em;
+}
+
+.plane-image-wrap{
+  margin: 34px auto 40px auto;
+  max-width: 880px;
+  position: relative;
+}
+.plane-image-wrap img{
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--gold);
+  outline: 8px solid #05060a;
+  outline-offset: -8px;
+  box-shadow: 0 24px 60px rgba(0,0,0,.6), 0 0 0 1px rgba(0,0,0,.4);
+  filter: saturate(1.03) contrast(1.03);
+}
+
+.plane-text p{
+  margin: 0 0 18px 0;
+  color: var(--ink);
+  font-size: 17px;
+}
+.plane-text p:first-child::first-letter{
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 52px;
+  float: left;
+  line-height: .8;
+  padding: 6px 8px 0 0;
+  color: var(--gold-bright);
+}
+
+.letter-fragment{
+  margin: 26px auto 0 auto;
+  max-width: 720px;
+  border-left: 2px solid var(--gold);
+  padding: 4px 0 4px 26px;
+  font-style: italic;
+  color: var(--ink-dim);
+  font-size: 16px;
+}
+.letter-fragment .label{
+  display:block;
+  font-style: normal;
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+@media (max-width: 760px){
+  .plane-name{ font-size: 30px; }
+  .cover h1{ font-size: 40px; }
+}
+
+.summary-wrap{
+  padding: 60px 0 20px 0;
+}
+table.summary{
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+table.summary th{
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 2px solid var(--gold);
+}
+table.summary td{
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  vertical-align: top;
+}
+table.summary tr:hover td{
+  background: rgba(201,164,92,.06);
+}
+table.summary td.plane-col{
+  font-family: 'Cinzel', serif;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+.colophon{
+  text-align: center;
+  padding: 70px 20px 90px 20px;
+  color: var(--ink-dim);
+  font-size: 14px;
+  font-style: italic;
+  border-top: 3px double var(--gold);
+  margin-top: 20px;
+}
+.colophon .sigil{
+  color: var(--gold);
+  font-size: 22px;
+  margin-bottom: 14px;
+  letter-spacing: .3em;
+}
+</style>
+</head>
+<body>
+<div class="paper-texture"></div>
+
+<div class="cover">
+  <div class="kicker">Космология Мира</div>
+  <h1>Пять Слоёв<br>Сущего</h1>
+  <h2>Свод о планах бытия, известных смертным Альраанир, с указанием их природы, обитателей и практического значения</h2>
+  <svg class="ornament" viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="20" x2="80" y2="20" stroke="#c9a45c" stroke-width="1"/>
+    <circle cx="100" cy="20" r="6" stroke="#c9a45c" stroke-width="1.2"/>
+    <circle cx="100" cy="20" r="2" fill="#c9a45c"/>
+    <line x1="120" y1="20" x2="200" y2="20" stroke="#c9a45c" stroke-width="1"/>
+  </svg>
+  <div class="foreword">Отрывок из трактата «О пяти слоях сущего», авторство приписывается безымянному архимагу Академии Акриса, жившему предположительно во времена Третьего Раскола. Оригинал утрачен — сохранившиеся списки расходятся в деталях, но сходятся в главном.</div>
+</div>
+
+<div class="container">
+
+  <div class="intro-section">
+    <div class="section-title">Пролог: Почему их всего пять<span class="rule"></span></div>
+    <p>Пришлые из других земель маги порой приносят с собой рассказы о девяти кругах, бесчисленных Внешних Сферах и тысячах Домов — и каждый раз ошибаются. Академия Акриса давно установила это как факт: в Альраанир нет девяти кругов. Нет тысячи внешних сфер. Нет бесчисленных подпланов и забытых владений. Это не упрощённая доктрина для удобства смертных умов и не цензура знания ради безопасности рассудка — это просто то, как устроен этот конкретный мир. Слухи о большем числе планов родом из чужих земель или из старых, давно утративших силу книг — не более чем сказки, пересказывающие чужую космологию так, будто она наша.</p>
+    <p>Пять слоёв. Не девять кругов, не бесчисленные Внешние Сферы, не тысяча Домов — потому что их просто нет. Ровно пять слоёв бытия — не потому, что остальные скрыты или непостижимы для изучения, а потому что их никогда не существовало в этом мире. Альраанир прост не потому, что смертные его упростили для себя, а потому, что таким он был изначально.</p>
+  </div>
+
+  <!-- ===================== I. МАТЕРИАЛЬНЫЙ ПЛАН ===================== -->
+  <div class="plane-card">
+    <div class="plane-header">
+      <div class="plane-number">План I</div>
+      <div class="plane-name">Материальный План</div>
+      <div class="plane-epithet">Дом смертных</div>
+    </div>
+    <div class="plane-image-wrap">
+      <img src="Planes/Material.jpg" alt="Материальный план — Лаернис с высоты птичьего полёта">
+    </div>
+    <div class="plane-text">
+      <p>Мир, в котором вы читаете эти строки — Альраанир со всеми его континентами, включая Лаернис, — единственный из пяти планов, где магия и материя существуют в честном равновесии. Здесь огонь обжигает одинаково что дварфа, что дракона, здесь время течёт в одну сторону и с одной скоростью для всех, и здесь — что важнее всего для остальных четырёх планов — рождаются существа, чья вера, воля или магическое мастерство однажды могут вознести их за пределы смертной природы.</p>
+      <p>Маги континента давно заметили: Материальный план — не просто «родной дом» в череде прочих. Он — единственный источник новых богов, единственное место, где Ад вербует души по контракту, и единственная твердь, к которой Мир Фей испытывает нечто похожее на извращённую тоску. Всё остальное сущее так или иначе вращается вокруг него, как мотыльки вокруг пламени, которое само не подозревает о собственной важности.</p>
+    </div>
+  </div>
+
+  <!-- ===================== II. АД ===================== -->
+  <div class="plane-card">
+    <div class="plane-header">
+      <div class="plane-number">План II</div>
+      <div class="plane-name">Ад</div>
+      <div class="plane-epithet">Контора Проклятых</div>
+    </div>
+    <div class="plane-image-wrap">
+      <img src="Planes/Hell.jpg" alt="Ад — бюрократическая инфернальная контора">
+    </div>
+    <div class="plane-text">
+      <p>Легенды соседних земель любят пугать детей девятью кругами и бесконечными ярусами адских мук. Действительность куда скучнее — и от этого только страшнее. Ад Альраанир не имеет ярусов вовсе: это единственный, безразмерный слой бытия, устроенный, по свидетельствам немногих вернувшихся оттуда живыми, до отвращения похоже на огромную торговую контору или министерство, которое просто никогда не закрывается.</p>
+      <p>Дьяволы, населяющие Ад, — существа договороспособные почти до абсурда. У них есть чины, ранги, участки ответственности и внутренняя переписка (говорят, ходатайство о продлении контракта на душу может застрять в «адской бюрократии» на десятилетия земного времени — к неудовольствию обеих сторон). Мучение здесь — не искусство и не самоцель, а естественное следствие неисполненного или неверно прочитанного контракта. Дьявол скорее удивится, если вы заподозрите его в бессмысленной жестокости: жестокость без выгоды для дьявола так же нелепа, как убыточная сделка.</p>
+      <p>Именно поэтому маги континента, вопреки очевидной опасности, порой сознательно ищут контакта с Адом: с дьяволом, в отличие от демона Бездны, можно договориться — было бы что предложить, и достаточно ясно прописанный контракт.</p>
+      <div class="letter-fragment">
+        <span class="label">Сохранившийся фрагмент чужого письма, вложенный между страниц оригинала</span>
+        «...комиссия по делам заблудших душ Восьмого Ранга вновь отклонила прошение — на этот раз по причине "неполного описания предмета сделки в пункте третьем". Написал заново. Ждём ответа. Со смертной стороны прошло уже одиннадцать лет...»
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== III. МИР ФЕЙ ===================== -->
+  <div class="plane-card">
+    <div class="plane-header">
+      <div class="plane-number">План III</div>
+      <div class="plane-name">Мир Фей</div>
+      <div class="plane-epithet">Земля Наизнанку</div>
+    </div>
+    <div class="plane-image-wrap">
+      <img src="Planes/Feyworld.jpg" alt="Мир Фей — искажённый живой лес">
+    </div>
+    <div class="plane-text">
+      <p>Если Материальный план — трезвый, честный мир, то Мир Фей — его пьяный, смеющийся близнец, вывернутый наизнанку. Это не отдельная вселенная, а искажённое зеркальное отражение той же земли: та же река течёт там иначе, тот же лес растёт гуще и живее, а тени в нём падают порой не в ту сторону, куда светит их источник.</p>
+      <p>Населяют его феи, дриады, спригганы и десятки иных существ, для которых человеческие понятия правды, времени и обещания попросту не имеют смысла в привычном виде. Феи почти никогда не лгут напрямую — это ниже их достоинства. Вместо этого они играют словами так искусно, что самая честная фраза становится ловушкой для того, кто не уточнил формулировку. «Погости у нас одну ночь» может обернуться годом на Материальном плане — а может и наоборот, если гостя сочли скучным.</p>
+      <p>Путешественники, вернувшиеся оттуда, рассказывают о непреходящем ощущении, будто сам воздух там смеётся над тобой — не злобно, а с той же лёгкой, снисходительной иронией, с которой взрослый смотрит на всерьёз разгневанного ребёнка. Опаснее всего в Мире Фей не то, что там хотят причинить вред, а то, что там искренне не понимают, зачем смертным вообще так важны такие скучные вещи, как «постоянство» и «правда».</p>
+    </div>
+  </div>
+
+  <!-- ===================== IV. АСТРАЛ ===================== -->
+  <div class="plane-card">
+    <div class="plane-header">
+      <div class="plane-number">План IV</div>
+      <div class="plane-name">Астрал</div>
+      <div class="plane-epithet">Океан Начал</div>
+    </div>
+    <div class="plane-image-wrap">
+      <img src="Planes/Astral.jpg" alt="Астрал — бескрайний океан магической субстанции">
+    </div>
+    <div class="plane-text">
+      <p>Между всеми прочими планами лежит Астрал — необъятное, почти бесконечное море чистой магической субстанции, серебристо-лавандовой, текучей, живой на ощупь. Именно здесь, а не в каком-то заранее уготованном «небесном царстве», оказываются смертные, однажды перешагнувшие порог обычного бытия через магию, веру миллионов или деяния, изменившие судьбу целых народов.</p>
+      <p>Боги Альраанир — не изначальные силы творения, а именно такие вознёсшиеся смертные. Оказавшись в Астрале, каждый из них по крупице выстраивает собственный маленький мир из окружающей магической субстанции — остров личной власти и веры, плавающий в бескрайнем океане возможного. Такие острова-миры нельзя увидеть с Материального плана напрямую, но их эхо чувствуют жрецы и паладины, чья вера черпает силу именно оттуда.</p>
+      <p>Помимо божественных владений, Астрал служит магам вполне практическим целям: это естественная среда для телепортации между дальними точками мира, для создания карманных измерений-хранилищ (архимаги континента годами копят в таких «карманах» целые библиотеки и арсеналы) и для дальних магических странствий. Расстояние здесь подчиняется не столько физическим законам, сколько воле и ясности намерения путешествующего — отчего опытный маг может пересечь Астрал за миг, а неопытный рискует блуждать в нём годами и столетиями, если вообще выберется.</p>
+    </div>
+  </div>
+
+  <!-- ===================== V. БЕЗДНА ===================== -->
+  <div class="plane-card">
+    <div class="plane-header">
+      <div class="plane-number">План V</div>
+      <div class="plane-name">Бездна</div>
+      <div class="plane-epithet">То, О Чём Не Говорят Вслух</div>
+    </div>
+    <div class="plane-image-wrap">
+      <img src="Planes/Abyss.jpg" alt="Бездна — хаотичная бесформенная пустота">
+    </div>
+    <div class="plane-text">
+      <p>Если Ад пугает своей холодной упорядоченностью, а Мир Фей — насмешливой чуждостью, то Бездна пугает попросту тем, что о ней почти нечего сказать наверняка. Здесь обитают демоны — в противоположность дисциплинированным дьяволам Ада, существа абсолютно недоговороспособные, лишённые какой-либо внутренней структуры или цели, кроме голода и разрушения ради самих себя.</p>
+      <p>Но демоны — даже не самое тревожное, что скрывает Бездна. Где-то в её беспредельных, текучих, лишённых формы и направления глубинах обитают древние боги — силы, существовавшие, по немногим уцелевшим записям, ещё до того, как первый смертный вознёсся в Астрал и создал первый пантеон. Их природа, цели и даже само их число неизвестны — архимаги, рискнувшие однажды заглянуть туда магическим взором, либо не возвращались вовсе, либо возвращались, отказываясь говорить о увиденном хоть слово.</p>
+      <p>Именно поэтому большинство трактатов, включая настоящий, ограничиваются одной фразой там, где о прочих планах можно писать главами: <b style="color:var(--gold-bright)">в Бездну не ходят, если могут этого избежать, а те немногие, кто вынужден был туда заглянуть, предпочитают эту главу своей жизни не пересказывать.</b></p>
+    </div>
+  </div>
+
+  <!-- ===================== СВОДНАЯ ТАБЛИЦА ===================== -->
+  <div class="summary-wrap">
+    <div class="section-title">Сводная таблица<span class="rule"></span></div>
+    <table class="summary">
+      <thead>
+        <tr><th>План</th><th>Обитатели</th><th>Природа</th><th>Практическое значение для смертных</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="plane-col">Материальный</td><td>Смертные народы Альраанир</td><td>Равновесие вещества и магии</td><td>Дом; единственный источник новых богов</td></tr>
+        <tr><td class="plane-col">Ад</td><td>Дьяволы</td><td>Единый безъярусный слой; строгая иерархия и контракты</td><td>Сделки — предсказуемые, но дорогие</td></tr>
+        <tr><td class="plane-col">Мир Фей</td><td>Феи и подобные существа</td><td>Искажённое зеркало мира; время и правда нелинейны</td><td>Опасные, но заманчивые странствия</td></tr>
+        <tr><td class="plane-col">Астрал</td><td>Вознёсшиеся боги-смертные</td><td>Бескрайный океан чистой магии</td><td>Телепортация, карманные хранилища, дальние странствия</td></tr>
+        <tr><td class="plane-col">Бездна</td><td>Демоны, древние боги</td><td>Хаос без формы, направления и структуры</td><td>Практически ничего — избегают все, кто может</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="colophon">
+    <div class="sigil">&#10022; &#10022; &#10022;</div>
+    <p>Настоящий свод составлен по сохранившимся спискам трактата «О пяти слоях сущего».<br>Всякое совпадение с иными космологиями следует считать случайным или ошибочным пересказом.</p>
+  </div>
+
+</div>
+</body>
+</html>
