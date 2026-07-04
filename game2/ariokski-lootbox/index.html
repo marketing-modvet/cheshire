@@ -152,13 +152,18 @@
 
 <script>
 const PRIZES = [
-  {w:40, name:"Купон на 5 пирожков", desc:"Бесплатно в «Пирожковой»",          rar:"Обычный",     col:"#cfcfcf", img:"assets/p1-pirozhki.png"},
-  {w:30, name:"Дварфийский шлем",    desc:"Крепкий обычный шлем",               rar:"Обычный",     col:"#cfcfcf", img:"assets/p2-shlem.png"},
-  {w:10, name:"Малое зелье лечения", desc:"Восстанавливает 2d4+2 ХП",           rar:"Обычный",     col:"#cfcfcf", img:"assets/p3-zelie.png"},
-  {w:10, name:"Кинжал +1",           desc:"Зачарованное оружие",                 rar:"Необычный",   col:"#46e251", img:"assets/p4-kinzhal.png"},
-  {w:5,  name:"Золотое кольцо",      desc:"Красный камень · +1 к Инсайту",       rar:"Необычный",   col:"#46e251", img:"assets/p5-kolco.png"},
-  {w:4,  name:"Купон на 500 золотых",desc:"В кузнях Стормхаммеров",              rar:"Редкий",      col:"#4aa3ff", img:"assets/p6-zoloto.png"},
-  {w:1,  name:"Меч из Мифрила",      desc:"★ ЛЕГЕНДАРНЫЙ ПРИЗ ★",                 rar:"Очень редкий",col:"#c46bff", img:"assets/p7-mech.png"},
+  {w:25,  name:"Купон на 5 пирожков", desc:"Бесплатно в «Пирожковой»",          rar:"Обычный",     col:"#cfcfcf", img:"assets/p1-pirozhki.png"},
+  {w:20,  name:"Дварфийский шлем",    desc:"Крепкий обычный шлем",               rar:"Обычный",     col:"#cfcfcf", img:"assets/p2-shlem.png"},
+  {w:15,  name:"Купон «Крути ещё»",   desc:"Позволяет бросить монету ещё раз бесплатно",  rar:"Обычный",     col:"#cfcfcf", img:"assets/p8-krutieshe.png"},
+  {w:10,  name:"Малое зелье лечения", desc:"Восстанавливает 2d4+2 ХП",           rar:"Обычный",     col:"#cfcfcf", img:"assets/p3-zelie.png"},
+  {w:10,  name:"Кинжал +1",           desc:"Зачарованное оружие",                 rar:"Необычный",   col:"#46e251", img:"assets/p4-kinzhal.png"},
+  {w:5,   name:"Дварфийский щит +1",   desc:"Круглый зачарованный щит, +1 к КД",   rar:"Необычный",   col:"#46e251", img:"assets/p9-shchit.png"},
+  {w:5,   name:"Одноручный дварфийский молот +1", desc:"Зачарованное оружие ближнего боя", rar:"Необычный",   col:"#46e251", img:"assets/p10-molot.png"},
+  {w:4,   name:"Купон на 500 золотых",desc:"В кузнях Стормхаммеров",              rar:"Редкий",      col:"#4aa3ff", img:"assets/p6-zoloto.png"},
+  {w:3,   name:"Золотое кольцо",      desc:"Красный камень · +1 к Инсайту",       rar:"Редкий",      col:"#4aa3ff", img:"assets/p5-kolco.png"},
+  {w:2,   name:"Браслет из платины", desc:"Изысканное украшение, без магических свойств", rar:"Редкий",      col:"#4aa3ff", img:"assets/p11-braslet.png"},
+  {w:0.7, name:"Тёплый плащ защиты +1", desc:"Зачарованная верхняя одежда, тёплый и защищающий", rar:"Очень редкий",col:"#a06bff", img:"assets/p12-plash.png"},
+  {w:0.3, name:"Меч из Мифрила",      desc:"★ ЛЕГЕНДАРНЫЙ ПРИЗ ★",                 rar:"Очень редкий",col:"#c46bff", img:"assets/p7-mech.png"},
 ];
 let opened = 0, busy = false;
 
