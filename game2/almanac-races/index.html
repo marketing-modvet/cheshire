@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Альманах Народов Лаернис</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+:root{
+  --bg: #0b0d14;
+  --bg-panel: #12151f;
+  --bg-panel-2: #171a26;
+  --gold: #c9a45c;
+  --gold-bright: #e8c988;
+  --ink: #d9d3c0;
+  --ink-dim: #a79f8a;
+  --line: #3a3527;
+  --accent-red: #7a2e2e;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background: radial-gradient(ellipse at top, #14182299 0%, var(--bg) 60%), var(--bg);
+  color: var(--ink);
+  font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+.paper-texture{
+  position: fixed; inset:0; pointer-events:none; z-index: 0; opacity:.05;
+  background-image: radial-gradient(circle at 20% 30%, #fff 0, transparent 1px),
+                     radial-gradient(circle at 70% 60%, #fff 0, transparent 1px),
+                     radial-gradient(circle at 40% 80%, #fff 0, transparent 1px);
+  background-size: 140px 140px, 180px 180px, 220px 220px;
+}
+
+.cover{
+  min-height: 100vh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center;
+  padding: 60px 20px;
+  border-bottom: 3px double var(--gold);
+  background:
+    linear-gradient(180deg, rgba(11,13,20,0) 0%, rgba(11,13,20,.85) 78%, var(--bg) 100%),
+    radial-gradient(ellipse at center, #1e2434 0%, #0b0d14 75%);
+  position: relative;
+}
+.cover::before{
+  content:"";
+  position:absolute; inset: 24px;
+  border: 1px solid var(--gold);
+  opacity: .5;
+  pointer-events:none;
+}
+.cover::after{
+  content:"";
+  position:absolute; inset: 32px;
+  border: 1px solid var(--gold);
+  opacity: .25;
+  pointer-events:none;
+}
+.cover .kicker{
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-size: 14px;
+  margin-bottom: 22px;
+}
+.cover h1{
+  font-family: 'Cinzel Decorative', 'Cinzel', serif;
+  font-weight: 900;
+  font-size: 64px;
+  margin: 0 0 18px 0;
+  color: var(--gold-bright);
+  text-shadow: 0 0 30px rgba(232,201,136,.25);
+  line-height: 1.15;
+}
+.cover h2{
+  font-family: 'Cinzel', serif;
+  font-weight: 400;
+  font-size: 22px;
+  color: var(--ink-dim);
+  margin: 0 0 40px 0;
+  max-width: 640px;
+}
+.ornament{
+  width: 200px; height: auto; margin: 10px 0 36px 0; opacity:.8;
+}
+.cover .foreword{
+  max-width: 560px;
+  font-style: italic;
+  color: var(--ink-dim);
+  font-size: 16px;
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+  margin-top: 10px;
+}
+
+.container{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 70px 32px 40px 32px;
+  position: relative; z-index: 1;
+}
+
+.intro-section{
+  padding-bottom: 60px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 10px;
+}
+.intro-section h2.section-title{
+  text-align:center;
+}
+.intro-section p{
+  font-size: 19px;
+  color: var(--ink);
+}
+
+.section-title{
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  color: var(--gold-bright);
+  font-size: 15px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0 0 34px 0;
+}
+.section-title .rule{
+  display:block;
+  width: 90px;
+  height: 1px;
+  background: var(--gold);
+  margin: 14px auto 0 auto;
+  opacity:.6;
+}
+
+.race-card{
+  padding: 56px 0 58px 0;
+  border-bottom: 1px solid var(--line);
+}
+.race-card:last-of-type{
+  border-bottom: none;
+}
+.race-header{
+  text-align: center;
+  margin-bottom: 22px;
+}
+.race-name{
+  font-family: 'Cinzel Decorative', 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 40px;
+  color: var(--gold-bright);
+  margin: 0 0 14px 0;
+  letter-spacing: .02em;
+}
+.race-stats{
+  display: inline-flex;
+  gap: 26px;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  letter-spacing: .06em;
+  color: var(--ink-dim);
+  text-transform: uppercase;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 0;
+  margin: 0 auto;
+}
+.race-stats b{
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.race-body{
+  display: grid;
+  grid-template-columns: 1.1fr 1.7fr;
+  gap: 40px;
+  align-items: start;
+  margin-top: 34px;
+}
+.race-portraits{
+  display: flex;
+  gap: 14px;
+}
+.portrait-wrap{
+  flex: 1;
+  position: relative;
+}
+.portrait-wrap img{
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--gold);
+  outline: 6px solid #05060a;
+  outline-offset: -6px;
+  box-shadow: 0 18px 40px rgba(0,0,0,.55), 0 0 0 1px rgba(0,0,0,.4);
+  filter: saturate(1.03) contrast(1.03);
+}
+.portrait-label{
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin-top: 8px;
+}
+
+.race-text p{
+  margin: 0 0 18px 0;
+  color: var(--ink);
+  font-size: 17px;
+}
+.race-text p:first-child::first-letter{
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 52px;
+  float: left;
+  line-height: .8;
+  padding: 6px 8px 0 0;
+  color: var(--gold-bright);
+}
+
+@media (max-width: 760px){
+  .race-body{ grid-template-columns: 1fr; }
+  .race-name{ font-size: 30px; }
+  .cover h1{ font-size: 40px; }
+}
+
+.summary-wrap{
+  padding: 60px 0 20px 0;
+}
+table.summary{
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+table.summary th{
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 2px solid var(--gold);
+}
+table.summary td{
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+}
+table.summary tr:hover td{
+  background: rgba(201,164,92,.06);
+}
+table.summary td.pop, table.summary td.life{
+  font-family: 'Cinzel', serif;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+.colophon{
+  text-align: center;
+  padding: 70px 20px 90px 20px;
+  color: var(--ink-dim);
+  font-size: 14px;
+  font-style: italic;
+  border-top: 3px double var(--gold);
+  margin-top: 20px;
+}
+.colophon .sigil{
+  color: var(--gold);
+  font-size: 22px;
+  margin-bottom: 14px;
+  letter-spacing: .3em;
+}
+</style>
+</head>
+<body>
+<div class="paper-texture"></div>
+
+<div class="cover">
+  <div class="kicker">Свод Разумных Народов</div>
+  <h1>Альманах<br>Народов Лаернис</h1>
+  <h2>Полное описание народов, населяющих единственный обитаемый континент мира Альраанир, с указанием их числа, срока жизни и нрава</h2>
+  <svg class="ornament" viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="20" x2="80" y2="20" stroke="#c9a45c" stroke-width="1"/>
+    <circle cx="100" cy="20" r="6" stroke="#c9a45c" stroke-width="1.2"/>
+    <circle cx="100" cy="20" r="2" fill="#c9a45c"/>
+    <line x1="120" y1="20" x2="200" y2="20" stroke="#c9a45c" stroke-width="1"/>
+  </svg>
+  <div class="foreword">Из вступительной главы неизвестного составителя, хранящейся в архивах одной из торговых гильдий континента.</div>
+</div>
+
+<div class="container">
+
+  <div class="intro-section">
+    <div class="section-title">О продолжительности жизни<span class="rule"></span></div>
+    <p>Читатель, впервые взявший в руки этот труд, должен прежде всего понять одну истину континента: срок жизни здесь определяется не только природой народа, но и кошельком.</p>
+    <p>Развитая и относительно доступная целительская магия разделила Лаернис на два неравных мира. Те, кому она доступна — знать, маги, зажиточные торговцы, чиновники, наёмники высокого ранга — доживают до пределов, указанных ниже, и почти не умирают от болезней. Простолюдины же, крестьяне и все, кому целители не по карману, редко видят и половину, и три четверти этого срока — обычно на 30–50% меньше.</p>
+    <p>Особый случай — маги, овладевшие подлинно высоким искусством. Для них смерть от старости практически перестаёт существовать, вне зависимости от народа, к которому они принадлежат. Оттого при дворах и в гильдиях континента складывается обманчивое впечатление, будто долгоживущих народов куда больше, чем есть на самом деле: один и тот же эльфийский советник или дварфийский архимаг остаётся на своём месте столетиями, пока десятки поколений людей сменяют друг друга рядом с ним.</p>
+    <p>Ниже — известные народы континента, с указанием их доли в общем населении и предельного срока жизни при должном уходе.</p>
+  </div>
+
+  <!-- ===================== ЛЮДИ ===================== -->
+  <div class="race-card">
+    <div class="race-header">
+      <div class="race-name">Люди</div>
+      <div class="race-stats"><span>Доля населения: <b>42%</b></span><span>Предельный срок жизни: <b>110–120 лет</b></span><span><b>Маги</b> — практически бессрочно</span></div>
+    </div>
+    <div class="race-body">
+      <div class="race-portraits">
+        <div class="portrait-wrap"><img src="Races/HumanMale.jpg" alt="Человек, мужчина"><div class="portrait-label">Мужчина</div></div>
+        <div class="portrait-wrap"><img src="Races/HumanFemale.jpg" alt="Человек, женщина"><div class="portrait-label">Женщина</div></div>
+      </div>
+      <div class="race-text">
+        <p>Самый многочисленный народ Лаернис и становой хребет его торговли, армий и престолов. Короткий, по меркам эльфов и дварфов, век люди привыкли компенсировать скоростью — они быстрее строят состояния и быстрее их теряют, быстрее меняют ремёсла и быстрее хватаются за оружие. Именно люди задают темп, в котором живёт весь континент, просто в силу своей численности.</p>
+        <p>Человек, переступивший порог магического бессмертия — редкость, о которой говорят как о живой легенде. Обычный же смертный смотрит на свою жизнь как на короткую гонку, отсюда — присущая людям одержимость наследием, титулами и стремлением успеть оставить след при жизни.</p>
+        <p>Ни один другой народ континента не может похвастаться такой пестротой судеб внутри самого себя: среди людей с равной лёгкостью встречаются и величайшие подвижники, и худшие мерзавцы континента — единой человеческой «природы», определяющей характер заранее, попросту не существует.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== ОРКИ ===================== -->
+  <div class="race-card">
+    <div class="race-header">
+      <div class="race-name">Орки</div>
+      <div class="race-stats"><span>Доля населения: <b>15%</b></span><span>Предельный срок жизни: <b>80–90 лет</b></span></div>
+    </div>
+    <div class="race-body">
+      <div class="race-portraits">
+        <div class="portrait-wrap"><img src="Races/OrcMale.jpg" alt="Орк, мужчина"><div class="portrait-label">Мужчина</div></div>
+        <div class="portrait-wrap"><img src="Races/OrcFemale.jpg" alt="Орк, женщина"><div class="portrait-label">Женщина</div></div>
+      </div>
+      <div class="race-text">
+        <p>Второй по численности народ континента после людей. Живут как в городах, полностью встроенные в торговлю и ремёсла, так и дикими племенами на приграничье — и это разделение не расовая судьба, а вопрос истории конкретной общины: одни племена давно осели и пустили корни в городах, другие держатся окраин по старым обычаям.</p>
+        <p>Народ ценит силу, прямоту и славу, добытую собственными руками — даже самый оседлый и цивилизованный орк редко забывает, что честь нужно доказывать делом, а не происхождением.</p>
+        <p>И городские, и племенные орки одинаково крепко держатся кровных и клановых уз: обидеть одного орка часто означает нажить вражду с целой семьёй или отрядом, где бы они ни осели.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== ЭЛЬФЫ ===================== -->
+  <div class="race-card">
+    <div class="race-header">
+      <div class="race-name">Эльфы</div>
+      <div class="race-stats"><span>Доля населения: <b>7%</b></span><span>Предельный срок жизни: <b>3000–4000 лет</b></span><span><b>Маги</b> — практически бессрочно</span></div>
+    </div>
+    <div class="race-body">
+      <div class="race-portraits">
+        <div class="portrait-wrap"><img src="Races/ElfMale.jpg" alt="Эльф, мужчина"><div class="portrait-label">Мужчина</div></div>
+        <div class="portrait-wrap"><img src="Races/ElfFemale.jpg" alt="Эльф, женщина"><div class="portrait-label">Женщина</div></div>
+      </div>
+      <div class="race-text">
+        <p>Формально составляют лишь малую долю населения континента — но благодаря немыслимому долголетию кажутся куда многочисленнее в высших кругах, среди магов, торговцев и чиновников. Среди простого люда эльф — редкость: их рождаемость крайне низка, и почти каждый доживший до зрелости эльф так или иначе поднимается по общественной лестнице просто в силу веками копившегося опыта, богатства или мастерства.</p>
+        <p>Важная черта народа: эльфы не считают себя выше прочих. Долгая жизнь породила в них скорее философскую отстранённость и терпение, чем чувство превосходства, и потому эльфов можно встретить в самых разных ролях — от магии и дипломатии до простого ремесла и скитаний с мечом в руке.</p>
+        <p>Веками не старея внешне, эльфы измеряют время иначе, чем короткоживущие соседи — целое человеческое поколение для них не более чем один недолгий эпизод, отчего искусство, музыка и неспешное совершенствование мастерства ценятся ими куда выше сиюминутной выгоды.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== ДВАРФЫ ===================== -->
+  <div class="race-card">
+    <div class="race-header">
+      <div class="race-name">Дварфы</div>
+      <div class="race-stats"><span>Доля населения: <b>6%</b></span><span>Предельный срок жизни: <b>500 лет</b></span></div>
+    </div>
+    <div class="race-body">
+      <div class="race-portraits">
+        <div class="portrait-wrap"><img src="Races/DwarfMale.jpg" alt="Дварф, мужчина"><div class="portrait-label">Мужчина</div></div>
+        <div class="portrait-wrap"><img src="Races/DwarfFemale.jpg" alt="Дварф, женщина"><div class="portrait-label">Женщина</div></div>
+      </div>
+      <div class="race-text">
+        <p>Живут вчетверо-впятеро дольше людей, и это определяет всё в их укладе. Дварфийские кланы — такие, как род Стормхаммер, славящийся своими рудниками и оружейными кузнями, — ведут дела, союзы и вражды поколениями глубже, чем способна удержать человеческая память. Дварф в полтора века всё ещё считается молодым — только начинающим мастером или воином.</p>
+        <p>Обида, нанесённая деду, остаётся живой и насущной для внука спустя два столетия — просто потому, что дварф, который её помнит, вполне может быть жив до сих пор. Кланы славятся упорством, верностью подземным залам предков и памятью, которая не прощает и не забывает.</p>
+        <p>Клятва, данная дварфом, почитается едва ли не священной — нарушивший слово рискует репутацией рода на века вперёд. Немногое ценится среди них выше доброго клинка, крепкого эля и права называть свою работу лучшей в зале.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== ГОБЛИНЫ ===================== -->
+  <div class="race-card">
+    <div class="race-header">
+      <div class="race-name">Гоблины</div>
+      <div class="race-stats"><span>Доля населения: <b>6%</b></span><span>Предельный срок жизни: <b>50–60 лет</b></span></div>
+    </div>
+    <div class="race-body">
+      <div class="race-portraits">
+        <div class="portrait-wrap"><img src="Races/GoblinMale.jpg" alt="Гоблин, мужчина"><div class="portrait-label">Мужчина</div></div>
+        <div class="portrait-wrap"><img src="Races/GoblinFemale.jpg" alt="Гоблин, женщина"><div class="portrait-label">Женщина</div></div>
+      </div>
+      <div class="race-text">
+        <p>Ростом гоблины невелики — примерно как гномы, разве что зеленокожие: щуплое, юркое тело, редко выше метра с небольшим, что вкупе с проворством делает их отличными разведчиками, взломщиками и мастерами на все руки в тесных пространствах. Живут как в городах на правах обычной бедноты, так и дикими шайками за пределами закона — но важно понимать: гоблины Лаернис не отмечены никаким древним проклятием и не предрасположены к злу по своей природе. Их репутация — плод истории конкретных племён, а не расовой судьбы.</p>
+        <p>Изворотливые, приспосабливающиеся, зачастую недооценённые из-за роста — цивилизованный гоблин по укладу жизни мало чем отличается от бедного соседа-человека или орка, разве что более настороженным взглядом, привычным к чужому пренебрежению.</p>
+        <p>Сплочённость и изобретательность гоблинов также делают их незаменимым выбором для тех, кто ищет исполнителей для грязной или тонкой работы вдали от чужих глаз.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== ДРАКОНОРОЖДЁННЫЕ ===================== -->
+  <div class="race-card">
+    <div class="race-header">
+      <div class="race-name">Драконорождённые</div>
+      <div class="race-stats"><span>Доля населения: <b>5%</b></span><span>Предельный срок жизни: <b>80–90 лет</b></span></div>
+    </div>
+    <div class="race-body">
+      <div class="race-portraits">
+        <div class="portrait-wrap"><img src="Races/DragonbornMale.jpg" alt="Драконорождённый, мужчина"><div class="portrait-label">Мужчина</div></div>
+        <div class="portrait-wrap"><img src="Races/DragonbornFemale.jpg" alt="Драконорождённый, женщина"><div class="portrait-label">Женщина</div></div>
+      </div>
+      <div class="race-text">
+        <p>Народ, не имеющий никакого отношения к настоящим драконам, вопреки расхожему заблуждению. Драконорождённые были выведены в давние времена как неудачная попытка создать расу рабов с драконьей кровью — от замысла осталась лишь чешуйчатая внешность, но не сила, магия или родство драконов.</p>
+        <p>Это происхождение по сей день остаётся источником незаслуженной стигмы: драконорождённых нередко судят по легенде о рабских корнях народа, а не по делам конкретного человека. Тем не менее среди них встречаются и воины, и учёные, и торговцы — обычные жители континента, чья история началась с чужой неудачи, а не с их собственной вины.</p>
+        <p>Собственное государство драконорождённых — Кренис, возникшее как убежище от старого рабства и со временем ставшее их собственным домом и доказательством, что народ этот способен на большее, чем чужое рабство. Многие драконорождённые за пределами Крениса по-прежнему держатся собственных тесных общин, почти клановых по духу — сказывается, что общее происхождение связывает их крепче, чем бы то было принято считать в обществе, которое часто смотрит на них с предубеждением.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== ХОБГОБЛИНЫ ===================== -->
+  <div class="race-card">
+    <div class="race-header">
+      <div class="race-name">Хобгоблины</div>
+      <div class="race-stats"><span>Доля населения: <b>4%</b></span><span>Предельный срок жизни: <b>50–60 лет</b></span></div>
+    </div>
+    <div class="race-body">
+      <div class="race-portraits">
+        <div class="portrait-wrap"><img src="Races/HobgoblinMale.jpg" alt="Хобгоблин, мужчина"><div class="portrait-label">Мужчина</div></div>
+        <div class="portrait-wrap"><img src="Races/HobgoblinFemale.jpg" alt="Хобгоблин, женщина"><div class="portrait-label">Женщина</div></div>
+      </div>
+      <div class="race-text">
+        <p>Более дисциплинированный и организованный народ, нежели их гоблинские родичи — хобгоблины традиционно собираются в военизированные наёмные отряды, продающие свои копья и дисциплину тому, кто способен заплатить. В армиях многих государств континента такие отряды — привычное подспорье в трудные времена.</p>
+        <p>Одно из немногих исключений — Тваансин, чьи законы и традиции не позволяют нанимать хобгоблинские дружины на службу государству, сколь бы выгодным ни казалось предложение.</p>
+        <p>Среди хобгоблинов честь отряда ставится выше чести отдельного воина — нарушивший приказ командира рискует позором всей дружины на рынке наёмников, а не только собственной шкурой.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== ХАФЛИНГИ ===================== -->
+  <div class="race-card">
+    <div class="race-header">
+      <div class="race-name">Хафлинги</div>
+      <div class="race-stats"><span>Доля населения: <b>4%</b></span><span>Предельный срок жизни: <b>120–140 лет</b></span><span>Средний рост: <b>до 140 см</b></span></div>
+    </div>
+    <div class="race-body">
+      <div class="race-portraits">
+        <div class="portrait-wrap"><img src="Races/HalflingMale.jpg" alt="Хафлинг, мужчина"><div class="portrait-label">Мужчина</div></div>
+        <div class="portrait-wrap"><img src="Races/HalflingFemale.jpg" alt="Хафлинг, женщина"><div class="portrait-label">Женщина</div></div>
+      </div>
+      <div class="race-text">
+        <p>Живут дольше людей, но заметно выше ростом, чем принято думать о их народе в иных землях, и вместе с тем — одни из самых подвижных обитателей континента. Именно хафлинги традиционно правят бал в речной и морской торговле, курьерских гильдиях и странствующих труппах, где важны лёгкость на подъём и умение находить общий язык где угодно.</p>
+        <p>Народ ценит уют, доброе застолье и личную свободу выше знатности — хафлингу проще сменить город, чем присягу, которая ему не по душе.</p>
+        <p>За хафлингами также прочно закрепилась слава везунчиков — там, где другой народ угодил бы в беду, хафлинг чаще всего умудряется выйти сухим из воды, а заодно прихватить с собой что-нибудь ценное: пальцы у этого народа традиционно такие же ловкие, как и язык.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== ГНОМЫ ===================== -->
+  <div class="race-card">
+    <div class="race-header">
+      <div class="race-name">Гномы</div>
+      <div class="race-stats"><span>Доля населения: <b>3%</b></span><span>Предельный срок жизни: <b>120–150 лет</b></span></div>
+    </div>
+    <div class="race-body">
+      <div class="race-portraits">
+        <div class="portrait-wrap"><img src="Races/GnomeMale.jpg" alt="Гном, мужчина"><div class="portrait-label">Мужчина</div></div>
+        <div class="portrait-wrap"><img src="Races/GnomeFemale.jpg" alt="Гном, женщина"><div class="portrait-label">Женщина</div></div>
+      </div>
+      <div class="race-text">
+        <p>Живут немногим дольше людей, но достаточно долго, чтобы накопить редкую техническую или магическую сноровку, не дотягивая при этом до вечности эльфов и дварфов. Из этого сложился характер народа: неутомимое любопытство, страсть к механизмам и малым чудесам, склонность превращать ремесло в игру ума.</p>
+        <p>Гномы редко стремятся к власти — куда охотнее они занимают незаменимые, но негромкие должности инженеров, зачарователей и архивариусов, там, где важнее точный расчёт, чем родословная.</p>
+        <p>Народ этот также славится неуёмным чувством юмора и любовью к розыгрышам — говорят, что самая опасная ловушка на континенте не та, что убивает, а та, что придумана гномом просто ради смеха над результатом.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== ТРОЛЛИ ===================== -->
+  <div class="race-card">
+    <div class="race-header">
+      <div class="race-name">Тролли</div>
+      <div class="race-stats"><span>Доля населения: <b>3%</b></span><span>Предельный срок жизни: <b>50–60 лет</b></span></div>
+    </div>
+    <div class="race-body">
+      <div class="race-portraits">
+        <div class="portrait-wrap"><img src="Races/TrollMale.jpg" alt="Тролль, мужчина"><div class="portrait-label">Мужчина</div></div>
+        <div class="portrait-wrap"><img src="Races/TrollFemale.jpg" alt="Тролль, женщина"><div class="portrait-label">Женщина</div></div>
+      </div>
+      <div class="race-text">
+        <p>Вопреки байкам о безмозглых великанах, тролли Лаернис — народ вполне разумный и способный к государственности: за горными хребтами континента существует их собственное троллье королевство. Разновидностей немало — горные, степные и иные, отличающиеся обликом и укладом сообразно землям, где живут.</p>
+        <p>Организованность горных троллей не раз давала о себе знать на границах соседних государств — не стихийным набегом, а действиями войска, отправленного по чьей-то воле.</p>
+        <p>Каменная кожа и громадная сила делают троллей превосходными воинами и телохранителями, а их собственное королевство соседи предпочитают не трогать лишний раз без крайней нужды.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== ДРОУ ===================== -->
+  <div class="race-card">
+    <div class="race-header">
+      <div class="race-name">Дроу <span style="font-size:20px;color:var(--ink-dim);">(Тёмные эльфы)</span></div>
+      <div class="race-stats"><span>Доля населения: <b>2%</b></span><span>Предельный срок жизни: <b>до 4000 лет</b></span></div>
+    </div>
+    <div class="race-body">
+      <div class="race-portraits">
+        <div class="portrait-wrap"><img src="Races/DrowMale.jpg" alt="Дроу, мужчина"><div class="portrait-label">Мужчина</div></div>
+        <div class="portrait-wrap"><img src="Races/DrowFemale.jpg" alt="Дроу, женщина"><div class="portrait-label">Женщина</div></div>
+      </div>
+      <div class="race-text">
+        <p>Родня обычным эльфам по продолжительности жизни, но разошедшаяся с ними в самом важном — во взгляде на мир. В отличие от подземных народов иных легенд, дроу Лаернис вовсе не страдают от солнечного света; их кожа лишь порой отливает синевато-фиолетовым или серым оттенком. Богам они не служат — собственная воля и порядок значат для дроу больше, чем благословение свыше.</p>
+        <p>Главное же отличие дроу от родичей — не философская отстранённость, а прямое чувство превосходства: этот народ убеждён в естественной иерархии рас, и убеждение это разделяют оба пола поровну — среди дроу нет разделения по власти между мужчинами и женщинами. Обитая преимущественно под землёй не по нужде, а по укладу, дроу издавна враждуют с дварфами — спор этот идёт не столько о рудниках и залах, сколько о том, кому из двух долгоживущих народов принадлежит право старшинства в глубине.</p>
+        <p>Место в их обществе определяется не рождением, а доказанным мастерством — в бою, в магии или в интригах чертогов, отчего дроу славятся как расчётливые и по-своему безупречно дисциплинированные противники.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== РЫБОЛЮДИ ===================== -->
+  <div class="race-card">
+    <div class="race-header">
+      <div class="race-name">Рыболюди</div>
+      <div class="race-stats"><span>Доля населения: <b>1%</b></span><span>Предельный срок жизни: <b>50–60 лет</b></span></div>
+    </div>
+    <div class="race-body">
+      <div class="race-portraits">
+        <div class="portrait-wrap"><img src="Races/fishfolkMale.jpg" alt="Рыболюди, мужчина"><div class="portrait-label">Мужчина</div></div>
+        <div class="portrait-wrap"><img src="Races/FishfolkFemale.jpg" alt="Рыболюди, женщина"><div class="portrait-label">Женщина</div></div>
+      </div>
+      <div class="race-text">
+        <p>Самый редкий из народов континента наравне с харенгонами и табакси, встречающийся почти исключительно вдоль побережий и по берегам крупных рек — там, где вода даёт им дом и заработок. Вдали от моря рыболюдей почти не увидеть, и в делах суши они редко ищут власти, довольствуясь ролью незаменимых знатоков всего, что связано с водой.</p>
+        <p>Среди моряков и речных гильдий рыболюди ценятся как лоцманы, проводники и знатоки течений — там, где человек или дварф видят лишь ровную гладь воды, рыболюди читают течения и повадки дна, как открытую книгу.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== ХАРЕНГОНЫ ===================== -->
+  <div class="race-card">
+    <div class="race-header">
+      <div class="race-name">Харенгоны</div>
+      <div class="race-stats"><span>Доля населения: <b>1%</b></span><span>Предельный срок жизни: <b>до 200 лет</b></span></div>
+    </div>
+    <div class="race-body">
+      <div class="race-portraits">
+        <div class="portrait-wrap"><img src="Races/HorengonMale.jpg" alt="Харенгон, мужчина"><div class="portrait-label">Мужчина</div></div>
+        <div class="portrait-wrap"><img src="Races/HorengonFemale.jpg" alt="Харенгон, женщина"><div class="portrait-label">Женщина</div></div>
+      </div>
+      <div class="race-text">
+        <p>Народ, в этом мире гораздо ближе к людям, чем принято думать — результат магической мутации, наделившей их долголетием и живой реакцией кроликов, но лишь минимумом внешних черт: чуткими ушами, изредка хвостом и лёгким шёрстным покровом. Во всём прочем харенгон — обычный человек, разве что переживший всех своих ровесников на пару веков.</p>
+        <p>Не имея собственной древней культуры, отдельной от человеческой, харенгоны попросту живут среди людей — приметная особенность отдельных семей, а не самостоятельный народ со своими царствами и традициями.</p>
+        <p>Говорят, что от прежней крови харенгонам досталась не только быстрота, но и жизнелюбие, иногда граничащее с беспечностью перед опасностью.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== ТАБАКСИ ===================== -->
+  <div class="race-card">
+    <div class="race-header">
+      <div class="race-name">Табакси</div>
+      <div class="race-stats"><span>Доля населения: <b>1%</b></span><span>Предельный срок жизни: <b>до 200 лет</b></span></div>
+    </div>
+    <div class="race-body">
+      <div class="race-portraits">
+        <div class="portrait-wrap"><img src="Races/TabaxiMale.jpg" alt="Табакси, мужчина"><div class="portrait-label">Мужчина</div></div>
+        <div class="portrait-wrap"><img src="Races/TabaxiFemale.jpg" alt="Табакси, женщина"><div class="portrait-label">Женщина</div></div>
+      </div>
+      <div class="race-text">
+        <p>Зеркальный случай харенгонов: табакси этого мира — тоже результат магической мутации людей, а не отдельный древний кошачий народ. От кошек им досталось долголетие, гибкость и быстрая реакция, а из внешних черт — чуткие уши, изредка тонкий хвост и лёгкий шёрстный покров, не более того.</p>
+        <p>Как и харенгоны, табакси не имеют собственной обособленной культуры и живёт бок о бок с людьми — редкая, приметная особенность отдельных семей и родов, а не самостоятельный народ со своей историей.</p>
+        <p>Нередко именно табакси выбирают стези воровства, шпионажа или бродяжничества — кошачья ловкость и любопытство так же часто влекут их в беду, как и в удачу.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== СВОДНАЯ ТАБЛИЦА ===================== -->
+  <div class="summary-wrap">
+    <div class="section-title">Сводная таблица<span class="rule"></span></div>
+    <table class="summary">
+      <thead>
+        <tr><th>Народ</th><th>Доля населения</th><th>Предельный срок жизни</th><th>Ключевая черта</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Люди</td><td class="pop">42%</td><td class="life">110–120 (маги — бессрочно)</td><td>Численное большинство, задают темп</td></tr>
+        <tr><td>Орки</td><td class="pop">15%</td><td class="life">80–90</td><td>Города и дикие племена бок о бок</td></tr>
+        <tr><td>Эльфы</td><td class="pop">7%</td><td class="life">3000–4000 (маги — бессрочно)</td><td>Не превозносят себя, доминируют в верхах из-за долголетия</td></tr>
+        <tr><td>Дварфы</td><td class="pop">6%</td><td class="life">500</td><td>Родовая память через века</td></tr>
+        <tr><td>Гоблины</td><td class="pop">6%</td><td class="life">50–60</td><td>Без проклятия, обычная городская беднота, ростом с гномов</td></tr>
+        <tr><td>Драконорождённые</td><td class="pop">5%</td><td class="life">80–90</td><td>Искусственный народ, имеют государство Кренис</td></tr>
+        <tr><td>Хобгоблины</td><td class="pop">4%</td><td class="life">50–60</td><td>Военные наёмники; не служат Тваансину</td></tr>
+        <tr><td>Хафлинги</td><td class="pop">4%</td><td class="life">120–140</td><td>До 140 см, торговля и мореходство</td></tr>
+        <tr><td>Гномы</td><td class="pop">3%</td><td class="life">120–150</td><td>Нишевые технические умельцы</td></tr>
+        <tr><td>Тролли</td><td class="pop">3%</td><td class="life">50–60</td><td>Разумны, имеют собственное королевство</td></tr>
+        <tr><td>Дроу</td><td class="pop">2%</td><td class="life">4000</td><td>Расисты, равенство полов, вражда с дварфами</td></tr>
+        <tr><td>Рыболюди</td><td class="pop">1%</td><td class="life">50–60</td><td>Побережья и реки</td></tr>
+        <tr><td>Харенгоны</td><td class="pop">1%</td><td class="life">200</td><td>Мутировавшие люди, кроличьи черты</td></tr>
+        <tr><td>Табакси</td><td class="pop">1%</td><td class="life">200</td><td>Мутировавшие люди, кошачьи черты</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="colophon">
+  <div class="sigil">⁂</div>
+  Альманах Народов Лаернис · Континент Лаернис, мир Альраанир<br>
+  Составлено и проиллюстрировано по заказу партии «Сослы»
+</div>
+
+</body>
+</html>
