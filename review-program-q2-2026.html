@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Review Program Report — Q2 2026 | Vet Alliance</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#f5f7fa;color:#222}
+#gate{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#015962}
+.gate-box{background:#fff;border-radius:12px;padding:40px;max-width:360px;width:100%;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.18)}
+.gate-logo{font-family:'Montserrat',sans-serif;font-size:22px;font-weight:800;color:#015962;margin-bottom:8px}
+.gate-sub{color:#666;font-size:13px;margin-bottom:24px}
+.gate-box input{width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:15px;outline:none}
+.gate-box button{width:100%;padding:11px;background:#015962;color:#fff;border:none;border-radius:7px;font-size:15px;font-weight:600;cursor:pointer;margin-top:12px}
+#err{color:#e74c3c;font-size:13px;margin-top:8px;display:none}
+#report{display:none}
+header{background:linear-gradient(120deg,#015962,#013a40);color:#fff;padding:32px;text-align:center}
+.header-title{font-family:'Montserrat',sans-serif;font-size:26px;font-weight:900;letter-spacing:.3px}
+.header-sub{font-size:14px;opacity:.85;margin-top:6px}
+.header-date{font-size:12px;opacity:.6;margin-top:4px}
+main{max-width:1180px;margin:0 auto;padding:28px 20px 60px}
+.section-card{background:#fff;border-radius:12px;padding:28px;margin-bottom:26px;box-shadow:0 2px 14px rgba(0,0,0,.06)}
+.section-title{font-size:18px;font-weight:800;color:#015962;margin-bottom:6px;font-family:'Montserrat',sans-serif}
+.section-sub{font-size:13px;color:#666;margin-bottom:18px;line-height:1.6}
+
+.kpi-row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:8px}
+.kpi-box{flex:1;min-width:150px;background:#f0f9f9;border-radius:10px;padding:16px 18px;border-left:4px solid #015962}
+.kpi-num{font-family:'Montserrat',sans-serif;font-size:26px;font-weight:800;color:#015962}
+.kpi-label{font-size:12px;color:#666;margin-top:2px}
+
+.podium-wrap{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.podium-card{background:#fafcfc;border-radius:14px;padding:22px 26px;text-align:center;min-width:190px;border:2px solid #eee;position:relative}
+.podium-card.rank-1{border-color:#f5c518;background:linear-gradient(180deg,#fff9e6,#fff)}
+.podium-card.rank-2{border-color:#c0c0c0}
+.podium-card.rank-3{border-color:#cd7f32}
+.medal{font-size:38px}
+.podium-name{font-family:'Montserrat',sans-serif;font-weight:800;font-size:18px;color:#015962;margin-top:6px}
+.podium-branch{font-size:12px;color:#888;margin-bottom:12px}
+.podium-stats{display:flex;gap:14px;justify-content:center}
+.stat-num{display:block;font-family:'Montserrat',sans-serif;font-weight:800;font-size:18px;color:#222}
+.stat-label{display:block;font-size:10px;color:#999;text-transform:uppercase;letter-spacing:.04em}
+
+.best-branch-card{display:flex;align-items:center;gap:20px;background:linear-gradient(120deg,#fff9e6,#fffdf5);border:2px solid #f5c518;border-radius:14px;padding:22px 26px}
+.bb-trophy{font-size:52px}
+.bb-title{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:#a67c00;font-weight:700}
+.bb-name{font-family:'Montserrat',sans-serif;font-size:22px;font-weight:800;color:#015962;margin:4px 0 8px}
+.bb-stats{display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:#555}
+
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+thead tr{background:#015962;color:#fff}
+thead th{padding:10px 12px;text-align:left;font-weight:600;white-space:nowrap;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em}
+thead th.r{text-align:right}
+td{padding:10px 12px;border-bottom:1px solid #eee}
+td.r{text-align:right}
+tbody tr:nth-child(even){background:#fafafa}
+tbody tr:hover{background:#f0f9f9}
+.rank-cell{font-weight:700;color:#015962;width:40px}
+.name-cell{font-weight:600;color:#015962}
+
+.badge{padding:3px 10px;border-radius:12px;font-size:11.5px;font-weight:700;white-space:nowrap}
+.badge-green{background:#d4edda;color:#155724}
+.badge-blue{background:#cce5ff;color:#004085}
+.badge-amber{background:#fff3cd;color:#856404}
+.badge-red{background:#fde8e8;color:#c0392b}
+.badge-gray{background:#eee;color:#999}
+
+.trend-up{color:#00a86b;font-weight:700}
+.trend-down{color:#e74c3c;font-weight:700}
+.trend-flat{color:#999}
+
+.winner-tag{background:#fff3cd;color:#7d5a00;padding:2px 8px;border-radius:10px;font-size:10.5px;font-weight:700;margin-left:6px;white-space:nowrap}
+.top5-tag{background:#e0f0ff;color:#0056b3;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-left:6px}
+.falling-tag{background:#fde8e8;color:#c0392b;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-left:6px;white-space:nowrap}
+.inactive-tag{background:#eee;color:#777;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-left:6px}
+.new-tag{background:#e8f5e9;color:#2e7d32;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-left:6px}
+falling-row{background:#fff8f8 !important}
+.falling-row{background:#fff8f8 !important}
+
+.alert-box{background:#fff3cd;border-left:4px solid #f5a623;padding:14px 18px;border-radius:0 8px 8px 0;font-size:13px;margin-bottom:20px;line-height:1.6}
+.alert-box strong{color:#7d5a00}
+.danger-box{background:#fde8e8;border-left:4px solid #e74c3c;padding:14px 18px;border-radius:0 8px 8px 0;font-size:13px;margin-bottom:10px;line-height:1.7}
+.danger-box strong{color:#c0392b}
+.danger-box ul{margin:8px 0 0 18px}
+.info-box{background:#f0f4ff;border-left:3px solid #4a6cf7;padding:12px 16px;border-radius:0 6px 6px 0;font-size:12.5px;color:#333;margin-bottom:18px;line-height:1.6}
+
+.clinic-agent-block{margin-bottom:26px}
+.clinic-agent-header{font-family:'Montserrat',sans-serif;font-weight:800;font-size:14px;color:#fff;background:#013a40;padding:9px 14px;border-radius:8px 8px 0 0}
+.clinic-agent-block .tbl-wrap table{margin-top:0;border-radius:0 0 8px 8px;overflow:hidden}
+
+footer{text-align:center;font-size:11.5px;color:#999;padding:20px}
+</style>
+</head>
+<body>
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-logo">Vet Alliance</div>
+    <div class="gate-sub">Review Program Report · Q2 2026</div>
+    <input type="password" id="pw" placeholder="Password" onkeydown="if(event.key==='Enter')check()">
+    <button onclick="check()">View Report</button>
+    <div id="err">Incorrect password</div>
+  </div>
+</div>
+<div id="report">
+<header>
+  <div class="header-title">🏆 Review Program Report — Q2 2026</div>
+  <div class="header-sub">April – June 2026 · Vet Alliance Group · QR-card review collection programme</div>
+  <div class="header-date">Generated July 7, 2026 · Data source: monthly Review Count workbooks (Agents / Branch / Clinics)</div>
+</header>
+<main>
+
+<div class="section-card">
+  <div class="section-title">📊 Programme Totals — Q2 2026</div>
+  <div class="section-sub">Combined across all clinics, April through June.</div>
+  <div class="kpi-row">
+    <div class="kpi-box"><div class="kpi-num">1,701</div><div class="kpi-label">Total QR Scans / Review Requests</div></div>
+    <div class="kpi-box"><div class="kpi-num">619</div><div class="kpi-label">Total Reviews Collected</div></div>
+    <div class="kpi-box"><div class="kpi-num">36.4%</div><div class="kpi-label">Overall Conversion Rate (Reviews ÷ Scans)</div></div>
+    <div class="kpi-box"><div class="kpi-num">9</div><div class="kpi-label">Clinics Tracked</div></div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-title">🥇 Top 3 Winners — Best Receptionists of Q2</div>
+  <div class="section-sub">Ranked by total reviews collected across April, May &amp; June.</div>
+  <div class="podium-wrap">
+    <div class="podium-card rank-1">
+      <div class="medal">🥇</div>
+      <div class="podium-name">Ramona</div>
+      <div class="podium-branch">Blue Oasis Vet – DIP</div>
+      <div class="podium-stats">
+        <div><span class="stat-num">113</span><span class="stat-label">reviews</span></div>
+        <div><span class="stat-num">313</span><span class="stat-label">scans</span></div>
+        <div><span class="stat-num">36%</span><span class="stat-label">conv.</span></div>
+      </div>
+    </div>
+    <div class="podium-card rank-2">
+      <div class="medal">🥈</div>
+      <div class="podium-name">Charmelle</div>
+      <div class="podium-branch">Modern Vet – Palm</div>
+      <div class="podium-stats">
+        <div><span class="stat-num">93</span><span class="stat-label">reviews</span></div>
+        <div><span class="stat-num">229</span><span class="stat-label">scans</span></div>
+        <div><span class="stat-num">41%</span><span class="stat-label">conv.</span></div>
+      </div>
+    </div>
+    <div class="podium-card rank-3">
+      <div class="medal">🥉</div>
+      <div class="podium-name">April</div>
+      <div class="podium-branch">Modern Vet – JLT</div>
+      <div class="podium-stats">
+        <div><span class="stat-num">80</span><span class="stat-label">reviews</span></div>
+        <div><span class="stat-num">247</span><span class="stat-label">scans</span></div>
+        <div><span class="stat-num">32%</span><span class="stat-label">conv.</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-title">🏅 Best Branch — Q2 2026</div>
+  <div class="section-sub">Ranked by total reviews collected across April, May &amp; June.</div>
+  
+<div class="best-branch-card">
+  <div class="bb-trophy">🏆</div>
+  <div>
+    <div class="bb-title">Best Branch — Q2 2026</div>
+    <div class="bb-name">Blue Oasis Vet – DIP</div>
+    <div class="bb-stats">
+      <span><strong>231</strong> reviews collected</span>
+      <span><strong>502</strong> total scans</span>
+      <span><strong>46.0%</strong> conversion rate</span>
+      <span><span class="trend-up">+15</span> vs April</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="section-card">
+  <div class="section-title">⭐ Top 5 Receptionists — Full Ranking</div>
+  <div class="section-sub">Top 3 are the official competition winners (marked 🥇🥈🥉); #4–#5 shown for context.</div>
+  <div class="tbl-wrap"><table>
+    <thead><tr>
+      <th>Rank</th><th>Receptionist</th><th>Clinic</th>
+      <th class="r">Total Scans (Q2)</th><th class="r">Total Reviews (Q2)</th>
+      <th class="r">Conversion Rate</th><th class="r">Review Trend (Apr→Jun)</th>
+    </tr></thead>
+    <tbody><tr>
+      <td class="rank-cell">#1</td>
+      <td class="name-cell">Ramona <span class="winner-tag">🥇 WINNER</span></td>
+      <td>Blue Oasis Vet – DIP</td>
+      <td class="r">313</td>
+      <td class="r">113</td>
+      <td class="r"><span class="badge badge-blue">36.1%</span></td>
+      <td class="r"><span class="trend-flat">0</span></td>
+    </tr><tr>
+      <td class="rank-cell">#2</td>
+      <td class="name-cell">Charmelle <span class="winner-tag">🥈 WINNER</span></td>
+      <td>Modern Vet – Palm</td>
+      <td class="r">229</td>
+      <td class="r">93</td>
+      <td class="r"><span class="badge badge-green">40.6%</span></td>
+      <td class="r"><span class="trend-up">+33</span></td>
+    </tr><tr>
+      <td class="rank-cell">#3</td>
+      <td class="name-cell">April <span class="winner-tag">🥉 WINNER</span></td>
+      <td>Modern Vet – JLT</td>
+      <td class="r">247</td>
+      <td class="r">80</td>
+      <td class="r"><span class="badge badge-blue">32.4%</span></td>
+      <td class="r"><span class="trend-up">+35</span></td>
+    </tr><tr>
+      <td class="rank-cell">#4</td>
+      <td class="name-cell">Abby</td>
+      <td>Blue Oasis Vet – DIP</td>
+      <td class="r">115</td>
+      <td class="r">53</td>
+      <td class="r"><span class="badge badge-green">46.1%</span></td>
+      <td class="r"><span class="trend-up">+20</span></td>
+    </tr><tr>
+      <td class="rank-cell">#5</td>
+      <td class="name-cell">Iza</td>
+      <td>Modern Vet – JLT</td>
+      <td class="r">131</td>
+      <td class="r">45</td>
+      <td class="r"><span class="badge badge-blue">34.4%</span></td>
+      <td class="r"><span class="trend-up">+11</span></td>
+    </tr></tbody>
+  </table></div>
+</div>
+
+<div class="section-card">
+  <div class="section-title">🏥 Clinic Rankings — Full Table</div>
+  <div class="section-sub">Google reviews collected per clinic per month, plus total QR scans and conversion rate (reviews ÷ scans). 👑 = best branch this quarter. Rows in red are flagged as falling behind (negative trend April→June).</div>
+  <div class="info-box"><strong>Conversion rate note:</strong> "Scans" here = total agent QR-card interactions logged at that branch (from the Branch sheet); "Reviews" = actual Google reviews attributed to that clinic. A conversion rate can occasionally exceed 100% where reviews came in through channels other than the personal QR cards (follow-up emails, in-clinic stands) — that's expected, not an error.</div>
+  <div class="tbl-wrap"><table>
+    <thead><tr>
+      <th>Rank</th><th>Clinic</th>
+      <th class="r">Apr Reviews</th><th class="r">May Reviews</th><th class="r">Jun Reviews</th><th class="r">Q2 Total</th>
+      <th class="r">Q2 Scans</th><th class="r">Conv. Rate</th><th class="r">Trend (Apr→Jun)</th>
+    </tr></thead>
+    <tbody><tr class="">
+      <td class="rank-cell">#1</td>
+      <td class="name-cell">Blue Oasis Vet – DIP 👑</td>
+      <td class="r">60</td>
+      <td class="r">96</td>
+      <td class="r">75</td>
+      <td class="r"><strong>231</strong></td>
+      <td class="r">502</td>
+      <td class="r"><span class="badge badge-green">46.0%</span></td>
+      <td class="r"><span class="trend-up">+15</span></td>
+    </tr><tr class="">
+      <td class="rank-cell">#2</td>
+      <td class="name-cell">Modern Vet – Palm</td>
+      <td class="r">13</td>
+      <td class="r">78</td>
+      <td class="r">65</td>
+      <td class="r"><strong>156</strong></td>
+      <td class="r">289</td>
+      <td class="r"><span class="badge badge-green">54.0%</span></td>
+      <td class="r"><span class="trend-up">+52</span></td>
+    </tr><tr class="">
+      <td class="rank-cell">#3</td>
+      <td class="name-cell">Modern Vet – JLT</td>
+      <td class="r">18</td>
+      <td class="r">68</td>
+      <td class="r">69</td>
+      <td class="r"><strong>155</strong></td>
+      <td class="r">416</td>
+      <td class="r"><span class="badge badge-blue">37.3%</span></td>
+      <td class="r"><span class="trend-up">+51</span></td>
+    </tr><tr class="">
+      <td class="rank-cell">#4</td>
+      <td class="name-cell">Modern Vet Hospital – Al Wasl</td>
+      <td class="r">25</td>
+      <td class="r">32</td>
+      <td class="r">34</td>
+      <td class="r"><strong>91</strong></td>
+      <td class="r">290</td>
+      <td class="r"><span class="badge badge-blue">31.4%</span></td>
+      <td class="r"><span class="trend-up">+9</span></td>
+    </tr><tr class="falling-row">
+      <td class="rank-cell">#5</td>
+      <td class="name-cell">Modern Vet – JVC <span class="falling-tag">⚠ FALLING BEHIND</span></td>
+      <td class="r">25</td>
+      <td class="r">18</td>
+      <td class="r">17</td>
+      <td class="r"><strong>60</strong></td>
+      <td class="r">28</td>
+      <td class="r"><span class="badge badge-green">214.3%</span></td>
+      <td class="r"><span class="trend-down">-8</span></td>
+    </tr><tr class="">
+      <td class="rank-cell">#6</td>
+      <td class="name-cell">Vienna Vet</td>
+      <td class="r">18</td>
+      <td class="r">17</td>
+      <td class="r">22</td>
+      <td class="r"><strong>57</strong></td>
+      <td class="r">91</td>
+      <td class="r"><span class="badge badge-green">62.6%</span></td>
+      <td class="r"><span class="trend-up">+4</span></td>
+    </tr><tr class="falling-row">
+      <td class="rank-cell">#7</td>
+      <td class="name-cell">Modern Vet – Downtown <span class="falling-tag">⚠ FALLING BEHIND</span></td>
+      <td class="r">14</td>
+      <td class="r">18</td>
+      <td class="r">5</td>
+      <td class="r"><strong>37</strong></td>
+      <td class="r">23</td>
+      <td class="r"><span class="badge badge-green">160.9%</span></td>
+      <td class="r"><span class="trend-down">-9</span></td>
+    </tr><tr class="falling-row">
+      <td class="rank-cell">#8</td>
+      <td class="name-cell">Modern Vet – Azizi Riviera <span class="falling-tag">⚠ FALLING BEHIND</span></td>
+      <td class="r">7</td>
+      <td class="r">8</td>
+      <td class="r">3</td>
+      <td class="r"><strong>18</strong></td>
+      <td class="r">48</td>
+      <td class="r"><span class="badge badge-blue">37.5%</span></td>
+      <td class="r"><span class="trend-down">-4</span></td>
+    </tr><tr class="">
+      <td class="rank-cell">#9</td>
+      <td class="name-cell">Modern Vet – Khawaneej <span class="new-tag">NEW</span></td>
+      <td class="r">0</td>
+      <td class="r">0</td>
+      <td class="r">4</td>
+      <td class="r"><strong>4</strong></td>
+      <td class="r">14</td>
+      <td class="r"><span class="badge badge-blue">28.6%</span></td>
+      <td class="r"><span class="trend-up">+4</span></td>
+    </tr></tbody>
+  </table></div>
+</div>
+
+<div class="section-card">
+  <div class="section-title">⚠️ Falling Behind — Needs Attention</div>
+  <div class="section-sub">Clinics and receptionists trending negative or stalled to zero activity across the quarter.</div>
+
+  <div class="danger-box">
+    <strong>Clinics with declining review counts (April → June):</strong>
+    <ul><li><strong>Modern Vet – Downtown</strong> — <span class="trend-down">-9</span> reviews vs April (June: 5)</li><li><strong>Modern Vet – JVC</strong> — <span class="trend-down">-8</span> reviews vs April (June: 17)</li><li><strong>Modern Vet – Azizi Riviera</strong> — <span class="trend-down">-4</span> reviews vs April (June: 3)</li></ul>
+  </div>
+
+  <div class="danger-box">
+    <strong>Receptionists with declining reviews or stalled activity:</strong>
+    <ul><li><strong>Nikita</strong> (Modern Vet – JVC) — <span class="trend-down">-11</span> reviews vs April — dropped to zero in June</li><li><strong>Jona</strong> (Modern Vet – Palm) — <span class="trend-down">-4</span> reviews vs April — dropped to zero in June</li><li><strong>Nancy</strong> (Blue Oasis Vet – DIP) — <span class="trend-down">-2</span> reviews vs April</li><li><strong>George</strong> (Modern Vet – Azizi Riviera) — <span class="trend-down">-2</span> reviews vs April</li><li><strong>Martin</strong> (Modern Vet – Downtown) — <span class="trend-down">-2</span> reviews vs April — dropped to zero in June</li><li><strong>Joel</strong> (Modern Vet – Downtown) — <span class="trend-down">-2</span> reviews vs April — dropped to zero in June</li><li><strong>Jane</strong> (Modern Vet Hospital – Al Wasl) — <span class="trend-down">-1</span> reviews vs April</li><li><strong>Shilpa</strong> (Modern Vet Hospital – Al Wasl) — <span class="trend-down">-1</span> reviews vs April — dropped to zero in June</li><li><strong>Becca</strong> (Modern Vet – Downtown) — <span class="trend-down">-1</span> reviews vs April — dropped to zero in June</li><li><strong>Zama</strong> (Modern Vet – Downtown) — <span class="trend-flat">0</span> reviews vs April — dropped to zero in June</li><li><strong>Sanjai</strong> (Modern Vet – JVC) — <span class="trend-flat">0</span> reviews vs April — dropped to zero in June</li><li><strong>Heshan</strong> (Modern Vet – JVC) — <span class="trend-flat">0</span> reviews vs April — dropped to zero in June</li></ul>
+  </div>
+
+  <div class="danger-box">
+    <strong>Zero activity all quarter (0 scans, 0 reviews — April through June):</strong>
+    <ul><li><strong>Kenneth</strong> (Modern Vet Hospital – Al Wasl) — 0 scans, 0 reviews all quarter</li></ul>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-title">👥 Receptionists by Clinic — Full Detail</div>
+  <div class="section-sub">Every receptionist grouped under their branch, with monthly scans, monthly reviews, Q2 totals, conversion rate, and review trend. 🥇🥈🥉 = quarter winners, TOP 5 = runners-up, ⚠ FALLING = declining/stalled, INACTIVE = zero all quarter.</div>
+  
+    <div class="clinic-agent-block">
+      <div class="clinic-agent-header">Blue Oasis Vet – DIP</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr>
+          <th>Receptionist</th>
+          <th class="r" colspan="4">Scans (Apr / May / Jun / Total)</th>
+          <th class="r" colspan="4">Reviews (Apr / May / Jun / Total)</th>
+          <th class="r">Conv. Rate</th>
+          <th class="r">Review Trend</th>
+        </tr></thead>
+        <tbody><tr class="">
+          <td class="name-cell">Ramona <span class="winner-tag">🥇</span></td>
+          <td class="r">60</td>
+          <td class="r">182</td>
+          <td class="r">71</td>
+          <td class="r"><strong>313</strong></td>
+          <td class="r">33</td>
+          <td class="r">47</td>
+          <td class="r">33</td>
+          <td class="r"><strong>113</strong></td>
+          <td class="r"><span class="badge badge-blue">36.1%</span></td>
+          <td class="r"><span class="trend-flat">0</span></td>
+        </tr><tr class="">
+          <td class="name-cell">Abby <span class="top5-tag">TOP 5</span></td>
+          <td class="r">16</td>
+          <td class="r">40</td>
+          <td class="r">59</td>
+          <td class="r"><strong>115</strong></td>
+          <td class="r">8</td>
+          <td class="r">17</td>
+          <td class="r">28</td>
+          <td class="r"><strong>53</strong></td>
+          <td class="r"><span class="badge badge-green">46.1%</span></td>
+          <td class="r"><span class="trend-up">+20</span></td>
+        </tr><tr class="falling-row">
+          <td class="name-cell">Nancy <span class="falling-tag">⚠ FALLING</span></td>
+          <td class="r">25</td>
+          <td class="r">31</td>
+          <td class="r">18</td>
+          <td class="r"><strong>74</strong></td>
+          <td class="r">11</td>
+          <td class="r">14</td>
+          <td class="r">9</td>
+          <td class="r"><strong>34</strong></td>
+          <td class="r"><span class="badge badge-green">45.9%</span></td>
+          <td class="r"><span class="trend-down">-2</span></td>
+        </tr></tbody>
+      </table></div>
+    </div>
+    <div class="clinic-agent-block">
+      <div class="clinic-agent-header">Modern Vet – Palm</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr>
+          <th>Receptionist</th>
+          <th class="r" colspan="4">Scans (Apr / May / Jun / Total)</th>
+          <th class="r" colspan="4">Reviews (Apr / May / Jun / Total)</th>
+          <th class="r">Conv. Rate</th>
+          <th class="r">Review Trend</th>
+        </tr></thead>
+        <tbody><tr class="">
+          <td class="name-cell">Charmelle <span class="winner-tag">🥈</span></td>
+          <td class="r">6</td>
+          <td class="r">156</td>
+          <td class="r">67</td>
+          <td class="r"><strong>229</strong></td>
+          <td class="r">3</td>
+          <td class="r">54</td>
+          <td class="r">36</td>
+          <td class="r"><strong>93</strong></td>
+          <td class="r"><span class="badge badge-green">40.6%</span></td>
+          <td class="r"><span class="trend-up">+33</span></td>
+        </tr><tr class="">
+          <td class="name-cell">Rowena</td>
+          <td class="r">5</td>
+          <td class="r">6</td>
+          <td class="r">14</td>
+          <td class="r"><strong>25</strong></td>
+          <td class="r">3</td>
+          <td class="r">4</td>
+          <td class="r">7</td>
+          <td class="r"><strong>14</strong></td>
+          <td class="r"><span class="badge badge-green">56.0%</span></td>
+          <td class="r"><span class="trend-up">+4</span></td>
+        </tr><tr class="">
+          <td class="name-cell">Kelly</td>
+          <td class="r">0</td>
+          <td class="r">11</td>
+          <td class="r">11</td>
+          <td class="r"><strong>22</strong></td>
+          <td class="r">0</td>
+          <td class="r">5</td>
+          <td class="r">5</td>
+          <td class="r"><strong>10</strong></td>
+          <td class="r"><span class="badge badge-green">45.5%</span></td>
+          <td class="r"><span class="trend-up">+5</span></td>
+        </tr><tr class="falling-row">
+          <td class="name-cell">Jona <span class="falling-tag">⚠ FALLING</span></td>
+          <td class="r">6</td>
+          <td class="r">7</td>
+          <td class="r">0</td>
+          <td class="r"><strong>13</strong></td>
+          <td class="r">4</td>
+          <td class="r">3</td>
+          <td class="r">0</td>
+          <td class="r"><strong>7</strong></td>
+          <td class="r"><span class="badge badge-green">53.8%</span></td>
+          <td class="r"><span class="trend-down">-4</span></td>
+        </tr></tbody>
+      </table></div>
+    </div>
+    <div class="clinic-agent-block">
+      <div class="clinic-agent-header">Modern Vet – JLT</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr>
+          <th>Receptionist</th>
+          <th class="r" colspan="4">Scans (Apr / May / Jun / Total)</th>
+          <th class="r" colspan="4">Reviews (Apr / May / Jun / Total)</th>
+          <th class="r">Conv. Rate</th>
+          <th class="r">Review Trend</th>
+        </tr></thead>
+        <tbody><tr class="">
+          <td class="name-cell">April <span class="winner-tag">🥉</span></td>
+          <td class="r">12</td>
+          <td class="r">105</td>
+          <td class="r">130</td>
+          <td class="r"><strong>247</strong></td>
+          <td class="r">6</td>
+          <td class="r">33</td>
+          <td class="r">41</td>
+          <td class="r"><strong>80</strong></td>
+          <td class="r"><span class="badge badge-blue">32.4%</span></td>
+          <td class="r"><span class="trend-up">+35</span></td>
+        </tr><tr class="">
+          <td class="name-cell">Iza <span class="top5-tag">TOP 5</span></td>
+          <td class="r">22</td>
+          <td class="r">67</td>
+          <td class="r">42</td>
+          <td class="r"><strong>131</strong></td>
+          <td class="r">7</td>
+          <td class="r">20</td>
+          <td class="r">18</td>
+          <td class="r"><strong>45</strong></td>
+          <td class="r"><span class="badge badge-blue">34.4%</span></td>
+          <td class="r"><span class="trend-up">+11</span></td>
+        </tr><tr class="">
+          <td class="name-cell">Remy</td>
+          <td class="r">3</td>
+          <td class="r">30</td>
+          <td class="r">5</td>
+          <td class="r"><strong>38</strong></td>
+          <td class="r">1</td>
+          <td class="r">11</td>
+          <td class="r">2</td>
+          <td class="r"><strong>14</strong></td>
+          <td class="r"><span class="badge badge-blue">36.8%</span></td>
+          <td class="r"><span class="trend-up">+1</span></td>
+        </tr></tbody>
+      </table></div>
+    </div>
+    <div class="clinic-agent-block">
+      <div class="clinic-agent-header">Modern Vet Hospital – Al Wasl</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr>
+          <th>Receptionist</th>
+          <th class="r" colspan="4">Scans (Apr / May / Jun / Total)</th>
+          <th class="r" colspan="4">Reviews (Apr / May / Jun / Total)</th>
+          <th class="r">Conv. Rate</th>
+          <th class="r">Review Trend</th>
+        </tr></thead>
+        <tbody><tr class="">
+          <td class="name-cell">Rubie</td>
+          <td class="r">3</td>
+          <td class="r">72</td>
+          <td class="r">90</td>
+          <td class="r"><strong>165</strong></td>
+          <td class="r">2</td>
+          <td class="r">15</td>
+          <td class="r">16</td>
+          <td class="r"><strong>33</strong></td>
+          <td class="r"><span class="badge badge-amber">20.0%</span></td>
+          <td class="r"><span class="trend-up">+14</span></td>
+        </tr><tr class="">
+          <td class="name-cell">Ruth</td>
+          <td class="r">6</td>
+          <td class="r">16</td>
+          <td class="r">19</td>
+          <td class="r"><strong>41</strong></td>
+          <td class="r">3</td>
+          <td class="r">3</td>
+          <td class="r">6</td>
+          <td class="r"><strong>12</strong></td>
+          <td class="r"><span class="badge badge-blue">29.3%</span></td>
+          <td class="r"><span class="trend-up">+3</span></td>
+        </tr><tr class="">
+          <td class="name-cell">Patricia</td>
+          <td class="r">0</td>
+          <td class="r">26</td>
+          <td class="r">20</td>
+          <td class="r"><strong>46</strong></td>
+          <td class="r">0</td>
+          <td class="r">6</td>
+          <td class="r">5</td>
+          <td class="r"><strong>11</strong></td>
+          <td class="r"><span class="badge badge-amber">23.9%</span></td>
+          <td class="r"><span class="trend-up">+5</span></td>
+        </tr><tr class="">
+          <td class="name-cell">Alexa</td>
+          <td class="r">2</td>
+          <td class="r">7</td>
+          <td class="r">6</td>
+          <td class="r"><strong>15</strong></td>
+          <td class="r">2</td>
+          <td class="r">1</td>
+          <td class="r">2</td>
+          <td class="r"><strong>5</strong></td>
+          <td class="r"><span class="badge badge-blue">33.3%</span></td>
+          <td class="r"><span class="trend-flat">0</span></td>
+        </tr><tr class="falling-row">
+          <td class="name-cell">Jane <span class="falling-tag">⚠ FALLING</span></td>
+          <td class="r">2</td>
+          <td class="r">3</td>
+          <td class="r">2</td>
+          <td class="r"><strong>7</strong></td>
+          <td class="r">1</td>
+          <td class="r">1</td>
+          <td class="r">0</td>
+          <td class="r"><strong>2</strong></td>
+          <td class="r"><span class="badge badge-blue">28.6%</span></td>
+          <td class="r"><span class="trend-down">-1</span></td>
+        </tr><tr class="falling-row">
+          <td class="name-cell">Shilpa <span class="falling-tag">⚠ FALLING</span></td>
+          <td class="r">2</td>
+          <td class="r">2</td>
+          <td class="r">0</td>
+          <td class="r"><strong>4</strong></td>
+          <td class="r">1</td>
+          <td class="r">0</td>
+          <td class="r">0</td>
+          <td class="r"><strong>1</strong></td>
+          <td class="r"><span class="badge badge-blue">25.0%</span></td>
+          <td class="r"><span class="trend-down">-1</span></td>
+        </tr><tr class="falling-row">
+          <td class="name-cell">Kenneth <span class="inactive-tag">INACTIVE</span></td>
+          <td class="r">0</td>
+          <td class="r">0</td>
+          <td class="r">0</td>
+          <td class="r"><strong>0</strong></td>
+          <td class="r">0</td>
+          <td class="r">0</td>
+          <td class="r">0</td>
+          <td class="r"><strong>0</strong></td>
+          <td class="r"><span class="badge badge-gray">n/a</span></td>
+          <td class="r"><span class="trend-flat">0</span></td>
+        </tr></tbody>
+      </table></div>
+    </div>
+    <div class="clinic-agent-block">
+      <div class="clinic-agent-header">Modern Vet – JVC</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr>
+          <th>Receptionist</th>
+          <th class="r" colspan="4">Scans (Apr / May / Jun / Total)</th>
+          <th class="r" colspan="4">Reviews (Apr / May / Jun / Total)</th>
+          <th class="r">Conv. Rate</th>
+          <th class="r">Review Trend</th>
+        </tr></thead>
+        <tbody><tr class="falling-row">
+          <td class="name-cell">Nikita <span class="falling-tag">⚠ FALLING</span></td>
+          <td class="r">15</td>
+          <td class="r">0</td>
+          <td class="r">0</td>
+          <td class="r"><strong>15</strong></td>
+          <td class="r">11</td>
+          <td class="r">0</td>
+          <td class="r">0</td>
+          <td class="r"><strong>11</strong></td>
+          <td class="r"><span class="badge badge-green">73.3%</span></td>
+          <td class="r"><span class="trend-down">-11</span></td>
+        </tr><tr class="">
+          <td class="name-cell">Joy</td>
+          <td class="r">2</td>
+          <td class="r">2</td>
+          <td class="r">3</td>
+          <td class="r"><strong>7</strong></td>
+          <td class="r">1</td>
+          <td class="r">1</td>
+          <td class="r">1</td>
+          <td class="r"><strong>3</strong></td>
+          <td class="r"><span class="badge badge-green">42.9%</span></td>
+          <td class="r"><span class="trend-flat">0</span></td>
+        </tr><tr class="falling-row">
+          <td class="name-cell">Sanjai <span class="falling-tag">⚠ FALLING</span></td>
+          <td class="r">0</td>
+          <td class="r">3</td>
+          <td class="r">0</td>
+          <td class="r"><strong>3</strong></td>
+          <td class="r">0</td>
+          <td class="r">2</td>
+          <td class="r">0</td>
+          <td class="r"><strong>2</strong></td>
+          <td class="r"><span class="badge badge-green">66.7%</span></td>
+          <td class="r"><span class="trend-flat">0</span></td>
+        </tr><tr class="falling-row">
+          <td class="name-cell">Heshan <span class="falling-tag">⚠ FALLING</span></td>
+          <td class="r">0</td>
+          <td class="r">3</td>
+          <td class="r">0</td>
+          <td class="r"><strong>3</strong></td>
+          <td class="r">0</td>
+          <td class="r">2</td>
+          <td class="r">0</td>
+          <td class="r"><strong>2</strong></td>
+          <td class="r"><span class="badge badge-green">66.7%</span></td>
+          <td class="r"><span class="trend-flat">0</span></td>
+        </tr></tbody>
+      </table></div>
+    </div>
+    <div class="clinic-agent-block">
+      <div class="clinic-agent-header">Vienna Vet</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr>
+          <th>Receptionist</th>
+          <th class="r" colspan="4">Scans (Apr / May / Jun / Total)</th>
+          <th class="r" colspan="4">Reviews (Apr / May / Jun / Total)</th>
+          <th class="r">Conv. Rate</th>
+          <th class="r">Review Trend</th>
+        </tr></thead>
+        <tbody><tr class="">
+          <td class="name-cell">Fevelyn</td>
+          <td class="r">4</td>
+          <td class="r">13</td>
+          <td class="r">31</td>
+          <td class="r"><strong>48</strong></td>
+          <td class="r">3</td>
+          <td class="r">6</td>
+          <td class="r">11</td>
+          <td class="r"><strong>20</strong></td>
+          <td class="r"><span class="badge badge-green">41.7%</span></td>
+          <td class="r"><span class="trend-up">+8</span></td>
+        </tr><tr class="">
+          <td class="name-cell">Nicole</td>
+          <td class="r">6</td>
+          <td class="r">8</td>
+          <td class="r">13</td>
+          <td class="r"><strong>27</strong></td>
+          <td class="r">5</td>
+          <td class="r">4</td>
+          <td class="r">6</td>
+          <td class="r"><strong>15</strong></td>
+          <td class="r"><span class="badge badge-green">55.6%</span></td>
+          <td class="r"><span class="trend-up">+1</span></td>
+        </tr><tr class="">
+          <td class="name-cell">Arjay</td>
+          <td class="r">0</td>
+          <td class="r">9</td>
+          <td class="r">7</td>
+          <td class="r"><strong>16</strong></td>
+          <td class="r">0</td>
+          <td class="r">5</td>
+          <td class="r">3</td>
+          <td class="r"><strong>8</strong></td>
+          <td class="r"><span class="badge badge-green">50.0%</span></td>
+          <td class="r"><span class="trend-up">+3</span></td>
+        </tr></tbody>
+      </table></div>
+    </div>
+    <div class="clinic-agent-block">
+      <div class="clinic-agent-header">Modern Vet – Downtown</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr>
+          <th>Receptionist</th>
+          <th class="r" colspan="4">Scans (Apr / May / Jun / Total)</th>
+          <th class="r" colspan="4">Reviews (Apr / May / Jun / Total)</th>
+          <th class="r">Conv. Rate</th>
+          <th class="r">Review Trend</th>
+        </tr></thead>
+        <tbody><tr class="falling-row">
+          <td class="name-cell">Martin <span class="falling-tag">⚠ FALLING</span></td>
+          <td class="r">3</td>
+          <td class="r">8</td>
+          <td class="r">0</td>
+          <td class="r"><strong>11</strong></td>
+          <td class="r">2</td>
+          <td class="r">5</td>
+          <td class="r">0</td>
+          <td class="r"><strong>7</strong></td>
+          <td class="r"><span class="badge badge-green">63.6%</span></td>
+          <td class="r"><span class="trend-down">-2</span></td>
+        </tr><tr class="falling-row">
+          <td class="name-cell">Joel <span class="falling-tag">⚠ FALLING</span></td>
+          <td class="r">2</td>
+          <td class="r">4</td>
+          <td class="r">0</td>
+          <td class="r"><strong>6</strong></td>
+          <td class="r">2</td>
+          <td class="r">3</td>
+          <td class="r">0</td>
+          <td class="r"><strong>5</strong></td>
+          <td class="r"><span class="badge badge-green">83.3%</span></td>
+          <td class="r"><span class="trend-down">-2</span></td>
+        </tr><tr class="falling-row">
+          <td class="name-cell">Zama <span class="falling-tag">⚠ FALLING</span></td>
+          <td class="r">0</td>
+          <td class="r">4</td>
+          <td class="r">0</td>
+          <td class="r"><strong>4</strong></td>
+          <td class="r">0</td>
+          <td class="r">2</td>
+          <td class="r">0</td>
+          <td class="r"><strong>2</strong></td>
+          <td class="r"><span class="badge badge-green">50.0%</span></td>
+          <td class="r"><span class="trend-flat">0</span></td>
+        </tr><tr class="falling-row">
+          <td class="name-cell">Becca <span class="falling-tag">⚠ FALLING</span></td>
+          <td class="r">2</td>
+          <td class="r">0</td>
+          <td class="r">0</td>
+          <td class="r"><strong>2</strong></td>
+          <td class="r">1</td>
+          <td class="r">0</td>
+          <td class="r">0</td>
+          <td class="r"><strong>1</strong></td>
+          <td class="r"><span class="badge badge-green">50.0%</span></td>
+          <td class="r"><span class="trend-down">-1</span></td>
+        </tr></tbody>
+      </table></div>
+    </div>
+    <div class="clinic-agent-block">
+      <div class="clinic-agent-header">Modern Vet – Azizi Riviera</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr>
+          <th>Receptionist</th>
+          <th class="r" colspan="4">Scans (Apr / May / Jun / Total)</th>
+          <th class="r" colspan="4">Reviews (Apr / May / Jun / Total)</th>
+          <th class="r">Conv. Rate</th>
+          <th class="r">Review Trend</th>
+        </tr></thead>
+        <tbody><tr class="falling-row">
+          <td class="name-cell">George <span class="falling-tag">⚠ FALLING</span></td>
+          <td class="r">22</td>
+          <td class="r">19</td>
+          <td class="r">7</td>
+          <td class="r"><strong>48</strong></td>
+          <td class="r">3</td>
+          <td class="r">5</td>
+          <td class="r">1</td>
+          <td class="r"><strong>9</strong></td>
+          <td class="r"><span class="badge badge-amber">18.8%</span></td>
+          <td class="r"><span class="trend-down">-2</span></td>
+        </tr></tbody>
+      </table></div>
+    </div>
+    <div class="clinic-agent-block">
+      <div class="clinic-agent-header">Modern Vet – Khawaneej</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr>
+          <th>Receptionist</th>
+          <th class="r" colspan="4">Scans (Apr / May / Jun / Total)</th>
+          <th class="r" colspan="4">Reviews (Apr / May / Jun / Total)</th>
+          <th class="r">Conv. Rate</th>
+          <th class="r">Review Trend</th>
+        </tr></thead>
+        <tbody><tr class="">
+          <td class="name-cell">Richard</td>
+          <td class="r">4</td>
+          <td class="r">8</td>
+          <td class="r">14</td>
+          <td class="r"><strong>26</strong></td>
+          <td class="r">2</td>
+          <td class="r">2</td>
+          <td class="r">3</td>
+          <td class="r"><strong>7</strong></td>
+          <td class="r"><span class="badge badge-blue">26.9%</span></td>
+          <td class="r"><span class="trend-up">+1</span></td>
+        </tr></tbody>
+      </table></div>
+    </div>
+</div>
+
+</main>
+<footer>Vet Alliance Group · Review Program Report · Internal use only · Generated by Cheshire</footer>
+</div>
+<script>
+function check(){
+  if(document.getElementById('pw').value==='ModernVet2026'){
+    sessionStorage.setItem('rp_auth','1');
+    document.getElementById('gate').style.display='none';
+    document.getElementById('report').style.display='block';
+  }else{document.getElementById('err').style.display='block';document.getElementById('pw').value='';}
+}
+(function(){if(sessionStorage.getItem('rp_auth')==='1'){document.getElementById('gate').style.display='none';document.getElementById('report').style.display='block';}})();
+</script>
+</body>
+</html>
