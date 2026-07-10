@@ -377,7 +377,21 @@
     <div class="timeline-wrap">
       <div class="tl-head">
         <h3>Marketing Department · Delivery Track</h3>
-        <div class="tl-counter">From <strong>Mar 19</strong> to <strong>Jun 25, 2026</strong></div>
+        <div class="tl-counter">From <strong>Mar 19</strong> to <strong>Jul 10, 2026</strong></div>
+      </div>
+
+      <div class="tl-month">
+        <div class="tl-month-label">July</div>
+        <ul class="tl-list">
+          <li class="tl-item"><div class="tl-date">Jul 10</div><div class="tl-body"><span class="tl-tag t-reports">Reports</span><strong>Dubai Vet Market Report — July refresh</strong><em>Monthly competitor/ranking refresh: 152 clinics tracked, all 10 of our active clinics + 139 competitors re-pulled from Google Places. Blue Oasis Vet D2 correctly moved to Permanently Closed after its June closure. Rankings + tracking-history snapshot recalculated for July. <a href="vet-report.html" style="color:var(--accent);font-weight:600;">Full report →</a></em></div></li>
+          <li class="tl-item"><div class="tl-date">Jul 9</div><div class="tl-body"><span class="tl-tag t-tech">Tech</span><strong>GoDaddy hosting flagging issue — root-caused &amp; resolved</strong><em>Recurring account flags traced to Installatron's "Automatic Update Rollback" feature silently generating ~9.8GB pre-update safety backups on every retry (not Softaculous, and not anything Andrew configured). Fixed across all 5 GoDaddy-hosted sites (modernvet.org, viennavet.com, r8x-eca-mytemp-website, tvrc-ae, demo.viennavet.com) — rollback backups disabled, ~27 stale ghost backup entries cleaned up.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Jul 7</div><div class="tl-body"><span class="tl-tag t-reports">Reports</span><strong>Review Program Q2 2026 Report — shipped &amp; corrected</strong><em>Full Q2 receptionist/clinic review-collection competition report: programme totals, winners podium, best branch, full clinic + agent ranking tables, "falling behind" call-outs. A branch-attribution bug (an agent who changed clinics mid-quarter had reviews misattributed) was found and fixed Jul 10 after a full re-audit. <a href="review-program-q2-2026.html" style="color:var(--accent);font-weight:600;">Full report →</a></em></div></li>
+          <li class="tl-item"><div class="tl-date">Jul 7</div><div class="tl-body"><span class="tl-tag t-mockups">Design</span><strong>Floof App Launch — Phase 2 collateral</strong><em>Next wave of Floof launch assets: website banners (Modern Vet, Vienna Vet, Blue Oasis), a box-insert order card, and a launch email draft with full Klaviyo build notes. Delivered as a Word tech task for the design team, with the real Floof brand kit (Lilita One + Open Sans, official teal/orange/mint/cream palette) specified as the build standard — draft mockups clearly flagged as layout reference only, not final.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Jul 6</div><div class="tl-body"><span class="tl-tag t-veta">Veta</span><strong>Nova → Telegram bot wired</strong><em>Kyrylo's internal AI assistant (Nova) connected to its own Telegram bot (@Nova_creative_assistant_Bot), in addition to its existing web chat. Debugged a bot-token polling conflict with the server's default Telegram account that was silently swallowing pairing messages; fixed and confirmed Kyrylo successfully paired and chatting.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Jul 3</div><div class="tl-body"><span class="tl-tag t-tech">Tech</span><strong>OptimoRoute–Slack Dispatch tool — debugged &amp; fully working</strong><em>End-to-end driver dispatch pipeline: a Slack <code>/dispatch</code> modal now creates real pickup/drop-off order pairs in OptimoRoute and posts an instant confirmation card to #driver-dispatch. Fixed a misrouted Slack interactivity URL, missing geocoding on manual addresses (now via Google Geocoding API), a bot-channel membership gap, and a broken order-search poller. <code>/dispatch jobs</code> and <code>/dispatch today</code> now group pickup/drop-off pairs into clean single-row summaries.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Jul 2</div><div class="tl-body"><span class="tl-tag t-ops">Ops</span><strong>Front-Desk generic Slack accounts — 10 clinics rolled out</strong><em>All 10 generic clinic reception email accounts (hospital, azizi, downtown, TVRC, Vienna, Khawaneej, JVC, JLT, Palm, Blue Oasis) wired into the standard reception-desk channel template: clinic general + front-desk + orders + building-maintenance, plus company-wide <code>team-fd</code> and the <code>@cx</code> usergroup. Locked in as the standard pattern for any future shared clinic account.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Jul 1</div><div class="tl-body"><span class="tl-tag t-veta">Veta</span><strong>Techie — new public tech-team AI agent live</strong><em>Third internal Claude-based agent deployed on the Veta server, mirroring Pixel's toolkit but fully public (no password) at <code>tech.vetalliance.website</code>, for the tech team's day-to-day use. File-upload limit also raised to 250MB across all internal agents (Pixel, Nova, Techie) — verified with a live 120MB upload.</em></div></li>
+        </ul>
       </div>
 
       <div class="tl-month">
@@ -509,11 +523,17 @@
         <div class="tile-desc">Found a price during a clinic visit, phone call, or website check? Drop it here — feeds straight into the dashboard after review.</div>
         <div class="tile-foot"><span class="pill pill-live">Live</span></div>
       </a>
-      <a class="tile cat-reports" href="vet-market-report.html">
+      <a class="tile cat-reports" href="vet-report.html">
         <div class="tile-icon">🏆</div>
         <div class="tile-title">Dubai Vet Market Report</div>
-        <div class="tile-desc">Full Dubai veterinary landscape — 153 clinics tracked, ratings, neighbourhoods, weighted competitive ranking, expansion opportunity tab. Refreshed monthly on the 10th with position deltas, rating changes, and review-count moves.</div>
-        <div class="tile-foot"><span class="pill pill-live">Jun 10</span></div>
+        <div class="tile-desc">Full Dubai veterinary landscape — 152 clinics tracked, ratings, neighbourhoods, weighted competitive ranking, expansion opportunity tab. Refreshed monthly on the 10th with position deltas, rating changes, and review-count moves.</div>
+        <div class="tile-foot"><span class="pill pill-new">Refreshed</span><span class="pill pill-live">Jul 10</span></div>
+      </a>
+      <a class="tile cat-reports" href="review-program-q2-2026.html">
+        <div class="tile-icon">🏆</div>
+        <div class="tile-title">Review Program Q2 2026 Report</div>
+        <div class="tile-desc">Full receptionist &amp; clinic review-collection competition report — Q2 totals, winners podium, best branch, full clinic + agent ranking tables, and a "falling behind" call-out for coaching follow-up.</div>
+        <div class="tile-foot"><span class="pill pill-new">New</span><span class="pill pill-locked">Password</span></div>
       </a>
       <a class="tile cat-reports" href="abu-dhabi-vet-report.html">
         <div class="tile-icon">🌆</div>
