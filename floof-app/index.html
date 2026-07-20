@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Get the Floof App</title>
+<meta name="robots" content="noindex" />
+<style>
+  :root {
+    --floof-orange: #FF6B35;
+    --floof-teal: #0E7C7B;
+    --bg: #FFF8F3;
+    --text: #1C2321;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+  .wrap {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 32px 24px;
+  }
+  .logo {
+    font-size: 42px;
+    font-weight: 800;
+    color: var(--floof-teal);
+    letter-spacing: -1px;
+    margin-bottom: 6px;
+  }
+  .tagline {
+    font-size: 15px;
+    color: #6b6b6b;
+    margin-bottom: 28px;
+  }
+  .spinner {
+    width: 36px;
+    height: 36px;
+    border: 4px solid rgba(14,124,123,0.15);
+    border-top-color: var(--floof-teal);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 20px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .msg {
+    font-size: 16px;
+    margin-bottom: 28px;
+  }
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 320px;
+  }
+  a.btn {
+    display: block;
+    padding: 14px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    transition: transform 0.1s ease;
+  }
+  a.btn:active { transform: scale(0.98); }
+  .btn-apple {
+    background: #000;
+    color: #fff;
+  }
+  .btn-google {
+    background: var(--floof-orange);
+    color: #fff;
+  }
+  .btn-outline {
+    background: transparent;
+    border: 1.5px solid #ccc;
+    color: var(--text);
+  }
+  .fallback {
+    margin-top: 20px;
+    font-size: 13px;
+    color: #999;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo">Floof</div>
+  <div class="tagline">Everything your pet needs, delivered.</div>
+
+  <div id="loading">
+    <div class="spinner"></div>
+    <div class="msg">Taking you to the right store&hellip;</div>
+  </div>
+
+  <div class="buttons" id="manual-buttons" style="display:none;">
+    <a class="btn btn-apple" id="apple-link" href="https://apps.apple.com/us/app/floof-ae/id6759717088">
+      Download on the App Store
+    </a>
+    <a class="btn btn-google" id="google-link" href="https://play.google.com/store/apps/details?id=ae.floof.twa&hl=en">
+      Get it on Google Play
+    </a>
+  </div>
+
+  <div class="fallback" id="fallback-note" style="display:none;">
+    Didn't redirect automatically? Tap a button above.
+  </div>
+</div>
+
+<script>
+  (function () {
+    var APPLE_URL = "https://apps.apple.com/us/app/floof-ae/id6759717088";
+    var GOOGLE_URL = "https://play.google.com/store/apps/details?id=ae.floof.twa&hl=en";
+
+    var ua = navigator.userAgent || navigator.vendor || window.opera;
+
+    function isIOS() {
+      return /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+    }
+    function isAndroid() {
+      return /android/i.test(ua);
+    }
+
+    var target = null;
+    if (isIOS()) {
+      target = APPLE_URL;
+    } else if (isAndroid()) {
+      target = GOOGLE_URL;
+    }
+
+    var loading = document.getElementById('loading');
+    var manualButtons = document.getElementById('manual-buttons');
+    var fallbackNote = document.getElementById('fallback-note');
+
+    if (target) {
+      // Redirect quickly, but show manual buttons in case redirect is blocked
+      setTimeout(function () {
+        window.location.href = target;
+      }, 400);
+
+      // If still on page after 1.8s, reveal manual buttons as a fallback
+      setTimeout(function () {
+        loading.style.display = 'none';
+        manualButtons.style.display = 'flex';
+        fallbackNote.style.display = 'block';
+      }, 1800);
+    } else {
+      // Desktop or unknown device: show both options immediately, no redirect
+      loading.style.display = 'none';
+      manualButtons.style.display = 'flex';
+    }
+  })();
+</script>
+</body>
+</html>
