@@ -141,7 +141,14 @@ h2 em{font-style:italic;color:var(--emerald)}
 
 /* ---------- MODEL / TIERS ---------- */
 .model{background:var(--paper-2)}
-.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;margin-top:56px}
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px;margin-top:56px}
+.tier.sig{background:linear-gradient(170deg,#20180a,#100c05);border:1px solid var(--gold);color:#f3ecd9}
+.tier.sig .tier-head{background:transparent;border-bottom-color:rgba(200,160,75,.35)}
+.tier.sig .tier-head .name{color:var(--gold-soft)}
+.tier.sig .tier-head .price{color:rgba(243,236,217,.65)}
+.tier.sig .tier-head .price b{color:#fdf6e3}
+.tier.sig .tier-body h5{color:var(--gold)}
+.tier.sig .tier-body li{color:rgba(243,236,217,.88)}
 .tier{
   background:#fff;border-radius:26px;border:1px solid var(--line);overflow:hidden;
   display:flex;flex-direction:column;transition:transform .25s ease, box-shadow .25s ease;
@@ -427,6 +434,10 @@ footer p{font-size:13px;max-width:560px}
             <li><b>Month 10</b> — basic wellness bloodwork panel, free</li>
             <li><b>Month 12</b> — renewal gift + upgrade credit toward Core</li>
           </ul>
+          <h5>Floof perk</h5>
+          <ul>
+            <li>5% off your Floof food subscription plan</li>
+          </ul>
           <h5>Role in the lineup</h5>
           <ul>
             <li>The no-brainer gateway: less than a bag of food per month</li>
@@ -455,6 +466,10 @@ footer p{font-size:13px;max-width:560px}
             <li><b>Month 9</b> — one imaging credit (X-ray / basic ultrasound)</li>
             <li><b>Month 12</b> — full health screen upgrade + renewal gift</li>
           </ul>
+          <h5>Floof perk</h5>
+          <ul>
+            <li>10% off your Floof food subscription + free delivery</li>
+          </ul>
         </div>
       </div>
       <div class="tier plus reveal">
@@ -472,11 +487,36 @@ footer p{font-size:13px;max-width:560px}
             <li>2 free pet-taxi / mobile-clinic visits per year</li>
             <li>One waived emergency exam fee at Al Wasl 24/7 or TVRC</li>
           </ul>
+          <h5>Floof perk</h5>
+          <ul>
+            <li>15% off your Floof food subscription + free delivery</li>
+          </ul>
           <h5>Every tier</h5>
           <ul>
             <li>Multi-pet: 15% off each additional pet</li>
             <li>Monthly card-on-file billing · 12-month term · auto-renewal</li>
-            <li>Member pricing on Floof food subscriptions (below)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tier sig reveal">
+        <div class="tier-head">
+          <div class="name">Club Signature <span class="badge">Concierge</span></div>
+          <div class="price"><b>AED 799</b> /month · cat &amp; dog</div>
+        </div>
+        <div class="tier-body">
+          <h5>The Dubai tier — everything in Plus, and</h5>
+          <ul>
+            <li><b>All unlocks active from day 1</b> — Signature members never wait</li>
+            <li>Dedicated senior vet + personal care coordinator (direct WhatsApp line)</li>
+            <li>20% off services &amp; diagnostics · 20% off surgery (capped AED 6,000/yr)</li>
+            <li>2 home visits per year included · priority mobile clinic access</li>
+            <li>Annual executive health screen — full bloods + imaging day</li>
+            <li>Monthly grooming or medicated bath · 6 pet-taxi rides/yr</li>
+            <li>Travel-ready: vaccination passport management + relocation desk (BSPR) discount</li>
+          </ul>
+          <h5>Floof perk</h5>
+          <ul>
+            <li>20% off Floof subscription · same-day priority delivery · auto-restock concierge</li>
           </ul>
         </div>
       </div>
@@ -552,7 +592,7 @@ footer p{font-size:13px;max-width:560px}
           <h4>Floof auto-delivery 📦</h4>
           <ul>
             <li>Long-term food plans with built-in discounts (already in preparation)</li>
-            <li>Members: extra 5% on top + free delivery</li>
+            <li>Tier-graded member pricing: Lite 5% · Core 10% · Plus 15% · Signature 20% + priority delivery</li>
             <li>Pause, swap or resize anytime — vet adjusts the diet, Floof adjusts the box</li>
           </ul>
         </div>
@@ -620,24 +660,34 @@ footer p{font-size:13px;max-width:560px}
     <!-- MANAGEMENT MATH -->
     <div class="ramp reveal">
       <h3 class="serif">What one member is worth per year</h3>
-      <p class="sub">Blended across an assumed tier mix (40% Lite · 45% Core · 15% Plus → avg ≈ AED 171/month):</p>
+      <p class="sub">Blended across an assumed tier mix (35% Lite · 40% Core · 20% Plus · 5% Signature → avg ≈ AED 215/month):</p>
       <div class="stack">
-        <div class="s"><div class="t">Subscription</div><div class="v">AED 2,050</div><div class="d">Recurring, collected monthly, auto-renewing</div></div>
+        <div class="s"><div class="t">Subscription</div><div class="v">AED 2,600</div><div class="d">Recurring, collected monthly, auto-renewing</div></div>
         <div class="s"><div class="t">+ Extra clinic spend</div><div class="v">AED 1,000–1,800</div><div class="d">More visits, higher case acceptance, discounted-but-larger baskets</div></div>
-        <div class="s"><div class="t">+ Floof food loop</div><div class="v">AED 400–900</div><div class="d">At 15–25% subscription attach on prescribed diets</div></div>
-        <div class="s"><div class="t">= Total revenue</div><div class="v">AED 3,400–4,700</div><div class="d">vs. a typical non-member's fraction of that — with far lower churn</div></div>
+        <div class="s"><div class="t">+ Floof food loop</div><div class="v">AED 500–1,000</div><div class="d">Tier-graded discounts push subscription attach to 20–30% of members</div></div>
+        <div class="s"><div class="t">= Total revenue</div><div class="v">AED 4,100–5,400</div><div class="d">vs. a typical non-member's fraction of that — with far lower churn</div></div>
       </div>
       <h3 class="serif" style="margin-top:56px">The three-year ramp <span style="color:var(--gold-soft)">· illustrative</span></h3>
       <p class="sub">Anchored to real group data (Aug 2025 – Jun 2026): <b style="color:#fdfaf2">~5,700 unique pets served per month</b>, an estimated 20,000–28,000 unique patients per year, and a group revenue run-rate of <b style="color:#fdfaf2">~AED 80M/year</b>. Penetration targets sit far below what US wellness programs achieve at maturity.</p>
       <table class="ramp-table">
         <thead><tr><th>Stage</th><th>Penetration</th><th>Members</th><th class="r">Incremental revenue / yr</th><th class="r">Contribution (≈45%)</th></tr></thead>
         <tbody>
-          <tr><td>Year 1 — pilot → group rollout</td><td>~3–4% of actives</td><td><b>800</b></td><td class="r"><b>≈ AED 2.9M</b> <span style="color:var(--gold-soft)">(+3.7%)</span></td><td class="r">≈ AED 1.3M</td></tr>
-          <tr class="hl"><td>Year 2 — all clinics + Floof live</td><td>~7–10%</td><td><b>2,000</b></td><td class="r"><b>≈ AED 7.6M</b> <span style="color:var(--gold-soft)">(+9.5%)</span></td><td class="r">≈ AED 3.4M</td></tr>
-          <tr><td>Year 3 — renewals compounding</td><td>~12–17%</td><td><b>3,500</b></td><td class="r"><b>≈ AED 13.5M</b> <span style="color:var(--gold-soft)">(+17%)</span></td><td class="r">≈ AED 6M+</td></tr>
+          <tr><td>Year 1 — pilot → group rollout</td><td>~3–4% of actives</td><td><b>800</b></td><td class="r"><b>≈ AED 3.4M</b> <span style="color:var(--gold-soft)">(+4.3%)</span></td><td class="r">≈ AED 1.5M</td></tr>
+          <tr><td>Year 2 — all clinics + Floof live</td><td>~7–10%</td><td><b>2,000</b></td><td class="r"><b>≈ AED 8.6M</b> <span style="color:var(--gold-soft)">(+10.8%)</span></td><td class="r">≈ AED 3.9M</td></tr>
+          <tr><td>Year 3 — base case</td><td>~12–17%</td><td><b>3,500</b></td><td class="r"><b>≈ AED 15M</b> <span style="color:var(--gold-soft)">(+19%)</span></td><td class="r">≈ AED 6.8M</td></tr>
+          <tr class="hl"><td>Year 3 — aggressive case (levers below)</td><td>~25%</td><td><b>6,000</b></td><td class="r"><b>≈ AED 26M</b> <span style="color:var(--gold-soft)">(+32%)</span></td><td class="r">≈ AED 11.6M</td></tr>
         </tbody>
       </table>
-      <p class="num-note">Percentages = uplift on the current ~AED 80M/yr group revenue run-rate. Mid-point of the per-member value stack (≈AED 3,800/yr). Benchmark: mature US in-clinic wellness programs convert 20–40% of active patients — 12–17% by year 3 is deliberately conservative. Year-1 target (800 members) equals converting just 1 in 7 of the pets we already see in a single month.</p>
+      <p class="num-note">Percentages = uplift on the current ~AED 80M/yr group revenue run-rate. Mid-point of the per-member value stack (≈AED 4,300/yr). Benchmark: Banfield converts 20–40% of active patients at mature locations — the aggressive case simply assumes we reach the bottom of that band by year 3.</p>
+
+      <h3 class="serif" style="margin-top:56px">Five conversion levers that separate base from aggressive</h3>
+      <div class="num-row" style="margin-top:26px">
+        <div class="num reveal"><div class="n">01</div><div class="l"><b style="color:#fdfaf2">Migrate existing package holders.</b> Clients already on prepaid/year-round packages convert on renewal day — an instant founding member base at zero acquisition effort.</div></div>
+        <div class="num reveal"><div class="n">02</div><div class="l"><b style="color:#fdfaf2">Front-desk incentive + script.</b> AED 25–50 per enrollment to reception. Banfield's entire engine is the counter conversation — ours will be too.</div></div>
+        <div class="num reveal"><div class="n">03</div><div class="l"><b style="color:#fdfaf2">Puppy &amp; kitten funnel.</b> First vaccine visit credits toward month one. Enroll them at 8 weeks and keep them for a decade.</div></div>
+        <div class="num reveal"><div class="n">04</div><div class="l"><b style="color:#fdfaf2">The declined-estimate rescue.</b> When a big treatment plan gets a "no", the Club offer ("as a member this becomes…") turns walkouts into enrollments.</div></div>
+        <div class="num reveal"><div class="n">05</div><div class="l"><b style="color:#fdfaf2">"Member price" on every invoice.</b> Every non-member sees what they would have saved, on every visit. The cheapest always-on ad we will ever run.</div></div>
+      </div>
       <div class="num-row" style="margin-top:40px">
         <div class="num reveal"><div class="n">≈ AED 0</div><div class="l">Customer acquisition cost — enrollment happens at the front desk during visits that already occur</div></div>
         <div class="num reveal"><div class="n">12×</div><div class="l">Revenue events per member per year instead of 1–2 unpredictable visits — smooths seasonality across all clinics</div></div>
