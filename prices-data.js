@@ -2,7 +2,7 @@
 // Sourced from: Google Maps research (vet-report.html), clinic websites, Groupon, social media
 // Source key: "website" | "social" | "groupon" | "cobone" | "internal" | "" (confirmed, source unknown)
 
-const LAST_UPDATED = "2026-04-29";
+const LAST_UPDATED = "2026-07-21";
 
 const SERVICES = [
   { id: "consult_standard",    label: "Consultation (Standard)",               category: "Consultation" },
@@ -1502,6 +1502,20 @@ const COMPETITORS = [
     notes: "ورسان الرابعة | Shop #5 I.D Blue Building",
     address: "Shop #5 I.D Blue Building - - - United Arab Emirates",
     prices: {}
+  },
+
+  {
+    id: "pet_yard_veterinary_clinic", name: "Pet Yard Veterinary Clinic", isOurs: false,
+    website: null, area: null,
+    rating: null, reviews: null,
+    notes: "Signage photo (2026-07-21): Full Grooming AED 89, Blood Test AED 200 — not in standard service list above. Book: 054 327 3805",
+    address: null,
+    prices: {
+      consult_standard:   { val: 0,   note: "Free consultation per storefront sign",           src: "",        date: "2026-07" },
+      vax_annual_dog:     { val: 199, note: "\"Annual Vaccine\" — species not specified on sign", src: "",        date: "2026-07" },
+      vax_annual_cat:     { val: 199, note: "\"Annual Vaccine\" — species not specified on sign", src: "",        date: "2026-07" },
+      neuter_cat_male:    { val: 199, note: "\"Castration Surgery\" — species/sex not specified on sign", src: "", date: "2026-07" },
+    }
   },
 
 ];
