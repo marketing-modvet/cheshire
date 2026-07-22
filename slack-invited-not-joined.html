@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slack — Invited but Not Joined</title>
+<style>
+  :root{
+    --bg:#0f1115; --card:#171a21; --border:#262b36; --text:#e8eaed;
+    --muted:#9aa2b1; --accent:#5b8cff; --warn:#f5a623; --danger:#e5484d;
+    --pill-bg:#20242e;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg); color:var(--text); padding:32px 20px 60px;
+  }
+  .wrap{max-width:960px; margin:0 auto;}
+  h1{font-size:22px; margin:0 0 4px;}
+  .sub{color:var(--muted); font-size:13.5px; margin:0 0 26px;}
+  .summary{
+    display:flex; gap:14px; flex-wrap:wrap; margin-bottom:30px;
+  }
+  .stat{
+    background:var(--card); border:1px solid var(--border); border-radius:10px;
+    padding:12px 18px; min-width:120px;
+  }
+  .stat .num{font-size:22px; font-weight:700;}
+  .stat .lbl{font-size:11.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em;}
+
+  .section-title{
+    font-size:16px; margin:34px 0 12px; padding-bottom:8px;
+    border-bottom:2px solid var(--border); display:flex; align-items:center; gap:10px;
+  }
+  .section-title .count-pill{
+    background:var(--pill-bg); border:1px solid var(--border); border-radius:20px;
+    padding:2px 10px; font-size:12px; color:var(--muted); font-weight:400;
+  }
+
+  .clinic-group{
+    background:var(--card); border:1px solid var(--border); border-radius:12px;
+    margin-bottom:14px; overflow:hidden;
+  }
+  .clinic-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:11px 18px; background:#1c2029; border-bottom:1px solid var(--border);
+  }
+  .clinic-head h3{font-size:13.5px; margin:0; font-weight:600;}
+  .count-pill-sm{
+    background:var(--pill-bg); border:1px solid var(--border); border-radius:20px;
+    padding:1px 9px; font-size:11.5px; color:var(--muted);
+  }
+  table{width:100%; border-collapse:collapse; font-size:13.5px;}
+  th{
+    text-align:left; padding:8px 18px; color:var(--muted); font-weight:600;
+    font-size:11px; text-transform:uppercase; letter-spacing:.03em;
+    border-bottom:1px solid var(--border);
+  }
+  td{padding:9px 18px; border-bottom:1px solid #1e222c; vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  .name{font-weight:600;}
+  .email{color:var(--muted); font-size:12px;}
+  .tag{
+    display:inline-block; background:var(--pill-bg); border:1px solid var(--border);
+    border-radius:6px; padding:2px 8px; font-size:11px; margin:1px 3px 1px 0; color:#c7cbe0;
+  }
+  .badge{
+    display:inline-block; border-radius:6px; padding:2px 8px; font-size:11px; font-weight:600;
+  }
+  .badge.member{background:rgba(91,140,255,.15); color:#8fb0ff; border:1px solid rgba(91,140,255,.3);}
+  .badge.guest{background:rgba(245,166,35,.15); color:var(--warn); border:1px solid rgba(245,166,35,.3);}
+  .badge.deact{background:rgba(229,72,77,.15); color:#ff8a8d; border:1px solid rgba(229,72,77,.35);}
+  .footer-note{color:var(--muted); font-size:12px; margin-top:30px; line-height:1.6;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🚫 Slack — Invited but Not Yet Joined</h1>
+  <p class="sub">Source: Slack Admin Members export (screenshots, 2026-07-22) · Grouped by position, then clinic · Clinic alignment resolved via clinic-*-med / -orders / -fd channel membership · Modern Vet / Vet Alliance workspace</p>
+
+  <div class="summary">
+    <div class="stat"><div class="num">51</div><div class="lbl">Total Invited</div></div>
+    <div class="stat"><div class="num">28</div><div class="lbl">Assistants (guest)</div></div>
+    <div class="stat"><div class="num">16</div><div class="lbl">Staff / Members</div></div>
+    <div class="stat"><div class="num">7</div><div class="lbl">Unassigned / Other</div></div>
+    <div class="stat"><div class="num">5</div><div class="lbl">Also Deactivated</div></div>
+  </div>
+
+  <!-- ================= ASSISTANTS ================= -->
+  <div class="section-title">🩺 Assistants <span class="count-pill">28 pending · one per clinic, Medical channel only</span></div>
+
+  <div class="clinic-group">
+    <div class="clinic-head"><h3>🏥 Al Wasl Hospital</h3><span class="count-pill-sm">10 assistants</span></div>
+    <table>
+      <tr><th>Name</th><th>Email</th><th>Status</th></tr>
+      <tr><td class="name">amanyabyoonaismael</td><td class="email">amanyabyoonaismael@gmail.com</td><td><span class="badge guest">Invited guest</span></td></tr>
+      <tr><td class="name">capatirandy</td><td class="email">capatirandy@gmail.com</td><td><span class="badge guest">Invited guest</span></td></tr>
+      <tr><td class="name">ferdiesantos15</td><td class="email">ferdiesantos15@gmail.com</td><td><span class="badge guest">Invited guest</span></td></tr>
+      <tr><td class="name">kavishkaheshan400</td><td class="email">kavishkaheshan400@gmail.com</td><td><span class="badge guest">Invited guest</span></td></tr>
+      <tr><td class="name">pbnirmania</td><td class="email">pbnirmania@gmail.com</td><td><span class="badge guest">Invited guest</span></td></tr>
+      <tr><td class="name">purathurjohny</td><td class="email">purathurjohny@gmail.com</td><td><span class="badge guest">Invited guest</span></td></tr>
+      <tr><td class="name">qasimrj3</td><td class="email">qasimrj3@gmail.com</td><td><span class="badge guest">Invited guest</span></td></tr>
+      <tr><td class="name">raisan2048</td><td class="email">raisan2048@gmail.com</td><td><span class="badge guest">Invited guest</span></td></tr>
+      <tr><td class="name">saqlainafzal132</td><td class="email">saqlainafzal132@gmail.com</td><td><span class="badge guest">Invited guest</span></td></tr>
+    </table>
+  </div>
+
+  <div class="clinic-group">
+    <div class="clinic-head"><h3>🌴 Palm</h3><span class="count-pill-sm">4 assistants</span></div>
+    <table>
+      <tr><th>Name</th><th>Email</th><th>Status</th></tr>
+      <tr><td class="name">Ebie Santos</td><td class="email">ebie_santos@yahoo.com</td><td><span class="badge guest">Invited guest</span></td></tr>
+      <tr><td class="name">Lilian J Ambiyo</td><td class="email">lilian.j.ambiyo@gmail.com</td><td><span class="badge guest">Invited guest</span></td></tr>
+      <tr><td class="name">marivicpenolio</td><td class="email">marivicpenolio@gmail.com</td><td><span class="badge guest">Invited guest</span></td></tr>
+      <tr><td class="name">reymondbayobay3</td><td class="email">reymondbayobay3@gmail.com</td><td><span class="badge guest">Invited guest</span></td></tr>
+    </table>
+  </div>
+
+  <div class="clinic-group">
+    <div class="clinic-head"><h3>🌊 Blue Oasis (BOVC)</h3><span class="count-pill-sm">4 assistants</span></div>
+    <table>
+      <tr><th>Name</th><th>Email</th><th>Status</th></tr>
+      <tr><td class="name">bashitha256</td><td class="email">bashitha256@gmail.com</td><td><span class="badge guest">Invited guest</span></td></tr>
+      <tr><td class="name">George</td><td class="email">george@bovc.ae</td><td><span class="badge guest">Invited guest</span></td></tr>
+      <tr><td class="name">imvet1997</td><td class="email">imvet1997@gmail.com</td><td><span class="badge guest">Invited guest</span></td></tr>
+      <tr><td class="name">prasannakumara7905</td><td class="email">prasannakumara7905@gmail.com</td><td><span class="badge guest">Invited guest</span></td></tr>
+    </table>
+  </div>
+
+  <div class="clinic-group">
+    <div class="clinic-head"><h3>🎻 Vienna Vet</h3><span class="count-pill-sm">2 assistants</span></div>
+    <table>
+      <tr><th>Name</th><th>Email</th><th>Status</th></tr>
+      <tr><td class="name">catherine99467</td><td class="email">catherine99467@gmail.com</td><td><span class="badge guest">Invited guest</span></td></tr>
+      <tr><td class="name">talerojeovanni</td><td class="email">talerojeovanni@gmail.com</td><td><span class="badge guest">Invited guest</span></td></tr>
+    </table>
+  </div>
+
+  <div class="clinic-group">
+    <div class="clinic-head"><h3>🔬 TVRC</h3><span class="count-pill-sm">2 assistants</span></div>
+    <table>
+      <tr><th>Name</th><th>Email</th><th>Status</th></tr>
+      <tr><td class="name">justinnohadi</td><td class="email">justinnohadi@gmail.com</td><td><span class="badge guest">Invited guest</span></td></tr>
+      <tr><td class="name">m0800628milly</td><td class="email">m0800628milly@gmail.com</td><td><span class="badge guest">Invited guest</span></td></tr>
+    </table>
+  </div>
+
+  <div class="clinic-group">
+    <div class="clinic-head"><h3>🏢 JLT</h3><span class="count-pill-sm">2 assistants</span></div>
+    <table>
+      <tr><th>Name</th><th>Email</th><th>Status</th></tr>
+      <tr><td class="name">kondranarsaiah11</td><td class="email">kondranarsaiah11@gmail.com</td><td><span class="badge guest">Invited guest</span></td></tr>
+      <tr><td class="name">nirangaarachchi</td><td class="email">nirangaarachchi@gmail.com</td><td><span class="badge guest">Invited guest</span></td></tr>
+    </table>
+  </div>
+
+  <div class="clinic-group">
+    <div class="clinic-head"><h3>🏘️ JVC</h3><span class="count-pill-sm">1 assistant</span></div>
+    <table>
+      <tr><th>Name</th><th>Email</th><th>Status</th></tr>
+      <tr><td class="name">jervispeterquilon</td><td class="email">jervispeterquilon@gmail.com</td><td><span class="badge guest">Invited guest</span></td></tr>
+    </table>
+  </div>
+
+  <!-- ================= STAFF / MEMBERS ================= -->
+  <div class="section-title">👥 Staff / Full Members <span class="count-pill">16 pending · nursing/vet team + orders + fd access</span></div>
+
+  <div class="clinic-group">
+    <div class="clinic-head"><h3>🏥 Al Wasl Hospital</h3><span class="count-pill-sm">11 staff</span></div>
+    <table>
+      <tr><th>Name</th><th>Email</th><th>Likely Role</th><th>Status</th></tr>
+      <tr><td class="name">Adina</td><td class="email">adina@modernvet.site</td><td><span class="tag">Nursing</span></td><td><span class="badge member">Invited member</span></td></tr>
+      <tr><td class="name">Chathumali</td><td class="email">chathumali@modernvet.site</td><td><span class="tag">Nursing</span></td><td><span class="badge member">Invited member</span></td></tr>
+      <tr><td class="name">Cyrielle</td><td class="email">cyrielle@modernvet.site</td><td><span class="tag">Nursing</span></td><td><span class="badge member">Invited member</span></td></tr>
+      <tr><td class="name">Donald</td><td class="email">donald@modernvet.site</td><td><span class="tag">Nursing</span></td><td><span class="badge member">Invited member</span></td></tr>
+      <tr><td class="name">drroy</td><td class="email">drroy@modernvet.com</td><td><span class="tag">Veterinary</span></td><td><span class="badge member">Invited member</span></td></tr>
+      <tr><td class="name">Louie</td><td class="email">louie@modernvet.site</td><td><span class="tag">Nursing</span></td><td><span class="badge member">Invited member</span></td></tr>
+      <tr><td class="name">M Taylored Physio</td><td class="email">m.taylored.physio@modernvet.com</td><td><span class="tag">Veterinary</span></td><td><span class="badge member">Invited member</span></td></tr>
+      <tr><td class="name">Mario</td><td class="email">mario@modernvet.site</td><td><span class="tag">Nursing</span></td><td><span class="badge member">Invited member</span></td></tr>
+      <tr><td class="name">Mike</td><td class="email">mike@modernvet.site</td><td><span class="tag">Nursing</span></td><td><span class="badge member">Invited member</span></td></tr>
+      <tr><td class="name">Polyana</td><td class="email">polyana@modernvet.site</td><td><span class="tag">Nursing</span></td><td><span class="badge member">Invited member</span></td></tr>
+      <tr><td class="name">Vivianne</td><td class="email">vivianne@modernvet.site</td><td><span class="tag">Nursing</span></td><td><span class="badge member">Invited member</span></td></tr>
+    </table>
+  </div>
+
+  <div class="clinic-group">
+    <div class="clinic-head"><h3>🌴 Palm</h3><span class="count-pill-sm">2 staff</span></div>
+    <table>
+      <tr><th>Name</th><th>Email</th><th>Likely Role</th><th>Status</th></tr>
+      <tr><td class="name">Daniel</td><td class="email">daniel@modernvet.site</td><td><span class="tag">Nursing</span></td><td><span class="badge member">Invited member</span></td></tr>
+      <tr><td class="name">Muhammad Wajid</td><td class="email">muhammad_wajid@modernvet.site</td><td><span class="tag">Nursing</span></td><td><span class="badge member">Invited member</span></td></tr>
+    </table>
+  </div>
+
+  <div class="clinic-group">
+    <div class="clinic-head"><h3>🌊 Blue Oasis (BOVC)</h3><span class="count-pill-sm">2 staff</span></div>
+    <table>
+      <tr><th>Name</th><th>Email</th><th>Likely Role</th><th>Status</th></tr>
+      <tr><td class="name">Elias</td><td class="email">elias@modernvet.site</td><td><span class="tag">Nursing</span></td><td><span class="badge member">Invited member</span></td></tr>
+      <tr><td class="name">Saad</td><td class="email">saad@modernvet.site</td><td><span class="tag">Nursing</span></td><td><span class="badge member">Invited member</span></td></tr>
+    </table>
+  </div>
+
+  <div class="clinic-group">
+    <div class="clinic-head"><h3>🎻 Vienna Vet</h3><span class="count-pill-sm">2 staff</span></div>
+    <table>
+      <tr><th>Name</th><th>Email</th><th>Likely Role</th><th>Status</th></tr>
+      <tr><td class="name">Aida Pomperada</td><td class="email">aida_pomperada@modernvet.site</td><td><span class="tag">Nursing</span></td><td><span class="badge member">Invited member</span></td></tr>
+      <tr><td class="name">Romel</td><td class="email">romel@modernvet.site</td><td><span class="tag">Nursing</span></td><td><span class="badge member">Invited member</span></td></tr>
+    </table>
+  </div>
+
+  <div class="clinic-group">
+    <div class="clinic-head"><h3>🔬 TVRC</h3><span class="count-pill-sm">1 staff</span></div>
+    <table>
+      <tr><th>Name</th><th>Email</th><th>Likely Role</th><th>Status</th></tr>
+      <tr><td class="name">Dr Rares</td><td class="email">dr.rares@tvrc.ae</td><td><span class="tag">Veterinary</span></td><td><span class="badge member">Invited member</span></td></tr>
+    </table>
+  </div>
+
+  <div class="clinic-group">
+    <div class="clinic-head"><h3>🏥 Hospital + TVRC (dual)</h3><span class="count-pill-sm">1 staff</span></div>
+    <table>
+      <tr><th>Name</th><th>Email</th><th>Likely Role</th><th>Status</th></tr>
+      <tr><td class="name">Waqar</td><td class="email">Waqar@bovc.ae</td><td><span class="tag">Nursing</span><span class="tag">Lab/Orders</span></td><td><span class="badge member">Invited member</span></td></tr>
+    </table>
+  </div>
+
+  <div class="clinic-group">
+    <div class="clinic-head"><h3>🏙️ Downtown</h3><span class="count-pill-sm">1 staff</span></div>
+    <table>
+      <tr><th>Name</th><th>Email</th><th>Likely Role</th><th>Status</th></tr>
+      <tr><td class="name">vetqmuqaddam</td><td class="email">vetqmuqaddam@gmail.com</td><td><span class="tag">Nursing</span></td><td><span class="badge member">Invited member</span></td></tr>
+    </table>
+  </div>
+
+  <!-- ================= UNASSIGNED ================= -->
+  <div class="section-title">❔ Unassigned / Other <span class="count-pill">7 pending</span></div>
+  <div class="clinic-group">
+    <table>
+      <tr><th>Name</th><th>Email</th><th>Notes</th><th>Status</th></tr>
+      <tr><td class="name">amadorrowena</td><td class="email">amadorrowena@modernvet.com</td><td><span class="tag">Not in any clinic channel</span></td><td><span class="badge member">Invited member</span></td></tr>
+      <tr><td class="name">Joseph</td><td class="email">Joseph@modernvet.site</td><td><span class="tag">BSPR Driver Instructions</span></td><td><span class="badge member">Invited member</span></td></tr>
+      <tr><td class="name">ibrahimsohail7</td><td class="email">ibrahimsohail7@gmail.com</td><td><span class="tag">Not in any clinic channel</span></td><td><span class="badge deact">Invited + Deactivated</span></td></tr>
+      <tr><td class="name">madu</td><td class="email">madu@modernvet.site</td><td><span class="tag">Not in any clinic channel</span></td><td><span class="badge deact">Invited + Deactivated</span></td></tr>
+      <tr><td class="name">mvc</td><td class="email">mvc@modernvet.com</td><td><span class="tag">Not in any clinic channel</span></td><td><span class="badge deact">Invited + Deactivated</span></td></tr>
+      <tr><td class="name">vivikayrivas</td><td class="email">Vivikayrivas@modernvet.com</td><td><span class="tag">Not in any clinic channel</span></td><td><span class="badge deact">Invited + Deactivated</span></td></tr>
+      <tr><td class="name">vivikayrivas</td><td class="email">vivikayrivas@modernvet.site</td><td><span class="tag">Not in any clinic channel</span></td><td><span class="badge deact">Invited + Deactivated</span></td></tr>
+    </table>
+  </div>
+
+  <p class="footer-note">
+    <b>Method:</b> Cross-referenced Slack's "Invited" status (from admin member export screenshots) against clinic <code>-med</code> / <code>-orders</code> / <code>-fd</code> channel membership.
+    <b>Assistants</b> = gmail-address "Invited guest" accounts, each added only to a single clinic's Medical channel (typical pattern for relief/visiting vet assistants).
+    <b>Staff/Members</b> = <code>modernvet.com</code>/<code>.site</code> domain "Invited member" accounts with team-wide Nursing/Vet channel access plus Orders/Lab.
+    5 accounts are both "Invited" and later "Deactivated" — likely invites revoked/cancelled before the person ever accepted.
+  </p>
+</div>
+</body>
+</html>
