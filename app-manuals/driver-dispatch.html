@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to Use: Driver Dispatch — Modern Vet</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚚%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header" data-emoji="🚚">
+    <div class="header-label">How-To Guide</div>
+    <h1>Driver Dispatch</h1>
+    <p>Need something driven between clinics — a lab sample, a patient, groceries, anything? This app books a driver, tracks the job in real time, and keeps a full delivery history.</p>
+    <a class="back" href="index.html">← All app manuals</a>
+  </div>
+
+  <div class="jumpnav">
+    <a href="#start">1. Requesting a Delivery</a>
+    <a href="#auto">2. Booked Automatically</a>
+    <a href="#track">3. Tracking a Job</a>
+    <a href="#driverside">4. For Drivers</a>
+    <a href="#admin">5. Admin Dashboard</a>
+    <a href="#faq">FAQ</a>
+  </div>
+
+  <div class="section" id="start">
+    <h2>1 · Requesting a Delivery (in Slack)</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Click "New Delivery Task"</h3>
+          <p>A button is pinned in <code>#driver-dispatch</code> — click it to open the request form.</p>
+          <img src="shots/driver-slack/button.png" alt="New Delivery Task button">
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Fill in the job</h3>
+          <p>Pick the Job Type (lab sample transfer, patient transfer, grocery, etc.), Priority, pickup and drop-off locations/times, and add a Requestor name + contact number so the driver can reach you.</p>
+          <img src="shots/driver-slack/modal.png" alt="Dispatch Job modal">
+          <div class="tip"><b>Note:</b> Reception only chooses <b>Driver (car)</b> or <b>Bike Rider</b> — you don't need to know who's on shift. The system automatically finds and assigns whoever is available. If you leave this blank, it's assigned automatically too.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Create Task</h3>
+          <p>The job is posted to #driver-dispatch and the assigned driver is notified in the app.</p>
+          <img src="shots/driver-slack/card.png" alt="Dispatch task card in Slack">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="auto">
+    <h2>2 · Booked Automatically From Other Apps</h2>
+    <p style="font-size:13.5px;color:#444;line-height:1.65">
+      You don't always need to use this app directly. Both the <a class="applink" href="lab-sample-transfer.html">Lab Sample Transfer</a> and <a class="applink" href="patient-endorsement.html">Patient Endorsement</a> apps can create a driver job for you automatically — just fill in the "Collect By" / "Pickup Time" field in those forms and a task shows up here without any extra steps.
+      Patient transport jobs are always restricted to a <b>Driver (car)</b> — never a Bike Rider, for safety.
+    </p>
+  </div>
+
+  <div class="section" id="track">
+    <h2>3 · Tracking a Job</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">→</div>
+        <div class="step-body">
+          <h3>Follow the thread</h3>
+          <p>Every status update — Accepted, Picked Up, In Transit, Delivered — is posted as a reply in the task's Slack thread, with a timestamp and who updated it. Some updates include a photo, signature, or GPS location.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">→</div>
+        <div class="step-body">
+          <h3>Urgent jobs ping the dispatch manager</h3>
+          <p>If a job is marked Urgent, the dispatch manager gets a direct @mention so it doesn't get missed.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="driverside">
+    <h2>4 · For Drivers</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Open the app</h3>
+          <p>Drivers log into <a class="applink" href="https://vetalliance.website/driver-app/" target="_blank">vetalliance.website/driver-app</a> to see their assigned jobs for the day.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Update status as you go</h3>
+          <p>Tap through Accepted → Picked Up → In Transit → Delivered. You can attach a photo, capture a signature, and the app records your GPS location automatically at delivery.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Check your monthly schedule</h3>
+          <p>Your shift schedule for the month is uploaded by the admin team and shows in the app — no more asking "am I on today?"</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="admin">
+    <h2>5 · Admin Dashboard (Web)</h2>
+    <p style="font-size:13.5px;color:#444;margin-bottom:16px">For managers: <a class="applink" href="https://vetalliance.website/driver-app/" target="_blank">vetalliance.website/driver-app</a></p>
+    <div class="grid2">
+      <div class="shotcard">
+        <img src="shots/driver/02-dashboard.png" alt="Driver dispatch admin dashboard">
+        <div class="cap">Dashboard — open deliveries, completed today, delayed jobs, driver utilization</div>
+      </div>
+      <div class="shotcard">
+        <img src="shots/driver/03-tasks-list.png" alt="Tasks list">
+        <div class="cap">Full task list with statuses</div>
+      </div>
+      <div class="shotcard">
+        <img src="shots/driver/04-task-detail.png" alt="Task detail page">
+        <div class="cap">Full detail view — activity history, photo, signature, GPS</div>
+      </div>
+      <div class="shotcard">
+        <img src="shots/driver/05-new-task-form.png" alt="New task form">
+        <div class="cap">Create a task directly (admin can pick a specific driver here)</div>
+      </div>
+      <div class="shotcard">
+        <img src="shots/driver/06-drivers.png" alt="Drivers list">
+        <div class="cap">Manage drivers &amp; riders</div>
+      </div>
+      <div class="shotcard">
+        <img src="shots/driver/07-schedule-upload.png" alt="Schedule upload page">
+        <div class="cap">Upload the monthly driver schedule (Excel) — re-uploading overwrites cleanly</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="faq">
+    <h2>FAQ</h2>
+    <dl class="faq">
+      <dt>Why can't I pick a specific driver from Slack?</dt>
+      <dd>Reception only needs to say "Driver" or "Bike Rider" — the system auto-assigns whoever's available and on shift. Admins can still pick a named driver from the web dashboard if needed.</dd>
+      <dt>What if I upload the schedule twice by mistake?</dt>
+      <dd>No problem — re-uploading the same month's schedule overwrites the old entries cleanly, no duplicates.</dd>
+      <dt>Can a patient be moved by Bike Rider?</dt>
+      <dd>No — patient transfers (from the Patient Endorsement app) are always restricted to a Driver (car) for safety.</dd>
+    </dl>
+  </div>
+
+  <footer>Modern Vet · Driver Dispatch app manual · updated 23 Jul 2026</footer>
+</div>
+<div id="lightbox"><span class="hint">click anywhere to close</span><img id="lightbox-img" src="" alt=""></div>
+<script>
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lightbox-img');
+  document.querySelectorAll('.shotcard img, .step-body img').forEach(function(img){
+    img.addEventListener('click', function(){ lbImg.src = img.src; lb.classList.add('open'); });
+  });
+  lb.addEventListener('click', function(){ lb.classList.remove('open'); lbImg.src=''; });
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>App Manuals — Modern Vet</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E😸%3C/text%3E%3C/svg%3E">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Montserrat',sans-serif;background:#f0f4f4;color:#222;padding:40px 20px;min-height:100vh}
+.page{max-width:880px;margin:0 auto}
+.header{background:#015962;border-radius:16px;padding:36px 40px;margin-bottom:32px;position:relative;overflow:hidden}
+.header::after{content:'📚';position:absolute;right:32px;top:50%;transform:translateY(-50%);font-size:80px;opacity:0.12}
+.header-label{font-size:10px;font-weight:700;letter-spacing:5px;color:#dfecd1;opacity:0.7;text-transform:uppercase;margin-bottom:8px}
+.header h1{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:600;color:#ffffff;line-height:1.1;margin-bottom:8px}
+.header p{font-size:14px;color:#dfecd1;opacity:0.85;font-weight:500;max-width:640px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.card{background:#fff;border-radius:14px;padding:28px 26px;box-shadow:0 4px 20px rgba(1,89,98,0.07);text-decoration:none;color:inherit;transition:.15s;display:block;border:1.5px solid transparent}
+.card:hover{transform:translateY(-3px);border-color:#015962;box-shadow:0 8px 28px rgba(1,89,98,0.15)}
+.card .emoji{font-size:40px;margin-bottom:14px;display:block}
+.card h2{font-size:18px;font-weight:700;color:#015962;margin-bottom:8px}
+.card p{font-size:13px;color:#666;line-height:1.55}
+footer{text-align:center;font-size:11px;color:#999;padding:30px 0 0}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="header-label">Modern Vet · Staff Guides</div>
+    <h1>App Manuals</h1>
+    <p>Simple step-by-step guides for the internal Slack apps our clinics use every day. Pick one below.</p>
+  </div>
+
+  <div class="cards">
+    <a class="card" href="patient-endorsement.html">
+      <span class="emoji">🐾</span>
+      <h2>Patient Endorsement</h2>
+      <p>Handing a patient over to another clinic or the hospital — referral, vitals, and driver booking in one place.</p>
+    </a>
+    <a class="card" href="lab-sample-transfer.html">
+      <span class="emoji">🧪</span>
+      <h2>Lab Sample Transfer</h2>
+      <p>Send a sample to TVRC, Al Wasl Hospital, or Blue Oasis lab and track it from pickup to results.</p>
+    </a>
+    <a class="card" href="driver-dispatch.html">
+      <span class="emoji">🚚</span>
+      <h2>Driver Dispatch</h2>
+      <p>Book a driver for anything — samples, patients, supplies — and track the job live.</p>
+    </a>
+  </div>
+
+  <footer>Modern Vet · updated 23 Jul 2026</footer>
+</div>
+</body>
+</html>

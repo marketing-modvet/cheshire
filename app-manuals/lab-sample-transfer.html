@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to Use: Lab Sample Transfer — Modern Vet</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🧪%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header" data-emoji="🧪">
+    <div class="header-label">How-To Guide</div>
+    <h1>Lab Sample Transfer</h1>
+    <p>Sending a sample to TVRC, Al Wasl Hospital, or Blue Oasis lab? This app tracks every sample from the moment it's taken to the moment results are in — no more "did the sample arrive?" messages.</p>
+    <a class="back" href="index.html">← All app manuals</a>
+  </div>
+
+  <div class="jumpnav">
+    <a href="#start">1. Submitting a Sample</a>
+    <a href="#notify">2. Who Gets Notified</a>
+    <a href="#action">3. Accept / Reject / Reassign</a>
+    <a href="#progress">4. Tracking Progress</a>
+    <a href="#admin">5. Admin Dashboard</a>
+    <a href="#faq">FAQ</a>
+  </div>
+
+  <div class="section" id="start">
+    <h2>1 · Submitting a Sample (in Slack)</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Type the slash command</h3>
+          <p>In any Slack channel or DM, type <code>/labsample</code> and press Enter.</p>
+          <img src="shots/lab-slack/slash.png" alt="/labsample slash command">
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Fill in sample details</h3>
+          <p>Pick From/To clinic, patient name &amp; ID, sample type(s), and container type(s). Use the searchable <b>Lab Test(s) Requested</b> field to find the exact test from our full catalog of 550+ tests — just start typing.</p>
+          <img src="shots/lab-slack/modal.png" alt="New lab sample modal">
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Set Collect By time (optional)</h3>
+          <p>If the sample needs a driver to physically move it, fill in <b>Collect By — Date/Time</b>. This automatically books a driver for you — no separate dispatch request needed.</p>
+          <div class="tip"><b>Tip:</b> Leave it blank if the sample is already at the lab, or someone's hand-carrying it themselves.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="notify">
+    <h2>2 · Who Gets Notified</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">✓</div>
+        <div class="step-body">
+          <h3>The receiving lab's channel</h3>
+          <p>Gets the full actionable card with <b>Accept / Reject / Reassign</b> buttons.</p>
+          <img src="shots/lab-slack/card.png" alt="Lab sample ticket card with action buttons">
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">✓</div>
+        <div class="step-body">
+          <h3>Sending clinic's reception &amp; med channels</h3>
+          <p>Get an informational copy so the sending team can follow the ticket.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">✓</div>
+        <div class="step-body">
+          <h3>The driver, if one was booked</h3>
+          <p>If a Collect By time was given, a driver task auto-posts to <code>#driver-dispatch</code>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="action">
+    <h2>3 · Accept / Reject / Reassign</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">A</div>
+        <div class="step-body"><h3>Accept</h3><p>The receiving lab confirms it's expecting the sample.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">B</div>
+        <div class="step-body"><h3>Reject</h3><p>Asks for a short reason — the sender is notified immediately.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">C</div>
+        <div class="step-body"><h3>Reassign</h3><p>Sends the sample to a different lab instead. This creates a brand new ticket at the new destination, so it goes through its own fresh Accept step.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="progress">
+    <h2>4 · Tracking Progress</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">→</div>
+        <div class="step-body">
+          <h3>Once accepted, the lab clicks progress buttons</h3>
+          <p><b>Mark Sent → Mark Received → Mark Complete</b> — each click is logged with a timestamp and who clicked it, so there's always an audit trail.</p>
+          <img src="shots/lab-slack/progress-card.png" alt="Progress buttons on an in-progress ticket">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="admin">
+    <h2>5 · Admin Dashboard (Web)</h2>
+    <p style="font-size:13.5px;color:#444;margin-bottom:16px">For managers who want to see everything in one place: <a class="applink" href="https://vetalliance.website/lab-app/" target="_blank">vetalliance.website/lab-app</a></p>
+    <div class="grid2">
+      <div class="shotcard">
+        <img src="shots/lab/02-dashboard.png" alt="Lab admin dashboard">
+        <div class="cap">Dashboard — open tickets, completed today, by destination</div>
+      </div>
+      <div class="shotcard">
+        <img src="shots/lab/03-tickets-list.png" alt="Lab tickets list">
+        <div class="cap">Full ticket list</div>
+      </div>
+      <div class="shotcard">
+        <img src="shots/lab/04-ticket-detail.png" alt="Lab ticket detail">
+        <div class="cap">Full detail view with audit log</div>
+      </div>
+      <div class="shotcard">
+        <img src="shots/lab/05-new-ticket-form.png" alt="New ticket form">
+        <div class="cap">Create a ticket directly from the web app too</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="faq">
+    <h2>FAQ</h2>
+    <dl class="faq">
+      <dt>Why can't I find my test in a dropdown list?</dt>
+      <dd>The Lab Test(s) field is a search box, not a dropdown — there are over 550 tests, too many to scroll through. Just start typing the test name.</dd>
+      <dt>What happens if I reassign a ticket?</dt>
+      <dd>The old ticket is closed and a brand new one is opened at the new destination lab — it needs to be accepted fresh, same as any new ticket.</dd>
+      <dt>Do I need to request a driver separately for the sample?</dt>
+      <dd>No — fill in "Collect By" in the form and a driver task is created and posted to #driver-dispatch automatically.</dd>
+    </dl>
+  </div>
+
+  <footer>Modern Vet · Lab Sample Transfer app manual · updated 23 Jul 2026</footer>
+</div>
+<div id="lightbox"><span class="hint">click anywhere to close</span><img id="lightbox-img" src="" alt=""></div>
+<script>
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lightbox-img');
+  document.querySelectorAll('.shotcard img, .step-body img').forEach(function(img){
+    img.addEventListener('click', function(){ lbImg.src = img.src; lb.classList.add('open'); });
+  });
+  lb.addEventListener('click', function(){ lb.classList.remove('open'); lbImg.src=''; });
+</script>
+</body>
+</html>

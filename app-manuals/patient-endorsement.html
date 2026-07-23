@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to Use: Patient Endorsement — Modern Vet</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🐾%3C/text%3E%3C/svg%3E">
+<style>
+</style>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="header" data-emoji="🐾">
+    <div class="header-label">How-To Guide</div>
+    <h1>Patient Endorsement</h1>
+    <p>Handing a patient over to another clinic or the hospital? This app makes sure the receiving vet gets everything they need — referral details, vitals, and a driver if the pet needs to travel — in one place.</p>
+    <a class="back" href="index.html">← All app manuals</a>
+  </div>
+
+  <div class="jumpnav">
+    <a href="#start">1. Starting an Endorsement</a>
+    <a href="#step2">2. Clinical Details</a>
+    <a href="#notify">3. Who Gets Notified</a>
+    <a href="#action">4. Accepting / Rejecting</a>
+    <a href="#admin">5. Admin Dashboard</a>
+    <a href="#faq">FAQ</a>
+  </div>
+
+  <div class="section" id="start">
+    <h2>1 · Starting an Endorsement (in Slack)</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Type the slash command</h3>
+          <p>In any Slack channel or DM, type <code>/endorse</code> and press Enter. A form will pop up.</p>
+          <img src="shots/endorse-slack/slash.png" alt="/endorse slash command">
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Fill in the referral &amp; patient info</h3>
+          <p>Pick the sending clinic, the destination clinic, and who's referring / receiving the patient. Add the patient's name, Pet ID, and <b>Clinic Record Number</b>. Set the Priority (Routine / Urgent / Critical).</p>
+          <p><b>If the pet needs a driver to physically move between clinics</b>, fill in <b>Pickup Time (Collection of Pet)</b> — this automatically books a driver for you. Toggle <b>Mark Transport as Urgent?</b> only if dispatch needs to be pinged immediately; a driver is assigned either way.</p>
+          <img src="shots/endorse-slack/modal-step1.png" alt="Step 1 modal — referral and patient info">
+          <div class="tip"><b>Tip:</b> Leave Pickup Time blank if the patient is already at the receiving clinic, or the family/owner is transporting them — no dispatch task will be created.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="step2">
+    <h2>2 · Clinical Details (Step 2 of the form)</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Add the clinical picture</h3>
+          <p>Chief complaint, diagnosis, current status, mentation, handling behaviour, appetite, temperature, and weight. This year we added <b>HR (Heart Rate), RR (Respiratory Rate), and BP (Blood Pressure)</b> so the receiving team has full vitals up front.</p>
+          <img src="shots/endorse-slack/modal-step2.png" alt="Step 2 modal — clinical details and vitals">
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h3>Submit</h3>
+          <p>Once you hit submit on the final step, the endorsement is created and everyone who needs to know gets notified immediately (see below).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="notify">
+    <h2>3 · Who Gets Notified</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">✓</div>
+        <div class="step-body">
+          <h3>The receiving vet</h3>
+          <p>Gets a direct Slack message with the full endorsement card.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">✓</div>
+        <div class="step-body">
+          <h3>Receiving clinic's reception &amp; ward channels</h3>
+          <p>Get the full actionable card with <b>Accept / Reject / Reassign</b> buttons — they're the ones who action it.</p>
+          <img src="shots/endorse-slack/card.png" alt="Full endorsement card with action buttons">
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">✓</div>
+        <div class="step-body">
+          <h3>Sending clinic's reception &amp; ward channels</h3>
+          <p>Get an informational copy (no buttons) — just so the sending side can see the case moving, without confusing them into thinking they need to act.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">✓</div>
+        <div class="step-body">
+          <h3>The #endorsement channel</h3>
+          <p>Every endorsement — accepted, rejected, or still pending — is logged here as a permanent record for management visibility.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">✓</div>
+        <div class="step-body">
+          <h3>The driver, if one was booked</h3>
+          <p>If you filled in a Pickup Time, a driver task is auto-created and posted to <code>#driver-dispatch</code> — patients only ever travel with a <b>Driver (car)</b>, never a Bike Rider.</p>
+          <img src="shots/endorse-slack/transport-card.png" alt="Auto-created driver dispatch task">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="action">
+    <h2>4 · Accepting, Rejecting, or Reassigning</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">A</div>
+        <div class="step-body">
+          <h3>Who can click the buttons?</h3>
+          <p>The assigned receiving vet, any ward vet at the destination clinic, or a <b>Hospital Vet</b> (a vet based at Al Wasl Hospital, who can step in on any case anywhere).</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">B</div>
+        <div class="step-body">
+          <h3>Accept</h3>
+          <p>Confirms the clinic is ready to receive the patient. The card updates to show accepted, and everyone notified above sees the status change.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">C</div>
+        <div class="step-body">
+          <h3>Reject / Reassign</h3>
+          <p>Reject asks for a short reason. Reassign lets you pick a different vet or clinic to send it to instead.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="admin">
+    <h2>5 · Admin Dashboard (Web)</h2>
+    <p style="font-size:13.5px;color:#444;margin-bottom:16px">For managers who want to see everything in one place: <a class="applink" href="https://vetalliance.website/endorse-app/" target="_blank">vetalliance.website/endorse-app</a></p>
+    <div class="grid2">
+      <div class="shotcard">
+        <img src="shots/endorse/02-dashboard.png" alt="Endorsement admin dashboard">
+        <div class="cap">Dashboard — summary stats + recent endorsements</div>
+      </div>
+      <div class="shotcard">
+        <img src="shots/endorse/03-endorsements-list.png" alt="Endorsement list">
+        <div class="cap">Full list of every endorsement, filterable</div>
+      </div>
+      <div class="shotcard">
+        <img src="shots/endorse/04-endorsement-detail.png" alt="Endorsement detail page">
+        <div class="cap">Full detail view: referral, patient, clinical info, treatment, audit trail</div>
+      </div>
+      <div class="shotcard">
+        <img src="shots/endorse/05-admin-vets.png" alt="Vet roster admin page">
+        <div class="cap">Vet roster — set who's a ward vet / Hospital Vet</div>
+      </div>
+      <div class="shotcard">
+        <img src="shots/endorse/06-admin-clinics.png" alt="Clinic settings admin page">
+        <div class="cap">Clinic settings — channels per site</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="faq">
+    <h2>FAQ</h2>
+    <dl class="faq">
+      <dt>What's the difference between "Priority" and "Mark Transport as Urgent?"</dt>
+      <dd>Priority (Routine/Urgent/Critical) describes the patient's clinical urgency. "Mark Transport as Urgent?" only affects the driver task — it pings the dispatch manager immediately. A driver still gets assigned automatically either way.</dd>
+      <dt>Why did the sending clinic get a notification with no buttons?</dt>
+      <dd>That's intentional — it's just a heads-up copy so the sending team can see the case is moving. Only the receiving clinic needs to Accept/Reject/Reassign.</dd>
+      <dt>Can any vet accept an endorsement for the hospital?</dt>
+      <dd>Yes — any vet designated as a "Hospital Vet" (based at Al Wasl Hospital) can accept, reject, or reassign an endorsement heading to the hospital, in addition to the specific assigned vet and that clinic's ward vets.</dd>
+      <dt>Do I need to book a driver separately?</dt>
+      <dd>No — just fill in the Pickup Time field in the form and a driver task is created automatically and posted to #driver-dispatch.</dd>
+    </dl>
+  </div>
+
+  <footer>Modern Vet · Patient Endorsement app manual · updated 23 Jul 2026</footer>
+</div>
+<div id="lightbox"><span class="hint">click anywhere to close</span><img id="lightbox-img" src="" alt=""></div>
+<script>
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lightbox-img');
+  document.querySelectorAll('.shotcard img, .step-body img').forEach(function(img){
+    img.addEventListener('click', function(){ lbImg.src = img.src; lb.classList.add('open'); });
+  });
+  lb.addEventListener('click', function(){ lb.classList.remove('open'); lbImg.src=''; });
+</script>
+</body>
+</html>
