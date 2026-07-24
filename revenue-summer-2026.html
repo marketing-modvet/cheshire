@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Summer Revenue Report — July 2026 Pacing &amp; August Prognosis</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0d1117;
+    --card: #161b22;
+    --card2: #1c2330;
+    --border: #2d333b;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --green: #3fb950;
+    --red: #f85149;
+    --blue: #58a6ff;
+    --amber: #d29922;
+    --purple: #bc8cff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }
+  .container { max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; }
+  header { text-align: center; margin-bottom: 48px; }
+  header h1 { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+  header .subtitle { color: var(--muted); font-size: 1.05rem; }
+  header .badge {
+    display: inline-block; margin-top: 14px; padding: 6px 16px; border-radius: 20px;
+    background: rgba(63,185,80,.15); color: var(--green); font-weight: 600; font-size: .9rem;
+    border: 1px solid rgba(63,185,80,.4);
+  }
+
+  .kpi-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 16px; margin-bottom: 40px;
+  }
+  .kpi {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 22px;
+  }
+  .kpi .label { color: var(--muted); font-size: .82rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+  .kpi .value { font-size: 1.7rem; font-weight: 700; }
+  .kpi .delta { font-size: .95rem; font-weight: 600; margin-top: 4px; }
+  .up { color: var(--green); }
+  .down { color: var(--red); }
+  .neutral { color: var(--amber); }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 28px; margin-bottom: 28px;
+  }
+  .card h2 { font-size: 1.25rem; margin-bottom: 6px; }
+  .card .desc { color: var(--muted); font-size: .92rem; margin-bottom: 20px; }
+  .chart-wrap { position: relative; height: 360px; }
+  .chart-wrap.tall { height: 400px; }
+  .chart-wrap.short { height: 300px; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  @media (max-width: 860px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+  th, td { padding: 10px 14px; text-align: right; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; }
+  th { color: var(--muted); font-weight: 600; text-transform: uppercase; font-size: .75rem; letter-spacing: .05em; }
+  tr.year-divider td { border-top: 2px solid #3d444d; }
+  tr.projection { background: rgba(88,166,255,.06); }
+  tr.projection td:first-child::after { content: " ●"; color: var(--blue); }
+  .table-scroll { overflow-x: auto; }
+
+  .summary p { margin-bottom: 14px; color: #c9d1d9; }
+  .summary strong { color: var(--text); }
+  .highlight-box {
+    background: var(--card2); border-left: 4px solid var(--green); border-radius: 8px;
+    padding: 16px 20px; margin: 18px 0;
+  }
+  .highlight-box.blue { border-left-color: var(--blue); }
+  ul.dip-list { list-style: none; margin: 12px 0; }
+  ul.dip-list li { padding: 6px 0; color: #c9d1d9; }
+  ul.dip-list li b { color: var(--text); }
+
+  footer { text-align: center; color: var(--muted); font-size: .82rem; margin-top: 50px; }
+  .legend-note { font-size: .8rem; color: var(--muted); margin-top: 10px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>☀️ Summer Revenue Report</h1>
+    <div class="subtitle">July 2026 Pacing &amp; August Prognosis · Three-Year Seasonal Comparison (2024–2026)</div>
+    <div class="badge">July 2026 pacing +23.0% to +24.9% YoY</div>
+  </header>
+
+  <!-- KPI CARDS -->
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="label">June 2026 (actual)</div>
+      <div class="value">AED 6.67M</div>
+      <div class="delta up">▲ +20.4% YoY</div>
+    </div>
+    <div class="kpi">
+      <div class="label">July 2026 (projection)</div>
+      <div class="value">6.40–6.50M</div>
+      <div class="delta up">▲ +23.0–24.9% YoY</div>
+    </div>
+    <div class="kpi">
+      <div class="label">July MoM dip</div>
+      <div class="value">−2.5% to −4.0%</div>
+      <div class="delta neutral">mildest dip in 3 years</div>
+    </div>
+    <div class="kpi">
+      <div class="label">August 2026 (prognosis)</div>
+      <div class="value">6.66–7.04M</div>
+      <div class="delta up">▲ +22.9–29.9% YoY</div>
+    </div>
+  </div>
+
+  <!-- MONTHLY REVENUE BY YEAR -->
+  <div class="card">
+    <h2>Monthly Revenue — Summer, Three Years</h2>
+    <div class="desc">Total revenue (AED) for June, July and August across 2024, 2025 and 2026. July 2026 shown at projection midpoint; August 2026 at prognosis midpoint.</div>
+    <div class="chart-wrap tall"><canvas id="chartMonthly"></canvas></div>
+    <div class="legend-note">● 2026 July and August bars are projections (midpoints of 6.40–6.50M and 6.66–7.04M respectively).</div>
+  </div>
+
+  <div class="grid-2">
+    <!-- DAILY RUN RATE -->
+    <div class="card">
+      <h2>Daily Run-Rate (AED/day)</h2>
+      <div class="desc">Revenue per calendar day — removes the 30 vs 31 day distortion between June and July.</div>
+      <div class="chart-wrap short"><canvas id="chartDaily"></canvas></div>
+    </div>
+
+    <!-- SEASONAL DIP -->
+    <div class="card">
+      <h2>June → July Seasonal Dip</h2>
+      <div class="desc">The summer dip is shrinking every year — demand is becoming more resilient.</div>
+      <div class="chart-wrap short"><canvas id="chartDip"></canvas></div>
+    </div>
+  </div>
+
+  <!-- YOY GROWTH -->
+  <div class="card">
+    <h2>Year-over-Year Growth by Month</h2>
+    <div class="desc">YoY growth is accelerating: each month of 2026 grows faster than the same month grew in 2025.</div>
+    <div class="chart-wrap short"><canvas id="chartYoY"></canvas></div>
+  </div>
+
+  <!-- FULL TABLE -->
+  <div class="card">
+    <h2>Full Comparative Table</h2>
+    <div class="desc">All figures in AED. Rows marked ● are projections.</div>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Month</th><th>Revenue AED</th><th>Days</th><th>Daily Avg</th><th>MoM</th><th>YoY</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>June 2024</td><td>5,062,336</td><td>30</td><td>168,745</td><td>—</td><td>—</td></tr>
+          <tr><td>July 2024</td><td>4,455,375</td><td>31</td><td>143,722</td><td class="down">−12.0%</td><td>—</td></tr>
+          <tr><td>August 2024</td><td>4,826,646</td><td>31</td><td>155,698</td><td class="up">+8.3%</td><td>—</td></tr>
+          <tr class="year-divider"><td>June 2025</td><td>5,539,327</td><td>30</td><td>184,644</td><td>—</td><td class="up">+9.4%</td></tr>
+          <tr><td>July 2025</td><td>5,204,788</td><td>31</td><td>167,896</td><td class="down">−6.0%</td><td class="up">+16.8%</td></tr>
+          <tr><td>August 2025</td><td>5,419,012</td><td>31</td><td>174,807</td><td class="up">+4.1%</td><td class="up">+12.3%</td></tr>
+          <tr class="year-divider"><td>June 2026</td><td>6,670,000</td><td>30</td><td>222,333</td><td>—</td><td class="up">+20.4%</td></tr>
+          <tr class="projection"><td>July 2026</td><td>6,400,000–6,500,000</td><td>31</td><td>206,452–209,677</td><td class="down">−4.0% to −2.5%</td><td class="up">+23.0% to +24.9%</td></tr>
+          <tr class="projection"><td>August 2026</td><td>6,660,000–7,040,000</td><td>31</td><td>214,800–227,100</td><td class="up">+4.1% to +8.3%</td><td class="up">+22.9% to +29.9%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="card summary">
+    <h2>Summary &amp; Prognosis</h2>
+    <p style="margin-top:14px;">
+      <strong>July 2026 is pacing toward 6.4–6.5M vs 6.67M in June</strong> — a decline of 2.5–4.0%
+      (5.7–7.1% on a daily-average basis, adjusting for July's extra day). This dip is a well-established
+      seasonal pattern, visible in all three years of data.
+    </p>
+
+    <div class="highlight-box">
+      <strong>The seasonal July dip is shrinking every year:</strong>
+      <ul class="dip-list">
+        <li>2024: <b class="down">−12.0%</b> (daily −14.8%)</li>
+        <li>2025: <b class="down">−6.0%</b> (daily −9.1%)</li>
+        <li>2026: <b class="down">−2.5% to −4.0%</b> (daily −5.7% to −7.1%)</li>
+      </ul>
+      Each year the summer trough gets shallower — demand is becoming more resilient to the low season.
+    </div>
+
+    <p>
+      <strong>YoY growth is accelerating.</strong> June 2026 grew +20.4% vs 2025 (which itself grew +9.4% vs 2024).
+      July 2026 is projected at +23.0–24.9% YoY — meaning our "slowest" month this summer will exceed last July
+      by roughly a quarter, and will be higher than <em>any</em> single month of summer 2025.
+    </p>
+
+    <div class="highlight-box blue">
+      <strong>August prognosis:</strong> August has recovered from July in both prior years — +8.3% in 2024 and
+      +4.1% in 2025. Applying that recovery range to the July projection gives
+      <strong>August 2026 at 6.66–7.04M</strong> (daily average 215–227K), i.e. +23–30% YoY.
+      The midpoint scenario (~6.8–6.9M) would make it the strongest month of the summer and likely a new record for an August.
+    </div>
+
+    <p>
+      <strong>Bottom line:</strong> July's softening is normal seasonality — milder than in either of the two prior
+      years — while underlying YoY growth continues to strengthen quarter after quarter.
+    </p>
+  </div>
+
+  <footer>Prepared 24 July 2026 · Revenue figures in AED · July &amp; August 2026 figures are projections based on current pacing and historical seasonal patterns</footer>
+</div>
+
+<script>
+const css = getComputedStyle(document.documentElement);
+const C = {
+  green: '#3fb950', red: '#f85149', blue: '#58a6ff', amber: '#d29922',
+  purple: '#bc8cff', muted: '#8b949e', grid: 'rgba(139,148,158,0.15)', text: '#e6edf3'
+};
+Chart.defaults.color = C.muted;
+Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+
+const fmtM = v => (v/1e6).toFixed(2) + 'M';
+const fmtK = v => Math.round(v/1000) + 'K';
+
+// ── 1. Monthly revenue grouped by year ──
+new Chart(document.getElementById('chartMonthly'), {
+  type: 'bar',
+  data: {
+    labels: ['June', 'July', 'August'],
+    datasets: [
+      { label: '2024', data: [5062336, 4455375, 4826646], backgroundColor: 'rgba(139,148,158,0.55)', borderRadius: 6 },
+      { label: '2025', data: [5539327, 5204788, 5419012], backgroundColor: 'rgba(88,166,255,0.75)', borderRadius: 6 },
+      { label: '2026', data: [6670000, 6450000, 6850000], backgroundColor: 'rgba(63,185,80,0.85)', borderRadius: 6 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'top', labels: { usePointStyle: true, pointStyle: 'rectRounded' } },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: AED ${ctx.parsed.y.toLocaleString()}` } }
+    },
+    scales: {
+      y: { beginAtZero: true, grid: { color: C.grid }, ticks: { callback: fmtM } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// ── 2. Daily run-rate line ──
+new Chart(document.getElementById('chartDaily'), {
+  type: 'line',
+  data: {
+    labels: ['Jun 24','Jul 24','Aug 24','Jun 25','Jul 25','Aug 25','Jun 26','Jul 26','Aug 26'],
+    datasets: [{
+      label: 'AED / day',
+      data: [168745, 143722, 155698, 184644, 167896, 174807, 222333, 208065, 220950],
+      borderColor: C.blue,
+      backgroundColor: 'rgba(88,166,255,0.12)',
+      fill: true,
+      tension: 0.35,
+      pointRadius: ctx => ctx.dataIndex >= 7 ? 6 : 4,
+      pointBackgroundColor: ctx => ctx.dataIndex >= 7 ? C.amber : C.blue,
+      pointBorderColor: '#0d1117',
+      pointBorderWidth: 2,
+      segment: { borderDash: ctx => ctx.p1DataIndex >= 7 ? [6,5] : undefined }
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` AED ${ctx.parsed.y.toLocaleString()}/day${ctx.dataIndex>=7?' (projection)':''}` } }
+    },
+    scales: {
+      y: { grid: { color: C.grid }, ticks: { callback: fmtK } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// ── 3. Seasonal dip shrinking ──
+new Chart(document.getElementById('chartDip'), {
+  type: 'bar',
+  data: {
+    labels: ['2024', '2025', '2026 (proj.)'],
+    datasets: [
+      { label: 'Total revenue dip', data: [-12.0, -6.0, -3.25], backgroundColor: 'rgba(248,81,73,0.75)', borderRadius: 6 },
+      { label: 'Daily run-rate dip', data: [-14.8, -9.1, -6.4], backgroundColor: 'rgba(210,153,34,0.75)', borderRadius: 6 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'top', labels: { usePointStyle: true, pointStyle: 'rectRounded' } },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y}%` } }
+    },
+    scales: {
+      y: { grid: { color: C.grid }, ticks: { callback: v => v + '%' } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// ── 4. YoY growth ──
+new Chart(document.getElementById('chartYoY'), {
+  type: 'bar',
+  data: {
+    labels: ['June', 'July', 'August'],
+    datasets: [
+      { label: '2025 vs 2024', data: [9.4, 16.8, 12.3], backgroundColor: 'rgba(88,166,255,0.75)', borderRadius: 6 },
+      { label: '2026 vs 2025', data: [20.4, 23.95, 26.4], backgroundColor: 'rgba(63,185,80,0.85)', borderRadius: 6 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'top', labels: { usePointStyle: true, pointStyle: 'rectRounded' } },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: +${ctx.parsed.y}%${(ctx.datasetIndex===1 && ctx.dataIndex>0)?' (projection midpoint)':''}` } }
+    },
+    scales: {
+      y: { beginAtZero: true, grid: { color: C.grid }, ticks: { callback: v => '+' + v + '%' } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+</script>
+</body>
+</html>
