@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Summer Revenue Report — July 2026 Actuals &amp; August Prognosis</title>
+<title>Summer Revenue Report — July 2026 Actuals &amp; August Prognosis (with Downside Scenario)</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 <style>
   :root {
@@ -97,6 +97,7 @@
     <h1>☀️ Summer Revenue Report</h1>
     <div class="subtitle">July 2026 Actuals &amp; August Prognosis · Three-Year Seasonal Comparison (2024–2026)</div>
     <div class="badge">July 2026 actual +25.1% YoY — mildest summer dip on record</div>
+    <div class="badge" style="background: rgba(248,81,73,.12); color: var(--red); border-color: rgba(248,81,73,.4); margin-left:8px;">August now modeled with a conflict-delay downside scenario</div>
   </header>
 
   <!-- KPI CARDS -->
@@ -117,9 +118,14 @@
       <div class="delta neutral">mildest dip in 3 years</div>
     </div>
     <div class="kpi">
-      <div class="label">August 2026 (prognosis)</div>
+      <div class="label">August 2026 (base case)</div>
       <div class="value">6.78–7.05M</div>
       <div class="delta up">▲ +25.1–30.2% YoY</div>
+    </div>
+    <div class="kpi" style="border-color: rgba(248,81,73,.35);">
+      <div class="label">August 2026 (pessimistic)</div>
+      <div class="value">6.20–6.45M</div>
+      <div class="delta down">▲ +14.5–19.0% YoY (still growth, just slower)</div>
     </div>
   </div>
 
@@ -154,6 +160,14 @@
     <div class="chart-wrap short"><canvas id="chartYoY"></canvas></div>
   </div>
 
+  <!-- AUGUST SCENARIO SPREAD -->
+  <div class="card">
+    <h2>August 2026 — Base Case vs. Pessimistic Scenario</h2>
+    <div class="desc">A downside case in case regional conflict this year delays traveler return / seasonal recovery by roughly a month, rather than a repeat of the normal Jul→Aug rebound.</div>
+    <div class="chart-wrap short"><canvas id="chartScenario"></canvas></div>
+    <div class="legend-note">Base case: historical Jul→Aug recovery rate (+4.1% to +8.3%) applied to confirmed July actual. Pessimistic case: recovery muted to flat-to-slightly-up on July, modeled on 2025's weakest recovery month and the traffic/conversion slowdown pattern seen in GA4 data.</div>
+  </div>
+
   <!-- FULL TABLE -->
   <div class="card">
     <h2>Full Comparative Table</h2>
@@ -172,7 +186,8 @@
           <tr><td>August 2025</td><td>5,419,012</td><td>31</td><td>174,807</td><td class="up">+4.1%</td><td class="up">+12.3%</td></tr>
           <tr class="year-divider"><td>June 2026</td><td>6,664,998</td><td>30</td><td>222,167</td><td class="down">−0.6%</td><td class="up">+20.3%</td></tr>
           <tr class="actual-new"><td>July 2026</td><td>6,511,251</td><td>31</td><td>210,040</td><td class="down">−2.3%</td><td class="up">+25.1%</td></tr>
-          <tr class="projection"><td>August 2026</td><td>6,780,000–7,050,000</td><td>31</td><td>218,700–227,500</td><td class="up">+4.1% to +8.3%</td><td class="up">+25.1% to +30.2%</td></tr>
+          <tr class="projection"><td>August 2026 (base case)</td><td>6,780,000–7,050,000</td><td>31</td><td>218,700–227,500</td><td class="up">+4.1% to +8.3%</td><td class="up">+25.1% to +30.2%</td></tr>
+          <tr class="projection" style="background: rgba(248,81,73,.07);"><td style="color:var(--red);">August 2026 (pessimistic ▲)</td><td>6,200,000–6,450,000</td><td>31</td><td>200,000–208,100</td><td class="neutral">−4.8% to −0.9%</td><td class="up">+14.5% to +19.0%</td></tr>
         </tbody>
       </table>
     </div>
@@ -206,22 +221,49 @@
     </p>
 
     <div class="highlight-box blue">
-      <strong>August prognosis (only remaining forward-looking figure):</strong> August has recovered from July in
+      <strong>August base case (historical seasonal pattern):</strong> August has recovered from July in
       both prior years — +8.3% in 2024 and +4.1% in 2025. Applying that same recovery range to the now-confirmed
       July actual gives <strong>August 2026 at 6.78–7.05M AED</strong> (daily average 218,700–227,500), i.e.
       +25.1% to +30.2% YoY. The midpoint scenario (~6.9M) would make it the strongest month of the summer and
-      likely a new record for an August.
+      likely a new record for an August — <em>if</em> the recovery follows the same shape as the last two years.
+    </div>
+
+    <div class="highlight-box" style="border-left-color: var(--red);">
+      <strong>Pessimistic scenario — a delayed, not lost, recovery:</strong> the regional conflict this year is a
+      genuine wildcard the historical pattern can't account for. The specific risk isn't that demand disappears —
+      it's that the usual Jul→Aug snap-back gets <strong>pushed back roughly a month</strong> if residents/expats who
+      would normally have already returned from summer travel delay coming back (fewer pets back in the country,
+      fewer routine visits resuming on schedule). That would show up as August looking more like <strong>a continuation
+      of July's flat pattern</strong> rather than a rebound.
+      <ul class="dip-list" style="margin-top:10px;">
+        <li><b>Downside case:</b> August lands at <b class="down">6.20–6.45M AED</b> (roughly flat to −5% vs July,
+        instead of the usual +4–8% bounce) — still <b class="up">+14.5% to +19.0% YoY</b>, because the YoY base is so
+        strong, but a meaningfully softer month than base case and a clear deceleration vs July's own +25.1% YoY pace.</li>
+        <li><b>Why this magnitude, not worse:</b> anchored to the weakest recovery we've actually seen (2025's Aug
+        was only +4.1% over July, the softest of the two comparable years) and shaded further down — not modeled as
+        an outright collapse, because GA4 traffic/conversion data for July 2026 shows a steady, flat week-over-week
+        pattern with no sign yet of the kind of sharp drop-off seen in the same window in 2025 (weekly conversions
+        fell from ~700/week to ~240/week by early August 2025, likely tied to last year's regional escalation).
+        If this year's disruption effect is simply delayed rather than avoided, that kind of late-summer air-pocket
+        is the realistic worst case for August rather than September.</li>
+        <li><b>What would confirm this scenario early:</b> a visible session/conversion dip in the first 1–2 weeks of
+        August (vs the flat July pattern), or anecdotal signals of delayed expat return (school-year start dates,
+        flight booking patterns, clinic no-show/reschedule rates ticking up).</li>
+      </ul>
     </div>
 
     <p>
       <strong>Bottom line:</strong> With June and July now both confirmed actuals, this summer is tracking
       meaningfully ahead of the earlier pacing — the seasonal softening was milder than projected, and YoY growth
-      came in stronger than projected too. August remains the only open month, and the same recovery pattern from
-      the past two years points to a record summer close.
+      came in stronger than projected too. August remains the only open month. The base case (same recovery pattern
+      as the past two years) points to a record summer close around 6.78–7.05M. The pessimistic case — a
+      conflict-delayed recovery rather than a lost one — puts August closer to 6.20–6.45M, still comfortably up
+      YoY but a real step down from the base case and from July's own growth rate. Worth tracking weekly rather
+      than waiting for month-end to find out which scenario is playing out.
     </p>
   </div>
 
-  <footer>Updated 2 August 2026 · Revenue figures in AED · June &amp; July 2026 are confirmed actuals · August 2026 remains a prognosis based on current actuals and historical seasonal recovery patterns</footer>
+  <footer>Updated 4 August 2026 · Revenue figures in AED · June &amp; July 2026 are confirmed actuals · August 2026 shown as two scenarios: base case (historical seasonal recovery) and pessimistic case (recovery delayed by regional conflict impact on travel/return patterns) — neither is a confirmed actual</footer>
 </div>
 
 <script>
@@ -329,10 +371,43 @@ new Chart(document.getElementById('chartYoY'), {
     responsive: true, maintainAspectRatio: false,
     plugins: {
       legend: { position: 'top', labels: { usePointStyle: true, pointStyle: 'rectRounded' } },
-      tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: +${ctx.parsed.y}%${(ctx.datasetIndex===1 && ctx.dataIndex===2)?' (prognosis midpoint)':''}` } }
+      tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: +${ctx.parsed.y}%${(ctx.datasetIndex===1 && ctx.dataIndex===2)?' (base case midpoint)':''}` } }
     },
     scales: {
       y: { beginAtZero: true, grid: { color: C.grid }, ticks: { callback: v => '+' + v + '%' } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// ── 5. August scenario spread: base case vs pessimistic case ──
+new Chart(document.getElementById('chartScenario'), {
+  type: 'bar',
+  data: {
+    labels: ['July 2026 (actual)', 'August — base case', 'August — pessimistic case'],
+    datasets: [{
+      label: 'Revenue (AED)',
+      data: [6511251, 6915000, 6325000],
+      backgroundColor: ['rgba(63,185,80,0.85)', 'rgba(88,166,255,0.75)', 'rgba(248,81,73,0.75)'],
+      borderRadius: 6
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => {
+            if (ctx.dataIndex === 0) return ' Confirmed actual: AED 6,511,251';
+            if (ctx.dataIndex === 1) return ' Base case midpoint: AED 6.92M (+4.1% to +8.3% vs July, historical pattern)';
+            return ' Pessimistic midpoint: AED 6.33M (−4.8% to −0.9% vs July, delayed-recovery scenario)';
+          }
+        }
+      }
+    },
+    scales: {
+      y: { beginAtZero: true, grid: { color: C.grid }, ticks: { callback: fmtM } },
       x: { grid: { display: false } }
     }
   }
