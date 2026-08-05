@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Vet Alliance — Referral Pattern Analysis (14-Month Review)</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+  :root {
+    --navy: #0b1f3a; --teal: #0e8a7d; --accent: #ff8a4c; --bg: #f6f8fb;
+    --card: #ffffff; --border: #e2e8f0; --text: #1f2937; --muted: #64748b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    margin: 0; background: var(--bg); color: var(--text); line-height: 1.55;
+  }
+  header {
+    background: linear-gradient(135deg, var(--navy), #163a63);
+    color: white; padding: 48px 24px 40px;
+  }
+  header .wrap { max-width: 1100px; margin: 0 auto; }
+  header h1 { margin: 0 0 8px; font-size: 2rem; }
+  header p { margin: 4px 0; opacity: 0.85; }
+  .badge {
+    display: inline-block; background: var(--accent); color: #1a1a1a; font-weight: 600;
+    padding: 4px 12px; border-radius: 999px; font-size: 0.8rem; margin-top: 12px;
+  }
+  main { max-width: 1100px; margin: -20px auto 60px; padding: 0 24px; }
+  section.card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 28px 32px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  h2 { color: var(--navy); margin-top: 0; font-size: 1.4rem; border-bottom: 2px solid var(--teal); padding-bottom: 8px; }
+  h3 { color: var(--navy); font-size: 1.1rem; margin-top: 28px; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; margin: 20px 0; }
+  .kpi { background: #f0f4f8; border-radius: 10px; padding: 18px; text-align: center; }
+  .kpi .num { font-size: 1.8rem; font-weight: 700; color: var(--teal); }
+  .kpi .label { font-size: 0.82rem; color: var(--muted); margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92rem; }
+  th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); }
+  th { background: #f0f4f8; color: var(--navy); }
+  tr:hover { background: #fafbfc; }
+  .callout { background: #fff4e8; border-left: 4px solid var(--accent); padding: 14px 18px; border-radius: 8px; margin: 16px 0; }
+  .callout.finding { background: #e8f6f4; border-left-color: var(--teal); }
+  .callout.caution { background: #fdeceb; border-left-color: #d9534f; }
+  .muted { color: var(--muted); font-size: 0.88rem; }
+  .chart-wrap { position: relative; height: 340px; margin: 20px 0; }
+  code { background: #eef1f5; padding: 1px 6px; border-radius: 4px; font-size: 0.88rem; }
+  ul.tight li { margin-bottom: 6px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 800px) { .grid2 { grid-template-columns: 1fr; } }
+  footer { text-align: center; color: var(--muted); font-size: 0.85rem; padding: 20px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>Referral Pattern Analysis</h1>
+    <p>Vet Alliance — internal &amp; external referral flow, 14-month review (June 2025 – August 2026)</p>
+    <p class="muted" style="color:#cbd5e1;">Prepared for CEO review · Data source: ezyVet clinical system, all sites</p>
+    <span class="badge">154,595 appointments analyzed · 6,112 referral-relevant events</span>
+  </div>
+</header>
+
+<main>
+
+  <section class="card">
+    <h2>Executive Summary</h2>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="num">3,758</div><div class="label">"Referral" appointments booked (14mo) — the 9th most common appointment type across the whole group</div></div>
+      <div class="kpi"><div class="num">22,515</div><div class="label">GP → Specialist patient movements detected independently, median 4.9-day gap</div></div>
+      <div class="kpi"><div class="num">3</div><div class="label">Confirmed external clinics referring patients to us (Petzone, Pawsitive, Pet Connection)</div></div>
+      <div class="kpi"><div class="num">0</div><div class="label">Structured fields for tracking referrals we send OUT — this is a real gap</div></div>
+    </div>
+    <div class="callout finding">
+      <strong>Headline finding:</strong> Internal referral activity (GP clinics sending cases to Hospital/BOVC/TVRC)
+      is real, sizeable, and growing — it is one of the most active appointment categories in the entire
+      system. However, <strong>the practice currently has no way to measure or track referrals sent
+      OUT to other businesses</strong> (external leakage). If that is a genuine concern, it needs a new
+      operational habit before it can be measured, not a data-mining exercise on the current system.
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>1. Referral Volume &amp; Trend (14 months)</h2>
+    <p>Referral-relevant appointment types, counted across all sites:</p>
+    <div class="chart-wrap"><canvas id="trendChart"></canvas></div>
+    <div class="callout">
+      <strong>Process-change signal:</strong> from <strong>April 2026</strong> onward, the specific referral
+      sub-types (Referral Surgery, Referral Consultation, Referral Diagnostics/Imaging, Referral Laboratory)
+      suddenly gained real volume for the first time, while the generic "Referral" type started declining —
+      consistent with a deliberate move toward more granular referral categorization around Q2 2026.
+      Worth confirming with clinical ops whether this was an intentional change.
+    </div>
+    <table>
+      <tr><th>Appointment type</th><th>Total (14mo)</th><th>Notes</th></tr>
+      <tr><td>Referral</td><td>3,758</td><td>Generic referral booking — dominant category</td></tr>
+      <tr><td>Internal</td><td>1,420</td><td>Flat/steady across the period</td></tr>
+      <tr><td>Referral Laboratory</td><td>429</td><td>Only appears from April 2026</td></tr>
+      <tr><td>Referral Diagnostics/Imaging</td><td>325</td><td>Only appears from April 2026</td></tr>
+      <tr><td>Referral Consultation</td><td>138</td><td>Only appears from April 2026</td></tr>
+      <tr><td>Referral Surgery</td><td>27</td><td>Smallest sub-type by volume</td></tr>
+      <tr><td>Specialist Tele-consultation</td><td>13</td><td>Rare — 13 total</td></tr>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>2. Where Referrals Land: Site Breakdown</h2>
+    <div class="grid2">
+      <div>
+        <div class="chart-wrap" style="height:320px;"><canvas id="siteChart"></canvas></div>
+      </div>
+      <div>
+        <table>
+          <tr><th>Site</th><th>Referral-relevant appointments (14mo)</th></tr>
+          <tr><td>Hospital (Al Wasl)</td><td>2,570</td></tr><tr><td>TVRC (Referral Centre)</td><td>1,269</td></tr><tr><td>BOVC DIP</td><td>1,204</td></tr><tr><td>Palm</td><td>489</td></tr><tr><td>Mobile Clinic</td><td>479</td></tr><tr><td>Vienna Vet</td><td>59</td></tr><tr><td>JVC</td><td>18</td></tr><tr><td>sep_37</td><td>10</td></tr><tr><td>JLT</td><td>8</td></tr><tr><td>Downtown</td><td>4</td></tr><tr><td>Azizi</td><td>2</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="callout caution">
+      <strong>Flag for clinical ops:</strong> Mobile Clinic logged 479 referral-relevant appointments, but
+      478 of those were the generic "Internal" type — it essentially never uses the formal "Referral"
+      appointment type. Worth checking whether Mobile Clinic cases are being tracked consistently with
+      the rest of the group.
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>3. Internal Referral Flow: The Movement Fingerprint</h2>
+    <p>
+      Independent of any manually-filled referral field, we tracked every animal's visit history across
+      sites and flagged cases where a patient was seen at a GP clinic and then at a specialist site
+      (Hospital, BOVC DIP, or TVRC) within 21 days — a strong behavioral signal of an internal referral,
+      even when no explicit referral record was created.
+    </p>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="num">28,618</div><div class="label">Unique animals with cross-site visit history in the window</div></div>
+      <div class="kpi"><div class="num">22,515</div><div class="label">GP → Specialist transitions detected</div></div>
+      <div class="kpi"><div class="num">4.9 days</div><div class="label">Median gap between GP visit and specialist visit</div></div>
+    </div>
+    <h3>Flow matrix (GP site → Specialist site, within 21 days)</h3>
+    <table>
+      <tr><th>From (GP site)</th><th>To (Specialist site)</th><th>Count</th></tr>
+      <tr><td>Palm</td><td>Hospital (Al Wasl)</td><td>4,313</td></tr><tr><td>Mobile Clinic</td><td>Hospital (Al Wasl)</td><td>3,990</td></tr><tr><td>Downtown</td><td>Hospital (Al Wasl)</td><td>3,194</td></tr><tr><td>JVC</td><td>Hospital (Al Wasl)</td><td>2,649</td></tr><tr><td>JLT</td><td>Hospital (Al Wasl)</td><td>2,328</td></tr><tr><td>Mobile Clinic</td><td>BOVC DIP</td><td>991</td></tr><tr><td>Palm</td><td>BOVC DIP</td><td>890</td></tr><tr><td>Vienna Vet</td><td>Hospital (Al Wasl)</td><td>845</td></tr><tr><td>Palm</td><td>TVRC (Referral Centre)</td><td>627</td></tr><tr><td>Mobile Clinic</td><td>TVRC (Referral Centre)</td><td>364</td></tr><tr><td>Vienna Vet</td><td>TVRC (Referral Centre)</td><td>364</td></tr><tr><td>JLT</td><td>TVRC (Referral Centre)</td><td>339</td></tr><tr><td>JVC</td><td>BOVC DIP</td><td>292</td></tr><tr><td>JVC</td><td>TVRC (Referral Centre)</td><td>285</td></tr><tr><td>Downtown</td><td>BOVC DIP</td><td>267</td></tr><tr><td>Downtown</td><td>TVRC (Referral Centre)</td><td>227</td></tr><tr><td>JLT</td><td>BOVC DIP</td><td>171</td></tr><tr><td>Vienna Vet</td><td>BOVC DIP</td><td>160</td></tr><tr><td>Azizi</td><td>Hospital (Al Wasl)</td><td>140</td></tr><tr><td>Khawaneej</td><td>Hospital (Al Wasl)</td><td>39</td></tr><tr><td>Azizi</td><td>BOVC DIP</td><td>14</td></tr><tr><td>Khawaneej</td><td>TVRC (Referral Centre)</td><td>11</td></tr><tr><td>Azizi</td><td>TVRC (Referral Centre)</td><td>9</td></tr><tr><td>Khawaneej</td><td>BOVC DIP</td><td>6</td></tr>
+    </table>
+    <p class="muted">Every GP site funnels overwhelmingly into Hospital (Al Wasl) first, then BOVC DIP,
+    then TVRC — a consistent hierarchy across all clinics, with no anomalous routing patterns found.</p>
+  </section>
+
+  <section class="card">
+    <h2>4. Doctor-Level Activity (Aggregated View)</h2>
+    <p class="muted">
+      Presented in aggregate for context, not as an individual scorecard — this reflects referral-relevant
+      appointment volume attributed to each doctor's primary calendar resource, not case complexity or
+      clinical quality.
+    </p>
+    <table>
+      <tr><th>Doctor</th><th>Referral-relevant appointments (14mo)</th></tr>
+      <tr><td>Dr Waseem Aslam</td><td>532</td></tr><tr><td>Dr Mariana Barreto</td><td>367</td></tr><tr><td>Dr Nour Abou Fakhr</td><td>318</td></tr><tr><td>Dr Moustafa Hafez</td><td>177</td></tr><tr><td>Dr. Rui Olivera</td><td>173</td></tr><tr><td>Dr Dieter Malleczek</td><td>167</td></tr><tr><td>Dr Cristina Epifanio</td><td>162</td></tr><tr><td>Dr Irina Pervukhina</td><td>140</td></tr><tr><td>Dr Ivan Milojevic</td><td>136</td></tr><tr><td>Dr Helena Isabel</td><td>136</td></tr><tr><td>Dr Beatriz Wuhrmann </td><td>122</td></tr><tr><td>Dr Rami Mdawar</td><td>118</td></tr><tr><td>Dr Carla Fidelix</td><td>95</td></tr><tr><td>Dr Roy Hassoun</td><td>90</td></tr><tr><td>Dr Rares Capitan</td><td>80</td></tr>
+    </table>
+    <p class="muted">Free-text mining of referral appointment notes found 628 explicit "referred by Dr. X"
+    mentions; 64% (404) matched our own internal vet roster by name — confirming a large share of
+    "Referral" bookings are GP-to-specialist referrals happening entirely within Vet Alliance.</p>
+  </section>
+
+  <section class="card">
+    <h2>5. External Referrals: What We Can and Can't See</h2>
+    <div class="grid2">
+      <div>
+        <h3>Inbound (cases referred TO us)</h3>
+        <p>Confirmed via <code>consult.referring_clinic_id</code> — a low-fill (~1.8%) but real field. Named
+        external clinics found in a sample:</p>
+        <ul class="tight">
+          <li>Petzone Veterinary Clinic LLC</li>
+          <li>Pawsitive Veterinary Clinic</li>
+          <li>Pet Connection Veterinary Clinic</li>
+        </ul>
+        <p class="muted">Several other populated values pointed to internal duplicate/legacy contact
+        records rather than real external clinics.</p>
+      </div>
+      <div>
+        <h3>Outbound (cases WE send elsewhere)</h3>
+        <div class="callout caution">
+          <strong>No structured tracking exists.</strong> Checked consult records, appointment types,
+          communication templates, and free-text notes — none of them log "this case was referred out
+          to another practice." This isn't a data quality issue to fix with better queries; it's a
+          workflow that has never been captured in the system.
+        </div>
+      </div>
+    </div>
+    <p><strong>Recommendation:</strong> if outbound leakage is a genuine strategic concern, the fix is
+    operational — e.g. a required consult tag, a dedicated appointment type, or even a simple shared log —
+    not a deeper data-mining pass on the current system.</p>
+  </section>
+
+  <section class="card">
+    <h2>6. Missed-Referral Detection: A Methodology Test</h2>
+    <p>
+      We tested whether "silent missed referral" cases (a serious condition presented, no referral given,
+      and a later visit suggesting the problem quietly resolved — possibly treated outside) could be
+      surfaced automatically from clinical notes.
+    </p>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="num">687</div><div class="label">Raw candidates flagged by severity keywords with no referral follow-up</div></div>
+      <div class="kpi"><div class="num">9</div><div class="label">Passed the stricter "resolution language later" filter</div></div>
+    </div>
+    <div class="callout caution">
+      <strong>Honest result: this approach is not reliable enough to present as findings.</strong> Manual
+      review of all 9 top candidates showed mostly false positives — e.g. a "cruciate tear, no referral"
+      case that was actually already being actively managed with a physiotherapist, and a "seizure resolved"
+      match where the actual note was "not sure if it was a seizure, but stable now" (still ambiguous).
+      Free-text veterinary notes are too inconsistent for keyword-matching alone. The detection concept
+      works mechanically, but every candidate needs a clinician's eyes before it means anything.
+    </div>
+    <p class="muted">By specialty (raw candidate counts): neurology 230, oncology 226, surgery/ortho 131,
+    ophthalmology 61, cardiology 30, dermatology 9. Full candidate list available on request for manual
+    clinical review — this is where genuine value could still be found, but it needs human judgment, not
+    an automated report.</p>
+  </section>
+
+  <section class="card">
+    <h2>7. Recommendations</h2>
+    <ol>
+      <li><strong>Internal referrals are healthy and measurable</strong> — no action needed beyond
+      periodic monitoring of the trend already established here.</li>
+      <li><strong>Confirm the April 2026 referral-type change was intentional</strong> and, if so, consider
+      retiring the generic "Referral" type in favor of the more specific sub-types going forward for
+      cleaner future reporting.</li>
+      <li><strong>Check Mobile Clinic's referral workflow</strong> — it's using "Internal" almost
+      exclusively rather than the formal Referral types used everywhere else.</li>
+      <li><strong>If external/outbound leakage matters to leadership, build the tracking first.</strong>
+      A single new consult tag or appointment type would make this measurable within a quarter.</li>
+      <li><strong>Missed-referral detection needs a human pass, not more automation.</strong> If this is
+      worth pursuing, the 687 raw candidates are ready for a clinician to triage — that's a clinical
+      governance exercise, not a data project.</li>
+    </ol>
+  </section>
+
+</main>
+
+<footer>
+  Generated 2026-08-05 20:26 UTC · ezyVet data pull covering
+  2025-06-05 to 2026-08-05 · Internal use only
+</footer>
+
+<script>
+const months = ["2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08"];
+new Chart(document.getElementById('trendChart'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [
+      { label: 'Referral', data: [0, 6, 135, 118, 320, 330, 397, 415, 397, 423, 350, 363, 264, 210, 30], borderColor: '#0e8a7d', backgroundColor: 'rgba(14,138,125,0.08)', tension: 0.3, fill: true },
+      { label: 'Internal', data: [75, 101, 84, 78, 103, 96, 89, 81, 84, 71, 157, 146, 120, 117, 18], borderColor: '#94a3b8', tension: 0.3 },
+      { label: 'Referral Laboratory', data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 141, 128, 126, 33, 1], borderColor: '#ff8a4c', tension: 0.3 },
+      { label: 'Referral Diagnostics/Imaging', data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 54, 42, 75, 136, 18], borderColor: '#3b82f6', tension: 0.3 },
+      { label: 'Referral Consultation', data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 28, 19, 56, 33, 2], borderColor: '#a855f7', tension: 0.3 },
+      { label: 'Referral Surgery', data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 8, 14, 2], borderColor: '#d9534f', tension: 0.3 },
+    ]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+});
+
+new Chart(document.getElementById('siteChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ["Hospital (Al Wasl)", "TVRC (Referral Centre)", "BOVC DIP", "Palm", "Mobile Clinic", "Vienna Vet", "JVC", "sep_37", "JLT", "Downtown", "Azizi"],
+    datasets: [{ data: [2570, 1269, 1204, 489, 479, 59, 18, 10, 8, 4, 2], backgroundColor: ['#0e8a7d','#ff8a4c','#3b82f6','#a855f7','#d9534f','#94a3b8','#facc15','#22c55e','#0b1f3a','#f472b6','#38bdf8'] }]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
+});
+</script>
+
+</body>
+</html>
