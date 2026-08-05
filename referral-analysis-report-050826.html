@@ -72,6 +72,7 @@
       <div class="kpi"><div class="num">22,515</div><div class="label">GP → Specialist patient movements detected independently, median 4.9-day gap</div></div>
       <div class="kpi"><div class="num">3</div><div class="label">Confirmed external clinics referring patients to us (Petzone, Pawsitive, Pet Connection)</div></div>
       <div class="kpi"><div class="num">0</div><div class="label">Structured fields for tracking referrals we send OUT — this is a real gap</div></div>
+      <div class="kpi"><div class="num">65%</div><div class="label">Of real GP→specialist patient movements booked with NO referral system usage at all</div></div>
     </div>
     <div class="callout finding">
       <strong>Headline finding:</strong> Internal referral activity (GP clinics sending cases to Hospital/BOVC/TVRC)
@@ -181,6 +182,52 @@
   </section>
 
   <section class="card">
+    <h2>4b. Are Doctors Actually Using the Referral System? (Andrew's follow-up question)</h2>
+    <p>
+      Section 4 measured whether a patient moved from a GP to a specialist. This section checks something
+      different and arguably more important: <strong>when that movement happened, was it actually booked
+      using ezyVet's built-in Referral appointment types (Referral / Referral Surgery / Referral
+      Consultation / Referral Diagnostics / Referral Laboratory)</strong> — or did the patient just show up
+      at the specialist site booked as a plain Consultation/Follow Up, with no referral record created at
+      all?
+    </p>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="num">5,373</div><div class="label">GP → Specialist movements checked</div></div>
+      <div class="kpi"><div class="num">30.4%</div><div class="label">Booked using a formal Referral appointment type</div></div>
+      <div class="kpi"><div class="num">4.1%</div><div class="label">Notes mention "referred" but wrong appointment type used</div></div>
+      <div class="kpi"><div class="num">65.5%</div><div class="label">No referral signal at all — booked as routine</div></div>
+    </div>
+    <div class="callout caution">
+      <strong>This is the biggest finding in the whole analysis:</strong> nearly two-thirds
+      (65%) of real GP-to-specialist
+      patient movements are happening with <strong>zero use of the referral system at all</strong> — no
+      Referral appointment type, no mention of "referred" in either visit's notes. Only about 3 in 10
+      movements actually use the formal Referral appointment types that already exist in ezyVet. This means
+      the practice's own referral reporting (and this analysis's Section 4 rate) is likely undercounting
+      real referral activity for almost every doctor — the system just isn't being used consistently to log
+      it, regardless of whether the clinical handoff itself is happening correctly.
+    </div>
+    <h3>Per-doctor: referral-system usage rate (of their own GP→Specialist movements)</h3>
+    <p class="muted">Sorted lowest to highest — doctors at the top use the formal Referral appointment
+    types the LEAST, even when their patients clearly moved to a specialist. Limited to doctors with 10+
+    tracked movements.</p>
+    <table>
+      <tr><th>Doctor</th><th>Movements</th><th>Formal Referral type used</th><th>Notes mention, wrong type</th><th>No referral signal</th><th>System usage rate</th></tr>
+      <tr><td>Megan Taylor</td><td>14</td><td>0</td><td>0</td><td>14</td><td>0.0%</td></tr><tr><td>Grooming (Shaju)</td><td>13</td><td>0</td><td>0</td><td>13</td><td>0.0%</td></tr><tr><td>Dr Rahaf Roushdi</td><td>71</td><td>4</td><td>0</td><td>67</td><td>5.6%</td></tr><tr><td>Grooming (Reymond)</td><td>102</td><td>8</td><td>2</td><td>92</td><td>7.8%</td></tr><tr><td>Dr Ricardos Saad</td><td>116</td><td>12</td><td>7</td><td>97</td><td>10.3%</td></tr><tr><td>Dr Kurt Tacbian</td><td>18</td><td>2</td><td>0</td><td>16</td><td>11.1%</td></tr><tr><td>Dr Shifna Shaan</td><td>96</td><td>14</td><td>9</td><td>73</td><td>14.6%</td></tr><tr><td>Dr Hanieh Bagheri</td><td>40</td><td>7</td><td>0</td><td>33</td><td>17.5%</td></tr><tr><td>Dr Irina Pervukhina</td><td>222</td><td>42</td><td>20</td><td>160</td><td>18.9%</td></tr><tr><td>Dr Clara Da Rocha</td><td>63</td><td>13</td><td>1</td><td>49</td><td>20.6%</td></tr><tr><td>Dr Meena Alrabadi</td><td>64</td><td>14</td><td>2</td><td>48</td><td>21.9%</td></tr><tr><td>Dr Snezhana Pochkalina</td><td>211</td><td>50</td><td>12</td><td>149</td><td>23.7%</td></tr><tr><td>Dr Luciano de Gatica</td><td>312</td><td>78</td><td>16</td><td>218</td><td>25.0%</td></tr><tr><td>Dr Hatem Mamdouh</td><td>101</td><td>26</td><td>1</td><td>74</td><td>25.7%</td></tr><tr><td>Dr Rocio Mena</td><td>149</td><td>40</td><td>9</td><td>100</td><td>26.8%</td></tr><tr><td>Dr Fatima Douda</td><td>315</td><td>86</td><td>5</td><td>224</td><td>27.3%</td></tr><tr><td>Dr Despina Hleiss</td><td>249</td><td>69</td><td>3</td><td>177</td><td>27.7%</td></tr><tr><td>Dr Novi Tandria</td><td>212</td><td>59</td><td>18</td><td>135</td><td>27.8%</td></tr><tr><td>Dr Tetiana Filenko</td><td>421</td><td>122</td><td>30</td><td>269</td><td>29.0%</td></tr><tr><td>Dr  Silverio Moniz </td><td>323</td><td>94</td><td>3</td><td>226</td><td>29.1%</td></tr><tr><td>Dr. Sarah Yosry</td><td>68</td><td>20</td><td>11</td><td>37</td><td>29.4%</td></tr><tr><td>Dr Kirill Hammoud</td><td>166</td><td>50</td><td>2</td><td>114</td><td>30.1%</td></tr><tr><td>Dr Parvathy Nair</td><td>128</td><td>39</td><td>0</td><td>89</td><td>30.5%</td></tr><tr><td>Dr Ehab Abdelwahed</td><td>15</td><td>5</td><td>0</td><td>10</td><td>33.3%</td></tr><tr><td>Dr Michaela Gradinger</td><td>15</td><td>5</td><td>0</td><td>10</td><td>33.3%</td></tr><tr><td>Dr Dania Attieh</td><td>49</td><td>17</td><td>0</td><td>32</td><td>34.7%</td></tr><tr><td>Dr Dusko Kusljic</td><td>111</td><td>39</td><td>4</td><td>68</td><td>35.1%</td></tr><tr><td>Dr Flavia Grasso</td><td>88</td><td>31</td><td>1</td><td>56</td><td>35.2%</td></tr><tr><td>Dr Ramona Jazopolo</td><td>260</td><td>95</td><td>4</td><td>161</td><td>36.5%</td></tr><tr><td>Dr Laura Castillo</td><td>209</td><td>78</td><td>17</td><td>114</td><td>37.3%</td></tr><tr><td>Dr Krystel Tabet</td><td>204</td><td>79</td><td>8</td><td>117</td><td>38.7%</td></tr><tr><td>Dr Nicoleta Nica</td><td>232</td><td>93</td><td>19</td><td>120</td><td>40.1%</td></tr><tr><td>Dr Ionut Rusu</td><td>217</td><td>90</td><td>0</td><td>127</td><td>41.5%</td></tr><tr><td>Dr Aisha Almarzooqi</td><td>11</td><td>5</td><td>0</td><td>6</td><td>45.5%</td></tr><tr><td>Dr Tatiana Mukhamedova</td><td>176</td><td>89</td><td>3</td><td>84</td><td>50.6%</td></tr><tr><td>Dr Marta Gambarin</td><td>300</td><td>158</td><td>14</td><td>128</td><td>52.7%</td></tr>
+    </table>
+    <div class="callout">
+      <strong>How to read this alongside Section 4:</strong> a doctor's low "referred-out rate" in Section 4
+      could mean two very different things — (a) they genuinely refer fewer complex cases out, or (b) they
+      refer just as often as anyone else but don't consistently use the Referral appointment type to log it.
+      Cross-checking the two tables shows no strong correlation between the two rates — this looks like two
+      separate, independent issues rather than one doctor group being "bad" at both. <strong>Practical
+      takeaway:</strong> before drawing any conclusions about individual referral behavior, clinical
+      leadership should first standardize HOW referrals get logged (a simple training/process reminder),
+      then re-run this measurement in a few months on cleaner data.
+    </div>
+  </section>
+
+  <section class="card">
     <h2>5. External Referrals: What We Can and Can't See</h2>
     <div class="grid2">
       <div>
@@ -256,7 +303,7 @@
 </main>
 
 <footer>
-  Generated 2026-08-05 21:05 UTC · ezyVet data pull covering
+  Generated 2026-08-05 22:14 UTC · ezyVet data pull covering
   2025-06-05 to 2026-08-05 · Internal use only
 </footer>
 
