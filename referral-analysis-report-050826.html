@@ -54,6 +54,72 @@
 </head>
 <body>
 
+<!-- Password gate added 2026-08-06 (Andrew's request) — this report is
+     CEO/leadership material and shouldn't be publicly browsable at the
+     GitHub Pages URL. Client-side only (static hosting, no server-side
+     auth available), password checked via SHA-256 so the plaintext isn't
+     sitting in page source; unlocks for the rest of the browser session
+     via sessionStorage so it doesn't nag on every reload. This is a
+     deterrent for a public static URL, not real security — don't rely on
+     it for anything more sensitive than "keep casual visitors out." -->
+<div id="pw-gate" style="position:fixed; inset:0; background:#0b1f3a; z-index:9999; display:flex; align-items:center; justify-content:center; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+  <div style="background:#ffffff; border-radius:14px; padding:36px 40px; max-width:360px; width:90%; box-shadow:0 20px 60px rgba(0,0,0,0.35); text-align:center;">
+    <div style="font-size:2rem; margin-bottom:6px;">🔒</div>
+    <h2 style="margin:0 0 6px; color:#1f2937; font-size:1.2rem;">Referral Pattern Analysis</h2>
+    <p style="margin:0 0 20px; color:#64748b; font-size:0.85rem;">This report is restricted. Enter the password to continue.</p>
+    <input id="pw-input" type="password" placeholder="Password" autofocus style="width:100%; padding:10px 12px; border:1px solid #e2e8f0; border-radius:8px; font-size:0.95rem; margin-bottom:10px; box-sizing:border-box;">
+    <button id="pw-submit" style="width:100%; padding:10px 12px; border:none; border-radius:8px; background:#0e8a7d; color:#fff; font-weight:600; font-size:0.95rem; cursor:pointer;">Unlock</button>
+    <p id="pw-error" style="margin:12px 0 0; color:#dc2626; font-size:0.82rem; display:none;">Incorrect password — try again.</p>
+  </div>
+</div>
+<script>
+(function () {
+  // SHA-256 of the report password. Not the plaintext, but this is a
+  // static page with no server enforcement — treat as a soft gate only.
+  var PW_HASH = "7ae5746b084b4b0af81b833d6aa9c1febb1056108b8116f91579636d6c2d952e";
+  var STORAGE_KEY = "referral-report-unlocked-050826";
+
+  function sha256Hex(text) {
+    var enc = new TextEncoder().encode(text);
+    return crypto.subtle.digest("SHA-256", enc).then(function (buf) {
+      return Array.prototype.map.call(new Uint8Array(buf), function (b) {
+        return b.toString(16).padStart(2, "0");
+      }).join("");
+    });
+  }
+
+  function unlock() {
+    document.getElementById("pw-gate").style.display = "none";
+    document.documentElement.style.overflow = "";
+  }
+
+  if (sessionStorage.getItem(STORAGE_KEY) === "1") {
+    unlock();
+  } else {
+    document.documentElement.style.overflow = "hidden";
+  }
+
+  document.getElementById("pw-submit").addEventListener("click", trySubmit);
+  document.getElementById("pw-input").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") trySubmit();
+  });
+
+  function trySubmit() {
+    var val = document.getElementById("pw-input").value;
+    sha256Hex(val).then(function (hash) {
+      if (hash === PW_HASH) {
+        sessionStorage.setItem(STORAGE_KEY, "1");
+        unlock();
+      } else {
+        document.getElementById("pw-error").style.display = "block";
+        document.getElementById("pw-input").value = "";
+        document.getElementById("pw-input").focus();
+      }
+    });
+  }
+})();
+</script>
+
 <header>
   <div class="wrap">
     <h1>Referral Pattern Analysis</h1>
