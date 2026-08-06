@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Vet Alliance — Ophthalmology Missed-Referral Signal Review</title>
+<style>
+  :root {
+    --navy: #0b1f3a; --teal: #0e8a7d; --accent: #ff8a4c; --bg: #f6f8fb;
+    --card: #ffffff; --border: #e2e8f0; --text: #1f2937; --muted: #64748b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    margin: 0; background: var(--bg); color: var(--text); line-height: 1.55;
+  }
+  header {
+    background: linear-gradient(135deg, var(--navy), #163a63);
+    color: white; padding: 48px 24px 40px;
+  }
+  header .wrap { max-width: 1150px; margin: 0 auto; }
+  header h1 { margin: 0 0 8px; font-size: 2rem; }
+  header p { margin: 4px 0; opacity: 0.85; }
+  .badge {
+    display: inline-block; background: var(--accent); color: #1a1a1a; font-weight: 600;
+    padding: 4px 12px; border-radius: 999px; font-size: 0.8rem; margin-top: 12px;
+  }
+  main { max-width: 1150px; margin: -20px auto 60px; padding: 0 24px; }
+  section.card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 28px 32px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  h2 { color: var(--navy); margin-top: 0; font-size: 1.4rem; border-bottom: 2px solid var(--teal); padding-bottom: 8px; }
+  h3 { color: var(--navy); font-size: 1.1rem; margin-top: 28px; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; margin: 20px 0; }
+  .kpi { background: #f0f4f8; border-radius: 10px; padding: 18px; text-align: center; }
+  .kpi .num { font-size: 1.8rem; font-weight: 700; color: var(--teal); }
+  .kpi .label { font-size: 0.82rem; color: var(--muted); margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92rem; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: #f0f4f8; color: var(--navy); }
+  tbody tr:nth-child(even) { background: #f8fafc; }
+  tr:hover { background: #eef6f5; }
+  .evidence-cell { font-size: 0.9rem; max-width: 340px; line-height: 1.6; }
+  .signal-badge { display: block; padding: 4px 11px; border-radius: 999px; font-size: 0.82rem; font-weight: 600; margin: 3px 0; white-space: nowrap; width: fit-content; }
+  .callout { background: #fff4e8; border-left: 4px solid var(--accent); padding: 14px 18px; border-radius: 8px; margin: 16px 0; }
+  .callout.finding { background: #e8f6f4; border-left-color: var(--teal); }
+  .callout.caution { background: #fdeceb; border-left-color: #d9534f; }
+  .muted { color: var(--muted); font-size: 0.88rem; }
+  code { background: #eef1f5; padding: 1px 6px; border-radius: 4px; font-size: 0.88rem; }
+  ul.tight li { margin-bottom: 6px; }
+  .signal-def { background: #f8fafc; border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; margin: 10px 0; }
+  .signal-def .n { font-weight: 700; color: var(--navy); }
+  footer { text-align: center; color: var(--muted); font-size: 0.85rem; padding: 20px; }
+  details summary { cursor: pointer; color: var(--teal); font-weight: 600; margin: 10px 0; }
+</style>
+</head>
+<body>
+
+<!-- Reuses the same client-side password gate as referral-analysis-report.html -->
+<div id="pw-gate" style="position:fixed; inset:0; background:#0b1f3a; z-index:9999; display:flex; align-items:center; justify-content:center; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+  <div style="background:#ffffff; border-radius:14px; padding:36px 40px; max-width:360px; width:90%; box-shadow:0 20px 60px rgba(0,0,0,0.35); text-align:center;">
+    <div style="font-size:2rem; margin-bottom:6px;">🔒</div>
+    <h2 style="margin:0 0 6px; color:#1f2937; font-size:1.2rem;">Ophthalmology Referral Signal Review</h2>
+    <p style="margin:0 0 20px; color:#64748b; font-size:0.85rem;">This report is restricted. Enter the password to continue.</p>
+    <input id="pw-input" type="password" placeholder="Password" autofocus style="width:100%; padding:10px 12px; border:1px solid #e2e8f0; border-radius:8px; font-size:0.95rem; margin-bottom:10px; box-sizing:border-box;">
+    <button id="pw-submit" style="width:100%; padding:10px 12px; border:none; border-radius:8px; background:#0e8a7d; color:#fff; font-weight:600; font-size:0.95rem; cursor:pointer;">Unlock</button>
+    <p id="pw-error" style="margin:12px 0 0; color:#dc2626; font-size:0.82rem; display:none;">Incorrect password — try again.</p>
+  </div>
+</div>
+<script>
+(function () {
+  var PW_HASH = "7ae5746b084b4b0af81b833d6aa9c1febb1056108b8116f91579636d6c2d952e";
+  var STORAGE_KEY = "eye-referral-report-unlocked-050826";
+  function sha256Hex(text) {
+    var enc = new TextEncoder().encode(text);
+    return crypto.subtle.digest("SHA-256", enc).then(function (buf) {
+      return Array.prototype.map.call(new Uint8Array(buf), function (b) {
+        return b.toString(16).padStart(2, "0");
+      }).join("");
+    });
+  }
+  function unlock() {
+    document.getElementById("pw-gate").style.display = "none";
+    document.documentElement.style.overflow = "";
+  }
+  if (sessionStorage.getItem(STORAGE_KEY) === "1") {
+    unlock();
+  } else {
+    document.documentElement.style.overflow = "hidden";
+  }
+  document.getElementById("pw-submit").addEventListener("click", trySubmit);
+  document.getElementById("pw-input").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") trySubmit();
+  });
+  function trySubmit() {
+    var val = document.getElementById("pw-input").value;
+    sha256Hex(val).then(function (hash) {
+      if (hash === PW_HASH) {
+        sessionStorage.setItem(STORAGE_KEY, "1");
+        unlock();
+      } else {
+        document.getElementById("pw-error").style.display = "block";
+        document.getElementById("pw-input").value = "";
+        document.getElementById("pw-input").focus();
+      }
+    });
+  }
+})();
+</script>
+
+<header>
+  <div class="wrap">
+    <h1>Ophthalmology Missed-Referral Signal Review</h1>
+    <p>Vet Alliance — eye/ophthalmic cases only, 14-month review (June 2025 – August 2026)</p>
+    <p class="muted" style="color:#cbd5e1;">Follow-up to the general Referral Pattern Analysis · Data source: ezyVet clinical system, all sites</p>
+    <span class="badge">3,499 animals flagged by &ge;1 signal · 411 flagged by &ge;2 signals · 22 text-confirmed high-priority</span>
+  </div>
+</header>
+
+<main>
+
+  <section class="card">
+    <h2>What this report is (and isn't)</h2>
+    <p>This is a <strong>candidate-screening pass</strong>, not a clinical audit. Every animal below is flagged because of a
+    <em>data pattern</em> — a drug that's typically used for chronic eye disease, or specific wording in an appointment/consult
+    note — combined with <strong>no eye surgery ever billed for that animal</strong> in our system. That combination is a reasonable proxy for
+    "this looks like it could have needed a specialist referral, and we have no record of surgery happening here" &mdash;
+    but it does <strong>not</strong> confirm a referral was missed. Legitimate explanations include: the animal was
+    referred out and we simply don't capture that outcome, the medication was managing the condition without surgery being
+    indicated, the surgery happened at another clinic before joining us, or the case resolved with non-surgical management.
+    Every row here needs a human (ideally a vet) to open the actual chart before drawing conclusions.</p>
+    <div class="callout caution">
+      <strong>Known data gaps carried over from the general report:</strong> there is no structured field capturing referrals
+      sent OUT of our clinics, and consult/appointment notes are short free-text (no full SOAP notes were available to search) —
+      so text-based signals will always under-count real cases that were phrased differently, and this pass can only see what
+      made it into a description field.
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Methodology</h2>
+    <p>Andrew asked for 5 specific identifiers. Here's exactly how each was built and what it found:</p>
+
+    <div class="signal-def">
+      <div><span class="n">Signal 1 — Medications related to chronic eye issues</span></div>
+      <p class="muted" style="margin:6px 0 0;">Classified all 701 eye-related products in the full 52,211-product
+      catalog into medication (573) vs. surgery (128) vs. diagnostic/irrelevant buckets, then pulled every invoiceline
+      ever billed against the medication products. Flagged an animal if it was ever dispensed a drug specific to <strong>chronic</strong> eye disease
+      management &mdash; glaucoma maintenance drops (dorzolamide/timolol, latanoprost, brinzolamide/azopt), or immune-mediated dry-eye/KCS
+      treatment (ciclosporin/cyclosporine, tacrolimus, Optimmune) &mdash; with <strong>no eye surgery invoiceline on file, ever</strong> (not just
+      within the 14-month window &mdash; full billing history).</p>
+      <p class="muted" style="margin:6px 0 0;"><strong>Result: 1,198 animals.</strong> This is intentionally broad &mdash; a chronic glaucoma
+      drop regimen with no surgery is often clinically appropriate (medical management is a legitimate first line), so this signal is best read
+      as a screening list, not a red-flag list on its own.</p>
+    </div>
+
+    <div class="signal-def">
+      <div><span class="n">Signal 2 — "Post-op" mention without any surgery on invoice history</span></div>
+      <p class="muted" style="margin:6px 0 0;">Searched appointment/consult descriptions for "post-op"/"post op"/"postoperative" occurring
+      alongside eye-related context words (eye, ocular, cornea, conjunctiva, glaucoma, cataract, retina, etc.), then excluded any animal
+      with an eye surgery invoiceline anywhere in their history.</p>
+      <p class="muted" style="margin:6px 0 0;"><strong>Result: 4 animals.</strong> Small but high-precision &mdash; a genuine
+      "post-op eye check" note with nothing billed here strongly suggests the surgery happened elsewhere (referred out, or done before joining
+      us) and is worth a quick chart check to confirm the outcome was actually followed up.</p>
+    </div>
+
+    <div class="signal-def">
+      <div><span class="n">Signal 3 — Glaucoma / cataract mention</span></div>
+      <p class="muted" style="margin:6px 0 0;">Searched all appointment/consult descriptions for the words "glaucoma" or "cataract" anywhere.
+      64 animals had at least one mention; of those, <strong>60 have no eye surgery ever billed.</strong> This is the
+      most directly actionable signal &mdash; several of these are explicit notes like "Estimate for Cataract Surgery" or "ref by Dr. Horacio"
+      with no follow-through visible in billing.</p>
+    </div>
+
+    <div class="signal-def">
+      <div><span class="n">Signal 4 — Typical post-op eye medication as identifier</span></div>
+      <p class="muted" style="margin:6px 0 0;">Looked for the classic post-surgical eye regimen pattern &mdash; an antibiotic eye drop/ointment
+      (chloramphenicol, tobramycin, ciprofloxacin family, etc.) <strong>and</strong> an anti-inflammatory eye drop (prednisolone, dexamethasone,
+      NSAID family) dispensed to the same animal within a 5-day window &mdash; with no eye surgery invoiceline on file. This combo is a strong
+      proxy for "a procedure happened and we're managing the aftermath" even without an explicit surgery line item (e.g. it was billed under a
+      generic consult fee, or performed elsewhere and we're just doing the med refill).</p>
+      <p class="muted" style="margin:6px 0 0;"><strong>Result: 2,648 animals.</strong> Also broad on its own (this drug combo is also used for
+      plain eye infections/uveitis without surgery), which is why it's weighted much more heavily in this report when it co-occurs with
+      Signal 2, 3, or 5.</p>
+    </div>
+
+    <div class="signal-def">
+      <div><span class="n">Signal 5 — Emergency/urgent surgery mention without surgery performed and invoiced</span></div>
+      <p class="muted" style="margin:6px 0 0;">Searched for "emergency"/"urgent"/"ASAP" co-occurring with acute eye-crisis language (eyeball
+      out, cannot open eye, eye bleeding, corneal rupture/perforation, proptosis, enucleation, glaucoma, cataract, "eye sx"), excluding animals
+      with a billed eye surgery.</p>
+      <p class="muted" style="margin:6px 0 0;"><strong>Result: 7 animals.</strong> Very small, very high-precision &mdash; these read like
+      genuine acute emergencies (e.g. a street-cat attack with the eye affected, a proptosis-sounding presentation) where the front-desk/triage
+      note describes urgency but there's no matching surgical invoiceline. Worth a direct chart pull on each one.</p>
+    </div>
+
+    <div class="callout">
+      <strong>Priority weighting used below:</strong> the 22 animals with an <em>explicit</em> text mention (Signal 2, 3, or 5)
+      <em>plus</em> a medication-pattern signal (1 or 4) are listed first as the highest-confidence review list. The remaining 389
+      animals were flagged by medication pattern only (Signals 1/4 co-occurring, no explicit text) &mdash; useful as a broader screening pool but
+      lower precision individually.
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Priority Review List — 22 animals (text-confirmed + medication-corroborated)</h2>
+    <p class="muted">These animals have an explicit note mentioning glaucoma/cataract, post-op, or an emergency eye presentation,
+    <em>and</em> a medication pattern consistent with it, <em>and</em> no eye surgery ever billed. Start here.</p>
+    <table>
+      <thead><tr><th>Patient</th><th>Code / ID</th><th>Clinic</th><th>Signals</th><th>Evidence</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Businka</strong></td>
+          <td class="muted">458527</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#ff8a4c22; color:#ff8a4c; border:1px solid #ff8a4c66;">Glaucoma/cataract mention</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">&ldquo;NEW CASE: eye check (Cataract)&rdquo;<br><br>Rx: Cyclosporine 20mg/g Eye Ointment 5g, Eye Cyclosporin 2mg/gm (Xiclospor) Ciclosporin &times;33</td>
+        </tr>
+        <tr>
+          <td><strong>Bob</strong></td>
+          <td class="muted">387068</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#d9534f22; color:#d9534f; border:1px solid #d9534f66;">&quot;Post-op&quot; text, no surgery on file</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">&ldquo;Admission for hospitalization and post-op care after eye surgery (BOVC)&rdquo;<br><br>Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;18</td>
+        </tr>
+        <tr>
+          <td><strong>Becky</strong></td>
+          <td class="muted">495565</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#ff8a4c22; color:#ff8a4c; border:1px solid #ff8a4c66;">Glaucoma/cataract mention</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">&ldquo;Client suspects cataract 
+Discharge on the right eye - White color
+No previous medical report for the eyes
+&hellip;&rdquo;<br><br>Rx: Eye Ointment Cyclosporine 2mg/g &times;17</td>
+        </tr>
+        <tr>
+          <td><strong>Shifu</strong></td>
+          <td class="muted">457976</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#ff8a4c22; color:#ff8a4c; border:1px solid #ff8a4c66;">Glaucoma/cataract mention</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">&ldquo;NEW CASE: Cataract&rdquo;<br><br>Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Drops Latanoprost 0.005% 2.5mL &times;12</td>
+        </tr>
+        <tr>
+          <td><strong>Hector</strong></td>
+          <td class="muted">460249</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#ff8a4c22; color:#ff8a4c; border:1px solid #ff8a4c66;">Glaucoma/cataract mention</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">&ldquo;5:5pm: NEW CLIENT: My dog has developed a cataract in one of his eyes(left) and I would like to have it checke&hellip;&rdquo;<br><br>Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;10</td>
+        </tr>
+        <tr>
+          <td><strong>Lola</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">MVC_223209</td>
+          <td>Modern Vet Clinic</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#ff8a4c22; color:#ff8a4c; border:1px solid #ff8a4c66;">Glaucoma/cataract mention</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">&ldquo;Cataract 
+
+ref by Dr. Horacio&rdquo;<br><br>Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Ointment Cyclosporine 2mg/g &times;10</td>
+        </tr>
+        <tr>
+          <td><strong>Bella</strong></td>
+          <td class="muted">BOV_10149_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#ff8a4c22; color:#ff8a4c; border:1px solid #ff8a4c66;">Glaucoma/cataract mention</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">&ldquo;NEW CASE: Cataract&rdquo;<br><br>Rx: Eye Ointment Cyclosporine 1%  10g &times;8</td>
+        </tr>
+        <tr>
+          <td><strong>Lilly</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">MVC_288126</td>
+          <td>Modern Vet Clinic</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#ff8a4c22; color:#ff8a4c; border:1px solid #ff8a4c66;">Glaucoma/cataract mention</span></td>
+          <td class="evidence-cell">&ldquo;The inflammation has subsided; we now just need to monitor the glaucoma. wish to see Dr carla O will take the &hellip;&rdquo;<br><br>Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Drops Latanoprost 0.005% 2.5mL &times;19</td>
+        </tr>
+        <tr>
+          <td><strong>Yogi</strong></td>
+          <td class="muted">399925</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#ff8a4c22; color:#ff8a4c; border:1px solid #ff8a4c66;">Glaucoma/cataract mention</span></td>
+          <td class="evidence-cell">&ldquo;Suffering from cataract, getting worse,  eating and active. 
+
+
+Aware of the Fee:360&rdquo;<br><br>Rx: Cyclosporine 20mg/g Eye Ointment 5g, Eye Ointment Cyclosporine 2mg/g &times;15</td>
+        </tr>
+        <tr>
+          <td><strong>Luna</strong></td>
+          <td class="muted">404330</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#ff8a4c22; color:#ff8a4c; border:1px solid #ff8a4c66;">Glaucoma/cataract mention</span></td>
+          <td class="evidence-cell">&ldquo;New Case: Eye Issue - Glaucoma&rdquo;<br><br>Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Drops Latanoprost 0.005% 2.5mL &times;10</td>
+        </tr>
+        <tr>
+          <td><strong>Richie</strong></td>
+          <td class="muted">490007</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#ff8a4c22; color:#ff8a4c; border:1px solid #ff8a4c66;">Glaucoma/cataract mention</span></td>
+          <td class="evidence-cell">&ldquo;Glaucoma - from DR ROCIO&rdquo;<br><br>Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Drops Latanoprost 0.005% 2.5mL &times;5</td>
+        </tr>
+        <tr>
+          <td><strong>Julia</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">490129</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#ff8a4c22; color:#ff8a4c; border:1px solid #ff8a4c66;">Glaucoma/cataract mention</span></td>
+          <td class="evidence-cell">&ldquo;Diagnosed with glucoma in UK wants to come for a check to get an eyedrop aware of the consult fee and aware th&hellip;&rdquo;<br><br>Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;4</td>
+        </tr>
+        <tr>
+          <td><strong>Tilly</strong></td>
+          <td class="muted">457219</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#ff8a4c22; color:#ff8a4c; border:1px solid #ff8a4c66;">Glaucoma/cataract mention</span></td>
+          <td class="evidence-cell">&ldquo;Eyes were inflamed, their Vet diagnosed with Glaucoma and advised to see an Ophthal 
+new client, ncf sent, wa&hellip;&rdquo;<br><br>Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;2</td>
+        </tr>
+        <tr>
+          <td><strong>Mia</strong></td>
+          <td class="muted">260215</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#ff8a4c22; color:#ff8a4c; border:1px solid #ff8a4c66;">Glaucoma/cataract mention</span></td>
+          <td class="evidence-cell">&ldquo;NEW CASE- Eye consultation, showered by medical shampoo and the eye got irritated. Owner wants to check if the&hellip;&rdquo;<br><br>Rx: Cyclosporine for Dogs Suspension 100mg/mL &times;2</td>
+        </tr>
+        <tr>
+          <td><strong>Eva</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">BOV_1801_B</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#ff8a4c22; color:#ff8a4c; border:1px solid #ff8a4c66;">Glaucoma/cataract mention</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">&ldquo;Tentative Drop off eye cataract procedure.&rdquo;</td>
+        </tr>
+        <tr>
+          <td><strong>Bilbo</strong></td>
+          <td class="muted">457623</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#ff8a4c22; color:#ff8a4c; border:1px solid #ff8a4c66;">Glaucoma/cataract mention</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">&ldquo;Eye Procedure - Cataracts Surgery OS&rdquo;</td>
+        </tr>
+        <tr>
+          <td><strong>Toffe</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">457936</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#ff8a4c22; color:#ff8a4c; border:1px solid #ff8a4c66;">Glaucoma/cataract mention</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">&ldquo;Ophthalmology consultation referred by Dr. Patrick had a  glaucoma but no medication available.-be brought by &hellip;&rdquo;</td>
+        </tr>
+        <tr>
+          <td><strong>Beauty</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">460747</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#ff8a4c22; color:#ff8a4c; border:1px solid #ff8a4c66;">Glaucoma/cataract mention</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">&ldquo;Cataract on the left eye - Kevin&rdquo;</td>
+        </tr>
+        <tr>
+          <td><strong>Scotch</strong></td>
+          <td class="muted">498081</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#ff8a4c22; color:#ff8a4c; border:1px solid #ff8a4c66;">Glaucoma/cataract mention</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">&ldquo;Ophthalmology consult- no pdf file for med hx.
+
+Scotch – Clinical Findings
+Scotch presented for a follow-up&hellip;&rdquo;</td>
+        </tr>
+        <tr>
+          <td><strong>Blue</strong></td>
+          <td class="muted">450935</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#d9534f22; color:#d9534f; border:1px solid #d9534f66;">&quot;Post-op&quot; text, no surgery on file</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">&ldquo;Follow up post-op eye check&rdquo;</td>
+        </tr>
+        <tr>
+          <td><strong>Bonbon</strong></td>
+          <td class="muted">381843</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span><span class="signal-badge" style="background:#dc262622; color:#dc2626; border:1px solid #dc262666;">Emergency/urgent surgery mention</span></td>
+          <td class="evidence-cell">&ldquo;As per O, Bonbon has an emergency with it's left eye, cannot open his eye and is reddish/whiteish color&rdquo;</td>
+        </tr>
+        <tr>
+          <td><strong>Stark</strong></td>
+          <td class="muted">457863</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span><span class="signal-badge" style="background:#dc262622; color:#dc2626; border:1px solid #dc262666;">Emergency/urgent surgery mention</span></td>
+          <td class="evidence-cell">&ldquo;Coming in as an Emergency, had a fight with a street cat, broke nail and paw and eye is bleeding. Aware of AED&hellip;&rdquo;</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>Broader Screening Pool — 389 animals (medication pattern only)</h2>
+    <p class="muted">Flagged by chronic eye medication + post-op-style med combo co-occurring, but with no explicit text mention
+    found. Showing the top 100 by signal strength; the full list of 389 is in the underlying data file for
+    anyone who wants to dig further (<code>cache/eye_referral_candidates.json</code> + <code>cache/report_rows.json</code> in the
+    project folder).</p>
+    <details>
+      <summary>Show top 100</summary>
+      <table>
+        <thead><tr><th>Patient</th><th>Code / ID</th><th>Clinic</th><th>Signals</th><th>Evidence</th></tr></thead>
+        <tbody>
+        <tr>
+          <td><strong>Buffy</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">BOV_5223_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Cyclosporine 2mg/g, Eye Cyclosporin 0.2% (FarmaciaLuts C.) Ciclosporin; Cyclospo &times;225</td>
+        </tr>
+        <tr>
+          <td><strong>Jade</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">BOV_8231_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Ciclosporin 2mg/ml (OptiCARE), Eye Cyclosporin 2mg/gm (Xiclospor) Ciclosporin &times;203</td>
+        </tr>
+        <tr>
+          <td><strong>Inventory Transfer</strong></td>
+          <td class="muted">385133</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Cyclosporine 100mg/mL 15mL, Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;105</td>
+        </tr>
+        <tr>
+          <td><strong>Luna</strong></td>
+          <td class="muted">BOV_11315_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Cyclosporine Capsule 50MG Ciclosporine Capsule 50MG, Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;96</td>
+        </tr>
+        <tr>
+          <td><strong>Cookie</strong></td>
+          <td class="muted">BOV_6068_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Cyclosporin 2mg/gm (Xiclospor) Ciclosporin, Eye Ointment Cyclosporine 1%  10g &times;90</td>
+        </tr>
+        <tr>
+          <td><strong>Ben</strong></td>
+          <td class="muted">BOV_4930_C</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Ciclosporin 2mg/ml (OptiCARE), Eye Ointment Cyclosporine 2mg/g &times;89</td>
+        </tr>
+        <tr>
+          <td><strong>April</strong></td>
+          <td class="muted">236952</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Cyclosporin 2mg/gm (Xiclospor) Ciclosporin, Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;89</td>
+        </tr>
+        <tr>
+          <td><strong>Phoebe</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">BOV_9038_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Cyclosporin 2mg/gm (Xiclospor) Ciclosporin, Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;86</td>
+        </tr>
+        <tr>
+          <td><strong>Shadow</strong></td>
+          <td class="muted">BOV_13210_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Cyclosporin 0.2% (FarmaciaLuts C.) Ciclosporin; Cyclospo, Eye Cyclosporin 2mg/gm (Xiclospor) Ciclosporin &times;79</td>
+        </tr>
+        <tr>
+          <td><strong>Molly</strong></td>
+          <td class="muted">BOV_7023_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Ciclosporin 2mg/ml (OptiCARE), Eye Cyclosporin 2mg/gm (Xiclospor) Ciclosporin &times;77</td>
+        </tr>
+        <tr>
+          <td><strong>Nala Salame</strong></td>
+          <td class="muted">BOV_4641_IN</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Drops Latanoprost 0.005% 2.5mL &times;70</td>
+        </tr>
+        <tr>
+          <td><strong>Louie</strong></td>
+          <td class="muted">BOV_6546_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Drops Latanoprost 0.005% 2.5mL &times;70</td>
+        </tr>
+        <tr>
+          <td><strong>English Buldog</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">212263</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Post-op combo: MAXITROL Eye Ointment, TOBRADEX Eye Drops</td>
+        </tr>
+        <tr>
+          <td><strong>Daisy Massey</strong></td>
+          <td class="muted">BOV_8629_BF</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Ointment Cyclosporine 1%  10g &times;65</td>
+        </tr>
+        <tr>
+          <td><strong>Lucci</strong></td>
+          <td class="muted">BOV_17137_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Cyclosporine 20mg/g Eye Ointment 5g, Eye Drops Cyclosporine 20mg/mL 5mL &times;61</td>
+        </tr>
+        <tr>
+          <td><strong>Caesar</strong></td>
+          <td class="muted">BOV_8629_AQ</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Drops Latanoprost 0.005% 2.5mL &times;60</td>
+        </tr>
+        <tr>
+          <td><strong>Romeo Cocker Spaniel</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">217487</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Post-op combo: Eye Ointment Maxitrol 3.5g, MAXITROL Eye Drops</td>
+        </tr>
+        <tr>
+          <td><strong>Junior</strong></td>
+          <td class="muted">BOV_16576_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Ointment Cyclosporine 2mg/g &times;55</td>
+        </tr>
+        <tr>
+          <td><strong>Uta</strong></td>
+          <td class="muted">384822</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Cyclosporin 0.2% (FarmaciaLuts C.) Ciclosporin; Cyclospo, Eye Drops Cyclosporine 20mg/mL 5mL &times;51</td>
+        </tr>
+        <tr>
+          <td><strong>Hershey 0504533382</strong></td>
+          <td class="muted">BOV_8629_BB</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Cyclosporine 20mg/g Eye Ointment 5g, Eye Cyclosporin 0.2% (FarmaciaLuts C.) Ciclosporin; Cyclospo &times;51</td>
+        </tr>
+        <tr>
+          <td><strong>Stitch</strong></td>
+          <td class="muted">BOV_3094_B</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Ointment Cyclosporine 2mg/g &times;50</td>
+        </tr>
+        <tr>
+          <td><strong>Lessie</strong></td>
+          <td class="muted">BOV_10388_B</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Cyclosporin 2mg/gm (Xiclospor) Ciclosporin, Eye Ointment Cyclosporine 2mg/g &times;49</td>
+        </tr>
+        <tr>
+          <td><strong>Winston</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">BOV_3365_B</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Ciclosporin 2% (KRYON), Eye Ointment Cyclosporine 2mg/g &times;48</td>
+        </tr>
+        <tr>
+          <td><strong>Mimi O'Connor</strong></td>
+          <td class="muted">BOV_7588_CU</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Cyclosporine 2mg/g, Eye Cyclosporin 0.2% (FarmaciaLuts C.) Ciclosporin; Cyclospo &times;48</td>
+        </tr>
+        <tr>
+          <td><strong>Rocky</strong></td>
+          <td class="muted">BOV_4553_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Cyclosporin 2mg/gm (Xiclospor) Ciclosporin, Eye Ointment Cyclosporine 2mg/g &times;47</td>
+        </tr>
+        <tr>
+          <td><strong>Gizmo</strong></td>
+          <td class="muted">BOV_10506_C</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Cyclosporine 2mg/g, Eye Cyclosporin 2mg/gm (Xiclospor) Ciclosporin &times;47</td>
+        </tr>
+        <tr>
+          <td><strong>Ganja</strong></td>
+          <td class="muted">BOV_9528_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Ointment Cyclosporine 2mg/g &times;47</td>
+        </tr>
+        <tr>
+          <td><strong>Scooby</strong></td>
+          <td class="muted">BOV_8423_O</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Drops Latanoprost 0.005% 2.5mL &times;47</td>
+        </tr>
+        <tr>
+          <td><strong>George</strong></td>
+          <td class="muted">VV_24496</td>
+          <td>Vienna Vet</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Cyclosporin 2mg/gm (Xiclospor) Ciclosporin, Eye Ointment Cyclosporine 2mg/g &times;46</td>
+        </tr>
+        <tr>
+          <td><strong>Ollie</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">224893</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: XALATAN EYE DROPS - (F) &times;43</td>
+        </tr>
+        <tr>
+          <td><strong>Coco</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">BOV_4372_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Cyclosporin 2mg/gm (Xiclospor) Ciclosporin, Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;41</td>
+        </tr>
+        <tr>
+          <td><strong>Inventory Transfer</strong></td>
+          <td class="muted">385190</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Cyclosporine for Cats and Dogs 100mg/mL 15mL, Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;41</td>
+        </tr>
+        <tr>
+          <td><strong>Bobby</strong></td>
+          <td class="muted">221848</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;40</td>
+        </tr>
+        <tr>
+          <td><strong>Nuit</strong></td>
+          <td class="muted">BOV_11704_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Ointment Cyclosporine 2mg/g &times;40</td>
+        </tr>
+        <tr>
+          <td><strong>Kira</strong></td>
+          <td class="muted">BOV_9266_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Cyclosporin 2mg/gm (Xiclospor) Ciclosporin, Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;39</td>
+        </tr>
+        <tr>
+          <td><strong>Emilio</strong></td>
+          <td class="muted">BOV_11181_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Cyclosporin 2mg/gm (Xiclospor) Ciclosporin, Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;39</td>
+        </tr>
+        <tr>
+          <td><strong>Tinky Winky</strong></td>
+          <td class="muted">MVC_282532</td>
+          <td>Modern Vet Clinic</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Cyclosporine 20mg/mL 5mL, Eye Ointment Cyclosporine 2mg/g &times;37</td>
+        </tr>
+        <tr>
+          <td><strong>Betty</strong></td>
+          <td class="muted">221074</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Cyclosporine 2mg/g, Eye Cyclosporin 0.2% (FarmaciaLuts C.) Ciclosporin; Cyclospo &times;37</td>
+        </tr>
+        <tr>
+          <td><strong>Roo</strong></td>
+          <td class="muted">BOV_8629_DF</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Drops Latanoprost 0.005% 2.5mL &times;37</td>
+        </tr>
+        <tr>
+          <td><strong>Buddy</strong></td>
+          <td class="muted">380424</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Cyclosporine 100mg/mL 15mL, Cyclosporine 100mg/mL Suspension &times;36</td>
+        </tr>
+        <tr>
+          <td><strong>Bambi</strong></td>
+          <td class="muted">218538</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Drops Dorzolamide HCl 5mL &times;36</td>
+        </tr>
+        <tr>
+          <td><strong>Nounie(athba)</strong></td>
+          <td class="muted">228718</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Post-op combo: Oftalmolosa Cusi Gentamicin 0.3 % eye oi, TOBRADEX Eye Drops</td>
+        </tr>
+        <tr>
+          <td><strong>Toffee</strong></td>
+          <td class="muted">BOV_8836_R</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Cyclosporine 20mg/mL 5mL, Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;35</td>
+        </tr>
+        <tr>
+          <td><strong>Hermes</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">BOV_1938_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Latanoprost 0.005% 2.5mL, Eye Ointment Cyclosporine 2mg/g &times;35</td>
+        </tr>
+        <tr>
+          <td><strong>Alma</strong></td>
+          <td class="muted">BOV_3326_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Cyclosporine 100mg/mL Suspension, Cyclosporine for Cats and Dogs 100mg/mL 15mL &times;35</td>
+        </tr>
+        <tr>
+          <td><strong>Jesse No More</strong></td>
+          <td class="muted">219553</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: RESTASIS (cyclosporine eye drops).05% &times;35</td>
+        </tr>
+        <tr>
+          <td><strong>Inventory Transfer</strong></td>
+          <td class="muted">385167</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Cyclosporine 100mg/mL, Cyclosporine for Cats and Dogs 100mg/mL 15mL &times;34</td>
+        </tr>
+        <tr>
+          <td><strong>Otto</strong></td>
+          <td class="muted">239745</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Cyclosporin 0.2% (FarmaciaLuts C.) Ciclosporin; Cyclospo, Eye Ointment Cyclosporine 1%  10g &times;34</td>
+        </tr>
+        <tr>
+          <td><strong>Savannah</strong></td>
+          <td class="muted">BOV_13787_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Cyclosporin 2mg/gm (Xiclospor) Ciclosporin, Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;34</td>
+        </tr>
+        <tr>
+          <td><strong>Ace</strong></td>
+          <td class="muted">BOV_11633_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Cyclosporin 2mg/gm (Xiclospor) Ciclosporin, Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;34</td>
+        </tr>
+        <tr>
+          <td><strong>Totti</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">BOV_3982_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Ciclosporin 2mg/ml (OptiCARE), Eye Cyclosporin 2mg/gm (Xiclospor) Ciclosporin &times;33</td>
+        </tr>
+        <tr>
+          <td><strong>Sinbad</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">BOV_7317_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Ointment Cyclosporine 2mg/g &times;33</td>
+        </tr>
+        <tr>
+          <td><strong>Ivy</strong></td>
+          <td class="muted">228782</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Post-op combo: Fucithalmic eye ointment (B-4), MAXITROL Eye Ointment</td>
+        </tr>
+        <tr>
+          <td><strong>Yuki</strong></td>
+          <td class="muted">404462</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Ointment Cyclosporine 2mg/g &times;33</td>
+        </tr>
+        <tr>
+          <td><strong>Bushka</strong></td>
+          <td class="muted">BOV_12344_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Ointment Cyclosporine 1%  10g &times;32</td>
+        </tr>
+        <tr>
+          <td><strong>Peach</strong></td>
+          <td class="muted">BOV_4051_B</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Ointment Cyclosporine 2mg/g &times;32</td>
+        </tr>
+        <tr>
+          <td><strong>Kay</strong></td>
+          <td class="muted">382291</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Drops Dorzolamide HCl 5mL &times;31</td>
+        </tr>
+        <tr>
+          <td><strong>Snoopy</strong></td>
+          <td class="muted">BOV_9705_F</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Cyclosporine 2mg/g, Eye Cyclosporin 2mg/gm (Xiclospor) Ciclosporin &times;31</td>
+        </tr>
+        <tr>
+          <td><strong>Fudge Albuquerque</strong></td>
+          <td class="muted">BOV_255_E</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Cyclosporin 2mg/gm (Xiclospor) Ciclosporin, Eye Ointment Cyclosporine 1%  10g &times;31</td>
+        </tr>
+        <tr>
+          <td><strong>Chico (INACTIVE)</strong></td>
+          <td class="muted">BOV_8629_AT</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Drops Latanoprost 0.005% 2.5mL &times;30</td>
+        </tr>
+        <tr>
+          <td><strong>Marco</strong></td>
+          <td class="muted">BOV_4242_BK</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Drops Latanoprost 0.005% 2.5mL &times;30</td>
+        </tr>
+        <tr>
+          <td><strong>Hazel</strong></td>
+          <td class="muted">BOV_2908_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Cyclosporin 0.2% (FarmaciaLuts C.) Ciclosporin; Cyclospo, Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;30</td>
+        </tr>
+        <tr>
+          <td><strong>Clooney</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">MVC_226126</td>
+          <td>Modern Vet Clinic</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Post-op combo: TOBREX Eye Drops, Tobradex(Tobramycin  Dexamethasone) drops</td>
+        </tr>
+        <tr>
+          <td><strong>Cat</strong></td>
+          <td class="muted">249784</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Cyclosporine for Dogs Suspension 100mg/mL &times;30</td>
+        </tr>
+        <tr>
+          <td><strong>Max</strong></td>
+          <td class="muted">228739</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Drops Latanoprost 0.005% 2.5mL &times;29</td>
+        </tr>
+        <tr>
+          <td><strong>AJ</strong></td>
+          <td class="muted">BOV_2166_C</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;29</td>
+        </tr>
+        <tr>
+          <td><strong>Sassy</strong></td>
+          <td class="muted">231745</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Ointment Cyclosporine 2mg/g &times;29</td>
+        </tr>
+        <tr>
+          <td><strong>Margot</strong></td>
+          <td class="muted">BOV_8629_DH</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Drops Latanoprost 0.005% 2.5mL &times;29</td>
+        </tr>
+        <tr>
+          <td><strong>Wizz</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">BOV_6697_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Ciclosporin 2mg/ml (OptiCARE), Eye Cyclosporin 2mg/gm (Xiclospor) Ciclosporin &times;28</td>
+        </tr>
+        <tr>
+          <td><strong>Sugar Kurt</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">BOV_2441_O</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;28</td>
+        </tr>
+        <tr>
+          <td><strong>Oreo</strong></td>
+          <td class="muted">242039</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Ointment Cyclosporine 2mg/g &times;27</td>
+        </tr>
+        <tr>
+          <td><strong>Simba</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">BOV_628_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Ciclosporin 2% (KRYON), Eye Ointment Cyclosporine 2mg/g &times;27</td>
+        </tr>
+        <tr>
+          <td><strong>Boots</strong></td>
+          <td class="muted">BOV_16886_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Ointment Cyclosporine 2mg/g &times;26</td>
+        </tr>
+        <tr>
+          <td><strong>Dennis</strong></td>
+          <td class="muted">BOV_9889_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;26</td>
+        </tr>
+        <tr>
+          <td><strong>Charlie</strong></td>
+          <td class="muted">210869</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Post-op combo: Fucithalmic eye ointment (B-4), Gentamycin eye ointment</td>
+        </tr>
+        <tr>
+          <td><strong>Lily</strong></td>
+          <td class="muted">451986</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Ointment Cyclosporine 2mg/g &times;25</td>
+        </tr>
+        <tr>
+          <td><strong>Pirate Pete</strong></td>
+          <td class="muted">BOV_5484_B</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;25</td>
+        </tr>
+        <tr>
+          <td><strong>Missy</strong></td>
+          <td class="muted">382473</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Cyclosporine 20mg/g Eye Ointment 5g, Eye Drops Cyclosporine 20mg/mL 5mL &times;25</td>
+        </tr>
+        <tr>
+          <td><strong>Coconut</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">BOV_8796_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Ciclosporin 2mg/ml (OptiCARE), Eye Cyclosporin 2mg/gm (Xiclospor) Ciclosporin &times;24</td>
+        </tr>
+        <tr>
+          <td><strong>Perry</strong></td>
+          <td class="muted">BOV_352_AJ</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Drops Latanoprost 0.005% 2.5mL &times;24</td>
+        </tr>
+        <tr>
+          <td><strong>Qlinton</strong></td>
+          <td class="muted">202069</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Post-op combo: MAXITROL Eye Drops, TOBRADEX Eye Drops</td>
+        </tr>
+        <tr>
+          <td><strong>Reggie</strong></td>
+          <td class="muted">404451</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Cyclosporine 100mg/mL Suspension, Cyclosporine for Cats and Dogs 100mg/mL 15mL &times;24</td>
+        </tr>
+        <tr>
+          <td><strong>Patches</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">BOV_6461_B</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Drops Latanoprost 0.005% 2.5mL &times;24</td>
+        </tr>
+        <tr>
+          <td><strong>Casper</strong></td>
+          <td class="muted">BOV_8764_AA</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Drops Latanoprost 0.005% 2.5mL &times;24</td>
+        </tr>
+        <tr>
+          <td><strong>Tucker</strong></td>
+          <td class="muted">BOV_7588_AD</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Drops Latanoprost 0.005% 2.5mL &times;23</td>
+        </tr>
+        <tr>
+          <td><strong>Zara</strong></td>
+          <td class="muted">399401</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;23</td>
+        </tr>
+        <tr>
+          <td><strong>Bailey</strong></td>
+          <td class="muted">BOV_8629_AJ</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Ointment Cyclosporine 1%  10g &times;23</td>
+        </tr>
+        <tr>
+          <td><strong>Phoebe</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">BOV_1168_B</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Ointment Cyclosporine 2mg/g &times;23</td>
+        </tr>
+        <tr>
+          <td><strong>Rocco</strong> <span class="muted">(deceased)</span></td>
+          <td class="muted">BOV_15201_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Cyclosporine 100mg/mL Suspension, Cyclosporine for Cats and Dogs 100mg/mL 15mL &times;23</td>
+        </tr>
+        <tr>
+          <td><strong>Jaspar</strong></td>
+          <td class="muted">BOV_5037_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Ciclosporin 2mg/ml (OptiCARE), Eye Ointment Cyclosporine 2mg/g &times;23</td>
+        </tr>
+        <tr>
+          <td><strong>Cecco Al Rais</strong></td>
+          <td class="muted">BOV_8629_AR</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Ointment Cyclosporine 1%  10g, Eye Ointment Cyclosporine 2mg/g &times;23</td>
+        </tr>
+        <tr>
+          <td><strong>Jasmine(died)</strong></td>
+          <td class="muted">205698</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Post-op combo: Fucithalmic eye ointment (B-4), MAXITROL Eye Drops</td>
+        </tr>
+        <tr>
+          <td><strong>Tommy</strong></td>
+          <td class="muted">378405</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;23</td>
+        </tr>
+        <tr>
+          <td><strong>Roxie</strong></td>
+          <td class="muted">BOV_12201_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Cyclosporin 2mg/gm (Xiclospor) Ciclosporin, Eye Ointment Cyclosporine 2mg/g &times;23</td>
+        </tr>
+        <tr>
+          <td><strong>Hero Talah</strong></td>
+          <td class="muted">BOV_8764_BT</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Cyclosporin 2mg/gm (Xiclospor) Ciclosporin, Eye Drops Dorzolamide HCl / Timolol Maleate 5mL &times;23</td>
+        </tr>
+        <tr>
+          <td><strong>Sheesha</strong></td>
+          <td class="muted">211517</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Azopt 1% 5ml eye drops &times;23</td>
+        </tr>
+        <tr>
+          <td><strong>Blue Ahmed</strong></td>
+          <td class="muted">BOV_4641_WM</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Drops Dorzolamide HCl / Timolol Maleate 5mL, Eye Drops Latanoprost 0.005% 2.5mL &times;23</td>
+        </tr>
+        <tr>
+          <td><strong>Tucker No More</strong></td>
+          <td class="muted">222048</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Azopt 1% 5ml eye drops &times;22</td>
+        </tr>
+        <tr>
+          <td><strong>Alex Cooper</strong></td>
+          <td class="muted">BOV_1910_A</td>
+          <td>Blue Oasis (BOVC)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Ointment Cyclosporine 2mg/g &times;22</td>
+        </tr>
+        <tr>
+          <td><strong>Babalou</strong></td>
+          <td class="muted">272049</td>
+          <td>Modern Vet Hospital (main)</td>
+          <td style="min-width:170px;"><span class="signal-badge" style="background:#0e8a7d22; color:#0e8a7d; border:1px solid #0e8a7d66;">Chronic eye medication</span><span class="signal-badge" style="background:#3b82f622; color:#3b82f6; border:1px solid #3b82f666;">Post-op-style eye med combo</span></td>
+          <td class="evidence-cell">Rx: Eye Ointment Cyclosporine 2mg/g &times;22</td>
+        </tr>
+        </tbody>
+      </table>
+    </details>
+  </section>
+
+  <section class="card">
+    <h2>Suggested next steps</h2>
+    <ul class="tight">
+      <li>Have a vet/ophthalmology-interested clinician spot-check the 22 priority-list charts first &mdash; that's a half-day task, not a project.</li>
+      <li>For any confirmed missed/delayed referral, the fix is process, not this report: a simple checkbox or note field on the consult
+        when a specialist referral is discussed but not booked would make this kind of retrospective detection unnecessary going forward.</li>
+      <li>If it's useful, this same product-classification + invoice-cross-reference method can be pointed at other specialties
+        (orthopedics, oncology, cardiology) using the same approach used in the original 14-month referral report.</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  Internal analysis &middot; ezyVet data, all Vet Alliance sites &middot; prepared by Cheshire for Andrew &middot; screening candidates only, not clinical conclusions
+</footer>
+
+</body>
+</html>
