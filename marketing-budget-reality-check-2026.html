@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Marketing Budget Reality Check — 2026</title>
+<style>
+  :root {
+    --navy: #0b1f3a; --teal: #0e8a7d; --accent: #ff8a4c; --bg: #f6f8fb;
+    --card: #ffffff; --border: #e2e8f0; --text: #1f2937; --muted: #64748b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    margin: 0; background: var(--bg); color: var(--text); line-height: 1.55;
+  }
+  header {
+    background: linear-gradient(135deg, var(--navy), #163a63);
+    color: white; padding: 48px 24px 40px;
+  }
+  header .wrap { max-width: 1100px; margin: 0 auto; }
+  header h1 { margin: 0 0 8px; font-size: 2rem; }
+  header p { margin: 4px 0; opacity: 0.85; }
+  .badge {
+    display: inline-block; background: var(--accent); color: #1a1a1a; font-weight: 600;
+    padding: 4px 12px; border-radius: 999px; font-size: 0.8rem; margin-top: 12px;
+  }
+  main { max-width: 1100px; margin: -20px auto 60px; padding: 0 24px; }
+  section.card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 28px 32px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  h2 { color: var(--navy); margin-top: 0; font-size: 1.4rem; border-bottom: 2px solid var(--teal); padding-bottom: 8px; }
+  h3 { color: var(--navy); font-size: 1.1rem; margin-top: 28px; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; margin: 20px 0; }
+  .kpi { background: #f0f4f8; border-radius: 10px; padding: 18px; text-align: center; }
+  .kpi .num { font-size: 1.8rem; font-weight: 700; color: var(--teal); }
+  .kpi .label { font-size: 0.82rem; color: var(--muted); margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92rem; }
+  th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); }
+  th { background: #f0f4f8; color: var(--navy); }
+  tr:hover { background: #fafbfc; }
+  .callout { background: #fff4e8; border-left: 4px solid var(--accent); padding: 14px 18px; border-radius: 8px; margin: 16px 0; }
+  .callout.finding { background: #e8f6f4; border-left-color: var(--teal); }
+  .callout.caution { background: #fdeceb; border-left-color: #d9534f; }
+  .muted { color: var(--muted); font-size: 0.88rem; }
+  ul.tight li { margin-bottom: 6px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 800px) { .grid2 { grid-template-columns: 1fr; } }
+  footer { text-align: center; color: var(--muted); font-size: 0.85rem; padding: 20px; }
+</style>
+</head>
+<body>
+
+<!-- Password gate — leadership/budget-sensitive material, same soft-gate
+     pattern as the referral analysis report. Client-side only (static
+     hosting), not real security, deterrent for casual visitors only. -->
+<div id="pw-gate" style="position:fixed; inset:0; background:#0b1f3a; z-index:9999; display:flex; align-items:center; justify-content:center; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+  <div style="background:#ffffff; border-radius:14px; padding:36px 40px; max-width:360px; width:90%; box-shadow:0 20px 60px rgba(0,0,0,0.35); text-align:center;">
+    <div style="font-size:2rem; margin-bottom:6px;">🔒</div>
+    <h2 style="margin:0 0 6px; color:#1f2937; font-size:1.2rem;">Marketing Budget Reality Check</h2>
+    <p style="margin:0 0 20px; color:#64748b; font-size:0.85rem;">This report is restricted. Enter the password to continue.</p>
+    <input id="pw-input" type="password" placeholder="Password" autofocus style="width:100%; padding:10px 12px; border:1px solid #e2e8f0; border-radius:8px; font-size:0.95rem; margin-bottom:10px; box-sizing:border-box;">
+    <button id="pw-submit" style="width:100%; padding:10px 12px; border:none; border-radius:8px; background:#0e8a7d; color:#fff; font-weight:600; font-size:0.95rem; cursor:pointer;">Unlock</button>
+    <p id="pw-error" style="margin:12px 0 0; color:#dc2626; font-size:0.82rem; display:none;">Incorrect password — try again.</p>
+  </div>
+</div>
+<script>
+(function () {
+  var PW_HASH = "82591940cdab3378853b87f681a3c9a11f5b2c5d13e0d707a41b14bdf87174b8";
+  var STORAGE_KEY = "marketing-budget-report-unlocked-2026";
+
+  function sha256Hex(text) {
+    var enc = new TextEncoder().encode(text);
+    return crypto.subtle.digest("SHA-256", enc).then(function (buf) {
+      return Array.prototype.map.call(new Uint8Array(buf), function (b) {
+        return b.toString(16).padStart(2, "0");
+      }).join("");
+    });
+  }
+
+  function unlock() {
+    document.getElementById("pw-gate").style.display = "none";
+    document.documentElement.style.overflow = "";
+  }
+
+  if (sessionStorage.getItem(STORAGE_KEY) === "1") {
+    unlock();
+  } else {
+    document.documentElement.style.overflow = "hidden";
+  }
+
+  document.getElementById("pw-submit").addEventListener("click", trySubmit);
+  document.getElementById("pw-input").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") trySubmit();
+  });
+
+  function trySubmit() {
+    var val = document.getElementById("pw-input").value;
+    sha256Hex(val).then(function (hash) {
+      if (hash === PW_HASH) {
+        sessionStorage.setItem(STORAGE_KEY, "1");
+        unlock();
+      } else {
+        document.getElementById("pw-error").style.display = "block";
+        document.getElementById("pw-input").value = "";
+        document.getElementById("pw-input").focus();
+      }
+    });
+  }
+})();
+</script>
+
+<header>
+  <div class="wrap">
+    <h1>Marketing Budget Reality Check — 2026</h1>
+    <p>Setting accurate expectations on what the current marketing budget and team can and cannot deliver</p>
+    <p class="muted" style="opacity:0.75;">Prepared by Andrew (Marketing Director)</p>
+    <span class="badge">Internal — Leadership Only</span>
+  </div>
+</header>
+
+<main>
+
+<section class="card">
+  <h2>Purpose</h2>
+  <p>This document sets accurate expectations with fellow leadership on what the current marketing budget and team can and cannot deliver — using real growth data, real cost comparisons, and real absorbed-value evidence — <strong>before</strong> any specific budget change is proposed. It is not a budget-increase request; that is a separate, future conversation.</p>
+</section>
+
+<section class="card">
+  <h2>1. The Corrected Growth Story</h2>
+  <p>Raw finance exports show 2026 revenue at AED 51.5M vs. AED 67.4M in 2025 — a misleading <strong>-24% YoY</strong> if read as full-year data. It isn't: <strong>2026 data is only 7 months (Jan–Jul)</strong>, and August is the lowest-revenue month of the year across the group.</p>
+
+  <h3>Corrected full-year 2026 prognosis</h3>
+  <ul class="tight">
+    <li>YTD actual (Jan–Jul, 7 months): <strong>AED 51,491,805</strong></li>
+    <li>August (pinned at lowest-month level): <strong>AED 5,600,000</strong></li>
+    <li>Sep–Dec (4 months, at YTD average monthly pace — conservative, no Q4 rebound assumed): <strong>~AED 29,423,889</strong></li>
+    <li><strong>Full-year 2026 prognosis: ~AED 86,500,000</strong></li>
+  </ul>
+
+  <table>
+    <tr><th>Year</th><th>Revenue (AED)</th><th>YoY growth</th></tr>
+    <tr><td>2022</td><td>33,928,479</td><td>—</td></tr>
+    <tr><td>2023</td><td>55,799,688</td><td>+64.5%</td></tr>
+    <tr><td>2024</td><td>59,300,619</td><td>+6.3%</td></tr>
+    <tr><td>2025</td><td>67,448,784</td><td>+13.7%</td></tr>
+    <tr><td><strong>2026 (prognosis)</strong></td><td><strong>~86,500,000</strong></td><td><strong>+28.3%</strong></td></tr>
+  </table>
+
+  <div class="callout finding">
+    <strong>Revenue has grown ~155% since 2022</strong> — the department has scaled the business by 2.5x in four years, starting from a <em>smaller</em> team than exists today.
+  </div>
+</section>
+
+<section class="card">
+  <h2>2. Where That Growth Actually Came From — Retention/AOV, Not New-Client Acquisition</h2>
+  <table>
+    <tr><th>Year</th><th>Unique clients</th><th>Avg Order Value (AED)</th><th>Transactions</th></tr>
+    <tr><td>2022</td><td>15,614</td><td>427</td><td>79,374</td></tr>
+    <tr><td>2023</td><td>17,773</td><td>589</td><td>94,670</td></tr>
+    <tr><td>2024</td><td>16,835</td><td>582</td><td>101,948</td></tr>
+    <tr><td>2025</td><td>17,919</td><td>635</td><td>106,230</td></tr>
+  </table>
+  <ul class="tight">
+    <li>Unique clients grew <strong>+14.8%</strong> (2022→2025) while revenue grew <strong>+99%</strong> over the same period.</li>
+    <li>Almost all of the growth came from <strong>AOV (+48.7%)</strong> and repeat-visit frequency, not from bringing in new clients at scale.</li>
+  </ul>
+  <div class="callout">
+    <strong>This is the direct result of a starved paid-media budget.</strong> SEO, content, retention programs, and pricing/service-mix improvements don't require much media spend and have carried the growth. New-client acquisition at scale structurally <em>requires</em> paid reach — the one lever this budget has never meaningfully funded.
+  </div>
+</section>
+
+<section class="card">
+  <h2>3. It's Not "8 Brands" — It's 4-5 Fundamentally Different Businesses Sharing One Team and One Budget</h2>
+  <p>Counting brands flatly understates the real complexity. The portfolio isn't 8 similar clinics splitting a budget evenly — it's several <strong>structurally different business models</strong>, each requiring its own content, visual identity, campaign strategy, and in one case its own payment/booking technology stack:</p>
+
+  <table>
+    <tr><th>Business type</th><th>Brands</th><th>Why it's a separate workload, not a shared one</th></tr>
+    <tr><td>Multi-location vet clinics (self-booking)</td><td>Modern Vet, Blue Oasis, Azizi</td><td>Standard clinic funnel, but each brand has its own persona/visual identity/positioning</td></tr>
+    <tr><td>Referral-only specialty vet</td><td>TVRC</td><td>No self-booking, no "Book Now" CTAs — an entirely different funnel; can't reuse clinic-brand campaign playbooks</td></tr>
+    <tr><td>Smaller/simpler clinic brand</td><td>Vienna Vet, BOVC</td><td>Different market, different scale, still needs its own strategy and content, not a scaled-down copy of Modern Vet's</td></tr>
+    <tr><td>E-commerce / booking platform layer</td><td>Floof</td><td>Not a clinic brand at all — a platform other brands plug into; own content, own commercial logic (Klaviyo, eCRE8)</td></tr>
+    <tr><td>International relocation logistics service</td><td>BSPR (Blue Sky Pet Relocation)</td><td>Not a vet business — different customer journey (people relocating countries, not local pet owners), different booking flow (Calendly + TELR payment), different content entirely (travel/relocation guidance vs. health content), run almost as a standalone company</td></tr>
+  </table>
+
+  <div class="callout finding">
+    The team is already running the equivalent of <strong>4-5 separate small marketing departments</strong> — each with its own strategy, creative, and campaign needs — inside one shared headcount and one shared budget. There is no version of this portfolio where the workload could fairly be called "8 brands, so it's manageable."
+  </div>
+</section>
+
+<section class="card">
+  <h2>4. What the Current Budget Actually Buys — No Hidden Slack</h2>
+  <table>
+    <tr><th>Line</th><th>Monthly</th><th>% of total budget</th></tr>
+    <tr><td>Salaries (10.5–11 people)</td><td>AED 85,000</td><td>~40%</td></tr>
+    <tr><td><strong>Paid ads — every platform, every brand, every one of 11 clinics</strong></td><td><strong>AED 85,000</strong></td><td><strong>~40%</strong></td></tr>
+    <tr><td>Everything else (tools, hosting/domains, printables, events, remaining agency lines)</td><td>AED 40,000</td><td>~19%</td></tr>
+    <tr><td><strong>Total</strong></td><td><strong>AED 210,000</strong></td><td><strong>100%</strong></td></tr>
+  </table>
+
+  <p>AED 85,000/month in paid media split across that many distinct businesses and 11 clinics is <strong>~AED 7,700–10,600 per business-unit or clinic if spread evenly</strong> — and in reality it isn't spread evenly; flagship brands/clinics absorb most of it, smaller/newer ones (Khawaneej, Azizi, Vienna Vet, BOVC) get very little.</p>
+
+  <div class="callout caution">
+    <strong>There is no spare capacity in the current budget for a new channel type</strong> (offline media, signboards, lightboxes, mall displays). This isn't a prioritization failure — the money to fund it does not exist inside the current structure without cutting something that's already running.
+  </div>
+
+  <div class="callout finding">
+    <strong>The stronger use of any incremental budget is more paid media, not offline experiments.</strong> Offline out-of-home (signboards, lightboxes, mall displays) has weak-to-no attribution, long lead times, and fixed costs that don't scale down for a single clinic's needs. An incremental AED 70,000/month directed into existing, measurable paid channels — where results, targeting, and spend can be tracked and adjusted in real time — will outperform the same money spent on offline media, and can be redirected or scaled immediately if it underperforms. Offline media cannot.
+  </div>
+</section>
+
+<section class="card">
+  <h2>5. Team Size Looks Adequate on Paper — Real Capacity Is Lower Than Headcount Suggests</h2>
+  <p><strong>Current roster (10.5–11 FTE):</strong> Director, Operations Specialist, Social Media Manager (FT), Social Media Manager (PT), Video Operator/Editor, Writer + Arabic Translator, Marketing Assistant (remote — also handles CCTV monitoring, outside marketing scope), PPC Manager (remote), SEO Specialist (remote), Website Developer (PT, remote), Designer (remote), Russian Translator (remote).</p>
+
+  <p>This headcount is in line with general industry benchmarks for a company this revenue size (companies at $10-50M revenue typically run 8-15 marketers). <strong>But two things reduce real marketing capacity below what the headcount implies:</strong></p>
+  <ul class="tight">
+    <li>At least one role is doing meaningfully non-marketing work (CCTV monitoring) inside a marketing FTE slot.</li>
+    <li>The Director (with AI/analytics support) personally covers work that would normally sit in separate departments: IT/equipment support, custom internal software (see Section 6), BI/analytics work, and day-to-day coordination beyond direct team management — on top of leading 10 people.</li>
+  </ul>
+
+  <h3>Roles a team running 4-5 distinct businesses would normally have, that this team doesn't</h3>
+  <ul class="tight">
+    <li><strong>Data/Marketing Analyst</strong> — every brand's performance reporting, campaign analysis, and the budget/growth work in this document itself is currently absorbed by the Director personally (with AI support), not a dedicated role. The group's Power BI tool (R&amp;N, ~2 years to build) only calculates numbers clinic-wide — it doesn't analyze, and it isn't marketing-specific.</li>
+    <li><strong>Brand Manager(s) for the larger brands</strong> — Modern Vet alone (flagship, most complex, highest revenue) would typically warrant a dedicated brand lead in a portfolio this size; currently its strategy, positioning, and cross-channel consistency is one more thing layered onto the Director role rather than owned by a dedicated person.</li>
+    <li><strong>A second Paid Media / PPC hire</strong> — there is a PPC Manager role, but it's one remote person covering every brand and clinic across the whole portfolio. A group this size and complexity would typically split paid strategy from execution, or add a second dedicated person per major brand/vertical, rather than run all paid acquisition group-wide through a single role.</li>
+  </ul>
+
+  <div class="callout">
+    <strong>This is not a headcount-increase ask in this document</strong> — it's here to show that the current structure is already tight even before considering new initiatives like offline media. Any future budget conversation should weigh these gaps against pure paid-media increases when deciding where incremental funding creates the most value.
+  </div>
+</section>
+
+<section class="card">
+  <h2>6. The Team Already Outperforms Market Rates — With Receipts</h2>
+
+  <h3>SEO — the cleanest comparison available</h3>
+  <div class="grid2">
+    <div>
+      <div class="kpi"><div class="num">AED 14,500</div><div class="label">Modern Vet in-house SEO /month<br>(specialist + content + dev)</div></div>
+    </div>
+    <div>
+      <div class="kpi"><div class="num">AED 20,000+</div><div class="label">Vienna Vet agency SEO /month<br>(SEO Serpa, lowest package; optimal = AED 35,000)</div></div>
+    </div>
+  </div>
+  <p><strong>In-house SEO for the harder, bigger brand (Modern Vet) costs AED 5,500–20,500/month less than agency SEO for the smaller, simpler brand (Vienna Vet) — with better results.</strong> That's a minimum of <strong>~AED 246,000/year</strong> of value the team generates that is invisible on a line-item budget sheet.</p>
+
+  <h3>Custom internal software — built and maintained in-house, zero agency spend</h3>
+  <ul class="tight">
+    <li>At least 5 custom Slack-integrated web applications built and maintained internally (driver dispatch, lab sample transfer, patient endorsement, maintenance requests, plus supporting integrations) — comparable Dubai agency-built systems of this complexity run <strong>AED 12,000–55,000 to build, plus AED 2,200–7,500/month each to maintain</strong>.</li>
+    <li>Equipment self-service (computers, cameras, general IT troubleshooting) — normally a dedicated IT support role (Dubai market average ~AED 240,000/year).</li>
+  </ul>
+
+  <div class="callout caution">
+    <strong>The inconsistency worth naming plainly:</strong> the company already accepts that specialist work costs real money — it pays <strong>eCRE8 AED 12,000/month + Klaviyo AED 7,000/month (AED 228,000/year)</strong> for e-commerce/email support, and paid <strong>SEO Serpa AED 20,000+/month</strong> for Vienna Vet. The same standard isn't being applied when marketing's own people happen to be capable of doing equivalent or harder work themselves — that capability is being treated as free.
+  </div>
+</section>
+
+<section class="card">
+  <h2>7. The Point for Fellow Leadership</h2>
+  <p>This is not a request to increase the budget (that's a separate conversation, for a separate document). This is a request to <strong>align expectations with what AED 210,000/month and an 11-person team can realistically deliver</strong>, given the above:</p>
+  <ul class="tight">
+    <li><strong>Offline media (banners, lightboxes, signboards, mall displays, city-wide out-of-home) is not currently fundable at any meaningful scale, for any brand or clinic,</strong> without displacing spend from paid channels that are already running and measurable. This isn't a Khawaneej-specific limitation — it applies group-wide under the current structure.</li>
+    <li><strong>New-client acquisition growth will remain capped</strong> until paid-media budget increases, because the growth achieved so far (AOV/retention-driven) has already captured most of what's achievable without more media spend.</li>
+    <li><strong>The team is already running above market efficiency</strong> (SEO, custom software, IT self-service) — "just do more with the same budget" is not a credible ask; the team is not under-delivering relative to spend, it's over-delivering, and there is a ceiling to how much further that can stretch before quality or headcount capacity breaks.</li>
+    <li><strong>The department's cost-to-revenue ratio has gotten thinner as the company has grown</strong>, not proportionally larger — <strong>2.91%</strong> of the corrected 2026 revenue prognosis (~AED 86.5M), against a vet-industry established-practice norm of 2-5% and a growth-stage/general-SMB norm of 7-10%.</li>
+  </ul>
+</section>
+
+<section class="card">
+  <h2>8. What Comes Next (Separate Conversation)</h2>
+  <p>Once this reality check has been shared and expectations are aligned, a follow-up budget proposal can be brought forward with specific, costed tiers (e.g., +1% of revenue for targeted relief/paid-media increase vs. +2% for a fuller growth-tier build-out) — but that ask will land far better once leadership already understands, from this document, exactly what the current number buys and why it cannot stretch to cover offline media or major new-client acquisition pushes as-is.</p>
+</section>
+
+</main>
+
+<footer>
+  Data sources: internal revenue/transaction table (2022–2026 YTD), internal marketing budget/salary breakdown (Aug 2026), SEO Serpa agency quotes (Vienna Vet), internal SEO cost breakdown (Modern Vet), Dubai custom-software and IT-support market rate research (2026), eCRE8/Klaviyo actual invoices.<br>
+  Internal — Vet Alliance Holding — Marketing Department
+</footer>
+
+</body>
+</html>
