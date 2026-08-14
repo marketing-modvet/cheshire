@@ -353,7 +353,7 @@
     <h1>Marketing <em>Hub</em></h1>
     <p>Tools, intelligence, and reports for our team and partners. Live dashboards, market research, brand assets — everything we've built, ready to use.</p>
     <div class="hero-meta">
-      <span>Last updated · <strong>July 23, 2026</strong></span>
+      <span>Last updated · <strong>August 14, 2026</strong></span>
       <span>Owner · <strong>Marketing Department</strong></span>
     </div>
   </div>
@@ -377,7 +377,17 @@
     <div class="timeline-wrap">
       <div class="tl-head">
         <h3>Marketing Department · Delivery Track</h3>
-        <div class="tl-counter">From <strong>Mar 19</strong> to <strong>Jul 23, 2026</strong></div>
+        <div class="tl-counter">From <strong>Mar 19</strong> to <strong>Aug 14, 2026</strong></div>
+      </div>
+
+      <div class="tl-month">
+        <div class="tl-month-label">August</div>
+        <ul class="tl-list">
+          <li class="tl-item"><div class="tl-date">Aug 14</div><div class="tl-body"><span class="tl-tag t-reports">Report</span><strong>August 2026 Revenue Analysis — pet count vs. revenue-per-pet, broken down per clinic</strong><em>Mid-month diagnostic after a raw month-over-month comparison showed a misleading -65% revenue headline. Day-count-normalised analysis (13 elapsed days) found footfall is actually flat-to-up and utilisation held steady — the real gap is <strong>revenue-per-pet, down ~24%</strong>. Two pet-count definitions tracked separately and cross-checked; visits-per-unique-pet ratio confirms the same pet base is being seen less often per visit. Full per-clinic breakdown with auto-tagged drivers (Volume/Price/Capacity). <a href="august-2026-revenue-analysis.html" style="color:var(--accent);font-weight:600;">Full report →</a></em></div></li>
+          <li class="tl-item"><div class="tl-date">Aug 13-14</div><div class="tl-body"><span class="tl-tag t-ops">Ops</span><strong>Slack ops suite — mandatory pickup/drop-off time fields shipped across all three apps</strong><em>Closed a recurring gap where tasks could be created with no pickup/drop-off time at all, making auto-assignment impossible. Fixed on <strong>Lab Sample Transfer</strong> (<code>/labsample</code> — added a Drop-off By field plus a visible "no driver free" warning banner instead of a silent server-side log) and on the <strong>Driver Dispatch</strong> <code>/dispatch</code> modal (both fields now required client-side and server-side, matching the fix already shipped on the admin/reception web form Aug 11). Same underlying failure mode caught and closed across every entry point staff use to create a task.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Aug 6</div><div class="tl-body"><span class="tl-tag t-reports">Report</span><strong>Ophthalmology Under-Referral Audit — doctor attribution added</strong><em>Full ezyVet-sourced audit of eye/ophthalmology cases with under-referral patterns, extended with a 6-tier doctor attribution pipeline (consult ground-truth → billing → appointment text-match → nearest-appointment fallbacks). 245 of 411 flagged cases (60%) resolved to a real named clinician. <a href="https://vetalliance.website/eye-referral-report.html" style="color:var(--accent);font-weight:600;">Full report →</a></em></div></li>
+          <li class="tl-item"><div class="tl-date">Aug 5-6</div><div class="tl-body"><span class="tl-tag t-reports">Report</span><strong>ezyVet Referral Pattern Analysis — 14-month review</strong><em>Full referral-pattern investigation across Vet Alliance: internal referrals, missed-referral detection, and vet-level scorecards across every specialty. "Referral" appointment type totalled 3,758 cases in 14 months — the 9th most common appointment type group-wide. <a href="referral-analysis-report-050826.html" style="color:var(--accent);font-weight:600;">Full report →</a></em></div></li>
+        </ul>
       </div>
 
       <div class="tl-month">
@@ -529,6 +539,24 @@
         <div class="tile-title">Submit Competitor Price</div>
         <div class="tile-desc">Found a price during a clinic visit, phone call, or website check? Drop it here — feeds straight into the dashboard after review.</div>
         <div class="tile-foot"><span class="pill pill-live">Live</span></div>
+      </a>
+      <a class="tile cat-reports" href="august-2026-revenue-analysis.html">
+        <div class="tile-icon">📉</div>
+        <div class="tile-title">August 2026 Revenue Analysis</div>
+        <div class="tile-desc">Mid-month diagnostic: is the revenue dip driven by fewer pets or lower spend per pet? Day-count-normalised per-clinic breakdown — footfall flat-to-up, <strong>revenue-per-pet down ~24%</strong> is the real story. Two pet-count definitions tracked separately.</div>
+        <div class="tile-foot"><span class="pill pill-new">Latest</span><span class="pill pill-live">Aug 14</span><span class="pill pill-locked">Password</span></div>
+      </a>
+      <a class="tile cat-reports" href="https://vetalliance.website/eye-referral-report.html">
+        <div class="tile-icon">👁️</div>
+        <div class="tile-title">Ophthalmology Under-Referral Audit</div>
+        <div class="tile-desc">Full ezyVet-sourced eye/ophthalmology referral audit with doctor-level attribution — 245 of 411 flagged cases (60%) resolved to a named clinician via a 6-tier confidence pipeline.</div>
+        <div class="tile-foot"><span class="pill pill-live">Aug 6</span><span class="pill pill-locked">Password</span></div>
+      </a>
+      <a class="tile cat-reports" href="referral-analysis-report-050826.html">
+        <div class="tile-icon">🔁</div>
+        <div class="tile-title">ezyVet Referral Pattern Analysis</div>
+        <div class="tile-desc">14-month review of internal referrals, missed-referral detection, and vet-level scorecards across every specialty. "Referral" appointment type = 3,758 cases group-wide, the 9th most common type.</div>
+        <div class="tile-foot"><span class="pill pill-live">Aug 5</span><span class="pill pill-locked">Password</span></div>
       </a>
       <a class="tile cat-reports" href="vet-report.html">
         <div class="tile-icon">🏆</div>
