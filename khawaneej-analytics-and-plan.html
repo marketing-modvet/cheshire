@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al Khawaneej — Analytics &amp; Plan — Vet Alliance</title>
+<style>
+  :root{
+    --bg:#0f1420; --card:#161d2e; --card2:#1c2438; --border:#2a3450;
+    --text:#e8ecf5; --muted:#8b96b0; --green:#3ddc97; --red:#ff6b6b;
+    --amber:#ffb84d; --accent:#5b8dee;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg); color:var(--text); line-height:1.5;
+  }
+  .wrap{max-width:1100px; margin:0 auto; padding:32px 20px 80px;}
+  header{margin-bottom:28px;}
+  h1{font-size:26px; margin:0 0 6px; font-weight:700;}
+  .subtitle{color:var(--muted); font-size:14px;}
+  .badge{
+    display:inline-block; background:var(--amber); color:#1a1200; font-weight:700;
+    font-size:12px; padding:3px 10px; border-radius:20px; margin-bottom:12px; letter-spacing:.3px;
+  }
+  .verdict{
+    background:linear-gradient(135deg, rgba(61,220,151,.12), rgba(91,141,238,.10));
+    border:1px solid rgba(61,220,151,.35); border-radius:14px; padding:20px 22px; margin:20px 0 32px;
+  }
+  .verdict h2{margin:0 0 10px; font-size:18px; color:var(--green);}
+  .verdict p{margin:6px 0; font-size:14.5px;}
+  .verdict b{color:var(--text);}
+  .kpi-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:24px 0;
+  }
+  .kpi{
+    background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px 18px;
+  }
+  .kpi .label{font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.4px; margin-bottom:6px;}
+  .kpi .value{font-size:22px; font-weight:700;}
+  .kpi .delta{font-size:13px; margin-top:4px;}
+  .pos{color:var(--green);} .neg{color:var(--red);} .neu{color:var(--muted);}
+  section{margin:36px 0;}
+  h3{font-size:16px; margin:0 0 6px; border-left:3px solid var(--accent); padding-left:10px;}
+  .note{color:var(--muted); font-size:13px; margin:0 0 14px; padding-left:13px;}
+  table{width:100%; border-collapse:collapse; font-size:13.5px; background:var(--card); border-radius:10px; overflow:hidden;}
+  thead th{
+    background:var(--card2); text-align:right; padding:10px 12px; font-weight:600;
+    color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.3px;
+    border-bottom:1px solid var(--border);
+  }
+  thead th:first-child, tbody td:first-child{text-align:left;}
+  tbody td{padding:10px 12px; text-align:right; border-bottom:1px solid var(--border);}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:rgba(255,255,255,.03);}
+  .dept-name{font-weight:600;}
+  .tag{
+    display:inline-block; font-size:11px; padding:2px 8px; border-radius:20px; font-weight:600; margin-left:6px;
+  }
+  .tag-vol{background:rgba(61,220,151,.15); color:var(--green);}
+  .tag-price{background:rgba(255,107,107,.15); color:var(--red);}
+  .tag-both{background:rgba(255,184,77,.15); color:var(--amber);}
+  .tag-out{background:rgba(139,150,176,.18); color:var(--muted);}
+  .footer{color:var(--muted); font-size:12px; margin-top:50px; border-top:1px solid var(--border); padding-top:18px;}
+  .methodology{background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 20px; font-size:13.5px; color:var(--muted);}
+  .methodology b{color:var(--text);}
+  .scroll{overflow-x:auto;}
+  .plan-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px;}
+  .plan-list li{
+    background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px 16px;
+    display:flex; gap:14px; align-items:flex-start;
+  }
+  .plan-num{
+    flex:0 0 auto; width:26px; height:26px; border-radius:50%; background:var(--accent); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px;
+  }
+  .plan-body b{color:var(--text);}
+  .plan-body .cost{color:var(--amber); font-weight:600; font-size:12.5px;}
+</style>
+</head>
+<body>
+<!-- Password gate: client-side SHA-256 check only (static GitHub Pages, no server-side
+     auth available), password checked via SHA-256 so the plaintext isn't
+     sitting in page source; unlocks for the rest of the browser session
+     via sessionStorage so it doesn't nag on every reload. This is a
+     deterrent for a public static URL, not real security — don't rely on
+     it for anything more sensitive than "keep casual visitors out." -->
+<div id="pw-gate" style="position:fixed; inset:0; background:#0b1420; z-index:9999; display:flex; align-items:center; justify-content:center; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+  <div style="background:#161d2e; border:1px solid #2a3450; border-radius:14px; padding:36px 40px; max-width:360px; width:90%; box-shadow:0 20px 60px rgba(0,0,0,0.5); text-align:center;">
+    <div style="font-size:2rem; margin-bottom:6px;">🔒</div>
+    <h2 style="margin:0 0 6px; color:#e8ecf5; font-size:1.2rem;">Al Khawaneej — Analytics &amp; Plan</h2>
+    <p style="margin:0 0 20px; color:#8b96b0; font-size:0.85rem;">This report is restricted. Enter the password to continue.</p>
+    <input id="pw-input" type="password" placeholder="Password" autofocus style="width:100%; padding:10px 12px; border:1px solid #2a3450; border-radius:8px; font-size:0.95rem; margin-bottom:10px; box-sizing:border-box; background:#0f1420; color:#e8ecf5;">
+    <button id="pw-submit" style="width:100%; padding:10px 12px; border:none; border-radius:8px; background:#5b8dee; color:#fff; font-weight:600; font-size:0.95rem; cursor:pointer;">Unlock</button>
+    <p id="pw-error" style="margin:12px 0 0; color:#ff6b6b; font-size:0.82rem; display:none;">Incorrect password — try again.</p>
+  </div>
+</div>
+<script>
+(function () {
+  var PW_HASH = "8811d6e71ce8d77463cab23a4ae967593ae3591b49a67e2154239d37939baf95";
+  var STORAGE_KEY = "khawaneej-plan-unlocked";
+
+  function sha256Hex(text) {
+    var enc = new TextEncoder().encode(text);
+    return crypto.subtle.digest("SHA-256", enc).then(function (buf) {
+      return Array.prototype.map.call(new Uint8Array(buf), function (b) {
+        return b.toString(16).padStart(2, "0");
+      }).join("");
+    });
+  }
+
+  function unlock() {
+    document.getElementById("pw-gate").style.display = "none";
+    document.documentElement.style.overflow = "";
+  }
+
+  if (sessionStorage.getItem(STORAGE_KEY) === "1") {
+    unlock();
+  } else {
+    document.documentElement.style.overflow = "hidden";
+  }
+
+  document.getElementById("pw-submit").addEventListener("click", trySubmit);
+  document.getElementById("pw-input").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") trySubmit();
+  });
+
+  function trySubmit() {
+    var val = document.getElementById("pw-input").value;
+    sha256Hex(val).then(function (hash) {
+      if (hash === PW_HASH) {
+        sessionStorage.setItem(STORAGE_KEY, "1");
+        unlock();
+      } else {
+        document.getElementById("pw-error").style.display = "block";
+        document.getElementById("pw-input").value = "";
+        document.getElementById("pw-input").focus();
+      }
+    });
+  }
+})();
+</script>
+<div class="wrap">
+
+  <header>
+    <span class="badge">MARKETING &amp; OPERATIONS · AL KHAWANEEJ · AUG 2026</span>
+    <h1>Al Khawaneej — Analytics &amp; Plan</h1>
+    <div class="subtitle">Response to the Chairman's mall-advertising request · revenue reality, offline ad cost benchmarking, and the right-sized reactivation plan agreed Aug 11–12, 2026</div>
+  </header>
+
+  <div class="verdict">
+    <h2>✅ The diagnosis is right. The proposed fix is not.</h2>
+    <p>The Chairman is correct that <b>awareness</b> is Al Khawaneej's problem, not capacity — the clinic is running at roughly <b>10% utilization</b> with an almost-empty appointment book. But the requested fix (mall banners, digital screens, trolley ads across 2-3 malls, plus flyers) realistically costs <b>AED 15,000–45,000 per month</b> — more than the clinic's <b>entire monthly revenue (AED 6,900–8,700)</b>. Spending more on awareness than the clinic earns, every month, cannot pay for itself on Khawaneej's own volume alone.</p>
+    <p>The honest, cheap fix was already sitting there: <b>two Google Ads campaigns built specifically for Khawaneej have been paused this whole time</b>, at zero cost to turn back on. Decision taken: reactivate digital + one targeted villa flyer drop for <b>AED 4,000 total</b>, hold mall/trolley media as a funded phase 2 once demand actually grows.</p>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="label">Khawaneej Revenue — Jun 2026</div>
+      <div class="value">AED 8,700</div>
+      <div class="delta neu">22 pets seen</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Khawaneej Revenue — Jul 2026</div>
+      <div class="value">AED 6,900</div>
+      <div class="delta neg">10 pets seen</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Current utilization</div>
+      <div class="value">~10%</div>
+      <div class="delta neu">demand problem, not capacity — 1 vet, book mostly empty</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Chairman's ask — low end</div>
+      <div class="value neg">AED 11,000<small>/mo</small></div>
+      <div class="delta neg">exceeds one full month of clinic revenue</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Chairman's ask — full version</div>
+      <div class="value neg">AED 15,000–45,000<small>/mo</small></div>
+      <div class="delta neg">2-3 malls × banner + digital + trolley</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Approved reactivation budget</div>
+      <div class="value pos">AED 4,000<small> one-time</small></div>
+      <div class="delta pos">geo-social + flyer drop, target ROI 5–8x</div>
+    </div>
+  </div>
+
+  <section>
+    <h3>Why the "SYNERGY Vet is opening nearby" urgency didn't hold up</h3>
+    <p class="note">The urgency behind the request cited a competitor opening near Khawaneej. We couldn't find evidence of a new location.</p>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Claim</th><th>What we found</th><th>Read</th></tr></thead>
+        <tbody>
+          <tr><td class="dept-name">"SYNERGY Vet opening nearby"</td><td>Synergy Veterinary Clinic, Uptown Mirdif — established, avian/exotic specialty, existing reviews. No evidence of a new/second branch near Khawaneej specifically.</td><td><span class="tag tag-out">Not a new opening</span></td></tr>
+          <tr><td class="dept-name">Real competitive pressure</td><td>The Moon Vet, Mirdif — ★5.0, 480 reviews — the actual review-volume threat in the corridor, pre-existing.</td><td><span class="tag tag-price">Legit, but not new</span></td></tr>
+          <tr><td class="dept-name">Local competitors already in area</td><td>Jungle Vet (★4.5), Easyvet (★4.5), Dubai Municipality Vet (limited hours) — all already operating around Al Mizhar/Khawaneej.</td><td><span class="tag tag-out">Pre-existing landscape</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Flagged to Andrew/leadership to double-check with reception or a drive-by before treating a new-opening claim as the headline reason for urgent spend.</p>
+  </section>
+
+  <section>
+    <h3>What Dubai offline advertising actually costs (2026 market rates)</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Format</th><th>Realistic monthly cost</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="dept-name">Small indoor mall panel / kiosk</td><td>AED 1,000 – 4,000 /location/mo</td><td>Lowest-tier static presence</td></tr>
+          <tr><td class="dept-name">Digital screen, escalator/lift wrap</td><td>AED 4,000 – 15,000 /location/mo</td><td>What "digital displays" usually means</td></tr>
+          <tr><td class="dept-name">Large atrium/foyer installation</td><td>AED 10,000 – 40,000+ /location/mo</td><td>High-impact, not needed for local awareness</td></tr>
+          <tr><td class="dept-name">Shopping trolley ads</td><td>AED 3,000 – 8,000 /mall/mo</td><td>Triangulated from comparable static in-mall formats</td></tr>
+          <tr><td class="dept-name">Villa-community flyer campaign</td><td>AED 2,500 – 4,000 /district campaign</td><td>Andrew's corrected 2026 figure — printing, design, gated-community access bundled in</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h3>Sizing the Chairman's actual ask</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Scenario</th><th>Build</th><th>Monthly recurring</th></tr></thead>
+        <tbody>
+          <tr><td class="dept-name">Low-end / minimal presence</td><td>2 malls × static panel or trolley (avg 2,500) + 1 digital screen (6,000) + one-time 5,000-flyer drop</td><td>~AED 11,000/mo <span class="tag tag-price">+ ~1,000 one-time</span></td></tr>
+          <tr><td class="dept-name">Realistic full version (what the Chairman described)</td><td>3 malls × (banner 3,000 + digital 8,000 + trolley 4,000) + quarterly flyer refresh</td><td>~AED 45,000/mo <span class="tag tag-price">+ setup/production ~10-20% mo. 1</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h3>Stress test — theoretical revenue ceiling, 1 vet, full utilization</h3>
+    <p class="note">Even the physically impossible 100%-booked ceiling doesn't get close to justifying the full-version ask on cost grounds.</p>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Scenario</th><th>Consults/month</th><th>Monthly revenue</th></tr></thead>
+        <tbody>
+          <tr><td class="dept-name">Absolute max (100% booked, zero gaps)</td><td>~520</td><td>~AED 286,000</td></tr>
+          <tr><td class="dept-name">Realistic strong performance (70% utilization)</td><td>~364</td><td>~AED 200,000</td></tr>
+          <tr><td class="dept-name">Still-strong performance (60% utilization)</td><td>~312</td><td>~AED 171,000</td></tr>
+          <tr><td class="dept-name">Actual current revenue</td><td>10-22</td><td>AED 6,900 – 8,700 <span class="tag tag-price">~3% of the 60%-utilization ceiling</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h3>The right-sized plan — approved &amp; in motion</h3>
+    <ul class="plan-list">
+      <li><div class="plan-num">1</div><div class="plan-body"><b>Turn the switch that's already off.</b> "Al Khawaneej Local Campaign" and "Arabic Campaign" on Google Ads were both paused with zero Khawaneej-specific ad spend running. Reactivated at a modest budget — directly targets people actively searching nearby, far cheaper per lead than mall media. <span class="cost">~AED 0 incremental to turn on</span></div></li>
+      <li><div class="plan-num">2</div><div class="plan-body"><b>One targeted villa flyer drop, not a mall campaign.</b> Villa communities immediately around Al Ttay/Khawaneej — matches the "analog audience exists" instinct behind the original ask, but scoped and priced correctly. <span class="cost">~AED 2,500–4,000 one-time</span></div></li>
+      <li><div class="plan-num">3</div><div class="plan-body"><b>Cheap physical visibility at the clinic itself</b> instead of a mall 10-15 minutes away — street-facing signage + stronger Google Maps/GMB destination signal. <span class="cost">~AED 500–2,000 one-time</span></div></li>
+      <li><div class="plan-num">4</div><div class="plan-body"><b>Hold mall/trolley media as phase 2</b>, funded only once the clinic actually grows into the Q1 2027 target (100-160 pets/mo ≈ AED 50-80K/mo) — proportionate spend once the clinic can absorb the acquisition cost. <span class="cost">Not yet funded</span></div></li>
+    </ul>
+    <p class="note" style="margin-top:14px;"><b style="color:var(--text);">Decision taken (Aug 11-12, 2026):</b> resumed the Khawaneej campaign Aug 12 — geo-targeted social media, total budget <b style="color:var(--text);">AED 4,000</b> (the max affordable at this clinic's current size), target ROI 5-8x. Flyers remain in scope; real vendor quotes being gathered. Display boxes and banners explicitly ruled <b>out of scope</b> for this phase.</p>
+    <p class="note"><b style="color:var(--text);">Timing caveat:</b> August is the lowest-demand month of the year for vet visits in Dubai (summer low season) — flat or modest early results should not be read as the campaign underperforming. September is the right baseline month to judge real traction.</p>
+  </section>
+
+  <div class="methodology">
+    <b>Methodology &amp; sources:</b> internal ezyVet / Google Ads / GA4 pulls (Jun–Jul 2026), Dubai outdoor/mall advertising rate guides (2026, various UAE agencies — indicative market ranges, not signed quotes), Bayut/area profiles for Mirdif/Al Khawaneej, live web search for Synergy Vet's actual presence. Offline ad rate figures are indicative, not live vendor quotes — real quotes are being gathered before any paid mall/trolley commitment is made. Internet penetration context: UAE ~99% (DataReportal, Digital 2026) — the "analog-only, unreachable through digital" audience is a defensible low-single-digit slice of the local population, which is part of why the phased digital-first plan was chosen over offline media.
+  </div>
+
+  <div class="footer">
+    Prepared for: response to Chairman's request, Aug 11 2026 · Full internal writeup: <code>projects/khawaneej-offline-ads/khawaneej-offline-ad-costvsrevenue.md</code> · Marketing Department, Vet Alliance
+  </div>
+
+</div>
+</body>
+</html>
