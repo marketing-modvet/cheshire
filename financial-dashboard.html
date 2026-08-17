@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Vet Alliance Marketing — July Report &amp; August Budget</title>
+<style>
+  :root {
+    --bg: #0b0e1a;
+    --panel: #1d2340;
+    --panel2: #262d52;
+    --accent: #9b82ff;
+    --accent2: #4ee6b8;
+    --text: #f4f5fb;
+    --muted: #b7bcdb;
+    --border: #3a4270;
+    --danger: #ff6b81;
+    --gold: #ffc575;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(180deg, #0b0e1a 0%, #10142a 100%);
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 40px 24px 100px; }
+  header {
+    text-align: center;
+    padding: 40px 20px 30px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 30px;
+  }
+  header h1 {
+    font-size: 2.1rem;
+    margin: 0 0 8px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  header .sub { color: var(--muted); font-size: 1rem; }
+  nav.tabs {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 30px 0;
+    flex-wrap: wrap;
+  }
+  nav.tabs button {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 20px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all .15s ease;
+  }
+  nav.tabs button:hover { border-color: var(--accent); }
+  nav.tabs button.active {
+    background: linear-gradient(90deg, var(--accent), #5b3fe0);
+    border-color: transparent;
+    font-weight: 600;
+  }
+  section.tabpanel { display: none; }
+  section.tabpanel.active { display: block; animation: fade .25s ease; }
+  @keyframes fade { from {opacity:0; transform: translateY(6px);} to {opacity:1; transform: translateY(0);} }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 26px 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 18px rgba(0,0,0,.35);
+  }
+  .card h2 { margin-top: 0; font-size: 1.35rem; }
+  .card h3 { color: var(--accent2); font-size: 1.05rem; margin-bottom: 6px; }
+  .grid-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .stat {
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+  }
+  .stat .num { font-size: 1.6rem; font-weight: 700; color: var(--accent2); }
+  .stat .lbl { color: var(--muted); font-size: 0.85rem; margin-top: 6px; font-weight: 500; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+    font-size: 0.92rem;
+  }
+  th, td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+  }
+  th { color: var(--muted); font-weight: 600; font-size: 0.82rem; text-transform: uppercase; letter-spacing: .03em; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.section-row td {
+    background: var(--panel2);
+    font-weight: 700;
+    color: var(--accent2);
+    padding-top: 14px;
+  }
+  tr.subtotal-row td {
+    font-weight: 700;
+    border-top: 2px solid var(--border);
+    border-bottom: 2px solid var(--border);
+    color: var(--gold);
+  }
+  tr.removed td { text-decoration: line-through; color: var(--muted); opacity: .7; }
+  .note { font-size: 0.75rem; color: var(--gold); font-weight: 400; margin-top: 2px; }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .badge.ok { background: rgba(52,209,164,.15); color: var(--accent2); }
+  .badge.pending { background: rgba(255,180,84,.15); color: var(--gold); }
+  .badge.new { background: rgba(155,130,255,.18); color: var(--accent); }
+  ul.clean { padding-left: 20px; }
+  ul.clean li { margin-bottom: 6px; }
+  .split-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .split-card {
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .split-card h4 { margin: 0 0 8px; color: var(--accent); font-size: 0.95rem; }
+  .split-card .amt { font-size: 1.4rem; font-weight: 700; }
+  .split-card .amt2 { font-size: 0.85rem; color: var(--muted); margin-top: 4px; }
+  footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top: 40px; }
+  .flow { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .flow .arrow { color: var(--accent); font-size: 1.3rem; }
+  .pill { background: var(--panel2); border:1px solid var(--border); border-radius: 8px; padding: 10px 16px; }
+  .callout { border-color: var(--gold); }
+  .callout h3 { color: var(--gold); }
+</style>
+</head>
+<body>
+<!-- Password gate: client-side SHA-256 check only (static GitHub Pages, no server-side
+     auth available) — soft gate, deterrent for casual visitors only. -->
+<div id="pw-gate" style="position:fixed; inset:0; background:#0b1420; z-index:9999; display:flex; align-items:center; justify-content:center; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+  <div style="background:#161d2e; border:1px solid #2a3450; border-radius:14px; padding:36px 40px; max-width:360px; width:90%; box-shadow:0 20px 60px rgba(0,0,0,0.5); text-align:center;">
+    <div style="font-size:2rem; margin-bottom:6px;">&#128274;</div>
+    <h2 style="margin:0 0 6px; color:#e8ecf5; font-size:1.2rem;">Financial Dashboard</h2>
+    <p style="margin:0 0 20px; color:#8b96b0; font-size:0.85rem;">This report is restricted. Enter the password to continue.</p>
+    <input id="pw-input" type="password" placeholder="Password" autofocus style="width:100%; padding:10px 12px; border:1px solid #2a3450; border-radius:8px; font-size:0.95rem; margin-bottom:10px; box-sizing:border-box; background:#0f1420; color:#e8ecf5;">
+    <button id="pw-submit" style="width:100%; padding:10px 12px; border:none; border-radius:8px; background:#5b8dee; color:#fff; font-weight:600; font-size:0.95rem; cursor:pointer;">Unlock</button>
+    <p id="pw-error" style="margin:12px 0 0; color:#ff6b6b; font-size:0.82rem; display:none;">Incorrect password &mdash; try again.</p>
+  </div>
+</div>
+<script>
+(function () {
+  var PW_HASH = "4e04d71e891bdf3eb75fb43ea093c2db66bc9a385faacb482067a7c136c6835d";
+  var STORAGE_KEY = "financial-dashboard-unlocked";
+  function sha256Hex(text) {
+    var enc = new TextEncoder().encode(text);
+    return crypto.subtle.digest("SHA-256", enc).then(function (buf) {
+      return Array.prototype.map.call(new Uint8Array(buf), function (b) {
+        return b.toString(16).padStart(2, "0");
+      }).join("");
+    });
+  }
+  function unlock() {
+    document.getElementById("pw-gate").style.display = "none";
+    document.documentElement.style.overflow = "";
+  }
+  if (sessionStorage.getItem(STORAGE_KEY) === "1") { unlock(); }
+  else { document.documentElement.style.overflow = "hidden"; }
+  document.getElementById("pw-submit").addEventListener("click", trySubmit);
+  document.getElementById("pw-input").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") trySubmit();
+  });
+  function trySubmit() {
+    var val = document.getElementById("pw-input").value;
+    sha256Hex(val).then(function (hash) {
+      if (hash === PW_HASH) { sessionStorage.setItem(STORAGE_KEY, "1"); unlock(); }
+      else {
+        document.getElementById("pw-error").style.display = "block";
+        document.getElementById("pw-input").value = "";
+        document.getElementById("pw-input").focus();
+      }
+    });
+  }
+})();
+</script>
+
+<div class="wrap">
+  <header>
+    <h1>Vet Alliance Marketing</h1>
+    <div class="sub">July 2026 Full Report &amp; August 2026 Budget Plan</div>
+  </header>
+
+  <nav class="tabs">
+    <button class="active" data-tab="recon">July Reconciliation</button>
+    <button data-tab="julyreport">Full July Report</button>
+    <button data-tab="nonmarketing">Non-Marketing Expenses</button>
+    <button data-tab="budget">August Budget</button>
+    <button data-tab="funds">August Funds Request</button>
+  </nav>
+
+  <!-- ================= TAB 1: RECONCILIATION ================= -->
+  <section class="tabpanel active" id="recon">
+    <div class="card">
+      <h2>Card Reconciliation Summary</h2>
+      <div class="grid-stats">
+        <div class="stat"><div class="num">111</div><div class="lbl">Total Transactions (Card 1 + 2)</div></div>
+        <div class="stat"><div class="num">105</div><div class="lbl">Matched &amp; Uploaded to Qashio</div></div>
+        <div class="stat"><div class="num">2</div><div class="lbl">Pending (invoices due Mon Aug 3)</div></div>
+        <div class="stat"><div class="num">54,111.44</div><div class="lbl">AED Total July Card Spend</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Card 1 — Modern Vet Hospital</h3>
+      <p>91 transactions reviewed. 38 aggregated line items written into the Financial Report Sheet (<strong>47,876.22 AED</strong> total).
+      86 of 91 transactions have receipts uploaded and verified in Qashio. <span class="badge ok">Complete</span></p>
+      <p><strong>Not yet uploaded (5, all documented):</strong></p>
+      <ul class="clean">
+        <li>Vienna GSuite — invoice needed from Andrew</li>
+        <li>Payoneer / Content Writer placeholder — needs real invoice built with Andrew</li>
+        <li><strong>Calendly</strong> — invoice expected <span class="badge pending">Mon Aug 3</span></li>
+        <li>SEMRush — already reconciled in a prior month per Andrew</li>
+        <li>Amazon.ae — reported separately</li>
+      </ul>
+      <p><strong>Notable resolution:</strong> The 6,621.28 AED "SEO Sherpa – Vienna Vet" line is actually billed by <strong>Veravo Media Pte Ltd</strong> — invoice matched and uploaded as <code>Receipt-2563-1921.pdf</code>.</p>
+    </div>
+
+    <div class="card">
+      <h3>Card 2 — Modern Vet JVC</h3>
+      <p>19 transactions reviewed. 11 aggregated line items written into the Financial Report Sheet.
+      18 of 19 transactions have receipts uploaded and verified in Qashio. <span class="badge ok">Complete</span></p>
+      <p><strong>Not yet uploaded (1):</strong></p>
+      <ul class="clean">
+        <li>OpenAI ChatGPT subscription (79.85 AED, 10 Jul) — invoice expected <span class="badge pending">Mon Aug 3</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>New Charge — Vienna Vet Social Media <span class="badge new">Added 31 Jul</span></h3>
+      <p>An additional Vienna Vet Social Media charge posted after the original CSV export: <strong>-242.30 AED</strong>, FACEBK *6HX67Y58W2, 31/07/2026 06:13 AM. Invoice already uploaded to Qashio by Andrew. Folded into the "Vienna" (Social Media) line: <strong>1,960.97 → 2,203.27 AED</strong> for July.</p>
+    </div>
+
+    <div class="card">
+      <h3>New Charge — Adobe (4th seat) <span class="badge new">Added 3 Aug</span></h3>
+      <p>An additional Adobe charge posted after the original CSV export: <strong>-98.52 AED</strong>, 31/07/2026 11:43 PM (card showed "Adobe"). Folded into the "Adobe Suite 4 units" line: <strong>406.20 → 504.72 AED</strong> for July.</p>
+    </div>
+
+    <div class="card callout">
+      <h3>Qashio Funds Request — Missing Charge Found <span class="badge new">Fixed 3 Aug</span></h3>
+      <p>Audit of the August funds-request plan found the <strong>Vienna Facebook charge (242.30 AED, 31 Jul)</strong> had been folded into the July marketing report's Social Media line, but was never added to the <strong>Hospital card Part 3 (24th–31st July) funds-request base</strong>. Fixed: Part 3 base 10,869.03 → <strong>11,209.85 AED</strong> (now includes both late-clearing charges: Adobe 98.52 + Vienna Facebook 242.30). Also confirmed via full CSV re-audit that the JVC card total (5,454.54 AED, 19 transactions) has no missing charges.</p>
+    </div>
+
+    <div class="card callout">
+      <h3>Adwords Mapping Correction <span class="badge new">Fixed 3 Aug</span></h3>
+      <p>The Adwords section previously combined <strong>Blue Oasis Veterinary Clinic (BOV)</strong> and <strong>Blue Sky Pets Relocation</strong> into a single "Blue Sky" row. These are two separate Google Ads accounts and are now split correctly: <strong>Blue Oasis (BOV): 6,619.47 AED</strong> and <strong>Blue Sky (Pets Relocation): 2,636.95 AED</strong> for July. Modern Vet and Vienna figures were also refreshed directly from the Google Ads API (Modern Vet: 42,514.44 → 43,543.40 AED; Vienna: 5,153.61 → 5,191.43 AED). New Adwords subtotal: <strong>54,247.38 → 57,991.25 AED</strong>.</p>
+    </div>
+
+    <div class="card callout">
+      <h3>Card Assignment Correction Identified</h3>
+      <p>The <strong>Google Workspace (Modern Vet) subscription — 7,195.51 AED</strong> was billed on the <strong>Hospital card by mistake</strong> on 7 July. This charge belongs entirely to <strong>JVC</strong> and has been moved in the August funds-request plan (see "August Funds Request" tab). It does not change the July Financial Report line item itself — only where the funds come from going forward.</p>
+    </div>
+  </section>
+
+  <!-- ================= TAB 2: FULL JULY REPORT (MARKETING ONLY) ================= -->
+  <section class="tabpanel" id="julyreport">
+    <div class="card">
+      <h2>Full July 2026 Marketing Report</h2>
+      <p class="sub" style="color:var(--muted)">Every marketing line item from the live Financial Report Sheet, plus Adwords spend pulled directly from the Google Ads API. <strong>Non-Marketing Expenses are reported separately</strong> (see the "Non-Marketing Expenses" tab) and are excluded from this total.</p>
+      <div class="grid-stats">
+        <div class="stat"><div class="num">183,420.15</div><div class="lbl">Total Marketing Spend (AED) — July 2026</div></div>
+      </div>
+      <table>
+        <thead><tr><th>Item</th><th class="num">July Actual (AED)</th></tr></thead>
+        <tbody>
+        <tr class="section-row"><td colspan="2">Adwords</td></tr>
+<tr><td class="item">Modern Vet</td><td class="num">43,543.40</td></tr>
+<tr><td class="item">Vienna</td><td class="num">5,191.43</td></tr>
+<tr><td class="item">Blue Oasis (BOV)</td><td class="num">6,619.47</td></tr>
+<tr><td class="item">Blue Sky</td><td class="num">2,636.95</td></tr>
+<tr><td class="item">Floof</td><td class="num">0.00</td></tr>
+<tr class="subtotal-row"><td>Subtotal — Adwords</td><td class="num">57,991.25</td></tr>
+<tr class="section-row"><td colspan="2">Social Media</td></tr>
+<tr><td class="item">Meta Floof</td><td class="num">1,391.93</td></tr>
+<tr><td class="item">Meta MV</td><td class="num">7,007.19</td></tr>
+<tr><td class="item">Vienna</td><td class="num">2,203.27</td></tr>
+<tr><td class="item">Meta Verification</td><td class="num">433.53</td></tr>
+<tr><td class="item">Meta Blue Oasis</td><td class="num">2,029.60</td></tr>
+<tr class="subtotal-row"><td>Subtotal — Social Media</td><td class="num">13,065.52</td></tr>
+<tr class="section-row"><td colspan="2">Software, Tools & Subscriptions</td></tr>
+<tr><td class="item">Jotform</td><td class="num">195.62</td></tr>
+<tr><td class="item">Adobe Suite  4 units</td><td class="num">504.72</td></tr>
+<tr><td class="item">Canva</td><td class="num">48.95</td></tr>
+<tr><td class="item">MailChimp</td><td class="num">874.54</td></tr>
+<tr><td class="item">Chatbot GPT 3 units</td><td class="num">159.70</td></tr>
+<tr><td class="item">MidJourney - AI</td><td class="num">228.15</td></tr>
+<tr><td class="item">Copyscape</td><td class="num">0.00</td></tr>
+<tr><td class="item">CapCut</td><td class="num">71.38</td></tr>
+<tr><td class="item">Klaviyo</td><td class="num">3,327.08</td></tr>
+<tr><td class="item">Google Cloud</td><td class="num">0.00</td></tr>
+<tr><td class="item">Social Platform - Instead of Hootsuite</td><td class="num">760.47</td></tr>
+<tr><td class="item">Stripo Email Builder</td><td class="num">76.05</td></tr>
+<tr><td class="item">PR-CY</td><td class="num">0.00</td></tr>
+<tr><td class="item">Trustlink</td><td class="num">0.00</td></tr>
+<tr><td class="item">Originality</td><td class="num">56.84</td></tr>
+<tr><td class="item">Ahrefs</td><td class="num">946.79</td></tr>
+<tr><td class="item">Grammarly (quarterly)</td><td class="num">228.15</td></tr>
+<tr><td class="item">Google One</td><td class="num">10.60</td></tr>
+<tr><td class="item">SEMRush + Heatmaps</td><td class="num">532.14</td></tr>
+<tr><td class="item">Anthropic AI - Marketing</td><td class="num">2,699.68</td></tr>
+<tr><td class="item">Brave API</td><td class="num">0.00</td></tr>
+<tr><td class="item">Higgsfield AI</td><td class="num">582.97</td></tr>
+<tr><td class="item">OpenAI API</td><td class="num">20.04</td></tr>
+<tr><td class="item">ElevenLabs</td><td class="num">83.65</td></tr>
+<tr class="subtotal-row"><td>Subtotal — Software, Tools & Subscriptions</td><td class="num">11,407.52</td></tr>
+<tr class="section-row"><td colspan="2">Employees & Freelancers</td></tr>
+<tr><td class="item">PPC Specialist</td><td class="num">5,500.00</td></tr>
+<tr><td class="item">Developer</td><td class="num">2,000.00</td></tr>
+<tr><td class="item">SEO Specialist</td><td class="num">5,500.00</td></tr>
+<tr><td class="item">Junior Marketing Manager</td><td class="num">3,100.00</td></tr>
+<tr><td class="item">Translator/Content Manager</td><td class="num">2,000.00</td></tr>
+<tr><td class="item">Content Writer</td><td class="num">4,094.36</td></tr>
+<tr><td class="item">SEO Sherpa - Vienna Vet</td><td class="num">6,621.28</td></tr>
+<tr><td class="item">UI/UX Specialist - Shared</td><td class="num">3,000.00</td></tr>
+<tr><td class="item">Designer</td><td class="num">5,704.48</td></tr>
+<tr><td class="item">Media Director</td><td class="num">23,000.00</td></tr>
+<tr><td class="item">SM Manager-1</td><td class="num">8,000.00</td></tr>
+<tr><td class="item">SM Manager-2 -Shared</td><td class="num">6,500.00</td></tr>
+<tr><td class="item">Content Producer</td><td class="num">10,000.00</td></tr>
+<tr><td class="item">Marketing Operations Manager</td><td class="num">4,000.00</td></tr>
+<tr class="subtotal-row"><td>Subtotal — Employees & Freelancers</td><td class="num">89,020.12</td></tr>
+<tr class="section-row"><td colspan="2">Media, Printables & Cooperation</td></tr>
+<tr><td class="item">SMS Package</td><td class="num">3,500.00</td></tr>
+<tr><td class="item">Printables</td><td class="num">897.75</td></tr>
+<tr><td class="item">Links - All websites</td><td class="num">7,000.00</td></tr>
+<tr><td class="item">Database purchase</td><td class="num">300.00</td></tr>
+<tr><td class="item">Equipment</td><td class="num">237.99</td></tr>
+<tr class="subtotal-row"><td>Subtotal — Media, Printables & Cooperation</td><td class="num">11,935.74</td></tr>
+<tr class="section-row"><td colspan="2">TOTAL MARKETING SPEND — JULY 2026</td></tr>
+<tr class="subtotal-row"><td>All Marketing Sections</td><td class="num">183,420.15</td></tr>
+
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= TAB 3: NON-MARKETING EXPENSES ================= -->
+  <section class="tabpanel" id="nonmarketing">
+    <div class="card">
+      <h2>Non-Marketing Expenses — July 2026</h2>
+      <p class="sub" style="color:var(--muted)">Kept fully separate from the marketing report and budget. Not included in "total spendings" above or in the August marketing budget prognosis.</p>
+      <div class="grid-stats">
+        <div class="stat"><div class="num">32,191.48</div><div class="lbl">Total Non-Marketing Expenses (AED) — July 2026</div></div>
+      </div>
+      <table>
+        <thead><tr><th>Item</th><th class="num">July Actual (AED)</th></tr></thead>
+        <tbody>
+        <tr class="section-row"><td colspan="2">Non-marketing Expenses</td></tr>
+<tr><td class="item">Schedule Specialist</td><td class="num">20,000.00</td></tr>
+<tr><td class="item">Cloudflare</td><td class="num">271.49</td></tr>
+<tr><td class="item">Hosting Server  modernvet.com</td><td class="num">361.47</td></tr>
+<tr><td class="item">Google GSuite Platform</td><td class="num">7,195.51</td></tr>
+<tr><td class="item">Microsoft Office Sub</td><td class="num">106.40</td></tr>
+<tr><td class="item">Microsoft Power-Bi Service</td><td class="num">167.68</td></tr>
+<tr><td class="item">Hosting Siteground</td><td class="num">133.05</td></tr>
+<tr><td class="item">Amazon Hosting part 2</td><td class="num">1,311.82</td></tr>
+<tr><td class="item">Amazon Hosting</td><td class="num">3.68</td></tr>
+<tr><td class="item">Reserve Hosting & File Storage</td><td class="num">135.71</td></tr>
+<tr><td class="item">DU</td><td class="num">191.23</td></tr>
+<tr><td class="item">Vienna Vet GSuite</td><td class="num">649.43</td></tr>
+<tr><td class="item">GoDaddy Domain</td><td class="num">87.44</td></tr>
+<tr><td class="item">Tasjeel - Domain</td><td class="num">687.75</td></tr>
+<tr><td class="item">Printable - Clinics/Operations</td><td class="num">0.00</td></tr>
+<tr><td class="item">WhatsApp</td><td class="num">246.21</td></tr>
+<tr><td class="item">Figma</td><td class="num">209.13</td></tr>
+<tr><td class="item">SLACK</td><td class="num">0.00</td></tr>
+<tr><td class="item">Calendly</td><td class="num">45.64</td></tr>
+<tr><td class="item">Suno AI</td><td class="num">38.02</td></tr>
+<tr><td class="item">Anthropic AI - Company wide</td><td class="num">349.82</td></tr>
+<tr class="subtotal-row"><td>Subtotal — Non-marketing Expenses</td><td class="num">32,191.48</td></tr>
+
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= TAB 4: AUGUST BUDGET (MARKETING ONLY) ================= -->
+  <section class="tabpanel" id="budget">
+    <div class="card">
+      <h2>August 2026 Marketing Budget Prognosis</h2>
+      <p class="sub" style="color:var(--muted)">Based on the July 2026 marketing report above (Non-Marketing Expenses excluded). <strong>Adwords and Social Media August figures are set directly by Andrew</strong> (fixed budget targets, not a flat-carry or percentage growth). 10% growth applied only to Software/Tools and Media/Printables/Cooperation reserve-eligible rows. <strong>No growth applied to Employees &amp; Freelancers</strong> (kept flat at July actual). Reserve is a single separate line, not a per-row percentage.</p>
+      <div class="grid-stats">
+        <div class="stat"><div class="num">183,420.15</div><div class="lbl">July Actual Total — Marketing Only (AED)</div></div>
+        <div class="stat"><div class="num">204,840.21</div><div class="lbl">August Prognosis Total (AED)</div></div>
+        <div class="stat"><div class="num">+21,420.06</div><div class="lbl">Net Increase (AED)</div></div>
+      </div>
+      <p><strong>Rules applied:</strong></p>
+      <ul class="clean">
+        <li><strong>Adwords — fixed budget targets set by Andrew for August:</strong> Modern Vet 60,000 / Vienna 6,000 / Blue Oasis (BOV) 5,000 / Blue Sky 2,500 / Floof 0 = <strong>73,500 AED</strong> total (not a flat-carry or 10% growth figure).</li>
+        <li><strong>Social Media — fixed budget targets set by Andrew for August:</strong> Meta Floof 1,000 / Meta MV 7,000 / Vienna 2,500 / Meta Verification 433.53 / Meta Blue Oasis 2,500 = <strong>13,433.53 AED</strong> total.</li>
+        <li><strong>Adwords and Social Media are excluded from the reserve-eligible base</strong> (same treatment as the fixed-override rows below), since Andrew has already set their August figures directly.</li>
+        <li><strong>20%</strong> is calculated ONCE across the remaining reserve-eligible base (19,507.84 AED = Software/Tools + Media/Printables, excluding fixed-override rows), then rounded UP to the nearest 100, and placed into a single <strong>"Reserves"</strong> line: raw 3,901.57 → <strong>4,000 AED</strong>.</li>
+        <li><strong>Employees &amp; Freelancers: no growth, not reserve-eligible</strong> — kept flat at July actual salaries/fees.</li>
+        <li><strong>SEO Sherpa – Vienna Vet</strong> (6,621.28 AED in July) removed entirely for August, per Andrew.</li>
+        <li><strong>Printables</strong> fixed at <strong>3,500 AED</strong> (was 897.75 in July).</li>
+        <li><strong>Equipment</strong> fixed at <strong>5,000 AED</strong> (was 237.99 in July).</li>
+        <li><strong>Anthropic AI – Marketing ("Claude Marketing")</strong> fixed at <strong>3,500 AED</strong> (was 2,699.68 in July).</li>
+        <li><strong>Non-Marketing Expenses are excluded entirely</strong> from this budget (see separate tab).</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Full Line-Item Breakdown</h2>
+      <table>
+        <thead><tr><th>Item</th><th class="num">July Actual (AED)</th><th class="num">August Prognosis (AED)</th></tr></thead>
+        <tbody>
+        <tr class="section-row"><td colspan="3">Adwords</td></tr>
+<tr><td class="item">Modern Vet</td><td class="num">43,543.40</td><td class="num">60,000.00<div class="note">FIXED budget target set by Andrew</div></td></tr>
+<tr><td class="item">Vienna</td><td class="num">5,191.43</td><td class="num">6,000.00<div class="note">FIXED budget target set by Andrew</div></td></tr>
+<tr><td class="item">Blue Oasis (BOV)</td><td class="num">6,619.47</td><td class="num">5,000.00<div class="note">FIXED budget target set by Andrew</div></td></tr>
+<tr><td class="item">Blue Sky</td><td class="num">2,636.95</td><td class="num">2,500.00<div class="note">FIXED budget target set by Andrew</div></td></tr>
+<tr><td class="item">Floof</td><td class="num">0.00</td><td class="num">0.00</td></tr>
+<tr class="subtotal-row"><td>Subtotal — Adwords</td><td class="num">57,991.25</td><td class="num">73,500.00</td></tr>
+<tr class="section-row"><td colspan="3">Social Media</td></tr>
+<tr><td class="item">Meta Floof</td><td class="num">1,391.93</td><td class="num">1,000.00<div class="note">FIXED budget target set by Andrew</div></td></tr>
+<tr><td class="item">Meta MV</td><td class="num">7,007.19</td><td class="num">7,000.00<div class="note">FIXED budget target set by Andrew</div></td></tr>
+<tr><td class="item">Vienna</td><td class="num">2,203.27</td><td class="num">2,500.00<div class="note">FIXED budget target set by Andrew</div></td></tr>
+<tr><td class="item">Meta Verification</td><td class="num">433.53</td><td class="num">433.53</td></tr>
+<tr><td class="item">Meta Blue Oasis</td><td class="num">2,029.60</td><td class="num">2,500.00<div class="note">FIXED budget target set by Andrew</div></td></tr>
+<tr class="subtotal-row"><td>Subtotal — Social Media</td><td class="num">13,065.52</td><td class="num">13,433.53</td></tr>
+<tr class="section-row"><td colspan="3">Software, Tools & Subscriptions</td></tr>
+<tr><td class="item">Jotform</td><td class="num">195.62</td><td class="num">195.62</td></tr>
+<tr><td class="item">Adobe Suite  4 units</td><td class="num">504.72</td><td class="num">504.72<div class="note">Includes new 98.52 AED charge (31 Jul, 4th Adobe seat)</div></td></tr>
+<tr><td class="item">Canva</td><td class="num">48.95</td><td class="num">48.95</td></tr>
+<tr><td class="item">MailChimp</td><td class="num">874.54</td><td class="num">874.54</td></tr>
+<tr><td class="item">Chatbot GPT 3 units</td><td class="num">159.70</td><td class="num">159.70</td></tr>
+<tr><td class="item">MidJourney - AI</td><td class="num">228.15</td><td class="num">228.15</td></tr>
+<tr><td class="item">Copyscape</td><td class="num">0.00</td><td class="num">0.00</td></tr>
+<tr><td class="item">CapCut</td><td class="num">71.38</td><td class="num">71.38</td></tr>
+<tr><td class="item">Klaviyo</td><td class="num">3,327.08</td><td class="num">3,327.08</td></tr>
+<tr><td class="item">Google Cloud</td><td class="num">0.00</td><td class="num">0.00</td></tr>
+<tr><td class="item">Social Platform - Instead of Hootsuite</td><td class="num">760.47</td><td class="num">760.47</td></tr>
+<tr><td class="item">Stripo Email Builder</td><td class="num">76.05</td><td class="num">76.05</td></tr>
+<tr><td class="item">PR-CY</td><td class="num">0.00</td><td class="num">0.00</td></tr>
+<tr><td class="item">Trustlink</td><td class="num">0.00</td><td class="num">0.00</td></tr>
+<tr><td class="item">Originality</td><td class="num">56.84</td><td class="num">56.84</td></tr>
+<tr><td class="item">Ahrefs</td><td class="num">946.79</td><td class="num">946.79</td></tr>
+<tr><td class="item">Grammarly (quarterly)</td><td class="num">228.15</td><td class="num">228.15</td></tr>
+<tr><td class="item">Google One</td><td class="num">10.60</td><td class="num">10.60</td></tr>
+<tr><td class="item">SEMRush + Heatmaps</td><td class="num">532.14</td><td class="num">532.14</td></tr>
+<tr><td class="item">Anthropic AI - Marketing</td><td class="num">2,699.68</td><td class="num">3,500.00<div class="note">FIXED budget per Andrew (was 2,699.68 in July)</div></td></tr>
+<tr><td class="item">Brave API</td><td class="num">0.00</td><td class="num">0.00</td></tr>
+<tr><td class="item">Higgsfield AI</td><td class="num">582.97</td><td class="num">582.97</td></tr>
+<tr><td class="item">OpenAI API</td><td class="num">20.04</td><td class="num">20.04</td></tr>
+<tr><td class="item">ElevenLabs</td><td class="num">83.65</td><td class="num">83.65</td></tr>
+<tr class="subtotal-row"><td>Subtotal — Software, Tools & Subscriptions</td><td class="num">11,407.52</td><td class="num">12,207.84</td></tr>
+<tr class="section-row"><td colspan="3">Employees & Freelancers</td></tr>
+<tr><td class="item">PPC Specialist</td><td class="num">5,500.00</td><td class="num">5,500.00<div class="note">No growth applied (staff costs kept flat)</div></td></tr>
+<tr><td class="item">Developer</td><td class="num">2,000.00</td><td class="num">2,000.00<div class="note">No growth applied (staff costs kept flat)</div></td></tr>
+<tr><td class="item">SEO Specialist</td><td class="num">5,500.00</td><td class="num">5,500.00<div class="note">No growth applied (staff costs kept flat)</div></td></tr>
+<tr><td class="item">Junior Marketing Manager</td><td class="num">3,100.00</td><td class="num">3,100.00<div class="note">No growth applied (staff costs kept flat)</div></td></tr>
+<tr><td class="item">Translator/Content Manager</td><td class="num">2,000.00</td><td class="num">2,000.00<div class="note">No growth applied (staff costs kept flat)</div></td></tr>
+<tr><td class="item">Content Writer</td><td class="num">4,094.36</td><td class="num">4,094.36<div class="note">No growth applied (staff costs kept flat)</div></td></tr>
+<tr><td class="item">UI/UX Specialist - Shared</td><td class="num">3,000.00</td><td class="num">3,000.00<div class="note">No growth applied (staff costs kept flat)</div></td></tr>
+<tr><td class="item">Designer</td><td class="num">5,704.48</td><td class="num">5,704.48<div class="note">No growth applied (staff costs kept flat)</div></td></tr>
+<tr><td class="item">Media Director</td><td class="num">23,000.00</td><td class="num">23,000.00<div class="note">No growth applied (staff costs kept flat)</div></td></tr>
+<tr><td class="item">SM Manager-1</td><td class="num">8,000.00</td><td class="num">8,000.00<div class="note">No growth applied (staff costs kept flat)</div></td></tr>
+<tr><td class="item">SM Manager-2 -Shared</td><td class="num">6,500.00</td><td class="num">6,500.00<div class="note">No growth applied (staff costs kept flat)</div></td></tr>
+<tr><td class="item">Content Producer</td><td class="num">10,000.00</td><td class="num">10,000.00<div class="note">No growth applied (staff costs kept flat)</div></td></tr>
+<tr><td class="item">Marketing Operations Manager</td><td class="num">4,000.00</td><td class="num">4,000.00<div class="note">No growth applied (staff costs kept flat)</div></td></tr>
+<tr class="removed"><td class="item">SEO Sherpa - Vienna Vet</td><td class="num">6,621.28</td><td class="num">0.00<div class="note">REMOVED per Andrew's instruction for August (billed under Veravo Media Pte Ltd instead)</div></td></tr>
+<tr class="subtotal-row"><td>Subtotal — Employees & Freelancers</td><td class="num">89,020.12</td><td class="num">82,398.84</td></tr>
+<tr class="section-row"><td colspan="3">Media, Printables & Cooperation</td></tr>
+<tr><td class="item">SMS Package</td><td class="num">3,500.00</td><td class="num">3,500.00</td></tr>
+<tr><td class="item">Printables</td><td class="num">897.75</td><td class="num">3,500.00<div class="note">FIXED budget per Andrew (was 897.75 in July)</div></td></tr>
+<tr><td class="item">Links - All websites</td><td class="num">7,000.00</td><td class="num">7,000.00</td></tr>
+<tr><td class="item">Database purchase</td><td class="num">300.00</td><td class="num">300.00</td></tr>
+<tr><td class="item">Equipment</td><td class="num">237.99</td><td class="num">5,000.00<div class="note">FIXED budget per Andrew (was 237.99 in July)</div></td></tr>
+<tr class="subtotal-row"><td>Subtotal — Media, Printables & Cooperation</td><td class="num">11,935.74</td><td class="num">19,300.00</td></tr>
+<tr class="section-row"><td colspan="3">Reserves</td></tr>
+<tr><td class="item">Reserves (20% of Software/Tools + Media/Printables reserve-eligible base, rounded up to nearest 100)</td><td class="num">&mdash;</td><td class="num">4,000.00<div class="note">20% of 19,507.84 AED reserve-eligible base = 3,901.57 raw, rounded up to 4,000. Adwords &amp; Social Media excluded (Andrew now sets fixed August targets directly). Not added into any individual line — kept as one separate line.</div></td></tr>
+<tr class="subtotal-row"><td>Subtotal — Reserves</td><td class="num">0.00</td><td class="num">4,000.00</td></tr>
+
+        <tr class="section-row"><td colspan="3">GRAND TOTAL (Marketing Budget Only)</td></tr>
+        <tr class="subtotal-row"><td>All Sections</td><td class="num">183,420.15</td><td class="num">204,840.21</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= TAB 5: FUNDS REQUEST ================= -->
+  <section class="tabpanel" id="funds">
+    <div class="card">
+      <h2>August 2026 Qashio Funds Request Plan</h2>
+      <p class="sub" style="color:var(--muted)">Based on July 2026 actual billing dates per card, with the Google Workspace card correction applied and a <strong>20% reserve added to each request, rounded up to the nearest 100 AED</strong>. Late-clearing charges (Vienna Facebook 242.30 AED + Adobe 4th seat 98.52 AED, both 31 Jul) confirmed included in the Hospital Part 3 base.</p>
+    </div>
+
+    <div class="card">
+      <h3>Card Correction</h3>
+      <div class="flow">
+        <div class="pill">Google Workspace — 7,195.51 AED<br><small style="color:var(--muted)">billed on Hospital card, 7 Jul (mistake)</small></div>
+        <div class="arrow">→</div>
+        <div class="pill" style="border-color:var(--accent2)">Moved fully onto <strong>JVC</strong> card for August</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Modern Vet Hospital Card — Split into 3 Requests</h3>
+      <p style="color:var(--muted)">Split by when charges actually billed in July 2026 (Google Workspace excluded — now on JVC). Each part includes a 20% reserve, rounded up to the nearest 100 AED.</p>
+      <div class="split-grid">
+        <div class="split-card">
+          <h4>Part 1 — 1st to 12th</h4>
+          <div class="amt">12,700 AED</div>
+          <div class="amt2">July actual: 10,500.06 AED (31 txns) + 20% reserve, rounded up (raw 12,600.07)</div>
+        </div>
+        <div class="split-card">
+          <h4>Part 2 — 13th to 23rd</h4>
+          <div class="amt">23,800 AED</div>
+          <div class="amt2">July actual: 19,751.48 AED (31 txns) + 20% reserve, rounded up (raw 23,701.78)</div>
+        </div>
+        <div class="split-card">
+          <h4>Part 3 — 24th to 31st</h4>
+          <div class="amt">13,500 AED</div>
+          <div class="amt2">July actual: 11,209.85 AED (29 txns, incl. Adobe 4th seat 98.52 AED + Vienna Facebook 242.30 AED, both 31 Jul) + 20% reserve, rounded up (raw 13,451.82)</div>
+        </div>
+      </div>
+      <p style="margin-top:18px;"><strong>Hospital total requested for August: 50,000 AED</strong> (41,461.39 AED actual base + 20% reserve, each part rounded up individually, excl. Google Workspace)</p>
+    </div>
+
+    <div class="card">
+      <h3>JVC Card — Single Lump Request</h3>
+      <div class="split-grid">
+        <div class="split-card" style="border-color:var(--accent2)">
+          <h4>Full August Request</h4>
+          <div class="amt">15,200 AED</div>
+          <div class="amt2">
+            July JVC actual: 5,454.54 AED<br>
+            + Google Workspace correction: 7,195.51 AED<br>
+            = 12,650.05 AED subtotal<br>
+            + 20% reserve, rounded up (raw 15,180.06) = <strong>15,200 AED</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Summary</h3>
+      <table>
+        <thead><tr><th>Card</th><th class="num">Request Amount (AED)</th></tr></thead>
+        <tbody>
+          <tr><td>Hospital — Part 1 (1st–12th)</td><td class="num">12,700</td></tr>
+          <tr><td>Hospital — Part 2 (13th–23rd)</td><td class="num">23,800</td></tr>
+          <tr><td>Hospital — Part 3 (24th–31st)</td><td class="num">13,500</td></tr>
+          <tr class="subtotal-row"><td>Hospital Total</td><td class="num">50,000</td></tr>
+          <tr><td>JVC — Single Request</td><td class="num">15,200</td></tr>
+          <tr class="section-row"><td colspan="2">GRAND TOTAL — AUGUST FUNDS REQUEST</td></tr>
+          <tr class="subtotal-row"><td>Both Cards</td><td class="num">65,200</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>Generated by Cheshire · Vet Alliance Marketing · 31 July 2026 (updated 3 Aug 2026)<br>Live editable version: <a href="https://docs.google.com/spreadsheets/d/11oLjGcCDv5vLReRhLjc5PSTTHDMYJGMbWidru0TS8kE/edit" style="color:var(--accent2)">Budget Project August 2026</a> Google Sheet (Main, Qashio, Non-Marketing Expenses tabs)</footer>
+</div>
+
+<script>
+document.querySelectorAll('nav.tabs button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('nav.tabs button').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('section.tabpanel').forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
