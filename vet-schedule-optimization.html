@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Hybrid US + GP Vet — Optimal 4-Day Schedule | Vet Alliance</title>
+<title>Hybrid US + GP Vet — Al Wasl Hospital 4-Day Schedule & Revenue | Vet Alliance</title>
 <style>
   :root{
     --bg:#0f1420; --card:#161d2e; --card2:#1c2438; --border:#2a3450;
@@ -64,6 +64,10 @@
   .why h4{margin:0 0 8px; font-size:14px;}
   .why p{margin:0; color:var(--muted);}
   .why .day-emoji{font-size:19px; margin-right:6px;}
+  .rev-box{background:linear-gradient(135deg, rgba(167,139,250,.10), rgba(91,141,238,.08));
+    border:1px solid rgba(167,139,250,.35); border-radius:14px; padding:20px 22px; margin:18px 0;}
+  .rev-box h4{margin:0 0 8px; font-size:15px; color:var(--purple);}
+  .rev-box p{margin:6px 0; font-size:14px;}
   .footer{color:var(--muted); font-size:12px; margin-top:50px; border-top:1px solid var(--border); padding-top:18px;}
   .methodology{background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 20px; font-size:13.5px; color:var(--muted);}
   .methodology b{color:var(--text);}
@@ -119,125 +123,149 @@
 
 <div class="wrap">
 <header>
-  <div class="badge">INTERNAL — SCHEDULING DECISION</div>
-  <h1>Adding a Hybrid Ultrasound + GP Vet: Optimal 4-Day Work Week</h1>
-  <div class="subtitle">Vet Alliance / Modern Vet · Analysis date: 18 Aug 2026 · Data: ezyVet, last 90 days (20 May – 18 Aug 2026) + weekly staffing/utilization figures</div>
+  <div class="badge">INTERNAL — SCHEDULING &amp; REVENUE DECISION · v2 (HOSPITAL-ONLY)</div>
+  <h1>Adding a Hybrid Ultrasound + GP Vet at Al Wasl Hospital: Schedule &amp; Revenue</h1>
+  <div class="subtitle">Vet Alliance / Modern Vet · Analysis date: 18 Aug 2026 · Data: ezyVet, last 90 days (20 May – 18 Aug 2026), <b>Al Wasl Hospital only</b> (985 hospital resources, ownership-coded invoices &amp; diagnostics)</div>
 </header>
 
 <div class="verdict">
   <h2>✅ Recommendation: work Friday → Monday, off Tuesday → Thursday</h2>
   <div class="week-strip">
-    <div class="day-pill day-on">Fri<small>ON · peak volume</small></div>
+    <div class="day-pill day-on">Fri<small>ON · top revenue day</small></div>
     <div class="day-pill day-on">Sat<small>ON · thinnest roster</small></div>
-    <div class="day-pill day-on">Sun<small>ON · peak GP load</small></div>
-    <div class="day-pill day-on">Mon<small>ON · peak US demand</small></div>
+    <div class="day-pill day-on">Sun<small>ON · relieved by Sat</small></div>
+    <div class="day-pill day-on">Mon<small>ON · peak volume + US</small></div>
     <div class="day-pill day-off">Tue<small>OFF</small></div>
     <div class="day-pill day-off">Wed<small>OFF</small></div>
     <div class="day-pill day-off">Thu<small>OFF</small></div>
   </div>
-  <p>The <b>Fri–Sat–Sun–Mon</b> block scores highest of all seven possible 4-days-on / 3-days-off rotations. It covers the weekend crunch (thinnest staffing, highest per-vet workload), Friday's highest absolute patient volume, and Monday's weekly ultrasound demand peak.</p>
-  <p><b>Base location: Al Wasl Hospital (MB)</b> — ~72% of all ultrasound requests are hospital-coded.</p>
+  <p>Re-run on <b>hospital-only</b> data, <b>Fri–Sat–Sun–Mon</b> wins again — and by a wider margin than in the network-wide analysis. Saturday is now the single highest-need day of the week at the hospital: only <b>6.2 vets</b> rostered on average (every other day has 8.6–9.8), yet each carries the week's heaviest load.</p>
+  <p><b>Weekend logic (as requested):</b> putting the new vet on Saturday adds the capacity the hospital currently lacks — same-day scans and consults stop spilling into Sunday, so Sunday (currently #2 in need) gets structurally less loaded. Both days are inside the recommended block, plus Monday to clear whatever backlog remains.</p>
+  <p><b>Expected revenue: ≈ AED 1.0–1.4M/year</b> at steady state (detail in section 5).</p>
 </div>
 
 <div class="kpi-grid">
-  <div class="kpi"><div class="label">Ultrasound requests / quarter</div><div class="value">652</div><div class="delta">≈ 7.2 per day network-wide</div></div>
-  <div class="kpi"><div class="label">Peak GP pressure</div><div class="value amb">22.6 appts/vet</div><div class="delta">Sunday — highest of the week</div></div>
-  <div class="kpi"><div class="label">Thinnest roster day</div><div class="value neg">7.2 vets</div><div class="delta">Saturday (vs 9.7 on Friday)</div></div>
-  <div class="kpi"><div class="label">Utilization band</div><div class="value">54.9–58.1%</div><div class="delta">Flat all week — demand per vet is the real signal</div></div>
+  <div class="kpi"><div class="label">Hospital US scans / quarter</div><div class="value">441</div><div class="delta">≈ 4.9/day · 68% of network total (652)</div></div>
+  <div class="kpi"><div class="label">Thinnest roster day</div><div class="value neg">6.2 vets</div><div class="delta">Saturday — vs 8.6–9.8 every other day</div></div>
+  <div class="kpi"><div class="label">Revenue per hospital appt</div><div class="value">AED 928</div><div class="delta">AED 6.95M ÷ 7,486 appts (90d, invoiced)</div></div>
+  <div class="kpi"><div class="label">Steady-state new-vet revenue</div><div class="value pos">AED 1.4–1.9M/yr</div><div class="delta">gross · AED 1.0–1.4M incremental</div></div>
 </div>
 
 <section>
-  <h3>1 · The weekly picture (staffing × demand)</h3>
-  <p class="note">Staffing &amp; utilization from the weekly scheduling report; appointment &amp; ultrasound volumes from ezyVet (90 days, clinical appointment types only: consult, vaccination, surgery, recheck, follow-up, emergency, outpatient, post-surgery, euthanasia, house call).</p>
+  <h3>1 · The hospital week (staffing × demand × revenue)</h3>
+  <p class="note">All figures Al Wasl Hospital only. Appointments matched via the hospital's 985 ezyVet resources; vets/day = average distinct "Dr" resources actually seeing appointments that day; revenue from ownership-coded invoices (Dubai time, 90 days).</p>
   <div class="scroll">
   <table>
     <thead><tr>
-      <th>Day</th><th>Sched. Vets</th><th>Sched. Hrs</th><th>Booked Hrs</th><th>Util %</th>
-      <th>Clinical Appts/Day</th><th>Appts / Vet</th><th>US Req/Day</th><th>US / Vet</th>
+      <th>Day</th><th>Appts / Day</th><th>Vets Working</th><th>Appts / Vet</th><th>US Scans / Day</th><th>Revenue / Day</th>
     </tr></thead>
     <tbody>
-      <tr class="hl"><td><b>Sun</b></td><td>8.4</td><td>62</td><td>35.3</td><td>57.2</td><td>189</td><td><b class="amb">22.6</b></td><td>5.9*</td><td>0.70</td></tr>
-      <tr class="hl"><td><b>Mon</b></td><td>8.5</td><td>62</td><td>35.9</td><td>58.1</td><td>183</td><td>21.5</td><td><b class="amb">8.2</b></td><td>0.96</td></tr>
-      <tr><td>Tue</td><td>8.7</td><td>64</td><td>36.2</td><td>57.0</td><td>166</td><td>19.1</td><td>7.0</td><td>0.80</td></tr>
-      <tr><td>Wed</td><td>8.5</td><td>62</td><td>34.0</td><td>54.9</td><td>159</td><td>18.7</td><td>7.9</td><td>0.92</td></tr>
-      <tr><td>Thu</td><td>8.0</td><td>58</td><td>32.8</td><td>56.4</td><td>179</td><td>22.3</td><td>7.2</td><td>0.90</td></tr>
-      <tr class="hl"><td><b>Fri</b></td><td>9.7</td><td>71</td><td>39.6</td><td>56.2</td><td><b class="amb">196</b></td><td>20.2</td><td>7.5</td><td>0.78</td></tr>
-      <tr class="hl"><td><b>Sat</b></td><td><b class="neg">7.2</b></td><td>53</td><td>30.1</td><td>56.6</td><td>158</td><td>21.9</td><td>7.0</td><td><b class="amb">0.97</b></td></tr>
+      <tr class="hl"><td><b>Sun</b></td><td>90.2</td><td>8.9</td><td>10.1</td><td>5.3</td><td>75,027</td></tr>
+      <tr class="hl"><td><b>Mon</b></td><td><b class="amb">92.9</b></td><td>9.8</td><td>9.4</td><td><b class="amb">5.5</b></td><td>83,498</td></tr>
+      <tr><td>Tue</td><td>78.8</td><td>8.7</td><td>9.1</td><td>5.2</td><td>71,797</td></tr>
+      <tr><td>Wed</td><td>79.4</td><td>8.9</td><td>8.9</td><td>4.8</td><td>75,755</td></tr>
+      <tr><td>Thu</td><td>84.8</td><td>8.6</td><td>9.8</td><td>4.2</td><td>67,267</td></tr>
+      <tr class="hl"><td><b>Fri</b></td><td>82.9</td><td>8.7</td><td>9.5</td><td>5.3</td><td><b class="pos">101,711</b></td></tr>
+      <tr class="hl"><td><b>Sat</b></td><td>66.9</td><td><b class="neg">6.2</b></td><td><b class="amb">10.9</b></td><td><b class="neg">4.0</b></td><td><b class="neg">65,119</b></td></tr>
     </tbody>
   </table>
   </div>
-  <p class="note">* Sunday's low ultrasound count is likely <b>supply-constrained</b> (fewer imaging-capable vets rostered on weekends), not low demand — part of it shows up as Monday's backlog peak. Green rows = recommended work days.</p>
+  <p class="note">Saturday tells the whole story: fewest vets → highest per-vet load → fewest scans → lowest revenue. That's a <b>supply ceiling</b>, not weak demand — Saturday demand that can't be served rolls into Sunday (90.2 appts) and Monday (92.9 appts + the week's ultrasound peak). Green rows = recommended work days.</p>
 </section>
 
 <section>
-  <h3>2 · Need score per day</h3>
-  <p class="note">Composite of GP pressure (appts/vet, 40%), absolute ultrasound demand (30%), ultrasound demand per vet (15%) and staffing thinness (15%), normalized 0–1.</p>
+  <h3>2 · Need score per day (hospital-only)</h3>
+  <p class="note">Composite of GP pressure (appts/vet, 40%), absolute ultrasound demand (30%), ultrasound per vet (15%) and staffing thinness (15%), normalized 0–1 across the week.</p>
   <div class="bars">
-    <div class="bar-row"><div class="bar-label">Mon</div><div class="bar-track"><div class="bar-fill" style="width:81%; background:var(--green);">0.81</div></div></div>
-    <div class="bar-row"><div class="bar-label">Sat</div><div class="bar-track"><div class="bar-fill" style="width:78%; background:var(--green);">0.78</div></div></div>
-    <div class="bar-row"><div class="bar-label">Thu</div><div class="bar-track"><div class="bar-fill" style="width:76%; background:var(--amber);">0.76</div></div></div>
-    <div class="bar-row"><div class="bar-label">Sun</div><div class="bar-track"><div class="bar-fill" style="width:48%; background:var(--green);">0.48</div></div></div>
-    <div class="bar-row"><div class="bar-label">Wed</div><div class="bar-track"><div class="bar-fill" style="width:46%; background:var(--muted);">0.46</div></div></div>
-    <div class="bar-row"><div class="bar-label">Fri</div><div class="bar-track"><div class="bar-fill" style="width:41%; background:var(--green);">0.41</div></div></div>
-    <div class="bar-row"><div class="bar-label">Tue</div><div class="bar-track"><div class="bar-fill" style="width:30%; background:var(--muted);">0.30</div></div></div>
+    <div class="bar-row"><div class="bar-label">Sat</div><div class="bar-track"><div class="bar-fill" style="width:70%; background:var(--green);">0.70</div></div></div>
+    <div class="bar-row"><div class="bar-label">Sun</div><div class="bar-track"><div class="bar-fill" style="width:64%; background:var(--green);">0.64</div></div></div>
+    <div class="bar-row"><div class="bar-label">Fri</div><div class="bar-track"><div class="bar-fill" style="width:55%; background:var(--green);">0.55</div></div></div>
+    <div class="bar-row"><div class="bar-label">Mon</div><div class="bar-track"><div class="bar-fill" style="width:48%; background:var(--green);">0.48</div></div></div>
+    <div class="bar-row"><div class="bar-label">Tue</div><div class="bar-track"><div class="bar-fill" style="width:43%; background:var(--muted);">0.43</div></div></div>
+    <div class="bar-row"><div class="bar-label">Thu</div><div class="bar-track"><div class="bar-fill" style="width:29%; background:var(--muted);">0.29</div></div></div>
+    <div class="bar-row"><div class="bar-label">Wed</div><div class="bar-track"><div class="bar-fill" style="width:25%; background:var(--muted);">0.25</div></div></div>
   </div>
-  <p class="note">The four highest-need days (Mon, Sat, Thu, Sun) aren't consecutive — so the question becomes: which 4-in-a-row block captures the most need?</p>
+  <p class="note">Unlike the network-wide view, the hospital's four highest-need days — <b>Sat, Sun, Fri, Mon</b> — are consecutive. The optimal block isn't a compromise here; it's exactly the four days the hospital needs most.</p>
 </section>
 
 <section>
-  <h3>3 · All seven possible rotations, ranked</h3>
-  <p class="note">Every 4-consecutive-days-on / 3-consecutive-days-off pattern (week wraps around), scored by summing the per-day need scores of the ON days.</p>
+  <h3>3 · All seven possible rotations, ranked (hospital-only)</h3>
+  <p class="note">Every 4-consecutive-days-on / 3-consecutive-days-off pattern (week wraps around), scored by summing the per-day need scores of the ON days. "Sat-weighted" adds a +0.15 bonus to Saturday, reflecting the directive to strengthen Saturday so Sunday can decompress — ranking is unchanged either way.</p>
   <table>
-    <thead><tr><th>Rank</th><th>Work Days (4 on)</th><th>Days Off (3 off)</th><th>Score</th><th>Verdict</th></tr></thead>
+    <thead><tr><th>Rank</th><th>Work Days (4 on)</th><th>Days Off (3 off)</th><th>Score</th><th>Sat-weighted</th><th>Verdict</th></tr></thead>
     <tbody>
-      <tr class="hl"><td>1</td><td><b>Fri – Sat – Sun – Mon</b></td><td>Tue – Wed – Thu</td><td><b>2.47</b></td><td style="text-align:right;"><span class="tag tag-win">RECOMMENDED</span></td></tr>
-      <tr class="hl2"><td>2</td><td>Thu – Fri – Sat – Sun</td><td>Mon – Tue – Wed</td><td>2.43</td><td style="text-align:right;"><span class="tag tag-alt">STRONG ALTERNATE</span></td></tr>
-      <tr><td>3</td><td>Wed – Thu – Fri – Sat</td><td>Sun – Mon – Tue</td><td>2.41</td><td></td></tr>
-      <tr><td>4</td><td>Sat – Sun – Mon – Tue</td><td>Wed – Thu – Fri</td><td>2.37</td><td></td></tr>
-      <tr><td>5</td><td>Mon – Tue – Wed – Thu</td><td>Fri – Sat – Sun</td><td>2.33</td><td></td></tr>
-      <tr><td>6</td><td>Sun – Mon – Tue – Wed</td><td>Thu – Fri – Sat</td><td>2.05</td><td></td></tr>
-      <tr><td>7</td><td>Tue – Wed – Thu – Fri</td><td>Sat – Sun – Mon</td><td>1.93</td><td style="text-align:right;"><span class="tag tag-skip">WORST</span></td></tr>
+      <tr class="hl"><td>1</td><td><b>Fri – Sat – Sun – Mon</b></td><td>Tue – Wed – Thu</td><td><b>2.36</b></td><td><b>2.51</b></td><td style="text-align:right;"><span class="tag tag-win">RECOMMENDED</span></td></tr>
+      <tr class="hl2"><td>2</td><td>Sat – Sun – Mon – Tue</td><td>Wed – Thu – Fri</td><td>2.24</td><td>2.39</td><td style="text-align:right;"><span class="tag tag-alt">ALTERNATE</span></td></tr>
+      <tr><td>3</td><td>Thu – Fri – Sat – Sun</td><td>Mon – Tue – Wed</td><td>2.17</td><td>2.32</td><td></td></tr>
+      <tr><td>4</td><td>Sun – Mon – Tue – Wed</td><td>Thu – Fri – Sat</td><td>1.80</td><td>1.80</td><td></td></tr>
+      <tr><td>5</td><td>Wed – Thu – Fri – Sat</td><td>Sun – Mon – Tue</td><td>1.79</td><td>1.94</td><td></td></tr>
+      <tr><td>6</td><td>Tue – Wed – Thu – Fri</td><td>Sat – Sun – Mon</td><td>1.51</td><td>1.51</td><td></td></tr>
+      <tr><td>7</td><td>Mon – Tue – Wed – Thu</td><td>Fri – Sat – Sun</td><td>1.45</td><td>1.45</td><td style="text-align:right;"><span class="tag tag-skip">WORST</span></td></tr>
     </tbody>
   </table>
-  <p class="note">The ranking is robust: the top three blocks all cover the weekend, and the winner holds first place under every reasonable re-weighting of the scoring factors. The #2 alternate (Thu–Fri–Sat–Sun) trades Monday's ultrasound peak for Thursday's stretched roster — choose it instead if Thursday coverage is a bigger operational pain than Monday imaging backlog.</p>
+  <p class="note">The winner's lead over #2 grew vs the network-wide analysis (which had Thu–Fri–Sat–Sun as runner-up). Hospital-only data makes Friday clearly more valuable than Tuesday: it's the hospital's biggest revenue day (AED 101.7k/day, 25% above weekday average). Fri–Sat–Sun–Mon holds #1 under every re-weighting tested, with or without the Saturday bonus.</p>
 </section>
 
 <section>
-  <h3>4 · Why each recommended day earns its place</h3>
+  <h3>4 · The Saturday → Sunday relief mechanism</h3>
   <div class="why-grid">
-    <div class="why"><h4><span class="day-emoji">📈</span>Friday</h4><p>Highest absolute volume of the week (196 clinical appts/day) and 7.5 US requests/day. Per-vet load is moderate only because 9.7 vets are rostered — an imaging-capable vet still lifts throughput on the busiest day, and protects against Friday's high surgery count (204/quarter, week's highest).</p></div>
-    <div class="why"><h4><span class="day-emoji">🩻</span>Saturday</h4><p>Thinnest roster of the week (7.2 vets) yet those vets carry the <b>highest ultrasound demand per vet (0.97/day)</b> and 21.9 appts each. One extra hybrid vet directly fixes the weekend bottleneck.</p></div>
-    <div class="why"><h4><span class="day-emoji">🔥</span>Sunday</h4><p>Highest GP pressure of the entire week — 22.6 appts per vet (189/day on 8.4 vets). Ultrasound counts look low, but that's almost certainly unmet demand: scans get deferred to Monday when imaging capacity returns.</p></div>
-    <div class="why"><h4><span class="day-emoji">🎯</span>Monday</h4><p>The week's ultrasound peak — 8.2 requests/day (weekend backlog included) at 0.96 per vet, plus a heavy 21.5 appts/vet GP load. The single most valuable day for a sonography-capable vet.</p></div>
+    <div class="why"><h4><span class="day-emoji">🩻</span>Saturday today</h4><p>6.2 vets handle 66.9 appts (10.9 each — week's highest) and manage only 4.0 scans, the week's lowest. Overflow, non-urgent scans, and deferrable consults get pushed to Sunday/Monday.</p></div>
+    <div class="why"><h4><span class="day-emoji">➕</span>Saturday with the new vet</h4><p>Roster rises to ~7.2 (+16% capacity). At current demand that's ~9.3 appts/vet — finally in line with weekdays — plus same-day ultrasound capability all Saturday.</p></div>
+    <div class="why"><h4><span class="day-emoji">😌</span>Sunday decompresses</h4><p>Sunday's 90.2 appts/day partly consists of Saturday spillover. With Saturday absorbing its own demand (and the new vet also working Sunday), per-vet load drops from 10.1 toward ~9.1 — and scans stop stacking into Monday.</p></div>
+    <div class="why"><h4><span class="day-emoji">🎯</span>Monday mops up</h4><p>Monday is the hospital's busiest day (92.9 appts, 5.5 scans). Having the new vet's fourth day here clears any residual weekend backlog before their Tue–Thu break, when the hospital is at its quietest (78–85 appts/day).</p></div>
   </div>
 </section>
 
 <section>
-  <h3>5 · Where to base them</h3>
-  <p class="note">Ultrasound requests by coded location, last 90 days.</p>
+  <h3>5 · Revenue: what the extra doctor is worth</h3>
+  <p class="note">Basis: AED 6,945,096 invoiced at the hospital over 90 days across 7,486 hospital appointments → <b>AED 928 per appointment</b>. Current hospital vets average <b>9.7 appointments/day</b>. New vet works 4 days/week, 52 weeks (adjust ~8% down for leave).</p>
+  <div class="scroll">
   <table>
-    <thead><tr><th>Location coding</th><th>US requests / quarter</th><th>Share</th></tr></thead>
+    <thead><tr><th>Scenario</th><th>Appts / Day</th><th>Appts / Week</th><th>Gross Revenue / Week</th><th>Gross Revenue / Year</th></tr></thead>
     <tbody>
-      <tr class="hl"><td><b>Al Wasl Hospital (MB) + hospital-default items</b></td><td>~470</td><td>~72%</td></tr>
-      <tr><td>Cardiac ultrasound (echo, full + partial)</td><td>85</td><td>13%</td></tr>
-      <tr><td>Palm</td><td>51</td><td>8%</td></tr>
-      <tr><td>JLT &amp; other clinics</td><td>~46</td><td>~7%</td></tr>
+      <tr><td>Ramp-up (first 2–3 months, 50% load)</td><td>4.9</td><td>19</td><td>AED 18,000</td><td>AED 0.94M</td></tr>
+      <tr class="hl2"><td>Steady state — conservative (75%)</td><td>7.3</td><td>29</td><td>AED 27,000</td><td>AED 1.40M</td></tr>
+      <tr class="hl"><td>Steady state — at parity with current vets (100%)</td><td>9.7</td><td>39</td><td>AED 36,000</td><td>AED 1.87M</td></tr>
     </tbody>
   </table>
-  <p class="note">Al Wasl Hospital is the clear home base. If the new vet is echo-competent, cardiac ultrasound (~1/day, currently bottlenecked on visiting-specialist availability) is an immediate additional revenue line.</p>
+  </div>
+  <div class="rev-box">
+    <h4>💰 Realistic incremental estimate: AED 1.0–1.4M / year</h4>
+    <p>Not every appointment the new vet sees is new money — some would have been absorbed by existing vets. But this hire is deliberately aimed at the days where the hospital is <b>supply-constrained</b> (Sat/Sun/Mon), where turned-away or deferred demand is real. Applying a 70–80% incrementality factor to the steady-state range gives <b>≈ AED 1.0–1.4M of genuinely new annual revenue</b>.</p>
+    <p><b>Three upside factors not in that number:</b></p>
+    <p>① <b>Imaging mix</b> — ultrasound-heavy caseloads bill above the AED 928 hospital average (full abdomen, cardiac echo, US-guided procedures are premium items). ② <b>Cardiac echo capacity</b> — 73 echo studies/quarter at the hospital are currently bottlenecked on specialist availability; if the new vet is echo-competent this line can grow immediately. ③ <b>Retention</b> — weekend clients currently told "come back Monday" or referred elsewhere are churn risks; weekend same-day capability protects the ~AED 140k that Sat+Sun already generate per week.</p>
+    <p><b>Break-even check:</b> at an all-in cost of ~AED 30–45k/month (AED 360–540k/yr), the hire pays for itself ~2.5× over even in the conservative steady-state scenario.</p>
+  </div>
+</section>
+
+<section>
+  <h3>6 · Hospital ultrasound caseload (what they'll actually scan)</h3>
+  <p class="note">441 ultrasound-matched diagnostic requests coded to the hospital in 90 days.</p>
+  <table>
+    <thead><tr><th>Study type</th><th>Count / Quarter</th><th>Share</th></tr></thead>
+    <tbody>
+      <tr><td>TFAST / AFAST (point-of-care)</td><td>157</td><td>36%</td></tr>
+      <tr><td>Full abdomen</td><td>98</td><td>22%</td></tr>
+      <tr><td>One-organ focus</td><td>76</td><td>17%</td></tr>
+      <tr class="hl2"><td>Cardiac echo (full + partial + repeat)</td><td>75</td><td>17%</td></tr>
+      <tr><td>US-guided cystocentesis / FNA</td><td>31</td><td>7%</td></tr>
+      <tr><td>Pregnancy check</td><td>7</td><td>2%</td></tr>
+    </tbody>
+  </table>
+  <p class="note">A GP-sonographer covers ~83% of this mix outright; echo competence would cover the rest and unlock the bottlenecked cardiac line.</p>
 </section>
 
 <section>
   <h3>Methodology</h3>
   <div class="methodology">
-    <b>Sources:</b> ezyVet API — 31,300 appointments (20 May – 18 Aug 2026), filtered to ~15,984 clinical appointments across 10 clinical types; 12,344 diagnostic requests, of which 652 matched ultrasound keywords (ultrasound, TFAST/AFAST, echocardio, sonography, US-guided). Staffing figures (scheduled vets/hours, booked hours, utilization) from the weekly scheduling report supplied 18 Aug 2026. All timestamps converted to Dubai time (UTC+4).<br><br>
-    <b>Scoring:</b> per-day need = 0.40 × GP pressure (appts/vet) + 0.30 × absolute US demand + 0.15 × US demand per vet + 0.15 × staffing thinness, each normalized 0–1 across the week. Rotation score = sum of the four ON days. All 7 wrap-around rotations evaluated.<br><br>
-    <b>Caveats:</b> ultrasound demand is measured from requested diagnostics — it under-counts suppressed demand on days with no sonographer (esp. Sunday). Utilization figures include all booked time, not imaging specifically. Re-run after 4–6 weeks of the new schedule to validate.
+    <b>Sources:</b> ezyVet API, 20 May – 18 Aug 2026 (90 days), Dubai time. Hospital scope = ezyVet ownership/separation #4 (Modern Vet Hospital): appointments matched via the hospital's 985 resources (8,232 hospital appointments network-tagged, 7,486 with hospital vet resources used for per-vet math); 70 "Dr"-named hospital resources tracked daily for vets-working counts; 441 ultrasound-matched diagnostic requests (of 652 network-wide) by ownership code; 6,700 hospital-coded invoices totalling AED 6.95M (subtotals, ex-tax).<br><br>
+    <b>Scoring:</b> per-day need = 0.40 × appts/vet + 0.30 × US/day + 0.15 × US/vet + 0.15 × staffing thinness, normalized 0–1. Rotation score = sum of ON-day scores; Saturday-weighted variant adds +0.15 to Saturday per the weekend-coverage directive. All 7 wrap-around rotations evaluated.<br><br>
+    <b>Caveats:</b> ultrasound demand measured from requested diagnostics — it under-counts suppressed weekend demand (the true Saturday gap is likely larger than shown). Revenue per appointment is a blended hospital average; the incrementality factor (70–80%) is an estimate, not measured. v1 of this report used network-wide data; this v2 supersedes it. Re-run after 4–6 weeks of the new rotation to validate.
   </div>
 </section>
 
 <div class="footer">
-  Prepared by Cheshire · 18 Aug 2026 · Data window: 20 May – 18 Aug 2026 (90 days) · Internal use only — do not distribute outside Vet Alliance management.
+  Prepared by Cheshire · 18 Aug 2026 (v2 — hospital-only revision) · Data window: 20 May – 18 Aug 2026 (90 days) · Internal use only — do not distribute outside Vet Alliance management.
 </div>
 </div>
 </body>
