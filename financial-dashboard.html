@@ -158,14 +158,18 @@
   nav.tabs.mo-tabs { margin: 18px 0 20px; }
   nav.tabs.mo-tabs button { padding: 8px 16px; font-size: 0.88rem; }
   nav.tabs.mo-tabs button.mo-btn.active { background: linear-gradient(90deg, var(--accent2), #2a9d7f); border-color: transparent; color: #06231b; }
-  .compare-scroll { overflow-x: auto; max-width: 100%; }
-  table.compare-table { min-width: 980px; font-size: 0.86rem; }
-  table.compare-table th, table.compare-table td { white-space: nowrap; }
-  table.compare-table td.item { white-space: normal; min-width: 220px; }
+  .compare-scroll { overflow-x: auto; max-width: 100%; border: 1px solid var(--border); border-radius: 8px; }
+  table.compare-table { min-width: 760px; font-size: 0.8rem; width: 100%; }
+  table.compare-table th, table.compare-table td { white-space: nowrap; padding: 7px 8px; }
+  table.compare-table td.item { white-space: normal; min-width: 170px; max-width: 210px; }
   .sticky-col { position: sticky; left: 0; background: var(--panel); z-index: 2; box-shadow: 2px 0 4px rgba(0,0,0,.25); }
   table.compare-table tr.section-row td.sticky-col { background: var(--panel2); }
   table.compare-table tr.subtotal-row td.sticky-col { background: var(--panel); }
-  .total-col { color: var(--accent2); font-weight: 700; border-left: 2px solid var(--border); }
+  .total-col { color: var(--accent2); font-weight: 700; border-left: 2px solid var(--border); position: sticky; right: 0; background: var(--panel); box-shadow: -2px 0 4px rgba(0,0,0,.25); }
+  table.compare-table tr.section-row td.total-col { background: var(--panel2); }
+  table.compare-table tr.subtotal-row td.total-col { background: var(--panel); }
+  .scroll-hint { font-size: 0.78rem; color: var(--gold); margin: 6px 0 0; display: none; }
+  @media (max-width: 900px) { .scroll-hint { display: block; } }
 </style>
 </head>
 <body>
@@ -1389,6 +1393,7 @@
       </div>
     </div>
     <div class="card">
+      <p class="scroll-hint">↔ Scroll sideways to see all months — Jul 2026 and the total are pinned to the right edge.</p>
       <div class="scroll compare-scroll">
         <table class="compare-table">
           <thead><tr><th class="sticky-col">Item</th><th class="num">Jan 2026</th><th class="num">Feb 2026</th><th class="num">Mar 2026</th><th class="num">Apr 2026</th><th class="num">May 2026</th><th class="num">Jun 2026</th><th class="num">Jul 2026</th><th class="num total-col">Jan&ndash;Jul Total</th></tr></thead>
