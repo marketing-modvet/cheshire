@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>TVRC B2B Email Templates — Preview Hub</title>
+<style>
+  body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#eef2f6;color:#33404d;}
+  .wrap{max-width:920px;margin:0 auto;padding:40px 20px 80px;}
+  h1{font-family:Georgia,serif;font-weight:normal;color:#16384f;margin:0 0 6px;}
+  .sub{color:#5a6b7a;margin:0 0 34px;font-size:15px;}
+  .card{background:#fff;border-radius:12px;padding:26px 30px;margin-bottom:22px;box-shadow:0 1px 4px rgba(22,56,79,.08);}
+  .card h2{margin:0 0 4px;font-family:Georgia,serif;font-weight:normal;color:#16384f;font-size:21px;}
+  .tag{display:inline-block;background:#e5f2f2;color:#127f82;font-size:12px;font-weight:600;border-radius:20px;padding:3px 12px;margin:0 0 12px;}
+  .card p{font-size:14px;line-height:1.55;margin:8px 0;}
+  .btn{display:inline-block;background:#127f82;color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:10px 22px;border-radius:7px;margin:10px 12px 0 0;}
+  .btn.alt{background:transparent;color:#127f82;border:2px solid #127f82;padding:8px 20px;}
+  .subjects{background:#f5f8fb;border-radius:8px;padding:14px 18px;margin-top:12px;}
+  .subjects b{color:#16384f;font-size:13px;text-transform:uppercase;letter-spacing:1px;}
+  .subjects ul{margin:8px 0 0;padding-left:20px;font-size:14px;line-height:1.7;}
+  .notes{background:#fff;border-left:4px solid #6698c9;border-radius:8px;padding:20px 26px;margin-top:34px;}
+  .notes h3{margin:0 0 10px;color:#16384f;font-family:Georgia,serif;font-weight:normal;}
+  .notes li{font-size:14px;line-height:1.6;margin-bottom:8px;}
+  code{background:#eef2f6;padding:1px 6px;border-radius:4px;font-size:13px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>TVRC B2B Outreach Email Templates</h1>
+  <p class="sub">Three standard templates for outreach to veterinary clinics &amp; referral partners · v1 preview · Aug 2026</p>
+
+  <div class="card">
+    <span class="tag">Template 1</span>
+    <h2>Laboratory Services</h2>
+    <p>Positions the TVRC reference laboratory as a diagnostic partner: six grouped test categories, turnaround/species/sample-volume stat strip, 3-step submission flow. No prices or individual test lists — CTA requests the price list &amp; sample guide by email.</p>
+    <a class="btn" href="tvrc-lab-services.html">Open preview</a>
+    <div class="subjects"><b>Subject line options</b>
+      <ul>
+        <li>A veterinary reference lab that works at your pace — 1–2 day routine turnaround</li>
+        <li>Diagnostic support for {{clinic_name}}: canine, feline, avian &amp; exotic testing</li>
+        <li>Culture &amp; sensitivity, cytology, exotic profiles — one lab, one submission form</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="tag">Template 2</span>
+    <h2>Specialist Consultations &amp; Procedures</h2>
+    <p>Leads with the core reassurance — “an extension of your team, never a replacement.” Full 8-specialist roster with credentials, italic collaboration promise band, 4-step referral process mirroring the tvrc.ae flow, dual CTA (Refer a case / Specialist clinic dates).</p>
+    <a class="btn" href="tvrc-specialist-referrals.html">Open preview</a>
+    <div class="subjects"><b>Subject line options</b>
+      <ul>
+        <li>Specialist backup for your complex cases — your patient always comes back to you</li>
+        <li>8 specialist disciplines, one referral form: TVRC partnership for {{clinic_name}}</li>
+        <li>When a case needs more: board-certified specialists working alongside you</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="tag">Template 3</span>
+    <h2>Combined TVRC Introduction</h2>
+    <p>Broader first-touch introduction: two-pillar layout (Specialist Referrals / Diagnostic Laboratory), five “why partner” checkmarks distilled from the selling points, collaboration quote band, dual CTA (Refer a case / Start a conversation).</p>
+    <a class="btn" href="tvrc-combined-intro.html">Open preview</a>
+    <div class="subjects"><b>Subject line options</b>
+      <ul>
+        <li>Introducing TVRC: specialists, CT and a full diagnostic lab — one referral pathway</li>
+        <li>Specialist + laboratory support for {{clinic_name}}, without losing your client</li>
+        <li>The UAE’s referral-only veterinary centre — here to support your clinic</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="notes">
+    <h3>Usage &amp; production notes</h3>
+    <ul>
+      <li><b>Personalization tokens:</b> <code>{{first_name}}</code>, <code>{{clinic_name}}</code>, <code>{{sender_name}}</code>, <code>{{sender_role}}</code>, <code>{{unsubscribe_url}}</code> — swap syntax to match the sending platform (Klaviyo / Outlook mail-merge / manual).</li>
+      <li><b>Build:</b> 600px table-based layout, inline CSS, bulletproof buttons — safe for Outlook, Gmail, Apple Mail. Logo is hot-linked from tvrc.ae; for production, host on the ESP's CDN.</li>
+      <li><b>Brand:</b> TVRC site palette — deep navy <code>#16384f</code>, teal <code>#127f82</code>, steel blue <code>#6698c9</code>, Georgia serif headlines. Consistent header/hero/footer across all three so the set reads as one system.</li>
+      <li><b>Key message discipline:</b> every template repeats the collaboration promise (referring vet stays central; TVRC never competes for the client) — the #1 objection killer in referral-centre outreach.</li>
+      <li><b>No prices in-email</b> per the brief — lab CTA requests the price list &amp; sample submission requirements instead.</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
