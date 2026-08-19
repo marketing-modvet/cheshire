@@ -72,6 +72,15 @@
   .methodology{background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 20px; font-size:13.5px; color:var(--muted);}
   .methodology b{color:var(--text);}
   .scroll{overflow-x:auto;}
+  .heat{width:100%; border-collapse:collapse; font-size:12.5px; background:var(--card); border-radius:10px; overflow:hidden;}
+  .heat th{background:var(--card2); color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.3px; padding:8px 6px; border-bottom:1px solid var(--border); text-align:center;}
+  .heat td{padding:9px 6px; text-align:center; border:1px solid var(--border); line-height:1.35;}
+  .heat td b{font-size:14px; display:block;}
+  .heat td small{color:var(--muted); font-size:10px; display:block;}
+  .q0{background:rgba(255,107,107,.32);} .q2{background:rgba(255,107,107,.14);}
+  .q3{background:rgba(255,184,77,.14);} .q4{background:rgba(61,220,151,.14);}
+  .grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:16px; margin:16px 0;}
+  .grid2 h5{margin:0 0 8px; font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.4px;}
 </style>
 </head>
 <body>
@@ -285,8 +294,64 @@
   <div class="rev-box">
     <h4>🎯 How the new hybrid vet should close this gap</h4>
     <p><b>The recommended Fri–Sat–Sun–Mon rotation (Section 3) already covers all 13 Saturday gap dates</b> — since the new vet works every Saturday under that plan, this single hire fully eliminates the recurring zero-coverage day without needing any change to Ivan's or Isabel's existing rotation.</p>
-    <p><b>Suggested fixed placement:</b> assign the new vet's Saturday shift as <b>MID</b> specifically on the 13 identified gap dates (and ideally every Saturday, for consistency) — this maximizes overlap with both the AM close-out and PM start of the hospital's other teams, and matches the shift type Ivan/Isabel use most often to bridge single-coverage days elsewhere in the rotation.</p>
+    <p><b>Which shift should the new vet work?</b> Not a fixed one — and specifically <b>not a standard MID shift</b>. Section 8 below scores every option: because Ivan and Isabel's gaps rotate between mornings, afternoons and whole days on a fixed 4-week cycle, a MID shift mostly duplicates hours that are already covered and turns out to be the <i>worst</i> fixed choice. A 4-week flex rotation matched to their cycle is the winner.</p>
     <p><b>Don't touch the Ivan/Johny ↔ Isabel/Shakila stagger.</b> It's already doing real work — un-staggering it (e.g. aligning both onto the same 4-on cycle) would just move the gap around rather than close it, and would also reintroduce the same-shift double-booking the team currently avoids. The new vet should be treated as a <b>third, independent rotation</b> layered on top, not a replacement or resync of the existing two.</p>
+  </div>
+</section>
+
+<section>
+  <h3>8 · Every shift strategy for the new vet, scored</h3>
+  <p class="note">Added 19 Aug 2026. Question: on the recommended Fri–Sat–Sun–Mon days, should the new vet work fixed hours (AM / MID / PM), a fixed weekly pattern, or flex against Ivan &amp; Isabel's rotation? Model: each day split into 4 quarters (early morning → evening); AM covers Q1–Q2, MID covers Q2–Q3, PM covers Q3–Q4; coverage = share of demand-weighted quarters with ≥ 1 sonographer on site, across the full 28-day cycle. Two people on the same hours add nothing — overlap is wasted coverage.</p>
+
+  <div class="bars">
+    <div class="bar-row"><div class="bar-label" style="width:230px;">🏆 Flex rotation + long gap-Saturday</div><div class="bar-track"><div class="bar-fill" style="width:95%; background:var(--green);">95.0%</div></div></div>
+    <div class="bar-row"><div class="bar-label" style="width:230px;">Flex rotation (standard shifts only)</div><div class="bar-track"><div class="bar-fill" style="width:92.5%; background:var(--green);">92.5%</div></div></div>
+    <div class="bar-row"><div class="bar-label" style="width:230px;">Best fixed weekly pattern (PM/AM/AM/PM)</div><div class="bar-track"><div class="bar-fill" style="width:85%; background:var(--accent);">85.0%</div></div></div>
+    <div class="bar-row"><div class="bar-label" style="width:230px;">Fixed PM every day</div><div class="bar-track"><div class="bar-fill" style="width:83.4%; background:var(--muted);">83.4%</div></div></div>
+    <div class="bar-row"><div class="bar-label" style="width:230px;">Fixed AM every day</div><div class="bar-track"><div class="bar-fill" style="width:81.7%; background:var(--muted);">81.7%</div></div></div>
+    <div class="bar-row"><div class="bar-label" style="width:230px;">Fixed MID every day ⚠️</div><div class="bar-track"><div class="bar-fill" style="width:75%; background:var(--red);">75.0%</div></div></div>
+    <div class="bar-row"><div class="bar-label" style="width:230px;">Today — no new vet (baseline)</div><div class="bar-track"><div class="bar-fill" style="width:65%; background:var(--red);">65.0%</div></div></div>
+  </div>
+  <p class="note"><b>The counter-intuitive result: a standard MID shift is the single worst fixed option.</b> Ivan and Isabel's uncovered hours rotate — mornings one week, afternoons the next, a whole Saturday every fourth — while a MID shift always sits in the middle of the day, mostly duplicating hours that one of them already covers. Fixed AM or PM is better; a fixed weekly mix (PM Fri / AM Sat / AM Sun / PM Mon) better still; but only a rotation that mirrors their 4-week cycle closes the actual holes.</p>
+
+  <h5 style="margin:22px 0 4px; font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.4px;">Ultrasound coverage per day (quarters of the day covered, full 4-week cycle)</h5>
+  <div class="grid2">
+    <div>
+      <h5>❌ Today (Ivan + Isabel only)</h5>
+      <div class="scroll">
+      <table class="heat">
+        <thead><tr><th>Week</th><th>Fri</th><th>Sat</th><th>Sun</th><th>Mon</th></tr></thead>
+        <tbody>
+          <tr><td><small>WK A</small></td><td class="q4"><b>4/4</b><small>Ivan PM · Isa AM</small></td><td class="q2"><b>2/4</b><small>Ivan PM</small></td><td class="q2"><b>2/4</b><small>Ivan PM</small></td><td class="q2"><b>2/4</b><small>Isa MID</small></td></tr>
+          <tr><td><small>WK B</small></td><td class="q2"><b>2/4</b><small>Ivan AM</small></td><td class="q0"><b>0/4</b><small>NOBODY</small></td><td class="q2"><b>2/4</b><small>Isa MID</small></td><td class="q3"><b>3/4</b><small>Ivan MID · Isa PM</small></td></tr>
+          <tr><td><small>WK C</small></td><td class="q2"><b>2/4</b><small>Isa MID</small></td><td class="q2"><b>2/4</b><small>Isa AM</small></td><td class="q3"><b>3/4</b><small>Ivan MID · Isa AM</small></td><td class="q4"><b>4/4</b><small>Ivan PM · Isa AM</small></td></tr>
+          <tr><td><small>WK D</small></td><td class="q3"><b>3/4</b><small>Ivan MID · Isa PM</small></td><td class="q4"><b>4/4</b><small>Ivan AM · Isa PM</small></td><td class="q4"><b>4/4</b><small>Ivan AM · Isa PM</small></td><td class="q2"><b>2/4</b><small>Ivan AM</small></td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div>
+      <h5>✅ With new vet on the flex rotation</h5>
+      <div class="scroll">
+      <table class="heat">
+        <thead><tr><th>Week</th><th>Fri</th><th>Sat</th><th>Sun</th><th>Mon</th></tr></thead>
+        <tbody>
+          <tr><td><small>WK A</small></td><td class="q4"><b>4/4</b><small>+ New AM †</small></td><td class="q4"><b>4/4</b><small>+ New AM</small></td><td class="q4"><b>4/4</b><small>+ New AM</small></td><td class="q3"><b>3/4</b><small>+ New AM</small></td></tr>
+          <tr><td><small>WK B</small></td><td class="q4"><b>4/4</b><small>+ New PM</small></td><td class="q4"><b>4/4</b><small>+ New LONG DAY</small></td><td class="q3"><b>3/4</b><small>+ New AM</small></td><td class="q4"><b>4/4</b><small>+ New AM</small></td></tr>
+          <tr><td><small>WK C</small></td><td class="q3"><b>3/4</b><small>+ New AM</small></td><td class="q4"><b>4/4</b><small>+ New PM</small></td><td class="q4"><b>4/4</b><small>+ New PM</small></td><td class="q4"><b>4/4</b><small>+ New AM †</small></td></tr>
+          <tr><td><small>WK D</small></td><td class="q4"><b>4/4</b><small>+ New AM</small></td><td class="q4"><b>4/4</b><small>+ New AM †</small></td><td class="q4"><b>4/4</b><small>+ New AM †</small></td><td class="q4"><b>4/4</b><small>+ New PM</small></td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+  <p class="note">† = day already fully covered by Ivan/Isabel — the new vet's shift there is a free choice; AM shown, but it can be set by GP load instead (Saturday/Sunday AM is where Section 1 shows the biggest per-vet overload). Note the schedule is <b>11× AM, 4× PM and one long day per 4 weeks</b> — a mostly-morning, very livable pattern despite being “flex”.</p>
+
+  <div class="rev-box">
+    <h4>🏆 Recommended: 4-week flex rotation, published months in advance</h4>
+    <p>Because Ivan &amp; Isabel's rotation repeats <b>identically every 28 days with zero variance all year</b> (verified: 11 sampled cycles, 16/16 shift slots matching every time), the “flex” schedule isn't ad-hoc at all — it's a fixed 4-week pattern that can be printed into the roster for the entire year on day one.</p>
+    <p><b>WK A</b> (Ivan-PM Sat): AM · AM · AM · AM &nbsp;&nbsp;│&nbsp;&nbsp; <b>WK B</b> (gap Sat): PM · <b>LONG</b> · AM · AM &nbsp;&nbsp;│&nbsp;&nbsp; <b>WK C</b> (Isabel-AM Sat): AM · PM · PM · AM &nbsp;&nbsp;│&nbsp;&nbsp; <b>WK D</b> (full Sat): AM · AM · AM · PM &nbsp;&nbsp;<span style="color:var(--muted);">(Fri · Sat · Sun · Mon)</span></p>
+    <p><b>What it buys:</b> demand-exposed scan hours on Fri–Mon drop from ~366 scan-slots/year (baseline) to ~52 — an <b>86% reduction</b> — vs only a 29% reduction if the new vet sat on a standard MID shift (~261 still exposed). The 13 zero-coverage Saturdays disappear entirely, and every fourth Saturday needs just one long day (13×/year) to do it. If a long day isn't contractually possible, PM is the fallback on gap Saturdays (score drops 95.0% → 92.5%, still far ahead of any fixed pattern).</p>
   </div>
 </section>
 
@@ -296,12 +361,13 @@
     <b>Sources:</b> ezyVet API, 20 May – 18 Aug 2026 (90 days), Dubai time. Hospital scope = ezyVet ownership/separation #4 (Modern Vet Hospital): appointments matched via the hospital's 985 resources (8,232 hospital appointments network-tagged, 7,486 with hospital vet resources used for per-vet math); 70 "Dr"-named hospital resources tracked daily for vets-working counts; 441 ultrasound-matched diagnostic requests (of 652 network-wide) by ownership code; 6,700 hospital-coded invoices totalling AED 6.95M (subtotals, ex-tax).<br><br>
     <b>Scoring:</b> per-day need = 0.40 × appts/vet + 0.30 × US/day + 0.15 × US/vet + 0.15 × staffing thinness, normalized 0–1. Rotation score = sum of ON-day scores; Saturday-weighted variant adds +0.15 to Saturday per the weekend-coverage directive. All 7 wrap-around rotations evaluated.<br><br>
     <b>Caveats:</b> ultrasound demand measured from requested diagnostics — it under-counts suppressed weekend demand (the true Saturday gap is likely larger than shown). Revenue per appointment is a blended hospital average; the incrementality factor (70–80%) is an estimate, not measured. v1 of this report used network-wide data; this v2 supersedes it. Re-run after 4–6 weeks of the new rotation to validate.<br><br>
-    <b>Section 7 (added 19 Aug 2026):</b> source is the live Al Wasl staffing Google Sheet, full year 2026 (Weeks 2–52, 357 tracked days). Ivan (Team 2 vet) and Johny (Team 2 assistant) vs. Isabel (Team 4 vet) and Shakila (Team 4 assistant) tracked by parsing each week's per-team shift code (AM/PM/MID) and vet/assistant name cells. A day counts as "on" only when both a shift code and a vet name are present for that team that day (blank cells = team not scheduled that day). SICK-flagged days were left counted as "on" since the sheet still lists a shift/name for them (7 such flags across the year, ~2% of days — not material to the pattern). Gap dates verified as spaced exactly 28 days apart with zero exceptions.
+    <b>Section 7 (added 19 Aug 2026):</b> source is the live Al Wasl staffing Google Sheet, full year 2026 (Weeks 2–52, 357 tracked days). Ivan (Team 2 vet) and Johny (Team 2 assistant) vs. Isabel (Team 4 vet) and Shakila (Team 4 assistant) tracked by parsing each week's per-team shift code (AM/PM/MID) and vet/assistant name cells. A day counts as "on" only when both a shift code and a vet name are present for that team that day (blank cells = team not scheduled that day). SICK-flagged days were left counted as "on" since the sheet still lists a shift/name for them (7 such flags across the year, ~2% of days — not material to the pattern). Gap dates verified as spaced exactly 28 days apart with zero exceptions.<br><br>
+    <b>Section 8 (added 19 Aug 2026):</b> day modelled as 4 quarters; AM = Q1–Q2, MID = Q2–Q3, PM = Q3–Q4, long day = Q1–Q4 (union of quarter sets — two people on identical hours add no extra coverage). Quarters weighted by each day's ultrasound demand (Section 1 scans/day). Scores computed over the new vet's Fri–Mon days across one full 28-day cycle; the Ivan/Isabel cycle was verified identical in 11 sampled cycles across 2026 (16/16 slots each) so one cycle generalizes to the whole year. All 3 uniform fixed shifts, all 81 fixed weekly patterns, and per-slot optimal flex assignments were evaluated exhaustively (script: score_shift_options2.py). “Scan-slots exposed” = demand-weighted uncovered quarters × 13 cycles/year — demand occurring in windows with no sonographer on site, not necessarily lost revenue (some rebooks internally).
   </div>
 </section>
 
 <div class="footer">
-  Prepared by Cheshire · 19 Aug 2026 (v3 — added ultrasound-specialist rotation &amp; Saturday gap analysis) · Data window: staffing — full year 2026 (357 days); revenue/demand — 20 May – 18 Aug 2026 (90 days) · Internal use only — do not distribute outside Vet Alliance management.
+  Prepared by Cheshire · 19 Aug 2026 (v3.1 — added US-specialist rotation, Saturday gap &amp; shift-strategy scoring) · Data window: staffing — full year 2026 (357 days); revenue/demand — 20 May – 18 Aug 2026 (90 days) · Internal use only — do not distribute outside Vet Alliance management.
 </div>
 </div>
 </body>
