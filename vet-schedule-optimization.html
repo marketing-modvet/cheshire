@@ -159,7 +159,7 @@
   <div class="kpi"><div class="label">Thinnest roster day</div><div class="value neg">6.2 vets</div><div class="delta">Saturday — vs 8.6–9.8 every other day</div></div>
   <div class="kpi"><div class="label">Revenue per hospital appt</div><div class="value">AED 928</div><div class="delta">AED 6.95M ÷ 7,486 appts (90d, invoiced)</div></div>
   <div class="kpi"><div class="label">Steady-state new-vet revenue</div><div class="value pos">AED 1.4–1.9M/yr</div><div class="delta">gross · AED 1.0–1.4M incremental</div></div>
-  <div class="kpi"><div class="label">US-blind Saturdays</div><div class="value"><span class="neg">13</span> → <span class="pos">0</span></div><div class="delta">every 4th Saturday has no sonographer — flex rotation closes all (§7–8)</div></div>
+  <div class="kpi"><div class="label">Zero-US days / year (incl. vacations)</div><div class="value"><span class="neg">≈29</span> → <span class="pos">≈1</span></div><div class="delta">13 gap Saturdays + ~16 vacation-month days — closed by flex rotation + day-flex (§7–9)</div></div>
 </div>
 
 <section>
@@ -374,18 +374,50 @@
 </section>
 
 <section>
+  <h3>9 · The vacation factor (22 working days per doctor per year)</h3>
+  <p class="note">Added 19 Aug 2026. Each doctor takes 22 working days of annual leave. At Ivan &amp; Isabel's real pace (≈ 5 on-days per week), 22 working days ≈ <b>31 calendar days — a full month away</b>. The staffing sheet does <b>not</b> include these vacations (provable: the 28-day rotation repeats perfectly all year with no month-long hole for either vet) — so §7's coverage picture is the <i>best case</i>. Reality is worse.</p>
+
+  <div class="kpi-grid">
+    <div class="kpi"><div class="label">Zero-US days in a vacation month</div><div class="value neg">≈ 9</div><div class="delta">avg across all possible 31-day windows — vs ~1 in a normal month</div></div>
+    <div class="kpi"><div class="label">Real zero-US days / year today</div><div class="value neg">≈ 29</div><div class="delta">13 rotation gaps + ~8 extra per specialist vacation month</div></div>
+    <div class="kpi"><div class="label">Remaining specialist's off-days</div><div class="value">2 / week</div><div class="delta">never more than 2 consecutive — fully coverable by a 4-day vet</div></div>
+    <div class="kpi"><div class="label">With new vet + day-flex</div><div class="value pos">≈ 1 / year</div><div class="delta">96% fewer zero-coverage days than today's reality</div></div>
+  </div>
+
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Scenario</th><th>Zero-US-coverage days / year</th><th>vs today</th></tr></thead>
+    <tbody>
+      <tr><td>Rotation on paper (§7 — no vacations modelled)</td><td>13</td><td>—</td></tr>
+      <tr><td><b>Reality today: 2 specialists + both take a month's leave</b></td><td><b class="neg">≈ 29</b></td><td>baseline</td></tr>
+      <tr class="hl2"><td>+ New vet, fixed Fri–Mon (shift-flex only)</td><td>≈ 8</td><td class="pos">−72%</td></tr>
+      <tr class="hl"><td>+ New vet who also <b>day-flexes during vacation months</b></td><td><b class="pos">≈ 1</b></td><td class="pos">−96%</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p class="note"><b>Why day-flexing works perfectly here:</b> when one specialist is away, the remaining one is off exactly ~2 days a week and never more than 2 days in a row. A 4-day/week vet can mirror those off-days completely — zero uncovered days — while still keeping 8h shifts. The only residual gap is the new vet's <i>own</i> vacation month, when the hospital briefly reverts to today's 2-specialist pattern (~1 gap Saturday).</p>
+
+  <div class="rev-box">
+    <h4>📋 Vacation policy recommendations</h4>
+    <p>① <b>Never overlap sonographer vacations</b> — with 3 of them, a simple rule: one away at a time, minimum 2 weeks between leave blocks. ② <b>Place specialist vacations in the quietest months</b> and have the new vet temporarily mirror the remaining specialist's off-days (day-flex) for that month — this is the single highest-value use of the “custom schedule” flexibility. ③ <b>The new vet's own leave</b> is the least damaging of the three (the Ivan/Isabel rotation self-covers 96% of days) — schedule it in a low-demand month and optionally ask Ivan or Isabel to swap one Saturday to kill the single remaining gap. ④ Without this hire, every vacation month is a <b>9-day ultrasound blackout spread across the month</b> — worth stating plainly in the business case.</p>
+  </div>
+</section>
+
+<section>
   <h3>Methodology</h3>
   <div class="methodology">
     <b>Sources:</b> ezyVet API, 20 May – 18 Aug 2026 (90 days), Dubai time. Hospital scope = ezyVet ownership/separation #4 (Modern Vet Hospital): appointments matched via the hospital's 985 resources (8,232 hospital appointments network-tagged, 7,486 with hospital vet resources used for per-vet math); 70 "Dr"-named hospital resources tracked daily for vets-working counts; 441 ultrasound-matched diagnostic requests (of 652 network-wide) by ownership code; 6,700 hospital-coded invoices totalling AED 6.95M (subtotals, ex-tax).<br><br>
     <b>Scoring:</b> per-day need = 0.40 × appts/vet + 0.30 × US/day + 0.15 × US/vet + 0.15 × staffing thinness, normalized 0–1. Rotation score = sum of ON-day scores; Saturday-weighted variant adds +0.15 to Saturday per the weekend-coverage directive. All 7 wrap-around rotations evaluated.<br><br>
     <b>Caveats:</b> ultrasound demand measured from requested diagnostics — it under-counts suppressed weekend demand (the true Saturday gap is likely larger than shown). Revenue per appointment is a blended hospital average; the incrementality factor (70–80%) is an estimate, not measured. v1 of this report used network-wide data; this v2 supersedes it. Re-run after 4–6 weeks of the new rotation to validate.<br><br>
     <b>Section 7 (added 19 Aug 2026):</b> source is the live Al Wasl staffing Google Sheet, full year 2026 (Weeks 2–52, 357 tracked days). Ivan (Team 2 vet) and Johny (Team 2 assistant) vs. Isabel (Team 4 vet) and Shakila (Team 4 assistant) tracked by parsing each week's per-team shift code (AM/PM/MID) and vet/assistant name cells. A day counts as "on" only when both a shift code and a vet name are present for that team that day (blank cells = team not scheduled that day). SICK-flagged days were left counted as "on" since the sheet still lists a shift/name for them (7 such flags across the year, ~2% of days — not material to the pattern). Gap dates verified as spaced exactly 28 days apart with zero exceptions.<br><br>
-    <b>Section 8 (added 19 Aug 2026):</b> day modelled as 4 quarters; AM = Q1–Q2, MID = Q2–Q3, PM = Q3–Q4, long day = Q1–Q4 (union of quarter sets — two people on identical hours add no extra coverage). Quarters weighted by each day's ultrasound demand (Section 1 scans/day). Scores computed over the new vet's Fri–Mon days across one full 28-day cycle; the Ivan/Isabel cycle was verified identical in 11 sampled cycles across 2026 (16/16 slots each) so one cycle generalizes to the whole year. All 3 uniform fixed shifts, all 81 fixed weekly patterns, and per-slot optimal flex assignments were evaluated exhaustively (script: score_shift_options2.py). “Scan-slots exposed” = demand-weighted uncovered quarters × 13 cycles/year — demand occurring in windows with no sonographer on site, not necessarily lost revenue (some rebooks internally). Hour-of-day analysis: same 652 network diagnostic requests re-pulled with timestamps (445 hospital-coded), Dubai time; quarter boundaries 08/12/16/20/24 align exactly with the hospital's 8-hour shifts (AM 08–16, MID 12–20, PM 16–24); all option scores weighted by the real hourly demand curve; gap-Saturday extended day modelled as 10h 09:00–19:00. Coverage math counts sonographer vets only — assistants excluded throughout.
+    <b>Section 8 (added 19 Aug 2026):</b> day modelled as 4 quarters; AM = Q1–Q2, MID = Q2–Q3, PM = Q3–Q4, long day = Q1–Q4 (union of quarter sets — two people on identical hours add no extra coverage). Quarters weighted by each day's ultrasound demand (Section 1 scans/day). Scores computed over the new vet's Fri–Mon days across one full 28-day cycle; the Ivan/Isabel cycle was verified identical in 11 sampled cycles across 2026 (16/16 slots each) so one cycle generalizes to the whole year. All 3 uniform fixed shifts, all 81 fixed weekly patterns, and per-slot optimal flex assignments were evaluated exhaustively (script: score_shift_options2.py). “Scan-slots exposed” = demand-weighted uncovered quarters × 13 cycles/year — demand occurring in windows with no sonographer on site, not necessarily lost revenue (some rebooks internally). Hour-of-day analysis: same 652 network diagnostic requests re-pulled with timestamps (445 hospital-coded), Dubai time; quarter boundaries 08/12/16/20/24 align exactly with the hospital's 8-hour shifts (AM 08–16, MID 12–20, PM 16–24); all option scores weighted by the real hourly demand curve; gap-Saturday extended day modelled as 10h 09:00–19:00. Coverage math counts sonographer vets only — assistants excluded throughout.<br><br>
+    <b>Section 9 (added 19 Aug 2026):</b> 22 working days' leave ÷ ≈5 on-days/week (254–255 on-days across 51 tracked weeks) ≈ 31 calendar days. Vacation impact = mean zero-coverage days across all possible 31-day windows of the 2026 schedule with one specialist removed (8.9 days; 3.3 with a Fri–Mon new vet; 0 with a day-flexed new vet, since the remaining specialist is off ≤2 days/week, max streak 2). Annual figures assume both specialists take one full leave month each; “≈1” residual = base-rotation gap Saturday during the new vet's own leave month. Vacations assumed non-overlapping; sheet contains no scheduled leave (verified via unbroken 28-day periodicity).
   </div>
 </section>
 
 <div class="footer">
-  Prepared by Cheshire · 19 Aug 2026 (v3.3 — US-specialist rotation, Saturday gap, shift-strategy scoring &amp; hourly demand (8h shifts)) · Data window: staffing — full year 2026 (357 days); revenue/demand — 20 May – 18 Aug 2026 (90 days) · Internal use only — do not distribute outside Vet Alliance management.
+  Prepared by Cheshire · 19 Aug 2026 (v3.4 — US-specialist rotation, Saturday gap, shift strategies, hourly demand &amp; vacation factor) · Data window: staffing — full year 2026 (357 days); revenue/demand — 20 May – 18 Aug 2026 (90 days) · Internal use only — do not distribute outside Vet Alliance management.
 </div>
 </div>
 </body>
