@@ -123,9 +123,9 @@
 
 <div class="wrap">
 <header>
-  <div class="badge">INTERNAL — SCHEDULING &amp; REVENUE DECISION · v2 (HOSPITAL-ONLY)</div>
+  <div class="badge">INTERNAL — SCHEDULING &amp; REVENUE DECISION · v3 (+ US SPECIALIST ROTATION)</div>
   <h1>Adding a Hybrid Ultrasound + GP Vet at Al Wasl Hospital: Schedule &amp; Revenue</h1>
-  <div class="subtitle">Vet Alliance / Modern Vet · Analysis date: 18 Aug 2026 · Data: ezyVet, last 90 days (20 May – 18 Aug 2026), <b>Al Wasl Hospital only</b> (985 hospital resources, ownership-coded invoices &amp; diagnostics)</div>
+  <div class="subtitle">Vet Alliance / Modern Vet · Analysis date: 18–19 Aug 2026 · Data: ezyVet, last 90 days (20 May – 18 Aug 2026, <b>Al Wasl Hospital only</b>) + Al Wasl staffing sheet, full year 2026 (Section 7)</div>
 </header>
 
 <div class="verdict">
@@ -256,16 +256,52 @@
 </section>
 
 <section>
+  <h3>7 · Existing ultrasound specialists: rotation coverage &amp; the recurring Saturday gap</h3>
+  <p class="note">New analysis (19 Aug 2026): full-year 2026 Al Wasl staffing sheet, tracking the two current ultrasound-capable vets — <b>Ivan</b> (Team 2, paired with assistant <b>Johny</b>) and <b>Isabel</b> (Team 4, paired with assistant <b>Shakila</b>) — across all 357 tracked days (Weeks 2–52).</p>
+
+  <div class="kpi-grid">
+    <div class="kpi"><div class="label">Combined US coverage</div><div class="value pos">96.4%</div><div class="delta">344 / 357 days have Ivan and/or Isabel on</div></div>
+    <div class="kpi"><div class="label">Zero-coverage days</div><div class="value neg">13</div><div class="delta">3.6% of the year — every one a Saturday</div></div>
+    <div class="kpi"><div class="label">Gap recurrence</div><div class="value amb">Every 28 days</div><div class="delta">Exact 4-week cycle, zero variance all year</div></div>
+    <div class="kpi"><div class="label">Same-shift overlap</div><div class="value pos">0%</div><div class="delta">Team never double-books Ivan + Isabel on one shift</div></div>
+  </div>
+
+  <p class="note"><b>The team's existing manual rule is working perfectly:</b> across all 165 days where both are rostered, they are <b>never</b> placed on the same shift block — always split AM/PM, AM/MID, or MID/PM. Ivan and Isabel each work a clean <b>4-days-on rotation</b> (alternating 1-day and 2-day breaks), and Isabel's cycle runs almost exactly one day offset from Ivan's — which is precisely why combined coverage reaches 96.4% instead of the ~86% you'd get if their rotations were unstaggered.</p>
+
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Coverage pattern</th><th>Days / Year</th><th>Share</th></tr></thead>
+    <tbody>
+      <tr class="hl2"><td>Both Ivan &amp; Isabel on (different shifts)</td><td>165</td><td>46.2%</td></tr>
+      <tr><td>Only Ivan on</td><td>89</td><td>24.9%</td></tr>
+      <tr><td>Only Isabel on</td><td>90</td><td>25.2%</td></tr>
+      <tr class="hl"><td><b>Neither on — zero US coverage</b></td><td><b>13</b></td><td><b class="neg">3.6%</b></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p class="note"><b>All 13 gap days are Saturdays, spaced exactly 28 days apart</b> — 24 Jan, 21 Feb, 21 Mar, 18 Apr, 16 May, 13 Jun, 11 Jul, 8 Aug, 5 Sep, 3 Oct, 31 Oct, 28 Nov, 26 Dec 2026. This lines up directly with Section 1–4's finding that Saturday is already the hospital's thinnest-rostered, highest-need day — on these 13 Saturdays specifically, that thin roster also has <b>zero in-house ultrasound capability</b>, meaning any scan request has to wait, get referred out, or wait for an on-call vet.</p>
+
+  <div class="rev-box">
+    <h4>🎯 How the new hybrid vet should close this gap</h4>
+    <p><b>The recommended Fri–Sat–Sun–Mon rotation (Section 3) already covers all 13 Saturday gap dates</b> — since the new vet works every Saturday under that plan, this single hire fully eliminates the recurring zero-coverage day without needing any change to Ivan's or Isabel's existing rotation.</p>
+    <p><b>Suggested fixed placement:</b> assign the new vet's Saturday shift as <b>MID</b> specifically on the 13 identified gap dates (and ideally every Saturday, for consistency) — this maximizes overlap with both the AM close-out and PM start of the hospital's other teams, and matches the shift type Ivan/Isabel use most often to bridge single-coverage days elsewhere in the rotation.</p>
+    <p><b>Don't touch the Ivan/Johny ↔ Isabel/Shakila stagger.</b> It's already doing real work — un-staggering it (e.g. aligning both onto the same 4-on cycle) would just move the gap around rather than close it, and would also reintroduce the same-shift double-booking the team currently avoids. The new vet should be treated as a <b>third, independent rotation</b> layered on top, not a replacement or resync of the existing two.</p>
+  </div>
+</section>
+
+<section>
   <h3>Methodology</h3>
   <div class="methodology">
     <b>Sources:</b> ezyVet API, 20 May – 18 Aug 2026 (90 days), Dubai time. Hospital scope = ezyVet ownership/separation #4 (Modern Vet Hospital): appointments matched via the hospital's 985 resources (8,232 hospital appointments network-tagged, 7,486 with hospital vet resources used for per-vet math); 70 "Dr"-named hospital resources tracked daily for vets-working counts; 441 ultrasound-matched diagnostic requests (of 652 network-wide) by ownership code; 6,700 hospital-coded invoices totalling AED 6.95M (subtotals, ex-tax).<br><br>
     <b>Scoring:</b> per-day need = 0.40 × appts/vet + 0.30 × US/day + 0.15 × US/vet + 0.15 × staffing thinness, normalized 0–1. Rotation score = sum of ON-day scores; Saturday-weighted variant adds +0.15 to Saturday per the weekend-coverage directive. All 7 wrap-around rotations evaluated.<br><br>
-    <b>Caveats:</b> ultrasound demand measured from requested diagnostics — it under-counts suppressed weekend demand (the true Saturday gap is likely larger than shown). Revenue per appointment is a blended hospital average; the incrementality factor (70–80%) is an estimate, not measured. v1 of this report used network-wide data; this v2 supersedes it. Re-run after 4–6 weeks of the new rotation to validate.
+    <b>Caveats:</b> ultrasound demand measured from requested diagnostics — it under-counts suppressed weekend demand (the true Saturday gap is likely larger than shown). Revenue per appointment is a blended hospital average; the incrementality factor (70–80%) is an estimate, not measured. v1 of this report used network-wide data; this v2 supersedes it. Re-run after 4–6 weeks of the new rotation to validate.<br><br>
+    <b>Section 7 (added 19 Aug 2026):</b> source is the live Al Wasl staffing Google Sheet, full year 2026 (Weeks 2–52, 357 tracked days). Ivan (Team 2 vet) and Johny (Team 2 assistant) vs. Isabel (Team 4 vet) and Shakila (Team 4 assistant) tracked by parsing each week's per-team shift code (AM/PM/MID) and vet/assistant name cells. A day counts as "on" only when both a shift code and a vet name are present for that team that day (blank cells = team not scheduled that day). SICK-flagged days were left counted as "on" since the sheet still lists a shift/name for them (7 such flags across the year, ~2% of days — not material to the pattern). Gap dates verified as spaced exactly 28 days apart with zero exceptions.
   </div>
 </section>
 
 <div class="footer">
-  Prepared by Cheshire · 18 Aug 2026 (v2 — hospital-only revision) · Data window: 20 May – 18 Aug 2026 (90 days) · Internal use only — do not distribute outside Vet Alliance management.
+  Prepared by Cheshire · 19 Aug 2026 (v3 — added ultrasound-specialist rotation &amp; Saturday gap analysis) · Data window: staffing — full year 2026 (357 days); revenue/demand — 20 May – 18 Aug 2026 (90 days) · Internal use only — do not distribute outside Vet Alliance management.
 </div>
 </div>
 </body>
