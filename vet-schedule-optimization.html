@@ -150,6 +150,7 @@
   </div>
   <p>Re-run on <b>hospital-only</b> data, <b>Fri–Sat–Sun–Mon</b> wins again — and by a wider margin than in the network-wide analysis. Saturday is now the single highest-need day of the week at the hospital: only <b>6.2 vets</b> rostered on average (every other day has 8.6–9.8), yet each carries the week's heaviest load.</p>
   <p><b>Weekend logic (as requested):</b> putting the new vet on Saturday adds the capacity the hospital currently lacks — same-day scans and consults stop spilling into Sunday, so Sunday (currently #2 in need) gets structurally less loaded. Both days are inside the recommended block, plus Monday to clear whatever backlog remains.</p>
+  <p><b>Update 19 Aug:</b> the year-long staffing sheet confirms the same weak point from the supply side — <b>every 4th Saturday has zero ultrasound coverage</b> (neither Ivan nor Isabel rostered; Section 7). The new vet's hours should follow the <b>4-week flex rotation</b> in Section 8 (mostly AM shifts, one long day per 4 weeks) — a standard fixed MID shift turned out to be the <i>worst</i> option tested.</p>
   <p><b>Expected revenue: ≈ AED 1.0–1.4M/year</b> at steady state (detail in section 5).</p>
 </div>
 
@@ -158,6 +159,7 @@
   <div class="kpi"><div class="label">Thinnest roster day</div><div class="value neg">6.2 vets</div><div class="delta">Saturday — vs 8.6–9.8 every other day</div></div>
   <div class="kpi"><div class="label">Revenue per hospital appt</div><div class="value">AED 928</div><div class="delta">AED 6.95M ÷ 7,486 appts (90d, invoiced)</div></div>
   <div class="kpi"><div class="label">Steady-state new-vet revenue</div><div class="value pos">AED 1.4–1.9M/yr</div><div class="delta">gross · AED 1.0–1.4M incremental</div></div>
+  <div class="kpi"><div class="label">US-blind Saturdays</div><div class="value"><span class="neg">13</span> → <span class="pos">0</span></div><div class="delta">every 4th Saturday has no sonographer — flex rotation closes all (§7–8)</div></div>
 </div>
 
 <section>
@@ -218,7 +220,7 @@
 <section>
   <h3>4 · The Saturday → Sunday relief mechanism</h3>
   <div class="why-grid">
-    <div class="why"><h4><span class="day-emoji">🩻</span>Saturday today</h4><p>6.2 vets handle 66.9 appts (10.9 each — week's highest) and manage only 4.0 scans, the week's lowest. Overflow, non-urgent scans, and deferrable consults get pushed to Sunday/Monday.</p></div>
+    <div class="why"><h4><span class="day-emoji">🩻</span>Saturday today</h4><p>6.2 vets handle 66.9 appts (10.9 each — week's highest) and manage only 4.0 scans, the week's lowest. Every 4th Saturday there is <b>no sonographer at all</b> (§7). Overflow, non-urgent scans, and deferrable consults get pushed to Sunday/Monday.</p></div>
     <div class="why"><h4><span class="day-emoji">➕</span>Saturday with the new vet</h4><p>Roster rises to ~7.2 (+16% capacity). At current demand that's ~9.3 appts/vet — finally in line with weekdays — plus same-day ultrasound capability all Saturday.</p></div>
     <div class="why"><h4><span class="day-emoji">😌</span>Sunday decompresses</h4><p>Sunday's 90.2 appts/day partly consists of Saturday spillover. With Saturday absorbing its own demand (and the new vet also working Sunday), per-vet load drops from 10.1 toward ~9.1 — and scans stop stacking into Monday.</p></div>
     <div class="why"><h4><span class="day-emoji">🎯</span>Monday mops up</h4><p>Monday is the hospital's busiest day (92.9 appts, 5.5 scans). Having the new vet's fourth day here clears any residual weekend backlog before their Tue–Thu break, when the hospital is at its quietest (78–85 appts/day).</p></div>
@@ -266,7 +268,7 @@
 
 <section>
   <h3>7 · Existing ultrasound specialists: rotation coverage &amp; the recurring Saturday gap</h3>
-  <p class="note">New analysis (19 Aug 2026): full-year 2026 Al Wasl staffing sheet, tracking the two current ultrasound-capable vets — <b>Ivan</b> (Team 2, paired with assistant <b>Johny</b>) and <b>Isabel</b> (Team 4, paired with assistant <b>Shakila</b>) — across all 357 tracked days (Weeks 2–52).</p>
+  <p class="note">New analysis (19 Aug 2026): full-year 2026 Al Wasl staffing sheet, tracking the two current ultrasound-capable vets — <b>Ivan</b> (Team 2) and <b>Isabel</b> (Team 4) — across all 357 tracked days (Weeks 2–52). <b>Coverage counts vets only</b>: assistants (Johny with Ivan, Shakila with Isabel) support scans but can't perform them independently, so they are excluded from all coverage math in §7–§8.</p>
 
   <div class="kpi-grid">
     <div class="kpi"><div class="label">Combined US coverage</div><div class="value pos">96.4%</div><div class="delta">344 / 357 days have Ivan and/or Isabel on</div></div>
@@ -315,6 +317,7 @@
   <p class="note"><b>The counter-intuitive result: a standard MID shift is the single worst fixed option.</b> Ivan and Isabel's uncovered hours rotate — mornings one week, afternoons the next, a whole Saturday every fourth — while a MID shift always sits in the middle of the day, mostly duplicating hours that one of them already covers. Fixed AM or PM is better; a fixed weekly mix (PM Fri / AM Sat / AM Sun / PM Mon) better still; but only a rotation that mirrors their 4-week cycle closes the actual holes.</p>
 
   <h5 style="margin:22px 0 4px; font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.4px;">Ultrasound coverage per day (quarters of the day covered, full 4-week cycle)</h5>
+  <p class="note"><b>How to read the cells:</b> each day is split into four quarters — Q1 ≈ 08–12, Q2 ≈ 12–16, Q3 ≈ 16–20, Q4 ≈ 20–24. An AM shift covers Q1+Q2, MID covers Q2+Q3, PM covers Q3+Q4, a long day covers all four. <b>“4/4” = a sonographer <i>vet</i> is on site in every quarter of the working day; “2/4” = only half the day has one</b> (e.g. Ivan on PM alone = afternoon+evening covered, whole morning blind). Vets only — assistants (Johny, Shakila) are not counted: they support scans but can't perform them independently.</p>
   <div class="grid2">
     <div>
       <h5>❌ Today (Ivan + Isabel only)</h5>
@@ -351,7 +354,23 @@
     <h4>🏆 Recommended: 4-week flex rotation, published months in advance</h4>
     <p>Because Ivan &amp; Isabel's rotation repeats <b>identically every 28 days with zero variance all year</b> (verified: 11 sampled cycles, 16/16 shift slots matching every time), the “flex” schedule isn't ad-hoc at all — it's a fixed 4-week pattern that can be printed into the roster for the entire year on day one.</p>
     <p><b>WK A</b> (Ivan-PM Sat): AM · AM · AM · AM &nbsp;&nbsp;│&nbsp;&nbsp; <b>WK B</b> (gap Sat): PM · <b>LONG</b> · AM · AM &nbsp;&nbsp;│&nbsp;&nbsp; <b>WK C</b> (Isabel-AM Sat): AM · PM · PM · AM &nbsp;&nbsp;│&nbsp;&nbsp; <b>WK D</b> (full Sat): AM · AM · AM · PM &nbsp;&nbsp;<span style="color:var(--muted);">(Fri · Sat · Sun · Mon)</span></p>
-    <p><b>What it buys:</b> demand-exposed scan hours on Fri–Mon drop from ~366 scan-slots/year (baseline) to ~52 — an <b>86% reduction</b> — vs only a 29% reduction if the new vet sat on a standard MID shift (~261 still exposed). The 13 zero-coverage Saturdays disappear entirely, and every fourth Saturday needs just one long day (13×/year) to do it. If a long day isn't contractually possible, PM is the fallback on gap Saturdays (score drops 95.0% → 92.5%, still far ahead of any fixed pattern).</p>
+    <p><b>What it buys:</b> demand-exposed scan hours on Fri–Mon drop from ~366 scan-slots/year (baseline) to ~52 — an <b>86% reduction</b> — vs only a 29% reduction if the new vet sat on a standard MID shift (~261 still exposed). The 13 zero-coverage Saturdays disappear entirely, and every fourth Saturday needs just one long day (13×/year) to do it. If a long day isn't contractually possible, an <b>AM (or 09:00–18:00 custom) shift is the fallback</b> on gap Saturdays — see the hourly evidence below.</p>
+  </div>
+
+  <h5 style="margin:26px 0 4px; font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.4px;">When do scans actually happen? (445 hospital US requests, 90 days, hour-of-day)</h5>
+  <div class="bars">
+    <div class="bar-row"><div class="bar-label" style="width:110px;">08–12</div><div class="bar-track"><div class="bar-fill" style="width:57.6%; background:var(--accent);">28.8%</div></div></div>
+    <div class="bar-row"><div class="bar-label" style="width:110px;">12–16</div><div class="bar-track"><div class="bar-fill" style="width:64.8%; background:var(--accent);">32.4% · peak</div></div></div>
+    <div class="bar-row"><div class="bar-label" style="width:110px;">16–20</div><div class="bar-track"><div class="bar-fill" style="width:48%; background:var(--accent);">24.0%</div></div></div>
+    <div class="bar-row"><div class="bar-label" style="width:110px;">20–24</div><div class="bar-track"><div class="bar-fill" style="width:18.8%; background:var(--muted);">9.4%</div></div></div>
+    <div class="bar-row"><div class="bar-label" style="width:110px;">00–08</div><div class="bar-track"><div class="bar-fill" style="width:10.8%; background:var(--muted);">5.4% · ER covers</div></div></div>
+  </div>
+  <p class="note">Ultrasound demand is front-loaded: <b>61% of all scan requests land before 16:00</b>, peaking 10:00–16:00 (morning consults generate same-day imaging). Evenings are thin and overnight is ER territory.</p>
+
+  <div class="rev-box">
+    <h4>❓ “When the new vet is the only sonographer that day — is AM better than MID?”</h4>
+    <p><b>Yes, clearly.</b> Measured against the actual hourly demand curve, a solo sonographer captures: <b>AM (08–17) → 70.1%</b> of the day's scan requests · <b>MID (12–21) → 60.2%</b> · PM (15–24) → 41.8%. The single best custom 9-hour window is <b>09:00–18:00 (71.7%)</b> — essentially a late-AM shift. MID loses the busy 08–12 morning ramp (29% of demand) to gain the quiet evening (9%): a bad trade.</p>
+    <p><b>Robustness check:</b> re-scoring every option in the chart above with quarters weighted by this real hourly curve (instead of equal quarters) changes nothing in the ranking — flex + long Saturday still #1 (98.0%), flex standard 96.2%, while fixed AM becomes the clear best <i>fixed</i> option (89.1%) and fixed MID (79.8%) / fixed PM (79.1%) stay at the bottom. The flex rotation's AM-heavy tilt (11 of 16 shifts) is exactly what the demand curve wants.</p>
   </div>
 </section>
 
@@ -362,12 +381,12 @@
     <b>Scoring:</b> per-day need = 0.40 × appts/vet + 0.30 × US/day + 0.15 × US/vet + 0.15 × staffing thinness, normalized 0–1. Rotation score = sum of ON-day scores; Saturday-weighted variant adds +0.15 to Saturday per the weekend-coverage directive. All 7 wrap-around rotations evaluated.<br><br>
     <b>Caveats:</b> ultrasound demand measured from requested diagnostics — it under-counts suppressed weekend demand (the true Saturday gap is likely larger than shown). Revenue per appointment is a blended hospital average; the incrementality factor (70–80%) is an estimate, not measured. v1 of this report used network-wide data; this v2 supersedes it. Re-run after 4–6 weeks of the new rotation to validate.<br><br>
     <b>Section 7 (added 19 Aug 2026):</b> source is the live Al Wasl staffing Google Sheet, full year 2026 (Weeks 2–52, 357 tracked days). Ivan (Team 2 vet) and Johny (Team 2 assistant) vs. Isabel (Team 4 vet) and Shakila (Team 4 assistant) tracked by parsing each week's per-team shift code (AM/PM/MID) and vet/assistant name cells. A day counts as "on" only when both a shift code and a vet name are present for that team that day (blank cells = team not scheduled that day). SICK-flagged days were left counted as "on" since the sheet still lists a shift/name for them (7 such flags across the year, ~2% of days — not material to the pattern). Gap dates verified as spaced exactly 28 days apart with zero exceptions.<br><br>
-    <b>Section 8 (added 19 Aug 2026):</b> day modelled as 4 quarters; AM = Q1–Q2, MID = Q2–Q3, PM = Q3–Q4, long day = Q1–Q4 (union of quarter sets — two people on identical hours add no extra coverage). Quarters weighted by each day's ultrasound demand (Section 1 scans/day). Scores computed over the new vet's Fri–Mon days across one full 28-day cycle; the Ivan/Isabel cycle was verified identical in 11 sampled cycles across 2026 (16/16 slots each) so one cycle generalizes to the whole year. All 3 uniform fixed shifts, all 81 fixed weekly patterns, and per-slot optimal flex assignments were evaluated exhaustively (script: score_shift_options2.py). “Scan-slots exposed” = demand-weighted uncovered quarters × 13 cycles/year — demand occurring in windows with no sonographer on site, not necessarily lost revenue (some rebooks internally).
+    <b>Section 8 (added 19 Aug 2026):</b> day modelled as 4 quarters; AM = Q1–Q2, MID = Q2–Q3, PM = Q3–Q4, long day = Q1–Q4 (union of quarter sets — two people on identical hours add no extra coverage). Quarters weighted by each day's ultrasound demand (Section 1 scans/day). Scores computed over the new vet's Fri–Mon days across one full 28-day cycle; the Ivan/Isabel cycle was verified identical in 11 sampled cycles across 2026 (16/16 slots each) so one cycle generalizes to the whole year. All 3 uniform fixed shifts, all 81 fixed weekly patterns, and per-slot optimal flex assignments were evaluated exhaustively (script: score_shift_options2.py). “Scan-slots exposed” = demand-weighted uncovered quarters × 13 cycles/year — demand occurring in windows with no sonographer on site, not necessarily lost revenue (some rebooks internally). Hour-of-day analysis: same 652 network diagnostic requests re-pulled with timestamps (445 hospital-coded), Dubai time; quarter boundaries 08/12/16/20/24; shift windows assumed 9h (AM 08–17, MID 12–21, PM 15–24). Coverage math counts sonographer vets only — assistants excluded throughout.
   </div>
 </section>
 
 <div class="footer">
-  Prepared by Cheshire · 19 Aug 2026 (v3.1 — added US-specialist rotation, Saturday gap &amp; shift-strategy scoring) · Data window: staffing — full year 2026 (357 days); revenue/demand — 20 May – 18 Aug 2026 (90 days) · Internal use only — do not distribute outside Vet Alliance management.
+  Prepared by Cheshire · 19 Aug 2026 (v3.2 — US-specialist rotation, Saturday gap, shift-strategy scoring &amp; hourly demand) · Data window: staffing — full year 2026 (357 days); revenue/demand — 20 May – 18 Aug 2026 (90 days) · Internal use only — do not distribute outside Vet Alliance management.
 </div>
 </div>
 </body>
