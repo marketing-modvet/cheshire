@@ -86,9 +86,10 @@
     <h1>🗓️ Scheduling Knowledge Hub</h1>
     <p>Everything currently known about how clinic scheduling, teams, and substitute
     coverage work across the network — compiled from the live scheduling sheet
-    (read-only) plus prior internal analysis. Step 1 before building the scheduling
-    &amp; vacation optimization app. Built 2026-08-23; will be updated after the
-    scheduling team's input.</p>
+    (read-only) plus prior internal analysis, plus a read-only pull from the
+    internal leave-tracking app. Step 1 before building the scheduling
+    &amp; vacation optimization app. Built 2026-08-23, updated same day (v1.2)
+    after new input; will be updated again after the scheduling team's input.</p>
   </div>
 </header>
 
@@ -103,7 +104,8 @@
     <a href="#cadence">7. Meeting Cadence</a>
     <a href="#other">8. Other Roles</a>
     <a href="#questions">9. Open Questions</a>
-    <a href="#docs">10. Related Docs</a>
+    <a href="#app">11. Leave App</a>
+    <a href="#docs">12. Related Docs</a>
   </div>
 </nav>
 
@@ -343,10 +345,12 @@
   <h2><span class="num">5</span>Discrepancies Found This Session</h2>
   <p class="sub">Worth confirming with the scheduling team before the app trusts any of this as ground truth.</p>
 
-  <div class="flag-box">
-    <h4>1. Faten at BOVC/DIP nights</h4>
-    <p>June 2026 pooling decision said "Faten NOT used." Live 2026 roster shows her actively
-    alternating weekly with Abdelatif all year. Possibly the structural night-coverage gap was quietly solved — confirm.</p>
+  <div class="card" style="background:#f0fdf4;border-color:#bbf7d0">
+    <h4 style="margin-top:0;color:#0d9488">✅ RESOLVED — Faten at BOVC/DIP nights</h4>
+    <p style="font-size:13.5px">June 2026 pooling decision said "Faten NOT used." Live 2026 roster showed her actively
+    alternating weekly with Abdelatif all year — and the leave-tracking app (§11) independently confirms it:
+    Faten Ahmed Abdellatif, BOVC_DIP / Night Vet, <code>active: true</code>. The structural night-coverage gap was
+    quietly solved by putting her back on nights; the June note is simply outdated.</p>
   </div>
 
   <div class="card" style="background:#f0fdf4;border-color:#bbf7d0">
@@ -377,8 +381,14 @@
       (e.g. <code>"Louie 10-16 March — Saad Cover"</code>, <code>"Silverio 31 Mar-2 Apr — No Cover"</code>).
       This is effectively the accept/reject ground-truth an automated engine should be validated against.</li>
     <li>Per-clinic weekly tabs carry inline leave/SICK annotations directly on shift cells too.</li>
-    <li><b>No single canonical leave-balance tracker</b> found in this sheet — likely lives in Bayzat.</li>
+    <li><b>No single canonical leave-balance tracker</b> found in this sheet.</li>
   </ul>
+  <div class="card" style="background:#f0fdf4;border-color:#bbf7d0;margin-top:14px">
+    <h4 style="margin-top:0;color:#0d9488">✅ RESOLVED 2026-08-23 — the canonical tracker exists</h4>
+    <p style="font-size:13.5px">Andrew pointed us to a live internal app, <code>schedule.vetallianceholding.com</code>,
+    which tracks 3,557 structured leave applications and syncs employee records directly from <b>Bayzat</b>.
+    Treat this sheet as a secondary/working view — see new <b>§11</b> below for the full breakdown.</p>
+  </div>
 </section>
 
 <section id="cadence">
@@ -407,19 +417,92 @@
 <section id="questions">
   <h2><span class="num">9</span>Open Questions for the Scheduling Team (tomorrow)</h2>
   <div class="qa"><b>1.</b> Is the AM→MID→PM weekly rotation truly universal, or do clinics deviate manually sometimes — how often, and why?</div>
-  <div class="qa"><b>2.</b> What's the real current status of Faten at BOVC nights?</div>
-  <div class="qa"><b>3.</b> <s>Confirm the Ramona name collision and Despina/D2 status.</s> <b>RESOLVED 2026-08-23</b> — see discrepancies section above.</div>
-  <div class="qa"><b>4.</b> Is Dusko formally a 4th Palm team or purely flex/cover?</div>
-  <div class="qa"><b>5.</b> What's the actual sub/cover process for nurses, assistants, and reception — does an equivalent ladder exist beyond vets?</div>
-  <div class="qa"><b>6.</b> Where does approved leave get recorded first — Bayzat, this sheet, or elsewhere — which is source of truth on conflict?</div>
-  <div class="qa"><b>7.</b> Confirm current per-clinic minimum staffing floors are still accurate.</div>
+  <div class="qa"><b>2.</b> <s>What's the real current status of Faten at BOVC nights?</s> <b>RESOLVED 2026-08-23</b> — see §5 and §11: confirmed active, priority-1 poolable.</div>
+  <div class="qa"><b>3.</b> <s>Confirm the Ramona name collision and Despina/D2 status.</s> <b>RESOLVED 2026-08-23</b> — see §5 and §11 (confirmed via Bayzat-synced employee records — exact IDs, locations, departure dates now on file).</div>
+  <div class="qa"><b>4.</b> Is Dusko formally a 4th Palm team or purely flex/cover? <i>Partially answered by §11:</i> the app lists him as MV_PLM / Vet, poolable, priority 1 — same location as the other Palm teams, no separate "Team 4" flag either. Still worth asking directly.</div>
+  <div class="qa"><b>5.</b> What's the actual sub/cover process for nurses, assistants, and reception — does an equivalent ladder exist beyond vets? <i>Partially answered by §11:</i> a real 52-rule pooling table covers all these roles. Still worth confirming it's actually followed operationally, not just configured.</div>
+  <div class="qa"><b>6.</b> <s>Where does approved leave get recorded first — Bayzat, this sheet, or elsewhere?</s> <b>RESOLVED 2026-08-23</b> — see §11: the leave-tracking app IS the source of truth, synced directly from Bayzat.</div>
+  <div class="qa"><b>7.</b> <s>Confirm current per-clinic minimum staffing floors are still accurate.</s> <b>RESOLVED 2026-08-23</b> — see §11: the app has explicit configured minimums per location/role/day-type. Full table pulled.</div>
   <div class="qa"><b>8.</b> Is there a formal "no same-shift overlap" rule beyond the Ivan/Isabel ultrasound-specialist case?</div>
   <div class="qa"><b>9.</b> Any written qualification-matching rules for cross-clinic subs (which vets can cover which clinics)?</div>
-  <div class="qa"><b>10.</b> Confirm exact summer skeleton window dates + which clinics/roles it applies to.</div>
+  <div class="qa"><b>10.</b> Confirm exact summer skeleton window dates + which clinics/roles it applies to. <i>Note:</i> the app's seasonal-rules table is currently <b>empty</b> — whatever summer logic exists lives only in Mansoor's June doc, not configured anywhere in the app.</div>
+  <div class="qa"><b>11.</b> The app's Shortages page currently <b>crashes</b> with a JS error — known issue? Who owns fixing it?</div>
+  <div class="qa"><b>12.</b> Ramona Jazopolo is still flagged poolable/priority-2 despite being inactive/departed in the app — cleanup oversight or intentional?</div>
+  <div class="qa"><b>13.</b> Dieter Malleczek shows active:false with no departure date and no Bayzat sync data — looks like a stale record rather than a confirmed departure. Worth confirming directly.</div>
+</section>
+
+<section id="app">
+  <h2><span class="num">11</span>The Leave/Scheduling App — Existing System (pulled 2026-08-23)</h2>
+  <p class="sub">Read-only pull from <code>schedule.vetallianceholding.com</code> — admin login, zero changes made, per instruction.</p>
+
+  <div class="card" style="background:#eff6ff;border-color:#bfdbfe;margin-bottom:16px">
+    <h4 style="margin-top:0;color:#1d4ed8">Why this matters</h4>
+    <p style="font-size:13.5px">This isn't just more input — it's an <b>existing system already doing part of what we're building</b>:
+    a real Bayzat sync, a real employee database, a real (if incomplete) pooling-rules engine, and a real leave-application
+    queue. Andrew's own description: <i>"rusty and super manual to use, and not all rules are there."</i> Confirmed live —
+    the Shortages page crashes, and several config gaps exist (seasonal rules empty, some stale records). Worth discussing
+    whether step 2 builds on top of this app rather than starting from zero.</p>
+  </div>
+
+  <h4>Locations (12 active)</h4>
+  <p>BOVC_DIP, CC (Call Center), MV_AZIZI, MV_DT, MV_JLT, MV_JVC, MV_KWNJ, MV_MB, MV_MOB, MV_PLM, TVRC_MUROOJ, VIENNA — all <code>active: true</code>.
+  <b>BOVC_D2 isn't a location at all</b> in this app, only a role-tier entry with every role <code>active: false</code> —
+  independent confirmation D2 is closed.</p>
+
+  <h4>Roles &amp; staffing floors (65 role×location entries, full table pulled)</h4>
+  <table>
+    <tr><th>Location</th><th>Role</th><th>Teams</th><th>Per-team</th><th>Weekday min</th><th>Fri min</th><th>Sat min</th></tr>
+    <tr><td>MV_MB</td><td>Vet / Assistant</td><td>4</td><td>3</td><td>7</td><td>7</td><td>5</td></tr>
+    <tr><td>MV_MB</td><td>Receptionist</td><td>3</td><td>3</td><td>5</td><td>7</td><td>5</td></tr>
+    <tr><td>MV_MB</td><td>Surgery Nurse / Hospital Nurse</td><td>4</td><td>2</td><td>4</td><td>4</td><td>4</td></tr>
+    <tr><td>MV_MB</td><td>Hospital Vet</td><td>4</td><td>1</td><td>2</td><td>2</td><td>2</td></tr>
+    <tr><td>BOVC_DIP</td><td>Vet / Nurse</td><td>4</td><td>1</td><td>2</td><td>2</td><td>2</td></tr>
+    <tr><td>BOVC_DIP</td><td>Assistant / Cleaner / Receptionist / Hospital Vet</td><td>3</td><td>1</td><td>2</td><td>2</td><td>2</td></tr>
+    <tr><td>MV_JLT / MV_DT / VIENNA</td><td>Vet/Nurse/Assistant/Receptionist/Cleaner</td><td>3</td><td>1</td><td>2</td><td>2</td><td>2</td></tr>
+    <tr><td>MV_JVC / MV_PLM</td><td>Vet/Nurse/Assistant</td><td>4</td><td>1</td><td>2</td><td>2</td><td>2</td></tr>
+    <tr><td>MV_AZIZI / MV_KWNJ</td><td>Vet/Nurse/Receptionist</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+    <tr><td>MV_MOB</td><td>Vet</td><td>1</td><td>1</td><td>1</td><td>0 (Fri closed)</td><td>0 (Sat closed)</td></tr>
+    <tr><td>CC</td><td>Receptionist</td><td>3</td><td>5</td><td>15</td><td>15</td><td>15</td></tr>
+  </table>
+  <p class="sub">Roles marked <code>active: false</code> (confirmed via app): BOVC_D2 (all 3 roles), MV_DT/Assistant, MV_JVC/Night Nurse,
+  MV_MB/Nurse (likely superseded by Hospital/Surgery Nurse split), TVRC_MUROOJ/Assistant.</p>
+
+  <h4>Employees (324 records) — Bayzat-synced</h4>
+  <p>Each record carries a full <code>bayzatProfile</code> plus app fields <code>poolable</code>/<code>poolPriority</code>/<code>active</code>/<code>departed</code>.
+  This directly resolves the Ramona/Despina discrepancy with hard IDs:</p>
+  <table>
+    <tr><th>Employee ID</th><th>Name</th><th>Location</th><th>Role</th><th>Active</th><th>Departed</th></tr>
+    <tr><td>10126</td><td>Ramona Jazopolo</td><td>MV_JVC</td><td>Vet</td><td>false</td><td>2026-07-27</td></tr>
+    <tr><td>10061</td><td>Despina Hleiss</td><td>MV_DT</td><td>Vet</td><td>false</td><td>2026-07-27</td></tr>
+    <tr><td>010013</td><td>Marioara Ramona David</td><td>BOVC_DIP</td><td>Receptionist</td><td><b>true</b></td><td>—</td></tr>
+  </table>
+
+  <h4>Pooling Rules — 52 active (vs. 34 vet-only in the June doc)</h4>
+  <p>Structured <code>fromLocation/fromRole → toLocation/toRole</code> with numeric priority. Covers Nurses, Receptionists,
+  Cleaners and Hospital Vets too, e.g. Call Center Receptionist backs nearly every clinic's reception (priorities 1–10);
+  MV_MB Hospital Vet → BOVC_DIP / VIENNA / TVRC_MUROOJ Hospital Vet. Best answer yet to "do non-vet roles have sub rules" —
+  yes, they're configured; whether they're followed operationally is still worth confirming.</p>
+
+  <h4>Seasonal Rules — empty (confirms a real gap)</h4>
+  <p><code>GET /seasonal-rules</code> returns zero records. Nothing configured for the summer-skeleton behavior described
+  in Mansoor's June docs — either fully manual every year, or a genuine feature gap.</p>
+
+  <h4>Recruitment &amp; Shortages (live snapshot)</h4>
+  <p>3 open positions as of 2026-08-23: 2× Surgery Nurse at MV_MB, 1× Nurse at MV_KWNJ. The dedicated Shortages page
+  currently <b>crashes</b> (JS error, confirmed via console) — not usable right now.</p>
+
+  <h4>Leave Applications — 3,557 records, Bayzat-synced</h4>
+  <p>Each record: employee, location, role, team, dates, status, <code>externalId</code> (Bayzat UUID). This is the
+  structured leave history the original project spec wanted from Bayzat directly — turns out it's already synced here,
+  so integrating with this app's API may be simpler than a fresh Bayzat integration.</p>
+
+  <p class="sub">Full raw data for all of the above saved to <code>raw-data/schedule-app/</code> (locations, roles, employees,
+  pooling-rules, seasonal-rules, scheduled-moves, leave-applications-all-3557). No changes made to the live app — read-only
+  GETs only, per instruction.</p>
 </section>
 
 <section id="docs">
-  <h2><span class="num">10</span>Related Documents (already produced — don't duplicate)</h2>
+  <h2><span class="num">12</span>Related Documents (already produced — don't duplicate)</h2>
   <table>
     <tr><th>Document</th><th>Contents</th></tr>
     <tr><td><code>projects/vet-pooling-config/POOLING-RULES-FOR-MANSOOR.md</code></td><td>Full vet-only pooling ruleset, day-cover ladder, night pool, cover bodies</td></tr>
