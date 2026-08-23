@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vet Alliance — Scheduling Knowledge Hub</title>
+<style>
+  #gate-overlay{position:fixed;inset:0;background:#0f2740;color:#fff;z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif}
+  #gate-overlay.hidden{display:none}
+  #gate-box{background:#153454;padding:32px 36px;border-radius:12px;max-width:360px;width:90%;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+  #gate-box h2{margin:0 0 6px;font-size:19px}
+  #gate-box p{margin:0 0 16px;font-size:13px;color:#cfe0ef}
+  #gate-box input{width:100%;padding:10px 12px;border-radius:6px;border:1px solid #2c5378;background:#0f2740;color:#fff;font-size:14px;margin-bottom:10px}
+  #gate-box button{width:100%;padding:10px 12px;border-radius:6px;border:none;background:#1e88e5;color:#fff;font-weight:700;font-size:14px;cursor:pointer}
+  #gate-error{color:#fca5a5;font-size:12.5px;margin-top:8px;display:none}
+  #main-content{display:none}
+  #main-content.visible{display:block}
+  :root{
+    --navy:#0f2740; --navy2:#153454; --accent:#1e88e5; --accent2:#0d9488;
+    --bg:#f4f7fa; --card:#ffffff; --border:#e2e8f0; --text:#1a2634; --muted:#5b6b7c;
+    --warn:#b45309; --warnbg:#fff7ed; --good:#0d9488;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
+  header{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:36px 24px 28px}
+  header h1{margin:0 0 6px;font-size:26px}
+  header p{margin:0;color:#cfe0ef;font-size:14.5px;max-width:900px}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+  nav{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--border);z-index:20;overflow-x:auto;white-space:nowrap}
+  nav .wrap{display:flex;gap:4px;padding:0 20px}
+  nav a{display:inline-block;padding:12px 14px;font-size:13.5px;color:var(--navy);text-decoration:none;border-bottom:3px solid transparent;font-weight:600}
+  nav a:hover{border-color:var(--accent);color:var(--accent)}
+  section{padding:34px 0;border-bottom:1px solid var(--border)}
+  section:last-of-type{border-bottom:none}
+  h2{font-size:20px;color:var(--navy);margin:0 0 6px;display:flex;align-items:center;gap:8px}
+  h2 .num{background:var(--accent);color:#fff;width:26px;height:26px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:13px}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 20px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin-bottom:16px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:12px 0}
+  th,td{border:1px solid var(--border);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:#eef3f8;color:var(--navy);font-weight:700}
+  tr:nth-child(even) td{background:#fafcfe}
+  .tier-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:14px 0}
+  .tier{border-radius:10px;padding:14px;border:1px solid var(--border)}
+  .tier h4{margin:0 0 6px;font-size:14px}
+  .tier.protected{background:#fef2f2;border-color:#fecaca}
+  .tier.self{background:#f0fdf4;border-color:#bbf7d0}
+  .tier.needs{background:#fffbeb;border-color:#fde68a}
+  .tier.fragile{background:#fef2f2;border-color:#fecaca}
+  .ladder{counter-reset:step}
+  .ladder li{counter-increment:step;list-style:none;margin:8px 0;padding:10px 14px;background:#eef3f8;border-radius:8px;position:relative;padding-left:44px}
+  .ladder li::before{content:"STEP " counter(step) " ";position:absolute;left:12px;top:10px;font-weight:700;color:var(--accent);font-size:11px}
+  .badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:6px}
+  .badge.never{background:#fee2e2;color:#b91c1c}
+  .badge.flag{background:#fef3c7;color:#92400e}
+  .flag-box{background:var(--warnbg);border:1px solid #fed7aa;border-radius:10px;padding:14px 18px;margin:10px 0}
+  .flag-box h4{margin:0 0 4px;color:var(--warn);font-size:14px}
+  .flag-box p{margin:0;font-size:13.5px}
+  .qa{background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;padding:10px 14px;margin:8px 0;font-size:13.5px}
+  .qa b{color:var(--navy)}
+  ul.plain{margin:6px 0;padding-left:20px;font-size:13.5px}
+  ul.plain li{margin:4px 0}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media (max-width:760px){.grid2{grid-template-columns:1fr}}
+  code{background:#eef3f8;padding:1px 5px;border-radius:4px;font-size:12.5px}
+  .pill{display:inline-block;background:var(--navy);color:#fff;font-size:11px;padding:2px 9px;border-radius:12px;margin-right:6px}
+  footer{padding:26px 20px;text-align:center;color:var(--muted);font-size:12.5px}
+  .toc-note{font-size:12.5px;color:var(--muted);margin-top:-8px;margin-bottom:14px}
+</style>
+</head>
+<body>
+
+<div id="gate-overlay">
+  <div id="gate-box">
+    <h2>🔒 Scheduling Knowledge Hub</h2>
+    <p>This page contains internal staff/roster information. Enter the access password to continue.</p>
+    <input type="password" id="gate-pw" placeholder="Password" autocomplete="off">
+    <button onclick="checkGatePassword()">Unlock</button>
+    <div id="gate-error">Incorrect password — try again.</div>
+  </div>
+</div>
+
+<div id="main-content">
+<header>
+  <div class="wrap">
+    <h1>🗓️ Scheduling Knowledge Hub</h1>
+    <p>Everything currently known about how clinic scheduling, teams, and substitute
+    coverage work across the network — compiled from the live scheduling sheet
+    (read-only) plus prior internal analysis. Step 1 before building the scheduling
+    &amp; vacation optimization app. Built 2026-08-23; will be updated after the
+    scheduling team's input.</p>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap">
+    <a href="#clinics">1. Clinics</a>
+    <a href="#rotation">2. Rotation Engine</a>
+    <a href="#roster">3. Rosters</a>
+    <a href="#rules">4. Cover Rules</a>
+    <a href="#flags">5. Discrepancies</a>
+    <a href="#vacation">6. Vacation Tracking</a>
+    <a href="#cadence">7. Meeting Cadence</a>
+    <a href="#other">8. Other Roles</a>
+    <a href="#questions">9. Open Questions</a>
+    <a href="#docs">10. Related Docs</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<section id="clinics">
+  <h2><span class="num">1</span>Clinic Network — Who's Where</h2>
+  <p class="sub">14 operating sites, each with a fixed team structure.</p>
+  <table>
+    <tr><th>Clinic</th><th>Team structure</th><th>Notes</th></tr>
+    <tr><td><b>Al Wasl Hospital (MB)</b></td><td>4 teams + night team</td><td>24/7 hospital, hospital/junior vets, <span class="badge never">PROTECTED — never a source</span></td></tr>
+    <tr><td>Palm</td><td>4 teams</td><td>Self-covering; becomes net <b>source</b> in summer</td></tr>
+    <tr><td>JVC</td><td>4 teams</td><td>Self-covering</td></tr>
+    <tr><td>BOVC / DIP</td><td>3 teams + hospital vets + night team</td><td>DIP = diagnostic imaging side</td></tr>
+    <tr><td>BOVC D2</td><td>Reduced team (Dr. Ehab)</td><td>Was flagged "closed" in June docs — live sheet shows active <span class="badge flag">flag</span></td></tr>
+    <tr><td>JLT</td><td>3 teams</td><td><b>Needs-backfill</b> — zero slack</td></tr>
+    <tr><td>Downtown (DT)</td><td>3 teams</td><td><b>Needs-backfill</b> — zero slack</td></tr>
+    <tr><td>Vienna</td><td>3 teams</td><td><b>Needs-backfill</b>; has part-time internal gap cover (Michaela, Flavia)</td></tr>
+    <tr><td>Azizi</td><td>2-team, 7-day, effectively 1 vet/day</td><td><b>Fragile</b> — currently ~1 team (Hanieh + Anusha), MID only</td></tr>
+    <tr><td>Khawaneej (KWNJ)</td><td>2-team, 7-day, 1 vet/day</td><td><b>Fragile</b> — currently Ehab rotation, closed most Fri/Sat</td></tr>
+    <tr><td>TVRC (referral)</td><td>Multiple small vet+nurse pairs</td><td>Specialty caseload; own lab techs, own night sub-tab</td></tr>
+    <tr><td>Call Center</td><td>3 teams</td><td>Reception/scheduling only, no clinical staff</td></tr>
+    <tr><td>Mobile Clinic</td><td>Single unit (Rahaf)</td><td>Lowest opportunity-cost cover body; suspended in summer to redeploy</td></tr>
+  </table>
+</section>
+
+<section id="rotation">
+  <h2><span class="num">2</span>The Rotation Engine — How Shifts Actually Rotate</h2>
+  <p class="sub">Every team-based clinic runs on one of two fixed master templates found in the sheet.</p>
+
+  <div class="card">
+    <h4 style="margin-top:0">Shift blocks</h4>
+    <ul class="plain">
+      <li><b>AM</b> ≈ 07:30–15:30 (vets) / 07:00–16:30 (nurses)</li>
+      <li><b>MID</b> ≈ 10:00–18:00 (vets) / 09:00–18:30 (nurses)</li>
+      <li><b>PM</b> ≈ 14:00–22:00 (vets) / 13:00–22:30 or 00:30 (nurses; later at JVC/Palm)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h4 style="margin-top:0">4-team / 4-week master pattern (Al Wasl, Palm, JVC, BOVC)</h4>
+    <table>
+      <tr><th>Team</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th></tr>
+      <tr><td>Team A (Wk1)</td><td>off</td><td>AM</td><td>AM</td><td>AM</td><td>AM</td><td>off</td><td>off</td></tr>
+      <tr><td>Team B (Wk1)</td><td>PM</td><td>PM</td><td>PM</td><td>off</td><td>MID</td><td>AM</td><td>AM</td></tr>
+      <tr><td>Team C (Wk1)</td><td>MID</td><td>MID</td><td>MID</td><td>MID</td><td>off</td><td>off</td><td>MID</td></tr>
+      <tr><td>Team D (Wk1)</td><td>AM</td><td>off</td><td>off</td><td>PM</td><td>PM</td><td>PM</td><td>PM</td></tr>
+    </table>
+    <p style="font-size:13px;color:var(--muted)">Each team keeps the same days on/off — only the shift <i>type</i> rotates
+    AM→MID→PM→(repeat) as the week number advances. Full cycle = 4 weeks.
+    Net result: <b>every team works 4 consecutive days on, then 3 off, every week.</b></p>
+  </div>
+
+  <div class="card">
+    <h4 style="margin-top:0">3-team / 3-week pattern (JLT, DT, Vienna)</h4>
+    <p style="font-size:13.5px">Identical logic, 3 teams instead of 4, cycle completes in 3 weeks.
+    Same 4-on/3-off rule per person — but with less overlap headroom, which is exactly
+    why these clinics sit in the "needs backfill" tier: losing one team here drops
+    coverage much further than losing one team at a 4-team clinic.</p>
+  </div>
+
+  <div class="flag-box">
+    <h4>⚠️ Saturday is structurally the thinnest day, everywhere</h4>
+    <p>Confirmed independently by the rotation pattern <i>and</i> a prior ezyVet demand
+    analysis (2026-08-18) — Saturday has the lowest vet headcount of the week at every
+    multi-team clinic. Any coverage-gap tool should treat Saturday as the highest-scrutiny day by default.</p>
+  </div>
+
+  <div class="card">
+    <h4 style="margin-top:0">2-team, 7-day clinics (Azizi, Khawaneej) — different logic</h4>
+    <p style="font-size:13.5px">Too small for AM/MID/PM rotation — single MID shift, ~7 days/week
+    with 1-2 fixed closed days, one vet + one nurse. Any absence = an uncovered day unless
+    externally backfilled.</p>
+  </div>
+</section>
+
+<section id="roster">
+  <h2><span class="num">3</span>Current Team Rosters (by clinic)</h2>
+  <p class="sub">Source: "Current Teams" tab, scraped 2026-08-23. Names with "?" are as written in the sheet by the scheduling team themselves.</p>
+
+  <div class="grid2">
+    <div class="card">
+      <h4 style="margin-top:0">MVC-WASL (Al Wasl Hospital)</h4>
+      <table>
+        <tr><th></th><th>Team 1</th><th>Team 2</th><th>Team 3</th></tr>
+        <tr><td>Vets</td><td>Moustafa, Waseem, Kirill</td><td>Horacio, Cristina, Ionut</td><td>Rami, Patrick, Bea</td></tr>
+        <tr><td>Hospital Vets</td><td>Madina, Aaesha</td><td>Dania</td><td>Kiran, Hanieh</td></tr>
+        <tr><td>Nurses</td><td>Laurent, Jabu, Gavrilo, Sara, Resty, Ibrahim Sohail, Abdullah Elgendy, Haritha, Ryan</td><td>Wilson, Paul, Mohammed</td><td>Irah, Aya, Melody, Ayesha, Jerin</td></tr>
+        <tr><td>Assistants</td><td>Hussein</td><td>Johny, Kay, Kemily, Margarita</td><td>Don</td></tr>
+        <tr><td>Cleaner</td><td>Randy</td><td>Nirmana, Heshan</td><td>Viraj</td></tr>
+        <tr><td>Driver</td><td>Madu</td><td>Gay</td><td>Shan</td></tr>
+        <tr><td>Reception</td><td>Ruby, Sarath, Kenneth</td><td>Kaloust, Oumaima, Patricia</td><td>Alexa, George, Aisha</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h4 style="margin-top:0">MVC-PALM</h4>
+      <table>
+        <tr><th></th><th>Team 1</th><th>Team 2</th><th>Team 3</th></tr>
+        <tr><td>Vets</td><td>Luciano, Tetiana</td><td>Ricardos</td><td>Clara</td></tr>
+        <tr><td>Nurses</td><td>Adnan</td><td>Zakaria</td><td>Aloyshi</td></tr>
+        <tr><td>Assistants</td><td>Ebie, Ibrahim Ssem</td><td>Elina</td><td>Mary</td></tr>
+        <tr><td>Reception</td><td>Jona, Rowena</td><td>Kelly</td><td>Ruth</td></tr>
+      </table>
+      <p style="font-size:12px;color:var(--muted)">Note: Dusko appears as a rotating "Team 4"-style cover vet in the weekly Palm roster tab but not in this static org chart — confirm whether Palm is really 3 teams + 1 dedicated cover vet, or 4 full teams.</p>
+    </div>
+
+    <div class="card">
+      <h4 style="margin-top:0">MVC-JVC</h4>
+      <table>
+        <tr><th></th><th>Team 1</th><th>Team 2</th><th>Team 3</th></tr>
+        <tr><td>Vets</td><td>Marta, Shifna</td><td>Krystel</td><td>Ramona</td></tr>
+        <tr><td>Nurses</td><td>Kate</td><td>Abdullah</td><td>Chido</td></tr>
+        <tr><td>Assistants</td><td>Jose, Mohd Alkhyely</td><td>Rammesh</td><td>Jervis</td></tr>
+        <tr><td>Reception</td><td>Sanjai</td><td>Joy</td><td>Heshan</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h4 style="margin-top:0">MVC-JLT</h4>
+      <table>
+        <tr><th></th><th>Team 1</th><th>Team 2</th><th>Team 3</th></tr>
+        <tr><td>Vets</td><td>Nicoletta</td><td>Sara, Novi</td><td>Laura</td></tr>
+        <tr><td>Nurses</td><td>Karen</td><td>Tapiwa</td><td>Mark</td></tr>
+        <tr><td>Assistants</td><td>Euf</td><td>Niringa</td><td>Narsaiah</td></tr>
+        <tr><td>Reception</td><td>Zama</td><td>Sruthi</td><td>Adnan</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h4 style="margin-top:0">MVC-DT (Downtown)</h4>
+      <table>
+        <tr><th></th><th>Team 1</th><th>Team 2</th><th>Team 3</th></tr>
+        <tr><td>Vets</td><td>Silverio</td><td>Despina</td><td>Fatima</td></tr>
+        <tr><td>Nurses</td><td>Francis</td><td>Adina</td><td>Mark</td></tr>
+        <tr><td>Reception</td><td>Iza</td><td>Remy</td><td>April</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h4 style="margin-top:0">MVC Night Team (MB)</h4>
+      <table>
+        <tr><th></th><th>Team 1</th><th>Team 2</th></tr>
+        <tr><td>Vets</td><td>Artem</td><td>Serhii Sadovsky</td></tr>
+        <tr><td>Nurses</td><td>Jeff</td><td>Louie</td></tr>
+        <tr><td>Assistants</td><td>Fern</td><td>Raisan</td></tr>
+        <tr><td>Reception</td><td>Jen</td><td>Ely</td></tr>
+      </table>
+      <p style="font-size:12px;color:var(--muted)">Confirmed: Artem &amp; Serhii literally alternate whole weeks, not both nightly.</p>
+    </div>
+
+    <div class="card">
+      <h4 style="margin-top:0">BOVC-DIP</h4>
+      <table>
+        <tr><th></th><th>Team 1</th><th>Team 2</th><th>Team 3</th></tr>
+        <tr><td>Vets</td><td>Matus, Kurt</td><td>Rachelle, Jan</td><td>Nour, Mariana, Liza</td></tr>
+        <tr><td>Hospital Vets</td><td>Gilbert</td><td>Vlada</td><td></td></tr>
+        <tr><td>Nurses</td><td>Lissan, James</td><td>Nikole, Amal</td><td>Mateo, Michael</td></tr>
+        <tr><td>Assistants</td><td>George, Jonald</td><td>Russel, Shakila</td><td>Leonardo, Silva</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h4 style="margin-top:0">Vienna (VIE-VET)</h4>
+      <table>
+        <tr><th></th><th>Team 1</th><th>Team 2</th><th>Team 3</th></tr>
+        <tr><td>Vets</td><td>Hatem, Michaela</td><td>Pavle, Flavia</td><td>Parvathy</td></tr>
+        <tr><td>Nurses</td><td>Jessa</td><td>Stephen</td><td>Rommel</td></tr>
+        <tr><td>Assistants</td><td>Grace</td><td>Aida</td><td>Christine</td></tr>
+        <tr><td>Reception</td><td>Arjay, Sharmaine</td><td>Nicole</td><td>John Francis</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="rules">
+  <h2><span class="num">4</span>Cover / Substitute Rules</h2>
+  <p class="sub">Existing documented ruleset from prior work with ops (Mansoor), 2026-06-19/22 — vet-focused, strongest starting point available. To be validated against tomorrow's scheduling-team input.</p>
+
+  <div class="card">
+    <h4 style="margin-top:0">🏆 The golden rule</h4>
+    <p style="font-size:14.5px"><b>Never pull a vet from a source if it drops that source below its own floor.</b>
+    Movement costs revenue — always exhaust the cheapest option first.</p>
+  </div>
+
+  <h4>Clinic tiers</h4>
+  <div class="tier-grid">
+    <div class="tier protected"><h4>Protected</h4>Al Wasl (MB) — never a source, never pulled from</div>
+    <div class="tier self"><h4>Self-covering</h4>JVC, Palm, BOVC — 4-team, can lend a spare 3rd</div>
+    <div class="tier needs"><h4>Needs-backfill</h4>JLT, Downtown, Vienna — 3-team, zero slack</div>
+    <div class="tier fragile"><h4>Fragile</h4>Azizi, Khawaneej — 2-team 7-day, 1 vet/day</div>
+  </div>
+
+  <h4>The day-cover ladder</h4>
+  <ol class="ladder">
+    <li>Internal slack (no movement): Vienna→Michaela/Flavia, BOVC→Nour</li>
+    <li>Rahaf (Mobile) — lowest opportunity cost</li>
+    <li>Dedicated flex cover: Ehab, then Kurt (summer: Dusko &amp; Clara jump to top — Palm frees them)</li>
+    <li>Spare 3rd from a 4-team clinic (JVC/Palm/BOVC), never below their own floor</li>
+    <li>Peer day vet from another clinic, only if source stays ≥ its own floor</li>
+  </ol>
+  <p style="font-size:13.5px"><b>Never a source, ever:</b> MB/Al Wasl vets <span class="badge never">NEVER</span>
+  · Irina (ultrasonographer) <span class="badge never">NEVER</span>
+  · Dieter (CT/MRI reserve) <span class="badge never">NEVER</span>
+  · any hospital/junior vet <span class="badge never">NEVER</span></p>
+
+  <h4>Cover bodies quick reference</h4>
+  <table>
+    <tr><th>Person</th><th>Role</th><th>Rule</th></tr>
+    <tr><td>Rahaf</td><td>Mobile</td><td>Pulled first; suspended in summer → redeploys fully as cover</td></tr>
+    <tr><td>Ehab</td><td>Flex cover, no home clinic</td><td>Night backstop #1; day+night eligible</td></tr>
+    <tr><td>Kurt</td><td>Flex cover, no home clinic</td><td>Night backstop #2; standing JLT day cover</td></tr>
+    <tr><td>Dusko</td><td>Palm-home cover</td><td>Summer-primary source; night-available</td></tr>
+    <tr><td>Clara</td><td>Palm-home cover</td><td>~half availability; cross-branch</td></tr>
+    <tr><td>Nour</td><td>BOVC-fixed</td><td>Counts toward BOVC floor; splits days to TVRC</td></tr>
+    <tr><td>Michaela / Flavia</td><td>Vienna part-time</td><td>Internal Vienna gap cover only</td></tr>
+    <tr><td>Irina</td><td>Ultrasonographer</td><td><span class="badge never">Never counts, never covers</span></td></tr>
+    <tr><td>Dieter</td><td>CT/MRI reserve</td><td>Stable schedule — never needs or provides cover</td></tr>
+    <tr><td>Hospital vets (Madina, Aisha, Dania, Guendouz, Kiran, Gilbert, Vlady, Hanieh)</td><td>Junior/supervised licence</td><td>Count only toward their own clinic's hospital slot</td></tr>
+  </table>
+
+  <h4>Night pool (separate from day ladder — 7-on/7-off, 12h shifts)</h4>
+  <ul class="plain">
+    <li><b>MB nights:</b> Artem + Serhii Sadovsky — confirmed alternating full weeks</li>
+    <li><b>BOVC/DIP nights:</b> Faten + Abdelatif alternate weekly per live roster (see discrepancy note below)</li>
+    <li>Night backstops, in order: <b>#1 Ehab, #2 Kurt</b>, Dusko also available</li>
+    <li>FANR eligibility required for DIP nights — <b>Gilbert is explicitly NOT night-eligible</b></li>
+  </ul>
+
+  <h4>Seasonal override — summer skeleton window (~1 Jul – 15 Sep)</h4>
+  <p style="font-size:13.5px">Palm goes skeleton (becomes a net cover source), Dusko &amp; Clara promoted to top
+  of flex-cover step, Mobile (Rahaf) suspended and redeployed fully. Slackest window of the year — used to clear
+  backlogged leave requests.</p>
+</section>
+
+<section id="flags">
+  <h2><span class="num">5</span>Discrepancies Found This Session</h2>
+  <p class="sub">Worth confirming with the scheduling team before the app trusts any of this as ground truth.</p>
+
+  <div class="flag-box">
+    <h4>1. Faten at BOVC/DIP nights</h4>
+    <p>June 2026 pooling decision said "Faten NOT used." Live 2026 roster shows her actively
+    alternating weekly with Abdelatif all year. Possibly the structural night-coverage gap was quietly solved — confirm.</p>
+  </div>
+  <div class="flag-box">
+    <h4>2. Ramona / Despina exit dates (27 Jul 2026)</h4>
+    <p>Live August schedule still shows both actively rostered. Possible name collision — there appear to be
+    two different "Ramona"s (a Vet at JVC/MB, and a Reception staffer at Call Center).</p>
+  </div>
+  <div class="flag-box">
+    <h4>3. D2 (BOVC) status</h4>
+    <p>Described as "closed" in earlier pooling-config notes, but "Current Teams" shows it live with Dr. Ehab's team.</p>
+  </div>
+  <div class="flag-box">
+    <h4>4. Dusko's clinic listing</h4>
+    <p>Shows as a rotating cover vet in weekly Palm rosters but isn't in the static "Current Teams" org chart at all — confirm whether Palm is 3 teams + 1 dedicated cover vet, or 4 full teams.</p>
+  </div>
+</section>
+
+<section id="vacation">
+  <h2><span class="num">6</span>Vacation / Leave Planning — Current State</h2>
+  <ul class="plain">
+    <li><b>VacPlan tab:</b> flat list, one row/person, columns = months, free-text cell like
+      <code>"3 days (04 Jun 2026 - 06 Jun 2026)"</code> — no structured date columns, would need parsing.</li>
+    <li><b>March Leaves tab:</b> month-by-month log of real leave requests + the human decision/reasoning
+      (e.g. <code>"Louie 10-16 March — Saad Cover"</code>, <code>"Silverio 31 Mar-2 Apr — No Cover"</code>).
+      This is effectively the accept/reject ground-truth an automated engine should be validated against.</li>
+    <li>Per-clinic weekly tabs carry inline leave/SICK annotations directly on shift cells too.</li>
+    <li><b>No single canonical leave-balance tracker</b> found in this sheet — likely lives in Bayzat.</li>
+  </ul>
+</section>
+
+<section id="cadence">
+  <h2><span class="num">7</span>Meeting / Operational Cadence</h2>
+  <ul class="plain">
+    <li>Daily rounds by clinic, ~07:30–08:00 (MB/BOVC/Vienna/Other) — none at D2</li>
+    <li>TVRC meeting ~14:00–14:30</li>
+    <li>Vienna meeting every 2nd Thursday, 14:30–15:30</li>
+    <li>All-vets meeting every 2nd Friday</li>
+    <li>Lunch break window 13:30–14:00 (general)</li>
+    <li>Task-time checkpoints built into AM/MID/PM shifts (admin/charting catch-up)</li>
+    <li><b>Confirmed:</b> Vets and Hospital Vets at MB and DIP follow the identical AM/PM/MID rotation — hospital vets just count toward a different floor</li>
+  </ul>
+</section>
+
+<section id="other">
+  <h2><span class="num">8</span>Groomers &amp; Other Ancillary Roles</h2>
+  <ul class="plain">
+    <li>Reymond Bayobay (Palm groomer) — current 6-day/48h schedule flagged tiring; 5-day/47.5h alternative proposed in-sheet</li>
+    <li>Jeovanni Tolero (Vienna groomer), Shaju Komban (Vienna groomer) — similar alternate schedules proposed</li>
+    <li>Downtown Cleaners — AM (07:00–16:30) / PM (13:00–22:30), 9.5h shifts</li>
+    <li>TVRC Lab Technicians — Waqar Saleem &amp; Rubina Rahman, offset shifts covering extended lab hours</li>
+  </ul>
+</section>
+
+<section id="questions">
+  <h2><span class="num">9</span>Open Questions for the Scheduling Team (tomorrow)</h2>
+  <div class="qa"><b>1.</b> Is the AM→MID→PM weekly rotation truly universal, or do clinics deviate manually sometimes — how often, and why?</div>
+  <div class="qa"><b>2.</b> What's the real current status of Faten at BOVC nights?</div>
+  <div class="qa"><b>3.</b> Confirm the Ramona name collision and Despina/D2 status.</div>
+  <div class="qa"><b>4.</b> Is Dusko formally a 4th Palm team or purely flex/cover?</div>
+  <div class="qa"><b>5.</b> What's the actual sub/cover process for nurses, assistants, and reception — does an equivalent ladder exist beyond vets?</div>
+  <div class="qa"><b>6.</b> Where does approved leave get recorded first — Bayzat, this sheet, or elsewhere — which is source of truth on conflict?</div>
+  <div class="qa"><b>7.</b> Confirm current per-clinic minimum staffing floors are still accurate.</div>
+  <div class="qa"><b>8.</b> Is there a formal "no same-shift overlap" rule beyond the Ivan/Isabel ultrasound-specialist case?</div>
+  <div class="qa"><b>9.</b> Any written qualification-matching rules for cross-clinic subs (which vets can cover which clinics)?</div>
+  <div class="qa"><b>10.</b> Confirm exact summer skeleton window dates + which clinics/roles it applies to.</div>
+</section>
+
+<section id="docs">
+  <h2><span class="num">10</span>Related Documents (already produced — don't duplicate)</h2>
+  <table>
+    <tr><th>Document</th><th>Contents</th></tr>
+    <tr><td><code>projects/vet-pooling-config/POOLING-RULES-FOR-MANSOOR.md</code></td><td>Full vet-only pooling ruleset, day-cover ladder, night pool, cover bodies</td></tr>
+    <tr><td><code>projects/vet-pooling-config/APP-CHANGES-REQUIRED.md</code></td><td>Concrete config needed in the rostering app to run the ruleset</td></tr>
+    <tr><td><code>projects/clinic-scheduling-sub-finder/README.md</code></td><td>Paused Leave-Sub Finder app spec (Bayzat + static schedule + floors + rules → auto-approve engine)</td></tr>
+    <tr><td><code>memory/2026-08-18-vet-schedule-optimization.md</code></td><td>ezyVet demand analysis: weekday imbalance, Saturday thinnest day, 4-on/3-off scoring</td></tr>
+    <tr><td><code>memory/2026-08-19-vet-schedule-us-specialist-gap.md</code></td><td>Ivan/Isabel ultrasound rotation gap analysis using this same sheet</td></tr>
+    <tr><td><code>shared/Vet Pooling Configuration.pdf</code></td><td>Mansoor's original v1.0 spec PDF</td></tr>
+  </table>
+</section>
+
+</div>
+
+<footer>
+  Compiled 2026-08-23 by Cheshire from the live scheduling Google Sheet (read-only, no edits made)
+  plus existing project documentation. Next update: fold in scheduling-team input.
+</footer>
+
+</div>
+
+<script>
+const PW_HASH = "060873e47b72c4a1a06e7fced0d08f9bbcdbe190586043373c8766c22c129cc1";
+
+async function sha256(str){
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,"0")).join("");
+}
+
+async function checkGatePassword(){
+  const pw = document.getElementById("gate-pw").value;
+  const hash = await sha256(pw);
+  if(hash === PW_HASH){
+    sessionStorage.setItem("sched_hub_unlocked","1");
+    document.getElementById("gate-overlay").classList.add("hidden");
+    document.getElementById("main-content").classList.add("visible");
+  } else {
+    document.getElementById("gate-error").style.display = "block";
+  }
+}
+
+document.getElementById("gate-pw").addEventListener("keydown", function(e){
+  if(e.key === "Enter") checkGatePassword();
+});
+
+if(sessionStorage.getItem("sched_hub_unlocked") === "1"){
+  document.getElementById("gate-overlay").classList.add("hidden");
+  document.getElementById("main-content").classList.add("visible");
+}
+</script>
+
+</body>
+</html>
