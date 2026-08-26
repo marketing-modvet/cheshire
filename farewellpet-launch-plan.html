@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FarewellPet — Launch Plan (Target: Oct 1)</title>
+<style>
+  :root{
+    --coral:#DC4A35;
+    --coral-dark:#B7392A;
+    --coral-light:#FCE7E2;
+    --ink:#241f1d;
+    --ink-soft:#5b524e;
+    --paper:#FBF8F6;
+    --line:#EAE0DC;
+    --ok:#2E7D5B;
+    --warn:#B8860B;
+    --risk:#B7392A;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:'Georgia',"Iowan Old Style", serif;
+    line-height:1.55;
+  }
+  .sans{ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; }
+  header.hero{
+    background:linear-gradient(160deg,var(--coral) 0%,var(--coral-dark) 100%);
+    color:#fff; padding:64px 24px 56px; text-align:center;
+    position:relative; overflow:hidden;
+  }
+  header.hero::after{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(circle at 80% 10%, rgba(255,255,255,.12), transparent 45%),
+               radial-gradient(circle at 10% 90%, rgba(255,255,255,.10), transparent 40%);
+  }
+  header.hero .logo-wrap{
+    position:relative; z-index:1;
+    width:120px; height:120px; margin:0 auto 22px; background:#fff; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; box-shadow:0 12px 30px rgba(0,0,0,.25);
+  }
+  header.hero .logo-wrap img{ width:88px; height:88px; object-fit:contain; }
+  header.hero h1{
+    position:relative; z-index:1;
+    font-size:2.6rem; margin:0 0 8px; letter-spacing:.5px; font-weight:400;
+  }
+  header.hero p.tag{
+    position:relative; z-index:1;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:1.05rem; opacity:.92; margin:0 0 20px; letter-spacing:1px; text-transform:uppercase;
+  }
+  header.hero .countdown{
+    position:relative; z-index:1;
+    display:inline-flex; gap:10px; flex-wrap:wrap; justify-content:center;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+  header.hero .countdown span{
+    background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.35);
+    padding:8px 16px; border-radius:999px; font-size:.85rem; font-weight:600;
+  }
+  main{ max-width:1080px; margin:0 auto; padding:0 24px 80px; }
+  section{ margin-top:56px; }
+  h2.section-title{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:1.7rem; color:var(--coral-dark); border-bottom:3px solid var(--coral);
+    padding-bottom:10px; margin-bottom:22px; display:flex; align-items:center; gap:10px;
+  }
+  h3{ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; color:var(--ink); font-size:1.15rem; margin:26px 0 10px;}
+  p{ color:var(--ink-soft); }
+  .lead{ font-size:1.1rem; color:var(--ink); }
+  .callout{
+    background:#fff; border:1px solid var(--line); border-left:5px solid var(--coral);
+    border-radius:10px; padding:18px 22px; margin:18px 0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    color:var(--ink);
+  }
+  .callout.warn{ border-left-color:var(--warn); }
+  .callout.ok{ border-left-color:var(--ok); }
+  .grid{ display:grid; gap:18px; }
+  .grid.cols-2{ grid-template-columns:1fr 1fr; }
+  .grid.cols-3{ grid-template-columns:repeat(3,1fr); }
+  @media (max-width:760px){ .grid.cols-2, .grid.cols-3{ grid-template-columns:1fr; } }
+  .card{
+    background:#fff; border:1px solid var(--line); border-radius:12px; padding:20px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+  .card h4{ margin:0 0 8px; color:var(--coral-dark); font-size:1rem; }
+  .card p{ font-size:.92rem; margin:0; }
+  table{ width:100%; border-collapse:collapse; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; font-size:.9rem; background:#fff; border-radius:10px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,.06);}
+  th,td{ padding:11px 14px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+  th{ background:var(--coral); color:#fff; font-weight:600; }
+  tr:last-child td{ border-bottom:none; }
+  tr:nth-child(even) td{ background:#fdf9f8; }
+  .badge{
+    display:inline-block; padding:3px 10px; border-radius:999px; font-size:.72rem; font-weight:700;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    text-transform:uppercase; letter-spacing:.4px;
+  }
+  .b-us{ background:#E7F0FF; color:#1F4E9C; }
+  .b-team{ background:#FFF3D6; color:#8A6100; }
+  .b-vendor{ background:#F1E4FF; color:#5B2D91; }
+  .b-andrew{ background:var(--coral-light); color:var(--coral-dark); }
+  .owners{ margin-bottom:10px; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; font-size:.82rem; }
+  .owners b{ color:var(--ink-soft); font-weight:600; margin-right:6px;}
+  .timeline{ position:relative; margin-left:14px; padding-left:26px; border-left:3px solid var(--coral-light); }
+  .tl-item{ position:relative; margin-bottom:26px; }
+  .tl-item::before{
+    content:""; position:absolute; left:-33px; top:4px; width:14px; height:14px; border-radius:50%;
+    background:var(--coral); border:3px solid #fff; box-shadow:0 0 0 2px var(--coral);
+  }
+  .tl-item .wk{ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; font-weight:700; color:var(--coral-dark); font-size:.95rem; }
+  .tl-item ul{ margin:6px 0 0; padding-left:20px; color:var(--ink-soft); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; font-size:.92rem;}
+  .checklist{ list-style:none; padding:0; margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;}
+  .checklist li{ padding:9px 0 9px 30px; position:relative; border-bottom:1px solid var(--line); font-size:.94rem; color:var(--ink);}
+  .checklist li:last-child{ border-bottom:none; }
+  .checklist li::before{ content:"○"; position:absolute; left:0; color:var(--coral); font-size:1.1rem; top:8px;}
+  .swatch-row{ display:flex; gap:14px; flex-wrap:wrap; margin:14px 0; }
+  .swatch{ width:120px; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; text-align:center; font-size:.78rem; color:var(--ink-soft);}
+  .swatch .box{ height:70px; border-radius:8px; margin-bottom:6px; border:1px solid rgba(0,0,0,.06); }
+  footer{ text-align:center; padding:36px 24px 60px; color:var(--ink-soft); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; font-size:.85rem;}
+  .toc{ display:flex; flex-wrap:wrap; gap:10px; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; }
+  .toc a{ background:#fff; border:1px solid var(--line); color:var(--coral-dark); text-decoration:none; padding:8px 14px; border-radius:999px; font-size:.82rem; font-weight:600; }
+  .toc a:hover{ background:var(--coral-light); }
+  .qbox{ background:#fff; border:1px dashed var(--coral); border-radius:10px; padding:16px 20px; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; font-size:.9rem; color:var(--ink-soft);}
+  .qbox b{ color:var(--coral-dark); }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="logo-wrap"><img src="farewellpet-launch/assets/logo.png" alt="FarewellPet logo"></div>
+  <h1>FarewellPet</h1>
+  <p class="tag">Pet Funeral &amp; Cremation Services — Launch Plan</p>
+  <div class="countdown">
+    <span>📍 Site: Khawaneej building (separate entrance, ready)</span>
+    <span>🎯 Target launch: 1 October 2026</span>
+    <span>⏱️ ~5 weeks from kickoff</span>
+    <span>🏢 Standalone brand, under Vet Alliance</span>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <h2 class="section-title">📋 Contents</h2>
+  <div class="toc">
+    <a href="#status">Where we stand today</a>
+    <a href="#brand">Brand identity</a>
+    <a href="#workstreams">The 7 workstreams</a>
+    <a href="#website">1. Website</a>
+    <a href="#social">2. Social &amp; content</a>
+    <a href="#collateral">3. Photo/video/print</a>
+    <a href="#b2b">4. B2B proposition</a>
+    <a href="#b2c">5. B2C launch</a>
+    <a href="#ops">6. Ops readiness</a>
+    <a href="#logistics">7. Logistics/dispatch</a>
+    <a href="#timeline">Week-by-week timeline</a>
+    <a href="#owners">Who owns what</a>
+    <a href="#open">Open items I need from you</a>
+  </div>
+</section>
+
+<section id="status">
+  <h2 class="section-title">✅ Where we stand today</h2>
+  <div class="grid cols-2">
+    <div class="card">
+      <h4>Already in place</h4>
+      <p>Brand name &amp; logo (Farewell Pet Funeral Services). One official brand colour (coral/terracotta). Domain <code>farewellpet.ae</code> registered. Facility built inside the Khawaneej building with its own separate entrance from the clinic. All legal/regulatory documents for the crematorium are complete and launch-ready. Cremation equipment confirmed ready.</p>
+    </div>
+    <div class="card">
+      <h4>Still needed — everything customer-facing</h4>
+      <p>Website, social accounts, photography, video, print collateral for clinics (stands/posters), the B2B referral proposition and outreach kit, pricing &amp; service-tier structure (pending from Andrew), and staff hiring for the crematorium itself.</p>
+    </div>
+  </div>
+  <div class="callout warn">
+    <b>The real critical path isn't marketing — it's hiring.</b> Premises, legal docs, and equipment are ready; the facility is waiting on staff. Marketing/brand assets can be 100% ready by Oct 1 in parallel, but the launch date should be pressure-tested against the hiring timeline, not the other way round.
+  </div>
+</section>
+
+<section id="brand">
+  <h2 class="section-title">🎨 Brand identity (locked)</h2>
+  <div class="grid cols-2">
+    <div class="card">
+      <h4>Logo</h4>
+      <p>Circular emblem: a dog and cat silhouette side by side beneath a weeping willow branch (mourning/remembrance symbolism). Wordmark "Farewell" in serif above "PET FUNERAL SERVICES" in bold sans caps. Single coral/terracotta colourway on white.</p>
+    </div>
+    <div class="card">
+      <h4>Tone of voice</h4>
+      <p>Warm, dignified, unhurried. Never clinical, never salesy. Grief-literate language — "goodbye," "remembrance," "care" over "disposal," "processing," "service fee." This tone has to carry through <em>every</em> touchpoint: website copy, Slack/email templates for grieving owners, even invoice wording.</p>
+    </div>
+  </div>
+  <h3>Colour system to build out (only 1 official colour exists today)</h3>
+  <div class="swatch-row">
+    <div class="swatch"><div class="box" style="background:#DC4A35"></div>Coral (primary)<br>~#DC4A35</div>
+    <div class="swatch"><div class="box" style="background:#B7392A"></div>Coral — dark<br>(headers/CTA hover)</div>
+    <div class="swatch"><div class="box" style="background:#FCE7E2"></div>Coral — tint<br>(backgrounds)</div>
+    <div class="swatch"><div class="box" style="background:#F4EFE9;border:1px solid #ddd"></div>Warm neutral<br>(paper/cream)</div>
+    <div class="swatch"><div class="box" style="background:#3A4A43;border:1px solid #ddd"></div>Sage/charcoal<br>(text, grounding)</div>
+  </div>
+  <p style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:.88rem;">A single colour won't carry a whole brand system (website states, buttons, print). Before the designer starts on collateral, lock a small extended palette (1–2 secondary/neutral tones) and the two typefaces (serif for wordmark/headlines, sans for body) into a one-page mini brand guide — saves every downstream asset from drifting.</p>
+</section>
+
+<section id="workstreams">
+  <h2 class="section-title">🧩 The 7 workstreams</h2>
+  <p class="lead">Everything below breaks into 7 tracks. Some I can build directly now, some need your employees or outside vendors, a few need decisions from you first.</p>
+</section>
+
+<section id="website">
+  <h3 style="font-size:1.4rem;color:var(--coral-dark);">1. Website — farewellpet.ae</h3>
+  <div class="owners"><span class="badge b-us">Me</span> can build + deploy end-to-end</div>
+  <ul class="checklist">
+    <li>Single-brand site (not styled as a Vet Alliance sub-page) — homepage, Services (private/individual, communal, memorial add-ons — pending pricing), How It Works, For Veterinary Clinics (B2B landing page with referral CTA), About/Our Story, Contact + WhatsApp/phone click-to-call, FAQ (legal — "is burial legal in Dubai," process, timelines)</li>
+    <li>Booking/request flow: simple form → routes to a phone/WhatsApp number and email, no complex CRM needed for launch</li>
+    <li>Dedicated <b>clinic partner page</b> with a one-click "become a referral partner" form — this is the B2B conversion point</li>
+    <li>SEO foundation from day one: target "pet cremation dubai," "pet cremation near me," "pet euthanasia aftercare dubai" — thin competition per the July research, genuine quick-win opportunity</li>
+    <li>Google Business Profile set up + verified against the Khawaneej address (separate entrance/signage from the clinic)</li>
+    <li>Mobile-first — most grieving pet owners will find this on a phone at 11pm</li>
+  </ul>
+  <div class="callout">Domain is registered but has zero DNS configured — completely blank slate, no migration/cleanup needed. I can start building this immediately once the mini brand guide (above) and at least placeholder pricing/service tiers exist.</div>
+</section>
+
+<section id="social">
+  <h3 style="font-size:1.4rem;color:var(--coral-dark);">2. Social media accounts</h3>
+  <div class="owners"><span class="badge b-us">Me</span> can create/set up accounts &amp; posting cadence <span class="badge b-team">Your team</span> for ongoing community management/DMs</div>
+  <ul class="checklist">
+    <li>Instagram + Facebook at minimum (primary discovery + trust-building channels for this category); TikTok optional/secondary — this niche leans heavily on Instagram carousels/reels for memorial content, less on TikTok trend content</li>
+    <li>Google Business Profile (doubles as review/trust engine — critical since competitors like Dubai Pets Funeral and Dotless already have review volume)</li>
+    <li>Bio/handle consistency: <code>@farewellpet.ae</code> or <code>@farewellpetdubai</code> across all platforms, matched to domain</li>
+    <li>Content pillars: educational (what happens, is burial legal, how to choose), memorial features (with owner permission — paw prints, urns), behind-the-scenes dignity/process (builds trust without being graphic), clinic-partner spotlights (B2B trust signal to other clinics)</li>
+    <li><b>Do not</b> cross-post from Modern Vet/other Vet Alliance clinic accounts — standalone brand needs to look and feel independent, especially for B2B credibility with competing clinics</li>
+  </ul>
+</section>
+
+<section id="collateral">
+  <h3 style="font-size:1.4rem;color:var(--coral-dark);">3. Photography, video &amp; print collateral</h3>
+  <div class="owners"><span class="badge b-vendor">Vendor/freelancer</span> for photo+video shoot <span class="badge b-us">Me</span> for design/layout of prints once assets exist</div>
+  <ul class="checklist">
+    <li><b>Photography needed:</b> facility exterior (separate entrance, signage), interior — private viewing/farewell room if one exists, memorial products (urns, paw-print kits, certificates), staff in a warm/professional setting (once hired)</li>
+    <li><b>Video needed:</b> one short (60–90s) brand film — dignified, no graphic content, focused on care/process/reassurance for the website hero + social; one longer (2–3 min) "how it works" explainer for the B2B deck and FAQ page</li>
+    <li>⚠️ This category is uniquely sensitive — recommend a real photographer/videographer with some funeral-industry or healthcare-sensitivity experience, not a standard product shoot. Wrong tone here (too clinical, too staged) undermines the whole brand instantly.</li>
+    <li><b>Print collateral for clinics ("stands"):</b> countertop/reception stand or brochure holder for all 11 Vet Alliance clinics + eventually competitor clinics once B2B partnerships land — a compact leaflet/card explaining the service + QR code to the website, and a discreet reception sign ("End-of-life &amp; aftercare support — ask us, or visit farewellpet.ae")</li>
+    <li>I can design the print layouts once photos/logo variants exist — printing/production and physical distribution to clinics is a task for your team (or I can coordinate a local printer if you want that handled centrally)</li>
+  </ul>
+</section>
+
+<section id="b2b">
+  <h3 style="font-size:1.4rem;color:var(--coral-dark);">4. B2B proposition (the main event)</h3>
+  <div class="owners"><span class="badge b-us">Me</span> can draft proposition, deck, outreach list &amp; sequence <span class="badge b-andrew">Andrew/team</span> for actual clinic-owner relationship calls</div>
+  <p>This is where most of the revenue pressure sits, per your instruction. The customer here isn't the grieving pet owner — it's <b>every vet clinic in Dubai</b>, including direct competitors of your own clinics. Two audiences within B2B:</p>
+  <div class="grid cols-2">
+    <div class="card">
+      <h4>Internal — the 11 Vet Alliance clinics</h4>
+      <p>Day-one guaranteed volume. Needs: a simple internal SOP each clinic follows when a pet passes (who to call, what the owner is told, how pickup/paperwork works), staff briefing/training material, and the countertop collateral above. This is an operational rollout, not a sales pitch — should be the easiest and fastest piece to lock down.</p>
+    </div>
+    <div class="card">
+      <h4>External — competitor &amp; independent clinics across Dubai</h4>
+      <p>The real growth lever. Needs a genuine sales motion: a one-page proposition (what you offer, pricing/commission or referral-fee structure, pickup logistics, turnaround time, dignified packaging of ashes/certificates back to the clinic or owner), a short deck, and a target list to work through systematically.</p>
+    </div>
+  </div>
+  <h3>What the external B2B pitch needs to say</h3>
+  <ul class="checklist">
+    <li>Reliability: pickup on request, defined turnaround (competitors advertise 3–5 working days for ashes-back — match or beat it)</li>
+    <li>Logistics is a non-issue: your driver-dispatch/OptimoRoute fleet already handles scheduled pickups across Dubai (same rails used for lab samples/patient transport today) — this is a genuine, provable differentiator to lead with</li>
+    <li>Clear tiers: communal (no ash return), communal (ash return), private/individual — matches what the market already understands (confirmed from competitor research) so clinics don't need to re-educate their own clients</li>
+    <li>What's in it for the referring clinic: a referral fee/commission, or simply "we make your worst days easier and your client relationship looks better" — needs a decision from you on the commercial model</li>
+    <li>Trust signal that this is <i>not</i> "a competitor's cremation service" — standalone branding matters enormously here; the pitch should barely mention Vet Alliance up front</li>
+  </ul>
+  <div class="callout">I can draft the full one-pager + short deck once pricing/commission structure is set. Target list build (every vet clinic in Dubai, contact info) is something I can research and compile now, independent of pricing.</div>
+</section>
+
+<section id="b2c">
+  <h3 style="font-size:1.4rem;color:var(--coral-dark);">5. B2C launch (secondary, but visible)</h3>
+  <div class="owners"><span class="badge b-us">Me</span> for SEO/GMB/paid setup <span class="badge b-team">Your team</span> for local community touches</div>
+  <ul class="checklist">
+    <li>Local SEO + Google Business Profile is the highest-leverage low-cost channel here — high-intent, emotionally loaded searches, thin competition (confirmed July research)</li>
+    <li>Small always-on Google Ads budget on "pet cremation dubai" style terms once site is live — cheap relative to clinic acquisition campaigns, because intent is already at maximum</li>
+    <li>Review generation from day one (competitors are winning partly on review volume — Dubai Pets Funeral, Dotless already rank with real reviews)</li>
+    <li>No mass-market/flyer push needed for B2C at launch — this is a channel that grows on trust/SEO over time, not paid blitz. Resource priority should stay on B2B.</li>
+  </ul>
+</section>
+
+<section id="ops">
+  <h3 style="font-size:1.4rem;color:var(--coral-dark);">6. Operational readiness (non-marketing, but launch-blocking)</h3>
+  <div class="owners"><span class="badge b-andrew">Andrew/team</span> — outside my scope, flagged for visibility</div>
+  <ul class="checklist">
+    <li><b>Hiring</b> — you flagged this as the only remaining gap before the facility can operate. This is the real critical path for Oct 1, not any marketing item above.</li>
+    <li>Staff training on tone/process (ties into the B2B internal SOP above — same material should train new crematorium staff <i>and</i> clinic front-desk teams)</li>
+    <li>Pricing &amp; service-tier finalisation — you said this comes later; flagged as a blocker for finishing the website's Services page, the B2B pricing sheet, and any paid ad copy. Everything else (structure, design, content skeleton) can be built with placeholders now and dropped in fast once ready.</li>
+    <li>Payment/invoicing setup for B2B accounts (net terms with clinics vs. B2C pay-on-service)</li>
+  </ul>
+</section>
+
+<section id="logistics">
+  <h3 style="font-size:1.4rem;color:var(--coral-dark);">7. Logistics / pickup — reuse what's already built</h3>
+  <div class="owners"><span class="badge b-us">Me</span> — mostly configuration, not new build</div>
+  <ul class="checklist">
+    <li>The driver-dispatch app + OptimoRoute rails already move samples and patients across every clinic today — extending this to "collect a deceased pet from Clinic X, deliver to FarewellPet" is a new task type, not a new system</li>
+    <li>Need a job type + SOP for time-sensitive, dignified handling (separate from routine lab-sample pickups in tone/priority, even if the same drivers/software)</li>
+    <li>Ashes/urn return trip back to the clinic or directly to the owner also fits the same dispatch flow</li>
+  </ul>
+</section>
+
+<section id="timeline">
+  <h2 class="section-title">🗓️ Week-by-week to October 1</h2>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="wk">Week 1 (now – Aug 30) · Foundations</div>
+      <ul>
+        <li>Lock mini brand guide (extended palette, typography) so every asset downstream is consistent</li>
+        <li>I start website build (structure, copy skeleton, SEO setup) with placeholder pricing</li>
+        <li>Book photographer/videographer for facility + product shoot</li>
+        <li>I compile the Dubai vet clinic target list for B2B outreach</li>
+        <li>You confirm commercial model for B2B (referral fee / commission / flat partnership) — needed to finish the B2B one-pager</li>
+      </ul>
+    </div>
+    <div class="tl-item">
+      <div class="wk">Week 2 (Sep 1 – 7) · Build</div>
+      <ul>
+        <li>Photo/video shoot happens (facility, products, staff once available)</li>
+        <li>Website content build continues; social accounts created and branded</li>
+        <li>Internal SOP drafted for the 11 Vet Alliance clinics (who calls whom, what's said, pickup flow)</li>
+        <li>Driver-dispatch job type/config for pet collection added</li>
+      </ul>
+    </div>
+    <div class="tl-item">
+      <div class="wk">Week 3 (Sep 8 – 14) · Assemble</div>
+      <ul>
+        <li>Website goes into review/staging with real photos dropped in</li>
+        <li>B2B one-pager + short deck finalised (once pricing/commission confirmed)</li>
+        <li>Print collateral (clinic stands/leaflets) designed and sent to print</li>
+        <li>Social content calendar for first 4 weeks post-launch drafted</li>
+      </ul>
+    </div>
+    <div class="tl-item">
+      <div class="wk">Week 4 (Sep 15 – 21) · Internal rollout</div>
+      <ul>
+        <li>Print collateral delivered and placed in all 11 clinics; front-desk teams briefed on the SOP</li>
+        <li>Website final review, GMB profile submitted for verification (can take days — start early)</li>
+        <li>B2B outreach to external clinics begins quietly (pre-launch relationship building, not hard pitch yet)</li>
+      </ul>
+    </div>
+    <div class="tl-item">
+      <div class="wk">Week 5 (Sep 22 – 30) · Pre-launch polish</div>
+      <ul>
+        <li>Website live on farewellpet.ae, fully tested (forms, mobile, click-to-call)</li>
+        <li>Social accounts start soft-posting (educational content, no hard launch messaging yet)</li>
+        <li>Confirm staffing is on track — this is the actual go/no-go gate, independent of marketing readiness</li>
+        <li>Final B2B pitch materials ready to distribute at launch</li>
+      </ul>
+    </div>
+    <div class="tl-item">
+      <div class="wk">Oct 1 · Launch</div>
+      <ul>
+        <li>Website + social go fully live with launch messaging</li>
+        <li>Formal B2B outreach begins to external/competitor clinics</li>
+        <li>Small local-search ad budget switched on</li>
+        <li>Press-release-style announcement optional (Gulf News/Khaleej Times have covered this topic before — genuine local media hook)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="owners">
+  <h2 class="section-title">👥 Who owns what — summary</h2>
+  <table>
+    <tr><th>Workstream</th><th>Primary owner</th><th>Depends on</th></tr>
+    <tr><td>Website</td><td><span class="badge b-us">Me</span></td><td>Brand guide, placeholder→real pricing</td></tr>
+    <tr><td>Social account setup</td><td><span class="badge b-us">Me</span></td><td>Brand guide, photo/video assets</td></tr>
+    <tr><td>Ongoing social/community management</td><td><span class="badge b-team">Your team</span></td><td>Content calendar handoff</td></tr>
+    <tr><td>Photography &amp; video shoot</td><td><span class="badge b-vendor">Vendor</span></td><td>Staff hired (for people shots), facility access</td></tr>
+    <tr><td>Print collateral design</td><td><span class="badge b-us">Me</span></td><td>Photo assets, brand guide</td></tr>
+    <tr><td>Print production/distribution to clinics</td><td><span class="badge b-team">Your team</span> (or I coordinate a printer)</td><td>Design sign-off</td></tr>
+    <tr><td>B2B proposition/deck/outreach list</td><td><span class="badge b-us">Me</span></td><td>Commercial model decision</td></tr>
+    <tr><td>B2B relationship calls/closing</td><td><span class="badge b-andrew">Andrew/team</span></td><td>Deck ready</td></tr>
+    <tr><td>Internal clinic SOP + training</td><td><span class="badge b-us">Me</span> (draft) + <span class="badge b-team">your team</span> (deliver)</td><td>Ops input on process</td></tr>
+    <tr><td>Local SEO / GMB / paid ads</td><td><span class="badge b-us">Me</span></td><td>Website live</td></tr>
+    <tr><td>Dispatch/logistics config</td><td><span class="badge b-us">Me</span></td><td>None — can start now</td></tr>
+    <tr><td>Hiring crematorium staff</td><td><span class="badge b-andrew">Andrew/team</span></td><td>Nothing on this list — true critical path</td></tr>
+    <tr><td>Pricing &amp; service tiers</td><td><span class="badge b-andrew">Andrew</span></td><td>Blocks website Services page + B2B pricing</td></tr>
+  </table>
+</section>
+
+<section id="open">
+  <h2 class="section-title">❓ What I need from you to keep moving</h2>
+  <div class="qbox">
+    <p><b>1. Commercial model for B2B</b> — referral fee/commission per case to partner clinics, flat partnership, or something else? Blocks the external B2B one-pager.</p>
+    <p><b>2. Pricing/service tiers</b> — you said this comes later; just flag when it's ready so I can drop it into the website + B2B deck without redesigning anything.</p>
+    <p><b>3. Extended brand palette + typography</b> — want me to propose a small palette/type pairing based on the existing coral, or do you have a designer already assigned to this?</p>
+    <p><b>4. Photographer/videographer</b> — do you have someone in mind, or should I source options?</p>
+    <p><b>5. Social handles</b> — confirm preferred handle (<code>@farewellpet.ae</code> / <code>@farewellpetdubai</code> / other) before I reserve them across platforms, so they match everywhere.</p>
+    <p><b>6. Hiring timeline</b> — rough date crematorium staff start, so I can flag if it's tracking behind the Oct 1 marketing readiness.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  FarewellPet Launch Plan · Prepared 26 Aug 2026 · Vet Alliance internal
+</footer>
+
+</body>
+</html>
