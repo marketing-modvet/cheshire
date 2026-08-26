@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FarewellPet — Print-Ready Examples</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --coral:#E94E44; --coral-dark:#B7392A; --coral-tint:#FBDCDA; --coral-wash:#FCF1EF;
+    --cream:#F7F2ED; --sage:#3A4A43; --sage-tint:#DDE6E1; --ink:#2B2422; --ink-soft:#6B6058; --line:#E8DCD5;
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:#EDE7E1; color:var(--ink); font-family:'Inter',sans-serif; line-height:1.6; }
+  .serif{ font-family:'Lora',serif; }
+  header.top{ background:linear-gradient(160deg,var(--coral),var(--coral-dark)); color:#fff; padding:60px 24px 50px; text-align:center; }
+  header.top h1{ font-family:'Lora',serif; font-style:italic; font-size:2.3rem; margin:0 0 8px; color:#fff; }
+  header.top p{ margin:0; opacity:.92; font-size:1rem; color:#fff; }
+  main{ max-width:1150px; margin:0 auto; padding:50px 24px 100px; }
+  h2.stitle{ font-family:'Lora',serif; color:var(--coral-dark); font-size:1.6rem; border-bottom:3px solid var(--coral); padding-bottom:12px; margin:60px 0 8px; }
+  h2.stitle:first-of-type{ margin-top:0; }
+  p.desc{ color:var(--ink-soft); font-size:.92rem; margin:0 0 8px; max-width:760px; }
+  .spec{ display:inline-block; background:var(--sage-tint); color:var(--sage); font-size:.78rem; font-weight:700; padding:4px 10px; border-radius:6px; margin:0 6px 6px 0; }
+  .note{ background:#fff; border-left:4px solid var(--coral); border-radius:0 8px 8px 0; padding:12px 16px; font-size:.85rem; color:var(--ink-soft); margin:20px 0 30px; max-width:760px; }
+
+  /* ---- print stage: shows page on a grey "table" to feel like a mockup, at true aspect ratio ---- */
+  .stage{ display:flex; gap:40px; flex-wrap:wrap; align-items:flex-start; justify-content:center; margin:30px 0; }
+  .sheet-wrap{ text-align:center; }
+  .sheet-wrap .dims{ margin-top:12px; font-size:.8rem; color:var(--ink-soft); font-weight:600; }
+  .sheet{ background:#fff; box-shadow:0 20px 45px rgba(0,0,0,.18); position:relative; }
+  .bleed-mark{ position:absolute; width:14px; height:14px; }
+  .bleed-mark::before, .bleed-mark::after{ content:''; position:absolute; background:#999; }
+  .bleed-mark.tl{ top:6px; left:6px; }
+  .bleed-mark.tr{ top:6px; right:6px; }
+  .bleed-mark.bl{ bottom:6px; left:6px; }
+  .bleed-mark.br{ bottom:6px; right:6px; }
+  .bleed-mark::before{ width:14px; height:1px; top:50%; }
+  .bleed-mark::after{ width:1px; height:14px; left:50%; }
+
+  /* --- A5 reception card: 148x105mm landscape, scaled 3px/mm --- */
+  .a5-card{ width:444px; height:315px; padding:28px 30px; display:flex; flex-direction:column; justify-content:space-between; background:linear-gradient(135deg,#fff 0%, var(--coral-wash) 100%); }
+  .a5-card .top-row{ display:flex; align-items:center; gap:12px; }
+  .a5-card .mark{ width:34px; height:34px; border-radius:50%; background:var(--coral); flex-shrink:0; }
+  .a5-card .brandline{ font-family:'Lora',serif; font-style:italic; font-size:1.15rem; color:var(--ink); }
+  .a5-card .brandline small{ display:block; font-family:'Inter',sans-serif; font-style:normal; font-size:.62rem; letter-spacing:1.5px; color:var(--ink-soft); text-transform:uppercase; margin-top:2px; }
+  .a5-card h3{ font-family:'Lora',serif; font-style:italic; font-size:1.5rem; color:var(--coral-dark); margin:0; line-height:1.2; }
+  .a5-card p{ font-size:.82rem; color:var(--ink-soft); margin:8px 0 0; max-width:340px; }
+  .a5-card .strip{ height:4px; width:60px; background:var(--coral); border-radius:2px; margin:14px 0; }
+  .a5-card .footline{ display:flex; justify-content:space-between; align-items:baseline; font-size:.75rem; color:var(--ink); font-weight:600; border-top:1px solid var(--line); padding-top:10px; }
+  .a5-card .footline .muted{ color:var(--ink-soft); font-weight:400; }
+
+  /* --- A3 poster: 297x420mm portrait, scaled ~1.2px/mm for display --- */
+  .a3-poster{ width:356px; height:504px; display:flex; flex-direction:column; }
+  .a3-poster .top{ background:linear-gradient(160deg,var(--coral),var(--coral-dark)); flex:0 0 62%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px; text-align:center; color:#fff; }
+  .a3-poster .top .mark{ width:56px; height:56px; border-radius:50%; background:rgba(255,255,255,.22); border:2px solid rgba(255,255,255,.55); margin-bottom:16px; display:flex; align-items:center; justify-content:center; font-size:1.6rem; }
+  .a3-poster .top h3{ font-family:'Lora',serif; font-style:italic; font-size:1.55rem; margin:0 0 10px; line-height:1.25; }
+  .a3-poster .top p{ font-size:.82rem; opacity:.92; margin:0; max-width:260px; }
+  .a3-poster .bottom{ flex:1; background:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:22px; text-align:center; }
+  .a3-poster .bottom .line1{ font-family:'Lora',serif; font-style:italic; color:var(--ink); font-size:1rem; margin-bottom:10px; }
+  .a3-poster .bottom .line2{ font-size:.78rem; color:var(--ink-soft); margin-bottom:14px; }
+  .a3-poster .bottom .qr{ width:64px; height:64px; background:repeating-conic-gradient(#2B2422 0% 25%, #fff 0% 50%) 0 0/16px 16px; border:4px solid #fff; box-shadow:0 0 0 1px var(--line); margin-bottom:8px; }
+  .a3-poster .bottom .weblink{ font-size:.78rem; font-weight:700; color:var(--coral-dark); }
+
+  /* --- DL tri-fold outside (cover + back + inside-left-when-closed) 210x99mm landscape flat, 3 panels --- */
+  .trifold{ width:702px; height:330px; display:flex; }
+  .trifold .panel{ flex:1; padding:22px 20px; display:flex; flex-direction:column; position:relative; }
+  .trifold .panel + .panel{ border-left:1px dashed rgba(0,0,0,.15); }
+  .p-back{ background:var(--cream); justify-content:flex-end; }
+  .p-back .mini-mark{ width:26px; height:26px; border-radius:50%; background:var(--coral); margin-bottom:8px; }
+  .p-back h4{ font-family:'Lora',serif; font-style:italic; font-size:.95rem; margin:0 0 6px; color:var(--ink); }
+  .p-back p{ font-size:.68rem; color:var(--ink-soft); margin:0 0 3px; }
+  .p-inside-flap{ background:#fff; justify-content:center; }
+  .p-inside-flap h4{ font-family:'Lora',serif; font-style:italic; font-size:.85rem; color:var(--coral-dark); margin:0 0 8px; }
+  .p-inside-flap ul{ margin:0; padding-left:16px; font-size:.66rem; color:var(--ink-soft); }
+  .p-inside-flap li{ margin-bottom:6px; }
+  .p-cover{ background:linear-gradient(165deg,var(--coral),var(--coral-dark)); color:#fff; align-items:center; justify-content:center; text-align:center; }
+  .p-cover .mark-big{ width:52px; height:52px; border-radius:50%; background:rgba(255,255,255,.2); border:2px solid rgba(255,255,255,.55); margin-bottom:16px; }
+  .p-cover h3{ font-family:'Lora',serif; font-style:italic; font-size:1.35rem; margin:0 0 8px; line-height:1.25; }
+  .p-cover p{ font-size:.72rem; opacity:.9; margin:0; }
+  .fold-label{ position:absolute; top:-22px; left:0; right:0; text-align:center; font-size:.68rem; color:var(--ink-soft); font-weight:700; }
+
+  /* --- DL tri-fold inside (services table + how it works + contact) --- */
+  .trifold-inside{ width:702px; height:330px; display:flex; background:#fff; }
+  .trifold-inside .panel{ flex:1; padding:20px 18px; display:flex; flex-direction:column; }
+  .trifold-inside .panel + .panel{ border-left:1px dashed rgba(0,0,0,.15); }
+  .in-p1 h4, .in-p2 h4, .in-p3 h4{ font-family:'Lora',serif; font-style:italic; color:var(--coral-dark); font-size:.92rem; margin:0 0 10px; }
+  .tier-row{ display:flex; justify-content:space-between; font-size:.66rem; padding:7px 0; border-bottom:1px solid var(--line); }
+  .tier-row b{ display:block; color:var(--ink); font-size:.68rem; }
+  .tier-row .price{ font-weight:700; color:var(--coral-dark); white-space:nowrap; }
+  .step{ display:flex; gap:8px; margin-bottom:10px; align-items:flex-start; }
+  .step .n{ width:18px; height:18px; border-radius:50%; background:var(--coral); color:#fff; font-size:.62rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .step p{ margin:0; font-size:.65rem; color:var(--ink-soft); }
+  .in-p3{ background:var(--coral-wash); }
+  .contact-line{ font-size:.66rem; color:var(--ink); font-weight:600; margin-bottom:8px; }
+  .contact-line small{ display:block; color:var(--ink-soft); font-weight:400; font-size:.6rem; }
+
+  .placeholder-flag{ background:#FBDCDA; color:var(--coral-dark); font-size:.68rem; font-weight:700; padding:2px 8px; border-radius:5px; display:inline-block; margin-top:6px; }
+
+  .callout{ background:#fff; border-left:5px solid var(--coral); border-radius:10px; padding:16px 20px; margin-top:20px; font-size:.88rem; color:var(--ink-soft); max-width:900px; }
+  footer{ text-align:center; padding:30px; color:var(--ink-soft); font-size:.8rem; }
+  a{ color:var(--coral-dark); }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <h1>Print-Ready Examples</h1>
+  <p>Full copy, true proportions, print specs — ready to hand to a printer once pricing is confirmed and photography is swapped in</p>
+</header>
+
+<main>
+
+  <h2 class="stitle">1. Reception counter card</h2>
+  <p class="desc">Sits at all 11 Vet Alliance clinic reception desks + partner clinics once a B2B agreement is signed. Text-only layout — can go to print today, no photography needed.</p>
+  <span class="spec">A5 landscape · 148 × 105 mm</span>
+  <span class="spec">300dpi CMYK</span>
+  <span class="spec">3mm bleed</span>
+  <span class="spec">Matte or soft-touch laminate finish</span>
+
+  <div class="stage">
+    <div class="sheet-wrap">
+      <div class="sheet a5-card">
+        <div class="top-row">
+          <div class="mark"></div>
+          <div class="brandline">FarewellPet<small>Pet Funeral Services</small></div>
+        </div>
+        <div>
+          <h3>A dignified goodbye,<br>every time.</h3>
+          <p>End-of-life &amp; aftercare support for your pet — arranged with care, handled with dignity. Ask a member of our team, any time.</p>
+          <div class="strip"></div>
+        </div>
+        <div class="footline">
+          <span>farewellpet.ae</span>
+          <span class="muted">[phone placeholder] · [email placeholder]</span>
+        </div>
+      </div>
+      <div class="dims">Actual print size: 148mm × 105mm (A5 landscape)</div>
+    </div>
+  </div>
+
+  <div class="note">Everything on this card is real, final copy except the phone number and email (waiting on the @farewellpet.ae addresses — see Launch Plan). This can be sent to a printer as-is; swap those two fields in once they exist.</div>
+
+  <h2 class="stitle">2. Waiting-room poster</h2>
+  <p class="desc">For clinic waiting rooms / notice boards. Shown here with a placeholder image block — swaps for a real still from the shot list without touching the layout.</p>
+  <span class="spec">A3 portrait · 297 × 420 mm</span>
+  <span class="spec">300dpi CMYK</span>
+  <span class="spec">3mm bleed</span>
+  <span class="spec">Matte finish (reduces glare under clinic lighting)</span>
+
+  <div class="stage">
+    <div class="sheet-wrap">
+      <div class="sheet a3-poster">
+        <div class="top">
+          <div class="mark">🐾</div>
+          <h3>When it's time to say goodbye</h3>
+          <p>Compassionate pet cremation &amp; aftercare, arranged through your clinic.</p>
+        </div>
+        <div class="bottom">
+          <div class="line1">Ask our team about FarewellPet</div>
+          <div class="line2">Or scan for more information</div>
+          <div class="qr"></div>
+          <div class="weblink">farewellpet.ae</div>
+        </div>
+      </div>
+      <div class="dims">Actual print size: 297mm × 420mm (A3 portrait)</div>
+      <div class="placeholder-flag">🖼️ Top panel is photo-ready — currently a coral/emblem placeholder</div>
+    </div>
+  </div>
+
+  <div class="note">Recommend swapping the coral top panel for a real photo (calm facility interior or a keepsake urn/paw-print item — see shot list "priority" items) as soon as it exists; the current version is publish-ready as a text/emblem-only variant in the meantime if a poster is needed before the shoot happens.</div>
+
+  <h2 class="stitle">3. Take-home tri-fold leaflet — outside (cover + back)</h2>
+  <p class="desc">Given to families at the point of need — not left out publicly. This is the flat outside view before folding: back panel (left), inside-flap-when-closed (middle), front cover (right, this is what shows when folded closed).</p>
+  <span class="spec">DL tri-fold, flat sheet 210 × 99 mm (99mm portrait panel × 3, folds to DL)</span>
+  <span class="spec">300dpi CMYK</span>
+  <span class="spec">3mm bleed, 2 fold lines</span>
+
+  <div class="stage">
+    <div class="sheet-wrap">
+      <div class="sheet trifold">
+        <div class="panel p-back">
+          <div class="mini-mark"></div>
+          <h4>Contact us</h4>
+          <p>farewellpet.ae</p>
+          <p>[phone placeholder]</p>
+          <p>[email placeholder]</p>
+          <p style="margin-top:8px;">Khawaneej, Dubai — arranged through your veterinary clinic</p>
+        </div>
+        <div class="panel p-inside-flap">
+          <span class="fold-label">↖ folds under cover</span>
+          <h4>Why families choose us</h4>
+          <ul>
+            <li>Collected with care from your clinic — no need to travel</li>
+            <li>Individual cremation options, always separated and tracked</li>
+            <li>Keepsake &amp; memorial choices to suit your family</li>
+            <li>Clear, gentle communication at every step</li>
+          </ul>
+        </div>
+        <div class="panel p-cover">
+          <div class="mark-big"></div>
+          <h3>A dignified<br>goodbye</h3>
+          <p>Pet cremation &amp; aftercare, Dubai</p>
+        </div>
+      </div>
+      <div class="dims">Flat sheet: 210mm × 99mm — folds in thirds to a 70mm × 99mm closed leaflet</div>
+    </div>
+  </div>
+
+  <h2 class="stitle">4. Take-home tri-fold leaflet — inside (services + process + contact)</h2>
+  <p class="desc">The inside spread, seen once opened. Left-to-right: service tiers (placeholder pricing, clearly marked), how it works, and a soft-coral closing panel with the QR/contact repeat.</p>
+
+  <div class="stage">
+    <div class="sheet-wrap">
+      <div class="sheet trifold-inside">
+        <div class="panel in-p1">
+          <h4>Our service tiers</h4>
+          <div class="tier-row"><span><b>Communal</b><br>No ashes returned</span><span class="price">AED [—]</span></div>
+          <div class="tier-row"><span><b>Communal + Ashes</b><br>Ashes returned in a keepsake urn</span><span class="price">AED [—]</span></div>
+          <div class="tier-row"><span><b>Private &amp; Individual</b><br>Dedicated cremation, ashes returned</span><span class="price">AED [—]</span></div>
+          <p style="font-size:.6rem;color:var(--ink-soft);margin-top:8px;">Prices shown as placeholders — final rates confirmed once facility costs are set.</p>
+        </div>
+        <div class="panel in-p2">
+          <h4>How it works</h4>
+          <div class="step"><div class="n">1</div><p>Your clinic contacts us to arrange collection</p></div>
+          <div class="step"><div class="n">2</div><p>We collect with care, at a time that works for your family</p></div>
+          <div class="step"><div class="n">3</div><p>Cremation is carried out with dignity and full tracking</p></div>
+          <div class="step"><div class="n">4</div><p>Ashes and keepsake (if chosen) are returned via your clinic</p></div>
+        </div>
+        <div class="panel in-p3">
+          <h4>Ready when you need us</h4>
+          <div class="contact-line">farewellpet.ae<small>[phone placeholder] · [email placeholder]</small></div>
+          <div class="qr" style="width:56px;height:56px;"></div>
+        </div>
+      </div>
+      <div class="dims">Same flat sheet, inside face — 210mm × 99mm</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <b>What's genuinely print-ready today:</b> the reception card copy is final. The poster and leaflet layouts are final — only the phone/email fields and the three price fields are placeholders, clearly marked so nobody accidentally sends a file to print with "[—]" still in it. Once Andrew's @farewellpet.ae emails and the confirmed pricing land, these four pieces need a five-minute text swap, not a redesign.
+  </div>
+
+</main>
+
+<footer>
+  FarewellPet Print-Ready Examples v1 · 26 Aug 2026 · Companion to <a href="farewellpet-print-collateral.html">Print Collateral Concepts</a>, the <a href="farewellpet-brandbook.html">Brand Book</a>, and the <a href="farewellpet-dashboard.html">Launch Dashboard</a>
+</footer>
+
+</body>
+</html>
