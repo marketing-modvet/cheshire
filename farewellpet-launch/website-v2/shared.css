@@ -23,9 +23,8 @@ img{ max-width:100%; display:block; }
 nav.top{ position:sticky; top:0; background:rgba(255,255,255,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); z-index:100; }
 nav.top .wrap{ display:flex; align-items:center; justify-content:space-between; padding:16px 24px; }
 .brand-lockup{ display:flex; align-items:center; gap:10px; text-decoration:none; }
-.brand-lockup .dot{ width:12px; height:12px; border-radius:50%; background:var(--coral); flex-shrink:0; }
-.brand-lockup span.name{ font-family:'Lora',serif; font-style:italic; font-size:1.35rem; color:var(--ink); }
-.brand-lockup span.name b{ font-weight:800; font-style:normal; font-family:'Inter',sans-serif; font-size:.68em; letter-spacing:1px; }
+.brand-lockup .brand-logo{ height:38px; width:auto; display:block; }
+@media (max-width:480px){ .brand-lockup .brand-logo{ height:32px; } }
 nav.top ul.nav-links{ display:flex; gap:28px; list-style:none; margin:0; padding:0; font-size:.88rem; font-weight:600; }
 nav.top ul.nav-links a{ text-decoration:none; color:var(--ink-soft); padding:6px 0; border-bottom:2px solid transparent; }
 nav.top ul.nav-links a:hover, nav.top ul.nav-links a.active{ color:var(--coral-dark); border-bottom-color:var(--coral); }
