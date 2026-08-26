@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FarewellPet — Design Concepts (Drafts)</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --coral:#E94E44; --coral-dark:#B7392A; --coral-mid:#F08882; --coral-tint:#FBDCDA; --coral-wash:#FCF1EF;
+    --cream:#F7F2ED; --sage:#3A4A43; --sage-tint:#DDE6E1; --ink:#2B2422; --ink-soft:#6B6058; --line:#E8DCD5;
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--cream); color:var(--ink); font-family:'Inter',sans-serif; line-height:1.6; }
+  .serif{ font-family:'Lora',serif; }
+  header.top{ background:linear-gradient(160deg,var(--coral),var(--coral-dark)); color:#fff; padding:60px 24px 50px; text-align:center; }
+  header.top h1{ font-family:'Lora',serif; font-style:italic; font-size:2.3rem; margin:0 0 8px; color:#fff; }
+  header.top p{ margin:0; opacity:.92; font-size:1rem; color:#fff; }
+  main{ max-width:1100px; margin:0 auto; padding:50px 24px 100px; }
+  h2.stitle{ font-family:'Lora',serif; color:var(--coral-dark); font-size:1.6rem; border-bottom:3px solid var(--coral); padding-bottom:12px; margin:56px 0 10px; }
+  h2.stitle:first-of-type{ margin-top:0; }
+  p.desc{ color:var(--ink-soft); font-size:.92rem; margin:0 0 24px; max-width:700px; }
+  .concept-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  @media (max-width:800px){ .concept-grid{ grid-template-columns:1fr; } }
+  .frame{ background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+  .frame .canvas{ padding:0; }
+  .frame .caption{ padding:14px 18px; background:var(--cream); font-size:.82rem; color:var(--ink-soft); border-top:1px solid var(--line); }
+  .frame .caption b{ color:var(--ink); }
+
+  /* Hero A: bold coral full-bleed */
+  .hero-a{ background:linear-gradient(160deg,var(--coral),var(--coral-dark)); color:#fff; padding:50px 30px; text-align:center; }
+  .hero-a h3{ font-family:'Lora',serif; font-style:italic; font-size:1.7rem; margin:0 0 10px; color:#fff; }
+  .hero-a p{ font-size:.85rem; opacity:.92; margin:0 0 16px; color:#fff; }
+  .hero-a .btn{ display:inline-block; background:#fff; color:var(--coral-dark); padding:9px 20px; border-radius:8px; font-weight:700; font-size:.8rem; }
+
+  /* Hero B: cream/soft with coral accent only */
+  .hero-b{ background:var(--cream); padding:50px 30px; text-align:center; }
+  .hero-b .emblem{ width:50px; height:50px; border-radius:50%; background:var(--coral); margin:0 auto 16px; }
+  .hero-b h3{ font-family:'Lora',serif; font-style:italic; font-size:1.7rem; margin:0 0 10px; color:var(--ink); }
+  .hero-b p{ font-size:.85rem; color:var(--ink-soft); margin:0 0 16px; }
+  .hero-b .btn{ display:inline-block; background:var(--coral); color:#fff; padding:9px 20px; border-radius:8px; font-weight:700; font-size:.8rem; }
+
+  /* Hero C: split photo/text */
+  .hero-c{ display:flex; min-height:220px; }
+  .hero-c .txt{ flex:1; padding:36px 28px; display:flex; flex-direction:column; justify-content:center; background:#fff; }
+  .hero-c .txt h3{ font-family:'Lora',serif; font-style:italic; font-size:1.5rem; margin:0 0 8px; color:var(--ink); }
+  .hero-c .txt p{ font-size:.83rem; color:var(--ink-soft); margin:0 0 14px; }
+  .hero-c .txt .btn{ display:inline-block; background:var(--coral); color:#fff; padding:9px 18px; border-radius:8px; font-weight:700; font-size:.78rem; width:fit-content; }
+  .hero-c .img{ flex:1; background:repeating-linear-gradient(45deg,var(--coral-wash),var(--coral-wash) 10px,var(--coral-tint) 10px,var(--coral-tint) 20px); display:flex; align-items:center; justify-content:center; color:var(--coral-dark); font-size:.75rem; text-align:center; padding:10px; }
+
+  /* Hero D: dark sage grounding */
+  .hero-d{ background:linear-gradient(160deg,var(--sage),#2B3733); color:#fff; padding:50px 30px; text-align:center; }
+  .hero-d h3{ font-family:'Lora',serif; font-style:italic; font-size:1.7rem; margin:0 0 10px; color:#fff; }
+  .hero-d p{ font-size:.85rem; opacity:.9; margin:0 0 16px; color:#fff; }
+  .hero-d .btn{ display:inline-block; background:var(--coral); color:#fff; padding:9px 20px; border-radius:8px; font-weight:700; font-size:.8rem; }
+
+  /* Card styles */
+  .card-demo{ padding:30px; background:#fff; display:flex; justify-content:center; }
+  .style1{ background:var(--cream); border-radius:14px; padding:24px; width:220px; text-align:center; }
+  .style1 h4{ font-family:'Lora',serif; font-style:italic; margin:0 0 6px; color:var(--ink); }
+  .style1 p{ font-size:.78rem; color:var(--ink-soft); margin:0; }
+  .style1 .dot{ width:36px; height:36px; border-radius:50%; background:var(--coral); margin:0 auto 12px; }
+
+  .style2{ background:#fff; border:2px solid var(--coral); border-radius:14px; padding:24px; width:220px; text-align:center; box-shadow:0 10px 24px rgba(233,78,68,.1); }
+  .style2 h4{ font-family:'Lora',serif; font-style:italic; margin:0 0 6px; color:var(--coral-dark); }
+  .style2 p{ font-size:.78rem; color:var(--ink-soft); margin:0; }
+  .style2 .dot{ width:36px; height:36px; border-radius:50%; background:var(--coral-tint); border:2px solid var(--coral); margin:0 auto 12px; }
+
+  .style3{ background:var(--coral); color:#fff; border-radius:14px; padding:24px; width:220px; text-align:center; }
+  .style3 h4{ font-family:'Lora',serif; font-style:italic; margin:0 0 6px; color:#fff; }
+  .style3 p{ font-size:.78rem; opacity:.9; margin:0; color:#fff; }
+  .style3 .dot{ width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,.25); margin:0 auto 12px; }
+
+  .card-row{ display:flex; gap:20px; flex-wrap:wrap; justify-content:center; }
+
+  /* colour usage bars */
+  .colorbar-demo{ padding:30px; }
+  .colorbar{ display:flex; height:60px; border-radius:10px; overflow:hidden; margin-bottom:10px; }
+  .colorbar div{ display:flex; align-items:center; justify-content:center; color:#fff; font-size:.72rem; font-weight:700; }
+  .cb-good .c1{ background:var(--cream); color:var(--ink-soft); flex:6; }
+  .cb-good .c2{ background:var(--coral); flex:1; }
+  .cb-good .c3{ background:var(--sage); flex:1; }
+  .cb-good .c4{ background:var(--ink); flex:1; }
+  .cb-bad .c1{ background:var(--coral); flex:5; }
+  .cb-bad .c2{ background:var(--coral-dark); flex:3; }
+  .cb-bad .c3{ background:var(--coral-mid); flex:2; }
+  .label-good{ color:#2B7A3F; font-weight:700; font-size:.82rem; }
+  .label-bad{ color:#C0392B; font-weight:700; font-size:.82rem; }
+
+  .cta-final{ background:var(--coral); color:#fff; border-radius:16px; padding:36px; text-align:center; margin-top:50px; }
+  .cta-final h3{ font-family:'Lora',serif; font-style:italic; margin:0 0 10px; }
+  .cta-final p{ opacity:.9; margin:0; font-size:.9rem; }
+
+  footer{ text-align:center; padding:30px; color:var(--ink-soft); font-size:.8rem; }
+  a{ color:var(--coral-dark); }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <h1>Design Concepts</h1>
+  <p>Visual direction drafts — placeholders throughout, for reacting to and picking a direction, not final designs</p>
+</header>
+
+<main>
+
+  <h2 class="stitle">1. Hero section — 4 directions</h2>
+  <p class="desc">The same message, four different visual treatments. None of these are final — pick a direction (or mix elements) and I'll refine it once we lock it in.</p>
+  <div class="concept-grid">
+    <div class="frame">
+      <div class="canvas">
+        <div class="hero-a">
+          <h3>A dignified goodbye,<br>every time.</h3>
+          <p>Compassionate pet cremation &amp; aftercare in Dubai</p>
+          <div class="btn">Request a Farewell</div>
+        </div>
+      </div>
+      <div class="caption"><b>A — Bold coral, full-bleed.</b> High impact, matches the logo's boldness. Risk: coral this large can feel intense for a grief-care brand if overused (this is what caused the contrast bug you flagged — a lesson for all coral-heavy sections).</div>
+    </div>
+    <div class="frame">
+      <div class="canvas">
+        <div class="hero-b">
+          <div class="emblem"></div>
+          <h3>A dignified goodbye,<br>every time.</h3>
+          <p>Compassionate pet cremation &amp; aftercare in Dubai</p>
+          <div class="btn">Request a Farewell</div>
+        </div>
+      </div>
+      <div class="caption"><b>B — Soft cream background, coral as accent only.</b> Calmer, more in keeping with the grief-literate tone from the Brand Book. Currently used in the live website build.</div>
+    </div>
+    <div class="frame">
+      <div class="canvas">
+        <div class="hero-c">
+          <div class="txt">
+            <h3>A dignified goodbye,<br>every time.</h3>
+            <p>Compassionate pet cremation &amp; aftercare in Dubai</p>
+            <div class="btn">Request a Farewell</div>
+          </div>
+          <div class="img">[photo placeholder<br>— facility/keepsake image]</div>
+        </div>
+      </div>
+      <div class="caption"><b>C — Split layout, text + photo.</b> Once real photography exists this feels the most premium/considered — recommended as the direction to move toward once the shoot happens.</div>
+    </div>
+    <div class="frame">
+      <div class="canvas">
+        <div class="hero-d">
+          <h3>A dignified goodbye,<br>every time.</h3>
+          <p>Compassionate pet cremation &amp; aftercare in Dubai</p>
+          <div class="btn">Request a Farewell</div>
+        </div>
+      </div>
+      <div class="caption"><b>D — Dark sage, grounding tone.</b> More solemn/formal, coral pops harder against it as a CTA colour. Good candidate for the B2B-facing pages rather than the consumer-facing homepage.</div>
+    </div>
+  </div>
+
+  <h2 class="stitle">2. Card / tile styles</h2>
+  <p class="desc">How service tiers, steps, or feature blocks could look — used throughout the website and one-pager.</p>
+  <div class="frame">
+    <div class="canvas card-demo">
+      <div class="card-row">
+        <div class="style1"><div class="dot"></div><h4>Style 1</h4><p>Soft cream fill, subtle coral accent dot. Calm, low-contrast — good for dense grids.</p></div>
+        <div class="style2"><div class="dot"></div><h4>Style 2</h4><p>White fill, coral border + shadow. Higher contrast, good for a single "featured" tier.</p></div>
+        <div class="style3"><div class="dot"></div><h4>Style 3</h4><p>Solid coral fill. Strongest visual weight — best used sparingly, one card max per row.</p></div>
+      </div>
+    </div>
+    <div class="caption">Currently the website mixes Style 1 (default cards) with Style 2 (the "Most chosen" featured pricing tier) — Style 3 is included here as an option but not yet used anywhere, since a full coral card repeats the same contrast risk as Hero A if text isn't set to white explicitly every time.</div>
+  </div>
+
+  <h2 class="stitle">3. Colour usage — good vs. risky ratio</h2>
+  <p class="desc">This is the direct fix for what you flagged. Coral is a signature accent, not a fill colour for large text blocks — here's the visual difference.</p>
+  <div class="frame">
+    <div class="canvas colorbar-demo">
+      <p class="label-good">✓ Recommended ratio (roughly matches the Brand Book's 10/60/20/10 guide)</p>
+      <div class="colorbar cb-good"><div class="c1">Cream / white — 60%</div><div class="c2">Coral</div><div class="c3">Sage</div><div class="c4">Ink</div></div>
+      <p class="label-bad" style="margin-top:24px;">✕ What went wrong in the one-pager hero (coral-on-coral, illegible)</p>
+      <div class="colorbar cb-bad"><div class="c1">Coral background</div><div class="c2">Coral-dark text (barely visible)</div><div class="c3">Coral-mid</div></div>
+    </div>
+    <div class="caption"><b>Root cause of the bug you flagged:</b> a generic paragraph-text colour rule was overriding the intended white text inside the coral header — fixed directly in the B2B one-pager. Flagging the pattern here so every future coral-background section gets checked for the same issue before publishing.</div>
+  </div>
+
+  <div class="cta-final">
+    <h3>Which direction do you want to move forward with?</h3>
+    <p>Pick a hero style (or tell me to mix elements) and I'll apply it consistently across the website, one-pager, and print collateral.</p>
+  </div>
+
+</main>
+
+<footer>
+  FarewellPet Design Concepts v1 · 26 Aug 2026 · Companion to the <a href="farewellpet-brandbook.html">Brand Book</a> and <a href="farewellpet-dashboard.html">Launch Dashboard</a>
+</footer>
+
+</body>
+</html>
