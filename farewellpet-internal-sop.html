@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FarewellPet — Internal SOP (11 Vet Alliance Clinics)</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;1,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --coral:#E94E44; --coral-dark:#B7392A; --coral-tint:#FBDCDA; --cream:#F7F2ED; --ink:#2B2422; --ink-soft:#6B6058; --line:#E8DCD5; --sage:#3A4A43; --sage-tint:#DDE6E1; }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--cream); color:var(--ink); font-family:'Inter',sans-serif; line-height:1.6; }
+  header{ background:linear-gradient(160deg,var(--coral),var(--coral-dark)); color:#fff; padding:50px 24px 40px; text-align:center; }
+  header h1{ font-family:'Lora',serif; font-style:italic; font-size:2.2rem; margin:0 0 8px; }
+  header p{ margin:0; opacity:.9; font-size:.9rem; }
+  main{ max-width:920px; margin:0 auto; padding:40px 24px 80px; }
+  h2{ font-family:'Lora',serif; color:var(--coral-dark); border-bottom:3px solid var(--coral); padding-bottom:10px; margin-top:44px; }
+  .steps{ display:flex; flex-direction:column; gap:0; margin-top:20px; }
+  .step{ display:flex; gap:18px; padding:18px 0; border-bottom:1px dashed var(--line); }
+  .step:last-child{ border-bottom:none; }
+  .step .num{ flex-shrink:0; width:38px; height:38px; border-radius:50%; background:var(--coral); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; }
+  .step .content h4{ margin:0 0 6px; font-size:1rem; }
+  .step .content p{ margin:0; font-size:.9rem; color:var(--ink-soft); }
+  .script-box{ background:#fff; border-left:4px solid var(--sage); border-radius:8px; padding:16px 20px; margin:10px 0; font-size:.9rem; font-style:italic; color:var(--ink); }
+  .card{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:20px 24px; margin-bottom:16px; }
+  .card h4{ margin:0 0 8px; color:var(--ink); font-size:1.02rem; }
+  .card p, .card li{ color:var(--ink-soft); font-size:.9rem; }
+  .placeholder-tag{ display:inline-block; background:var(--coral-tint); color:var(--coral-dark); font-size:.72rem; font-weight:700; padding:2px 8px; border-radius:999px; margin-left:6px; }
+  table{ width:100%; border-collapse:collapse; background:#fff; border-radius:10px; overflow:hidden; margin-top:10px; }
+  th{ background:var(--sage); color:#fff; text-align:left; padding:10px 14px; font-size:.82rem; }
+  td{ padding:10px 14px; border-bottom:1px solid var(--line); font-size:.86rem; }
+  footer{ text-align:center; padding:30px; color:var(--ink-soft); font-size:.8rem; }
+  a{ color:var(--coral-dark); }
+</style>
+</head>
+<body>
+<header>
+  <h1>Internal SOP — Draft</h1>
+  <p>How the 11 Vet Alliance clinics refer to FarewellPet — for review &amp; refinement by the ops team</p>
+</header>
+<main>
+
+  <div class="card" style="border-left:5px solid var(--coral);">
+    <h4>⚠️ Draft status</h4>
+    <p style="margin:0;">This is a first-pass draft built from what's already known about the process and the existing dispatch system. It needs review from whoever runs day-to-day clinic operations before it's rolled out as official policy — flagged sections below need real input.</p>
+  </div>
+
+  <h2>Call flow: when a pet passes at a clinic</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="num">1</div>
+      <div class="content">
+        <h4>Vet/nurse informs the family of aftercare options</h4>
+        <p>Explain the FarewellPet service tiers available (private/individual, communal, memorial add-ons) — using current placeholder framing until final pricing/tiers are confirmed.</p>
+        <div class="script-box">"We work with FarewellPet for aftercare arrangements. They offer a few different options depending on what feels right for you and [pet's name] — would you like me to explain them, or would you prefer some time first?"</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="num">2</div>
+      <div class="content">
+        <h4>Family makes a decision (or reception follows up later)</h4>
+        <p>No pressure to decide immediately — reception can note the case and follow up within a set window <span class="placeholder-tag">window TBC by ops</span> if the family needs time.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="num">3</div>
+      <div class="content">
+        <h4>Clinic logs the case &amp; requests pickup</h4>
+        <p>Using the existing driver-dispatch system (already proven across the 11-clinic network) — same request flow as lab samples/other inter-clinic logistics, routed to FarewellPet instead of another clinic. <span class="placeholder-tag">Integration TBC — see note below</span></p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="num">4</div>
+      <div class="content">
+        <h4>FarewellPet collects, cares for, and returns (if applicable)</h4>
+        <p>Ashes/keepsake return follows the family's chosen tier and timeline — clinic is notified so they can inform the family, or FarewellPet contacts the family directly <span class="placeholder-tag">TBC — who owns family communication?</span></p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="num">5</div>
+      <div class="content">
+        <h4>Clinic follow-up (optional, recommended)</h4>
+        <p>A short, warm check-in from the clinic days later reinforces care continuity — optional but strongly recommended as part of the client experience.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>Staff talking points — what to say, what to avoid</h2>
+  <table>
+    <tr><th>Situation</th><th>Say</th><th>Avoid</th></tr>
+    <tr><td>Explaining options</td><td>"There are a few ways we can help care for [pet's name] afterwards."</td><td>"You need to decide what to do with the body."</td></tr>
+    <tr><td>Discussing cost</td><td>"The arrangement cost depends on the option you choose — I can get you the details."</td><td>Quoting exact prices before they're confirmed — defer to "I'll confirm and get back to you."</td></tr>
+    <tr><td>If family is distressed</td><td>Give space, slow down, no rushing toward a decision.</td><td>Any hint of urgency about logistics/paperwork in that moment.</td></tr>
+    <tr><td>If asked "is this a Vet Alliance thing?"</td><td>"FarewellPet is an independent aftercare service we work with — they handle it with a lot of care."</td><td>Over-explaining the corporate relationship; keep it simple and warm.</td></tr>
+  </table>
+
+  <h2>Open items for ops review</h2>
+  <ul style="color:var(--ink-soft);font-size:.9rem;">
+    <li>Confirm the exact dispatch/logistics integration — job type for pet collection/ashes-return in the existing driver-dispatch app (marketing side flagged this as ready to configure whenever ops is ready; see Launch Plan)</li>
+    <li>Decide who owns family communication after pickup — the referring clinic or FarewellPet directly</li>
+    <li>Confirm the follow-up window for families who need time to decide</li>
+    <li>Staff training format — in-person briefing, written guide, or both, and who delivers it across all 11 clinics</li>
+  </ul>
+
+</main>
+<footer>
+  FarewellPet Internal SOP Draft v1 · 26 Aug 2026 · Companion to the <a href="farewellpet-launch-plan.html">Launch Plan</a>
+</footer>
+</body>
+</html>

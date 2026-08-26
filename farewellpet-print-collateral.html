@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FarewellPet — Print Collateral</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --coral:#E94E44; --coral-dark:#B7392A; --coral-tint:#FBDCDA; --cream:#F7F2ED; --ink:#2B2422; --ink-soft:#6B6058; --line:#E8DCD5; --sage:#3A4A43; }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--cream); color:var(--ink); font-family:'Inter',sans-serif; line-height:1.6; }
+  header{ background:linear-gradient(160deg,var(--coral),var(--coral-dark)); color:#fff; padding:50px 24px 40px; text-align:center; }
+  header h1{ font-family:'Lora',serif; font-style:italic; font-size:2.2rem; margin:0 0 8px; }
+  header p{ margin:0; opacity:.9; font-size:.9rem; }
+  main{ max-width:1000px; margin:0 auto; padding:40px 24px 80px; }
+  h2{ font-family:'Lora',serif; color:var(--coral-dark); border-bottom:3px solid var(--coral); padding-bottom:10px; margin-top:44px; }
+  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:20px; }
+  @media (max-width:700px){ .grid2{ grid-template-columns:1fr; } }
+  .mock-card{ background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+  .mock-card .preview{ padding:26px; min-height:260px; display:flex; flex-direction:column; justify-content:center; }
+  .mock-card .label{ padding:14px 20px; background:var(--cream); font-size:.86rem; color:var(--ink-soft); border-top:1px solid var(--line); }
+  .poster-mock{ background:linear-gradient(160deg,var(--coral),var(--coral-dark)); color:#fff; border-radius:10px; padding:30px 24px; text-align:center; }
+  .poster-mock h3{ font-family:'Lora',serif; font-style:italic; font-size:1.5rem; margin:0 0 10px; }
+  .poster-mock p{ font-size:.85rem; opacity:.92; margin:0 0 16px; }
+  .poster-mock .placeholder-img{ background:rgba(255,255,255,.18); border:2px dashed rgba(255,255,255,.5); border-radius:8px; height:90px; display:flex; align-items:center; justify-content:center; font-size:.75rem; margin-bottom:14px; }
+  .card-mock{ background:#fff; border:1px solid var(--line); border-radius:10px; padding:20px; }
+  .card-mock h3{ font-family:'Lora',serif; font-style:italic; color:var(--ink); font-size:1.2rem; margin:0 0 8px; }
+  .card-mock p{ font-size:.82rem; color:var(--ink-soft); margin:0 0 10px; }
+  .card-mock .strip{ height:6px; background:var(--coral); border-radius:3px; margin-top:10px; }
+  .brochure-mock{ background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:20px; }
+  .brochure-mock .fold{ border-left:2px dashed var(--coral); padding-left:14px; margin-top:10px; font-size:.8rem; color:var(--ink-soft); }
+  .callout{ background:#fff; border-left:5px solid var(--coral); border-radius:10px; padding:16px 20px; margin-top:20px; font-size:.88rem; color:var(--ink-soft); }
+  footer{ text-align:center; padding:30px; color:var(--ink-soft); font-size:.8rem; }
+  a{ color:var(--coral-dark); }
+</style>
+</head>
+<body>
+<header>
+  <h1>Print Collateral</h1>
+  <p>Layout concepts for clinic-facing print materials — built with placeholders, ready for real photography</p>
+</header>
+<main>
+
+  <h2>1. Clinic reception counter card</h2>
+  <div class="grid2">
+    <div class="mock-card">
+      <div class="preview">
+        <div class="card-mock">
+          <h3>A dignified goodbye</h3>
+          <p>End-of-life &amp; aftercare support for your pet. We're here for you and your veterinary team, every step of the way.</p>
+          <div class="strip"></div>
+          <p style="margin-top:10px;">farewellpet.ae &nbsp;·&nbsp; [phone placeholder]</p>
+        </div>
+      </div>
+      <div class="label">A5 or DL counter card — sits at reception desks across all 11 clinics + external partners</div>
+    </div>
+    <div class="mock-card">
+      <div class="preview" style="background:var(--cream);">
+        <p style="font-size:.86rem;color:var(--ink-soft);">Design notes: cream background, coral accent strip, Lora italic headline (matches Brand Book), no imagery required for v1 — text-only layout that can go to print immediately. A photo-backed version can follow once stills exist.</p>
+      </div>
+      <div class="label">Print spec: 300dpi, CMYK, 3mm bleed — standard for local printers</div>
+    </div>
+  </div>
+
+  <h2>2. Waiting-room poster</h2>
+  <div class="grid2">
+    <div class="mock-card">
+      <div class="preview">
+        <div class="poster-mock">
+          <div class="placeholder-img">[photo placeholder — calm facility/keepsake image]</div>
+          <h3>When it's time to say goodbye</h3>
+          <p>Compassionate pet cremation &amp; aftercare, arranged through your clinic.</p>
+        </div>
+      </div>
+      <div class="label">A3 poster — waiting room / notice board</div>
+    </div>
+    <div class="mock-card">
+      <div class="preview" style="background:var(--cream);">
+        <p style="font-size:.86rem;color:var(--ink-soft);">Design notes: full coral background variant for high visual impact, or cream/white variant for a softer waiting-room tone — both included once finalized. Placeholder image block swaps for a real still from the shot list without changing the layout.</p>
+      </div>
+      <div class="label">Print spec: A3, matte finish recommended (less glare under clinic lighting)</div>
+    </div>
+  </div>
+
+  <h2>3. Take-home leaflet / brochure</h2>
+  <div class="grid2">
+    <div class="mock-card">
+      <div class="preview">
+        <div class="brochure-mock">
+          <h3 style="font-family:'Lora',serif;font-style:italic;color:var(--coral-dark);margin:0 0 8px;">Understanding your options</h3>
+          <p style="font-size:.85rem;color:var(--ink-soft);margin:0;">Cover panel: brand + warm intro line</p>
+          <div class="fold">Inside: service tiers overview (placeholder pricing), how the process works, FAQ, contact details</div>
+          <div class="fold">Back panel: memorial keepsake options + contact/QR code to website</div>
+        </div>
+      </div>
+      <div class="label">Tri-fold DL leaflet — given to families at the point of need, not left out publicly</div>
+    </div>
+    <div class="mock-card">
+      <div class="preview" style="background:var(--cream);">
+        <p style="font-size:.86rem;color:var(--ink-soft);">This one carries the most text (service tiers, FAQ) so it's the piece most affected by pending pricing — structure and copy skeleton can be finalized now, final numbers slot in later without a redesign.</p>
+      </div>
+      <div class="label">Print spec: A4 tri-fold, 300dpi, CMYK</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <b>Distribution:</b> reception counter cards + waiting-room posters go to all 11 Vet Alliance clinics automatically once printed (part of the internal SOP rollout). External partner clinics get the take-home leaflet + counter card as part of their onboarding pack once a partnership is signed — see the B2B One-Pager.
+  </div>
+
+</main>
+<footer>
+  FarewellPet Print Collateral v1 · 26 Aug 2026 · Companion to the <a href="farewellpet-launch-plan.html">Launch Plan</a> and <a href="farewellpet-brandbook.html">Brand Book</a>
+</footer>
+</body>
+</html>

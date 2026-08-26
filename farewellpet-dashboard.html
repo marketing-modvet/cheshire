@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FarewellPet — Launch Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --coral:#E94E44; --coral-dark:#B7392A; --coral-mid:#F08882; --coral-tint:#FBDCDA; --coral-wash:#FCF1EF;
+    --cream:#F7F2ED; --sage:#3A4A43; --sage-tint:#DDE6E1; --ink:#2B2422; --ink-soft:#6B6058; --line:#E8DCD5;
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--cream); color:var(--ink); font-family:'Inter',sans-serif; line-height:1.6; }
+  .serif{ font-family:'Lora',serif; }
+  header{ background:linear-gradient(160deg,var(--coral),var(--coral-dark)); color:#fff; padding:60px 24px 50px; text-align:center; }
+  header .logocircle{ width:100px; height:100px; background:#fff; border-radius:50%; margin:0 auto 20px; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 26px rgba(0,0,0,.2); }
+  header .logocircle img{ width:72px; }
+  header h1{ font-size:2.4rem; font-style:italic; margin:0 0 8px; }
+  header p{ margin:0; opacity:.92; font-size:1rem; }
+  main{ max-width:1150px; margin:0 auto; padding:50px 24px 100px; }
+  h2.stitle{ font-family:'Lora',serif; color:var(--coral-dark); font-size:1.6rem; border-bottom:3px solid var(--coral); padding-bottom:12px; margin:56px 0 24px; }
+  h2.stitle:first-of-type{ margin-top:0; }
+  .status-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:10px; }
+  @media (max-width:900px){ .status-row{ grid-template-columns:repeat(2,1fr); } .grid2{grid-template-columns:1fr !important;} }
+  .stat{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:18px; text-align:center; }
+  .stat .n{ font-size:1.8rem; font-weight:800; color:var(--coral-dark); }
+  .stat .l{ font-size:.78rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.5px; }
+
+  .doc-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  @media (max-width:900px){ .doc-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:600px){ .doc-grid{ grid-template-columns:1fr; } }
+  .doc-card{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:22px; display:flex; flex-direction:column; text-decoration:none; color:var(--ink); transition:box-shadow .15s, transform .15s; }
+  .doc-card:hover{ box-shadow:0 10px 26px rgba(233,78,68,.14); transform:translateY(-2px); }
+  .doc-card .icon{ font-size:1.6rem; margin-bottom:10px; }
+  .doc-card h4{ margin:0 0 6px; font-size:1rem; }
+  .doc-card p{ margin:0; font-size:.82rem; color:var(--ink-soft); flex-grow:1; }
+  .doc-card .tag{ display:inline-block; margin-top:12px; font-size:.7rem; font-weight:700; padding:3px 10px; border-radius:999px; align-self:flex-start; }
+  .tag.done{ background:#DFF3E4; color:#2B7A3F; }
+  .tag.pending{ background:#FBDCDA; color:var(--coral-dark); }
+  .tag.later{ background:#E7F0FF; color:#1F4E9C; }
+
+  .action-panel{ background:#fff; border-left:5px solid var(--coral); border-radius:12px; padding:26px 30px; margin-bottom:20px; }
+  .action-panel h3{ margin:0 0 12px; font-size:1.15rem; display:flex; align-items:center; gap:8px; }
+  .action-panel ul{ margin:0; padding-left:22px; font-size:.9rem; color:var(--ink-soft); }
+  .action-panel ul li{ margin-bottom:8px; }
+  .action-panel .cta-row{ margin-top:14px; }
+  .action-panel .cta-row a{ display:inline-block; background:var(--coral); color:#fff; font-weight:700; font-size:.85rem; padding:9px 18px; border-radius:8px; text-decoration:none; margin-right:10px; }
+  .action-panel .cta-row a.secondary{ background:var(--sage-tint); color:var(--sage); }
+
+  .later-panel{ background:var(--sage-tint); border-radius:12px; padding:24px 28px; }
+  .later-panel h3{ color:var(--sage); margin:0 0 10px; }
+  .later-panel p{ color:#43524B; font-size:.9rem; margin:0; }
+
+  footer{ text-align:center; padding:30px; color:var(--ink-soft); font-size:.8rem; }
+  a{ color:var(--coral-dark); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logocircle"><img src="farewellpet-launch/assets/logo.png" alt="FarewellPet logo"></div>
+  <h1 class="serif">FarewellPet Launch Dashboard</h1>
+  <p>One place for everything built so far, and exactly what your team needs to do next</p>
+</header>
+
+<main>
+
+  <div class="status-row">
+    <div class="stat"><div class="n">7/8</div><div class="l">Workstreams built</div></div>
+    <div class="stat"><div class="n">1</div><div class="l">Deferred (GMB/SEO)</div></div>
+    <div class="stat"><div class="n">Oct 1</div><div class="l">Target launch</div></div>
+    <div class="stat"><div class="n">2</div><div class="l">Waiting on you/team</div></div>
+  </div>
+
+  <h2 class="stitle">📂 Everything built so far</h2>
+  <div class="doc-grid">
+    <a class="doc-card" href="website/index.html">
+      <div class="icon">🌐</div>
+      <h4>Website</h4>
+      <p>Full page skeleton for farewellpet.ae — hero, how it works, services (placeholder pricing), for clinics, about, FAQ, contact.</p>
+      <span class="tag done">Built — placeholder pricing</span>
+    </a>
+    <a class="doc-card" href="farewellpet-b2b-onepager.html">
+      <div class="icon">🤝</div>
+      <h4>B2B One-Pager</h4>
+      <p>Partner-facing one-pager for outreach to Dubai vet clinics — hybrid flat/commission model explained, placeholder rates.</p>
+      <span class="tag done">Built — placeholder rates</span>
+    </a>
+    <a class="doc-card" href="b2b-target-list.html">
+      <div class="icon">📋</div>
+      <h4>B2B Target List</h4>
+      <p>Starter list of independent Dubai vet clinics for outreach, by priority tier — needs a verification pass before real calls.</p>
+      <span class="tag done">Built — needs verification</span>
+    </a>
+    <a class="doc-card" href="farewellpet-social-setup.html">
+      <div class="icon">📱</div>
+      <h4>Social Setup Instructions</h4>
+      <p>Exact steps for the social media team — Instagram + Facebook registration, bio copy, handle @farewellpet.</p>
+      <span class="tag pending">Ready — action needed</span>
+    </a>
+    <a class="doc-card" href="farewellpet-shotlist.html">
+      <div class="icon">📸</div>
+      <h4>Photo &amp; Video Shot List</h4>
+      <p>What to shoot now vs. once staff are hired — plus the hard rules on what never to shoot.</p>
+      <span class="tag pending">Ready — action needed</span>
+    </a>
+    <a class="doc-card" href="farewellpet-print-collateral.html">
+      <div class="icon">🖨️</div>
+      <h4>Print Collateral</h4>
+      <p>Reception counter card, waiting-room poster, and take-home leaflet layouts — text-only versions ready to print.</p>
+      <span class="tag done">Built — placeholder imagery</span>
+    </a>
+    <a class="doc-card" href="farewellpet-internal-sop.html">
+      <div class="icon">📖</div>
+      <h4>Internal SOP (11 clinics)</h4>
+      <p>Draft call flow + staff talking points for referring a case to FarewellPet — needs ops review before rollout.</p>
+      <span class="tag done">Draft — needs ops review</span>
+    </a>
+    <a class="doc-card" href="farewellpet-brandbook.html">
+      <div class="icon">🎨</div>
+      <h4>Brand Book v1.0</h4>
+      <p>Colour system, typography (Lora + Inter), logo usage, voice &amp; tone, content pillars — the foundation everything above is built from.</p>
+      <span class="tag done">Built</span>
+    </a>
+    <a class="doc-card" href="farewellpet-launch-plan.html">
+      <div class="icon">🗺️</div>
+      <h4>Full Launch Plan</h4>
+      <p>The complete week-by-week plan to October 1, with ownership and open items — the master document this dashboard summarizes.</p>
+      <span class="tag done">Built</span>
+    </a>
+  </div>
+
+  <h2 class="stitle">✅ What your team needs to do now</h2>
+
+  <div class="action-panel">
+    <h3>📱 Social media managers</h3>
+    <ul>
+      <li>Register <b>@farewellpet</b> on Instagram (Business account) and Facebook (Page, not personal profile) — full field-by-field instructions in the Social Setup doc</li>
+      <li>Use the placeholder bio copy provided; don't post publicly yet — register and hold until real content exists</li>
+      <li>Use a rough emblem-only crop of the current logo as a placeholder profile photo (see note in the setup doc about getting a clean vector version)</li>
+      <li>Google Business Profile setup is <b>deferred</b> — see the later panel below</li>
+    </ul>
+    <div class="cta-row">
+      <a href="farewellpet-social-setup.html">Open Social Setup Instructions →</a>
+    </div>
+  </div>
+
+  <div class="action-panel">
+    <h3>🎥 Photographer / videographer</h3>
+    <ul>
+      <li>Everything under "Stills — can shoot now" and "Video — can shoot now" in the shot list is ready to schedule today, no waiting on staff hiring</li>
+      <li>Hard rule: nothing graphic, no equipment mid-operation, no identifiable client info in frame</li>
+      <li>Deliver raw stills (JPEG/RAW) and raw video footage — editing happens on our side</li>
+    </ul>
+    <div class="cta-row">
+      <a href="farewellpet-shotlist.html">Open Shot List →</a>
+    </div>
+  </div>
+
+  <div class="action-panel">
+    <h3>🧑‍💼 Ops team</h3>
+    <ul>
+      <li>Review the draft Internal SOP — several open items flagged need real input (family-communication ownership, follow-up window, training format)</li>
+      <li>Dispatch/logistics job type for pet collection/ashes-return is ready to configure in the existing driver-dispatch app whenever you are</li>
+    </ul>
+    <div class="cta-row">
+      <a href="farewellpet-internal-sop.html">Open Internal SOP →</a>
+    </div>
+  </div>
+
+  <h2 class="stitle">⏸️ Deferred for later</h2>
+  <div class="later-panel">
+    <h3>Google Business Profile + local SEO / paid ads coordination</h3>
+    <p>Per Andrew's instruction (26 Aug 2026): holding off on Google Business Profile setup and local SEO until later — the instructions already exist in the Launch Plan's social section for when it's time. Andrew is separately setting up the Google Ads account; once that's live and the website has real (or placeholder) pricing on the Services page, campaign structure/keyword work can follow.</p>
+  </div>
+
+</main>
+
+<footer>
+  FarewellPet Launch Dashboard · Updated 26 Aug 2026 · <a href="farewellpet-launch-plan.html">Full Launch Plan</a>
+</footer>
+
+</body>
+</html>
