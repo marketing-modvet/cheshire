@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FarewellPet — Brand Book v1.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --coral:#E94E44;
+    --coral-deep:#B7392A;
+    --coral-mid:#F08882;
+    --coral-tint:#FBDCDA;
+    --coral-wash:#FCF1EF;
+    --cream:#F7F2ED;
+    --sage:#3A4A43;
+    --sage-tint:#DDE6E1;
+    --ink:#2B2422;
+    --ink-soft:#6B6058;
+    --line:#E8DCD5;
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--cream); color:var(--ink); font-family:'Inter',sans-serif; line-height:1.6; }
+  .serif{ font-family:'Playfair Display',serif; }
+  header.cover{
+    background:var(--coral); color:#fff; padding:90px 24px 70px; text-align:center; position:relative; overflow:hidden;
+  }
+  header.cover::before{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(circle at 15% 15%, rgba(255,255,255,.14), transparent 40%),
+               radial-gradient(circle at 85% 85%, rgba(0,0,0,.08), transparent 45%);
+  }
+  header.cover .logo-circle{
+    position:relative; z-index:1; width:130px; height:130px; margin:0 auto 26px; background:#fff; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; box-shadow:0 14px 34px rgba(0,0,0,.22);
+  }
+  header.cover .logo-circle img{ width:96px; }
+  header.cover h1{ position:relative; z-index:1; font-size:3rem; font-weight:500; margin:0 0 6px; }
+  header.cover p{ position:relative; z-index:1; text-transform:uppercase; letter-spacing:3px; font-size:.8rem; opacity:.9; margin:0; }
+  header.cover .ver{ position:relative; z-index:1; margin-top:22px; font-size:.78rem; opacity:.75; }
+  nav.toc{
+    max-width:960px; margin:-34px auto 0; position:relative; z-index:2;
+    background:#fff; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,.08);
+    padding:22px 28px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
+  }
+  nav.toc a{ text-decoration:none; color:var(--coral-deep); font-weight:600; font-size:.82rem; background:var(--coral-wash); padding:8px 15px; border-radius:999px; }
+  main{ max-width:960px; margin:0 auto; padding:60px 24px 100px; }
+  section{ margin-bottom:70px; }
+  h2.stitle{
+    font-size:1.8rem; color:var(--coral-deep); margin:0 0 26px; display:flex; align-items:center; gap:10px;
+    border-bottom:3px solid var(--coral); padding-bottom:12px;
+  }
+  h3{ font-size:1.05rem; color:var(--ink); margin:30px 0 12px; text-transform:uppercase; letter-spacing:1px; }
+  p{ color:var(--ink-soft); }
+  p.lead{ font-size:1.08rem; color:var(--ink); }
+  .grid{ display:grid; gap:20px; }
+  .grid.cols-2{ grid-template-columns:1fr 1fr; }
+  .grid.cols-3{ grid-template-columns:repeat(3,1fr); }
+  .grid.cols-4{ grid-template-columns:repeat(4,1fr); }
+  @media (max-width:760px){ .grid.cols-2,.grid.cols-3,.grid.cols-4{ grid-template-columns:1fr; } }
+
+  /* logo section */
+  .logo-showcase{
+    background:#fff; border:1px solid var(--line); border-radius:16px; padding:40px; text-align:center;
+  }
+  .logo-showcase img{ width:170px; }
+  .clearspace-demo{
+    background:repeating-conic-gradient(#f0f0f0 0% 25%, #fff 0% 50%) 50% / 16px 16px;
+    border-radius:14px; padding:50px; display:flex; align-items:center; justify-content:center; margin-top:10px;
+  }
+  .clearspace-demo .box{ position:relative; border:2px dashed var(--coral-mid); padding:34px; border-radius:10px; }
+  .clearspace-demo img{ width:110px; display:block; }
+  .dont-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:14px;}
+  @media (max-width:600px){ .dont-grid{grid-template-columns:1fr;} }
+  .dont-card{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:18px; text-align:center; }
+  .dont-card .mock{ height:90px; display:flex; align-items:center; justify-content:center; margin-bottom:10px; border-radius:8px; }
+  .dont-card p{ margin:0; font-size:.85rem; color:var(--ink); }
+  .dont-card .x{ color:#C0392B; font-weight:800; }
+
+  /* color */
+  .swatch-card{ border-radius:14px; overflow:hidden; border:1px solid var(--line); background:#fff; }
+  .swatch-card .fill{ height:110px; }
+  .swatch-card .meta{ padding:14px 16px; }
+  .swatch-card .meta b{ display:block; font-size:.92rem; color:var(--ink); }
+  .swatch-card .meta span{ display:block; font-size:.78rem; color:var(--ink-soft); font-family:monospace; margin-top:3px; }
+  .swatch-card .meta em{ display:block; font-size:.76rem; color:var(--ink-soft); font-style:normal; margin-top:6px; }
+
+  /* type */
+  .type-card{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:26px; }
+  .type-sample-h{ font-family:'Playfair Display',serif; font-size:2.6rem; color:var(--ink); margin:0 0 6px; }
+  .type-sample-b{ font-family:'Inter',sans-serif; font-size:1.5rem; color:var(--ink); margin:0; }
+  .type-meta{ font-size:.8rem; color:var(--ink-soft); margin-top:14px; }
+  .type-scale{ display:flex; flex-direction:column; gap:10px; margin-top:18px; }
+  .type-scale .row{ display:flex; align-items:baseline; gap:14px; border-bottom:1px dashed var(--line); padding-bottom:8px; }
+  .type-scale .label{ font-size:.72rem; color:var(--ink-soft); width:90px; flex-shrink:0; font-family:'Inter',sans-serif; }
+
+  /* voice */
+  table.voice{ width:100%; border-collapse:collapse; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,.05); }
+  table.voice th{ background:var(--coral); color:#fff; padding:12px 16px; text-align:left; font-size:.85rem; }
+  table.voice td{ padding:12px 16px; border-bottom:1px solid var(--line); font-size:.9rem; vertical-align:top; }
+  table.voice tr:nth-child(even) td{ background:var(--coral-wash); }
+  table.voice td.no{ color:#B0392B; text-decoration:line-through; opacity:.85; }
+  table.voice td.yes{ color:var(--sage); font-weight:600; }
+
+  .pillar-card{ background:#fff; border-left:5px solid var(--coral); border-radius:10px; padding:18px 22px; margin-bottom:14px; }
+  .pillar-card h4{ margin:0 0 6px; color:var(--coral-deep); font-size:1rem; }
+  .pillar-card p{ margin:0; font-size:.9rem; }
+
+  .app-card{ background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+  .app-card .swatch-header{ padding:22px; color:#fff; }
+  .app-card .swatch-header.coral{ background:var(--coral); }
+  .app-card .swatch-header.cream{ background:var(--cream); color:var(--ink); border-bottom:1px solid var(--line);}
+  .app-card .body{ padding:18px 22px; }
+  .btn-demo{ display:inline-block; padding:10px 22px; border-radius:8px; font-weight:700; font-size:.85rem; margin:6px 8px 6px 0; }
+  .btn-primary{ background:var(--coral); color:#fff; }
+  .btn-secondary{ background:transparent; border:2px solid var(--coral); color:var(--coral-deep); }
+  .btn-ghost{ background:var(--sage-tint); color:var(--sage); }
+
+  footer{ text-align:center; padding:40px 24px 60px; color:var(--ink-soft); font-size:.82rem; }
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <div class="logo-circle"><img src="farewellpet-launch/assets/logo.png" alt="FarewellPet logo"></div>
+  <h1 class="serif">FarewellPet</h1>
+  <p>Brand Book</p>
+  <div class="ver">Version 1.0 · Drafted 26 Aug 2026 · Vet Alliance internal</div>
+</header>
+
+<nav class="toc">
+  <a href="#story">Brand Story</a>
+  <a href="#logo">Logo</a>
+  <a href="#color">Colour</a>
+  <a href="#type">Typography</a>
+  <a href="#voice">Voice &amp; Tone</a>
+  <a href="#pillars">Content Pillars</a>
+  <a href="#applications">In Application</a>
+</nav>
+
+<main>
+
+<section id="story">
+  <h2 class="stitle">🕊️ Brand Story</h2>
+  <p class="lead">FarewellPet exists for the moment a family says goodbye. We are not a disposal service — we are the dignified, unhurried hand that carries a pet's memory forward, for the family who loved them and for the veterinary clinic who cared for them.</p>
+  <div class="grid cols-2" style="margin-top:20px;">
+    <div class="type-card">
+      <h3 style="margin-top:0;">Positioning</h3>
+      <p style="font-size:.92rem;">A standalone, independently-branded pet funeral &amp; cremation service, operating under Vet Alliance but built to serve <b>every</b> veterinary clinic in Dubai — including Vet Alliance's own competitors — with equal care and confidentiality.</p>
+    </div>
+    <div class="type-card">
+      <h3 style="margin-top:0;">Personality</h3>
+      <p style="font-size:.92rem;">Warm. Calm. Unhurried. Present. Never clinical, never salesy, never performative in its sympathy. Think of the presence of a trusted family doctor at a difficult moment — competent enough to be invisible, present enough to be felt.</p>
+    </div>
+  </div>
+</section>
+
+<section id="logo">
+  <h2 class="stitle">🎨 Logo</h2>
+  <div class="logo-showcase">
+    <img src="farewellpet-launch/assets/logo.png" alt="FarewellPet primary logo">
+    <p style="margin-top:18px;font-size:.88rem;">Primary lock-up: circular emblem (dog + cat beneath a weeping willow branch) paired with the "Farewell" wordmark and "PET FUNERAL SERVICES" descriptor.</p>
+  </div>
+
+  <h3>Clear space &amp; minimum size</h3>
+  <div class="clearspace-demo">
+    <div class="box"><img src="farewellpet-launch/assets/logo.png" alt="logo clear space demo"></div>
+  </div>
+  <p style="font-size:.85rem;margin-top:10px;">Maintain clear space equal to the height of the emblem circle on all sides — no text, edges, or other graphics inside that zone. Minimum digital width: 120px. Minimum print width: 25mm. Below this, use the emblem alone (see Logo Variants).</p>
+
+  <h3>Logo variants needed</h3>
+  <ul style="color:var(--ink-soft);font-size:.92rem;">
+    <li><b>Primary (full lock-up)</b> — website header, print collateral, signage — <i>only source file we have today</i></li>
+    <li><b>Emblem only</b> — app icons, social profile photo, favicon, small-space applications — needs to be extracted/redrawn as a clean vector, ideally in-house or with the same designer who built the original</li>
+    <li><b>White/reversed version</b> — for use on the coral background or dark photos</li>
+    <li><b>Horizontal vs. stacked lock-up</b> — current file is horizontal; a stacked version (emblem above wordmark) is worth having for square social formats</li>
+  </ul>
+  <div class="callout" style="background:#fff;border:1px dashed var(--coral);border-radius:10px;padding:16px 20px;font-size:.86rem;color:var(--ink-soft);margin-top:10px;">
+    ⚠️ We currently only have the flattened PDF/PNG of the full lock-up. Before large-format print (signage, vehicle branding) or the app-icon/social-avatar crop, get the original vector source (AI/EPS/SVG) from whoever designed it, or have it redrawn — flattened raster art will look soft at large sizes and can't be recoloured cleanly for the white/reversed variant.
+  </div>
+
+  <h3>Don't</h3>
+  <div class="dont-grid">
+    <div class="dont-card">
+      <div class="mock" style="background:var(--sage);"><span style="color:#fff;font-family:'Playfair Display',serif;font-size:1.3rem;">Farewell</span></div>
+      <p><span class="x">✕</span> Don't recolour the emblem to non-brand colours</p>
+    </div>
+    <div class="dont-card">
+      <div class="mock" style="background:#fff;border:1px solid var(--line);"><span style="font-family:'Playfair Display',serif;font-size:1.3rem;transform:scaleX(1.6);display:inline-block;color:var(--coral);">Farewell</span></div>
+      <p><span class="x">✕</span> Don't stretch or distort proportions</p>
+    </div>
+    <div class="dont-card">
+      <div class="mock" style="background:linear-gradient(120deg,#F5D5A0,#E94E44,#3A4A43);"><span style="color:#fff;font-family:'Playfair Display',serif;font-size:1.3rem;">Farewell</span></div>
+      <p><span class="x">✕</span> Don't place on busy or clashing backgrounds</p>
+    </div>
+    <div class="dont-card">
+      <div class="mock" style="background:var(--coral-wash);"><span style="font-family:'Inter',sans-serif;font-weight:800;font-size:1.1rem;color:var(--coral);">FAREWELL<br>PET</span></div>
+      <p><span class="x">✕</span> Don't rebuild the wordmark in a different typeface</p>
+    </div>
+  </div>
+</section>
+
+<section id="color">
+  <h2 class="stitle">🎨 Colour System</h2>
+  <p class="lead">Only one official colour existed before this brand book — the coral from the logo. Everything else below is proposed to give the brand a workable system across web, print, and social while keeping coral as the unmistakable signature colour.</p>
+
+  <h3>Primary</h3>
+  <div class="grid cols-4">
+    <div class="swatch-card">
+      <div class="fill" style="background:#E94E44;"></div>
+      <div class="meta"><b>Farewell Coral</b><span>#E94E44</span><em>Primary brand colour — from logo, verified by pixel sample</em></div>
+    </div>
+    <div class="swatch-card">
+      <div class="fill" style="background:#B7392A;"></div>
+      <div class="meta"><b>Coral — Deep</b><span>#B7392A</span><em>Headlines, hover/active states, print shadow tone</em></div>
+    </div>
+    <div class="swatch-card">
+      <div class="fill" style="background:#F08882;"></div>
+      <div class="meta"><b>Coral — Mid</b><span>#F08882</span><em>Secondary accents, icons, dividers</em></div>
+    </div>
+    <div class="swatch-card">
+      <div class="fill" style="background:#FBDCDA;"></div>
+      <div class="meta"><b>Coral — Tint</b><span>#FBDCDA</span><em>Backgrounds, tags, subtle highlights</em></div>
+    </div>
+  </div>
+
+  <h3>Neutrals &amp; grounding tone</h3>
+  <div class="grid cols-4">
+    <div class="swatch-card">
+      <div class="fill" style="background:#F7F2ED;"></div>
+      <div class="meta"><b>Warm Cream</b><span>#F7F2ED</span><em>Page/section backgrounds — softer than white, keeps warmth</em></div>
+    </div>
+    <div class="swatch-card">
+      <div class="fill" style="background:#3A4A43;"></div>
+      <div class="meta"><b>Sage Charcoal</b><span>#3A4A43</span><em>Body text alternative, grounding/calming counterweight to coral</em></div>
+    </div>
+    <div class="swatch-card">
+      <div class="fill" style="background:#2B2422;"></div>
+      <div class="meta"><b>Ink</b><span>#2B2422</span><em>Primary text colour — warm black, not pure #000</em></div>
+    </div>
+    <div class="swatch-card">
+      <div class="fill" style="background:#DDE6E1;"></div>
+      <div class="meta"><b>Sage Tint</b><span>#DDE6E1</span><em>Secondary backgrounds, quiet contrast to coral tint</em></div>
+    </div>
+  </div>
+
+  <h3>Usage ratio (guideline)</h3>
+  <p style="font-size:.9rem;">Roughly <b>10% coral, 60% warm neutral/cream, 20% ink/sage text, 10% accents</b>. Coral is a signature, not a wash — it should mark key moments (logo, CTAs, section dividers) rather than fill entire screens, which would tip a grief-care brand into feeling alarming rather than warm.</p>
+</section>
+
+<section id="type">
+  <h2 class="stitle">🔤 Typography</h2>
+  <div class="grid cols-2">
+    <div class="type-card">
+      <h3 style="margin-top:0;">Display / Headlines</h3>
+      <p class="type-sample-h">Farewell</p>
+      <p class="type-meta"><b>Playfair Display</b> (Google Fonts, free) — serif, matches the elegance of the existing "Farewell" wordmark. Use for H1/H2 headlines, pull quotes, and the wordmark itself if it's ever reset in text.</p>
+    </div>
+    <div class="type-card">
+      <h3 style="margin-top:0;">Body / UI</h3>
+      <p class="type-sample-b">Pet Funeral Services</p>
+      <p class="type-meta"><b>Inter</b> (Google Fonts, free) — clean humanist sans, mirrors the bold condensed caps style of the logo's descriptor line. Use for body copy, navigation, buttons, forms.</p>
+    </div>
+  </div>
+
+  <h3>Scale reference</h3>
+  <div class="type-card">
+    <div class="type-scale">
+      <div class="row"><span class="label">H1</span><span class="serif" style="font-size:2.4rem;">A dignified goodbye</span></div>
+      <div class="row"><span class="label">H2</span><span class="serif" style="font-size:1.7rem;">How it works</span></div>
+      <div class="row"><span class="label">H3 / label</span><span style="font-weight:700;font-size:1.05rem;">FOR VETERINARY CLINICS</span></div>
+      <div class="row"><span class="label">Body</span><span style="font-size:1rem;">We care for your patient the way you cared for them — every step, every time.</span></div>
+      <div class="row"><span class="label">Small / meta</span><span style="font-size:.82rem;color:var(--ink-soft);">Available 7 days a week · Dubai-wide pickup</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="voice">
+  <h2 class="stitle">🗣️ Voice &amp; Tone</h2>
+  <p class="lead">One rule above all: this brand speaks like a caring person, not a service provider. Every word choice either respects that or undermines it.</p>
+  <table class="voice">
+    <tr><th>Instead of…</th><th>Say…</th></tr>
+    <tr><td class="no">Disposal / processing</td><td class="yes">Care / farewell / aftercare</td></tr>
+    <tr><td class="no">The body / the remains</td><td class="yes">Your pet / [pet's name] whenever known</td></tr>
+    <tr><td class="no">Cremation unit / batch</td><td class="yes">Individual / private cremation</td></tr>
+    <tr><td class="no">Client / customer</td><td class="yes">Family, or the pet owner's name</td></tr>
+    <tr><td class="no">Order / transaction / invoice-first language</td><td class="yes">Arrangement, request, "we're here to help"</td></tr>
+    <tr><td class="no">Service fee</td><td class="yes">Care package / arrangement cost (only when pricing must be shown)</td></tr>
+    <tr><td class="no">"Thank you for your business"</td><td class="yes">"We're honoured you trusted us with [pet's name]"</td></tr>
+  </table>
+  <h3>Golden rules</h3>
+  <ul style="color:var(--ink-soft);font-size:.92rem;">
+    <li>Never rush the reader. Short, calm sentences beat long persuasive ones.</li>
+    <li>No graphic detail, ever — describe process in terms of care and outcome, not mechanics.</li>
+    <li>B2B copy (to clinics) can be more operational/direct — turnaround times, logistics, reliability — but should still open and close warmly, never purely transactional.</li>
+    <li>Humour has no place here. Warmth does not require levity.</li>
+  </ul>
+</section>
+
+<section id="pillars">
+  <h2 class="stitle">📣 Content Pillars (social &amp; website)</h2>
+  <div class="pillar-card">
+    <h4>1. Reassurance &amp; Education</h4>
+    <p>What actually happens, is burial legal in the UAE, how to choose between service tiers, what to expect timeline-wise. Reduces anxiety at the exact moment someone is searching in distress.</p>
+  </div>
+  <div class="pillar-card">
+    <h4>2. Memorial &amp; Remembrance (with permission)</h4>
+    <p>Paw-print keepsakes, urn options, memorial certificates — always with explicit owner consent before anything is shared publicly.</p>
+  </div>
+  <div class="pillar-card">
+    <h4>3. Behind-the-Scenes Dignity</h4>
+    <p>The care taken, the facility, the people (once hired) — never the equipment mid-operation, never remains. Builds trust through transparency about process, not mechanics.</p>
+  </div>
+  <div class="pillar-card">
+    <h4>4. Clinic Partner Trust (B2B-facing)</h4>
+    <p>Spotlighting the partnership model, logistics reliability, and testimonials from partner clinics once they exist — this is the pillar that does the heaviest commercial lifting.</p>
+  </div>
+</section>
+
+<section id="applications">
+  <h2 class="stitle">🧩 In Application</h2>
+  <div class="grid cols-2">
+    <div class="app-card">
+      <div class="swatch-header coral"><b>Website hero example</b></div>
+      <div class="body">
+        <p class="serif" style="font-size:1.6rem;color:var(--ink);margin:0 0 8px;">A dignified goodbye,<br>every time.</p>
+        <p style="font-size:.88rem;margin:0 0 14px;">Compassionate pet cremation and aftercare in Dubai — for families, and for the clinics who trust us with their patients.</p>
+        <span class="btn-demo btn-primary">Request a Farewell</span>
+        <span class="btn-demo btn-secondary">For Clinics</span>
+      </div>
+    </div>
+    <div class="app-card">
+      <div class="swatch-header cream"><b>Clinic reception card</b></div>
+      <div class="body">
+        <p style="font-size:.85rem;margin:0 0 10px;color:var(--ink);">"End-of-life &amp; aftercare support — we're here for you and your pet."</p>
+        <span class="btn-demo btn-ghost">farewellpet.ae</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  FarewellPet Brand Book v1.0 · Prepared 26 Aug 2026 · Vet Alliance internal · Companion to the <a href="farewellpet-launch-plan.html" style="color:var(--coral-deep);">Launch Plan</a>
+</footer>
+
+</body>
+</html>
