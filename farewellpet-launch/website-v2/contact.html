@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — FarewellPet</title>
+<meta name="description" content="Get in touch with FarewellPet — pet cremation and aftercare in Dubai. Call, WhatsApp, email, or send a message.">
+<link rel="icon" href="../assets/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  .contact-layout{ display:grid; grid-template-columns:1fr 1fr; gap:50px; max-width:1000px; margin:0 auto; align-items:start; }
+  @media (max-width:800px){ .contact-layout{ grid-template-columns:1fr; } }
+  .contact-form{ background:#fff; border:1px solid var(--line); border-radius:16px; padding:34px; }
+  .contact-form label{ display:block; font-size:.82rem; font-weight:700; margin-bottom:6px; color:var(--ink); }
+  .contact-form input, .contact-form select, .contact-form textarea{ width:100%; padding:11px 14px; border:1px solid var(--line); border-radius:8px; font-family:'Inter',sans-serif; font-size:.9rem; margin-bottom:18px; color:var(--ink); }
+  .contact-form textarea{ min-height:110px; resize:vertical; }
+  .contact-form button{ width:100%; background:var(--coral); color:#fff; border:none; padding:14px; border-radius:8px; font-weight:700; font-size:.95rem; cursor:pointer; }
+  .contact-methods{ display:flex; flex-direction:column; gap:16px; }
+  .method-card{ background:var(--cream); border-radius:12px; padding:20px; display:flex; gap:14px; align-items:flex-start; }
+  .method-card .ic{ width:38px; height:38px; border-radius:10px; background:var(--coral); color:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .method-card h4{ margin:0 0 4px; font-size:.92rem; }
+  .method-card p{ margin:0; font-size:.85rem; color:var(--ink-soft); }
+  .map-placeholder{ background:var(--coral-wash); border:2px dashed var(--coral-mid); border-radius:12px; height:180px; display:flex; align-items:center; justify-content:center; color:var(--coral-dark); font-size:.8rem; margin-top:6px; }
+  .form-note{ font-size:.78rem; color:var(--ink-soft); margin-top:-8px; margin-bottom:16px; }
+</style>
+</head>
+<body>
+
+<div class="buildnote">🚧 Placeholder build — form doesn't submit yet (needs a backend/email hookup before launch); phone/email/WhatsApp fields pending.</div>
+
+<nav class="top">
+  <div class="wrap">
+    <a class="brand-lockup" href="index.html"><span class="dot"></span><span class="name">Farewell<b>PET</b></span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="for-clinics.html">For Clinics</a></li>
+      <li><a href="our-story.html">Our Story</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+    </ul>
+    <div class="nav-right">
+      <a class="nav-cta" href="contact.html">Contact Us</a>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="for-clinics.html">For Clinics</a>
+    <a href="our-story.html">Our Story</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html" class="cta-mobile">Contact Us →</a>
+  </div>
+</nav>
+
+<header class="pagetop">
+  <div class="breadcrumb"><a href="index.html">Home</a> / Contact</div>
+  <h1 class="pagehero">We're here for you</h1>
+  <p>Reach out any time — by phone, WhatsApp, email, or the form below. No question is too small.</p>
+</header>
+
+<section>
+  <div class="contact-layout">
+    <div class="contact-methods">
+      <div class="method-card"><div class="ic">📞</div><div><h4>Phone</h4><p>[phone placeholder]</p></div></div>
+      <div class="method-card"><div class="ic">💬</div><div><h4>WhatsApp</h4><p>[WhatsApp placeholder]</p></div></div>
+      <div class="method-card"><div class="ic">📧</div><div><h4>Email</h4><p>[email placeholder — @farewellpet.ae]</p></div></div>
+      <div class="method-card"><div class="ic">📍</div><div><h4>Location</h4><p>Khawaneej, Dubai — dedicated FarewellPet entrance, separate from the veterinary clinic</p></div></div>
+      <div class="map-placeholder">[map embed placeholder — Khawaneej location]</div>
+    </div>
+    <div>
+      <form class="contact-form" onsubmit="return false;">
+        <label for="name">Your name</label>
+        <input type="text" id="name" placeholder="Full name">
+        <label for="phone">Phone number</label>
+        <input type="tel" id="phone" placeholder="+971 …">
+        <label for="topic">I'm reaching out about</label>
+        <select id="topic">
+          <option>A pet in my care right now</option>
+          <option>General question</option>
+          <option>I'm a veterinary clinic — partnership enquiry</option>
+          <option>Something else</option>
+        </select>
+        <label for="msg">Message</label>
+        <textarea id="msg" placeholder="Tell us a little about what you need — we'll respond gently and promptly."></textarea>
+        <div class="form-note">This form doesn't send anywhere yet — needs an email/backend hookup before launch.</div>
+        <button type="submit">Send message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="fwrap">
+    <div>
+      <div class="fbrand">FarewellPet</div>
+      <p>Compassionate pet cremation &amp; aftercare in Dubai.</p>
+      <p>Khawaneej, Dubai, UAE</p>
+    </div>
+    <div>
+      <h5>Explore</h5>
+      <ul>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="for-clinics.html">For Clinics</a></li>
+        <li><a href="our-story.html">Our Story</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Contact</h5>
+      <ul>
+        <li>[phone placeholder]</li>
+        <li>[email placeholder]</li>
+        <li>Khawaneej, Dubai</li>
+      </ul>
+    </div>
+    <div>
+      <h5>Follow</h5>
+      <ul>
+        <li><a href="#">Instagram (@farewellpet)</a></li>
+        <li><a href="#">Facebook</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="bottom">
+    <span>© 2026 FarewellPet · farewellpet.ae</span>
+    <span>An independent aftercare service, Dubai UAE</span>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+</body>
+</html>
