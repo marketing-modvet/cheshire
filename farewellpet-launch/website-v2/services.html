@@ -13,7 +13,8 @@
   .addon-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; max-width:1080px; margin:0 auto; }
   @media (max-width:800px){ .addon-grid{ grid-template-columns:1fr; } }
   .addon{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:20px; display:flex; gap:14px; align-items:flex-start; }
-  .addon .ic{ width:36px; height:36px; border-radius:9px; background:var(--coral-tint); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .addon .ic{ width:36px; height:36px; border-radius:9px; background:var(--coral-tint); color:var(--coral-dark); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .addon .ic svg{ display:block; }
   .addon h4{ margin:0 0 4px; font-size:.92rem; }
   .addon p{ margin:0; font-size:.8rem; color:var(--ink-soft); }
   .compare-table{ width:100%; max-width:1000px; margin:0 auto; border-collapse:collapse; background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 6px 20px rgba(0,0,0,.04); }
@@ -124,12 +125,40 @@
   <h2 class="stitle">Memorial &amp; keepsake options</h2>
   <p class="section-sub">Available across tiers where applicable — a way to hold onto something meaningful.</p>
   <div class="addon-grid">
-    <div class="addon"><div class="ic">🏺</div><div><h4>Keepsake urns</h4><p>A range of styles, from simple to hand-finished. [Placeholder — real catalogue once sourced.]</p></div></div>
-    <div class="addon"><div class="ic">🐾</div><div><h4>Paw-print keepsake</h4><p>A clay or ink impression, kept as a lasting memory.</p></div></div>
-    <div class="addon"><div class="ic">📜</div><div><h4>Memorial certificate</h4><p>A simple, dignified certificate marking your pet's life.</p></div></div>
-    <div class="addon"><div class="ic">🕯️</div><div><h4>Memorial jewellery</h4><p>[Placeholder — ash-inclusive jewellery options, TBC availability.]</p></div></div>
-    <div class="addon"><div class="ic">📷</div><div><h4>Photo memorial card</h4><p>A printed keepsake card featuring a photo of your pet.</p></div></div>
-    <div class="addon"><div class="ic">🌿</div><div><h4>Planting memorial</h4><p>[Placeholder — ashes-to-planting option, TBC availability.]</p></div></div>
+    <div class="addon"><div class="ic"><svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+<path d="M10 2v5.632c0 .424-.272.795-.653.982A6 6 0 0 0 6 14c.006 4 3 7 5 8"/>
+<path d="M10 5H8a2 2 0 0 0 0 4h.68"/>
+<path d="M14 2v5.632c0 .424.272.795.652.982A6 6 0 0 1 18 14c0 4-3 7-5 8"/>
+<path d="M14 5h2a2 2 0 0 1 0 4h-.68"/>
+<path d="M18 22H6"/>
+<path d="M9 2h6"/>
+</svg></div><div><h4>Keepsake urns</h4><p>A range of styles, from simple to hand-finished. [Placeholder — real catalogue once sourced.]</p></div></div>
+    <div class="addon"><div class="ic"><svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+<ellipse cx="12" cy="15.5" rx="4.2" ry="3.3"/>
+<ellipse cx="6.8" cy="10.5" rx="1.7" ry="2.2"/>
+<ellipse cx="10.2" cy="7.3" rx="1.7" ry="2.2"/>
+<ellipse cx="14.8" cy="7.3" rx="1.7" ry="2.2"/>
+<ellipse cx="17.8" cy="10.5" rx="1.7" ry="2.2"/>
+</svg></div><div><h4>Paw-print keepsake</h4><p>A clay or ink impression, kept as a lasting memory.</p></div></div>
+    <div class="addon"><div class="ic"><svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+<path d="M15 12h-5"/>
+<path d="M15 8h-5"/>
+<path d="M19 17V5a2 2 0 0 0-2-2H4"/>
+<path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/>
+</svg></div><div><h4>Memorial certificate</h4><p>A simple, dignified certificate marking your pet's life.</p></div></div>
+    <div class="addon"><div class="ic"><svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+<path d="M12 3.5c1 1.4 1.6 2.4 1.6 3.3a1.6 1.6 0 1 1-3.2 0c0-.9.6-1.9 1.6-3.3z" fill="currentColor" stroke="none"/>
+<rect x="9" y="9" width="6" height="10" rx="1"/>
+<path d="M9 12.5h6"/>
+</svg></div><div><h4>Memorial jewellery</h4><p>[Placeholder — ash-inclusive jewellery options, TBC availability.]</p></div></div>
+    <div class="addon"><div class="ic"><svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+<path d="M9 6l1-1.6h4L15 6h2.5A1.5 1.5 0 0 1 19 7.5v9A1.5 1.5 0 0 1 17.5 18h-11A1.5 1.5 0 0 1 5 16.5v-9A1.5 1.5 0 0 1 6.5 6H9z"/>
+<circle cx="12" cy="12" r="3.2"/>
+</svg></div><div><h4>Photo memorial card</h4><p>A printed keepsake card featuring a photo of your pet.</p></div></div>
+    <div class="addon"><div class="ic"><svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+<path d="M6 18c-1-5 1-10.5 12-13 1 8-2 13-12 13z"/>
+<path d="M7 17c2-4 5-7 9.5-10.5"/>
+</svg></div><div><h4>Planting memorial</h4><p>[Placeholder — ashes-to-planting option, TBC availability.]</p></div></div>
   </div>
 </section>
 

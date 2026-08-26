@@ -20,6 +20,7 @@
   .contact-methods{ display:flex; flex-direction:column; gap:16px; }
   .method-card{ background:var(--cream); border-radius:12px; padding:20px; display:flex; gap:14px; align-items:flex-start; }
   .method-card .ic{ width:38px; height:38px; border-radius:10px; background:var(--coral); color:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .method-card .ic svg{ display:block; }
   .method-card h4{ margin:0 0 4px; font-size:.92rem; }
   .method-card p{ margin:0; font-size:.85rem; color:var(--ink-soft); }
   .map-placeholder{ background:var(--coral-wash); border:2px dashed var(--coral-mid); border-radius:12px; height:180px; display:flex; align-items:center; justify-content:center; color:var(--coral-dark); font-size:.8rem; margin-top:6px; }
@@ -65,10 +66,21 @@
 <section>
   <div class="contact-layout">
     <div class="contact-methods">
-      <div class="method-card"><div class="ic">📞</div><div><h4>Phone</h4><p>[phone placeholder]</p></div></div>
-      <div class="method-card"><div class="ic">💬</div><div><h4>WhatsApp</h4><p>[WhatsApp placeholder]</p></div></div>
-      <div class="method-card"><div class="ic">📧</div><div><h4>Email</h4><p>[email placeholder — @farewellpet.ae]</p></div></div>
-      <div class="method-card"><div class="ic">📍</div><div><h4>Location</h4><p>Khawaneej, Dubai — dedicated FarewellPet entrance, separate from the veterinary clinic</p></div></div>
+      <div class="method-card"><div class="ic"><svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+<path d="M6.6 3.5c.5 0 1 .3 1.2.8l1 2.4c.2.5.1 1-.2 1.4L7.4 9.6c.9 2 2.4 3.5 4.4 4.4l1.5-1.2c.4-.3.9-.4 1.4-.2l2.4 1c.5.2.8.7.8 1.2v2.1c0 .9-.8 1.6-1.7 1.5-6-.6-10.7-5.3-11.3-11.3-.1-.9.6-1.7 1.5-1.7h.2z"/>
+</svg></div><div><h4>Phone</h4><p>[phone placeholder]</p></div></div>
+      <div class="method-card"><div class="ic"><svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+<path d="M4 6.5A2 2 0 0 1 6 4.5h12a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-6.2L8 18.5v-3H6a2 2 0 0 1-2-2v-7z"/>
+<path d="M8 9h8M8 12h5"/>
+</svg></div><div><h4>WhatsApp</h4><p>[WhatsApp placeholder]</p></div></div>
+      <div class="method-card"><div class="ic"><svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+<rect x="3.5" y="5.5" width="17" height="13" rx="1.8"/>
+<path d="M4.5 7 12 12.5 19.5 7"/>
+</svg></div><div><h4>Email</h4><p>[email placeholder — @farewellpet.ae]</p></div></div>
+      <div class="method-card"><div class="ic"><svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+<path d="M12 21s-6.5-5.7-6.5-10.7a6.5 6.5 0 1 1 13 0C18.5 15.3 12 21 12 21z"/>
+<circle cx="12" cy="10.3" r="2.3"/>
+</svg></div><div><h4>Location</h4><p>Khawaneej, Dubai — dedicated FarewellPet entrance, separate from the veterinary clinic</p></div></div>
       <div class="map-placeholder">[map embed placeholder — Khawaneej location]</div>
     </div>
     <div>
