@@ -1,11 +1,16 @@
 /* FarewellPet — shared site styles (v2, multi-page) */
+/* Palette update 26 Aug: swapped the bright logo-coral (#E94E44) for a
+   softer, more muted terracotta (#E06F4F, Andrew's exact call) — better fit
+   for a cremation/grief-care site. Also pulled pure white back: cream/sage
+   now carry most of the structural weight, coral is accent-only (buttons,
+   small badges, the nav dot) rather than large hero/CTA fields. */
 :root{
-  --coral:#E94E44; --coral-dark:#B7392A; --coral-mid:#F08882; --coral-tint:#FBDCDA; --coral-wash:#FCF1EF;
+  --coral:#E06F4F; --coral-dark:#A65741; --coral-mid:#ECA692; --coral-tint:#F8DFD8; --coral-wash:#F5E5DD;
   --cream:#F7F2ED; --sage:#3A4A43; --sage-tint:#DDE6E1; --ink:#2B2422; --ink-soft:#6B6058; --line:#E8DCD5;
 }
 *{ box-sizing:border-box; }
 html{ scroll-behavior:smooth; }
-body{ margin:0; background:#fff; color:var(--ink); font-family:'Inter',sans-serif; line-height:1.65; -webkit-font-smoothing:antialiased; }
+body{ margin:0; background:var(--cream); color:var(--ink); font-family:'Inter',sans-serif; line-height:1.65; -webkit-font-smoothing:antialiased; }
 .serif{ font-family:'Lora',serif; }
 a{ color:inherit; }
 img{ max-width:100%; display:block; }
@@ -54,7 +59,7 @@ p.section-sub{ text-align:center; color:var(--ink-soft); max-width:640px; margin
 .eyebrow{ text-transform:uppercase; letter-spacing:2px; font-size:.72rem; font-weight:700; color:var(--coral-dark); text-align:center; margin-bottom:10px; }
 
 /* page hero (non-home, smaller) */
-header.pagetop{ background:linear-gradient(160deg,var(--coral) 0%, var(--coral-dark) 100%); color:#fff; padding:70px 24px 60px; text-align:center; }
+header.pagetop{ background:linear-gradient(160deg,var(--sage) 0%, #2B3733 100%); color:#fff; padding:70px 24px 60px; text-align:center; }
 header.pagetop p{ opacity:.92; font-size:1.02rem; max-width:600px; margin:0 auto; }
 .breadcrumb{ font-size:.78rem; opacity:.8; margin-bottom:14px; }
 .breadcrumb a{ color:#fff; text-decoration:underline; }
@@ -82,7 +87,7 @@ header.pagetop p{ opacity:.92; font-size:1.02rem; max-width:600px; margin:0 auto
 /* cards */
 .tier-card{ background:#fff; border:1px solid var(--line); border-radius:16px; padding:32px 26px; text-align:center; }
 .tier-card.featured{ border-color:var(--coral); box-shadow:0 14px 30px rgba(233,78,68,.12); position:relative; }
-.tier-card .badge{ position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--coral); color:#fff; font-size:.7rem; padding:4px 12px; border-radius:999px; font-weight:700; }
+.tier-card .badge{ position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--sage); color:#fff; font-size:.7rem; padding:4px 12px; border-radius:999px; font-weight:700; }
 .tier-card h3{ font-family:'Lora',serif; font-style:italic; margin:0 0 8px; }
 .tier-card .price{ font-size:1.6rem; font-weight:800; color:var(--coral-dark); margin:10px 0; }
 .tier-card .price span{ font-size:.75rem; font-weight:600; color:var(--ink-soft); display:block; margin-top:4px; }
@@ -124,7 +129,8 @@ header.pagetop p{ opacity:.92; font-size:1.02rem; max-width:600px; margin:0 auto
 .contact-item{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px 24px; font-size:.9rem; }
 
 /* CTA band */
-.cta-band{ background:var(--coral); color:#fff; text-align:center; padding:60px 24px; }
+.cta-band{ background:linear-gradient(160deg,var(--sage) 0%, #2B3733 100%); color:#fff; text-align:center; padding:60px 24px; }
+.cta-band .btn-coral{ background:var(--coral); }
 .cta-band h2{ font-family:'Lora',serif; font-style:italic; margin:0 0 12px; font-size:1.7rem; }
 .cta-band p{ opacity:.92; margin:0 0 24px; }
 
