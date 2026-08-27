@@ -377,12 +377,22 @@
     <div class="timeline-wrap">
       <div class="tl-head">
         <h3>Marketing Department · Delivery Track</h3>
-        <div class="tl-counter">From <strong>Mar 19</strong> to <strong>Aug 14, 2026</strong></div>
+        <div class="tl-counter">From <strong>Mar 19</strong> to <strong>Aug 26, 2026</strong></div>
       </div>
 
       <div class="tl-month">
         <div class="tl-month-label">August</div>
         <ul class="tl-list">
+          <li class="tl-item"><div class="tl-date">Aug 26</div><div class="tl-body"><span class="tl-tag t-marketing">Brand</span><strong>FarewellPet — new standalone brand launched into build (target Oct 1)</strong><em>New Vet Alliance brand: pet funeral &amp; cremation services, B2C + B2B (every Dubai vet clinic, including competitors, is the real customer base). Site + equipment + legal already ready — real bottleneck is hiring crematorium staff. Delivered same-day: full launch plan, Brand Book v1.0 (colour/type/voice system), a new 6-page website (Home/Services/For Clinics/Our Story/FAQ/Contact) with a custom flat-line icon set replacing generic emoji, and social handle <code>@farewellpet</code> reserved. <a href="farewellpet-dashboard.html" style="color:var(--accent);font-weight:600;">Full hub →</a></em></div></li>
+          <li class="tl-item"><div class="tl-date">Aug 26</div><div class="tl-body"><span class="tl-tag t-ops">Ops</span><strong>Driver Dispatch — bike-rider fallback added to /dispatch</strong><em>Slack modal gained a third assignment option, "Bike Rider (or Driver if none free)" — reuses the same auto-assign fallback logic already running quietly on Lab Sample Transfer since July, now exposed as a real choice in the dispatch modal.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Aug 25</div><div class="tl-body"><span class="tl-tag t-ops">Ops</span><strong>Driver Dispatch — reception "Tasks" tab shipped</strong><em>New view-only filterable All Tasks tab for the reception dashboard (sortable by status/driver/date), mirroring the admin view with every action element (reassign, edit, cancel, force-assign) stripped out — reception stays hard-blocked server-side, not just hidden in the UI.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Aug 25</div><div class="tl-body"><span class="tl-tag t-reports">Report</span><strong>Scheduling Knowledge Hub v1.10 — refreshed against Dima's live working notes</strong><em>Folded in a second, fresher scheduling source ("Dima's knowledge base" — the actual day-to-day schedule builder's working sheet) confirmed by Andrew as the more authoritative one going forward. Corrected Al Wasl/BOVC/TVRC staffing notes and added a new explicit "Pending Decisions" section (7 items) so undecided proposals — like a possible Azizi/Khawaneej 5-day week — don't get read as settled fact. <a href="scheduling-knowledge-hub.html" style="color:var(--accent);font-weight:600;">Full hub →</a> (password-gated)</em></div></li>
+          <li class="tl-item"><div class="tl-date">Aug 24</div><div class="tl-body"><span class="tl-tag t-reports">Report</span><strong>Domain Audit — Aug 2026</strong><em>All 42 domains Vet Alliance owns, deduplicated across two legacy tracking sheets, live-checked one by one and sorted into Important / Needed / Other. Caught 3 GoDaddy placeholder pages, 3 registrar parking-page redirects, 6 domains resolving to no configured site, and 11 with no DNS at all — all now documented in one sheet instead of scattered institutional memory.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Aug 21</div><div class="tl-body"><span class="tl-tag t-tech">Tech</span><strong>ThreatPointer security assessment — closed out</strong><em>Worked through all 14 vendor-reported findings with independent live verification of every claim rather than trusting the report at face value. Fixed live: a WordPress REST API endpoint on modernvet.com that was leaking usernames/emails to anonymous requests. Delivered a status-labeled reply (CLOSED/FIXED/OPEN/DEFERRED) plus a full fix-tutorial doc for the remaining open items — highest-risk one (an abandoned AWS mail server) is queued pending Andrew's account confirmation.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Aug 18-21</div><div class="tl-body"><span class="tl-tag t-ops">Ops</span><strong>Mandatory pickup/drop-off times shipped across all 3 Slack ops apps + admin override restored</strong><em>Closed the loop on the Aug 13-14 fix: <strong>Lab Sample Transfer</strong> and <strong>Patient Endorsement</strong> both got their Collect By / Drop-off By fields made properly mandatory (client + server-side), matching Driver Dispatch. Separately, brought back an admin-only "Force assign…" override (removed in early Aug after a real double-booking incident) — reception stays hard-blocked, but admins can now override with a typed reason, fully logged to the task's Slack thread.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Aug 19</div><div class="tl-body"><span class="tl-tag t-ops">Finance</span><strong>Financial dashboard — full 2026 monthly history + category comparison added</strong><em>Extended the July reconciliation dashboard with a Jan–Jul 2026 monthly history tab (per-month itemized marketing + non-marketing breakdowns, legacy "outdated payment" rows correctly folded in and reconciled against the source sheet's own totals) and a second Excel-style Category Comparison tab — all 7 months side by side, sticky item column, sticky running-total column. <a href="financial-dashboard.html" style="color:var(--accent);font-weight:600;">Full dashboard →</a> (password-gated)</em></div></li>
+          <li class="tl-item"><div class="tl-date">Aug 19</div><div class="tl-body"><span class="tl-tag t-reports">Report</span><strong>Vet Schedule Optimization — ultrasound coverage gap closed</strong><em>Deep dive into the Ivan/Isabel ultrasound rotation found a structural gap — every 4th Saturday had <strong>zero</strong> sonographer coverage, worsened further by unmodelled vacation leave (up to ~29 zero-coverage days/yr). Demand-weighted scoring of every fixed and flexible shift option found a printable 4-week flex rotation lifts coverage from a 65% baseline to <strong>95%+</strong>, with fixed-MID shifts (the original ask) actually scoring worst of the fixed options. Full visual breakdown — bar charts, before/after heat grids, vacation scenario table — added to the report.</em></div></li>
+          <li class="tl-item"><div class="tl-date">Aug 17</div><div class="tl-body"><span class="tl-tag t-marketing">Brand</span><strong>Zoetis sponsorship package — full proposal, 12-month calendar &amp; Academy concept</strong><em>Biggest sponsorship package built to date: a COO-briefed, Zoetis-personalized <strong>Partnership Proposal</strong> (9 pages — 5 workstreams, an "Alliance Package" bundle priced at AED 995,000, save 30% vs. standalone), a <strong>12-Month Marketing Calendar</strong> (6 pages, quarterly events/podcasts from November, 6 social flights/year, multi-brand group flights), and a new <strong>Vet Alliance Academy concept</strong> one-pager solving a Boehringer-conflict in the education workstream with a "Founding Partner" naming-credit recommendation. All three share one design system (VA teal/gold + Zoetis orange).</em></div></li>
           <li class="tl-item"><div class="tl-date">Aug 14</div><div class="tl-body"><span class="tl-tag t-reports">Report</span><strong>Al Khawaneej — Analytics &amp; Plan</strong><em>Response to a Chairman-driven urgent request for mall banners/digital screens/trolley ads near Al Khawaneej. Analysis confirmed the diagnosis (awareness, not capacity — ~10% utilization) but found the requested offline campaign would cost <strong>AED 15,000–45,000/month against a clinic doing AED 6.9-8.7K/month in total revenue</strong>. Also found the cited competitor "opening nearby" was an established clinic, not a new location. Right-sized plan agreed instead: reactivate two already-paused Google Ads campaigns + one targeted villa flyer drop, <strong>AED 4,000 total</strong>, mall media held as a funded phase 2. <a href="khawaneej-analytics-and-plan.html" style="color:var(--accent);font-weight:600;">Full report →</a></em></div></li>
           <li class="tl-item"><div class="tl-date">Aug 14</div><div class="tl-body"><span class="tl-tag t-reports">Report</span><strong>August 2026 Revenue Analysis — pet count vs. revenue-per-pet, broken down per clinic</strong><em>Mid-month diagnostic after a raw month-over-month comparison showed a misleading -65% revenue headline. Day-count-normalised analysis (13 elapsed days) found footfall is actually flat-to-up and utilisation held steady — the real gap is <strong>revenue-per-pet, down ~24%</strong>. Two pet-count definitions tracked separately and cross-checked; visits-per-unique-pet ratio confirms the same pet base is being seen less often per visit. Full per-clinic breakdown with auto-tagged drivers (Volume/Price/Capacity). <a href="august-2026-revenue-analysis.html" style="color:var(--accent);font-weight:600;">Full report →</a></em></div></li>
           <li class="tl-item"><div class="tl-date">Aug 13-14</div><div class="tl-body"><span class="tl-tag t-ops">Ops</span><strong>Slack ops suite — mandatory pickup/drop-off time fields shipped across all three apps</strong><em>Closed a recurring gap where tasks could be created with no pickup/drop-off time at all, making auto-assignment impossible. Fixed on <strong>Lab Sample Transfer</strong> (<code>/labsample</code> — added a Drop-off By field plus a visible "no driver free" warning banner instead of a silent server-side log) and on the <strong>Driver Dispatch</strong> <code>/dispatch</code> modal (both fields now required client-side and server-side, matching the fix already shipped on the admin/reception web form Aug 11). Same underlying failure mode caught and closed across every entry point staff use to create a task.</em></div></li>
@@ -577,6 +587,18 @@
         <div class="tile-title">ezyVet Referral Pattern Analysis</div>
         <div class="tile-desc">14-month review of internal referrals, missed-referral detection, and vet-level scorecards across every specialty. "Referral" appointment type = 3,758 cases group-wide, the 9th most common type.</div>
         <div class="tile-foot"><span class="pill pill-live">Aug 5</span><span class="pill pill-locked">Password</span></div>
+      </a>
+      <a class="tile cat-reports" href="scheduling-knowledge-hub.html">
+        <div class="tile-icon">📅</div>
+        <div class="tile-title">Scheduling Knowledge Hub</div>
+        <div class="tile-desc">Everything pulled from the live scheduling sheets into one CEO-shareable reference — clinics, teams, rotation mechanics, substitute rules, and an explicit "Pending Decisions" section so proposals-in-progress never get read as settled fact. v1.10, refreshed against the scheduler's own working notes.</div>
+        <div class="tile-foot"><span class="pill pill-new">v1.10</span><span class="pill pill-live">Aug 25</span><span class="pill pill-locked">Password</span></div>
+      </a>
+      <a class="tile cat-reports" href="https://docs.google.com/spreadsheets/d/1PK6QezXCkoPwGPgwlA2WEmq0aQ0KTPWUAKsj8j_gq4c/edit">
+        <div class="tile-icon">🌐</div>
+        <div class="tile-title">Domain Audit — Aug 2026</div>
+        <div class="tile-desc">All 42 domains Vet Alliance owns, live-checked and sorted into Important / Needed / Other. Surfaced placeholder pages, parking-page redirects, and dead DNS that had never been documented in one place before.</div>
+        <div class="tile-foot"><span class="pill pill-new">New</span><span class="pill pill-live">Aug 24</span></div>
       </a>
       <a class="tile cat-reports" href="vet-report.html">
         <div class="tile-icon">🏆</div>
@@ -794,6 +816,18 @@
       <p>Templates · graphics · production-ready</p>
     </div>
     <div class="tiles">
+      <a class="tile cat-marketing" href="farewellpet-dashboard.html">
+        <div class="tile-icon">🪶</div>
+        <div class="tile-title">FarewellPet — New Brand Launch</div>
+        <div class="tile-desc">New standalone Vet Alliance brand — pet funeral &amp; cremation services, B2C + B2B, targeting <strong>1 October 2026</strong> launch. Hub covers the full launch plan, Brand Book v1.0, a new 6-page website, and a B2B one-pager. Site, equipment and legal already ready; hiring crematorium staff is the one real bottleneck.</div>
+        <div class="tile-foot"><span class="pill pill-new">New</span><span class="pill pill-live">Aug 26</span></div>
+      </a>
+      <div class="tile cat-marketing">
+        <div class="tile-icon">🤝</div>
+        <div class="tile-title">Zoetis Sponsorship Package</div>
+        <div class="tile-desc">Full COO-briefed partnership proposal (9 pages, "Alliance Package" bundle at AED 995,000), a 12-month marketing calendar, and a Vet Alliance Academy concept for the education workstream. One shared VA teal/gold + Zoetis orange design system across all three. PDFs on shared drive — not yet published to this hub.</div>
+        <div class="tile-foot"><span class="pill pill-new">New</span><span class="pill pill-live">Aug 17</span></div>
+      </div>
       <a class="tile cat-marketing" href="zoetis-brochure-redesign-full.html">
         <div class="tile-icon">📰</div>
         <div class="tile-title">Zoetis — Trifold Brochure</div>
@@ -864,6 +898,12 @@
       <p>Apps · integrations · automations</p>
     </div>
     <div class="tiles">
+      <a class="tile cat-internal" href="financial-dashboard.html">
+        <div class="tile-icon">💵</div>
+        <div class="tile-title">Financial Dashboard</div>
+        <div class="tile-desc">Monthly reconciliation dashboard — now with a full Jan–Jul 2026 monthly history tab (legacy "outdated payment" rows reconciled in) and an Excel-style Category Comparison tab across all 7 months side by side.</div>
+        <div class="tile-foot"><span class="pill pill-new">Updated</span><span class="pill pill-live">Aug 19</span><span class="pill pill-locked">Password</span></div>
+      </a>
       <div class="tile cat-internal">
         <div class="tile-icon">📆</div>
         <div class="tile-title">Marketing Lieu Days App</div>
