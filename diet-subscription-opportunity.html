@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veterinary Diet Subscription — Revenue Prognosis</title>
+<style>
+  :root{
+    --navy:#0f2540; --navy2:#16324f; --teal:#0fb5ae; --coral:#ff6b5e; --gold:#f5a623;
+    --grey:#6b7684; --bg:#f4f7f9; --card:#ffffff; --line:#e3e9ee;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:'Segoe UI', -apple-system, Helvetica, Arial, sans-serif; background:var(--bg); color:var(--navy);}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 24px 70px;}
+
+  header.hero{background:linear-gradient(135deg, var(--navy) 0%, var(--navy2) 55%, #0d3f52 100%); color:#fff; padding:52px 24px 58px; margin-bottom:-36px;}
+  header.hero .wrap{padding-top:0; padding-bottom:0;}
+  .kicker{text-transform:uppercase; letter-spacing:.12em; font-size:12px; font-weight:700; color:var(--teal); margin-bottom:10px;}
+  h1{font-size:32px; margin:0 0 10px; line-height:1.25;}
+  .sub{color:#c9d6e0; font-size:15.5px; max-width:680px; line-height:1.5;}
+  .badge-row{display:flex; gap:12px; margin-top:24px; flex-wrap:wrap;}
+  .badge{background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); border-radius:10px; padding:13px 17px; min-width:140px;}
+  .badge .num{font-size:21px; font-weight:800; color:#fff;}
+  .badge .lbl{font-size:11.5px; color:#a9bbc8; margin-top:2px;}
+
+  section{margin-top:48px;}
+  .section-head{margin-bottom:18px;}
+  .section-head .tag{display:inline-block; background:#e7f7f5; color:#0a8f89; font-weight:700; font-size:11px; letter-spacing:.08em; text-transform:uppercase; padding:5px 10px; border-radius:6px; margin-bottom:9px;}
+  h2{font-size:20px; margin:0 0 5px;}
+  .lead{color:var(--grey); font-size:14px; max-width:760px; line-height:1.5;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px; box-shadow:0 1px 2px rgba(15,37,64,.04);}
+
+  .scenarios{display:grid; grid-template-columns:repeat(5, 1fr); gap:14px;}
+  @media(max-width:1000px){.scenarios{grid-template-columns:repeat(3,1fr);}}
+  @media(max-width:640px){.scenarios{grid-template-columns:1fr;}}
+  .scenario{border-radius:14px; padding:20px 16px; position:relative; overflow:hidden; border:1px solid var(--line); background:#fff;}
+  .scenario.tier1{border-top:5px solid #b7c0c8;}
+  .scenario.tier2{border-top:5px solid var(--grey);}
+  .scenario.tier3{border-top:5px solid var(--teal); box-shadow:0 8px 22px rgba(15,181,174,.16); transform:translateY(-4px);}
+  .scenario.tier4{border-top:5px solid var(--gold);}
+  .scenario.tier5{border-top:5px solid var(--coral);}
+  .scenario .tier{font-size:10.5px; text-transform:uppercase; letter-spacing:.07em; font-weight:800; color:var(--grey);}
+  .scenario.tier3 .tier{color:#0a8f89;}
+  .scenario.tier4 .tier{color:#a06a10;}
+  .scenario.tier5 .tier{color:var(--coral);}
+  .scenario h3{margin:7px 0 4px; font-size:15.5px;}
+  .scenario .desc{font-size:12px; color:var(--grey); line-height:1.45; min-height:48px;}
+  .scenario .uplift{font-size:22px; font-weight:800; margin-top:12px; color:var(--navy);}
+  .scenario .uplift small{font-size:11.5px; font-weight:600; color:var(--grey); display:block; margin-top:2px;}
+  .scenario .newtotal{font-size:12px; color:var(--grey); margin-top:10px; border-top:1px dashed var(--line); padding-top:9px;}
+  .pill{display:inline-block; margin-top:10px; font-size:10.5px; font-weight:700; padding:3px 9px; border-radius:20px; background:#f2f4f6; color:var(--grey);}
+  .scenario.tier3 .pill{background:#e7f7f5; color:#0a8f89;}
+  .scenario.tier5 .pill{background:#fdeceb; color:#c94a3d;}
+  .recommend{position:absolute; top:12px; right:12px; background:var(--teal); color:#fff; font-size:9.5px; font-weight:800; letter-spacing:.05em; padding:3px 8px; border-radius:20px;}
+
+  table{width:100%; border-collapse:collapse; font-size:13.5px;}
+  th{text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--grey); padding:10px 12px; border-bottom:2px solid var(--line);}
+  td{padding:11px 12px; border-bottom:1px solid var(--line); vertical-align:middle;}
+  tr:last-child td{border-bottom:none;}
+  .seg-name{font-weight:700; color:var(--navy);}
+  .seg-sub{font-size:11.5px; color:var(--grey); font-weight:400;}
+  .num-cell{font-variant-numeric:tabular-nums; text-align:right;}
+  tfoot td{font-weight:800; background:#f8fafb; border-top:2px solid var(--line);}
+
+  .note{background:#fff8ec; border:1px solid #f3ddb0; border-radius:12px; padding:14px 18px; margin-top:16px; font-size:13px; line-height:1.55;}
+  .note b{color:#8a5a06;}
+
+  .footer{margin-top:56px; padding-top:22px; border-top:1px solid var(--line); font-size:12px; color:var(--grey); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Vet Alliance · Internal Prognosis</div>
+    <h1>Diet Food Subscription — Revenue Prognosis</h1>
+    <div class="sub">
+      A 1-year look at ezyVet diet/prescription food sales (Sep 2025–Sep 2026) and five
+      scenarios for what a monthly subscription with home delivery could add, from a
+      cautious pilot to a theoretical ceiling.
+    </div>
+    <div class="badge-row">
+      <div class="badge"><div class="num">AED 6.72M</div><div class="lbl">Diet food revenue, last 12 months</div></div>
+      <div class="badge"><div class="num">8,858</div><div class="lbl">Unique pets on prescription/vet diets</div></div>
+      <div class="badge"><div class="num">55.7%</div><div class="lbl">Pets who bought more than once</div></div>
+      <div class="badge"><div class="num">587</div><div class="lbl">Distinct diet SKUs sold</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section>
+    <div class="section-head">
+      <div class="tag">Five Scenarios</div>
+      <h2>How much could a subscription add per year?</h2>
+      <p class="lead">Same 8,858 pets, five different assumptions about adoption — from a cautious pilot to an unrealistic ceiling. Optimistic is the business-case number.</p>
+    </div>
+
+    <div class="scenarios">
+      <div class="scenario tier1">
+        <div class="tier">Pilot</div>
+        <h3>Minimal, low-risk</h3>
+        <div class="desc">Only nudge existing frequent buyers into a formal plan. No real marketing push.</div>
+        <div class="uplift">+AED 0.62M<small>per year</small></div>
+        <div class="newtotal">New total: <b>AED 7.33M</b> (+9%)</div>
+        <div class="pill">Safe floor</div>
+      </div>
+
+      <div class="scenario tier2">
+        <div class="tier">Conservative</div>
+        <h3>Status-quo behavior</h3>
+        <div class="desc">Customers keep behaving as today — only the already-frequent buyers convert in any number.</div>
+        <div class="uplift">+AED 1.27M<small>per year</small></div>
+        <div class="newtotal">New total: <b>AED 7.98M</b> (+19%)</div>
+        <div class="pill">Floor estimate</div>
+      </div>
+
+      <div class="scenario tier3">
+        <span class="recommend">RECOMMENDED</span>
+        <div class="tier">Optimistic</div>
+        <h3>Delivery + discount + first-mover</h3>
+        <div class="desc">Delivery removes the convenience gap for occasional buyers; a subscription-only discount and "first in the UAE" positioning give a real reason to switch.</div>
+        <div class="uplift">+AED 2.96M<small>per year</small></div>
+        <div class="newtotal">New total: <b>AED 9.68M</b> (+44%)</div>
+        <div class="pill">Business-case number</div>
+      </div>
+
+      <div class="scenario tier4">
+        <div class="tier">Aggressive</div>
+        <h3>Full push, deeper discount</h3>
+        <div class="desc">Wider marketing push and a richer subscription discount lift opt-in meaningfully across every buying group, not just the frequent ones.</div>
+        <div class="uplift">+AED 5.45M<small>per year</small></div>
+        <div class="newtotal">New total: <b>AED 12.17M</b> (+81%)</div>
+        <div class="pill">Upside case</div>
+      </div>
+
+      <div class="scenario tier5">
+        <div class="tier">Fantasy Ceiling</div>
+        <h3>100% opt-in, everyone</h3>
+        <div class="desc">Every pet — including one-time buyers — converts to a full monthly plan. Includes pets that may no longer even need the diet.</div>
+        <div class="uplift">+AED 13.4M<small>per year</small></div>
+        <div class="newtotal">New total: <b>AED 20.11M</b> (+199%)</div>
+        <div class="pill">Not achievable — reference only</div>
+      </div>
+    </div>
+
+    <div class="note">
+      <b>Reading it:</b> Pilot and Conservative assume no discount, just convenience. Optimistic and Aggressive both
+      build in a subscription-exclusive discount as part of the offer. The Ceiling is shown only to bound the range —
+      don't plan against it.
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div class="tag">Customer Segments</div>
+      <h2>The buying-behavior mix behind the scenarios</h2>
+      <p class="lead">All 8,858 pets, grouped by how often they already buy diet food from us.</p>
+    </div>
+
+    <div class="card">
+      <table>
+        <thead>
+          <tr><th>Segment</th><th class="num-cell">Pets</th><th class="num-cell">Current revenue</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="seg-name">One-time buyers</span><br><span class="seg-sub">bought once all year</span></td><td class="num-cell">3,919</td><td class="num-cell">AED 585,370</td></tr>
+          <tr><td><span class="seg-name">Quarterly-ish</span><br><span class="seg-sub">2–4 purchases / year</span></td><td class="num-cell">2,968</td><td class="num-cell">AED 1,529,277</td></tr>
+          <tr><td><span class="seg-name">Bimonthly</span><br><span class="seg-sub">5–7 purchases / year</span></td><td class="num-cell">977</td><td class="num-cell">AED 1,340,520</td></tr>
+          <tr><td><span class="seg-name">Near-monthly</span><br><span class="seg-sub">8–11 purchases / year</span></td><td class="num-cell">544</td><td class="num-cell">AED 1,209,965</td></tr>
+          <tr><td><span class="seg-name">Already monthly+</span><br><span class="seg-sub">12+ purchases / year</span></td><td class="num-cell">450</td><td class="num-cell">AED 2,050,512</td></tr>
+        </tbody>
+        <tfoot><tr><td>Total</td><td class="num-cell">8,858</td><td class="num-cell">AED 6,715,644</td></tr></tfoot>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div class="tag">Top-selling diets today</div>
+      <h2>Natural anchors for the subscription catalog</h2>
+    </div>
+    <div class="card">
+      <table>
+        <thead><tr><th>Product</th><th class="num-cell">Units sold</th><th class="num-cell">Revenue (1yr)</th></tr></thead>
+        <tbody>
+          <tr><td>Hill's PD Canine z/d 10kg</td><td class="num-cell">660</td><td class="num-cell">AED 415,229</td></tr>
+          <tr><td>Hill's PD Canine Gastrointestinal Biome 10kg</td><td class="num-cell">469</td><td class="num-cell">AED 240,459</td></tr>
+          <tr><td>RC PD Canine Hypoallergenic 7kg</td><td class="num-cell">755</td><td class="num-cell">AED 230,455</td></tr>
+          <tr><td>Hill's PD Canine z/d 3kg</td><td class="num-cell">509</td><td class="num-cell">AED 145,651</td></tr>
+          <tr><td>Hill's PD Canine z/d Mini 6kg</td><td class="num-cell">334</td><td class="num-cell">AED 144,054</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="footer">
+    <div>Source: ezyVet invoiceline data, 41 diet/therapeutic-food product groups, Sep 2025–Sep 2026 · 45,371 finalised line items</div>
+    <div>Prepared by Cheshire · 2026-09-03</div>
+  </div>
+
+</div>
+</body>
+</html>
