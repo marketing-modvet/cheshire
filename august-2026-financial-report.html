@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Vet Alliance Marketing — August 2026 Report</title>
+<style>
+  :root {
+    --bg: #0b0e1a;
+    --panel: #1d2340;
+    --panel2: #262d52;
+    --accent: #9b82ff;
+    --accent2: #4ee6b8;
+    --text: #f4f5fb;
+    --muted: #b7bcdb;
+    --border: #3a4270;
+    --danger: #ff6b81;
+    --gold: #ffc575;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(180deg, #0b0e1a 0%, #10142a 100%);
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 40px 24px 100px; }
+  header {
+    text-align: center;
+    padding: 40px 20px 30px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 30px;
+  }
+  header h1 {
+    font-size: 2.1rem;
+    margin: 0 0 8px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  header .sub { color: var(--muted); font-size: 1rem; }
+  nav.tabs {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 30px 0;
+    flex-wrap: wrap;
+  }
+  nav.tabs button {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 20px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all .15s ease;
+  }
+  nav.tabs button:hover { border-color: var(--accent); }
+  nav.tabs button.active {
+    background: linear-gradient(90deg, var(--accent), #5b3fe0);
+    border-color: transparent;
+    font-weight: 600;
+  }
+  section.tabpanel { display: none; }
+  section.tabpanel.active { display: block; animation: fade .25s ease; }
+  @keyframes fade { from {opacity:0; transform: translateY(6px);} to {opacity:1; transform: translateY(0);} }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 26px 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 18px rgba(0,0,0,.35);
+  }
+  .card h2 { margin-top: 0; font-size: 1.35rem; }
+  .card h3 { color: var(--accent2); font-size: 1.05rem; margin-bottom: 6px; }
+  .grid-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .stat {
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+  }
+  .stat .num { font-size: 1.6rem; font-weight: 700; color: var(--accent2); }
+  .stat .lbl { color: var(--muted); font-size: 0.85rem; margin-top: 6px; font-weight: 500; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+    font-size: 0.92rem;
+  }
+  th, td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+  }
+  th { color: var(--muted); font-weight: 600; font-size: 0.82rem; text-transform: uppercase; letter-spacing: .03em; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.section-row td {
+    background: var(--panel2);
+    font-weight: 700;
+    color: var(--accent2);
+    padding-top: 14px;
+  }
+  tr.subtotal-row td {
+    font-weight: 700;
+    border-top: 2px solid var(--border);
+    border-bottom: 2px solid var(--border);
+    color: var(--gold);
+  }
+  tr.removed td { text-decoration: line-through; color: var(--muted); opacity: .7; }
+  .note { font-size: 0.75rem; color: var(--gold); font-weight: 400; margin-top: 2px; }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .badge.ok { background: rgba(52,209,164,.15); color: var(--accent2); }
+  .badge.pending { background: rgba(255,180,84,.15); color: var(--gold); }
+  .badge.new { background: rgba(155,130,255,.18); color: var(--accent); }
+  ul.clean { padding-left: 20px; }
+  ul.clean li { margin-bottom: 6px; }
+  .split-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .split-card {
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .split-card h4 { margin: 0 0 8px; color: var(--accent); font-size: 0.95rem; }
+  .split-card .amt { font-size: 1.4rem; font-weight: 700; }
+  .split-card .amt2 { font-size: 0.85rem; color: var(--muted); margin-top: 4px; }
+  footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top: 40px; }
+  .flow { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .flow .arrow { color: var(--accent); font-size: 1.3rem; }
+  .pill { background: var(--panel2); border:1px solid var(--border); border-radius: 8px; padding: 10px 16px; }
+  .callout { border-color: var(--gold); }
+  .callout h3 { color: var(--gold); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Vet Alliance Marketing</h1>
+    <div class="sub">August 2026 Full Report</div>
+  </header>
+
+  <nav class="tabs">
+    <button class="active" data-tab="recon">Reconciliation &amp; Open Items</button>
+    <button data-tab="augreport">Full August Report</button>
+    <button data-tab="nonmarketing">Non-Marketing Expenses</button>
+  </nav>
+
+  <!-- ================= TAB 1: RECONCILIATION ================= -->
+  <section class="tabpanel active" id="recon">
+    <div class="card">
+      <h2>August Reconciliation Summary</h2>
+      <div class="grid-stats">
+        <div class="stat"><div class="num">147,946.04</div><div class="lbl">Marketing Total (AED)</div></div>
+        <div class="stat"><div class="num">18,585.53</div><div class="lbl">Non-Marketing Total (AED)</div></div>
+        <div class="stat"><div class="num">166,531.57</div><div class="lbl">Grand Total (AED)</div></div>
+        <div class="stat"><div class="num">41</div><div class="lbl">Sheet rows updated with real August data</div></div>
+      </div>
+      <p>Data sources this month: Hospital + JVC Qashio card CSVs, two Google Ads invoices (#5681520624 &amp; #5681571944, per-account breakdown on later pages — confirms API totals exactly), and the freelancer/employee invoices in <code>NotInQashio/</code> (Borysov, Hirska, Muraveika, Vozniuk, PLC-Linkbuilding, RM Technologies, Kiowoji, Usman/Payoneer) plus 7 CAD Reprographics printable invoices.</p>
+    </div>
+
+    <div class="card callout">
+      <h3>Excluded — Facebook 1 Sept charge</h3>
+      <p>FACEBK charge <strong>-50.64 AED</strong> (<code>CTp406ngb8o75v66</code>) confirmed by you as a <strong>1 September</strong> transaction — excluded from the August report entirely.</p>
+    </div>
+
+    <div class="card callout">
+      <h3>Adwords — confirmed exact via invoice + API (100% match)</h3>
+      <p>Both Google Ads invoices break down cost per account on later pages. Totals match the Google Ads API pulls exactly: <strong>Modern Vet 54,368.37</strong>, <strong>Vienna 4,427.34</strong>, <strong>BOVC (BOV) 6,216.94</strong>, <strong>Blue Sky Pets Relocation 1,299.27</strong>, <strong>Floof 0.00</strong> (paused all month). Combined invoice total 66,311.92 AED = sum of both invoices exactly.</p>
+    </div>
+
+    <div class="card callout">
+      <h3>Social Media (Meta) — estimated split, needs your confirmation</h3>
+      <p>Meta/Facebook charges on the card no longer break out cleanly by account (just "FACEBK *xxxx" codes). Only <strong>Meta Verification (METAPAY charges, 433.53 AED)</strong> is exact. The other four Meta lines (Floof/MV/Vienna/Blue Oasis, combined FACEBK total 8,959.44 AED) were split proportionally using July's known per-account ratios — flagged in the report table with a note. If you have actual per-account Meta billing, let me know and I'll correct these.</p>
+    </div>
+
+    <div class="card callout">
+      <h3>Items needing your confirmation before final booking</h3>
+      <ul class="clean">
+        <li><strong>Klaviyo</strong> — card shows a new 7,224.52 AED "KLAVIYO INC. SOFTWARE" charge this month (was 0 every prior month). Held out of the report pending confirmation this is a legitimate Klaviyo cost, not a mis-tagged charge.</li>
+        <li><strong>Employees with no invoice this month</strong> — Junior Marketing Manager (3,200), Content Writer (3,441), SEO Sherpa - Vienna Vet (19,862.72), Designer (5,489.40) carried at prior placeholder values. No NotInQashio invoice or card charge found for these — please confirm they're correct or send the real invoices.</li>
+        <li><strong>New freelancer role not yet in the Sheet</strong> — Invoice 10235, Borysov Yevhenii, "Marketing Assistant", 3,000 AED. There's no existing Employees &amp; Freelancers row for this title — where should it go?</li>
+        <li><strong>Equipment</strong> (3,037.23 AED) — no new invoice found this month, carried at prior estimate.</li>
+        <li><strong>Schedule Specialist</strong> (Non-Marketing, 5,500 AED) — no invoice found this month, carried at prior estimate.</li>
+        <li><strong>Hosting Server modernvet.com</strong> — unmatched card charges WP MEDIA (224.33) and HOSTING.XYZ (138.09) this month; not confidently mapped to this row or "Reserve Hosting &amp; File Storage" — please clarify which line each belongs to.</li>
+        <li><strong>Amazon Hosting / Amazon Hosting part 2</strong> — real AWS EMEA total on the JVC card this month is 1,796.31 AED (excludes the 438.14 AED charge already reclassified into July's budget per your earlier note), but the Sheet has two separate rows (1,875.92 + 591.54 = 2,467.46) with no clear way to split the real total between them. Carried at prior estimates.</li>
+        <li><strong>WhatsApp</strong> (317.61 AED, Non-Marketing) — no matching card charge found this month.</li>
+      </ul>
+    </div>
+
+    <div class="card callout">
+      <h3>New expenses not yet in the Sheet at all</h3>
+      <p>These charges appeared on the cards this month but don't have a matching row in the Financial Report Sheet. Not included in any total below — flagging for your call on where they belong:</p>
+      <ul class="clean">
+        <li><strong>Superkwork.com (KWOR)</strong> — 5,136.57 AED, Hospital card, 2 charges. Likely a freelance-marketplace cooperation cost.</li>
+        <li><strong>Snap Inc (Snapchat Ads)</strong> — 246.13 AED, Hospital card, 12 charges.</li>
+        <li><strong>TikTok</strong> — 553.00 AED (16 charges) + <strong>TikTok Ads</strong> 19.38 AED, Hospital card. (TikTok's separate approval-pending 19.38/20.08 charge from earlier this month is tracked separately — see prior notes.)</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Confirmed uploaded to Qashio this cycle</h3>
+      <p>Hospital Card August reconciliation: FACEBK exclusion above, 6 receipts uploaded (Adobe x4, Payoneer Invoice 10238, Snap 13th invoice), TikTok 31/08 charge (-22.99 AED) uploaded. JVC card: all 16 staged receipts uploaded and verified. Amazon.ae (2 charges, 723.24 AED total) skipped per your explicit instruction.</p>
+    </div>
+  </section>
+
+  <!-- ================= TAB 2: FULL AUGUST REPORT (MARKETING ONLY) ================= -->
+  <section class="tabpanel" id="augreport">
+    <div class="card">
+      <h2>Full August 2026 Marketing Report</h2>
+      <p class="sub" style="color:var(--muted)">Every marketing line item from the live Financial Report Sheet ("Report August" tab, column P), reconciled against Hospital + JVC card CSVs, Google Ads invoices, and freelancer/employee invoices. <strong>Non-Marketing Expenses are reported separately</strong> (see that tab) and excluded from this total. Lines with a gold note are estimates or carried-forward placeholders needing your confirmation.</p>
+      <div class="grid-stats">
+        <div class="stat"><div class="num">147,946.04</div><div class="lbl">Total Marketing Spend (AED) — August 2026</div></div>
+      </div>
+      <table>
+        <thead><tr><th>Item</th><th class="num">August Actual (AED)</th></tr></thead>
+        <tbody>
+<tr class="section-row"><td colspan="2">Adwords</td></tr>
+<tr><td class="item">Modern Vet</td><td class="num">54,368.37</td></tr>
+<tr><td class="item">Vienna</td><td class="num">4,427.34</td></tr>
+<tr><td class="item">Blue Sky</td><td class="num">1,299.27</td></tr>
+<tr><td class="item">BOV</td><td class="num">6,216.94</td></tr>
+<tr><td class="item">Floof<div class="note">Confirmed via Google Ads API: all campaigns paused, zero spend all month</div></td><td class="num">0.00</td></tr>
+<tr class="subtotal-row"><td>Subtotal — Adwords</td><td class="num">66,311.92</td></tr>
+<tr class="section-row"><td colspan="2">Social Media</td></tr>
+<tr><td class="item">Meta Floof<div class="note">Estimated — split from combined FACEBK card total using July's per-account ratio (Meta charges no longer break out by account on the card)</div></td><td class="num">1,073.51</td></tr>
+<tr><td class="item">Meta MV<div class="note">Estimated — same July-ratio split, please confirm/correct if you have per-account Meta billing</div></td><td class="num">3,953.18</td></tr>
+<tr><td class="item">Vienna<div class="note">Estimated — same July-ratio split</div></td><td class="num">2,377.96</td></tr>
+<tr><td class="item">Meta Verification</td><td class="num">433.53</td></tr>
+<tr><td class="item">Meta Blue Oasis<div class="note">Estimated — same July-ratio split</div></td><td class="num">1,554.80</td></tr>
+<tr class="subtotal-row"><td>Subtotal — Social Media</td><td class="num">9,392.98</td></tr>
+<tr class="section-row"><td colspan="2">Software, Tools &amp; Subscriptions</td></tr>
+<tr><td class="item">Jotform</td><td class="num">195.63</td></tr>
+<tr><td class="item">Adobe Suite  4 units</td><td class="num">504.72</td></tr>
+<tr><td class="item">Canva</td><td class="num">48.95</td></tr>
+<tr><td class="item">MailChimp</td><td class="num">971.50</td></tr>
+<tr><td class="item">Chatbot GPT 3 units</td><td class="num">239.55</td></tr>
+<tr><td class="item">MidJourney - AI</td><td class="num">228.14</td></tr>
+<tr><td class="item">Copyscape</td><td class="num">0.00</td></tr>
+<tr><td class="item">CapCut</td><td class="num">71.38</td></tr>
+<tr><td class="item">Klaviyo<div class="note">Card shows a 7,224.52 AED "KLAVIYO INC. SOFTWARE" charge this month (vs. 0 in prior months) — held out, needs your confirmation before booking</div></td><td class="num">0.00</td></tr>
+<tr><td class="item">Google Cloud</td><td class="num">0.00</td></tr>
+<tr><td class="item">Social Platform - Instead of Hootsuite</td><td class="num">760.47</td></tr>
+<tr><td class="item">Stripo Email Builder</td><td class="num">76.05</td></tr>
+<tr><td class="item">PR-CY</td><td class="num">0.00</td></tr>
+<tr><td class="item">Trustlink</td><td class="num">0.00</td></tr>
+<tr><td class="item">Originality</td><td class="num">56.84</td></tr>
+<tr><td class="item">Ahrefs</td><td class="num">946.76</td></tr>
+<tr><td class="item">Grammarly (quarterly)</td><td class="num">0.00</td></tr>
+<tr><td class="item">Google One</td><td class="num">10.60</td></tr>
+<tr><td class="item">SEMRush + Heatmaps</td><td class="num">792.17</td></tr>
+<tr><td class="item">Anthropic AI - Marketing</td><td class="num">3,041.81</td></tr>
+<tr><td class="item">Brave API</td><td class="num">0.00</td></tr>
+<tr><td class="item">Higgsfield AI</td><td class="num">582.93</td></tr>
+<tr><td class="item">OpenArt</td><td class="num">0.00</td></tr>
+<tr><td class="item">OpenAI API</td><td class="num">155.75</td></tr>
+<tr><td class="item">ElevenLabs</td><td class="num">83.65</td></tr>
+<tr class="subtotal-row"><td>Subtotal — Software, Tools &amp; Subscriptions</td><td class="num">8,766.90</td></tr>
+<tr class="section-row"><td colspan="2">Employees &amp; Freelancers</td></tr>
+<tr><td class="item">PPC Specialist</td><td class="num">5,500.00</td></tr>
+<tr><td class="item">Developer</td><td class="num">6,094.14</td></tr>
+<tr><td class="item">SEO Specialist</td><td class="num">5,500.00</td></tr>
+<tr><td class="item">Junior Marketing Manager<div class="note">No invoice supplied this month — carried at prior estimate, please confirm</div></td><td class="num">3,200.00</td></tr>
+<tr><td class="item">Translator/Content Manager</td><td class="num">2,000.00</td></tr>
+<tr><td class="item">Content Writer<div class="note">No invoice supplied this month — carried at prior estimate, please confirm</div></td><td class="num">3,441.00</td></tr>
+<tr><td class="item">SEO Sherpa - Vienna Vet<div class="note">No invoice supplied this month — carried at prior estimate, please confirm</div></td><td class="num">19,862.72</td></tr>
+<tr><td class="item">UI/UX Specialist - Shared</td><td class="num">0.00</td></tr>
+<tr><td class="item">Designer<div class="note">No invoice supplied this month — carried at prior estimate, please confirm</div></td><td class="num">5,489.40</td></tr>
+<tr><td class="item">Media Director</td><td class="num">0.00</td></tr>
+<tr><td class="item">SM Manager-1</td><td class="num">0.00</td></tr>
+<tr><td class="item">SM Manager-2 -Shared</td><td class="num">0.00</td></tr>
+<tr><td class="item">Content Producer</td><td class="num">0.00</td></tr>
+<tr><td class="item">Marketing Operations Manager</td><td class="num">0.00</td></tr>
+<tr class="subtotal-row"><td>Subtotal — Employees &amp; Freelancers</td><td class="num">51,087.26</td></tr>
+<tr class="section-row"><td colspan="2">Media, Printables, Cooperation &amp; One-Time Payments</td></tr>
+<tr><td class="item">SMS Package</td><td class="num">0.00</td></tr>
+<tr><td class="item">Printables</td><td class="num">1,989.75</td></tr>
+<tr><td class="item">Links - All websites</td><td class="num">7,000.00</td></tr>
+<tr><td class="item">Database purchase</td><td class="num">360.00</td></tr>
+<tr><td class="item">Equipment<div class="note">No new equipment invoice this month — carried at prior estimate, please confirm</div></td><td class="num">3,037.23</td></tr>
+<tr class="subtotal-row"><td>Subtotal — Media, Printables, Cooperation &amp; One-Time Payments</td><td class="num">12,386.98</td></tr>
+
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= TAB 3: NON-MARKETING EXPENSES ================= -->
+  <section class="tabpanel" id="nonmarketing">
+    <div class="card">
+      <h2>Non-Marketing Expenses — August 2026</h2>
+      <p class="sub" style="color:var(--muted)">Kept fully separate from the marketing total per standing policy.</p>
+      <div class="grid-stats">
+        <div class="stat"><div class="num">18,585.53</div><div class="lbl">Total Non-Marketing Spend (AED) — August 2026</div></div>
+      </div>
+      <table>
+        <thead><tr><th>Item</th><th class="num">August Actual (AED)</th></tr></thead>
+        <tbody>
+<tr class="section-row"><td colspan="2">Non-Marketing Expenses</td></tr>
+<tr><td class="item">Schedule Specialist<div class="note">No invoice supplied this month — carried at prior estimate, please confirm</div></td><td class="num">5,500.00</td></tr>
+<tr><td class="item">Cloudflare</td><td class="num">295.82</td></tr>
+<tr><td class="item">Hosting Server  modernvet.com<div class="note">Card shows unmatched WP MEDIA (224.33) and HOSTING.XYZ (138.09) charges this month — not yet confidently mapped, carried at prior estimate</div></td><td class="num">144.96</td></tr>
+<tr><td class="item">Google GSuite Platform</td><td class="num">7,253.87</td></tr>
+<tr><td class="item">Microsoft Office Sub</td><td class="num">106.39</td></tr>
+<tr><td class="item">Microsoft Power-Bi Service</td><td class="num">167.68</td></tr>
+<tr><td class="item">Hosting Siteground</td><td class="num">133.04</td></tr>
+<tr><td class="item">Amazon Hosting part 2<div class="note">JVC card AWS EMEA total this month is 1,796.31 AED (excl. the 438.14 AED charge already reclassified into July's budget) — real total is lower than these two rows combined (2,467.46 AED) but not split between the two rows; carried at prior estimate pending your split confirmation</div></td><td class="num">1,875.92</td></tr>
+<tr><td class="item">Amazon Hosting</td><td class="num">591.54</td></tr>
+<tr><td class="item">Reserve Hosting &amp; File Storage<div class="note">Possible match: HOSTING.XYZ card charge 138.09 AED — not yet confirmed, carried at prior estimate</div></td><td class="num">73.11</td></tr>
+<tr><td class="item">DU</td><td class="num">189.11</td></tr>
+<tr><td class="item">Vienna Vet GSuite</td><td class="num">675.77</td></tr>
+<tr><td class="item">GoDaddy Domain</td><td class="num">587.71</td></tr>
+<tr><td class="item">Tasjeel - Domain</td><td class="num">0.00</td></tr>
+<tr><td class="item">Printable - Clinics/Operations</td><td class="num">0.00</td></tr>
+<tr><td class="item">WhatsApp<div class="note">No matching card charge found this month — carried at prior estimate, please confirm</div></td><td class="num">317.61</td></tr>
+<tr><td class="item">Figma</td><td class="num">209.12</td></tr>
+<tr><td class="item">SLACK</td><td class="num">0.00</td></tr>
+<tr><td class="item">Calendly</td><td class="num">45.64</td></tr>
+<tr><td class="item">Suno AI</td><td class="num">38.02</td></tr>
+<tr><td class="item">Anthropic AI - Company wide</td><td class="num">380.22</td></tr>
+<tr><td class="item">dubizzle</td><td class="num">0.00</td></tr>
+<tr class="subtotal-row"><td>Subtotal — Non-Marketing Expenses</td><td class="num">18,585.53</td></tr>
+
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>Generated by Cheshire · Vet Alliance Marketing · 3 Sept 2026<br>Live editable version: <a href="https://docs.google.com/spreadsheets/d/1a7QiEfxrtKhZGCBPw3KDKGJ-hsR0eyfAQ3wkYgiZ5_I/edit" style="color:var(--accent2)">Financial Report July 2026</a> Google Sheet, "Report August" tab, column P</footer>
+</div>
+
+<script>
+document.querySelectorAll('nav.tabs button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('nav.tabs button').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('section.tabpanel').forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
