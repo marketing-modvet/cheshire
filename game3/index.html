@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Card Duel 3</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #1a0a2e;
+    color: #fff;
+    height: 100vh;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  /* ── SPLASH SCREEN ── */
+  #splash-screen {
+    position: fixed; inset: 0;
+    z-index: 300;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  #splash-screen img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .splash-hint {
+    position: absolute;
+    bottom: 48px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    animation: pulse 1.6s ease-in-out infinite;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50%       { opacity: 1; }
+  }
+
+  /* ── ENTRY SCREEN ── */
+  #entry-screen {
+    position: fixed; inset: 0;
+    background: url('background.png') center/cover no-repeat;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+  }
+  #entry-screen.visible { display: flex; }
+  #entry-screen::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: rgba(10, 4, 30, 0.65);
+  }
+  .entry-box {
+    position: relative;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(16px);
+    border-radius: 20px;
+    padding: 40px 52px;
+    width: 480px;
+    text-align: center;
+    box-shadow: 0 8px 64px rgba(0,0,0,0.5);
+  }
+  .entry-box h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+    background: linear-gradient(135deg, #f0c060, #e07030);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .entry-box p {
+    color: rgba(255,255,255,0.55);
+    font-size: 0.85rem;
+    margin-bottom: 24px;
+  }
+  .player-inputs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 20px;
+    margin-bottom: 8px;
+  }
+  .player-inputs-grid .col-header {
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
+  }
+  .player-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .field-label {
+    display: block;
+    text-align: left;
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 4px;
+  }
+  .entry-input {
+    width: 100%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-size: 0.95rem;
+    color: #fff;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .entry-input:focus { border-color: #e07030; }
+  .entry-input::placeholder { color: rgba(255,255,255,0.25); }
+  .btn-start {
+    margin-top: 22px;
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, #e07030, #c04020);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 20px rgba(200,60,20,0.4);
+  }
+  .btn-start:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(200,60,20,0.5); }
+  .btn-start:active { transform: translateY(0); }
+  .entry-error {
+    color: #ff7070;
+    font-size: 0.82rem;
+    margin-top: 10px;
+    min-height: 20px;
+  }
+
+  /* ── GAME SCREEN ── */
+  #game-screen {
+    display: none;
+    position: fixed; inset: 0;
+    background: url('background.png') center/cover no-repeat;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+  }
+  #game-screen.visible { display: flex; }
+  #game-screen::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: rgba(8, 3, 22, 0.55);
+    pointer-events: none;
+  }
+
+  /* ── SCOREBOARD BAR (top) ── */
+  .scoreboard-bar {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 12px;
+    z-index: 10;
+  }
+  .sb-player {
+    flex: 1;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(10px);
+    border-radius: 14px;
+    padding: 10px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    min-width: 0;
+  }
+  .sb-player.active-player {
+    border-color: rgba(240,192,96,0.5);
+    box-shadow: 0 0 18px rgba(240,192,96,0.18);
+  }
+  .sb-player-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+  .sb-player-coins {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #f0c060;
+  }
+  .sb-label {
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+  .sb-vs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.3);
+    padding: 0 4px;
+    flex-shrink: 0;
+  }
+
+  /* NPC / Player zones */
+  .player-zone {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+  .player-label {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+  .player-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+  }
+  .player-score {
+    font-size: 1rem;
+    color: #f0c060;
+    min-height: 1.2em;
+    font-weight: 700;
+    text-align: center;
+  }
+  .combo-name {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #fff;
+    min-height: 1.3em;
+    text-align: center;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 18px rgba(255,200,80,0.8), 0 2px 8px rgba(0,0,0,0.6);
+  }
+  .combo-name.animate {
+    animation: comboPop 0.45s cubic-bezier(.2,1.6,.4,1) both;
+  }
+  @keyframes comboPop {
+    0%   { transform: scale(1.5); opacity: 0; }
+    70%  { transform: scale(0.97); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .cards-row {
+    display: flex;
+    gap: 14px;
+  }
+
+  /* ── CARD ── */
+  .card-wrap {
+    width: 150px;
+    height: 225px;
+    perspective: 1200px;
+  }
+  .card-wrap.exchange-selectable { cursor: pointer; }
+  .card-inner {
+    width: 100%; height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(.4,0,.2,1);
+    border-radius: 10px;
+  }
+  .card-wrap.flipped .card-inner { transform: rotateY(180deg); }
+  .card-face, .card-back {
+    position: absolute; inset: 0;
+    border-radius: 10px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .card-face {
+    transform: rotateY(180deg);
+    background: #fff;
+    visibility: hidden;
+  }
+  .card-wrap.flipped .card-face {
+    visibility: visible;
+  }
+  .card-face img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .card-back {
+    background: url('Backcover.jpg') center/cover no-repeat;
+    border: 2px solid rgba(160,100,255,0.25);
+  }
+  .card-wrap.marked-exchange .card-inner {
+    filter: brightness(0.5) saturate(0.6);
+    box-shadow: 0 0 0 3px rgba(255,90,90,0.9), 0 4px 20px rgba(0,0,0,0.5);
+  }
+
+  /* ── CENTER PANEL ── */
+  .center-panel {
+    position: relative;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(12px);
+    border-radius: 18px;
+    padding: 14px 28px;
+    text-align: center;
+    min-width: 340px;
+    max-width: 500px;
+    width: 100%;
+    z-index: 10;
+  }
+
+  .turn-indicator {
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(240,192,96,0.7);
+    margin-bottom: 4px;
+  }
+
+  .bet-label {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 8px;
+  }
+  .bet-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .btn-bet {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-bet:hover:not(:disabled) {
+    border-color: #f0c060;
+    color: #f0c060;
+    background: rgba(240,192,96,0.1);
+  }
+  .btn-bet.selected {
+    border-color: #f0c060;
+    background: rgba(240,192,96,0.15);
+    color: #f0c060;
+    box-shadow: 0 0 12px rgba(240,192,96,0.25);
+  }
+  .btn-bet:disabled { opacity: 0.25; cursor: not-allowed; }
+  .selected-bet-display {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 10px;
+    min-height: 1.1em;
+  }
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  .btn-deal {
+    padding: 12px 32px;
+    border-radius: 11px;
+    border: none;
+    background: linear-gradient(135deg, #4a8af4, #2260c4);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+    box-shadow: 0 4px 18px rgba(60,120,220,0.4);
+  }
+  .btn-deal:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(60,120,220,0.5); }
+  .btn-deal:active:not(:disabled) { transform: translateY(0); }
+  .btn-deal:disabled { opacity: 0.35; cursor: not-allowed; }
+  .btn-cashout {
+    padding: 12px 20px;
+    border-radius: 11px;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.6);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .btn-cashout:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
+
+  /* Exchange panel */
+  .exchange-panel {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .exchange-panel.visible { display: flex; }
+  .exchange-hint {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.5px;
+  }
+  .btn-confirm-exchange {
+    padding: 11px 28px;
+    border-radius: 11px;
+    border: none;
+    background: linear-gradient(135deg, #40a060, #207040);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(40,140,80,0.4);
+  }
+  .btn-confirm-exchange:hover { filter: brightness(1.1); }
+
+  /* Result message */
+  .result-msg {
+    min-height: 22px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+  }
+  .result-win  { color: #60e090; }
+  .result-lose { color: #ff6060; }
+  .result-tie  { color: #f0c060; }
+
+  .bonus-badge {
+    display: none;
+    background: linear-gradient(135deg, #9040e0, #6020b0);
+    border: 1px solid rgba(200,150,255,0.4);
+    color: #e8c8ff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin: 0 auto 8px;
+    box-shadow: 0 2px 12px rgba(120,40,220,0.4);
+  }
+  .bonus-badge.show { display: inline-block; }
+
+  /* ── WIN / LOSE OVERLAY ── */
+  #result-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    z-index: 250;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.55);
+  }
+  #result-overlay.visible { display: flex; }
+  #result-overlay img {
+    width: auto;
+    height: auto;
+    max-width: 55vw;
+    max-height: 55vh;
+    object-fit: contain;
+    display: block;
+    border-radius: 18px;
+    box-shadow: 0 12px 64px rgba(0,0,0,0.7);
+  }
+
+  /* ── GAME OVER SCREEN ── */
+  #gameover-screen {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(8,3,22,0.88);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+  #gameover-screen.visible { display: flex; }
+  .gameover-box {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 40px 52px;
+    width: 420px;
+    text-align: center;
+    box-shadow: 0 8px 64px rgba(0,0,0,0.6);
+  }
+  .gameover-box h2 {
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+  }
+  .gameover-stats {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.9rem;
+    line-height: 1.8;
+    margin: 20px 0;
+  }
+  .gameover-stats strong { color: #f0c060; }
+  .gameover-stats .divider {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin: 10px 0;
+  }
+  .gameover-btns { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+  .btn-download {
+    padding: 12px;
+    border-radius: 11px;
+    border: none;
+    background: linear-gradient(135deg, #40a060, #207040);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(40,140,80,0.35);
+  }
+  .btn-download:hover { filter: brightness(1.1); }
+  .btn-playagain {
+    padding: 12px;
+    border-radius: 11px;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .btn-playagain:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
+
+  /* ── DECK RESHUFFLE NOTICE ── */
+  .deck-reshuffle-notice {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: rgba(30,20,60,0.95);
+    border: 1px solid rgba(240,192,96,0.3);
+    border-radius: 10px;
+    padding: 11px 22px;
+    font-size: 0.85rem;
+    color: #f0c060;
+    z-index: 400;
+    transition: transform 0.3s ease;
+    white-space: nowrap;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+  }
+  .deck-reshuffle-notice.show { transform: translateX(-50%) translateY(0); }
+
+  /* Special card glows */
+  .card-wrap.special-card .card-inner {
+    box-shadow: 0 0 28px rgba(200,100,255,0.7), 0 0 8px rgba(200,100,255,0.5);
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ SPLASH SCREEN ═══ -->
+<div id="splash-screen" onclick="showEntryForm()">
+  <img src="entryscreen.jpg" alt="Card Duel">
+  <div class="splash-hint">Нажмите, чтобы начать</div>
+</div>
+
+<!-- ═══ ENTRY SCREEN ═══ -->
+<div id="entry-screen">
+  <div class="entry-box">
+    <h1>CARD DUEL 3</h1>
+    <p>Три карты. Фаза обмена. Победитель забирает всё.</p>
+
+    <div class="player-inputs-grid">
+      <div class="col-header">Игрок 1</div>
+      <div class="col-header">Игрок 2</div>
+      <div class="player-col">
+        <div>
+          <label class="field-label">Имя</label>
+          <input class="entry-input" id="inp-name1" type="text" placeholder="Игрок 1" maxlength="24" autocomplete="off">
+        </div>
+        <div>
+          <label class="field-label">Стартовое золото</label>
+          <input class="entry-input" id="inp-coins1" type="number" placeholder="напр. 500" min="10" max="1000000" autocomplete="off">
+        </div>
+      </div>
+      <div class="player-col">
+        <div>
+          <label class="field-label">Имя</label>
+          <input class="entry-input" id="inp-name2" type="text" placeholder="Игрок 2" maxlength="24" autocomplete="off">
+        </div>
+        <div>
+          <label class="field-label">Стартовое золото</label>
+          <input class="entry-input" id="inp-coins2" type="number" placeholder="напр. 500" min="10" max="1000000" autocomplete="off">
+        </div>
+      </div>
+    </div>
+
+    <div class="entry-error" id="entry-error"></div>
+    <button class="btn-start" onclick="startGame()">НАЧАТЬ ДУЭЛЬ</button>
+  </div>
+</div>
+
+<!-- ═══ GAME SCREEN ═══ -->
+<div id="game-screen">
+
+  <div class="scoreboard-bar" id="scoreboard-bar">
+    <div class="sb-player" id="sb-p1">
+      <div class="sb-label">Игрок 1</div>
+      <div class="sb-player-name" id="sb-name1">—</div>
+      <div class="sb-player-coins" id="sb-coins1">0 💰</div>
+    </div>
+    <div class="sb-vs">VS</div>
+    <div class="sb-player" id="sb-p2">
+      <div class="sb-label">Игрок 2</div>
+      <div class="sb-player-name" id="sb-name2">—</div>
+      <div class="sb-player-coins" id="sb-coins2">0 💰</div>
+    </div>
+  </div>
+
+  <!-- P2 zone (top) -->
+  <div class="player-zone">
+    <div class="cards-row">
+      <div class="card-wrap" id="npc-card-0"><div class="card-inner"><div class="card-face"><img id="npc-img-0" src=""></div><div class="card-back"></div></div></div>
+      <div class="card-wrap" id="npc-card-1"><div class="card-inner"><div class="card-face"><img id="npc-img-1" src=""></div><div class="card-back"></div></div></div>
+      <div class="card-wrap" id="npc-card-2"><div class="card-inner"><div class="card-face"><img id="npc-img-2" src=""></div><div class="card-back"></div></div></div>
+    </div>
+    <div class="player-name" id="top-player-name">Соперник</div>
+    <div class="player-label" id="top-player-label">Соперник</div>
+    <div class="player-score" id="npc-score"></div>
+    <div class="combo-name" id="npc-combo"></div>
+  </div>
+
+  <!-- Center panel -->
+  <div class="center-panel">
+    <div class="turn-indicator" id="turn-indicator"></div>
+    <div class="result-msg" id="result-msg"></div>
+    <div class="bonus-badge" id="bonus-badge"></div>
+
+    <div id="bet-panel">
+      <div class="bet-label">Выберите ставку</div>
+      <div class="bet-buttons">
+        <button class="btn-bet" onclick="selectBet(5)">5</button>
+        <button class="btn-bet" onclick="selectBet(10)">10</button>
+        <button class="btn-bet" onclick="selectBet(50)">50</button>
+        <button class="btn-bet" onclick="selectBet(100)">100</button>
+      </div>
+      <div class="selected-bet-display" id="bet-display">Ставка не выбрана</div>
+      <div class="action-buttons">
+        <button class="btn-deal" id="btn-deal" onclick="deal()" disabled>СДАТЬ</button>
+        <button class="btn-cashout" onclick="cashOut()">Завершить сессию</button>
+      </div>
+    </div>
+
+    <div class="exchange-panel" id="exchange-panel">
+      <div class="exchange-hint">Кликните карты, которые хотите обменять</div>
+      <button class="btn-confirm-exchange" id="btn-confirm-exchange" onclick="confirmExchange()">Оставить руку</button>
+    </div>
+  </div>
+
+  <!-- P1 zone (bottom) -->
+  <div class="player-zone">
+    <div class="combo-name" id="player-combo"></div>
+    <div class="player-score" id="player-score"></div>
+    <div class="player-name" id="player-name-display">Игрок</div>
+    <div class="player-label" id="bottom-player-label">Ваша рука</div>
+    <div class="cards-row">
+      <div class="card-wrap" id="player-card-0" onclick="toggleMark(0)"><div class="card-inner"><div class="card-face"><img id="player-img-0" src=""></div><div class="card-back"></div></div></div>
+      <div class="card-wrap" id="player-card-1" onclick="toggleMark(1)"><div class="card-inner"><div class="card-face"><img id="player-img-1" src=""></div><div class="card-back"></div></div></div>
+      <div class="card-wrap" id="player-card-2" onclick="toggleMark(2)"><div class="card-inner"><div class="card-face"><img id="player-img-2" src=""></div><div class="card-back"></div></div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══ WIN / LOSE OVERLAY ═══ -->
+<div id="result-overlay" onclick="dismissResultOverlay()">
+  <img id="result-overlay-img" src="" alt="">
+</div>
+
+<!-- ═══ DECK RESHUFFLE NOTICE ═══ -->
+<div class="deck-reshuffle-notice" id="reshuffle-notice">🔀 Колода перемешана!</div>
+
+<!-- ═══ GAME OVER SCREEN ═══ -->
+<div id="gameover-screen">
+  <div class="gameover-box">
+    <h2 id="gameover-title">Сессия окончена</h2>
+    <div class="gameover-stats" id="gameover-stats"></div>
+    <div class="gameover-btns">
+      <button class="btn-download" onclick="downloadLog()">⬇ Скачать журнал сессии</button>
+      <button class="btn-playagain" onclick="resetGame()">Играть снова</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════
+//  CARD DEFINITIONS — 46 card deck
+//  40 numeric cards: values 1-10, suits A/B/C/D (visual variety only)
+//  6 special cards: A1/A2 (type A), S1/S2 (type S), L1/L2 (type L)
+// ══════════════════════════════════════════════════════
+function makeMasterDeck() {
+  const arr = [];
+  const suits = ['A','B','C','D'];
+  for (let v = 1; v <= 10; v++) {
+    suits.forEach(s => arr.push({ id: `${v}${s}`, type: 'number', value: v, img: `cards/${v}${s}.jpg` }));
+  }
+  ['A1','A2'].forEach(id => arr.push({ id, type: 'A', value: 0, img: `cards/${id}.jpg` }));
+  ['S1','S2'].forEach(id => arr.push({ id, type: 'S', value: 0, img: `cards/${id}.jpg` }));
+  ['L1','L2'].forEach(id => arr.push({ id, type: 'L', value: 0, img: `cards/${id}.jpg` }));
+  return arr;
+}
+const MASTER_DECK = makeMasterDeck();
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+function freshPool() { return shuffle(MASTER_DECK.map(c => ({ ...c }))); }
+
+let pool1 = [];
+let pool2 = [];
+function initPools() { pool1 = freshPool(); pool2 = freshPool(); }
+
+function drawFrom(which) {
+  let pool = (which === 'p1') ? pool1 : pool2;
+  if (pool.length === 0) {
+    pool = freshPool();
+    if (which === 'p1') pool1 = pool; else pool2 = pool;
+    showReshuffleNotice();
+  }
+  const card = pool.pop();
+  return card;
+}
+
+// ══════════════════════════════════════════════════════
+//  SCORE ENGINE — derived from the full 46-card lookup table
+// ══════════════════════════════════════════════════════
+const CATEGORY_NAMES = {
+  TRIPLE:    'ПРИРОДНОЕ ТРИО!',
+  STRAIGHT:  'СТРИТ!',
+  PAIR:      'Пара',
+  HIGH:      '',
+  A_PAIR:    'ЭХО ТУЗА!',
+  A_DIFF:    'Копия туза',
+  S_PAIR:    'Щит + пара',
+  S_DIFF:    'Щитовой бонус',
+  L_PAIR:    'Удача + пара',
+  L_DIFF:    'Двойная удача',
+  AA_N:      'ДВОЙНОЙ ТУЗ!',
+  AL_N:      'Туз и удача',
+  AS_N:      'Туз и щит',
+  LL_N:      'ДВОЙНАЯ УДАЧА!!',
+  SL_N:      'Щит и удача',
+  SS_N:      'ДВОЙНОЙ ЩИТ!',
+  AAS:       'ТУЗЫ И ЩИТ!',
+  AAL:       'ФОРТУНА ДВУХ ТУЗОВ!',
+  ASS:       'ТУЗ-КРЕПОСТЬ!',
+  ASL:       'ТРОЙНАЯ КОМБИНАЦИЯ!',
+  ALL:       'ТУЗ УДАЧИ!',
+  SSL:       'УКРЕПЛЁННАЯ УДАЧА!',
+  SLL:       'СЧАСТЛИВЫЕ ЩИТЫ!'
+};
+
+function calcScore3(cards) {
+  const specials = cards.filter(c => c.type !== 'number');
+  const nums = cards.filter(c => c.type === 'number').map(c => c.value).sort((a,b) => a-b);
+  const scount = specials.length;
+
+  if (scount === 0) {
+    const [x,y,z] = nums;
+    if (x === y && y === z) return { score: 15*x, cat: 'TRIPLE' };
+    if (z-y === 1 && y-x === 1) return { score: 50+z, cat: 'STRAIGHT' };
+    if (x === y || y === z) {
+      const pairV = (x === y) ? x : y;
+      const kicker = (x === y) ? z : x;
+      return { score: 4*pairV + kicker, cat: 'PAIR' };
+    }
+    return { score: x+y+z, cat: 'HIGH' };
+  }
+
+  if (scount === 1) {
+    const sp = specials[0];
+    const [n1,n2] = nums;
+    if (sp.type === 'A') {
+      if (n1 === n2) return { score: 12*n1, cat: 'A_PAIR' };
+      return { score: 4*n2 + n1, cat: 'A_DIFF' };
+    }
+    if (sp.type === 'S') {
+      if (n1 === n2) return { score: 4*n1 + 5, cat: 'S_PAIR' };
+      return { score: n1+n2+5, cat: 'S_DIFF' };
+    }
+    // L
+    if (n1 === n2) return { score: 8*n1, cat: 'L_PAIR' };
+    return { score: (n1+n2)*2, cat: 'L_DIFF' };
+  }
+
+  if (scount === 2) {
+    const N = nums[0];
+    const types = specials.map(s => s.type).sort().join('');
+    if (types === 'AA') return { score: 12*N+10, cat: 'AA_N' };
+    if (types === 'AL') return { score: 8*N, cat: 'AL_N' };
+    if (types === 'AS') return { score: 4*N+5, cat: 'AS_N' };
+    if (types === 'LL') return { score: 9*N, cat: 'LL_N' };
+    if (types === 'LS') return { score: (N+5)*2, cat: 'SL_N' };
+    if (types === 'SS') return { score: N+10, cat: 'SS_N' };
+  }
+
+  // scount === 3 — pure special combo, no numeric card
+  const cA = specials.filter(s => s.type === 'A').length;
+  const cS = specials.filter(s => s.type === 'S').length;
+  const cL = specials.filter(s => s.type === 'L').length;
+  if (cA === 2 && cS === 1) return { score: 70, cat: 'AAS' };
+  if (cA === 2 && cL === 1) return { score: 110, cat: 'AAL' };
+  if (cA === 1 && cS === 2) return { score: 60, cat: 'ASS' };
+  if (cA === 1 && cS === 1 && cL === 1) return { score: 100, cat: 'ASL' };
+  if (cA === 1 && cL === 2) return { score: 90, cat: 'ALL' };
+  if (cS === 2 && cL === 1) return { score: 50, cat: 'SSL' };
+  if (cS === 1 && cL === 2) return { score: 60, cat: 'SLL' };
+  return { score: 0, cat: 'UNKNOWN' };
+}
+
+function shieldCap(cards) {
+  const cS = cards.filter(c => c.type === 'S').length;
+  if (cS === 1) return 20;
+  if (cS === 2) return 10;
+  return null;
+}
+
+// ══════════════════════════════════════════════════════
+//  AUTO-EXCHANGE HEURISTIC (opponent side — simple rules)
+// ══════════════════════════════════════════════════════
+function autoExchangeDecision(cards) {
+  const withIdx = cards.map((c,i) => ({ ...c, idx: i }));
+  const specials = withIdx.filter(c => c.type !== 'number');
+  const nums = withIdx.filter(c => c.type === 'number');
+
+  if (specials.length >= 2) return []; // already a strong combo, keep
+
+  if (nums.length === 3) {
+    const sorted = nums.slice().sort((a,b) => a.value-b.value);
+    const [x,y,z] = sorted;
+    if (x.value === y.value && y.value === z.value) return []; // triple
+    if (z.value-y.value === 1 && y.value-x.value === 1) return []; // straight
+    const counts = {};
+    nums.forEach(n => counts[n.value] = (counts[n.value]||0)+1);
+    const pairedVal = Object.keys(counts).find(k => counts[k] === 2);
+    if (pairedVal) {
+      const odd = nums.find(n => counts[n.value] === 1);
+      return odd ? [odd.idx] : [];
+    }
+    return [sorted[0].idx, sorted[1].idx]; // exchange two lowest, keep highest
+  }
+  if (nums.length === 2) {
+    if (nums[0].value === nums[1].value) return []; // already paired with a special
+    const lower = nums[0].value <= nums[1].value ? nums[0] : nums[1];
+    return [lower.idx];
+  }
+  return [];
+}
+
+// ══════════════════════════════════════════════════════
+//  GAME STATE
+// ══════════════════════════════════════════════════════
+let players = [
+  { name: '', balance: 0, startBalance: 0 },
+  { name: '', balance: 0, startBalance: 0 }
+];
+let activePIdx    = 0;
+let selectedBet   = 0;
+let dealing       = false;
+let phase         = 'idle'; // idle | exchange | resolving
+let sessionLog    = [];
+let gameActive    = false;
+let idleTimer     = null;
+const IDLE_MS     = 5 * 60 * 1000;
+
+let pCards = [null,null,null];
+let oppCards = [null,null,null];
+let markedForExchange = new Set();
+
+// ══════════════════════════════════════════
+//  SPLASH → ENTRY
+// ══════════════════════════════════════════
+function showEntryForm() {
+  document.getElementById('splash-screen').style.display = 'none';
+  document.getElementById('entry-screen').classList.add('visible');
+  document.getElementById('inp-name1').focus();
+}
+
+function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// ══════════════════════════════════════════
+//  START GAME
+// ══════════════════════════════════════════
+function startGame() {
+  const n1 = document.getElementById('inp-name1').value.trim();
+  const n2 = document.getElementById('inp-name2').value.trim();
+  const c1 = parseInt(document.getElementById('inp-coins1').value, 10);
+  const c2 = parseInt(document.getElementById('inp-coins2').value, 10);
+  const errEl = document.getElementById('entry-error');
+
+  if (!n1 || !n2)           { errEl.textContent = 'Обоим игрокам нужно имя.'; return; }
+  if (n1.toLowerCase() === n2.toLowerCase()) { errEl.textContent = 'Имена должны отличаться.'; return; }
+  if (!c1 || c1 < 10)       { errEl.textContent = 'У игрока 1 должно быть минимум 10 золота.'; return; }
+  if (!c2 || c2 < 10)       { errEl.textContent = 'У игрока 2 должно быть минимум 10 золота.'; return; }
+
+  players[0] = { name: n1, balance: c1, startBalance: c1 };
+  players[1] = { name: n2, balance: c2, startBalance: c2 };
+  activePIdx = 0;
+  selectedBet = 0;
+  dealing = false;
+  phase = 'idle';
+  gameActive = true;
+  resetIdleTimer();
+
+  initPools();
+  updateScoreboard();
+  setActivePlayer(0);
+  clearCards();
+  clearScores();
+  document.getElementById('result-msg').textContent = '';
+  document.getElementById('result-msg').className = 'result-msg';
+  hideBonusBadge();
+  document.getElementById('btn-deal').disabled = true;
+  showBetPanel();
+
+  document.getElementById('entry-screen').classList.remove('visible');
+  document.getElementById('game-screen').classList.add('visible');
+}
+
+// ══════════════════════════════════════════
+//  ACTIVE PLAYER MANAGEMENT
+// ══════════════════════════════════════════
+function setActivePlayer(idx) {
+  activePIdx = idx;
+  const p = players[idx];
+  const other = players[1 - idx];
+
+  document.getElementById('sb-p1').classList.toggle('active-player', idx === 0);
+  document.getElementById('sb-p2').classList.toggle('active-player', idx === 1);
+
+  document.getElementById('turn-indicator').textContent = `ХОД ИГРОКА: ${p.name.toUpperCase()}`;
+
+  document.getElementById('player-name-display').textContent = p.name;
+  document.getElementById('bottom-player-label').textContent = 'Ваша рука';
+  document.getElementById('top-player-name').textContent = other.name;
+  document.getElementById('top-player-label').textContent = 'Соперник';
+
+  selectedBet = 0;
+  document.getElementById('bet-display').textContent = 'Ставка не выбрана';
+  document.getElementById('btn-deal').disabled = true;
+  updateBetButtons();
+}
+
+function updateScoreboard() {
+  document.getElementById('sb-name1').textContent = players[0].name;
+  document.getElementById('sb-name2').textContent = players[1].name;
+  document.getElementById('sb-coins1').textContent = players[0].balance.toLocaleString() + ' 💰';
+  document.getElementById('sb-coins2').textContent = players[1].balance.toLocaleString() + ' 💰';
+}
+
+// ══════════════════════════════════════════
+//  BET SELECTION
+// ══════════════════════════════════════════
+function selectBet(amount) {
+  if (dealing) return;
+  const p = players[activePIdx];
+  if (amount > p.balance) return;
+  selectedBet = amount;
+  updateBetButtons();
+  document.getElementById('bet-display').textContent = `Ставка: ${amount} золота`;
+  document.getElementById('btn-deal').disabled = false;
+  resetIdleTimer();
+}
+
+function updateBetButtons() {
+  const p = players[activePIdx];
+  const bets = [5, 10, 50, 100];
+  document.querySelectorAll('.btn-bet').forEach((btn, i) => {
+    const val = bets[i];
+    btn.disabled = (val > p.balance || dealing);
+    btn.classList.toggle('selected', val === selectedBet);
+  });
+  if (selectedBet > 0) {
+    document.getElementById('btn-deal').disabled = dealing;
+  }
+}
+
+function showBetPanel() {
+  document.getElementById('bet-panel').style.display = '';
+  document.getElementById('exchange-panel').classList.remove('visible');
+}
+function showExchangePanel() {
+  document.getElementById('bet-panel').style.display = 'none';
+  document.getElementById('exchange-panel').classList.add('visible');
+  updateExchangeButtonLabel();
+}
+
+// ══════════════════════════════════════════
+//  BONUS BADGE
+// ══════════════════════════════════════════
+function showBonusBadge(text) {
+  const el = document.getElementById('bonus-badge');
+  el.textContent = text;
+  el.classList.add('show');
+}
+function hideBonusBadge() {
+  document.getElementById('bonus-badge').classList.remove('show');
+}
+
+// ══════════════════════════════════════════
+//  DEAL
+// ══════════════════════════════════════════
+function deal() {
+  if (dealing || selectedBet === 0) return;
+  const p = players[activePIdx];
+  if (selectedBet > p.balance) return;
+
+  dealing = true;
+  phase = 'dealt';
+  resetIdleTimer();
+
+  clearCards();
+  clearScores();
+  hideBonusBadge();
+  markedForExchange = new Set();
+  document.getElementById('result-msg').textContent = '';
+  document.getElementById('result-msg').className = 'result-msg';
+  document.getElementById('btn-deal').disabled = true;
+  document.querySelectorAll('.btn-bet').forEach(b => b.disabled = true);
+
+  // Draw player's hand
+  pCards = [drawFrom('p1'), drawFrom('p1'), drawFrom('p1')];
+
+  // Draw opponent's hand, then run its silent auto-exchange BEFORE reveal
+  let opp = [drawFrom('p2'), drawFrom('p2'), drawFrom('p2')];
+  const exchIdx = autoExchangeDecision(opp);
+  exchIdx.forEach(i => { opp[i] = drawFrom('p2'); });
+  oppCards = opp;
+
+  for (let i = 0; i < 3; i++) {
+    setCardImg(`player-img-${i}`, pCards[i].img);
+    setCardImg(`npc-img-${i}`, oppCards[i].img);
+    applyCardGlow(`player-card-${i}`, pCards[i]);
+    applyCardGlow(`npc-card-${i}`, oppCards[i]);
+  }
+
+  // Reveal player's hand after a short pause; opponent stays face-down
+  setTimeout(() => {
+    for (let i = 0; i < 3; i++) {
+      flipCard(`player-card-${i}`);
+      document.getElementById(`player-card-${i}`).classList.add('exchange-selectable');
+    }
+    phase = 'exchange';
+    showExchangePanel();
+  }, 900);
+}
+
+function applyCardGlow(wrapId, card) {
+  const wrap = document.getElementById(wrapId);
+  wrap.classList.remove('special-card');
+  if (card.type !== 'number') wrap.classList.add('special-card');
+}
+
+// ══════════════════════════════════════════
+//  EXCHANGE PHASE
+// ══════════════════════════════════════════
+function toggleMark(idx) {
+  if (phase !== 'exchange') return;
+  const wrap = document.getElementById(`player-card-${idx}`);
+  if (markedForExchange.has(idx)) {
+    markedForExchange.delete(idx);
+    wrap.classList.remove('marked-exchange');
+  } else {
+    markedForExchange.add(idx);
+    wrap.classList.add('marked-exchange');
+  }
+  updateExchangeButtonLabel();
+}
+
+function updateExchangeButtonLabel() {
+  const btn = document.getElementById('btn-confirm-exchange');
+  const n = markedForExchange.size;
+  btn.textContent = n === 0 ? 'Оставить руку' : `Обменять (${n}) и раскрыть`;
+}
+
+function confirmExchange() {
+  if (phase !== 'exchange') return;
+  phase = 'resolving';
+
+  for (let i = 0; i < 3; i++) {
+    document.getElementById(`player-card-${i}`).classList.remove('exchange-selectable');
+  }
+  document.getElementById('exchange-panel').classList.remove('visible');
+
+  const marked = Array.from(markedForExchange);
+  if (marked.length === 0) {
+    revealOpponentAndResolve();
+    return;
+  }
+
+  marked.forEach(idx => {
+    const wrap = document.getElementById(`player-card-${idx}`);
+    wrap.classList.remove('flipped');
+    wrap.classList.remove('marked-exchange');
+  });
+
+  setTimeout(() => {
+    marked.forEach(idx => {
+      const newCard = drawFrom('p1');
+      pCards[idx] = newCard;
+      setCardImg(`player-img-${idx}`, newCard.img);
+      applyCardGlow(`player-card-${idx}`, newCard);
+    });
+    marked.forEach(idx => flipCard(`player-card-${idx}`));
+    setTimeout(revealOpponentAndResolve, 650);
+  }, 320);
+}
+
+function revealOpponentAndResolve() {
+  for (let i = 0; i < 3; i++) flipCard(`npc-card-${i}`);
+  setTimeout(() => resolveRound(), 700);
+}
+
+// ══════════════════════════════════════════
+//  RESOLVE ROUND
+// ══════════════════════════════════════════
+function resolveRound() {
+  const p = players[activePIdx];
+  const opp = players[1 - activePIdx];
+
+  const pResult   = calcScore3(pCards);
+  const oppResult = calcScore3(oppCards);
+
+  document.getElementById('player-score').textContent = `Очки: ${pResult.score}`;
+  document.getElementById('npc-score').textContent    = `Очки: ${oppResult.score}`;
+
+  setComboName('player-combo', pResult);
+  setComboName('npc-combo', oppResult);
+
+  let diff = Math.abs(pResult.score - oppResult.score);
+  const resultEl = document.getElementById('result-msg');
+
+  if (pResult.score > oppResult.score) {
+    const cap = shieldCap(oppCards); // protects the LOSER
+    if (cap !== null) diff = Math.min(diff, cap);
+    const transfer = Math.min(diff * selectedBet, opp.balance);
+    p.balance   += transfer;
+    opp.balance -= transfer;
+    if (cap !== null) showBonusBadge(`🛡️ Щит соперника ограничил потери (макс. разница ${cap})`);
+    resultEl.textContent = `🎉 ${p.name} побеждает! ${opp.name} платит ${transfer.toLocaleString()} золота`;
+    resultEl.className = 'result-msg result-win';
+    updateScoreboard();
+    showResultOverlay('win');
+
+  } else if (oppResult.score > pResult.score) {
+    const cap = shieldCap(pCards); // protects the LOSER
+    if (cap !== null) diff = Math.min(diff, cap);
+    const transfer = Math.min(diff * selectedBet, p.balance);
+    opp.balance += transfer;
+    p.balance   -= transfer;
+    if (cap !== null) showBonusBadge(`🛡️ Ваш щит ограничил потери (макс. разница ${cap})`);
+    resultEl.textContent = `💀 ${p.name} проигрывает! Платит ${transfer.toLocaleString()} золота игроку ${opp.name}`;
+    resultEl.className = 'result-msg result-lose';
+    updateScoreboard();
+    showResultOverlay('lose');
+
+  } else {
+    resultEl.textContent = `🤝 Ничья! Золото не переходит.`;
+    resultEl.className = 'result-msg result-tie';
+    updateScoreboard();
+    scheduleNextRound();
+  }
+}
+
+function setComboName(elId, result) {
+  const el = document.getElementById(elId);
+  const name = CATEGORY_NAMES[result.cat] || '';
+  if (name) {
+    el.textContent = name;
+    el.classList.remove('animate');
+    void el.offsetWidth;
+    el.classList.add('animate');
+  } else {
+    el.textContent = '';
+    el.classList.remove('animate');
+  }
+}
+
+// ══════════════════════════════════════════
+//  WIN / LOSE OVERLAY
+// ══════════════════════════════════════════
+function showResultOverlay(type) {
+  const img = document.getElementById('result-overlay-img');
+  img.src = (type === 'win') ? 'Winscreen.jpg' : 'Losescreen.jpg';
+  document.getElementById('result-overlay').classList.add('visible');
+}
+
+function dismissResultOverlay() {
+  document.getElementById('result-overlay').classList.remove('visible');
+
+  const p0 = players[0];
+  const p1 = players[1];
+  if (p0.balance <= 0 && p1.balance <= 0) {
+    setTimeout(() => endGame('bust-both'), 400);
+  } else if (p0.balance <= 0 || p1.balance <= 0) {
+    setTimeout(() => endGame('bust'), 400);
+  } else {
+    scheduleNextRound();
+  }
+}
+
+// ══════════════════════════════════════════
+//  READY FOR NEXT ROUND
+// ══════════════════════════════════════════
+function scheduleNextRound() {
+  dealing = false;
+  phase = 'idle';
+  showBetPanel();
+  updateBetButtons();
+  selectedBet = 0;
+  document.getElementById('bet-display').textContent = 'Ставка не выбрана';
+  document.getElementById('btn-deal').disabled = true;
+}
+
+// ══════════════════════════════════════════
+//  CASH OUT / END SESSION
+// ══════════════════════════════════════════
+function cashOut() {
+  if (dealing) return;
+  endGame('cashout');
+}
+
+// ══════════════════════════════════════════
+//  END GAME
+// ══════════════════════════════════════════
+function endGame(reason) {
+  clearTimeout(idleTimer);
+  logSession(reason);
+
+  const p1 = players[0];
+  const p2 = players[1];
+  const diff1 = p1.balance - p1.startBalance;
+  const diff2 = p2.balance - p2.startBalance;
+
+  let title = 'Сессия окончена';
+  if (reason === 'cashout') title = '💰 Сессия завершена';
+  if (reason === 'bust')    title = '💀 Игрок разорён!';
+  if (reason === 'bust-both') title = '💀 Оба игрока разорены!';
+
+  const fmt = (d) => `<strong style="color:${d>=0?'#60e090':'#ff6060'}">${d>=0?'+':''}${d}</strong>`;
+
+  document.getElementById('gameover-title').textContent = title;
+  document.getElementById('gameover-stats').innerHTML =
+    `<strong>${escHtml(p1.name)}</strong><br>
+     Начало: <strong>${p1.startBalance.toLocaleString()} 💰</strong> &nbsp;→&nbsp; Итог: <strong>${p1.balance.toLocaleString()} 💰</strong><br>
+     Изменение: ${fmt(diff1)} золота
+     <hr class="divider">
+     <strong>${escHtml(p2.name)}</strong><br>
+     Начало: <strong>${p2.startBalance.toLocaleString()} 💰</strong> &nbsp;→&nbsp; Итог: <strong>${p2.balance.toLocaleString()} 💰</strong><br>
+     Изменение: ${fmt(diff2)} золота`;
+
+  document.getElementById('gameover-screen').classList.add('visible');
+}
+
+// ══════════════════════════════════════════
+//  RESET
+// ══════════════════════════════════════════
+function resetGame() {
+  clearTimeout(idleTimer);
+  gameActive = false;
+  document.getElementById('gameover-screen').classList.remove('visible');
+  document.getElementById('game-screen').classList.remove('visible');
+  document.getElementById('entry-screen').classList.remove('visible');
+  document.getElementById('splash-screen').style.display = 'flex';
+  document.getElementById('entry-error').textContent = '';
+  ['inp-name1','inp-coins1','inp-name2','inp-coins2'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+}
+
+// ══════════════════════════════════════════
+//  CSV DOWNLOAD
+// ══════════════════════════════════════════
+function downloadLog() {
+  const saved = JSON.parse(localStorage.getItem('cardDuel3Log') || '[]');
+  if (!saved.length) { alert('Пока нет записанных сессий.'); return; }
+
+  let csv = 'Player1,Start1,Finish1,Diff1,Player2,Start2,Finish2,Diff2,Reason,Timestamp\n';
+  saved.forEach(s => {
+    csv += `"${s.player1}",${s.start1},${s.finish1},"${s.diff1>=0?'+':''}${s.diff1}",`;
+    csv += `"${s.player2}",${s.start2},${s.finish2},"${s.diff2>=0?'+':''}${s.diff2}",`;
+    csv += `"${s.reason}","${s.ts}"\n`;
+  });
+
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = 'card-duel3-sessions.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ══════════════════════════════════════════
+//  HELPERS
+// ══════════════════════════════════════════
+function setCardImg(id, src) { document.getElementById(id).src = src; }
+function flipCard(id)        { document.getElementById(id).classList.add('flipped'); }
+function clearCards() {
+  ['player-card-0','player-card-1','player-card-2','npc-card-0','npc-card-1','npc-card-2']
+    .forEach(id => {
+      const el = document.getElementById(id);
+      el.classList.remove('flipped','special-card','marked-exchange','exchange-selectable');
+    });
+}
+function clearScores() {
+  document.getElementById('player-score').textContent = '';
+  document.getElementById('npc-score').textContent = '';
+  document.getElementById('player-combo').textContent = '';
+  document.getElementById('npc-combo').textContent = '';
+  document.getElementById('player-combo').classList.remove('animate');
+  document.getElementById('npc-combo').classList.remove('animate');
+}
+
+// ══════════════════════════════════════════
+//  IDLE TIMER + UNLOAD LOGGER
+// ══════════════════════════════════════════
+function resetIdleTimer() {
+  clearTimeout(idleTimer);
+  if (!gameActive) return;
+  idleTimer = setTimeout(() => {
+    if (gameActive) logSession('idle');
+  }, IDLE_MS);
+}
+
+function showReshuffleNotice() {
+  const el = document.getElementById('reshuffle-notice');
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2600);
+}
+
+function logSession(reason) {
+  if (!players[0].name) return;
+  const p1 = players[0], p2 = players[1];
+  const entry = {
+    player1: p1.name, start1: p1.startBalance, finish1: p1.balance, diff1: p1.balance - p1.startBalance,
+    player2: p2.name, start2: p2.startBalance, finish2: p2.balance, diff2: p2.balance - p2.startBalance,
+    reason, ts: new Date().toISOString()
+  };
+  try {
+    const saved = JSON.parse(localStorage.getItem('cardDuel3Log') || '[]');
+    saved.push(entry);
+    localStorage.setItem('cardDuel3Log', JSON.stringify(saved));
+  } catch(e) {}
+  gameActive = false;
+}
+
+window.addEventListener('beforeunload', () => {
+  if (gameActive) logSession('closed');
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const fields = ['inp-name1','inp-coins1','inp-name2','inp-coins2'];
+  fields.forEach((id, i) => {
+    document.getElementById(id).addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        if (i < fields.length - 1) document.getElementById(fields[i+1]).focus();
+        else startGame();
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>
