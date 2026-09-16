@@ -1,0 +1,4274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Call-Centre Outreach vs ezyVet Bookings — Modern Vet (Summary)</title>
+<style>
+  :root {
+    --green:#1a7f37; --red:#b42318; --bg:#f7f8fa; --card:#ffffff; --border:#e2e5ea; --accent:#2f6fed;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; margin:0; background:var(--bg); color:#1c2230; }
+  header { background:#12203f; color:#fff; padding:28px 32px; }
+  header h1 { margin:0 0 6px; font-size:22px; }
+  header p { margin:0; opacity:0.85; font-size:14px; }
+  .wrap { max-width:1100px; margin:0 auto; padding:24px 20px 60px; }
+  .note { background:#fff8e6; border:1px solid #f2d98a; border-radius:8px; padding:14px 18px; font-size:14px; margin-bottom:24px; line-height:1.5; }
+  .privacy { background:#eef4ff; border:1px solid #c6d9ff; border-radius:8px; padding:12px 18px; font-size:13px; margin-bottom:24px; color:#274a8b; }
+  .cards { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:28px; }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:18px 20px; flex:1; min-width:220px; box-shadow:0 1px 2px rgba(0,0,0,0.04); }
+  .card h3 { margin:0 0 10px; font-size:14px; color:#5b6577; text-transform:uppercase; letter-spacing:0.03em; }
+  .card .big { font-size:30px; font-weight:700; margin-bottom:4px; }
+  .card .sub { font-size:13px; color:#5b6577; }
+  .green { color:var(--green); }
+  table { width:100%; border-collapse:collapse; background:var(--card); border-radius:10px; overflow:hidden; box-shadow:0 1px 2px rgba(0,0,0,0.04); font-size:13px; }
+  th, td { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; vertical-align:top; }
+  th { background:#eef1f6; cursor:pointer; position:sticky; top:0; font-size:12px; text-transform:uppercase; letter-spacing:0.02em; color:#4a5468; }
+  tr:hover td { background:#f5f8ff; }
+  .badge.yes { color:var(--green); font-weight:700; }
+  .badge.no { color:var(--red); font-weight:700; }
+  .badge.na { color:#8a93a6; }
+  .controls { display:flex; gap:10px; margin-bottom:14px; flex-wrap:wrap; align-items:center; }
+  select, input { padding:6px 10px; border:1px solid var(--border); border-radius:6px; font-size:13px; }
+  .tablewrap { max-height:70vh; overflow:auto; border-radius:10px; }
+  footer { text-align:center; color:#8a93a6; font-size:12px; margin-top:30px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Call-Centre Outreach vs ezyVet Bookings — Summary</h1>
+  <p>Dental &amp; Mass/Lump recommendation lists — cross-checked against ezyVet appointment records</p>
+</header>
+<div class="wrap">
+
+  <div class="privacy">
+    <strong>Note:</strong> this is a public summary — client names, phone numbers, and call notes have
+    been removed. The full row-level file with client details lives internally only.
+  </div>
+
+  <div class="note">
+    <strong>Methodology:</strong> Each client's phone number and pet name were matched against ezyVet
+    contact/animal records. "Booked after call" checks for any appointment with a start date on or
+    after <strong>26 Aug 2026</strong> — the actual call-centre campaign start date — not the much
+    earlier per-row "Date Recommended" field (using that first, a data pull error, produced an
+    inflated 53%/70% that mostly reflected unrelated routine visits from months earlier).
+    The visit where the recommendation itself was made is excluded from the count.
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Dental — matched to ezyVet</h3>
+      <div class="big">559 <span class="sub">/ 570</span></div>
+      <div class="sub">11 not found (8 no matching pet, 3 no phone match)</div>
+    </div>
+    <div class="card">
+      <h3>Dental — booked since 26 Aug</h3>
+      <div class="big green">127 <span class="sub">(22.7%)</span></div>
+      <div class="sub">22 were specifically surgery-type visits (3.9%) · 74 have a future appointment on file</div>
+    </div>
+    <div class="card">
+      <h3>Mass/Lump — matched to ezyVet</h3>
+      <div class="big">16 <span class="sub">/ 17</span></div>
+      <div class="sub">1 not found</div>
+    </div>
+    <div class="card">
+      <h3>Mass/Lump — booked since 26 Aug</h3>
+      <div class="big green">3 <span class="sub">(18.8%)</span></div>
+      <div class="sub">1 was a surgery-type visit (6.2%)</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <label>Category:
+      <select id="fCategory">
+        <option value="">All</option>
+        <option value="Dental">Dental</option>
+        <option value="Mass-Lump">Mass-Lump</option>
+      </select>
+    </label>
+    <label>Booked after call:
+      <select id="fBooked">
+        <option value="">All</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+        <option value="N/A">N/A (not found in ezyVet)</option>
+      </select>
+    </label>
+    <input id="fSearch" type="text" placeholder="Search...">
+    <span id="fCount" style="margin-left:auto; color:#5b6577; font-size:13px;"></span>
+  </div>
+
+  <div class="tablewrap">
+  <table id="dataTable">
+    <thead>
+      <tr>
+        <th data-k="0">Category</th>
+        <th data-k="1">Date Recommended</th>
+        <th data-k="2">ezyVet Match</th>
+        <th data-k="3">Booked after 26 Aug</th>
+        <th data-k="4">Surgery-type</th>
+        <th data-k="5">Appointments since 26 Aug</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2025-11-19</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-01</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-12-08 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-20 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-11-23</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-11-23</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-01-31 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-12-02</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-12-02 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-12-02</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-12-03</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-12-03</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-12-03</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="N/A">
+      <td>Dental</td>
+      <td>2025-12-03</td>
+      <td>NOT_FOUND_ANIMAL</td>
+      <td class="badge na">N/A</td>
+      <td>N/A</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-12-03</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2025-12-04</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-06; 2026-09-06; 2026-09-07</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-12-09</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-12-10 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-12-12 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-12-12</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-12-14 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-01-21 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-12-29 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-12-27</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-12-27</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-12-28</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-12-29 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2025-12-28</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-05</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-12-29</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2025-12-29</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-08-30; 2026-09-10; 2026-10-30 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2025-12-30</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-10; 2026-09-18 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-03</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-03</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-01-03 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-04</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-01-05</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-08-27</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-05</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-05</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-05</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-07</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-07</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-11</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-11</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-01-15 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-14</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-15</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-15</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-01-19</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-14</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-16</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-20</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-01-24</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-04</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-01-27</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-12-05 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-26</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-28</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-28</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-30</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-31</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-01</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-31</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-04</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-07</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-05</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-01</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-02</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-03</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-07</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-08</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-10</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-10</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-07</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-11</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-07-13 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-14</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-16</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-16</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-17</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-02-23 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-21</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-21</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-12</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-21</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-22</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-01-29 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-22</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-03-03 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-24</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>Yes</td>
+      <td>2026-08-30 (surgery); 2026-08-31</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-05-15 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-27</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-03</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-04</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-06</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-06</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-06</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-28</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-10</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-10</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-10</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-11</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-11</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-03-12</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-27 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-04-09 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-13</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-14</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-15</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-16</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2027-05-21 00:00:00</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-02-27 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-23</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-03-26</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-02-27 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-04-02 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-27</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-03-27</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-12</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-03-27 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-03-28</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>Yes</td>
+      <td>2026-09-10; 2026-09-23 (surgery) [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-28</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-28</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-03-28</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-10</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2027-07-14 00:00:00</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>Yes</td>
+      <td>2026-08-27 (surgery); 2026-08-28; 2026-09-01; 2026-09-02; 2026-09-05; 2026-09-09; 2026-09-11; 2026-09-14 (surgery); 2026-09-14; 2026-09-16; 2026-09-26 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-29</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-30</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-03-31</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-11</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-31</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-31</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-04-02 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-02</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-02</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-04-02 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2027-05-29 00:00:00</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-12</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-04-03</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-12; 2026-09-13; 2026-09-13; 2026-09-14; 2026-09-15; 2026-09-17 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-05</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-04-07</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>Yes</td>
+      <td>2026-09-15; 2026-09-16 (surgery); 2026-09-21 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-04-07</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-07</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-06-15 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-10</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="N/A">
+      <td>Dental</td>
+      <td>2026-04-10</td>
+      <td>NOT_FOUND_ANIMAL</td>
+      <td class="badge na">N/A</td>
+      <td>N/A</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-12</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-04-10</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-03; 2026-09-04; 2026-09-06; 2026-09-14; 2026-09-16</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-10</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-13</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-13</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-14</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-04-15</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-05; 2026-09-07</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-04-14</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>Yes</td>
+      <td>2026-09-10; 2026-09-10 (surgery)</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-19</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-19</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-16</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-20</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-05-04 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-04-21</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>Yes</td>
+      <td>2026-09-11; 2026-09-15 (surgery); 2026-09-15</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-24</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-25</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-27</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-28</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-30</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-26</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-05-01</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>Yes</td>
+      <td>2026-09-07; 2026-09-14 (surgery)</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-01</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-05-01 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-03</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-03</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="N/A">
+      <td>Dental</td>
+      <td>2026-05-04</td>
+      <td>NOT_FOUND_ANIMAL</td>
+      <td class="badge na">N/A</td>
+      <td>N/A</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-04</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-02</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-02</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-06</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-07</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-06-05 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-10</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-05-10</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-15; 2026-09-15</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-30</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-13</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-13</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-05-03 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-05-26 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-16</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2027-07-03 00:00:00</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-12-05 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="N/A">
+      <td>Dental</td>
+      <td>2026-05-18</td>
+      <td>NOT_FOUND_ANIMAL</td>
+      <td class="badge na">N/A</td>
+      <td>N/A</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-06-01 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2027-05-23 00:00:00</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-11-30 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2027-06-23 00:00:00</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-17 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-23</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-24</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-06-23 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2027-08-07 00:00:00</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-01</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-29</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-05-31</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-01; 2026-09-01; 2026-09-03</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-06-10 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-02</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-02</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-04</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-06-04</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-01</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-06-05</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-14</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-06-08</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-08-31</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-08</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-09</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-10</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-11</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="N/A">
+      <td>Dental</td>
+      <td>2026-06-12</td>
+      <td>NOT_FOUND_ANIMAL</td>
+      <td class="badge na">N/A</td>
+      <td>N/A</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2027-07-31 00:00:00</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-04; 2026-09-05</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-06-15</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-08; 2026-09-28 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-06-16</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-05-28 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-17</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-17</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2027-06-18 00:00:00</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-10-05 [upcoming]; 2026-10-07 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-06-20 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-18</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-11-21</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-11-21</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2025-11-22</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-11-22 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2025-11-22</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-11-22 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2025-11-24</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>Yes</td>
+      <td>2026-08-28; 2026-08-29; 2026-08-29 (surgery); 2026-08-31; 2026-09-01; 2026-09-03; 2026-09-07; 2026-09-10; 2026-09-10; 2026-09-11; 2026-09-14; 2026-09-15</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-11-27</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-11-28</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-11-29</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-11-29</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-11-29</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-11-30</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2025-12-01</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>Yes</td>
+      <td>2026-09-03; 2026-09-27 [upcoming]; 2026-09-27 (surgery) [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-12-01</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-12-11</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-03-14 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-12-13</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-01-10 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-12-12</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-12-16</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2025-12-18</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-11-30 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-12-20</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-12-22</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-12-23</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2025-12-26</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-05-13 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-07-13 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-01-06 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2027-09-01 00:00:00</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>Yes</td>
+      <td>2026-09-01 (surgery); 2026-09-01; 2026-09-05; 2026-09-10</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2025-12-30</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-07</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2027-01-11 00:00:00</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>Yes</td>
+      <td>2026-09-08 (surgery); 2026-09-08; 2026-09-09; 2026-09-16; 2026-09-23 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2027-01-11 00:00:00</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>Yes</td>
+      <td>2026-09-08 (surgery); 2026-09-08; 2026-09-09; 2026-09-16; 2026-09-23 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-05</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-06</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2027-01-06 00:00:00</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-03</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-01-10</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-07</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-10</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-12</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-12</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-12-08 00:00:00</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>Yes</td>
+      <td>2026-09-13; 2026-09-17 (surgery) [upcoming]; 2026-09-25 (surgery) [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-14</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="N/A">
+      <td>Dental</td>
+      <td>2026-01-17</td>
+      <td>NOT_FOUND_ANIMAL</td>
+      <td class="badge na">N/A</td>
+      <td>N/A</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="N/A">
+      <td>Dental</td>
+      <td>2026-01-19</td>
+      <td>NOT_FOUND_PHONE</td>
+      <td class="badge na">N/A</td>
+      <td>N/A</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-20</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-20</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-20</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="N/A">
+      <td>Dental</td>
+      <td>2026-01-21</td>
+      <td>NOT_FOUND_PHONE</td>
+      <td class="badge na">N/A</td>
+      <td>N/A</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-22</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-23</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-23</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-23</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-01-24</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-11; 2026-12-24 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-24</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-24</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-24</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-24</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-24</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-24</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-01-26 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-25</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-01-25</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-12-25 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-01-25</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-12-25 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-26</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-26</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-01-26</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-06; 2026-09-08</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-01-28 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-01-26 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-26</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-27</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-27</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-27</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-27</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-28</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-28</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-29</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-29</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-06-20 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-01-30</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-17 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-30</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-31</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-31</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-31</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-31</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-30</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-01</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-02-11 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-01</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-01</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-01-29 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-01</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-02-23 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-01</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-01-02 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-06-09 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-01</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-31</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-31</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-01-31</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-02</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>Yes</td>
+      <td>2026-09-08; 2026-09-23 (surgery) [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-02</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>Yes</td>
+      <td>2026-09-08; 2026-09-08; 2026-09-23 (surgery) [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-02</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-01-30 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-02</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-03</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-12; 2027-01-03 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-04</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-01-04 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-04</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-04</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-05</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-13</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-05</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-06</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-06</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-08-29; 2026-09-01; 2026-09-01; 2026-09-02; 2026-09-02; 2026-09-03</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-07</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-08</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-09</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-07; 2027-01-30 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-09</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-04; 2026-09-18 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-04-09 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-11</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-10</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-10</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-11</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-13</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-18 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-13</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-03-12 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-13</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-11-07 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-15</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-15</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-11; 2026-09-28 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-16</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-16</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2027-06-26 00:00:00</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-08; 2026-09-08; 2026-09-09; 2026-09-17 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2027-03-06 00:00:00</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-15</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-17</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-18</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-02-25 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-18</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-18</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2027-01-09 00:00:00</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>Yes</td>
+      <td>2026-09-02; 2026-09-02 (surgery); 2026-09-02; 2026-09-02; 2026-09-06; 2026-09-13</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-18</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-18</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-01-29 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-18</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-19</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-19</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-19</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-22</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-22</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-22</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-01-22 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-23</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-03</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-24</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-24</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-25</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-25</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-08-28; 2026-08-28; 2026-09-28 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-25</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-26</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-26</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>Yes</td>
+      <td>2026-09-14; 2026-09-16; 2026-09-22 (surgery) [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-27</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-28</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-02-28</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-28</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-10-03 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-02-28</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-10-03 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-03</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-03</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-04</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-04</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-04</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-04</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-04</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-05</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-06</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-06</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-06</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-06</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-07</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-07</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-07</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-08</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-08</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-08</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-08</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-09</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-07</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-03-10</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>Yes</td>
+      <td>2026-08-27; 2026-09-02; 2026-10-12 (surgery) [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-10</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-10</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-10</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-10</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-10</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-10</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-11</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-11</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-12</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-09</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-12</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-12</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-12</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2027-03-28 00:00:00</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-14; 2026-09-18 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-15</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-13</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-03-16</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-19 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-03-16</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-19 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-16</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-16</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-16</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-03-17</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-10-30 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-17</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-18</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-18</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-18</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-18</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-18</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-21</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-22</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-03-23</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-11</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-03-23</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-03-23 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-24</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-03-26</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-11; 2027-05-29 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-26</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-04-03 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-03-28</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-05-28 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-03-28</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>Yes</td>
+      <td>2026-09-06; 2026-09-11 (surgery)</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-04-24 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-29</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-29</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-29</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-29</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-03-17 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-29</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-03-29</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-08-29</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-30</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-03-30</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-04-26 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-01</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-02</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-02</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-04-03</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-22 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-03</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-03</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-03</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-03</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-03</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-03</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-04</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-04</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-05</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-05</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-05</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-06</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-06</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-06</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-07</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-07</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-05-06 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-09</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-05-28 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-04-10 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-04-12</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-03-30 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-12</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="N/A">
+      <td>Dental</td>
+      <td>2026-04-12</td>
+      <td>NOT_FOUND_PHONE</td>
+      <td class="badge na">N/A</td>
+      <td>N/A</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-04-13</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-14</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-14</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-13</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-12</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-15</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-15</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-15</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="N/A">
+      <td>Dental</td>
+      <td>2026-04-15</td>
+      <td>NOT_FOUND_PHONE</td>
+      <td class="badge na">N/A</td>
+      <td>N/A</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-15</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-16</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-16</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-04-16</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-03-30 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-06-10 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-18</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-04-19</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>Yes</td>
+      <td>2026-09-20 (surgery) [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-19</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-20</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-20</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-20</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-04-21</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-03-30 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-04-21</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-03-30 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-23</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-23</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-23</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-24</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-25</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-26</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-28</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-04-28</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-03-30 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-29</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-29</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-04-29</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-05-01</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-05; 2026-09-07; 2026-09-15; 2026-09-21 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-02</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-03</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-03</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-06-21 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-01</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-01</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-05</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-06</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-06</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-05-06</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-08-28; 2026-09-11; 2026-09-13; 2026-09-16</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-07</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-07</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-07</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-05-07</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-07</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-07</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-05-08</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-03-30 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-05-09</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-04</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-09</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-05-15 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-10</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-08</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-06-14 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-11</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-11</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-05-12</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-08-31</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-05-12</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-01</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-12</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-13</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-12-16 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-05-14</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>Yes</td>
+      <td>2026-09-10; 2026-09-15; 2026-09-21 (surgery) [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-05-15</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>Yes</td>
+      <td>2026-09-15; 2026-09-15 (surgery)</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-18</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-05-19</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-14; 2026-10-12 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-21</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-21</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-21</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-05-22</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-14</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-20</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-22</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-06-02 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-24</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-24</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="N/A">
+      <td>Dental</td>
+      <td>2026-05-24</td>
+      <td>NOT_FOUND_ANIMAL</td>
+      <td class="badge na">N/A</td>
+      <td>N/A</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2027-06-14 00:00:00</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-04-02 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-25</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-26</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-26</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-05-27</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-04-09 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-27</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-28</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-30</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-30</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-05-31</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-22 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-05-31</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-02</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-03</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-06-03</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-13</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-04</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-06-04</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-11-30 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-04</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-06</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-07</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-07</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-07</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-07</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-07</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-08</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-09</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-09</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-10</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-11</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-11</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-11</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-11</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-11</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-11</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-06-12</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-13; 2026-09-14; 2026-09-15; 2026-09-15; 2026-09-16; 2026-09-16</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-06-13</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-05-29 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-13</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-06-13</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-05-29 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-06-14</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-06-02 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-14</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-15</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="Yes">
+      <td>Dental</td>
+      <td>2026-06-16</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2027-05-28 [upcoming]</td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2026-06-16</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-06-21 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Dental" data-booked="No">
+      <td>Dental</td>
+      <td>2027-06-22 00:00:00</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Mass-Lump" data-booked="Yes">
+      <td>Mass-Lump</td>
+      <td>2025-11-19</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-01</td>
+    </tr><tr data-category="Mass-Lump" data-booked="No">
+      <td>Mass-Lump</td>
+      <td>2025-11-24</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Mass-Lump" data-booked="No">
+      <td>Mass-Lump</td>
+      <td>2026-01-12</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Mass-Lump" data-booked="No">
+      <td>Mass-Lump</td>
+      <td>2026-01-19</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Mass-Lump" data-booked="No">
+      <td>Mass-Lump</td>
+      <td>2026-02-18</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Mass-Lump" data-booked="N/A">
+      <td>Mass-Lump</td>
+      <td>2026-03-05</td>
+      <td>NOT_FOUND_ANIMAL</td>
+      <td class="badge na">N/A</td>
+      <td>N/A</td>
+      <td></td>
+    </tr><tr data-category="Mass-Lump" data-booked="No">
+      <td>Mass-Lump</td>
+      <td>2026-06-13</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Mass-Lump" data-booked="Yes">
+      <td>Mass-Lump</td>
+      <td>2025-11-24</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>Yes</td>
+      <td>2026-08-28; 2026-08-29; 2026-08-29 (surgery); 2026-08-31; 2026-09-01; 2026-09-03; 2026-09-07; 2026-09-10; 2026-09-10; 2026-09-11; 2026-09-14; 2026-09-15</td>
+    </tr><tr data-category="Mass-Lump" data-booked="No">
+      <td>Mass-Lump</td>
+      <td>2025-12-26</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Mass-Lump" data-booked="No">
+      <td>Mass-Lump</td>
+      <td>2026-01-10</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Mass-Lump" data-booked="No">
+      <td>Mass-Lump</td>
+      <td>2026-02-02</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Mass-Lump" data-booked="No">
+      <td>Mass-Lump</td>
+      <td>2026-03-13</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Mass-Lump" data-booked="Yes">
+      <td>Mass-Lump</td>
+      <td>2026-04-14</td>
+      <td>OK</td>
+      <td class="badge yes">Yes</td>
+      <td>No</td>
+      <td>2026-09-03</td>
+    </tr><tr data-category="Mass-Lump" data-booked="No">
+      <td>Mass-Lump</td>
+      <td>2026-04-30</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Mass-Lump" data-booked="No">
+      <td>Mass-Lump</td>
+      <td>2026-05-31</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Mass-Lump" data-booked="No">
+      <td>Mass-Lump</td>
+      <td>2026-06-05</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr><tr data-category="Mass-Lump" data-booked="No">
+      <td>Mass-Lump</td>
+      <td>2026-06-07</td>
+      <td>OK</td>
+      <td class="badge no">No</td>
+      <td>No</td>
+      <td></td>
+    </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <footer>Generated from internal call-centre outreach lists + ezyVet API · 587 rows checked · client identifiers redacted for public hosting</footer>
+</div>
+
+<script>
+const catSel = document.getElementById('fCategory');
+const bookedSel = document.getElementById('fBooked');
+const search = document.getElementById('fSearch');
+const rows = Array.from(document.querySelectorAll('#dataTable tbody tr'));
+const countEl = document.getElementById('fCount');
+
+function applyFilters() {
+  const cat = catSel.value;
+  const booked = bookedSel.value;
+  const q = search.value.toLowerCase();
+  let visible = 0;
+  rows.forEach(r => {
+    const rc = r.dataset.category;
+    const rb = r.dataset.booked;
+    const text = r.textContent.toLowerCase();
+    const show = (!cat || rc === cat) && (!booked || rb === booked) && (!q || text.includes(q));
+    r.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  countEl.textContent = visible + ' / ' + rows.length + ' rows shown';
+}
+[catSel, bookedSel, search].forEach(el => el.addEventListener('input', applyFilters));
+applyFilters();
+
+document.querySelectorAll('th[data-k]').forEach(th => {
+  th.addEventListener('click', () => {
+    const k = parseInt(th.dataset.k);
+    const tbody = document.querySelector('#dataTable tbody');
+    const trs = Array.from(tbody.querySelectorAll('tr'));
+    const asc = th.dataset.asc !== 'true';
+    document.querySelectorAll('th[data-k]').forEach(x => x.dataset.asc = '');
+    th.dataset.asc = asc;
+    trs.sort((a,b) => {
+      const av = a.children[k].textContent.trim();
+      const bv = b.children[k].textContent.trim();
+      return asc ? av.localeCompare(bv, undefined, {numeric:true}) : bv.localeCompare(av, undefined, {numeric:true});
+    });
+    trs.forEach(tr => tbody.appendChild(tr));
+  });
+});
+</script>
+</body>
+</html>
