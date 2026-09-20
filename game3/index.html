@@ -745,9 +745,9 @@
 
 <script>
 // ══════════════════════════════════════════════════════
-//  CARD DEFINITIONS — 46 card deck
+//  CARD DEFINITIONS — 49 card deck
 //  40 numeric cards: values 1-10, suits A/B/C/D (visual variety only)
-//  6 special cards: A1/A2 (type A), S1/S2 (type S), L1/L2 (type L)
+//  9 special cards: A1/A2/A3 (type A), S1/S2/S3 (type S), L1/L2/L3 (type L)
 // ══════════════════════════════════════════════════════
 function makeMasterDeck() {
   const arr = [];
@@ -755,9 +755,9 @@ function makeMasterDeck() {
   for (let v = 1; v <= 10; v++) {
     suits.forEach(s => arr.push({ id: `${v}${s}`, type: 'number', value: v, img: `cards/${v}${s}.jpg` }));
   }
-  ['A1','A2'].forEach(id => arr.push({ id, type: 'A', value: 0, img: `cards/${id}.jpg` }));
-  ['S1','S2'].forEach(id => arr.push({ id, type: 'S', value: 0, img: `cards/${id}.jpg` }));
-  ['L1','L2'].forEach(id => arr.push({ id, type: 'L', value: 0, img: `cards/${id}.jpg` }));
+  ['A1','A2','A3'].forEach(id => arr.push({ id, type: 'A', value: 0, img: `cards/${id}.jpg` }));
+  ['S1','S2','S3'].forEach(id => arr.push({ id, type: 'S', value: 0, img: `cards/${id}.jpg` }));
+  ['L1','L2','L3'].forEach(id => arr.push({ id, type: 'L', value: 0, img: `cards/${id}.jpg` }));
   return arr;
 }
 const MASTER_DECK = makeMasterDeck();
@@ -812,7 +812,10 @@ const CATEGORY_NAMES = {
   ASL:       'ТРОЙНАЯ КОМБИНАЦИЯ!',
   ALL:       'ТУЗ УДАЧИ!',
   SSL:       'УКРЕПЛЁННАЯ УДАЧА!',
-  SLL:       'СЧАСТЛИВЫЕ ЩИТЫ!'
+  SLL:       'СЧАСТЛИВЫЕ ЩИТЫ!',
+  AAA:       'ТРОЙНОЙ ТУЗ! МАКСИМАЛЬНАЯ АТАКА!',
+  LLL:       'ТРОЙНАЯ УДАЧА!!! ДЖЕКПОТ!',
+  SSS:       'ТРОЙНАЯ ЗАЩИТА! НЕУЯЗВИМОСТЬ!'
 };
 
 function calcScore3(cards) {
@@ -863,13 +866,16 @@ function calcScore3(cards) {
   const cA = specials.filter(s => s.type === 'A').length;
   const cS = specials.filter(s => s.type === 'S').length;
   const cL = specials.filter(s => s.type === 'L').length;
-  if (cA === 2 && cS === 1) return { score: 70, cat: 'AAS' };
-  if (cA === 2 && cL === 1) return { score: 110, cat: 'AAL' };
-  if (cA === 1 && cS === 2) return { score: 60, cat: 'ASS' };
-  if (cA === 1 && cS === 1 && cL === 1) return { score: 100, cat: 'ASL' };
-  if (cA === 1 && cL === 2) return { score: 90, cat: 'ALL' };
-  if (cS === 2 && cL === 1) return { score: 50, cat: 'SSL' };
-  if (cS === 1 && cL === 2) return { score: 60, cat: 'SLL' };
+  if (cA === 3) return { score: 160, cat: 'AAA' };
+  if (cL === 3) return { score: 160, cat: 'LLL' };
+  if (cS === 3) return { score: 15, cat: 'SSS' };
+  if (cA === 2 && cS === 1) return { score: 45, cat: 'AAS' };
+  if (cA === 2 && cL === 1) return { score: 75, cat: 'AAL' };
+  if (cA === 1 && cS === 2) return { score: 40, cat: 'ASS' };
+  if (cA === 1 && cS === 1 && cL === 1) return { score: 65, cat: 'ASL' };
+  if (cA === 1 && cL === 2) return { score: 60, cat: 'ALL' };
+  if (cS === 2 && cL === 1) return { score: 30, cat: 'SSL' };
+  if (cS === 1 && cL === 2) return { score: 40, cat: 'SLL' };
   return { score: 0, cat: 'UNKNOWN' };
 }
 
@@ -1196,6 +1202,13 @@ function resolveRound() {
   const resultEl = document.getElementById('result-msg');
 
   if (pResult.score > oppResult.score) {
+    if (oppResult.cat === 'SSS') {
+      resultEl.textContent = `🛡️🛡️🛡️ ${opp.name} держит ТРОЙНОЙ ЩИТ — неуязвим, золото не переходит!`;
+      resultEl.className = 'result-msg result-tie';
+      updateScoreboard();
+      scheduleNextRound();
+      return;
+    }
     const cap = shieldCap(oppCards); // protects the LOSER
     if (cap !== null) diff = Math.min(diff, cap);
     const transfer = Math.min(diff * selectedBet, opp.balance);
@@ -1208,6 +1221,13 @@ function resolveRound() {
     showResultOverlay('win');
 
   } else if (oppResult.score > pResult.score) {
+    if (pResult.cat === 'SSS') {
+      resultEl.textContent = `🛡️🛡️🛡️ ${p.name} держит ТРОЙНОЙ ЩИТ — неуязвим, золото не переходит!`;
+      resultEl.className = 'result-msg result-tie';
+      updateScoreboard();
+      scheduleNextRound();
+      return;
+    }
     const cap = shieldCap(pCards); // protects the LOSER
     if (cap !== null) diff = Math.min(diff, cap);
     const transfer = Math.min(diff * selectedBet, p.balance);
