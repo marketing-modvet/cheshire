@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>One Surgeon, Two Doors — Total Hip Replacement Strategy · Vet Alliance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1B1F4B; --navy-deep:#12153A; --ivory:#F6F1E8; --ivory-2:#EDE6D8;
+  --ink:#1C1B1A; --muted:#6B6760; --line:rgba(27,31,75,.14);
+  --coral:#E0643A; --coral-soft:#F7D9CC; --teal:#2F7A6D; --teal-soft:#D6E9E3;
+  --gold:#C99A3B;
+  --serif:'Fraunces',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--ivory);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth}
+body{position:relative}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.55;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+
+/* ---------- gate ---------- */
+#gate{position:fixed;inset:0;background:var(--navy);z-index:100;display:flex;align-items:center;justify-content:center;color:var(--ivory)}
+#gate.hidden{display:none}
+#gate .box{width:min(420px,90vw);text-align:center}
+#gate h1{font-family:var(--serif);font-weight:400;font-size:2rem;margin:0 0 .25rem;letter-spacing:-.01em}
+#gate p{color:rgba(246,241,232,.7);font-size:.95rem;margin:0 0 1.5rem}
+#gate input{width:100%;padding:14px 16px;border-radius:8px;border:1px solid rgba(246,241,232,.25);background:rgba(246,241,232,.06);color:var(--ivory);font-size:1rem;font-family:var(--sans);outline:none}
+#gate input:focus{border-color:var(--coral)}
+#gate button{margin-top:12px;width:100%;padding:14px;border:0;border-radius:8px;background:var(--coral);color:#fff;font-weight:700;font-size:1rem;cursor:pointer;font-family:var(--sans)}
+#gate .err{display:none;color:#FFB4A0;font-size:.85rem;margin-top:10px}
+#main{visibility:hidden}
+#main.visible{visibility:visible}
+
+/* ---------- slides ---------- */
+.slide{min-height:100vh;scroll-snap-align:start;position:relative;display:flex;align-items:center;padding:clamp(48px,7vw,96px) clamp(24px,7vw,110px);z-index:1}
+.slide .inner{width:100%;max-width:1180px;margin:0 auto}
+.slide.dark{background:var(--navy);color:var(--ivory)}
+.slide.dark .muted{color:rgba(246,241,232,.65)}
+.slide.teal{background:var(--teal);color:var(--ivory)}
+.slide.ivory2{background:var(--ivory-2)}
+.num{font-family:var(--sans);font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--coral);font-weight:700;margin-bottom:18px;display:flex;gap:14px;align-items:center}
+.num::after{content:"";height:1px;width:56px;background:currentColor;opacity:.5}
+.dark .num,.teal .num{color:var(--gold)}
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.02em;line-height:1.05;margin:0}
+h1{font-size:clamp(2.6rem,6.2vw,5.4rem)}
+h2{font-size:clamp(2rem,4.2vw,3.6rem);margin-bottom:28px}
+h3{font-size:clamp(1.25rem,1.8vw,1.6rem);font-weight:500}
+h1 em,h2 em{font-style:italic;font-weight:300;color:var(--coral)}
+.dark h1 em,.dark h2 em,.teal h2 em{color:var(--gold)}
+.lede{font-size:clamp(1.05rem,1.45vw,1.3rem);max-width:62ch;color:var(--muted)}
+.dark .lede,.teal .lede{color:rgba(246,241,232,.78)}
+.muted{color:var(--muted)}
+.grid{display:grid;gap:28px}
+.g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:860px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px 26px 24px;position:relative}
+.dark .card{background:rgba(246,241,232,.06);border-color:rgba(246,241,232,.14)}
+.card h3{margin-bottom:10px}
+.card p{margin:0;font-size:.98rem}
+.tag{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:999px;margin-bottom:12px}
+.tag.navy{background:var(--navy);color:var(--ivory)} .tag.teal{background:var(--teal);color:var(--ivory)} .tag.coral{background:var(--coral);color:#fff} .tag.ghost{background:transparent;border:1px solid currentColor}
+.big{font-family:var(--serif);font-size:clamp(3rem,7vw,6rem);line-height:.95;font-weight:300;letter-spacing:-.03em}
+.stat{display:flex;flex-direction:column;gap:8px}
+.stat small{font-size:.85rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;opacity:.7}
+ol.steps{list-style:none;counter-reset:s;margin:0;padding:0;display:grid;gap:14px}
+ol.steps{gap:6px}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:52px 1fr;gap:18px;align-items:start;padding:14px 0;border-top:1px solid var(--line)}
+.dark ol.steps li,.teal ol.steps li{border-color:rgba(246,241,232,.18)}
+ol.steps li::before{content:counter(s,decimal-leading-zero);font-family:var(--serif);font-size:1.7rem;color:var(--coral);line-height:1}
+.dark ol.steps li::before,.teal ol.steps li::before{color:var(--gold)}
+ol.steps b{display:block;font-weight:700;margin-bottom:4px}
+ol.steps p{margin:0;font-size:.97rem}
+blockquote{margin:0;font-family:var(--serif);font-size:clamp(1.35rem,2.4vw,2.1rem);line-height:1.3;font-weight:300;font-style:italic;position:relative;padding-left:28px;border-left:3px solid var(--coral)}
+.dark blockquote,.teal blockquote{border-color:var(--gold)}
+.small{font-size:.86rem}
+.foot{position:absolute;left:clamp(24px,7vw,110px);right:clamp(24px,7vw,110px);bottom:22px;display:flex;justify-content:space-between;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;opacity:.55;font-weight:600}
+
+/* doors diagram */
+.doors{display:grid;grid-template-columns:1fr auto 1fr;gap:28px;align-items:stretch}
+@media(max-width:860px){.doors{grid-template-columns:1fr}.surgeon{order:-1}}
+.door{border-radius:18px;padding:30px;color:var(--ivory);position:relative;overflow:hidden;min-height:340px;display:flex;flex-direction:column}
+.door.mv{background:linear-gradient(160deg,#252A63,var(--navy-deep))}
+.door.tvrc{background:linear-gradient(160deg,#3A8E7F,#235C52)}
+.door::after{content:"";position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.06)}
+.door h3{font-size:1.9rem;margin-bottom:6px}
+.door .who{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;opacity:.75;font-weight:700;margin-bottom:18px}
+.door ul{margin:0;padding-left:18px;font-size:.95rem;line-height:1.6}
+.door ul li{margin:6px 0}
+.surgeon{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;padding:0 10px}
+.surgeon .ring{width:160px;height:160px;border-radius:50%;border:2px solid var(--coral);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--serif);font-size:1.15rem;line-height:1.15;padding:14px;background:#fff;box-shadow:0 20px 50px -20px rgba(27,31,75,.35);text-align:center}
+.surgeon .ring span{display:block;margin-top:6px}
+.surgeon .arrows{font-size:2rem;color:var(--coral);letter-spacing:.3em}
+
+/* timeline */
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid var(--line);margin-top:20px}
+@media(max-width:860px){.tl{grid-template-columns:1fr}}
+.tl > div{padding:22px 20px 0 0;position:relative}
+.tl > div::before{content:"";position:absolute;top:-7px;left:0;width:12px;height:12px;border-radius:50%;background:var(--coral)}
+.tl b{display:block;font-family:var(--serif);font-size:1.35rem;font-weight:500;margin-bottom:4px}
+.tl small{display:block;color:var(--coral);font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:.72rem;margin-bottom:10px}
+.tl ul{margin:0;padding-left:16px;font-size:.92rem}
+.tl li{margin:4px 0}
+
+/* table */
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.dark th{color:rgba(246,241,232,.6)} .dark td,.dark th{border-color:rgba(246,241,232,.14)}
+
+/* letter */
+.letter{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px 32px;font-size:.9rem;line-height:1.5;max-width:760px;box-shadow:0 30px 60px -40px rgba(27,31,75,.35)}
+.letter p{margin:0 0 11px}
+.letter .sig{font-family:var(--serif);font-size:1.15rem;margin-top:18px}
+
+/* nav */
+#dots{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:9px;z-index:50}
+#dots a{width:8px;height:8px;border-radius:50%;background:var(--navy);opacity:.25;display:block;transition:all .2s}
+#dots a.on{opacity:1;height:22px;border-radius:4px;background:var(--coral)}
+#counter{position:fixed;left:22px;top:18px;font-size:.75rem;letter-spacing:.14em;font-weight:700;z-index:50;color:var(--navy);mix-blend-mode:difference;opacity:.7}
+#hint{position:fixed;right:22px;top:18px;font-size:.72rem;letter-spacing:.1em;z-index:50;opacity:.5;color:var(--navy);mix-blend-mode:difference}
+@media(max-width:860px){#dots,#hint{display:none}}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.slide.in .rv{opacity:1;transform:none}
+.slide.in .rv:nth-child(2){transition-delay:.08s}.slide.in .rv:nth-child(3){transition-delay:.16s}.slide.in .rv:nth-child(4){transition-delay:.24s}.slide.in .rv:nth-child(5){transition-delay:.32s}
+
+@media print{
+  html{scroll-snap-type:none} .slide{min-height:auto;page-break-after:always;padding:40px} #dots,#counter,#hint,#gate{display:none!important} #main{visibility:visible!important} .rv{opacity:1!important;transform:none!important} body::before{display:none}
+}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="box">
+    <h1>One Surgeon, Two Doors</h1>
+    <p>Internal strategy deck · Vet Alliance. Enter the access password.</p>
+    <input type="password" id="pw" placeholder="Password" autocomplete="off">
+    <button onclick="unlock()">Open deck</button>
+    <div class="err" id="err">Incorrect password — try again.</div>
+  </div>
+</div>
+
+<div id="main">
+
+<!-- 01 COVER -->
+<section class="slide dark" id="s1">
+  <div class="inner">
+    <div class="num rv">Vet Alliance · Total Hip Replacement · Sept 2026</div>
+    <h1 class="rv">One Surgeon,<br><em>Two Doors.</em></h1>
+    <p class="lede rv" style="margin-top:28px">How we take Dr. Moustafa's total hip replacement service to pet owners <b style="color:var(--ivory)">and</b> to referring clinics — without either audience getting in the other's way.</p>
+    <div class="rv" style="margin-top:44px;display:flex;gap:12px;flex-wrap:wrap">
+      <span class="tag ghost">Modern Vet</span><span class="tag ghost">TVRC</span><span class="tag ghost">Strategy + pitch</span>
+    </div>
+  </div>
+  <div class="foot"><span>Confidential · internal</span><span>Prepared by Marketing</span></div>
+</section>
+
+<!-- 02 THE ASSET -->
+<section class="slide" id="s2">
+  <div class="inner">
+    <div class="num rv">01 · What we have</div>
+    <h2 class="rv">A surgery almost nobody else here has <em>actually done.</em></h2>
+    <div class="grid g3 rv" style="margin-top:20px">
+      <div class="stat card"><span class="big" style="color:var(--coral)">1</span><small>Surgeon: Dr. Moustafa, Modern Vet Hospital</small><p class="muted small" style="margin-top:6px">Full canine total hip replacement (THR) performed in-house — not FHO, not referral abroad.</p></div>
+      <div class="stat card"><span class="big" style="color:var(--coral)">▶</span><small>Video proof of the procedure and outcome</small><p class="muted small" style="margin-top:6px">The single most persuasive asset a niche surgical service can have. Most competitors list THR on a page; we can show it.</p></div>
+      <div class="stat card"><span class="big" style="color:var(--coral)">24/7</span><small>Hospital-grade post-op monitoring</small><p class="muted small" style="margin-top:6px">THR recovery is where things go wrong. Al Wasl's 24/7 hospital and surgical suites are a real clinical differentiator, not a marketing one.</p></div>
+    </div>
+    <p class="muted small rv" style="margin-top:22px">Claim wording to lock before anything goes external: <i>"the only clinic that has actually performed it — and can prove it"</i> is defensible; <i>"only clinic in the UAE"</i> should be verified first.</p>
+  </div>
+</section>
+
+<!-- 03 THE PROBLEM -->
+<section class="slide ivory2" id="s3">
+  <div class="inner">
+    <div class="num rv">02 · The problem</div>
+    <h2 class="rv">You can't advertise a hip replacement <em>like a vaccine.</em></h2>
+    <div class="grid g2 rv" style="margin-top:8px">
+      <div>
+        <h3>Owners don't search for the procedure</h3>
+        <p class="muted">Nobody wakes up wanting a THR. They search <i>"dog limping"</i>, <i>"hip dysplasia Labrador"</i>, <i>"my dog can't get up"</i>. Direct-to-owner demand for the surgery itself is tiny and expensive to buy.</p>
+        <h3 style="margin-top:26px">Referrals are where the volume is</h3>
+        <p class="muted">Most THR cases arrive because another vet says <i>"you need a specialist."</i> Very few clinics in the UAE can offer this. That makes referring vets our real customer.</p>
+      </div>
+      <div class="card" style="border-left:5px solid var(--coral)">
+        <span class="tag coral">The catch</span>
+        <h3>Referring clinics are afraid of us</h3>
+        <p style="margin-top:8px">Modern Vet is a 7-location general-practice group. A GP vet's fear is specific and rational: <i>"I send my client for surgery, and a month later they're getting vaccine reminders from Modern Vet."</i></p>
+        <p style="margin-top:12px">No amount of surgical excellence fixes that. Only a credible, kept promise does.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 THE MODEL -->
+<section class="slide" id="s4">
+  <div class="inner">
+    <div class="num rv">03 · The model</div>
+    <h2 class="rv">One surgeon. Two doors. <em>Same operating theatre.</em></h2>
+    <div class="doors rv">
+      <div class="door mv">
+        <div class="who">Door 1 · Pet owners (B2C)</div>
+        <h3>Modern Vet</h3>
+        <ul>
+          <li>Our own clients + the hospital</li>
+          <li>Hip dysplasia / mobility hub on modernvet.com</li>
+          <li>Symptom-led Google search ads</li>
+          <li>Large-breed owner content, Tea &amp; Tails episode</li>
+          <li>Owner-edit of the video: the emotional story</li>
+        </ul>
+        <div style="margin-top:auto;padding-top:18px;font-size:.8rem;opacity:.7">Nothing changes here. He stays on the website as he is today.</div>
+      </div>
+      <div class="surgeon">
+        <div class="ring">Dr. Moustafa<br><span style="font-size:.75rem;font-family:var(--sans);font-weight:700;letter-spacing:.08em;color:var(--muted)">ORTHOPAEDIC SURGEON</span></div>
+        <div class="arrows">◀ ▶</div>
+        <div class="small muted">Operates at Modern Vet Hospital,<br>Al Wasl Road — for both doors</div>
+      </div>
+      <div class="door tvrc">
+        <div class="who">Door 2 · Referring vets (B2B)</div>
+        <h3>TVRC</h3>
+        <ul>
+          <li>The referral <b>process</b>, not a disguise</li>
+          <li>THR referral page on the TVRC site</li>
+          <li>Referral form, coordinator, 24h reporting</li>
+          <li>Written Referral Charter — the firewall</li>
+          <li>Clinical-edit of the video: technique &amp; outcomes</li>
+        </ul>
+        <div style="margin-top:auto;padding-top:18px;font-size:.8rem;opacity:.75">TVRC's identity is "referral-only". That is the one thing a referring vet needs to believe.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 HONESTY -->
+<section class="slide dark" id="s5">
+  <div class="inner">
+    <div class="num rv">04 · The positioning</div>
+    <h2 class="rv">We don't hide Modern Vet. <em>We own it.</em></h2>
+    <div class="grid g2 rv" style="align-items:start">
+      <div>
+        <p class="lede">Dr. Moustafa is on the Modern Vet website, on LinkedIn, and every vet in Dubai knows TVRC and Modern Vet are one group. Presenting him as "pure TVRC" would be found out in one Google search — and look like we're hiding something.</p>
+        <p class="lede" style="margin-top:18px">So the position is simple and true: <b style="color:var(--ivory)">Modern Vet surgeon. Referral cases via TVRC, under TVRC's rules.</b></p>
+      </div>
+      <div>
+        <div class="tag ghost" style="color:var(--gold)">What we say to a sceptical referring vet</div>
+        <blockquote style="margin-top:14px">"Yes, he's a Modern Vet surgeon — we're not hiding that. That's exactly why we route referrals through TVRC: so there's a formal firewall, in writing, between your client and our GP clinics."</blockquote>
+        <p class="muted small" style="margin-top:18px">Owning the weakness turns it into the reason to trust us.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 CHARTER -->
+<section class="slide teal" id="s6">
+  <div class="inner">
+    <div class="num rv">05 · The firewall</div>
+    <h2 class="rv">The TVRC Referral Charter — <em>five promises we keep.</em></h2>
+    <ol class="steps rv">
+      <li><div><b>The patient goes back to you.</b><p>TVRC handles the surgery and immediate post-op only. Rechecks, suture removal, rehab, medication, everything else returns to the referring vet. We say it to the owner at discharge, out loud.</p></div></li>
+      <li><div><b>You get everything, fast.</b><p>Surgical report, discharge summary and radiographs within 24 hours. A phone call — not an email — for any complication. You should look smarter to your client because you referred.</p></div></li>
+      <li><div><b>Zero marketing to your client. Ever.</b><p>Referred owners are never added to Klaviyo/Mailchimp, never sent booking links, reminders or clinic leaflets. Built into the intake process so it can't be broken by accident.</p></div></li>
+      <li><div><b>Shared credit.</b><p>Case studies and videos say "referred by Dr. X at Y Clinic". The referring practice gets to post it too. Referring to us makes <i>them</i> look good.</p></div></li>
+      <li><div><b>In writing, in public.</b><p>The charter lives on the TVRC website where referring vets will see it, and is handed over on the first visit. A promise you can point to beats one you have to remember.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 07 PROCESS -->
+<section class="slide" id="s7">
+  <div class="inner">
+    <div class="num rv">06 · Making it real</div>
+    <h2 class="rv">A promise is a poster. <em>A process is a firewall.</em></h2>
+    <p class="lede rv">One flag in ezyVet at booking — <b>"TVRC referral"</b> — drives every rule automatically.</p>
+    <div class="grid g4 rv" style="margin-top:26px">
+      <div class="card"><span class="tag teal">Intake</span><h3>Flag at booking</h3><p>Referral form → coordinator books → patient tagged "TVRC referral", referring vet + clinic recorded.</p></div>
+      <div class="card"><span class="tag teal">Marketing</span><h3>Auto-exclude</h3><p>Flag suppresses Klaviyo/Mailchimp enrolment, review requests, reminders and any Modern Vet leaflet in the discharge pack.</p></div>
+      <div class="card"><span class="tag teal">Clinical</span><h3>Report in 24h</h3><p>Discharge triggers the surgical report + rads to the referring vet. Complications = a phone call from the surgeon.</p></div>
+      <div class="card"><span class="tag teal">Discharge</span><h3>Send them home — to you</h3><p>Script: "Your vet at [clinic] will take over from here." Follow-up is booked with the referrer, not with us.</p></div>
+    </div>
+    <p class="muted small rv" style="margin-top:22px">Owner: a named referral coordinator (reception/CX) who lives this process. Audit it monthly — one leaked reminder email undoes a year of trust.</p>
+  </div>
+</section>
+
+<!-- 08 DOOR 1 -->
+<section class="slide ivory2" id="s8">
+  <div class="inner">
+    <div class="num rv">07 · Door 1 plan</div>
+    <h2 class="rv">Owners: <em>target the condition,</em> not the procedure.</h2>
+    <div class="grid g3 rv">
+      <div class="card"><span class="tag navy">Website</span><h3>Hip dysplasia &amp; mobility hub</h3><p>Symptoms, breeds at risk, the treatment ladder from medication → FHO → THR, recovery timeline, FAQ. THR is the endpoint of the funnel, not the headline. Expand the existing THR page with real detail.</p></div>
+      <div class="card"><span class="tag navy">Search</span><h3>Symptom-led Google ads</h3><p>"dog limping back legs", "hip dysplasia treatment Dubai", "dog struggling to stand" — intent we can actually buy. Land on the hub, not a booking form.</p></div>
+      <div class="card"><span class="tag navy">Social &amp; video</span><h3>Breed communities + Tea &amp; Tails</h3><p>Labs, Goldens, German Shepherds, Rottweilers, large-breed owners. One Tea &amp; Tails episode with Dr. Moustafa; the owner-edit of the surgery video as the hero asset.</p></div>
+    </div>
+    <p class="muted small rv" style="margin-top:22px">Budget weight: ~20%. This door builds brand authority and catches our own clients — it is not where THR volume comes from.</p>
+  </div>
+</section>
+
+<!-- 09 DOOR 2 -->
+<section class="slide" id="s9">
+  <div class="inner">
+    <div class="num rv">08 · Door 2 plan</div>
+    <h2 class="rv">Referring vets: <em>where the volume is.</em></h2>
+    <div class="grid g3 rv">
+      <div class="card"><span class="tag teal">TVRC website</span><h3>Orthopaedics – THR referral page</h3><p>Dr. Moustafa's profile, case experience, the clinical video, "surgery performed at Modern Vet Hospital, Al Wasl Road" stated plainly, referral form, and the Charter. Referrers land here, not on modernvet.com.</p></div>
+      <div class="card"><span class="tag teal">Referral pack</span><h3>One page, printed and PDF</h3><p>When to refer (indications), what we need from them, what they get back and when, the Charter, direct line to the coordinator. Handed over in person on the first clinic visit.</p></div>
+      <div class="card"><span class="tag teal">Outreach</span><h3>Clinics that see large breeds but can't operate</h3><p>Personal visits by Dr. Moustafa + BDM, a CPD lunch-and-learn on hip dysplasia diagnosis, and a quarterly "cases we've done together" update to every active referrer.</p></div>
+    </div>
+    <div class="grid g2 rv" style="margin-top:26px;align-items:start">
+      <div class="card" style="background:var(--teal-soft);border-color:transparent"><b>B2B identity, one card:</b><br><span class="muted">Dr. Moustafa [surname] · Orthopaedic Surgery — Vet Alliance · Referrals via TVRC</span></div>
+      <p class="muted small" style="margin:0">Budget weight: ~80%. Low media cost, high effort — the currency here is trust, visits and turnaround time, not ad spend.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 10 VIDEO -->
+<section class="slide dark" id="s10">
+  <div class="inner">
+    <div class="num rv">09 · The hero asset</div>
+    <h2 class="rv">One surgery. <em>Two edits.</em></h2>
+    <div class="grid g2 rv">
+      <div class="card">
+        <span class="tag navy" style="background:var(--ivory);color:var(--navy)">Modern Vet edit · for owners</span>
+        <h3>The ending</h3>
+        <p>The dog before. The family's worry. The decision. The dog running again at week 8. 60–90 seconds, subtitled, vertical for Reels/TikTok, horizontal for YouTube and the hub page. Emotion first, technique never.</p>
+      </div>
+      <div class="card">
+        <span class="tag teal">TVRC edit · for vets</span>
+        <h3>The technique</h3>
+        <p>Approach, implant, intra-op, post-op radiographs, rehab protocol, 8-week gait outcome. 3–5 minutes, narrated by Dr. Moustafa. Clinicians refer to people whose work they've seen — show them the work.</p>
+      </div>
+    </div>
+    <p class="muted rv" style="margin-top:22px">Same footage, same surgeon, two completely different messages. Both carry the "referred by" credit where a referrer was involved.</p>
+  </div>
+</section>
+
+<!-- 11 TIMELINE -->
+<section class="slide" id="s11">
+  <div class="inner">
+    <div class="num rv">10 · 90-day plan</div>
+    <h2 class="rv">Foundations first, <em>then outreach.</em></h2>
+    <div class="tl rv">
+      <div><small>Weeks 1–2</small><b>Foundations</b><ul><li>Referral Charter signed off</li><li>ezyVet "TVRC referral" flag + suppression rules</li><li>Referral coordinator named</li><li>Licence / facility check for Dr. Moustafa</li><li>Lock claim wording &amp; case count</li></ul></div>
+      <div><small>Weeks 3–6</small><b>Assets</b><ul><li>Two video edits cut</li><li>TVRC THR referral page live</li><li>Modern Vet hip dysplasia hub live</li><li>Referral pack printed</li><li>Tea &amp; Tails episode recorded</li></ul></div>
+      <div><small>Weeks 7–12</small><b>Go to market</b><ul><li>Clinic visits: top 15 large-breed practices</li><li>CPD lunch-and-learn #1</li><li>Symptom-led search ads on</li><li>Owner video across social</li><li>Quarterly referrer update #1</li></ul></div>
+      <div><small>Ongoing</small><b>Measure &amp; keep the promise</b><ul><li>Monthly Charter audit (zero leaks)</li><li>24h report SLA tracked</li><li>Referrer feedback call each quarter</li><li>Review budget split at day 90</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 KPIs -->
+<section class="slide ivory2" id="s12">
+  <div class="inner">
+    <div class="num rv">11 · How we'll know it's working</div>
+    <h2 class="rv">Measure trust, <em>not just clicks.</em></h2>
+    <div class="rv">
+    <table>
+      <tr><th>Door</th><th>Leading indicator</th><th>Outcome</th><th>Trust signal</th></tr>
+      <tr><td><b>TVRC · referrals</b></td><td>Referral inquiries / month · active referring clinics · time-to-report (target &lt;24h)</td><td>THR consults from referral · surgeries booked</td><td><b>Repeat referrals per clinic</b> · zero marketing leaks · referrer feedback</td></tr>
+      <tr><td><b>Modern Vet · owners</b></td><td>Hub page traffic · symptom-keyword impressions &amp; CTR · video views &amp; completion</td><td>Orthopaedic consults booked · THR consults from own clients</td><td>Branded searches for "Modern Vet hip replacement"</td></tr>
+      <tr><td><b>Both</b></td><td>Case-study videos published with "referred by" credit</td><td>THR surgeries / month vs. capacity</td><td>Referring vets sharing our case studies</td></tr>
+    </table>
+    </div>
+    <p class="muted small rv" style="margin-top:18px">Realistic expectation: this is a low-volume, high-value line. Success in 90 days looks like a handful of active referrers and a steady trickle of consults — not a spike.</p>
+  </div>
+</section>
+
+<!-- 13 DECISIONS -->
+<section class="slide" id="s13">
+  <div class="inner">
+    <div class="num rv">12 · Decisions needed</div>
+    <h2 class="rv">What we need from <em>leadership and Dr. Moustafa.</em></h2>
+    <ol class="steps rv">
+      <li><div><b>Approve the model and the 80/20 budget split.</b><p>Referrals via TVRC as the primary channel; Modern Vet owner marketing as the secondary.</p></div></li>
+      <li><div><b>Sign off the Referral Charter as a group commitment.</b><p>It only works if operations honour it — this is not a marketing document.</p></div></li>
+      <li><div><b>Confirm the operating arrangement.</b><p>Surgery stays at Modern Vet Hospital (great suites, 24/7 monitoring). Check whether any licence/facility paperwork is needed for Dr. Moustafa to be listed under TVRC's referral service.</p></div></li>
+      <li><div><b>Dr. Moustafa's inputs.</b><p>Case count and outcomes we can cite, credentials for public use, indicative price and pre-op workup, monthly capacity, past owners willing to go on camera, and his comfort with "Vet Alliance · Referrals via TVRC" as his B2B identity.</p></div></li>
+      <li><div><b>Name the referral coordinator.</b><p>One person owns intake, reporting and the monthly Charter audit.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 14 PITCH -->
+<section class="slide dark" id="s14" style="align-items:flex-start">
+  <div class="inner">
+    <div class="num rv">Appendix A · The pitch to referring vets</div>
+    <h2 class="rv" style="margin-bottom:18px">What the first email <em>sounds like.</em></h2>
+    <div class="letter rv" style="color:var(--ink)">
+      <p><b>Subject:</b> Total hip replacement referrals — now available via TVRC</p>
+      <p>Dear Dr. [Name],</p>
+      <p>I'm writing to let you know that total hip replacement is now available for your canine patients through TVRC, our referral service, performed by our orthopaedic surgeon Dr. Moustafa at Modern Vet Hospital on Al Wasl Road — where 24/7 post-operative monitoring is on site.</p>
+      <p>We know what matters when you refer: <b>your patient comes back to you.</b> Every TVRC referral runs under our written Referral Charter — we handle the surgery and immediate post-op only; all follow-up returns to your practice; you receive the surgical report and radiographs within 24 hours; and your client is never contacted by any of our clinics for marketing. The Charter is attached and published on our website.</p>
+      <p>If it would be useful, Dr. Moustafa would be glad to visit your clinic to walk through case selection, imaging requirements and the procedure itself — we have full surgical footage and outcomes to show. We're also hosting a short CPD session on hip dysplasia diagnosis on [date].</p>
+      <p>Referrals and questions: [coordinator name], [direct line], [referrals@tvrc.ae]</p>
+      <p class="sig">[Name]<br><span style="font-family:var(--sans);font-size:.85rem;color:var(--muted)">Referral Coordinator, TVRC · Vet Alliance</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 15 PAGE COPY -->
+<section class="slide" id="s15">
+  <div class="inner">
+    <div class="num rv">Appendix B · TVRC referral page — draft copy</div>
+    <h2 class="rv">Orthopaedics · <em>Total Hip Replacement</em></h2>
+    <div class="grid g2 rv" style="align-items:start">
+      <div>
+        <h3>Hero</h3>
+        <p class="muted">Total hip replacement for dogs — performed in the UAE, with full surgical footage and outcomes. Referral-only. Your patient returns to you.</p>
+        <h3 style="margin-top:22px">Who we are</h3>
+        <p class="muted">Dr. Moustafa, Orthopaedic Surgeon, Vet Alliance. Surgery is performed at Modern Vet Hospital, Al Wasl Road, with 24/7 hospital monitoring. Referral cases are managed through TVRC under our Referral Charter.</p>
+        <h3 style="margin-top:22px">When to refer</h3>
+        <p class="muted">Confirmed hip dysplasia or coxofemoral osteoarthritis with pain not controlled medically · Failed or unsuitable FHO candidates · Skeletally mature dogs, typically &gt;[X] kg · Traumatic luxation / femoral head or neck fracture where salvage is preferred.</p>
+      </div>
+      <div>
+        <h3>What we need from you</h3>
+        <p class="muted">Clinical history and current medication · Orthogonal pelvic radiographs (or we'll image on arrival) · Bloods within 30 days if available · Owner expectations discussed.</p>
+        <h3 style="margin-top:22px">What you get back</h3>
+        <p class="muted">Surgical report, discharge summary and post-op radiographs within 24h · Rehab protocol for your practice to run · Direct surgeon line for complications · Your patient, back in your care.</p>
+        <div class="card" style="margin-top:22px;background:var(--teal-soft);border-color:transparent"><b>Referral Charter →</b> <span class="muted">The five commitments, in full.</span><br><b style="display:block;margin-top:8px">Refer a patient →</b> <span class="muted">Form · [direct line] · [referrals@tvrc.ae]</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Vet Alliance · Modern Vet · TVRC</span><span>Draft for review · Sept 2026</span></div>
+</section>
+
+</div><!-- /main -->
+
+<div id="dots"></div>
+<div id="counter">01 / 15</div>
+<div id="hint">↑ ↓ or scroll</div>
+
+<script>
+const PW_HASH="6ff441017635721b1defcf622e634b856c8c8a41e5396798953df497684c1f84";
+async function sha256(s){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,"0")).join("")}
+async function unlock(){const v=document.getElementById("pw").value;if(await sha256(v)===PW_HASH){sessionStorage.setItem("thr_deck","1");show()}else{document.getElementById("err").style.display="block"}}
+function show(){document.getElementById("gate").classList.add("hidden");document.getElementById("main").classList.add("visible");initNav()}
+document.getElementById("pw").addEventListener("keydown",e=>{if(e.key==="Enter")unlock()});
+if(sessionStorage.getItem("thr_deck")==="1")show();
+
+let slides,dots;
+function initNav(){
+  slides=[...document.querySelectorAll(".slide")];
+  const d=document.getElementById("dots");d.innerHTML="";
+  slides.forEach((s,i)=>{const a=document.createElement("a");a.href="#"+s.id;a.title="Slide "+(i+1);d.appendChild(a)});
+  dots=[...d.children];
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");const i=slides.indexOf(e.target);dots.forEach((x,j)=>x.classList.toggle("on",j===i));document.getElementById("counter").textContent=String(i+1).padStart(2,"0")+" / "+String(slides.length).padStart(2,"0")}})},{threshold:.55});
+  slides.forEach(s=>io.observe(s));
+  document.addEventListener("keydown",e=>{
+    const cur=slides.findIndex(s=>{const r=s.getBoundingClientRect();return r.top>-window.innerHeight/2&&r.top<window.innerHeight/2});
+    if(["ArrowDown","PageDown"," "].includes(e.key)&&cur<slides.length-1){e.preventDefault();slides[cur+1].scrollIntoView({behavior:"smooth"})}
+    if(["ArrowUp","PageUp"].includes(e.key)&&cur>0){e.preventDefault();slides[cur-1].scrollIntoView({behavior:"smooth"})}
+  });
+}
+</script>
+</body>
+</html>
