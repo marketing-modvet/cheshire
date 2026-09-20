@@ -20,7 +20,7 @@ h1,h2,h3{color:var(--gold);margin-top:0;}
 a.btn{text-decoration:none;display:inline-block;}
 .screen{display:none;}
 .screen.active{display:block;}
-.card-wrap{width:120px;height:168px;perspective:1000px;display:inline-block;margin:10px;}
+.card-wrap{width:clamp(120px,9vw,240px);aspect-ratio:120/168;perspective:1000px;display:inline-block;margin:10px;}
 .card-iner{position:relative;width:100%;height:100%;transition:transform .6s ease;transform-style:preserve-3d;}
 .card-iner.flipped{transform:rotateY(180deg);}
 .card-back,.card-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.55);}
@@ -30,10 +30,6 @@ a.btn{text-decoration:none;display:inline-block;}
 .result-win{background:rgba(34,197,94,.18);border:1px solid #22c55e;color:#4ade80;}
 .result-lose{background:rgba(239,68,68,.18);border:1px solid #ef4444;color:#f87171;}
 .result-push{background:rgba(240,192,96,.18);border:1px solid var(--gold);color:var(--gold);}
-.welcome-screen{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;flex-direction:column;background:#000;cursor:pointer;}
-.welcome-screen img{max-width:100%;max-height:80vh;object-fit:contain;}
-.welcome-screen .tap-hint{margin-top:18px;color:var(--gold);font-size:16px;letter-spacing:1px;animation:pulse 1.6s infinite;}
-@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
 .wrap{max-width:700px;margin:20px auto;padding:16px;}
 .center{text-align:center;}
 .vs{font-size:28px;color:var(--gold);font-weight:700;display:inline-block;vertical-align:middle;margin:0 10px;}
@@ -52,11 +48,6 @@ a.btn{text-decoration:none;display:inline-block;}
     <div id="bet-buttons" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:18px 0;"></div>
     <a href="../hub/index.html" class="btn btn-primary">Back to Hub</a>
   </div>
-</div>
-
-<div id="screen-welcome" class="welcome-screen" onclick="continueFromWelcome()">
-  <img src="../casino-assets/RegularGamesWelcome.png" alt="Welcome">
-  <div class="tap-hint">Click anywhere to continue</div>
 </div>
 
 <div id="screen-table" class="screen">
@@ -96,9 +87,7 @@ function shuffle(deck){for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.
 function cardImg(code){return '../casino-assets/cards/'+code+'.jpg';}
 
 function getBalance(){
-  let b=localStorage.getItem('casinoBalance');
-  if(b===null){b=1000;localStorage.setItem('casinoBalance',String(b));}
-  return parseInt(b,10);
+  return parseInt(localStorage.getItem('casinoBalance'),10);
 }
 function setBalance(v){localStorage.setItem('casinoBalance',String(v));}
 function logResult(game,bet,outcome,net){
@@ -107,6 +96,23 @@ function logResult(game,bet,outcome,net){
   log.push({game:game,bet:bet,outcome:outcome,net:net,timestamp:new Date().toISOString()});
   if(log.length>200){log=log.slice(log.length-200);}
   localStorage.setItem('casinoHubLog',JSON.stringify(log));
+}
+function postCasinoLog(game,bet,balanceBefore,balanceAfter,net){
+  try{
+    fetch('https://game2.cheshire.website/game2/casino-log-session',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        player: localStorage.getItem('casinoPlayerName')||'Unknown',
+        game: game,
+        bet: bet,
+        balanceBefore: balanceBefore,
+        balanceAfter: balanceAfter,
+        net: net,
+        ts: new Date().toISOString()
+      })
+    }).catch(function(){});
+  }catch(e){}
 }
 
 function cardHtml(code,faceUp,id){
@@ -135,16 +141,6 @@ let currentBet=0, finalBet=0, deck=[], playerCard='', dealerCard='';
 
 function selectBet(b){
   currentBet=b;
-  if(!sessionStorage.getItem('casinoWelcomeSeen_'+GAME_KEY)){
-    document.getElementById('screen-bet').classList.remove('active');
-    document.getElementById('screen-welcome').style.display='flex';
-  } else {
-    startRound();
-  }
-}
-function continueFromWelcome(){
-  sessionStorage.setItem('casinoWelcomeSeen_'+GAME_KEY,'1');
-  document.getElementById('screen-welcome').style.display='none';
   startRound();
 }
 function startRound(){
@@ -185,9 +181,11 @@ function resolveDeathmatch(){
   applyResult(outcome,net,summary);
 }
 function applyResult(outcome,net,summaryText){
-  const bal=getBalance()+net;
+  const before=getBalance();
+  const bal=before+net;
   setBalance(bal);
   logResult('Deathmatch',finalBet,outcome,net);
+  postCasinoLog('Deathmatch',finalBet,before,bal,net);
   document.getElementById('table-balance').textContent=bal;
   const banner=document.getElementById('result-banner');
   banner.className='result-banner result-'+outcome;
@@ -205,7 +203,11 @@ function playAgain(){
   dealDeathmatch();
 }
 
-renderBetButtons();
+if(localStorage.getItem('casinoBalance')===null||localStorage.getItem('casinoPlayerName')===null){
+  location.href='../hub/index.html';
+}else{
+  renderBetButtons();
+}
 </script>
 </body>
 </html>
