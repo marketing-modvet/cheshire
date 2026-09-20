@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Texas Hold'em — Alraaneer Casino</title>
+<style>
+:root{--gold:#f0c060;--panel-bg:rgba(255,255,255,0.06);--panel-border:rgba(255,255,255,0.12);}
+*{box-sizing:border-box;}
+body{margin:0;min-height:100vh;font-family:'Segoe UI',Arial,sans-serif;background:#0b0d12;color:#f2ede3;overflow-x:hidden;}
+.bg-hero{position:fixed;inset:0;background-size:cover;background-position:center;filter:brightness(0.28) saturate(0.9);z-index:-1;}
+.panel{background:var(--panel-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--panel-border);border-radius:18px;padding:24px;box-shadow:0 8px 32px rgba(0,0,0,0.4);}
+h1,h2,h3{color:var(--gold);margin-top:0;}
+.btn{border:none;border-radius:10px;padding:12px 22px;font-size:15px;font-weight:600;cursor:pointer;color:#fff;transition:transform .15s,box-shadow .15s;margin:4px;}
+.btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.4);}
+.btn:disabled{opacity:.35;cursor:not-allowed;}
+.btn-primary{background:linear-gradient(135deg,#3b82f6,#1d4ed8);}
+.btn-start{background:linear-gradient(135deg,#f97316,#dc2626);}
+.btn-confirm{background:linear-gradient(135deg,#22c55e,#15803d);}
+.btn-gold{background:linear-gradient(135deg,#f0c060,#b8860b);color:#241a04;min-width:70px;}
+a.btn{text-decoration:none;display:inline-block;}
+.screen{display:none;}
+.screen.active{display:block;}
+.card-wrap{width:84px;height:118px;perspective:1000px;display:inline-block;margin:6px;}
+.card-iner{position:relative;width:100%;height:100%;transition:transform .6s ease;transform-style:preserve-3d;}
+.card-iner.flipped{transform:rotateY(180deg);}
+.card-back,.card-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.55);}
+.card-back img,.card-face img{width:100%;height:100%;object-fit:cover;display:block;}
+.card-face{transform:rotateY(180deg);}
+.result-banner{padding:16px 24px;border-radius:14px;font-size:22px;font-weight:700;text-align:center;margin:16px 0;}
+.result-win{background:rgba(34,197,94,.18);border:1px solid #22c55e;color:#4ade80;}
+.result-lose{background:rgba(239,68,68,.18);border:1px solid #ef4444;color:#f87171;}
+.result-push{background:rgba(240,192,96,.18);border:1px solid var(--gold);color:var(--gold);}
+.welcome-screen{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;flex-direction:column;background:#000;cursor:pointer;}
+.welcome-screen img{max-width:100%;max-height:80vh;object-fit:contain;}
+.welcome-screen .tap-hint{margin-top:18px;color:var(--gold);font-size:16px;letter-spacing:1px;animation:pulse 1.6s infinite;}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+.wrap{max-width:900px;margin:20px auto;padding:16px;}
+.center{text-align:center;}
+</style>
+</head>
+<body>
+
+<div class="bg-hero" style="background-image:url('../casino-assets/GameTableRegular.png');"></div>
+
+<div id="screen-bet" class="screen active">
+  <div class="panel center" style="max-width:440px;margin:70px auto;">
+    <h1>Texas Hold'em</h1>
+    <p style="color:#ccc;">Heads-up vs the dealer. Full board dealt at once, one raise once cards are revealed.</p>
+    <p>Balance: <span id="balance-display" style="color:var(--gold);font-weight:700;"></span></p>
+    <p>Select your bet:</p>
+    <div id="bet-buttons" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:18px 0;"></div>
+    <a href="../hub/index.html" class="btn btn-primary">Back to Hub</a>
+  </div>
+</div>
+
+<div id="screen-welcome" class="welcome-screen" onclick="continueFromWelcome()">
+  <img src="../casino-assets/RegularGamesWelcome.png" alt="Welcome">
+  <div class="tap-hint">Click anywhere to continue</div>
+</div>
+
+<div id="screen-table" class="screen">
+  <div class="wrap">
+    <div class="panel center" style="margin-bottom:16px;">
+      <h2>Texas Hold'em — Heads-Up vs Dealer</h2>
+      <div>Bet: <span id="bet-display" style="color:var(--gold);"></span> &nbsp;|&nbsp; Balance: <span id="table-balance" style="color:var(--gold);"></span></div>
+    </div>
+    <div class="panel center" style="margin-bottom:16px;">
+      <h3>Dealer</h3>
+      <div id="dealer-cards"></div>
+    </div>
+    <div class="panel center" style="margin-bottom:16px;">
+      <h3>Community Board</h3>
+      <div id="board-cards"></div>
+    </div>
+    <div class="panel center" style="margin-bottom:16px;">
+      <h3>You</h3>
+      <div id="player-cards"></div>
+    </div>
+    <div class="panel center" id="action-panel">
+      <div id="decision-buttons">
+        <p style="color:#ccc;">Cards are revealed. Raise the stake, or continue at your original bet.</p>
+        <button class="btn btn-start" onclick="onDecision(true)">Raise ×2</button>
+        <button class="btn btn-primary" onclick="onDecision(false)">Continue</button>
+      </div>
+      <div id="result-area" style="display:none;">
+        <div id="result-banner" class="result-banner"></div>
+        <div id="result-summary" style="margin-bottom:12px;color:#ccc;"></div>
+        <button class="btn btn-confirm" onclick="playAgain()">Play Again</button>
+        <a href="../hub/index.html" class="btn btn-primary">Back to Hub</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const GAME_KEY='holdem';
+const BETS=[10,30,50,100,250,500];
+const RANKS=['2','3','4','5','6','7','8','9','T','J','Q','K','A'];
+const RANK_VALUE={'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'T':10,'J':11,'Q':12,'K':13,'A':14};
+const SUITS=['S','H','D','C'];
+const CARD_BACK='../casino-assets/CardBack.png';
+const HAND_NAMES=['High Card','Pair','Two Pair','Three of a Kind','Straight','Flush','Full House','Four of a Kind','Straight Flush'];
+
+function buildDeck(){const d=[];for(const r of RANKS){for(const s of SUITS){d.push(r+s);}}return d;}
+function shuffle(deck){for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=deck[i];deck[i]=deck[j];deck[j]=t;}return deck;}
+function cardImg(code){return '../casino-assets/cards/'+code+'.jpg';}
+
+function getBalance(){
+  let b=localStorage.getItem('casinoBalance');
+  if(b===null){b=1000;localStorage.setItem('casinoBalance',String(b));}
+  return parseInt(b,10);
+}
+function setBalance(v){localStorage.setItem('casinoBalance',String(v));}
+function logResult(game,bet,outcome,net){
+  let log=[];
+  try{log=JSON.parse(localStorage.getItem('casinoHubLog')||'[]');}catch(e){log=[];}
+  log.push({game:game,bet:bet,outcome:outcome,net:net,timestamp:new Date().toISOString()});
+  if(log.length>200){log=log.slice(log.length-200);}
+  localStorage.setItem('casinoHubLog',JSON.stringify(log));
+}
+
+function cardHtml(code,faceUp,id){
+  return '<div class="card-wrap"><div class="card-iner'+(faceUp?' flipped':'')+'" id="'+id+'">'+
+    '<div class="card-back"><img src="'+CARD_BACK+'"></div>'+
+    '<div class="card-face"><img src="'+cardImg(code)+'"></div>'+
+    '</div></div>';
+}
+
+function k_combinations(arr,k){
+  const result=[];
+  function helper(start,combo){
+    if(combo.length===k){result.push(combo.slice());return;}
+    for(let i=start;i<arr.length;i++){combo.push(arr[i]);helper(i+1,combo);combo.pop();}
+  }
+  helper(0,[]);
+  return result;
+}
+function codeToObj(code){return {rank:RANK_VALUE[code[0]],suit:code[1]};}
+function evaluate5(cards){
+  const ranks=cards.map(function(c){return c.rank;}).sort(function(a,b){return b-a;});
+  const suits=cards.map(function(c){return c.suit;});
+  const isFlush=suits.every(function(s){return s===suits[0];});
+  const uniqueRanks=Array.from(new Set(ranks));
+  let isStraight=false, straightHigh=0;
+  if(uniqueRanks.length===5){
+    if(uniqueRanks[0]-uniqueRanks[4]===4){isStraight=true;straightHigh=uniqueRanks[0];}
+    else if(uniqueRanks[0]===14 && uniqueRanks[1]===5 && uniqueRanks[2]===4 && uniqueRanks[3]===3 && uniqueRanks[4]===2){isStraight=true;straightHigh=5;}
+  }
+  const counts={};
+  ranks.forEach(function(r){counts[r]=(counts[r]||0)+1;});
+  const groups=Object.keys(counts).map(function(r){return [parseInt(r,10),counts[r]];})
+    .sort(function(a,b){return b[1]-a[1] || b[0]-a[0];});
+  if(isStraight && isFlush){return [8,straightHigh];}
+  if(groups[0][1]===4){return [7,groups[0][0],groups[1][0]];}
+  if(groups[0][1]===3 && groups[1][1]===2){return [6,groups[0][0],groups[1][0]];}
+  if(isFlush){return [5].concat(ranks);}
+  if(isStraight){return [4,straightHigh];}
+  if(groups[0][1]===3){return [3,groups[0][0]].concat(groups.slice(1).map(function(g){return g[0];}));}
+  if(groups[0][1]===2 && groups[1][1]===2){
+    const hi=Math.max(groups[0][0],groups[1][0]), lo=Math.min(groups[0][0],groups[1][0]);
+    return [2,hi,lo,groups[2][0]];
+  }
+  if(groups[0][1]===2){return [1,groups[0][0]].concat(groups.slice(1).map(function(g){return g[0];}));}
+  return [0].concat(ranks);
+}
+function compareScores(a,b){
+  const len=Math.max(a.length,b.length);
+  for(let i=0;i<len;i++){
+    const av=a[i]||0, bv=b[i]||0;
+    if(av!==bv){return av-bv;}
+  }
+  return 0;
+}
+function best5of7(cards7){
+  const combos=k_combinations(cards7,5);
+  let best=null;
+  for(let i=0;i<combos.length;i++){
+    const score=evaluate5(combos[i]);
+    if(!best || compareScores(score,best)>0){best=score;}
+  }
+  return best;
+}
+function describeHand(score){
+  if(score[0]===8 && score[1]===14){return 'Royal Flush';}
+  return HAND_NAMES[score[0]];
+}
+
+function renderBetButtons(){
+  const balance=getBalance();
+  document.getElementById('balance-display').textContent=balance;
+  const wrap=document.getElementById('bet-buttons');
+  wrap.innerHTML='';
+  BETS.forEach(function(b){
+    const btn=document.createElement('button');
+    btn.className='btn btn-gold';
+    btn.textContent=b;
+    btn.disabled=(b>balance);
+    btn.onclick=function(){selectBet(b);};
+    wrap.appendChild(btn);
+  });
+}
+
+let currentBet=0, finalBet=0, deck=[], playerHole=[], dealerHole=[], board=[];
+
+function selectBet(b){
+  currentBet=b;
+  if(!sessionStorage.getItem('casinoWelcomeSeen_'+GAME_KEY)){
+    document.getElementById('screen-bet').classList.remove('active');
+    document.getElementById('screen-welcome').style.display='flex';
+  } else {
+    startRound();
+  }
+}
+function continueFromWelcome(){
+  sessionStorage.setItem('casinoWelcomeSeen_'+GAME_KEY,'1');
+  document.getElementById('screen-welcome').style.display='none';
+  startRound();
+}
+function startRound(){
+  document.getElementById('screen-bet').classList.remove('active');
+  document.getElementById('screen-table').classList.add('active');
+  dealHoldem();
+}
+function dealHoldem(){
+  deck=shuffle(buildDeck());
+  playerHole=[deck.pop(),deck.pop()];
+  dealerHole=[deck.pop(),deck.pop()];
+  board=[deck.pop(),deck.pop(),deck.pop(),deck.pop(),deck.pop()];
+  finalBet=currentBet;
+  document.getElementById('bet-display').textContent=currentBet;
+  document.getElementById('table-balance').textContent=getBalance();
+  document.getElementById('dealer-cards').innerHTML=dealerHole.map(function(c,i){return cardHtml(c,false,'dealer-'+i);}).join('');
+  document.getElementById('board-cards').innerHTML=board.map(function(c,i){return cardHtml(c,false,'board-'+i);}).join('');
+  document.getElementById('player-cards').innerHTML=playerHole.map(function(c,i){return cardHtml(c,false,'player-'+i);}).join('');
+  document.getElementById('decision-buttons').style.display='block';
+  document.getElementById('result-area').style.display='none';
+  setTimeout(function(){
+    playerHole.forEach(function(c,i){document.getElementById('player-'+i).classList.add('flipped');});
+    board.forEach(function(c,i){document.getElementById('board-'+i).classList.add('flipped');});
+  },300);
+}
+function onDecision(raise){
+  finalBet=raise?currentBet*2:currentBet;
+  document.getElementById('decision-buttons').style.display='none';
+  dealerHole.forEach(function(c,i){document.getElementById('dealer-'+i).classList.add('flipped');});
+  setTimeout(resolveHoldem,700);
+}
+function resolveHoldem(){
+  const playerCards=playerHole.map(codeToObj).concat(board.map(codeToObj));
+  const dealerCards=dealerHole.map(codeToObj).concat(board.map(codeToObj));
+  const pScore=best5of7(playerCards);
+  const dScore=best5of7(dealerCards);
+  const cmp=compareScores(pScore,dScore);
+  let outcome,net;
+  if(cmp>0){outcome='win';net=finalBet;}
+  else if(cmp<0){outcome='lose';net=-finalBet;}
+  else {outcome='push';net=0;}
+  applyResult(finalBet,outcome,net,'You: '+describeHand(pScore)+'  vs  Dealer: '+describeHand(dScore));
+}
+function applyResult(bet,outcome,net,summaryText){
+  const bal=getBalance()+net;
+  setBalance(bal);
+  logResult("Hold'em",bet,outcome,net);
+  document.getElementById('table-balance').textContent=bal;
+  const banner=document.getElementById('result-banner');
+  banner.className='result-banner result-'+outcome;
+  banner.textContent = outcome==='win' ? ('YOU WIN +'+net) : outcome==='lose' ? ('YOU LOSE '+net) : 'PUSH — bet returned';
+  document.getElementById('result-summary').textContent=summaryText||'';
+  document.getElementById('result-area').style.display='block';
+}
+function playAgain(){
+  if(getBalance()<currentBet){
+    document.getElementById('screen-table').classList.remove('active');
+    document.getElementById('screen-bet').classList.add('active');
+    renderBetButtons();
+    return;
+  }
+  dealHoldem();
+}
+
+renderBetButtons();
+</script>
+</body>
+</html>
