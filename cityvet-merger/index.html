@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>City Vet Merger — Scenario Analysis for the Board · Vet Alliance</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#015962;--teal2:#0a7c88;--ink:#132025;--muted:#5b6b70;--line:#dfe6e8;--bg:#f6f8f8;--card:#fff;--coral:#e0644b;--amber:#d99a1e;--green:#2e8b57;--soft:#e7f1f2}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;line-height:1.15;margin:0 0 .4em}
+h1{font-size:44px}h2{font-size:32px;color:var(--teal)}h3{font-size:22px}
+p{margin:.5em 0}
+.small{font-size:13px}.muted{color:var(--muted)}
+#gate{position:fixed;inset:0;background:var(--teal);display:flex;align-items:center;justify-content:center;z-index:99}
+#gate.hidden{display:none}
+#gate .box{background:#fff;padding:36px 40px;border-radius:14px;max-width:420px;width:92%;text-align:center}
+#gate h1{font-size:30px;color:var(--teal)}
+#gate input{width:100%;padding:12px;border:1px solid var(--line);border-radius:8px;font-size:16px;margin:14px 0 10px}
+#gate button{width:100%;padding:12px;border:0;border-radius:8px;background:var(--teal);color:#fff;font-size:16px;font-weight:600;cursor:pointer}
+#gate .err{display:none;color:var(--coral);margin-top:10px;font-size:14px}
+#main{display:none}#main.visible{display:block}
+header{background:var(--teal);color:#fff;padding:56px 24px 48px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+header .kicker{text-transform:uppercase;letter-spacing:.14em;font-size:12px;opacity:.85;font-weight:600}
+header h1{color:#fff;margin-top:10px}
+header p.lede{font-size:19px;max-width:820px;opacity:.95}
+nav.tabs{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);z-index:5;overflow-x:auto;white-space:nowrap}
+nav.tabs .wrap{display:flex;gap:4px}
+nav.tabs button{background:none;border:0;padding:16px 14px;font:inherit;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent}
+nav.tabs button.on{color:var(--teal);border-color:var(--teal)}
+section.tab{display:none;padding:40px 0 60px}section.tab.on{display:block}
+.grid{display:grid;gap:16px}.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:860px){.g2,.g3,.g4{grid-template-columns:1fr}h1{font-size:34px}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+.stat .big{font-family:"Cormorant Garamond",serif;font-size:44px;font-weight:700;color:var(--teal);line-height:1}
+.stat small{display:block;color:var(--muted);margin-top:6px;font-size:13px}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:14px}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--soft);color:var(--teal);font-weight:600;font-size:13px}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tr.total td{font-weight:700;background:#fbfdfd}
+.pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600}
+.pill.g{background:#e3f3ea;color:var(--green)}.pill.a{background:#fbf0d6;color:#8a5f00}.pill.r{background:#fbe4df;color:#a63a25}.pill.t{background:var(--soft);color:var(--teal)}
+.callout{border-left:4px solid var(--teal);background:var(--soft);padding:16px 20px;border-radius:0 12px 12px 0;margin:18px 0}
+.callout.warn{border-color:var(--coral);background:#fdf1ee}
+.callout.amber{border-color:var(--amber);background:#fdf6e6}
+.bar{height:12px;background:#e8eeef;border-radius:6px;overflow:hidden;margin-top:6px}.bar i{display:block;height:100%;background:var(--teal2)}
+ul{padding-left:20px}li{margin:4px 0}
+.rec{background:#fff;border:2px solid var(--teal);border-radius:14px;padding:26px 28px}
+.scn{border-top:6px solid var(--teal)}.scn.s2{border-top-color:var(--amber)}.scn.s3{border-top-color:var(--green)}.scn.s4{border-top-color:#6b5ea8}
+.mapwrap{position:relative;background:#eef3f4;border:1px solid var(--line);border-radius:12px;padding:10px}
+svg text{font-family:Inter,sans-serif}
+footer{padding:30px 0 50px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+@media print{#gate{display:none}#main{display:block}nav.tabs{display:none}section.tab{display:block;page-break-before:always}}
+</style>
+</head>
+<body>
+<div id="gate"><div class="box"><h1>City Vet Merger</h1><p class="muted small">Board scenario analysis · Vet Alliance · Confidential. Enter the access password.</p><input type="password" id="pw" placeholder="Password" autocomplete="off"><button onclick="unlock()">Open report</button><div class="err" id="err">Incorrect password — try again.</div></div></div>
+
+<div id="main">
+<header><div class="wrap">
+<div class="kicker">Vet Alliance Holding · Board paper · Marketing & Brand workstream · 21 September 2026 · v1.0</div>
+<h1>Merging with The City Vet Clinic:<br>brand architecture, marketing budget and team scenarios</h1>
+<p class="lede">What City Vet actually brings, where it sits against our own clinics, and four ways to absorb it — each costed for monthly marketing spend, one-off integration cost and headcount. Prepared by Marketing from public data, our own market database and our approved September 2026 budget. No City Vet financials were available; every assumption is listed and can be swapped for real numbers.</p>
+</div></header>
+
+<nav class="tabs"><div class="wrap">
+<button class="on" data-t="t1">Summary</button><button data-t="t2">City Vet today</button><button data-t="t3">Footprint & overlap</button><button data-t="t4">Assets & gaps</button><button data-t="t5">Scenarios</button><button data-t="t6">Budget & people</button><button data-t="t7">Risks & DD</button><button data-t="t8">Recommendation & plan</button><button data-t="t9">Assumptions</button>
+</div></nav>
+
+<!-- ================= T1 SUMMARY ================= -->
+<section class="tab on" id="t1"><div class="wrap">
+<h2>Executive summary</h2>
+<div class="grid g4" style="margin:18px 0 26px">
+<div class="card stat"><span class="big">9</span><small>City Vet branches: 7 Dubai + Abu Dhabi + Al Ain. Largest chain competitor in Dubai.</small></div>
+<div class="card stat"><span class="big">20</span><small>Combined network after merger (our 11 units + 9). Nearly doubles the estate.</small></div>
+<div class="card stat"><span class="big">4.52★</span><small>City Vet weighted Google rating, 3,331 reviews (ours: 4.74★, 8,401 reviews).</small></div>
+<div class="card stat"><span class="big">+60–69%</span><small>Marketing budget uplift across scenarios: from AED 223K to AED 356–377K/month.</small></div>
+</div>
+
+<div class="rec">
+<h3 style="color:var(--teal)">Recommendation: Scenario 4 — "Modern Vet everywhere, one flagship repurposed"</h3>
+<p>Rebrand 8 of the 9 City Vet clinics to Modern Vet in waves (East Dubai and the two new emirates first), and treat the Al Wasl flagship — 800 m from Modern Vet Hospital — as a <b>repurposing decision</b> (Vienna Vet #2, a Modern Vet wellness/grooming/exotics hub, or consolidation into the Hospital) rather than a second GP clinic under a third brand. Run "City Vet — now part of Vet Alliance" endorsement branding for 6–9 months as the bridge.</p>
+<ul>
+<li><b>Why not keep City Vet as a brand (Scenario 2):</b> it's the cheapest one-off (~AED 145K) but the most expensive forever — a permanent third GP brand costs ~AED 141K/month more, needs a 7-person team add, splits our paid search against ourselves in 4 neighbourhoods, and its digital estate (DR 20, 229 organic visits/mo, duplicate socials, dead shop) is weaker than ours in every measurable way. We'd be paying to maintain the weaker asset.</li>
+<li><b>Why not the pure hybrid (Scenario 3, keep City Vet where we overlap):</b> it's the most expensive monthly option (+AED 154K) and the least clean — two brands competing 0.8–2.6 km apart on Al Wasl, in JVT and in Meydan, with two websites, two ad accounts and two social stacks kept alive to protect three clinics.</li>
+<li><b>Why Scenario 4 over the straight "rebrand all 9" (Scenario 1):</b> identical monthly cost (~AED 356K) but it avoids opening a Modern Vet 800 m from our own Hospital; the repurposed Al Wasl unit adds a service line instead of cannibalising one.</li>
+</ul>
+<p><b>Headline numbers (S4):</b> marketing run-rate <b>AED ~356K/month</b> (+133K, +60%), <b>19 marketing roles</b> (+5), one-off integration <b>~AED 590K</b> over 12 months. Spend stays at <b>3.4–3.9% of combined revenue</b> — the same ratio the board approved for H2 2026 (3.0–3.5%). Per-clinic marketing cost <i>falls</i> from AED 20.3K to ~17.8K/month.</p>
+</div>
+
+<h3 style="margin-top:34px">Five things the board should know</h3>
+<div class="grid g2">
+<div class="card"><b>1 · It's a footprint deal, not a brand deal.</b><p class="small">City Vet's value to us is geography: East Dubai (Mirdif, Al Warqa, DSO — zero Vet Alliance presence today), Al Barsha Mall, and first-mover entry into Abu Dhabi and Al Ain. Our April 2026 Abu Dhabi expansion report scored Khalifa City as the reference "nearest vet" for every opportunity zone — City Vet already owns that spot.</p></div>
+<div class="card"><b>2 · Three of nine clinics sit on top of ours.</b><p class="small">Al Wasl (0.8 km from MV Hospital), JVT (1.9 km from MV JVC), Meydan (2.6 km from MV Azizi Riviera). These need a decision each — merge, repurpose, or accept overlap — regardless of brand choice.</p></div>
+<div class="card"><b>3 · Their digital assets are a liability to inherit, not an asset to protect.</b><p class="small">Webflow site with 9 templated location pages (same H1, same phone, no meta descriptions), DR 20 vs our 54, ~229 organic visits/mo vs our ~4,400, no Meta/TikTok pixel, dead Shopify store, 2× Instagram, 2× Facebook, 3× LinkedIn pages. SEO risk of rebranding their domain into modernvet.com: <b>low</b> — worst case ~5% dilution of our organic traffic.</p></div>
+<div class="card"><b>4 · Their reputation is good, ours is better.</b><p class="small">4.52★ vs 4.74★ weighted. Weakest: Mirdif 4.3★ (lowest score) and Al Ain (thinnest footprint, closed Fridays, 12–9pm). One public negligence thread names the Al Wasl flagship. All Dubai branches would be in the bottom half of our estate on rating — a "Modern Vet standard" uplift programme is needed either way.</p></div>
+<div class="card" style="grid-column:1/-1"><b>5 · Clinical assets worth keeping: CT scanner, endoscopy, exotics/avian/rabbit practice, wellness-plan book, 26 vets.</b><p class="small">We don't have CT. Their exotics/rabbit line complements our "MV = dogs & cats" rule (today we route rabbits to BOV/VV). Their wellness plans (12-month, AED 150 admin fee) are an installed recurring-revenue base — migrating those members without churn is the single most important retention task in the first 90 days. Founder-led, no PE backing found → key-person risk and a founder whose name is on the brand: the brand conversation must be handled with him, not around him.</p></div>
+</div>
+</div></section>
+
+<!-- ================= T2 CITY VET TODAY ================= -->
+<section class="tab" id="t2"><div class="wrap">
+<h2>The City Vet Clinic — what we found</h2>
+<p class="muted small">Public sources only (website, Google Places API, Ahrefs, LinkedIn, Gulf News, Facebook/Instagram, Reddit). Compiled 20 Sept 2026. Items marked <span class="pill a">unverified</span> need data-room confirmation.</p>
+<div class="grid g3" style="margin:18px 0">
+<div class="card"><h3>Corporate</h3><ul class="small">
+<li>Founded <b>2012</b>, flagship Villa 881 Al Wasl Rd.</li>
+<li>Founder <b>Hassan Mohammad Hassan</b> (Emirati; Gulf News 2018 profile). Founder-led, privately held; <b>no PE / group parent found</b>.</li>
+<li>Grew organically: early directory data shows 3 branches (Al Wasl, Mirdif, Al Ain) → 9 today. Abu Dhabi opened 2018.</li>
+<li>Headcount <span class="pill a">unverified</span>: LinkedIn shows 51–200 on one page, 201–500 on another; realistic ~150–250 incl. 26 listed vets.</li>
+<li>No named CEO/GM/medical director found publicly. No regulatory, sale or M&A news found.</li></ul></div>
+<div class="card"><h3>Clinical & commercial</h3><ul class="small">
+<li>GP + emergency, hospitalisation, dentistry, dermatology, cardiology, internal medicine, orthopaedics, soft-tissue surgery.</li>
+<li><b>CT scan, endoscopy, ultrasound, in-house lab</b> — CT/endoscopy likely at 1–2 hubs (Al Wasl/AUH) <span class="pill a">unverified</span>. Referral forms for CT/endoscopy/ultrasound exist → they take referrals.</li>
+<li><b>Avian/exotic + rabbit</b> service lines; grooming; pet-food delivery; online shop (dead).</li>
+<li><b>Wellness plans</b>: 12-month, AED 150 admin fee, monthly or upfront (1 month free), auto-renew with 25% down. Prices <span class="pill a">unverified</span>.</li>
+<li>Partners: Vetlivery (mobile vet), Oslo (insurance). Toll-free 800 3990; single group emergency line.</li></ul></div>
+<div class="card"><h3>Hours & model</h3><ul class="small">
+<li>Al Wasl 7am–9pm daily; Abu Dhabi 8am–10pm; Al Warqa 8am–9pm daily.</li>
+<li>Mall units shorter: Al Barsha 10–7, Fri closed; Al Ain 12–9, Fri closed.</li>
+<li>Hub-and-spoke: flagship + malls/community retail. Two mall basements (Union Coop Al Barsha, Al Warqa City Mall).</li>
+<li>"24/7 emergency" claimed on site but no branch lists 24h hours → likely on-call, not staffed 24/7 like our Hospital.</li></ul></div>
+</div>
+
+<h3>Branch-by-branch (Google Places, 20 Sept 2026)</h3>
+<table><thead><tr><th>Branch</th><th>Area</th><th class="num">Rating</th><th class="num">Reviews</th><th>Hours</th><th>Nearest Vet Alliance clinic</th><th class="num">km</th><th class="num">Competitors ≤3 km</th></tr></thead><tbody>
+<tr><td><b>Al Wasl</b> (flagship)</td><td>Al Safa 2, Dubai</td><td class="num">4.4</td><td class="num">588</td><td>7–21 daily</td><td>Modern Vet Hospital</td><td class="num"><span class="pill r">0.8</span></td><td class="num">12</td></tr>
+<tr><td>JVT</td><td>Imperial Residence</td><td class="num">4.6</td><td class="num">362</td><td>9–21 / 10–19</td><td>Modern Vet JVC</td><td class="num"><span class="pill r">1.9</span></td><td class="num">13</td></tr>
+<tr><td>Meydan</td><td>Dar Mira, Nad Al Shiba 1</td><td class="num">4.5</td><td class="num">192</td><td>9–21 / 10–19</td><td>Modern Vet Azizi Riviera</td><td class="num"><span class="pill r">2.6</span></td><td class="num">6</td></tr>
+<tr><td>Al Barsha Mall</td><td>Union Coop basement</td><td class="num">4.8</td><td class="num">259</td><td>10–19, Fri closed</td><td>MV JVC / Vienna Vet</td><td class="num"><span class="pill a">5.0</span></td><td class="num">12</td></tr>
+<tr><td>Dubai Silicon Oasis</td><td>Lynx Tower</td><td class="num">4.7</td><td class="num">525</td><td>9–21 / 10–19</td><td>Modern Vet Azizi Riviera</td><td class="num"><span class="pill g">10.1</span></td><td class="num">7</td></tr>
+<tr><td>Al Warqa City Mall</td><td>Al Warqa 3</td><td class="num">4.5</td><td class="num">376</td><td>8–21 daily</td><td>Modern Vet Azizi Riviera</td><td class="num"><span class="pill g">12.5</span></td><td class="num">7</td></tr>
+<tr><td>Mirdif</td><td>Al Barajeel Oasis</td><td class="num"><span class="pill a">4.3</span></td><td class="num">395</td><td>9–21 / Fri 10–19</td><td>Modern Vet Khawaneej</td><td class="num"><span class="pill g">12.5</span></td><td class="num">7</td></tr>
+<tr><td>Abu Dhabi</td><td>Khalifa City A</td><td class="num">4.4</td><td class="num">305</td><td>8–22 / Fri 10–18</td><td>— (BOV DIP)</td><td class="num"><span class="pill g">90</span></td><td class="num">n/a</td></tr>
+<tr><td>Al Ain</td><td>Al Ain Central Market</td><td class="num">4.5</td><td class="num">329</td><td>12–21, Fri closed</td><td>—</td><td class="num"><span class="pill g">115</span></td><td class="num">n/a</td></tr>
+<tr class="total"><td colspan="2">City Vet total / weighted</td><td class="num">4.52</td><td class="num">3,331</td><td colspan="4"></td></tr>
+<tr class="total"><td colspan="2">Vet Alliance (10 fixed sites) for comparison</td><td class="num">4.74</td><td class="num">8,401</td><td colspan="4">MV JLT 4.8/1,871 · Hospital 4.6/1,844 · JVC 4.8/1,181 · BOV 4.7/1,126 · Palm 4.9/942 · Downtown 4.7/627 · VV 4.7/548 · Azizi 4.9/148 · Khawaneej 4.7/86 · TVRC 4.6/28</td></tr>
+</tbody></table>
+<p class="small muted">Red = inside 3 km of one of our clinics (direct overlap). Amber = 3–6 km (shared catchment). Green = new territory. Competitor counts from our Dubai vet database (177 clinics, refreshed 10 Sept 2026).</p>
+
+<div class="callout warn"><b>Reputation flags.</b> Mirdif is the lowest-rated City Vet branch (4.3★) and would be the lowest-rated unit in the combined estate. A public Reddit thread alleges negligence at the Al Wasl flagship naming a specific vet — findable, so it needs a response plan before any co-branding announcement. No Trustpilot presence; no awards found. Positive themes across branches: knowledgeable doctors, friendly staff, comfort with exotic pets.</div>
+</div></section>
+
+<!-- ================= T3 FOOTPRINT ================= -->
+<section class="tab" id="t3"><div class="wrap">
+<h2>Footprint & overlap</h2>
+<p>Where the 9 City Vet clinics sit relative to our 10 fixed sites. Dubai only (Abu Dhabi and Al Ain are 90 and 115 km away — pure new territory).</p>
+<div class="mapwrap">
+<svg viewBox="0 0 1000 560" width="100%" height="auto" id="map"></svg>
+</div>
+<p class="small muted">Positions from Google Places coordinates, simple projection. Teal = Modern Vet / BOV / Vienna Vet / TVRC. Coral = City Vet. Dashed circles = 3 km radius around our clinics.</p>
+
+<div class="grid g3" style="margin-top:22px">
+<div class="card"><h3><span class="pill r">Overlap</span> 3 clinics</h3><p class="small"><b>Al Wasl, JVT, Meydan.</b> Each within 3 km of an existing MV clinic. Together they carry 1,142 reviews (34% of City Vet's total). Under one brand they'd compete for the same searches and the same clients as our own sites. Decision per site: merge into ours, repurpose (service-line hub / second brand), or accept and manage overlap.</p></div>
+<div class="card"><h3><span class="pill a">Shared catchment</span> 1 clinic</h3><p class="small"><b>Al Barsha Mall.</b> 5 km from both MV JVC and Vienna Vet; 12 competitors within 3 km (densest cluster in Dubai — Amity, Pet Friends, Perfect Dose, Purr &amp; Bark). Good rating (4.8★) but mall-basement unit with restricted hours. A Modern Vet here fills the Barsha gap in our map.</p></div>
+<div class="card"><h3><span class="pill g">New territory</span> 5 clinics</h3><p class="small"><b>DSO, Al Warqa, Mirdif</b> — East Dubai, where we have nothing between Azizi Riviera and Khawaneej. Lower competitor density (7 each ≤3 km), but well-established local rivals (Pawsitive DSO 4.3/559, The Ark 4.8/564, Dubai Municipality Khawaneej). <b>Abu Dhabi + Al Ain</b> — instant two-emirate presence.</p></div>
+</div>
+
+<h3 style="margin-top:28px">What the combined map looks like</h3>
+<table><thead><tr><th>Cluster</th><th>Today (Vet Alliance)</th><th>Added by City Vet</th><th>Combined</th></tr></thead><tbody>
+<tr><td>Al Wasl / Jumeirah / Umm Suqeim</td><td>MV Hospital 24/7, Vienna Vet</td><td>Al Wasl flagship (0.8 km from Hospital)</td><td>3 units in ~2 km — <b>over-served</b>; repurpose candidate</td></tr>
+<tr><td>JLT / JVC / JVT / Barsha South</td><td>MV JLT, MV JVC</td><td>JVT (1.9 km from JVC), Al Barsha Mall</td><td>4 units — densest client base in Dubai, defensible</td></tr>
+<tr><td>Downtown / Meydan / Nad Al Sheba</td><td>MV Downtown, MV Azizi Riviera, TVRC</td><td>Meydan (2.6 km from Azizi)</td><td>Azizi (4.9★/148) is our youngest clinic; Meydan (192 reviews) is older with more history — consider which stays GP</td></tr>
+<tr><td>East Dubai (DSO / Warqa / Mirdif / Khawaneej)</td><td>MV Khawaneej only (86 reviews)</td><td>DSO, Al Warqa, Mirdif</td><td><b>4 units — new regional cluster</b>; fixes Khawaneej's isolation</td></tr>
+<tr><td>Palm / DIP</td><td>MV Palm, BOV DIP</td><td>—</td><td>unchanged</td></tr>
+<tr><td>Abu Dhabi / Al Ain</td><td>none</td><td>Khalifa City A, Al Ain Central Market</td><td><b>New emirates</b>; AUH report (Apr 2026) ranked Yas, Saadiyat, Reem as targets — Khalifa City is the natural base</td></tr>
+</tbody></table>
+</div></section>
+
+<!-- ================= T4 ASSETS & GAPS ================= -->
+<section class="tab" id="t4"><div class="wrap">
+<h2>Assets & gaps — what we'd inherit</h2>
+<div class="grid g2">
+<div class="card"><h3>Digital estate audit</h3>
+<table class="small"><thead><tr><th>Metric</th><th class="num">City Vet</th><th class="num">Modern Vet</th></tr></thead><tbody>
+<tr><td>Ahrefs Domain Rating</td><td class="num">20</td><td class="num">54</td></tr>
+<tr><td>Organic keywords</td><td class="num">57</td><td class="num">829</td></tr>
+<tr><td>Keywords ranking top-3</td><td class="num">30</td><td class="num">168</td></tr>
+<tr><td>Organic visits / month</td><td class="num">~229</td><td class="num">~4,386</td></tr>
+<tr><td>Organic traffic value / mo</td><td class="num">$22.6K</td><td class="num">$284K</td></tr>
+<tr><td>Paid keywords (Ahrefs)</td><td class="num">0</td><td class="num">1 tracked (we run ~AED 60K/mo)</td></tr>
+<tr><td>Instagram followers</td><td class="num">~16K (+ legacy 2nd account)</td><td class="num">group ~250K social; YouTube 131K</td></tr>
+<tr><td>Facebook</td><td class="num">~7.7K (+ legacy page, + Al Ain page 725)</td><td class="num">—</td></tr>
+<tr><td>LinkedIn</td><td class="num">3 separate pages, one mis-populated</td><td class="num">—</td></tr>
+</tbody></table>
+<p class="small muted">Platform: Webflow + Cloudflare; Vetstoria booking; GA4 + GTM; Intellimize (paid CRO tool) live; Shopify shop <b>dead</b> ("store unavailable"); no live chat; no Meta/TikTok/Snap pixel; no Arabic; no app; no loyalty programme found; robots.txt still carries WordPress-era rules.</p></div>
+<div class="card"><h3>Asset scorecard</h3>
+<table class="small"><thead><tr><th>Asset</th><th>Score</th><th>Why</th></tr></thead><tbody>
+<tr><td>Clinical footprint (9 sites, CT, endoscopy, exotics)</td><td><span class="pill g">4/5</span></td><td>The reason to do the deal. Equipment location per site unverified.</td></tr>
+<tr><td>Reputation (Google)</td><td><span class="pill g">4/5</span></td><td>4.52★ over 3,331 reviews; all sites ≥4.3★. Below our average.</td></tr>
+<tr><td>Wellness-plan book</td><td><span class="pill g">4/5</span></td><td>Recurring revenue, installed base. Member count unknown.</td></tr>
+<tr><td>Brand</td><td><span class="pill a">3/5</span></td><td>14 years, recognised in East Dubai/AUH/Al Ain; generic name ("City Vet" collides with "Vets in the City" Barsha, "City Vet Hospital" etc.).</td></tr>
+<tr><td>Website (tech/UX)</td><td><span class="pill a">3/5</span></td><td>Modern, maintained (published 3 Sept 2026), decent schema; dead shop, no chat.</td></tr>
+<tr><td>SEO / local SEO</td><td><span class="pill r">2/5</span></td><td>9 templated location pages: identical H1 "Pet's Health,", identical phone, no meta descriptions, no canonicals.</td></tr>
+<tr><td>Paid media infrastructure</td><td><span class="pill r">2/5</span></td><td>No pixels → zero retargeting audiences to inherit; no visible Google Ads.</td></tr>
+<tr><td>CRM / app / loyalty / email</td><td><span class="pill r">1/5</span></td><td>Nothing found. Our Klaviyo/Mailchimp/Floof/Veta stack is far ahead.</td></tr>
+</tbody></table></div>
+</div>
+
+<div class="callout"><b>Implication for brand choice.</b> When the acquirer's digital estate is stronger on every axis, the "protect their SEO equity" argument for keeping the brand disappears. Their 229 organic visits/month are 5% of ours; a clean 301 migration typically retains 80–95% of that anyway. The real migration risk is <b>Google Business Profile renames for 9 listings</b> (3,331 reviews travel with the listing if done as a rename, not a new listing) — an operational workstream, not an algorithmic one.</div>
+
+<h3>Top fixes needed either way (first 90 days)</h3>
+<table class="small"><thead><tr><th>#</th><th>Fix</th><th>Effort</th><th>Keep brand</th><th>Rebrand</th></tr></thead><tbody>
+<tr><td>1</td><td>Unique H1 / meta / canonical / real phone on each of 9 location pages (or rebuild as MV location pages)</td><td>M</td><td>✅</td><td>✅ (as rebuild)</td></tr>
+<tr><td>2</td><td>Audit & align all 9 GBP listings (NAP, category, hours, photos); claim/merge duplicates</td><td>M</td><td>✅</td><td>✅ critical</td></tr>
+<tr><td>3</td><td>Install Meta/TikTok pixels + GA4 conversion events before any paid spend</td><td>S</td><td>✅</td><td>✅</td></tr>
+<tr><td>4</td><td>Merge duplicate Instagram/Facebook/LinkedIn accounts; redirect legacy handles</td><td>S</td><td>✅</td><td>✅ (into MV accounts)</td></tr>
+<tr><td>5</td><td>Sunset or relaunch Shopify shop (redirect to Floof)</td><td>S</td><td>✅</td><td>✅ → Floof</td></tr>
+<tr><td>6</td><td>Reputation: response plan for Al Wasl thread; review-generation programme at Mirdif/Al Ain</td><td>S</td><td>✅</td><td>✅</td></tr>
+<tr><td>7</td><td>Wellness-plan member migration comms (keep pricing/benefits for the term)</td><td>M</td><td>—</td><td>✅ critical</td></tr>
+<tr><td>8</td><td>301 map for 103 URLs → modernvet.com; Search Console change of address</td><td>M</td><td>—</td><td>✅</td></tr>
+<tr><td>9</td><td>Arabic content (none today; matters more in AUH/Al Ain)</td><td>L</td><td>rec.</td><td>rec.</td></tr>
+<tr><td>10</td><td>PIMS decision (their system unknown) → ezyVet migration for booking/Veta/Klaviyo integration</td><td>L</td><td>✅</td><td>✅</td></tr>
+</tbody></table>
+</div></section>
+
+<!-- ================= T5 SCENARIOS ================= -->
+<section class="tab" id="t5"><div class="wrap">
+<h2>Four scenarios</h2>
+<p>All scenarios assume the same 9 clinics join and the same day-1 "part of Vet Alliance" endorsement. They differ in what sign goes on the door and, therefore, in what marketing has to run forever.</p>
+<div class="grid g2" style="margin-top:18px">
+<div class="card scn"><h3>S1 · One Brand — all 9 become Modern Vet</h3>
+<p class="small">Full rebrand in 3 waves over 9–12 months. One website, one ad account per platform, one social stack. Maximum simplicity and maximum scale for the Modern Vet brand (16 clinics + Hospital).</p>
+<p class="small"><b>Monthly marketing:</b> AED 357.7K (+134K, +60%) · <b>Roles:</b> 19 (+5) · <b>One-off:</b> ~AED 570K</p>
+<p class="small"><span class="pill g">+</span> Lowest run-rate, strongest brand, simplest team. Cannibalisation of Modern Vet's own organic footprint is small.<br><span class="pill r">−</span> Puts a Modern Vet 800 m from Modern Vet Hospital; highest change-load on clients and 26 vets at once; founder's brand disappears (deal sensitivity).</p></div>
+<div class="card scn s2"><h3>S2 · House of Brands — all 9 stay City Vet</h3>
+<p class="small">City Vet continues as a third GP brand alongside Modern Vet and BOV, with "part of Vet Alliance" endorsement. Requires its own brand manager, website rebuild, social team, ad accounts.</p>
+<p class="small"><b>Monthly marketing:</b> AED 364.4K (+141K, +63%) · <b>Roles:</b> 21 (+7) · <b>One-off:</b> ~AED 145K</p>
+<p class="small"><span class="pill g">+</span> Cheapest year-1, lowest client disruption, keeps founder goodwill, preserves local names in East Dubai/AUH/Al Ain.<br><span class="pill r">−</span> Most expensive forever; we bid against ourselves on Google in Al Wasl, JVT, Meydan, Barsha; we'd be investing to fix a weaker brand's digital estate; no scale benefit to Modern Vet; management attention split three ways (four with Vienna Vet).</p></div>
+<div class="card scn s3"><h3>S3 · Hybrid (as proposed) — MV where we have no clinic, City Vet where we do</h3>
+<p class="small">Rebrand Barsha, DSO, Al Warqa, Mirdif, Abu Dhabi, Al Ain to Modern Vet (6). Keep City Vet at Al Wasl, JVT, Meydan (3) to avoid two Modern Vets side by side.</p>
+<p class="small"><b>Monthly marketing:</b> AED 377.5K (+154K, +69%) · <b>Roles:</b> 20 (+6) · <b>One-off:</b> ~AED 489K</p>
+<p class="small"><span class="pill g">+</span> Avoids "MV next to MV"; softer landing for the flagship and the founder.<br><span class="pill r">−</span> Highest run-rate: a full second brand infrastructure kept alive for just 3 clinics; those 3 still compete with our own MV sites 0.8–2.6 km away — the overlap isn't solved, it's relabelled; two booking flows, two websites, two review programmes.</p></div>
+<div class="card scn s4"><h3>S4 · Recommended — Modern Vet everywhere, Al Wasl repurposed</h3>
+<p class="small">Rebrand 8 to Modern Vet. Al Wasl flagship (800 m from the Hospital) is not run as a second GP clinic: options are (a) <b>Vienna Vet #2</b> — cat-only, premium, matches the villa/Al Wasl demographic and the Saadiyat-type play we already like; (b) <b>Modern Vet Wellness &amp; Exotics Hub</b> — grooming, wellness plans, avian/rabbit/exotic (their strength, our gap), day-care; (c) consolidate staff/equipment (CT!) into the Hospital and exit the lease. Choose after seeing the lease and the P&amp;L.</p>
+<p class="small"><b>Monthly marketing:</b> AED 356.2K (+133K, +60%) · <b>Roles:</b> 19 (+5) · <b>One-off:</b> ~AED 588K</p>
+<p class="small"><span class="pill g">+</span> Same run-rate as S1, no self-cannibalisation, adds a service line, uses the flagship's equipment and reputation, gives the founder's original site a distinct future.<br><span class="pill r">−</span> Slightly higher one-off (flagship refit), requires a clinical decision on Al Wasl the board must make early.</p></div>
+</div>
+
+<h3 style="margin-top:30px">Side-by-side</h3>
+<table><thead><tr><th>Metric</th><th class="num">Today</th><th class="num">S1 One Brand</th><th class="num">S2 House of Brands</th><th class="num">S3 Hybrid</th><th class="num">S4 Recommended</th></tr></thead><tbody>
+<tr><td>Clinics under Modern Vet</td><td class="num">7</td><td class="num">16</td><td class="num">7</td><td class="num">13</td><td class="num">15 (+1 repurposed)</td></tr>
+<tr><td>Clinics under City Vet</td><td class="num">—</td><td class="num">0</td><td class="num">9</td><td class="num">3</td><td class="num">0</td></tr>
+<tr><td>GP brands to market (excl. TVRC/Blue Sky/Floof)</td><td class="num">3</td><td class="num">3</td><td class="num">4</td><td class="num">4</td><td class="num">3</td></tr>
+<tr><td>Marketing run-rate, AED/month</td><td class="num">223,286</td><td class="num">357,665</td><td class="num">364,423</td><td class="num">377,480</td><td class="num"><b>356,165</b></td></tr>
+<tr><td>Increment vs today</td><td class="num">—</td><td class="num">+134,379 (+60%)</td><td class="num">+141,137 (+63%)</td><td class="num">+154,194 (+69%)</td><td class="num"><b>+132,879 (+60%)</b></td></tr>
+<tr><td>Marketing roles (employees &amp; freelancers)</td><td class="num">14</td><td class="num">19</td><td class="num">21</td><td class="num">20</td><td class="num"><b>19</b></td></tr>
+<tr><td>Per clinic unit, AED/month (20 units)</td><td class="num">20,299 (11 units)</td><td class="num">17,883</td><td class="num">18,221</td><td class="num">18,874</td><td class="num"><b>17,808</b></td></tr>
+<tr><td>% of combined revenue (CV rev 2.7–4.05M assumed)</td><td class="num">3.4%</td><td class="num">3.4–3.9%</td><td class="num">3.5–4.0%</td><td class="num">3.6–4.1%</td><td class="num"><b>3.4–3.9%</b></td></tr>
+<tr><td>One-off integration (12 months)</td><td class="num">—</td><td class="num">~570,000</td><td class="num">~145,000</td><td class="num">~489,000</td><td class="num"><b>~588,000</b></td></tr>
+<tr><td>3-year total marketing cost of increment (run-rate ×36 + one-off)</td><td class="num">—</td><td class="num">5.41M</td><td class="num">5.23M</td><td class="num">6.04M</td><td class="num"><b>5.37M</b></td></tr>
+<tr><td>Client disruption</td><td class="num">—</td><td><span class="pill r">High</span></td><td><span class="pill g">Low</span></td><td><span class="pill a">Medium</span></td><td><span class="pill a">Medium</span> (waved)</td></tr>
+<tr><td>Self-competition (paid search / GBP)</td><td class="num">—</td><td><span class="pill a">Al Wasl only</span></td><td><span class="pill r">4 areas</span></td><td><span class="pill r">3 areas</span></td><td><span class="pill g">None</span></td></tr>
+<tr><td>Brand equity built for Modern Vet</td><td class="num">—</td><td><span class="pill g">Max</span></td><td><span class="pill r">None</span></td><td><span class="pill a">Partial</span></td><td><span class="pill g">Max</span></td></tr>
+</tbody></table>
+<p class="small muted">S2's 3-year figure looks close to S1/S4 only because it excludes the cost of fixing City Vet's weaker digital estate to our standard over time and the revenue cost of bidding against ourselves; both would widen the gap. If the board wants a pure cash view, S2 is cheapest in year 1 and most expensive from year 2 on.</p>
+</div></section>
+
+<!-- ================= T6 BUDGET & PEOPLE ================= -->
+<section class="tab" id="t6"><div class="wrap">
+<h2>Budget & people — how the numbers are built</h2>
+<div class="grid g2">
+<div class="card"><h3>Baseline: approved September 2026 marketing budget</h3>
+<table class="small"><tbody>
+<tr><td>Adwords (MV 60K · VV 6K · BOV 5K · Blue Sky 2K)</td><td class="num">73,000</td></tr>
+<tr><td>Social media (Meta MV/VV/BOV/Floof, TikTok, Snap)</td><td class="num">11,700</td></tr>
+<tr><td>Software, tools &amp; subscriptions</td><td class="num">16,791.61</td></tr>
+<tr><td>Employees &amp; freelancers (14 roles)</td><td class="num">85,894.36</td></tr>
+<tr><td>Media, printables, cooperation (incl. equipment 7K)</td><td class="num">20,900</td></tr>
+<tr><td>Reserves</td><td class="num">15,000</td></tr>
+<tr class="total"><td>Total / month · 11 units · 3.4% of July revenue (6.51M)</td><td class="num">223,285.97</td></tr>
+</tbody></table>
+<p class="small muted">Observed unit economics we reuse: Modern Vet paid media ≈ AED 9.6K per clinic/month (67K ÷ 7); a single-clinic brand (BOV, Vienna Vet) ≈ AED 7.5–8.5K/month; print/SMS/local ≈ AED 1.9K per unit.</p></div>
+<div class="card"><h3>Headcount adds by scenario (monthly cost at current pay bands)</h3>
+<table class="small"><thead><tr><th>Role</th><th>S1</th><th>S2</th><th>S3</th><th>S4</th></tr></thead><tbody>
+<tr><td>Brand / Integration Manager</td><td>—</td><td>12,000 (City Vet BM)</td><td>12,000</td><td>— (integration led by Marketing Director + PMO)</td></tr>
+<tr><td>Regional Marketing Coordinator — AUH/Al Ain</td><td>7,000</td><td>7,000</td><td>7,000</td><td>7,000</td></tr>
+<tr><td>Content Producer #2 (video, 9 more sites)</td><td>10,000</td><td>10,000</td><td>10,000</td><td>10,000</td></tr>
+<tr><td>Social Media Manager #3</td><td>8,000</td><td>8,000</td><td>8,000</td><td>8,000</td></tr>
+<tr><td>Performance / PPC Specialist #2</td><td>6,000</td><td>6,000</td><td>6,000</td><td>6,000</td></tr>
+<tr><td>SEO / Content Writer #2 (second website)</td><td>—</td><td>5,500</td><td>—</td><td>—</td></tr>
+<tr><td>Designer #2</td><td>5,500</td><td>5,500</td><td>5,500</td><td>5,500</td></tr>
+<tr class="total"><td>Added people cost / month</td><td>36,500 (5)</td><td>54,000 (7)</td><td>48,500 (6)</td><td>36,500 (5)</td></tr>
+</tbody></table>
+<p class="small muted">Today's 14 roles: Media Director, 2 SM Managers, Content Producer, Content Writer, Designer, PPC, SEO, Junior Marketing Manager, Translator/Content, UI/UX (shared), Developer, Marketing Ops Manager, Marketing Assistant. The team scales sub-linearly: clinics ×1.8, people ×1.36–1.5.</p></div>
+</div>
+
+<h3 style="margin-top:28px">Increment build-up (AED / month)</h3>
+<table><thead><tr><th>Line</th><th class="num">S1</th><th class="num">S2</th><th class="num">S3</th><th class="num">S4</th><th>Logic</th></tr></thead><tbody>
+<tr><td>Paid media (search + social)</td><td class="num">73,000</td><td class="num">58,500</td><td class="num">77,500</td><td class="num">78,000</td><td>MV Dubai clinic +7K (below today's 9.6K avg — brand search &amp; creative already exist) · MV new emirate +12K (no awareness, Arabic share) · City Vet clinic kept +5.5K · City Vet brand always-on +9K · S4: repurposed Al Wasl unit +6K</td></tr>
+<tr><td>Software / tools</td><td class="num">1,679</td><td class="num">5,037</td><td class="num">3,694</td><td class="num">1,679</td><td>+10% one brand (seats, GBP tooling) · +30% house of brands (2nd site, CRM lists, CRO tool) · +22% hybrid</td></tr>
+<tr><td>People</td><td class="num">36,500</td><td class="num">54,000</td><td class="num">48,500</td><td class="num">36,500</td><td>table above</td></tr>
+<tr><td>Print / SMS / local partnerships</td><td class="num">14,400</td><td class="num">14,400</td><td class="num">14,400</td><td class="num">14,400</td><td>9 units × 1.6K marginal</td></tr>
+<tr><td>Reserve (~7% of increment, as today)</td><td class="num">8,800</td><td class="num">9,200</td><td class="num">10,100</td><td class="num">8,300</td><td></td></tr>
+<tr class="total"><td>Increment</td><td class="num">134,379</td><td class="num">141,137</td><td class="num">154,194</td><td class="num">132,879</td><td></td></tr>
+<tr class="total"><td>New run-rate</td><td class="num">357,665</td><td class="num">364,423</td><td class="num">377,480</td><td class="num">356,165</td><td></td></tr>
+</tbody></table>
+
+<h3 style="margin-top:28px">One-off integration costs (AED, over 12 months)</h3>
+<table><thead><tr><th>Item</th><th class="num">Unit</th><th class="num">S1</th><th class="num">S2</th><th class="num">S3</th><th class="num">S4</th></tr></thead><tbody>
+<tr><td>Rebrand a Dubai clinic (signage, interior graphics, uniforms, print, GBP rename, local launch)</td><td class="num">45,000</td><td class="num">7 → 315,000</td><td class="num">—</td><td class="num">4 → 180,000</td><td class="num">6 → 270,000 + flagship refit 63,000</td></tr>
+<tr><td>Rebrand a new-emirate clinic (+ market-entry campaign, PR, Arabic creative)</td><td class="num">70,000</td><td class="num">2 → 140,000</td><td class="num">—</td><td class="num">2 → 140,000</td><td class="num">2 → 140,000</td></tr>
+<tr><td>Digital migration (301s, 9 MV location pages, GBP, listings/NAP, review setup)</td><td class="num">60,000</td><td class="num">60,000</td><td class="num">—</td><td class="num">60,000</td><td class="num">60,000</td></tr>
+<tr><td>City Vet brand refresh (site rebuild, SEO fixes, brand system, photo/video library)</td><td class="num">90,000</td><td class="num">—</td><td class="num">90,000</td><td class="num">54,000 (3 sites)</td><td class="num">—</td></tr>
+<tr><td>"Part of Vet Alliance" endorsement layer on both estates (day 1, any scenario)</td><td class="num">25,000</td><td class="num">25,000</td><td class="num">25,000</td><td class="num">25,000</td><td class="num">25,000</td></tr>
+<tr><td>Client research: NPS baseline at 9 sites, wellness-member survey, churn dashboards</td><td class="num">30,000</td><td class="num">30,000</td><td class="num">30,000</td><td class="num">30,000</td><td class="num">30,000</td></tr>
+<tr class="total"><td>Total one-off</td><td></td><td class="num">570,000</td><td class="num">145,000</td><td class="num">489,000</td><td class="num">588,000</td></tr>
+</tbody></table>
+<div class="callout amber"><b>What's not in these numbers.</b> Marketing only. Excluded: PIMS/IT migration, HR harmonisation, legal/rebrand registration of trade names, lease changes, clinical equipment, any purchase price or earn-out. Excluded on the upside: cross-sell of Floof, FarewellPet, Blue Sky relocation, TVRC referrals and Vet Alliance Academy into 9 new client bases — those are real synergies the board can add to the revenue case.</div>
+</div></section>
+
+<!-- ================= T7 RISKS & DD ================= -->
+<section class="tab" id="t7"><div class="wrap">
+<h2>Risks, mitigations and what we still need from due diligence</h2>
+<div class="grid g2">
+<div class="card"><h3>Top risks (marketing/brand lens)</h3>
+<table class="small"><thead><tr><th>Risk</th><th>Level</th><th>Mitigation</th></tr></thead><tbody>
+<tr><td>Client churn at rebrand (esp. wellness-plan members, exotic-pet owners loyal to specific vets)</td><td><span class="pill r">High</span></td><td>Keep vets and prices for 12 months; 6–9-month endorsement phase; personal letters from the branch vet; honour plans to term; track churn per branch weekly.</td></tr>
+<tr><td>Key-person / founder: brand carries his name and 14 years; PE-free means the deal is personal</td><td><span class="pill r">High</span></td><td>Involve founder in brand decision; consider a legacy role for the Al Wasl flagship (S4 gives it a distinct future).</td></tr>
+<tr><td>GBP rename failures → loss of 3,331 reviews or map-pack rank</td><td><span class="pill a">Med</span></td><td>Rename (never recreate) listings; stagger by wave; verify ownership transfer pre-close; document with Google support cases.</td></tr>
+<tr><td>Modern Vet brand dilution by lower-rated sites (Mirdif 4.3, Al Wasl 4.4)</td><td><span class="pill a">Med</span></td><td>"Modern Vet standard" programme before the sign changes: CX audit, review-response SLA, mystery shopping; rebrand only sites at ≥4.5★.</td></tr>
+<tr><td>Team overload: 14 → 19 people while running BAU for 11 units</td><td><span class="pill a">Med</span></td><td>Hire the coordinator + producer before close; freeze non-essential H2 projects during wave 1.</td></tr>
+<tr><td>Self-competition on paid search in overlap areas during transition</td><td><span class="pill a">Med</span></td><td>Single Google Ads MCC from day 1; negative keywords; unified location extensions.</td></tr>
+<tr><td>Reputation event (existing Reddit thread) surfacing at announcement</td><td><span class="pill g">Low</span></td><td>Prepared statement; clinical review; do not delete/deny.</td></tr>
+<tr><td>SEO loss on domain migration</td><td><span class="pill g">Low</span></td><td>Bounded at ~5% of MV organic even in worst case; standard 301 plan.</td></tr>
+</tbody></table></div>
+<div class="card"><h3>Data-room requests (marketing needs these to firm up the model)</h3>
+<ul class="small">
+<li><b>Revenue by branch</b>, 24 months; new-client counts; active-client counts; wellness-plan members and monthly recurring revenue.</li>
+<li><b>Marketing spend</b> by channel and branch (Google Ads, Meta, agencies, Intellimize, Webflow, Vetstoria) — to replace our per-unit estimates.</li>
+<li><b>PIMS</b> in use, client database size, consent status for email/SMS/WhatsApp marketing.</li>
+<li><b>Google Business Profile</b> ownership per listing; ad account and social account admin ownership.</li>
+<li><b>Equipment by site</b>: CT, endoscopy, ultrasound, x-ray, lab; true 24/7 staffing at any site.</li>
+<li><b>Vet roster</b> with tenure, specialisations, board certifications, contract terms (26 vets).</li>
+<li><b>Leases</b>: term and exit options at Al Wasl (repurpose decision), Al Barsha Mall and Al Ain (hours-restricted mall units).</li>
+<li><b>Trade licences</b> per emirate/site; trade-name registrations for "City Vet".</li>
+<li><b>Price list</b>: consultation, vaccination, wellness-plan tiers, grooming — to align pricing without shocking clients.</li>
+<li>Any pending complaints or regulatory matters (MOCCAE / Dubai Municipality / ADAFSA).</li>
+</ul></div>
+</div>
+</div></section>
+
+<!-- ================= T8 RECOMMENDATION & PLAN ================= -->
+<section class="tab" id="t8"><div class="wrap">
+<h2>Recommendation and 12-month plan</h2>
+<div class="rec"><h3 style="color:var(--teal)">Adopt Scenario 4. Decide the Al Wasl flagship's future in the first 60 days. Rebrand in three waves, East-to-West.</h3>
+<p>Rationale in one line: <b>the deal buys us geography and clinicians, not a brand</b> — so put the stronger brand on the door everywhere except where it would compete with itself.</p></div>
+
+<h3 style="margin-top:26px">Phasing</h3>
+<table><thead><tr><th>Phase</th><th>Months</th><th>Clinics</th><th>Marketing workstreams</th><th class="num">One-off spend</th></tr></thead><tbody>
+<tr><td><b>0 · Pre-close</b></td><td>−2 → 0</td><td>all</td><td>Data-room requests; NPS/churn baseline; hire Regional Coordinator + Content Producer #2; GBP/ad/social admin transfer plan; PIMS decision with CIO; founder brand conversation.</td><td class="num">30,000</td></tr>
+<tr><td><b>1 · Endorse</b></td><td>0 → 3</td><td>all 9</td><td>"City Vet — now part of Vet Alliance" on site, GBP, socials, in-clinic; pixels + GA4; merge duplicate socials; sunset Shopify → Floof; fix 9 location pages; Al Wasl reputation response; wellness-member comms; Al Wasl repurpose decision by day 60.</td><td class="num">85,000</td></tr>
+<tr><td><b>2 · Wave 1 rebrand</b></td><td>3 → 6</td><td>Mirdif, Al Warqa, DSO, Abu Dhabi, Al Ain</td><td>New territory first — least overlap, biggest brand gain. Modern Vet East-Dubai launch campaign; Abu Dhabi/Al Ain market entry (Arabic creative, PR, community events); GBP renames; 301s for those location pages.</td><td class="num">275,000</td></tr>
+<tr><td><b>3 · Wave 2 rebrand</b></td><td>6 → 9</td><td>Al Barsha Mall, JVT, Meydan</td><td>Overlap areas — after Wave 1 proves churn is controlled. Unified local campaigns with MV JVC/Azizi; decide Meydan vs Azizi GP roles.</td><td class="num">135,000</td></tr>
+<tr><td><b>4 · Flagship</b></td><td>6 → 12</td><td>Al Wasl</td><td>Execute chosen option (Vienna Vet #2 / Wellness &amp; Exotics Hub / consolidate into Hospital). Launch as a new proposition, not a rebrand.</td><td class="num">63,000</td></tr>
+<tr class="total"><td>Total</td><td>12 months</td><td>9</td><td>Run-rate reaches AED ~356K/month by month 9; +5 roles hired by month 6.</td><td class="num">588,000</td></tr>
+</tbody></table>
+
+<h3 style="margin-top:28px">KPIs the board should hold marketing to</h3>
+<div class="grid g4">
+<div class="card stat"><span class="big">≤8%</span><small>Active-client churn per rebranded clinic in the 6 months after sign change (vs baseline).</small></div>
+<div class="card stat"><span class="big">≥90%</span><small>Wellness-plan members retained to term and offered a Modern Vet plan at renewal.</small></div>
+<div class="card stat"><span class="big">4.6★</span><small>Minimum Google rating at every acquired site within 12 months (Mirdif from 4.3).</small></div>
+<div class="card stat"><span class="big">≤3.9%</span><small>Marketing spend as % of combined revenue — inside the approved H2 corridor.</small></div>
+</div>
+
+<h3 style="margin-top:28px">Decisions requested from the board</h3>
+<ol>
+<li>Approve <b>Scenario 4</b> as the working brand architecture for the merger (subject to data-room findings).</li>
+<li>Approve a marketing run-rate corridor of <b>AED 350–380K/month</b> post-integration and one-off integration budget of <b>up to AED 600K</b>.</li>
+<li>Approve <b>5 marketing hires</b>, two of them pre-close.</li>
+<li>Mandate the <b>Al Wasl flagship decision</b> (repurpose vs consolidate) within 60 days of close, with a clinical and lease review.</li>
+<li>Instruct the deal team to add the <b>data-room items</b> on the Risks &amp; DD tab to the diligence request list.</li>
+</ol>
+</div></section>
+
+<!-- ================= T9 ASSUMPTIONS ================= -->
+<section class="tab" id="t9"><div class="wrap">
+<h2>Assumptions, sources and how to challenge the model</h2>
+<div class="grid g2">
+<div class="card"><h3>Every number that drives the scenarios</h3>
+<table class="small"><thead><tr><th>Assumption</th><th class="num">Value</th><th>Basis</th></tr></thead><tbody>
+<tr><td>Baseline marketing budget</td><td class="num">223,286 / mo</td><td>Approved Sept 2026 budget (Budget Project September 2026)</td></tr>
+<tr><td>Group revenue</td><td class="num">6,511,251 / mo</td><td>July 2026 actual, all branches</td></tr>
+<tr><td>City Vet revenue (for % checks only)</td><td class="num">2.7–4.05M / mo</td><td>9 sites × AED 300–450K; <b>placeholder until data room</b></td></tr>
+<tr><td>Extra MV clinic in Dubai — paid media</td><td class="num">7,000 / mo</td><td>Below observed 9.6K avg: brand search + creative shared</td></tr>
+<tr><td>MV clinic in new emirate — paid media</td><td class="num">12,000 / mo</td><td>Zero awareness, geo campaigns, Arabic share; cf. Khawaneej launch experience</td></tr>
+<tr><td>City Vet clinic kept — paid media</td><td class="num">5,500 / mo</td><td>Existing local awareness; local + retention led</td></tr>
+<tr><td>City Vet brand always-on (if kept)</td><td class="num">9,000 / mo</td><td>Comparable to BOV/VV single-brand spend</td></tr>
+<tr><td>Print / SMS / local per unit</td><td class="num">1,600 / mo</td><td>Today 20.9K ÷ 11 = 1.9K; marginal lower</td></tr>
+<tr><td>Software uplift</td><td class="num">+10% / +22% / +30%</td><td>One brand / hybrid / house of brands</td></tr>
+<tr><td>Reserve</td><td class="num">~7% of increment</td><td>Today 15K on 208K</td></tr>
+<tr><td>Overlap threshold</td><td class="num">3 km</td><td>Typical Dubai GP catchment; Al Barsha at 5 km treated as shared</td></tr>
+<tr><td>Rebrand per Dubai clinic</td><td class="num">45,000</td><td>Signage, graphics, uniforms, print, GBP, local launch</td></tr>
+<tr><td>Rebrand per new-emirate clinic</td><td class="num">70,000</td><td>+ market entry, PR, Arabic creative</td></tr>
+<tr><td>Digital migration</td><td class="num">60,000</td><td>301s, 9 pages, GBP, listings, review tooling</td></tr>
+<tr><td>City Vet brand refresh (if kept)</td><td class="num">90,000</td><td>Site rebuild, SEO fixes, brand system, content library</td></tr>
+</tbody></table>
+<p class="small muted">Model file: <code>projects/cityvet-merger/model.py</code> — change any constant and re-run to regenerate all scenario figures.</p></div>
+<div class="card"><h3>Sources</h3>
+<ul class="small">
+<li>thecityvetclinic.com — locations, services, vets, wellness-plan T&amp;Cs, sitemap (103 URLs, last published 3 Sept 2026), robots.txt, HTML/headers.</li>
+<li>Google Places API (New) — all 9 branch listings, 20 Sept 2026.</li>
+<li>Vet Alliance Dubai vet-market database — 177 clinics, refreshed 10 Sept 2026 (competitor density).</li>
+<li>Ahrefs API v3 — domain rating and metrics for www.thecityvetclinic.com, modernvet.com, blueoasisvet.com, viennavet.ae (19–20 Sept 2026).</li>
+<li>Gulf News (2018) founder/Abu Dhabi opening profile; LinkedIn (3 company pages); Facebook/Instagram public counts; Reddit; healthfinder.ae; Yango Maps.</li>
+<li>Vet Alliance: Budget Project September 2026; July 2026 group revenue summary; H2 2026 Marketing Plan (3.0–3.5% ratio); Abu Dhabi Expansion Report (Apr 2026); Modern Vet clinic list.</li>
+</ul>
+<h3 style="margin-top:18px">Known gaps</h3>
+<ul class="small">
+<li>No City Vet P&amp;L, client counts, wellness-member numbers or marketing spend — all revenue-based ratios are indicative.</li>
+<li>PageSpeed scores not measured (API quota); Ahrefs backlink/keyword detail unavailable on our plan tier; Meta Ad Library needs a manual check.</li>
+<li>Equipment location per branch, 24/7 staffing, PIMS, headcount, legal entities — unverified.</li>
+<li>Follower counts for TikTok and legacy Instagram/Facebook handles not retrieved.</li>
+</ul></div>
+</div>
+<footer>Prepared by Marketing (Andrew Kolchanov's team, with Cheshire) · Vet Alliance Holding · 21 September 2026 · Confidential — for board use. Not to be shared with the counterparty.</footer>
+</div></section>
+</div>
+
+<script>
+const PW_HASH="a36fafff2bbd6290854e894155b855d093df7d9f61d6edaaf3191209cf7f7b18";
+async function sha256(s){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,"0")).join("")}
+async function unlock(){const v=document.getElementById("pw").value;if(await sha256(v)===PW_HASH){sessionStorage.setItem("cv_merger","1");show()}else{document.getElementById("err").style.display="block"}}
+function show(){document.getElementById("gate").classList.add("hidden");document.getElementById("main").classList.add("visible");drawMap()}
+document.getElementById("pw").addEventListener("keydown",e=>{if(e.key==="Enter")unlock()});
+if(sessionStorage.getItem("cv_merger")==="1")show();
+document.querySelectorAll("nav.tabs button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("nav.tabs button").forEach(x=>x.classList.remove("on"));b.classList.add("on");document.querySelectorAll("section.tab").forEach(s=>s.classList.toggle("on",s.id===b.dataset.t));window.scrollTo({top:0})}));
+
+const OURS=[["MV JLT",25.0690597,55.138396],["MV Hospital 24/7",25.1612779,55.2212841,10,-10],["MV JVC",25.0545985,55.2119438],["MV Palm",25.1070933,55.147089],["MV Downtown",25.1877998,55.2788046],["MV Azizi Riviera",25.1724894,55.3060554],["MV Khawaneej",25.2346845,55.5579308],["Vienna Vet",25.1439072,55.1994581,-84,20],["TVRC",25.203632,55.2773769],["BOV DIP",25.00764,55.1563601]];
+const CV=[["Al Wasl",25.1550018,55.2165299,588,-40,26],["JVT",25.0473827,55.195081,362],["Meydan",25.1541135,55.2905992,192,4,22],["Al Barsha Mall",25.0988206,55.2051219,259],["DSO",25.109837,55.3780323,525],["Al Warqa",25.206415,55.424751,376],["Mirdif",25.2217867,55.4345588,395]];
+function drawMap(){
+ const svg=document.getElementById("map"); if(svg.dataset.done) return; svg.dataset.done=1;
+ const lat0=24.98,lat1=25.26,lng0=55.10,lng1=55.60;
+ const W=1000,H=560,pad=40;
+ const X=l=>pad+(l-lng0)/(lng1-lng0)*(W-2*pad), Y=l=>H-pad-(l-lat0)/(lat1-lat0)*(H-2*pad);
+ const kmx=(W-2*pad)/((lng1-lng0)*111*Math.cos(25.1*Math.PI/180)); // px per km
+ let s=`<rect width="${W}" height="${H}" fill="#eef3f4"/>`;
+ // coastline hint
+ s+=`<text x="${pad}" y="${pad-14}" font-size="12" fill="#5b6b70">Arabian Gulf ↑ · north is up · grid ≈ 5 km</text>`;
+ for(let k=0;k<=10;k++){const x=pad+k*kmx*5; if(x<W-pad) s+=`<line x1="${x}" y1="${pad}" x2="${x}" y2="${H-pad}" stroke="#dfe6e8"/>`;}
+ for(let k=0;k<=7;k++){const y=H-pad-k*kmx*5; if(y>pad) s+=`<line x1="${pad}" y1="${y}" x2="${W-pad}" y2="${y}" stroke="#dfe6e8"/>`;}
+ OURS.forEach(([n,la,ln])=>{s+=`<circle cx="${X(ln)}" cy="${Y(la)}" r="${3*kmx}" fill="rgba(1,89,98,.07)" stroke="#015962" stroke-dasharray="4 4" stroke-width="1"/>`});
+ OURS.forEach(([n,la,ln,dx=10,dy=-6])=>{s+=`<circle cx="${X(ln)}" cy="${Y(la)}" r="7" fill="#015962"/><text x="${X(ln)+dx}" y="${Y(la)+dy}" font-size="12" font-weight="600" fill="#015962">${n}</text>`});
+ CV.forEach(([n,la,ln,rv,dx,dy])=>{const r=6+Math.sqrt(rv)/3; const tx=dx===undefined?X(ln)+r+4:X(ln)+dx, ty=dy===undefined?Y(la)+14:Y(la)+dy; s+=`<circle cx="${X(ln)}" cy="${Y(la)}" r="${r}" fill="rgba(224,100,75,.85)" stroke="#fff" stroke-width="2"/><text x="${tx}" y="${ty}" font-size="12" font-weight="600" fill="#a63a25">City Vet ${n} · ${rv}</text>`});
+ s+=`<g transform="translate(${W-300},${H-70})"><rect width="270" height="56" rx="8" fill="#fff" stroke="#dfe6e8"/><circle cx="18" cy="18" r="7" fill="#015962"/><text x="32" y="22" font-size="12">Vet Alliance clinic (3 km ring)</text><circle cx="18" cy="40" r="8" fill="rgba(224,100,75,.85)"/><text x="32" y="44" font-size="12">City Vet (size = Google reviews)</text></g>`;
+ svg.innerHTML=s;
+}
+</script>
+</body>
+</html>
