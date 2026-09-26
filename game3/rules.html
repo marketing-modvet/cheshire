@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Правила — Card Duel</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 24px 16px 60px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: radial-gradient(ellipse at top, #241a2e 0%, #100a16 60%, #0a060d 100%);
+    color: #eee4f2;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; }
+  h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 4px;
+    background: linear-gradient(90deg, #ffcf6b, #ff8fb1, #9f7bff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .subtitle { text-align: center; color: #b6a6c9; margin-bottom: 32px; font-size: 0.95rem; }
+  h2 {
+    font-size: 1.2rem;
+    margin: 36px 0 12px;
+    color: #ffd98a;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    padding-bottom: 6px;
+  }
+  p, li { color: #d8cfe4; font-size: 0.95rem; }
+  ul { padding-left: 20px; }
+  .card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 18px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0 4px;
+    font-size: 0.88rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  th { color: #ffd98a; font-weight: 600; }
+  td.mono, th.mono { font-family: 'Consolas', monospace; }
+  .tag {
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+  .tag-a { background: rgba(255,140,90,0.18); color: #ffab7a; }
+  .tag-s { background: rgba(90,170,255,0.18); color: #7ec4ff; }
+  .tag-l { background: rgba(140,255,150,0.18); color: #8dffa0; }
+  .big-combo { color: #ffd98a; font-weight: 700; }
+  .footer-note {
+    text-align: center;
+    color: #74678a;
+    font-size: 0.8rem;
+    margin-top: 40px;
+  }
+  a { color: #b79bff; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Правила игры</h1>
+  <div class="subtitle">Card Duel — три карты, фаза обмена, победитель забирает разницу</div>
+
+  <div class="card">
+    <h2>Колода</h2>
+    <p>У каждого игрока — своя отдельная колода из <strong>49 карт</strong>:</p>
+    <ul>
+      <li><strong>40 числовых карт</strong> — значения 1–10, по 4 масти каждое (масти чисто визуальные, на счёт не влияют)</li>
+      <li><strong>9 особых карт</strong> — по 3 штуки: <span class="tag tag-a">Туз (A)</span> · <span class="tag tag-s">Щит (S)</span> · <span class="tag tag-l">Удача (L)</span></li>
+    </ul>
+    <p>Когда колода игрока заканчивается, она автоматически и незаметно перетасовывается заново.</p>
+  </div>
+
+  <div class="card">
+    <h2>Ход раунда</h2>
+    <ol>
+      <li><strong>Ставка</strong> — активный игрок выбирает множитель: 1, 2, 5, 10, 50 или 100.</li>
+      <li><strong>Раздача</strong> — каждому по 3 карты (свои — лицом вверх, карты соперника скрыты).</li>
+      <li><strong>Обмен</strong> — можно пометить любые из своих 3 карт и заменить их новыми (от 0 до 3 карт по желанию). У соперника обмен решает простой ИИ.</li>
+      <li><strong>Вскрытие и подсчёт</strong> — карты соперника раскрываются, очки считаются, золото переходит победителю.</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>Выплата</h2>
+    <p style="font-family:Consolas,monospace; font-size:0.95rem; color:#ffd98a;">
+      перевод = min( |ваши_очки − очки_соперника| × ставка, золото_проигравшего )
+    </p>
+    <ul>
+      <li>Кто набрал больше очков — забирает разницу, умноженную на ставку.</li>
+      <li>Выплата не может превысить оставшееся золото проигравшего (в минус никто не уходит).</li>
+      <li><strong>Ничья</strong> — золото не переходит.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Подсчёт очков — без особых карт (3 числовые карты)</h2>
+    <table>
+      <tr><th>Комбинация</th><th>Очки</th><th>Название</th></tr>
+      <tr><td>Тройка (все 3 равны)</td><td class="mono">15 × значение</td><td class="big-combo">ПРИРОДНОЕ ТРИО!</td></tr>
+      <tr><td>Стрит (3 подряд)</td><td class="mono">50 + старшая</td><td class="big-combo">СТРИТ!</td></tr>
+      <tr><td>Пара + кикер</td><td class="mono">4×пара + кикер</td><td>Пара</td></tr>
+      <tr><td>Просто старшая (без совпадений)</td><td class="mono">сумма всех трёх</td><td>—</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>1 особая карта + 2 числовые</h2>
+    <table>
+      <tr><th>Особая карта</th><th>Числа равны</th><th>Числа разные</th></tr>
+      <tr><td><span class="tag tag-a">Туз</span></td><td class="mono">12 × значение<br><span class="big-combo">ЭХО ТУЗА!</span></td><td class="mono">4×старшая + младшая<br>Копия туза</td></tr>
+      <tr><td><span class="tag tag-s">Щит</span></td><td class="mono">4×значение + 5<br>Щит + пара</td><td class="mono">сумма + 5<br>Щитовой бонус</td></tr>
+      <tr><td><span class="tag tag-l">Удача</span></td><td class="mono">8 × значение<br>Удача + пара</td><td class="mono">сумма × 2<br>Двойная удача</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>2 особые карты + 1 число (N = значение числовой карты)</h2>
+    <table>
+      <tr><th>Комбинация</th><th>Очки</th><th>Название</th></tr>
+      <tr><td><span class="tag tag-a">A</span> + <span class="tag tag-a">A</span></td><td class="mono">12N + 10</td><td class="big-combo">ДВОЙНОЙ ТУЗ!</td></tr>
+      <tr><td><span class="tag tag-a">A</span> + <span class="tag tag-l">L</span></td><td class="mono">8N</td><td>Туз и удача</td></tr>
+      <tr><td><span class="tag tag-a">A</span> + <span class="tag tag-s">S</span></td><td class="mono">4N + 5</td><td>Туз и щит</td></tr>
+      <tr><td><span class="tag tag-l">L</span> + <span class="tag tag-l">L</span></td><td class="mono">9N</td><td class="big-combo">ДВОЙНАЯ УДАЧА!!</td></tr>
+      <tr><td><span class="tag tag-l">L</span> + <span class="tag tag-s">S</span></td><td class="mono">(N+5) × 2</td><td>Щит и удача</td></tr>
+      <tr><td><span class="tag tag-s">S</span> + <span class="tag tag-s">S</span></td><td class="mono">N + 10</td><td class="big-combo">ДВОЙНОЙ ЩИТ!</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>3 особые карты, без числовой (фиксированные очки)</h2>
+    <table>
+      <tr><th>Комбинация</th><th>Очки</th><th>Название</th></tr>
+      <tr><td><span class="tag tag-s">S</span>+<span class="tag tag-s">S</span>+<span class="tag tag-l">L</span></td><td class="mono">30</td><td>УКРЕПЛЁННАЯ УДАЧА!</td></tr>
+      <tr><td><span class="tag tag-s">S</span>+<span class="tag tag-l">L</span>+<span class="tag tag-l">L</span></td><td class="mono">40</td><td>СЧАСТЛИВЫЕ ЩИТЫ!</td></tr>
+      <tr><td><span class="tag tag-a">A</span>+<span class="tag tag-s">S</span>+<span class="tag tag-s">S</span></td><td class="mono">40</td><td>ТУЗ-КРЕПОСТЬ! <small>(1 туз + 2 щита)</small></td></tr>
+      <tr><td><span class="tag tag-a">A</span>+<span class="tag tag-a">A</span>+<span class="tag tag-s">S</span></td><td class="mono">45</td><td>ТУЗЫ И ЩИТ! <small>(2 туза + 1 щит)</small></td></tr>
+      <tr><td><span class="tag tag-a">A</span>+<span class="tag tag-l">L</span>+<span class="tag tag-l">L</span></td><td class="mono">60</td><td>ТУЗ УДАЧИ! <small>(1 туз + 2 удачи)</small></td></tr>
+      <tr><td><span class="tag tag-a">A</span>+<span class="tag tag-s">S</span>+<span class="tag tag-l">L</span></td><td class="mono">65</td><td>ТРОЙНАЯ КОМБИНАЦИЯ!</td></tr>
+      <tr><td><span class="tag tag-a">A</span>+<span class="tag tag-a">A</span>+<span class="tag tag-l">L</span></td><td class="mono">75</td><td>ФОРТУНА ДВУХ ТУЗОВ! <small>(2 туза + 1 удача)</small></td></tr>
+      <tr><td><span class="tag tag-s">S</span>+<span class="tag tag-s">S</span>+<span class="tag tag-s">S</span></td><td class="mono">15*</td><td class="big-combo">ТРОЙНАЯ ЗАЩИТА! НЕУЯЗВИМОСТЬ!</td></tr>
+      <tr><td><span class="tag tag-a">A</span>+<span class="tag tag-a">A</span>+<span class="tag tag-a">A</span></td><td class="mono">160</td><td class="big-combo">ТРОЙНОЙ ТУЗ! МАКСИМАЛЬНАЯ АТАКА!</td></tr>
+      <tr><td><span class="tag tag-l">L</span>+<span class="tag tag-l">L</span>+<span class="tag tag-l">L</span></td><td class="mono">160</td><td class="big-combo">ТРОЙНАЯ УДАЧА!!! ДЖЕКПОТ!</td></tr>
+    </table>
+    <p style="font-size:0.82rem; color:#a596bc;">* очки SSS почти не важны — см. правило неуязвимости ниже.</p>
+  </div>
+
+  <div class="card">
+    <h2>Особые правила щитов</h2>
+    <ul>
+      <li><span class="tag tag-s">1 Щит</span> в руке ограничивает <strong>максимальный проигрыш</strong> до разницы очков <strong>20</strong> — даже если реальная разница больше.</li>
+      <li><span class="tag tag-s">2 Щита</span> ограничивают ещё жёстче — до разницы <strong>10</strong>.</li>
+      <li><span class="tag tag-s">3 Щита (SSS)</span> — <strong>полная неуязвимость</strong>: если вы проиграли по очкам, но у вас все три щита, золото <strong>не переходит вообще</strong>, независимо от разницы в очках.</li>
+    </ul>
+    <p>Защита щитов всегда работает в пользу <strong>проигравшего</strong> раунд — это ограничитель потерь, а не бонус к победе.</p>
+  </div>
+
+  <p class="footer-note">
+    Игра: <a href="./index.html">Card Duel</a> · правила сверены напрямую с исходным кодом игры
+  </p>
+</div>
+</body>
+</html>
