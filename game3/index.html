@@ -282,9 +282,9 @@
 
   /* ── CARD ── */
   .card-wrap {
-    /* +15% (190x285 -> ~219x328) when the viewport is tall enough; shrinks back to the old
-       size on shorter screens (non-card UI needs ~410px, two card rows fill the rest) */
-    --ch: clamp(285px, calc((100vh - 410px) / 2), 328px);
+    /* cards grow with the window: fill the height left after the ~400px of non-card UI (two rows),
+       limited by width too. Floor 220px. */
+    --ch: clamp(220px, min(calc((100vh - 422px) / 2), calc((92vw - 28px) / 2)), 560px);
     height: var(--ch);
     width: calc(var(--ch) * 2 / 3);
     perspective: 1200px;
