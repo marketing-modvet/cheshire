@@ -282,15 +282,18 @@
 
   /* ── CARD ── */
   .card-wrap {
-    width: 190px;
-    height: 285px;
+    /* +15% (190x285 -> ~219x328) when the viewport is tall enough; shrinks back to the old
+       size on shorter screens (non-card UI needs ~410px, two card rows fill the rest) */
+    --ch: clamp(285px, calc((100vh - 410px) / 2), 328px);
+    height: var(--ch);
+    width: calc(var(--ch) * 2 / 3);
     perspective: 1200px;
   }
   @media (max-height: 760px) {
-    .card-wrap { width: 160px; height: 240px; }
+    .card-wrap { --ch: 240px; }
   }
   @media (max-height: 620px) {
-    .card-wrap { width: 130px; height: 195px; }
+    .card-wrap { --ch: 195px; }
   }
   .card-wrap.exchange-selectable { cursor: pointer; }
   .card-inner {
@@ -543,6 +546,25 @@
     margin: 10px 0;
   }
   .gameover-btns { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+  #show-summary-btn {
+    display: none;
+    position: fixed; right: 28px; bottom: 28px;  /* corner, so it never covers the last hand's cards */
+    z-index: 210;
+    padding: 14px 30px;
+    font-size: 1.05rem; font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, #7b3fe4, #c04fd8);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 6px 28px rgba(160,80,255,0.6);
+    animation: summaryPulse 1.8s ease-in-out infinite;
+  }
+  #show-summary-btn.visible { display: block; }
+  @keyframes summaryPulse {
+    0%,100% { box-shadow: 0 6px 28px rgba(160,80,255,0.55); }
+    50%     { box-shadow: 0 6px 40px rgba(220,120,255,0.95); }
+  }
   .btn-download {
     padding: 12px;
     border-radius: 11px;
@@ -598,8 +620,8 @@
   }
   .deck-reshuffle-notice.show { transform: translateX(-50%) translateY(0); }
 
-  /* Special card glows */
-  .card-wrap.special-card .card-inner {
+  /* Special card glows — only once the card is face-up (flipped), so a hidden opponent card never glows */
+  .card-wrap.special-card.flipped .card-inner {
     box-shadow: 0 0 28px rgba(200,100,255,0.7), 0 0 8px rgba(200,100,255,0.5);
   }
 </style>
@@ -730,12 +752,16 @@
 <!-- ═══ DECK RESHUFFLE NOTICE ═══ -->
 <div class="deck-reshuffle-notice" id="reshuffle-notice">🔀 Колода перемешана!</div>
 
+<!-- ═══ FLOATING "SESSION SUMMARY" BUTTON (shown while looking at the last hand) ═══ -->
+<button id="show-summary-btn" onclick="showSummary()">📊 Итоги сессии</button>
+
 <!-- ═══ GAME OVER SCREEN ═══ -->
 <div id="gameover-screen">
   <div class="gameover-box">
     <h2 id="gameover-title">Сессия окончена</h2>
     <div class="gameover-stats" id="gameover-stats"></div>
     <div class="gameover-btns">
+      <button class="btn-leaderboard" onclick="viewLastHand()">👁 Посмотреть последнюю раздачу</button>
       <button class="btn-leaderboard" onclick="openLeaderboard()">🏆 Таблица результатов</button>
       <button class="btn-download" onclick="downloadLog()">⬇ Скачать журнал сессии</button>
       <button class="btn-playagain" onclick="resetGame()">Играть снова</button>
@@ -1334,6 +1360,23 @@ function endGame(reason) {
      Начало: <strong>${p2.startBalance.toLocaleString()} 💰</strong> &nbsp;→&nbsp; Итог: <strong>${p2.balance.toLocaleString()} 💰</strong><br>
      Изменение: ${fmt(diff2)} золота`;
 
+  // After the final hand (bust) let the players see the last hand's cards/scores first;
+  // the summary opens from the floating button. Cash-out opens it straight away
+  // (the last hand was already seen) and the box still has a "view last hand" button.
+  if (reason === 'cashout') {
+    document.getElementById('gameover-screen').classList.add('visible');
+  } else {
+    document.getElementById('show-summary-btn').classList.add('visible');
+  }
+}
+
+function viewLastHand() {
+  document.getElementById('gameover-screen').classList.remove('visible');
+  document.getElementById('show-summary-btn').classList.add('visible');
+}
+
+function showSummary() {
+  document.getElementById('show-summary-btn').classList.remove('visible');
   document.getElementById('gameover-screen').classList.add('visible');
 }
 
@@ -1344,6 +1387,7 @@ function resetGame() {
   clearTimeout(idleTimer);
   gameActive = false;
   document.getElementById('gameover-screen').classList.remove('visible');
+  document.getElementById('show-summary-btn').classList.remove('visible');
   document.getElementById('game-screen').classList.remove('visible');
   document.getElementById('entry-screen').classList.remove('visible');
   document.getElementById('splash-screen').style.display = 'flex';
