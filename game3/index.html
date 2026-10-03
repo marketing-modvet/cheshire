@@ -281,16 +281,36 @@
   }
 
   /* ── CARD ── */
+  /* Card size: grows with the window. The name/score/combo blocks live to the RIGHT of each card row
+     (.side-info), so they never add height and revealing a combo can never push the cards off screen. */
+  #game-screen {
+    --ui: 278px; /* height of everything that is not a card: scoreboard, centre panel, paddings */
+    --ch: clamp(110px, min(calc((100vh - var(--ui)) / 2), calc(92vw - 28px), calc((92vw - 28px) / 2)), 560px);
+    --ch: clamp(110px, min(calc((100dvh - var(--ui)) / 2), calc(92vw - 28px), calc((92vw - 28px) / 2)), 560px);
+  }
   .card-wrap {
-    /* cards grow with the window: fill the height left after the ~400px of non-card UI (two rows),
-       limited by width too. Floor 220px. */
-    --ui: 418px; /* height of everything that is not a card (both rows' labels, scoreboard, centre panel, padding) */
-    --ch: clamp(110px, min(calc((100vh - var(--ui)) / 2), calc((92vw - 28px) / 2)), 560px);
-    --ch: clamp(110px, min(calc((100dvh - var(--ui)) / 2), calc((92vw - 28px) / 2)), 560px);
     height: var(--ch);
     width: calc(var(--ch) * 2 / 3);
     perspective: 1200px;
   }
+  /* Name / score / combo blocks sit in the band BETWEEN the card rows, to the right of the centre panel
+     (opponent's just under his cards, yours just above your cards) -> zero extra height. */
+  .side-info {
+    position: absolute;
+    left: calc(50% + 264px);
+    width: calc(50% - 278px);
+    max-width: 250px;
+    display: flex; flex-direction: column; gap: 1px;
+    text-align: left;
+    pointer-events: none;
+  }
+  .zone-top .side-info { top: calc(100% + 6px); }
+  .zone-bottom .side-info { bottom: calc(100% + 6px); }
+  .side-info .player-name { font-size: 0.95rem; }
+  .side-info .player-label { font-size: 0.65rem; letter-spacing: 1.5px; }
+  .side-info .player-score { font-size: 0.9rem; min-height: 0; text-align: left; }
+  .side-info .combo-name { font-size: 0.95rem; min-height: 0; text-align: left; }
+  .center-panel { width: 500px; max-width: calc(100vw - 32px); min-height: 172px; box-sizing: border-box; }
   .card-wrap.exchange-selectable { cursor: pointer; }
   .card-inner {
     width: 100%; height: 100%;
@@ -469,7 +489,7 @@
   .result-tie  { color: #f0c060; }
 
   .bonus-badge {
-    display: none;
+    display: inline-block; visibility: hidden; min-height: 26px; /* slot is always reserved so the panel never changes height */
     background: linear-gradient(135deg, #9040e0, #6020b0);
     border: 1px solid rgba(200,150,255,0.4);
     color: #e8c8ff;
@@ -481,7 +501,7 @@
     margin: 0 auto 8px;
     box-shadow: 0 2px 12px rgba(120,40,220,0.4);
   }
-  .bonus-badge.show { display: inline-block; }
+  .bonus-badge.show { visibility: visible; }
 
   /* ── WIN / LOSE OVERLAY ── */
   #result-overlay {
@@ -635,7 +655,7 @@
   .result-msg { margin-bottom: 2px; min-height: 18px; font-size: 0.85rem; }
   /* ── COMPACT MODE: short windows — shrink everything that is not a card so the cards stay as big as possible ── */
   @media (max-height: 860px) {
-    .card-wrap { --ui: 325px; }
+    #game-screen { --ui: 228px; }
     #game-screen { padding: 6px 24px; }
     .sb-player { padding-top: 3px; padding-bottom: 3px; }
     .sb-label { display: none; }
@@ -646,10 +666,22 @@
     .combo-name { font-size: 0.9rem; min-height: 1.1em; }
   }
   @media (max-height: 700px) {
-    .card-wrap { --ui: 270px; }
+    #game-screen { --ui: 228px; }
     .combo-name { min-height: 0; }
     .player-score { min-height: 0; }
   }
+
+  @media (max-height: 860px) { .bonus-badge { min-height: 20px; margin-bottom: 3px; padding-top: 2px; padding-bottom: 2px; } }
+  /* NARROW windows (no room beside the cards): stack the info under/over the cards as before */
+  @media (max-width: 900px) {
+    #game-screen { --ui: 418px; --ch: clamp(110px, min(calc((100dvh - var(--ui)) / 2), calc((92vw - 28px) / 2)), 560px); }
+    .side-info { position: static; width: auto; max-width: none; align-items: center; text-align: center; pointer-events: auto; }
+    .side-info .player-name { font-size: 1.1rem; } .side-info .player-label { font-size: 0.8rem; }
+    .center-panel { width: auto; min-height: 0; }
+    .side-info .player-score, .side-info .combo-name { text-align: center; }
+  }
+  @media (max-width: 900px) and (max-height: 860px) { #game-screen { --ui: 325px; } }
+  @media (max-width: 900px) and (max-height: 700px) { #game-screen { --ui: 270px; } }
 </style>
 </head>
 <body>
@@ -714,16 +746,18 @@
   </div>
 
   <!-- P2 zone (top) -->
-  <div class="player-zone">
+  <div class="player-zone zone-top">
     <div class="cards-row">
       <div class="card-wrap" id="npc-card-0"><div class="card-inner"><div class="card-face"><img id="npc-img-0" src=""></div><div class="card-back"></div></div></div>
       <div class="card-wrap" id="npc-card-1"><div class="card-inner"><div class="card-face"><img id="npc-img-1" src=""></div><div class="card-back"></div></div></div>
       <div class="card-wrap" id="npc-card-2"><div class="card-inner"><div class="card-face"><img id="npc-img-2" src=""></div><div class="card-back"></div></div></div>
     </div>
-    <div class="player-name" id="top-player-name">Соперник</div>
-    <div class="player-label" id="top-player-label">Соперник</div>
-    <div class="player-score" id="npc-score"></div>
-    <div class="combo-name" id="npc-combo"></div>
+    <div class="side-info">
+      <div class="player-name" id="top-player-name">Соперник</div>
+      <div class="player-label" id="top-player-label">Соперник</div>
+      <div class="player-score" id="npc-score"></div>
+      <div class="combo-name" id="npc-combo"></div>
+    </div>
   </div>
 
   <!-- Center panel -->
@@ -756,11 +790,13 @@
   </div>
 
   <!-- P1 zone (bottom) -->
-  <div class="player-zone">
-    <div class="combo-name" id="player-combo"></div>
-    <div class="player-score" id="player-score"></div>
-    <div class="player-name" id="player-name-display">Игрок</div>
-    <div class="player-label" id="bottom-player-label">Ваша рука</div>
+  <div class="player-zone zone-bottom">
+    <div class="side-info">
+      <div class="combo-name" id="player-combo"></div>
+      <div class="player-score" id="player-score"></div>
+      <div class="player-name" id="player-name-display">Игрок</div>
+      <div class="player-label" id="bottom-player-label">Ваша рука</div>
+    </div>
     <div class="cards-row">
       <div class="card-wrap" id="player-card-0" onclick="toggleMark(0)"><div class="card-inner"><div class="card-face"><img id="player-img-0" src=""></div><div class="card-back"></div></div></div>
       <div class="card-wrap" id="player-card-1" onclick="toggleMark(1)"><div class="card-inner"><div class="card-face"><img id="player-img-1" src=""></div><div class="card-back"></div></div></div>
