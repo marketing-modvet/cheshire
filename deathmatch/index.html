@@ -20,7 +20,6 @@ h1,h2,h3{color:var(--gold);margin-top:0;}
 a.btn{text-decoration:none;display:inline-block;}
 .screen{display:none;}
 .screen.active{display:block;}
-.card-wrap{width:clamp(150px,14vw,340px);aspect-ratio:2/3;perspective:1000px;display:inline-block;margin:10px;}
 .card-iner{position:relative;width:100%;height:100%;transition:transform .6s ease;transform-style:preserve-3d;}
 .card-iner.flipped{transform:rotateY(180deg);}
 .card-back,.card-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.55);}
@@ -30,9 +29,77 @@ a.btn{text-decoration:none;display:inline-block;}
 .result-win{background:rgba(34,197,94,.18);border:1px solid #22c55e;color:#4ade80;}
 .result-lose{background:rgba(239,68,68,.18);border:1px solid #ef4444;color:#f87171;}
 .result-push{background:rgba(240,192,96,.18);border:1px solid var(--gold);color:var(--gold);}
-.wrap{max-width:900px;margin:20px auto;padding:16px;}
 .center{text-align:center;}
-.vs{font-size:28px;color:var(--gold);font-weight:700;display:inline-block;vertical-align:middle;margin:0 10px;}
+
+/* ===== casino layout v2: big cards on the left, UI panel on the right ===== */
+.table{--side:340px;--gap:14px;display:grid;grid-template-columns:minmax(0,1fr) var(--side);gap:16px;height:100vh;padding:12px 16px;align-items:stretch;}
+.stage{display:flex;flex-direction:column;justify-content:space-evenly;align-items:center;min-width:0;}
+.zone{text-align:center;width:100%;}
+.zone h3{font-size:clamp(17px,1.7vw,28px);margin:0 0 6px;}
+.zone h3 .hn{color:#fff;font-size:.85em;font-weight:600;margin-left:8px;}
+.cards{display:flex;justify-content:center;align-items:flex-end;gap:var(--gap);flex-wrap:nowrap;}
+.card-wrap{flex:0 1 var(--cw);width:var(--cw);min-width:0;aspect-ratio:2/3;perspective:1000px;position:relative;transition:transform .15s;}
+.card-wrap.pick{cursor:pointer;}
+.card-wrap.pick:hover{transform:translateY(-6px);}
+.card-wrap.marked{transform:translateY(-16px);outline:4px solid #ef4444;outline-offset:2px;border-radius:12px;}
+.card-wrap.marked::after{content:'REPLACE';position:absolute;left:50%;bottom:-14px;transform:translateX(-50%);background:#ef4444;color:#fff;font-size:clamp(11px,.9vw,15px);font-weight:800;letter-spacing:1px;padding:3px 10px;border-radius:999px;z-index:5;}
+.side{display:flex;flex-direction:column;gap:12px;overflow-y:auto;max-height:calc(100vh - 24px);padding-right:2px;}
+.side .panel{padding:16px 18px;}
+.side h2{font-size:24px;margin-bottom:8px;}
+.side h3{font-size:18px;margin-bottom:6px;}
+.stat{font-size:20px;line-height:1.5;color:#ddd;}
+.stat b{color:var(--gold);font-size:24px;}
+.phase:empty{display:none;}
+.phase{font-size:18px;line-height:1.4;color:#f2ede3;margin-bottom:10px;min-height:2.8em;}
+.btn-big{display:block;width:100%;margin:8px 0;font-size:19px;padding:15px 18px;}
+.side .result-banner{font-size:24px;margin:10px 0;padding:14px 12px;}
+.ranklist{list-style:none;margin:0;padding:0;font-size:16px;}
+.ranklist li{display:flex;justify-content:space-between;gap:8px;padding:5px 10px;border-radius:8px;color:#bbb;border:1px solid transparent;}
+.ranklist li.me{background:rgba(240,192,96,.22);color:#fff;border-color:var(--gold);font-weight:700;}
+.ranklist li.dl{background:rgba(96,165,250,.2);color:#fff;border-color:#60a5fa;font-weight:700;}
+.ranklist li.me.dl{background:linear-gradient(90deg,rgba(240,192,96,.25),rgba(96,165,250,.25));}
+.ranklist li small{opacity:.65;font-weight:400;}
+.note{font-size:15px;color:#bbb;line-height:1.45;}
+.screen#screen-table.active{display:block;}
+@media (max-height:940px) and (min-width:1151px){
+  .side{gap:8px;}
+  .side .panel{padding:10px 14px;}
+  .side h2{font-size:19px;margin-bottom:4px;}
+  .side h3{font-size:15px;margin-bottom:4px;}
+  .stat{font-size:16px;line-height:1.3;}
+  .stat b{font-size:19px;}
+  .phase{font-size:15px;min-height:0;margin-bottom:6px;}
+  .btn-big{font-size:16px;padding:10px 12px;margin:4px 0;}
+  .ranklist{font-size:13px;}
+  .ranklist li{padding:2px 8px;}
+  .ranklist li small{display:none;}
+  .side .result-banner{font-size:19px;padding:8px;margin:6px 0;}
+  .note{font-size:13px;}
+  .paytable{font-size:13px;}
+  .paytable td{padding:2px 6px;}
+}
+@media (max-width:1150px){
+  .table{display:block;height:auto;min-height:100vh;--gap:8px;}
+  .side{max-height:none;margin-top:10px;}
+  .stage{gap:14px;}
+  .side>.panel:first-child{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 22px;padding:10px 16px;}
+  .side>.panel:first-child h2{margin:0;font-size:20px;}
+  .stat{font-size:17px;line-height:1.3;}
+  .stat b{font-size:20px;}
+}
+
+.table{--cw:clamp(100px,min(calc((100vh - 190px)*2/3),calc((100vw - var(--side) - 32px - 16px - 200px)/2)),600px);}
+@media (max-width:1150px){.table{--cw:clamp(80px,calc((100vw - 32px - 90px)/2),240px);}}
+.dm-row{display:flex;justify-content:center;align-items:center;gap:clamp(16px,3vw,56px);}
+.dm-col{display:flex;flex-direction:column;align-items:center;}
+.dm-col .card-wrap{margin:0;}
+.dm-label{font-size:clamp(20px,2vw,34px);font-weight:800;color:var(--gold);margin-top:14px;}
+.dm-label .rk{display:block;color:#fff;font-size:.8em;font-weight:600;min-height:1.3em;}
+.vs{font-size:clamp(24px,3vw,52px);font-weight:900;color:#fff;opacity:.8;}
+.paytable{width:100%;border-collapse:collapse;font-size:16px;color:#ddd;}
+.paytable td{padding:4px 6px;border-bottom:1px solid rgba(255,255,255,.1);}
+.paytable td:last-child{text-align:right;color:var(--gold);font-weight:700;}
+
 </style>
 </head>
 <body>
@@ -51,25 +118,47 @@ a.btn{text-decoration:none;display:inline-block;}
 </div>
 
 <div id="screen-table" class="screen">
-  <div class="wrap">
-    <div class="panel center" style="margin-bottom:16px;">
-      <h2>Deathmatch</h2>
-      <div>Bet: <span id="bet-display" style="color:var(--gold);"></span> &nbsp;|&nbsp; Balance: <span id="table-balance" style="color:var(--gold);"></span></div>
-    </div>
-    <div class="panel center" style="margin-bottom:16px;">
-      <div id="player-card-area" style="display:inline-block;"></div>
-      <span class="vs">VS</span>
-      <div id="dealer-card-area" style="display:inline-block;"></div>
-      <div style="margin-top:8px;color:#ccc;">You &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dealer</div>
-    </div>
-    <div class="panel center" id="action-panel">
-      <div id="result-area" style="display:none;">
-        <div id="result-banner" class="result-banner"></div>
-        <div id="result-summary" style="margin-bottom:12px;color:#ccc;"></div>
-        <button class="btn btn-confirm" onclick="playAgain()">Play Again</button>
-        <a href="../hub/index.html" class="btn btn-primary">Back to Hub</a>
+  <div class="table">
+    <div class="stage">
+      <div class="dm-row">
+        <div class="dm-col">
+          <div id="player-card-area"></div>
+          <div class="dm-label">You<span class="rk" id="dm-player-rank"></span></div>
+        </div>
+        <span class="vs">VS</span>
+        <div class="dm-col">
+          <div id="dealer-card-area"></div>
+          <div class="dm-label">Dealer<span class="rk" id="dm-dealer-rank"></span></div>
+        </div>
       </div>
     </div>
+    <aside class="side">
+      <div class="panel">
+        <h2>Deathmatch</h2>
+        <div class="stat">Bet: <b id="bet-display"></b></div>
+        <div class="stat">Balance: <b id="table-balance"></b></div>
+      </div>
+      <div class="panel" id="action-panel">
+        <div id="result-area" style="display:none;">
+          <div id="result-banner" class="result-banner"></div>
+          <div id="result-summary" style="margin-bottom:12px;color:#ddd;font-size:17px;line-height:1.4;"></div>
+          <button class="btn btn-confirm btn-big" onclick="playAgain()">Play Again</button>
+          <a href="../hub/index.html" class="btn btn-primary btn-big">Back to Hub</a>
+        </div>
+        <div class="phase" id="phase-text">Cards are being dealt…</div>
+      </div>
+      <div class="panel">
+        <h3>How it pays</h3>
+        <div class="note" style="margin-bottom:8px;">Higher card wins. Payout = rank difference × your bet. Equal cards = push.</div>
+        <table class="paytable">
+          <tr><td>2 – 10</td><td>face value</td></tr>
+          <tr><td>Jack</td><td>11</td></tr>
+          <tr><td>Queen</td><td>12</td></tr>
+          <tr><td>King</td><td>13</td></tr>
+          <tr><td>Ace</td><td>14</td></tr>
+        </table>
+      </div>
+    </aside>
   </div>
 </div>
 
@@ -158,11 +247,16 @@ function dealDeathmatch(){
   document.getElementById('player-card-area').innerHTML=cardHtml(playerCard,false,'dm-player');
   document.getElementById('dealer-card-area').innerHTML=cardHtml(dealerCard,false,'dm-dealer');
   document.getElementById('result-area').style.display='none';
+  document.getElementById('phase-text').style.display='block';
+  document.getElementById('dm-player-rank').textContent='';
+  document.getElementById('dm-dealer-rank').textContent='';
   setTimeout(revealDeathmatch,900);
 }
 function revealDeathmatch(){
   document.getElementById('dm-player').classList.add('flipped');
   document.getElementById('dm-dealer').classList.add('flipped');
+  document.getElementById('dm-player-rank').textContent=RANK_LABEL[playerCard[0]]+' ('+RANK_VALUE[playerCard[0]]+')';
+  document.getElementById('dm-dealer-rank').textContent=RANK_LABEL[dealerCard[0]]+' ('+RANK_VALUE[dealerCard[0]]+')';
   setTimeout(resolveDeathmatch,700);
 }
 function resolveDeathmatch(){
@@ -191,6 +285,7 @@ function applyResult(outcome,net,summaryText){
   banner.className='result-banner result-'+outcome;
   banner.textContent = outcome==='win' ? ('YOU WIN +'+net) : outcome==='lose' ? ('YOU LOSE '+(-net)) : 'PUSH — no payout';
   document.getElementById('result-summary').textContent=summaryText||'';
+  document.getElementById('phase-text').style.display='none';
   document.getElementById('result-area').style.display='block';
 }
 function playAgain(){
