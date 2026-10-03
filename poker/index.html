@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Texas Hold'em — Alraaneer Casino</title>
+<title>Poker (5-Card Draw) — Alraaneer Casino</title>
 <style>
 :root{--gold:#f0c060;--panel-bg:rgba(255,255,255,0.06);--panel-border:rgba(255,255,255,0.12);}
 *{box-sizing:border-box;}
@@ -89,16 +89,10 @@ a.btn{text-decoration:none;display:inline-block;}
   .stat b{font-size:20px;}
 }
 
-.table{--cw:clamp(70px,min(calc((100vh - 205px)/3),calc((100vw - var(--side) - 32px - 16px - 4*var(--gap))/5)),440px);}
+.table{--cw:clamp(70px,min(calc((100vh - 170px)/3),calc((100vw - var(--side) - 32px - 16px - 4*var(--gap))/5)),440px);}
 @media (max-width:1150px){.table{--cw:clamp(52px,calc((100vw - 32px - 4*var(--gap))/5),190px);}}
 
 .cards{padding-top:18px;}
-@media (min-width:1151px){
-.stage{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;align-content:space-evenly;justify-items:center;column-gap:24px;}
-.z-board{grid-column:1 / 3;grid-row:1;}
-.z-dealer{grid-column:1;grid-row:2;}
-.z-you{grid-column:2;grid-row:2;}
-}
 </style>
 </head>
 <body>
@@ -107,8 +101,8 @@ a.btn{text-decoration:none;display:inline-block;}
 
 <div id="screen-bet" class="screen active">
   <div class="panel center" style="max-width:440px;margin:70px auto;">
-    <h1>Texas Hold'em</h1>
-    <p style="color:#ccc;">Heads-up vs the dealer. Your 2 cards + 5 community cards are dealt at once. You may swap 1 or 2 of your own cards once, then one optional ×2 raise.</p>
+    <h1>Poker — 5-Card Draw</h1>
+    <p style="color:#ccc;">Five-card draw vs the dealer. You get 5 cards, replace 0–5 of them, then see your final hand. One ×2 raise after the draw.</p>
     <p>Balance: <span id="balance-display" style="color:var(--gold);font-weight:700;"></span></p>
     <p>Select your bet:</p>
     <div id="bet-buttons" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:18px 0;"></div>
@@ -119,30 +113,25 @@ a.btn{text-decoration:none;display:inline-block;}
 <div id="screen-table" class="screen">
   <div class="table">
     <div class="stage">
-      <div class="zone z-dealer">
+      <div class="zone">
         <h3>Dealer <span class="hn" id="dealer-hand-name"></span></h3>
         <div id="dealer-cards" class="cards"></div>
       </div>
-      <div class="zone z-board">
-        <h3>Community Board</h3>
-        <div id="board-cards" class="cards"></div>
-      </div>
-      <div class="zone z-you">
+      <div class="zone">
         <h3>You <span class="hn" id="player-hand-name"></span></h3>
         <div id="player-cards" class="cards"></div>
       </div>
     </div>
     <aside class="side">
       <div class="panel">
-        <h2>Texas Hold'em</h2>
+        <h2>Poker — 5-Card Draw</h2>
         <div class="stat">Bet: <b id="bet-display"></b></div>
         <div class="stat">Balance: <b id="table-balance"></b></div>
       </div>
       <div class="panel" id="action-panel">
         <div class="phase" id="phase-text"></div>
         <div id="draw-buttons" style="display:none;">
-          <button class="btn btn-confirm btn-big" id="draw-btn" onclick="doSwap()" disabled>Tap your cards to swap</button>
-          <button class="btn btn-primary btn-big" onclick="keepCards()">Keep my cards</button>
+          <button class="btn btn-confirm btn-big" id="draw-btn" onclick="doDraw()">Keep all cards</button>
         </div>
         <div id="decision-buttons" style="display:none;">
           <button class="btn btn-start btn-big" id="raise-btn" onclick="onDecision(true)">Raise ×2</button>
@@ -156,7 +145,7 @@ a.btn{text-decoration:none;display:inline-block;}
         </div>
       </div>
       <div class="panel">
-        <h3>Your best 5-card hand</h3>
+        <h3>Hand ranking (best → worst)</h3>
         <ul class="ranklist" id="rank-list"></ul>
       </div>
     </aside>
@@ -171,7 +160,7 @@ const RANK_VALUE={'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'T':10,'J':11,
 const SUITS=['S','H','D','C'];
 const CARD_BACK='../casino-assets/CardBack.png';
 const HAND_NAMES=['High Card','Pair','Two Pair','Three of a Kind','Straight','Flush','Full House','Four of a Kind','Straight Flush'];
-const GAME_LABEL="Hold'em";
+const GAME_LABEL='Poker (5-Card Draw)';
 const RN={2:'Two',3:'Three',4:'Four',5:'Five',6:'Six',7:'Seven',8:'Eight',9:'Nine',10:'Ten',11:'Jack',12:'Queen',13:'King',14:'Ace'};
 const RNP={2:'Twos',3:'Threes',4:'Fours',5:'Fives',6:'Sixes',7:'Sevens',8:'Eights',9:'Nines',10:'Tens',11:'Jacks',12:'Queens',13:'Kings',14:'Aces'};
 const RANK_ROWS=[['Royal Flush','A K Q J 10 same suit'],['Straight Flush','5 in a row, same suit'],['Four of a Kind','4 same rank'],['Full House','3 + 2 same rank'],['Flush','5 same suit'],['Straight','5 in a row'],['Three of a Kind','3 same rank'],['Two Pair','2 + 2 same rank'],['Pair','2 same rank'],['High Card','nothing else']];
@@ -313,38 +302,39 @@ function renderBetButtons(){
   });
 }
 
-let currentBet=0, finalBet=0, deck=[], playerHole=[], dealerHole=[], board=[], marked=new Set(), phase='idle', swapped=0;
+let currentBet=0, finalBet=0, deck=[], playerHand=[], dealerHand=[], marked=new Set(), phase='idle', dealerDrawn=0;
 
-function selectBet(b){currentBet=b;startRound();}
+function selectBet(b){
+  currentBet=b;
+  startRound();
+}
 function startRound(){
   document.getElementById('screen-bet').classList.remove('active');
   document.getElementById('screen-table').classList.add('active');
-  dealHoldem();
+  dealPoker();
 }
 function setPhase(t){document.getElementById('phase-text').textContent=t;}
-function playerBest(){return best5of7(playerHole.map(codeToObj).concat(board.map(codeToObj)));}
+function playerScore(){return evaluate5(playerHand.map(codeToObj));}
 function showPlayerHand(){
-  const s=playerBest();
+  const s=playerScore();
   document.getElementById('player-hand-name').textContent='— '+describeFull(s);
   renderRankList(s,null);
 }
 function renderPlayerCards(faceUp){
-  document.getElementById('player-cards').innerHTML=playerHole.map(function(c,i){
+  document.getElementById('player-cards').innerHTML=playerHand.map(function(c,i){
     return cardHtml(c,faceUp,'player-'+i,'',"toggleMark("+i+")");
   }).join('');
 }
-function dealHoldem(){
+function dealPoker(){
   deck=shuffle(buildDeck());
-  playerHole=[deck.pop(),deck.pop()];
-  dealerHole=[deck.pop(),deck.pop()];
-  board=[deck.pop(),deck.pop(),deck.pop(),deck.pop(),deck.pop()];
-  marked=new Set(); swapped=0; phase='dealing'; finalBet=currentBet;
+  playerHand=[deck.pop(),deck.pop(),deck.pop(),deck.pop(),deck.pop()];
+  dealerHand=[deck.pop(),deck.pop(),deck.pop(),deck.pop(),deck.pop()];
+  marked=new Set(); dealerDrawn=0; phase='dealing'; finalBet=currentBet;
   document.getElementById('bet-display').textContent=currentBet;
   document.getElementById('table-balance').textContent=getBalance();
   document.getElementById('dealer-hand-name').textContent='';
   document.getElementById('player-hand-name').textContent='';
-  document.getElementById('dealer-cards').innerHTML=dealerHole.map(function(c,i){return cardHtml(c,false,'dealer-'+i);}).join('');
-  document.getElementById('board-cards').innerHTML=board.map(function(c,i){return cardHtml(c,false,'board-'+i);}).join('');
+  document.getElementById('dealer-cards').innerHTML=dealerHand.map(function(c,i){return cardHtml(c,false,'dealer-'+i);}).join('');
   renderPlayerCards(false);
   renderRankList(null,null);
   document.getElementById('draw-buttons').style.display='none';
@@ -352,75 +342,80 @@ function dealHoldem(){
   document.getElementById('result-area').style.display='none';
   setPhase('Dealing…');
   setTimeout(function(){
-    playerHole.forEach(function(c,i){document.getElementById('player-'+i).classList.add('flipped');});
-    board.forEach(function(c,i){document.getElementById('board-'+i).classList.add('flipped');});
+    playerHand.forEach(function(c,i){document.getElementById('player-'+i).classList.add('flipped');});
   },300);
   setTimeout(function(){
-    phase='swap';
-    playerHole.forEach(function(c,i){document.getElementById('player-'+i).parentNode.classList.add('pick');});
+    phase='draw';
+    playerHand.forEach(function(c,i){document.getElementById('player-'+i).parentNode.classList.add('pick');});
     showPlayerHand();
-    setPhase('You may swap 1 or 2 of YOUR cards — once. Tap the card(s) you want to replace, or keep them.');
+    setPhase('Tap the cards you want to REPLACE (0–5), then press the button.');
     document.getElementById('draw-buttons').style.display='block';
-    updateSwapButton();
+    updateDrawButton();
   },1000);
 }
 function toggleMark(i){
-  if(phase!=='swap'){return;}
+  if(phase!=='draw'){return;}
   const wrap=document.getElementById('player-'+i).parentNode;
   if(marked.has(i)){marked.delete(i);wrap.classList.remove('marked');}
   else {marked.add(i);wrap.classList.add('marked');}
-  updateSwapButton();
+  updateDrawButton();
 }
-function updateSwapButton(){
-  const n=marked.size, b=document.getElementById('draw-btn');
-  b.disabled=(n===0);
-  b.textContent = n===0 ? 'Tap your cards to swap' : (n===1 ? 'Swap 1 card' : 'Swap 2 cards');
+function updateDrawButton(){
+  const n=marked.size;
+  document.getElementById('draw-btn').textContent = n===0 ? 'Keep all 5 cards' : ('Replace '+n+' card'+(n>1?'s':''));
 }
-function goDecide(delay,prefix){
-  setTimeout(function(){
-    phase='decide';
-    const s=playerBest();
-    setPhase((prefix||'')+'Your hand: '+describeFull(s)+'. Raise the stake ×2, or continue at your bet?');
-    document.getElementById('raise-btn').disabled = getBalance()<currentBet*2;
-    document.getElementById('decision-buttons').style.display='block';
-  },delay);
+function dealerPlan(hand){
+  const objs=hand.map(codeToObj);
+  const sc=evaluate5(objs);
+  if(sc[0]>=4){return [];}
+  const cnt={};
+  objs.forEach(function(o){cnt[o.rank]=(cnt[o.rank]||0)+1;});
+  if(sc[0]>=1){
+    return objs.map(function(o,i){return cnt[o.rank]>=2?-1:i;}).filter(function(i){return i>=0;});
+  }
+  const bySuit={};
+  objs.forEach(function(o,i){(bySuit[o.suit]=bySuit[o.suit]||[]).push(i);});
+  for(const s in bySuit){
+    if(bySuit[s].length===4){return [0,1,2,3,4].filter(function(i){return bySuit[s].indexOf(i)<0;});}
+  }
+  for(let skip=0;skip<5;skip++){
+    const rs=[0,1,2,3,4].filter(function(i){return i!==skip;}).map(function(i){return objs[i].rank;}).sort(function(a,b){return a-b;});
+    if(new Set(rs).size===4 && rs[3]-rs[0]===3){return [skip];}
+  }
+  const order=[0,1,2,3,4].sort(function(a,b){return objs[b].rank-objs[a].rank;});
+  return order.slice(2);
 }
-function endSwapUi(){
+function doDraw(){
+  if(phase!=='draw'){return;}
+  phase='drawing';
   document.getElementById('draw-buttons').style.display='none';
-  document.getElementById('player-cards').querySelectorAll('.card-wrap').forEach(function(w){w.classList.remove('pick');});
-}
-function keepCards(){
-  if(phase!=='swap'){return;}
-  phase='deciding';
-  marked.forEach(function(i){document.getElementById('player-'+i).parentNode.classList.remove('marked');});
-  marked=new Set();
-  endSwapUi();
-  setPhase('Keeping your cards.');
-  goDecide(300,'');
-}
-function doSwap(){
-  if(phase!=='swap' || marked.size===0){return;}
-  phase='swapping';
-  endSwapUi();
   const idx=Array.from(marked).sort();
-  marked=new Set();
-  swapped=idx.length;
   idx.forEach(function(i){
     const el=document.getElementById('player-'+i);
     el.classList.remove('flipped');
     el.parentNode.classList.remove('marked');
   });
-  setPhase('Swapping '+idx.length+' card'+(idx.length>1?'s':'')+'…');
+  document.getElementById('player-cards').querySelectorAll('.card-wrap').forEach(function(w){w.classList.remove('pick');});
+  setPhase(idx.length? ('Replacing '+idx.length+' card'+(idx.length>1?'s':'')+'…') : 'Standing pat…');
   setTimeout(function(){
     idx.forEach(function(i){
-      playerHole[i]=deck.pop();
+      playerHand[i]=deck.pop();
       const el=document.getElementById('player-'+i);
-      el.querySelector('.card-face img').src=cardImg(playerHole[i]);
+      el.querySelector('.card-face img').src=cardImg(playerHand[i]);
       el.classList.add('flipped');
     });
+    const dPlan=dealerPlan(dealerHand);
+    dPlan.forEach(function(i){dealerHand[i]=deck.pop();});
+    dealerDrawn=dPlan.length;
     showPlayerHand();
-  },650);
-  goDecide(1450,'Swapped '+idx.length+'. ');
+  }, idx.length?650:200);
+  setTimeout(function(){
+    phase='decide';
+    const s=playerScore();
+    setPhase('Final hand: '+describeFull(s)+'. Dealer replaced '+dealerDrawn+' card'+(dealerDrawn===1?'':'s')+'. Raise the stake ×2, or continue at your bet?');
+    document.getElementById('raise-btn').disabled = getBalance()<currentBet*2;
+    document.getElementById('decision-buttons').style.display='block';
+  }, (idx.length?650:200)+800);
 }
 function onDecision(raise){
   if(phase!=='decide'){return;}
@@ -429,12 +424,16 @@ function onDecision(raise){
   document.getElementById('bet-display').textContent=finalBet;
   document.getElementById('decision-buttons').style.display='none';
   setPhase('Dealer reveals…');
-  dealerHole.forEach(function(c,i){document.getElementById('dealer-'+i).classList.add('flipped');});
-  setTimeout(resolveHoldem,800);
+  dealerHand.forEach(function(c,i){
+    const el=document.getElementById('dealer-'+i);
+    el.querySelector('.card-face img').src=cardImg(c);
+    el.classList.add('flipped');
+  });
+  setTimeout(resolvePoker,800);
 }
-function resolveHoldem(){
-  const pScore=playerBest();
-  const dScore=best5of7(dealerHole.map(codeToObj).concat(board.map(codeToObj)));
+function resolvePoker(){
+  const pScore=evaluate5(playerHand.map(codeToObj));
+  const dScore=evaluate5(dealerHand.map(codeToObj));
   document.getElementById('dealer-hand-name').textContent='— '+describeFull(dScore);
   renderRankList(pScore,dScore);
   const cmp=compareScores(pScore,dScore);
@@ -442,7 +441,7 @@ function resolveHoldem(){
   if(cmp>0){outcome='win';net=finalBet;}
   else if(cmp<0){outcome='lose';net=-finalBet;}
   else {outcome='push';net=0;}
-  applyResult(finalBet,outcome,net,'You: '+describeFull(pScore)+(swapped?' (swapped '+swapped+')':'')+'  vs  Dealer: '+describeFull(dScore));
+  applyResult(finalBet,outcome,net,'You: '+describeFull(pScore)+'  vs  Dealer: '+describeFull(dScore));
 }
 function applyResult(bet,outcome,net,summaryText){
   const before=getBalance();
@@ -466,7 +465,7 @@ function playAgain(){
     renderBetButtons();
     return;
   }
-  dealHoldem();
+  dealPoker();
 }
 
 if(localStorage.getItem('casinoBalance')===null||localStorage.getItem('casinoPlayerName')===null){
