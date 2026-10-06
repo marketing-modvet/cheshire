@@ -2,7 +2,7 @@
 // Sourced from: Google Maps research (vet-report.html), clinic websites, Groupon, social media
 // Source key: "website" | "social" | "groupon" | "cobone" | "internal" | "" (confirmed, source unknown)
 
-const LAST_UPDATED = "2026-07-21";
+const LAST_UPDATED = "2026-10-06";
 
 const SERVICES = [
   { id: "consult_standard",    label: "Consultation (Standard)",               category: "Consultation" },
@@ -228,7 +228,12 @@ const COMPETITORS = [
     rating: "4.8", reviews: 138,
     notes: "Al Barsha South Fourth | BinGhatti Emerald Building",
     address: "BinGhatti Emerald Building - Shop No.1 - Al Barsha South Fourth - Jumeirah Village Circle - Dubai - United Arab Emirates",
-    prices: {}
+    prices: {
+      vax_annual_cat: { val: 249, note: "team submission by Andrew (in-person visit)", src: "", date: "2026-06" },
+      vax_annual_dog: { val: 249, note: "team submission by Andrew (in-person visit)", src: "", date: "2026-06" },
+      vax_initial_cat: { val: 499, note: "team submission by Andrew (in-person visit)", src: "", date: "2026-06" },
+      vax_initial_dog: { val: 599, note: "team submission by Andrew (in-person visit)", src: "", date: "2026-06" }
+    }
   },
 
   {
@@ -274,7 +279,10 @@ const COMPETITORS = [
     notes: "Al Barsha Third | Villa 1",
     address: "Villa 1 - 39th St - next to civil defense - Al Barsha Third - Al Barsha - Dubai - United Arab Emirates",
     prices: {
-      consult_standard: { val: 262, note: "210 standard / 262 surgeon", src: "", date: "2026-04" }
+      consult_standard: { val: 262, note: "210 standard / 262 surgeon", src: "", date: "2026-04" },
+      vax_annual_dog: { val: 396, note: "team submission by vrinda (phone call)", src: "", date: "2026-09" },
+      neuter_dog_male_s: { val: 2748.27, note: "team submission by vrinda (phone call)", src: "", date: "2026-09" },
+      dental_scale_dog_m: { val: 3640.77, note: "team submission by vrinda (phone call)", src: "", date: "2026-09" }
     }
   },
 
@@ -1343,7 +1351,10 @@ const COMPETITORS = [
     notes: "مجمع دبي للاستثمار الأول | Retail 5",
     address: "Retail 5 - After Park n Shop - Green Community - DIP1 - - - - United Arab Emirates",
     prices: {
-      consult_standard: { val: 288, note: "", src: "", date: "2026-04" }
+      consult_standard: { val: 288, note: "", src: "", date: "2026-04" },
+      vax_annual_dog: { val: 385, note: "team submission by vrinda", src: "website", date: "2026-09" },
+      neuter_dog_male_s: { val: 1155, note: "team submission by vrinda", src: "website", date: "2026-09" },
+      dental_scale_dog_s: { val: 290, note: "team submission by vrinda", src: "website", date: "2026-09" }
     }
   },
 
@@ -1465,7 +1476,15 @@ const COMPETITORS = [
     rating: "4.7", reviews: 312,
     notes: "وادي الصفا 7 | block C, Beside",
     address: "block C, Beside - ZOOM - 7 - The Sustainable City - - United Arab Emirates",
-    prices: {}
+    prices: {
+      vax_annual_cat: { val: 503.35, note: "team submission by vrinda (phone call)", src: "", date: "2026-09" },
+      dental_scale_cat: { val: 2200, note: "team submission by vrinda (phone call)", src: "", date: "2026-09" },
+      consult_standard: { val: 220, note: "team submission by vrinda", src: "website", date: "2026-10" },
+      spay_dog_female_s: { val: 1405, note: "team submission by vrinda", src: "website", date: "2026-09" },
+      vax_annual_dog: { val: 503.5, note: "team submission by vrinda", src: "website", date: "2026-10" },
+      microchip: { val: 210, note: "team submission by vrinda", src: "website", date: "2026-10" },
+      dental_scale_dog_s: { val: 940, note: "team submission by vrinda", src: "website", date: "2026-10" }
+    }
   },
 
   {
