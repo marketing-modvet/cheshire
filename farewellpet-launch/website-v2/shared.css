@@ -110,7 +110,8 @@ header.pagetop p{ opacity:.92; font-size:1.02rem; max-width:600px; margin:0 auto
 
 .feat-card{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:26px 22px; transition:transform .2s ease, box-shadow .2s ease; }
 .feat-card:hover{ transform:translateY(-3px); box-shadow:0 12px 26px rgba(43,36,34,.08); }
-.feat-card .ic{ width:42px; height:42px; border-radius:10px; background:var(--coral-tint); display:flex; align-items:center; justify-content:center; margin-bottom:14px; font-size:1.2rem; }
+.feat-card .ic{ width:42px; height:42px; border-radius:10px; background:var(--coral-tint); color:var(--coral-dark); display:flex; align-items:center; justify-content:center; margin-bottom:14px; font-size:1.2rem; }
+.feat-card .ic svg{ display:block; }
 .feat-card h4{ margin:0 0 8px; font-size:.98rem; }
 .feat-card p{ color:var(--ink-soft); font-size:.85rem; margin:0; }
 
@@ -157,3 +158,8 @@ footer.site ul li{ margin-bottom:10px; }
 footer.site ul a{ text-decoration:none; color:#DCD4CE; opacity:.85; }
 footer.site ul a:hover{ opacity:1; color:#fff; }
 footer.site .bottom{ max-width:1160px; margin:40px auto 0; border-top:1px solid rgba(255,255,255,.12); padding-top:20px; font-size:.78rem; opacity:.55; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+
+/* partner portal entry (3 Nov 2026) */
+.nav-login{ font-size:.85rem; font-weight:700; color:var(--coral-dark); text-decoration:none; padding:8px 14px; border:2px solid var(--coral); border-radius:8px; white-space:nowrap; }
+.nav-login:hover, .nav-login.active{ background:var(--coral-tint); }
+@media (max-width:860px){ .nav-login{ display:none; } }

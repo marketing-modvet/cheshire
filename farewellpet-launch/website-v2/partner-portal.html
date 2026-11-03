@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Partner Clinics Portal — FarewellPet</title>
+<link rel="icon" href="assets/icon.png">
+<link rel="apple-touch-icon" href="assets/icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;1,400;1,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+ main#app{ min-height:70vh; background:var(--cream); }
+ .pp-wrap{ max-width:1100px; margin:0 auto; padding:34px 24px 120px; }
+ .pp-card{ background:#fff; border:1px solid var(--line); border-radius:16px; padding:28px; }
+ .pp-login{ max-width:460px; margin:48px auto; }
+ .pp-login h1{ font-family:'Lora',serif; font-style:italic; font-size:2rem; margin:0 0 6px; }
+ .pp-login p.sub{ color:var(--ink-soft); margin:0 0 22px; font-size:.95rem; }
+ label.pp-l{ display:block; font-weight:600; font-size:.85rem; margin:16px 0 6px; }
+ .pp-in{ width:100%; padding:15px 16px; font-size:1.05rem; border:2px solid var(--line); border-radius:10px; background:#fff; font-family:inherit; color:var(--ink); }
+ .pp-in:focus{ outline:none; border-color:var(--coral); }
+ .pp-demo{ background:#FFF8E1; border:1px solid #E9B44C; border-radius:10px; padding:12px 14px; font-size:.82rem; color:#7a5c10; margin-top:20px; }
+ .pp-err{ color:#B3261E; font-size:.85rem; margin-top:10px; min-height:1.2em; }
+ .pp-btn{ display:inline-block; border:2px solid transparent; border-radius:12px; padding:16px 30px; font-size:1.02rem; font-weight:700; cursor:pointer; font-family:inherit; min-height:56px; }
+ .pp-btn.primary{ background:var(--coral); color:#fff; }
+ .pp-btn.primary:hover{ background:var(--coral-dark); }
+ .pp-btn.ghost{ background:#fff; border-color:var(--coral); color:var(--coral-dark); }
+ .pp-btn.sage{ background:var(--sage); color:#fff; }
+ .pp-btn:disabled{ opacity:.4; cursor:not-allowed; }
+ .pp-btn.small{ padding:9px 16px; min-height:40px; font-size:.85rem; border-radius:9px; }
+ .pp-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap; margin-bottom:26px; }
+ .pp-top h1{ font-family:'Lora',serif; font-style:italic; font-size:2rem; margin:0 0 4px; }
+ .pp-top p{ margin:0; color:var(--ink-soft); font-size:.92rem; }
+ .pp-stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:26px; }
+ @media (max-width:800px){ .pp-stats{ grid-template-columns:repeat(2,1fr); } }
+ .pp-stat{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:18px 20px; }
+ .pp-stat b{ display:block; font-size:1.8rem; color:var(--coral-dark); }
+ .pp-stat span{ font-size:.8rem; color:var(--ink-soft); }
+ .pp-cta{ background:linear-gradient(160deg,var(--sage),#2B3733); color:#fff; border-radius:18px; padding:30px; display:flex; gap:24px; align-items:center; justify-content:space-between; flex-wrap:wrap; margin-bottom:28px; }
+ .pp-cta h2{ font-family:'Lora',serif; font-style:italic; margin:0 0 6px; font-size:1.5rem; }
+ .pp-cta p{ margin:0; opacity:.9; font-size:.92rem; max-width:560px; }
+ table.pp-t{ width:100%; border-collapse:collapse; font-size:.88rem; }
+ table.pp-t th{ text-align:left; padding:10px 12px; background:var(--sage); color:#fff; font-size:.78rem; text-transform:uppercase; letter-spacing:.5px; }
+ table.pp-t td{ padding:12px; border-bottom:1px solid var(--line); vertical-align:top; }
+ table.pp-t tr.row{ cursor:pointer; }
+ table.pp-t tr.row:hover td{ background:var(--coral-wash); }
+ .pp-pill{ display:inline-block; padding:4px 10px; border-radius:999px; font-size:.74rem; font-weight:700; background:var(--sage-tint); color:var(--sage); white-space:nowrap; }
+ .pp-pill.warn{ background:#FFF1CC; color:#7a5c10; }
+ .pp-pill.ok{ background:#DDEFE3; color:#1F6B3A; }
+ .pp-detail td{ background:var(--cream); }
+ .pp-detail dl{ display:grid; grid-template-columns:160px 1fr; gap:6px 14px; margin:0; font-size:.86rem; }
+ .pp-detail dt{ color:var(--ink-soft); } .pp-detail dd{ margin:0; font-weight:600; }
+ .pp-prog{ display:flex; gap:4px; margin:14px 0 6px; }
+ .pp-prog i{ flex:1; height:6px; border-radius:3px; background:var(--line); } .pp-prog i.on{ background:var(--coral); }
+ .pp-prog-l{ font-size:.75rem; color:var(--ink-soft); }
+ /* tablet client flow */
+ .tb-head{ background:#fff; border-bottom:1px solid var(--line); padding:14px 24px; display:flex; justify-content:space-between; align-items:center; gap:14px; }
+ .tb-head img{ height:46px; width:auto; }
+ .tb-head .by{ font-size:.82rem; color:var(--ink-soft); text-align:right; }
+ .tb-steps{ display:flex; gap:8px; justify-content:center; margin:22px 0 6px; flex-wrap:wrap; }
+ .tb-steps span{ font-size:.78rem; font-weight:700; padding:7px 14px; border-radius:999px; background:#fff; border:1px solid var(--line); color:var(--ink-soft); }
+ .tb-steps span.on{ background:var(--coral); border-color:var(--coral); color:#fff; }
+ .tb-steps span.done{ background:var(--sage-tint); color:var(--sage); border-color:var(--sage-tint); }
+ .tb-wrap{ max-width:1000px; margin:0 auto; padding:10px 24px 140px; }
+ .tb-title{ font-family:'Lora',serif; font-style:italic; font-size:2.1rem; text-align:center; margin:22px 0 8px; }
+ .tb-sub{ text-align:center; color:var(--ink-soft); max-width:640px; margin:0 auto 28px; }
+ .tb-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px; }
+ .tb-grid.two{ grid-template-columns:repeat(2,1fr); } .tb-grid.four{ grid-template-columns:repeat(4,1fr); }
+ @media (max-width:760px){ .tb-grid.four{ grid-template-columns:repeat(2,1fr); } .tb-grid.two{ grid-template-columns:1fr; } }
+ .opt{ text-align:left; background:#fff; border:2px solid var(--line); border-radius:16px; padding:20px; cursor:pointer; font-family:inherit; color:var(--ink); position:relative; min-height:96px; transition:border-color .15s, box-shadow .15s; }
+ .opt:hover{ border-color:var(--coral-mid); }
+ .opt.sel{ border-color:var(--coral); box-shadow:0 10px 24px rgba(224,111,79,.16); background:#FFFDFB; }
+ .opt .nm{ font-weight:700; font-size:1.02rem; display:block; margin-bottom:4px; }
+ .opt .ds{ font-size:.82rem; color:var(--ink-soft); display:block; line-height:1.45; }
+ .opt .pr{ display:block; margin-top:10px; font-weight:800; color:var(--coral-dark); font-size:1.05rem; }
+ .opt .tg{ position:absolute; top:-11px; right:14px; background:var(--sage); color:#fff; font-size:.68rem; font-weight:700; padding:3px 10px; border-radius:999px; }
+ .opt .ck{ position:absolute; top:12px; right:14px; width:26px; height:26px; border-radius:50%; border:2px solid var(--line); background:#fff; display:flex; align-items:center; justify-content:center; font-size:.8rem; color:#fff; }
+ .opt.sel .ck{ background:var(--coral); border-color:var(--coral); }
+ .opt.big{ padding:24px; }
+ .opt .art{ display:flex; justify-content:center; margin-bottom:10px; }
+ .opt.urn{ text-align:center; } .opt.urn .ck{ top:10px; right:10px; }
+ .opt .ul{ list-style:none; padding:0; margin:10px 0 0; font-size:.8rem; color:var(--ink-soft); }
+ .opt .ul li{ padding:3px 0; } .opt .ul li:before{ content:'✓ '; color:var(--coral-dark); font-weight:700; }
+ .tb-field{ display:grid; grid-template-columns:repeat(2,1fr); gap:6px 18px; max-width:760px; margin:0 auto; }
+ @media (max-width:760px){ .tb-field{ grid-template-columns:1fr; } }
+ .tb-sec{ font-family:'Lora',serif; font-style:italic; font-size:1.25rem; margin:28px 0 12px; text-align:center; }
+ .tb-bar{ position:fixed; left:0; right:0; bottom:0; background:#fff; border-top:1px solid var(--line); padding:12px 24px; z-index:50; box-shadow:0 -8px 24px rgba(43,36,34,.08); }
+ .tb-bar .in{ max-width:1000px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+ .tb-bar .tot{ font-size:.8rem; color:var(--ink-soft); } .tb-bar .tot b{ display:block; font-size:1.35rem; color:var(--ink); }
+ .tb-bar .btns{ display:flex; gap:12px; }
+ .sum{ max-width:760px; margin:0 auto; background:#fff; border:1px solid var(--line); border-radius:16px; padding:8px 26px 20px; }
+ .sum .ln{ display:flex; justify-content:space-between; gap:14px; padding:13px 0; border-bottom:1px dashed var(--line); font-size:.95rem; }
+ .sum .ln small{ display:block; color:var(--ink-soft); font-size:.78rem; }
+ .sum .tl{ display:flex; justify-content:space-between; padding-top:16px; font-size:1.3rem; font-weight:800; }
+ .sum h4{ margin:20px 0 4px; font-size:.78rem; text-transform:uppercase; letter-spacing:1px; color:var(--coral-dark); }
+ .paynote{ max-width:760px; margin:18px auto; background:var(--sage-tint); border-radius:12px; padding:16px 20px; font-size:.9rem; color:var(--sage); }
+ .consent{ max-width:760px; margin:14px auto; display:flex; gap:12px; align-items:flex-start; font-size:.9rem; cursor:pointer; }
+ .consent input{ width:26px; height:26px; flex-shrink:0; accent-color:var(--coral); }
+ .done-box{ max-width:640px; margin:30px auto; text-align:center; background:#fff; border:1px solid var(--line); border-radius:20px; padding:44px 30px; }
+ .done-box .tick{ width:72px; height:72px; border-radius:50%; background:var(--sage); color:#fff; font-size:2rem; display:flex; align-items:center; justify-content:center; margin:0 auto 18px; }
+ .done-box .no{ font-size:1.6rem; font-weight:800; letter-spacing:1px; color:var(--coral-dark); margin:10px 0 18px; }
+ .pinbox{ max-width:340px; margin:22px auto 0; } .pinbox .pp-in{ text-align:center; letter-spacing:6px; }
+ .hide-nav nav.top, .hide-nav .buildnote, .hide-nav footer.site{ display:none; }
+ .pp-note{ max-width:1100px; margin:0 auto; padding:0 24px 40px; font-size:.78rem; color:var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<div class="buildnote">Prototype for partner clinics. Example prices and a demo clinic only. Orders made here stay on this device and are not sent anywhere.</div>
+
+<nav class="top">
+  <div class="wrap">
+    <a class="brand-lockup" href="index.html"><img src="assets/logo-header.png" alt="FarewellPet — Pet Funeral Services" class="brand-logo"></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="for-clinics.html">For Clinics</a></li>
+      <li><a href="our-story.html">Our Story</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+    </ul>
+    <div class="nav-right">
+      <a class="nav-login active" href="partner-portal.html">Clinic Login</a>
+      <a class="nav-cta" href="contact.html">Contact Us</a>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="for-clinics.html">For Clinics</a>
+  <a href="our-story.html">Our Story</a>
+  <a href="faq.html">FAQ</a>
+  <a href="partner-portal.html">Clinic Login</a>
+  <a href="contact.html" class="cta-mobile">Contact Us →</a>
+</div>
+
+<main id="app"></main>
+<p class="pp-note" id="ppnote">Demo prices are examples for design review only. Final rates, partner commission and the order hand-off to FarewellPet will be set before launch.</p>
+
+<footer class="site">
+  <div class="fwrap">
+    <div>
+      <img src="assets/icon.png" alt="" class="ficon">
+      <div class="fbrand">FarewellPet</div>
+      <p>Compassionate pet cremation &amp; aftercare in Dubai.</p>
+      <p>Khawaneej, Dubai, UAE</p>
+    </div>
+    <div>
+      <h5>Explore</h5>
+      <ul>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="for-clinics.html">For Clinics</a></li>
+        <li><a href="our-story.html">Our Story</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Contact</h5>
+      <ul><li>[phone placeholder]</li><li>[email placeholder]</li><li>Khawaneej, Dubai</li></ul>
+    </div>
+    <div>
+      <h5>Follow</h5>
+      <ul><li><a href="#">Instagram (@farewellpet)</a></li><li><a href="#">Facebook</a></li></ul>
+    </div>
+  </div>
+  <div class="bottom">
+    <span>© 2026 FarewellPet · farewellpet.ae</span>
+    <span>An independent aftercare service, Dubai UAE</span>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+(function(){
+'use strict';
+var CLINIC={code:'DEMO',pin:'1234',name:'Example Veterinary Clinic',area:'Dubai'};
+var SIZES=[
+ {id:'S',label:'Small',range:'up to 5 kg',ex:'Cats, kittens, small dogs, rabbits'},
+ {id:'M',label:'Medium',range:'5 – 20 kg',ex:'Most cats and medium dogs'},
+ {id:'L',label:'Large',range:'20 – 40 kg',ex:'Labradors, retrievers, shepherds'},
+ {id:'XL',label:'Extra large',range:'over 40 kg',ex:'Giant breeds'}
+];
+var SERVICES=[
+ {id:'communal',name:'Communal farewell',tag:'',ashes:false,desc:'A shared, respectful cremation. Ashes are not returned.',pts:['Collection from your clinic','Respectful, dignified care','Memorial certificate (digital)'],price:{S:250,M:350,L:500,XL:700}},
+ {id:'communal-ashes',name:'Communal with ashes',tag:'',ashes:true,desc:'A shared cremation. A portion of ashes is returned to you.',pts:['Everything in Communal','A portion of ashes returned','Simple memorial box included'],price:{S:450,M:600,L:850,XL:1150}},
+ {id:'private',name:'Private farewell',tag:'Most chosen',ashes:true,desc:'Your companion is cremated alone. All ashes are returned.',pts:['Individual cremation','All ashes returned in the urn you choose','Memorial certificate (printed)','Personal follow-up call'],price:{S:750,M:950,L:1350,XL:1800}},
+ {id:'private-plus',name:'Private with a goodbye moment',tag:'',ashes:true,desc:'Private cremation, with a quiet room for the family to say goodbye first.',pts:['Everything in Private','Quiet goodbye room, 30 minutes','Fur keepsake and clay paw print included'],price:{S:1100,M:1350,L:1800,XL:2400}}
+];
+var URNS=[
+ {id:'box',name:'Simple memorial box',finish:'Included with ashes returned',kind:'box',color:'#C9B8A8',price:{S:0,M:0,L:0,XL:0}},
+ {id:'ceramic',name:'Classic ceramic urn',finish:'Hand-glazed, sage green',kind:'ceramic',color:'#8FA59A',price:{S:180,M:240,L:320,XL:420}},
+ {id:'ivory',name:'Ivory ceramic urn',finish:'Soft ivory, matt finish',kind:'ceramic',color:'#EADFD0',price:{S:180,M:240,L:320,XL:420}},
+ {id:'oak',name:'Oak wood urn',finish:'Solid oak, engraved plate',kind:'wood',color:'#B07C4F',price:{S:220,M:290,L:380,XL:490}},
+ {id:'marble',name:'Marble-effect urn',finish:'Polished stone, white and grey',kind:'marble',color:'#DAD7D3',price:{S:260,M:340,L:450,XL:580}},
+ {id:'brass',name:'Brushed brass urn',finish:'Warm gold, hinged lid',kind:'brass',color:'#C99A3E',price:{S:300,M:390,L:520,XL:680}},
+ {id:'garden',name:'Garden urn, plant a tree',finish:'Biodegradable, with a tree seed',kind:'garden',color:'#7FA168',price:{S:140,M:190,L:260,XL:340}},
+ {id:'frame',name:'Photo frame urn',finish:'Wood frame with a photo window',kind:'frame',color:'#8A6A52',price:{S:280,M:360,L:470,XL:600}},
+ {id:'mini',name:'Keepsake mini urn',finish:'A small portion, to keep close',kind:'mini',color:'#C98E7C',price:{S:95,M:95,L:95,XL:95}}
+];
+var ADDONS=[
+ {id:'claypaw',name:'Clay paw print',desc:'A pressed paw print in clay, kept as a keepsake.',price:120,needsAshes:false},
+ {id:'inkpaw',name:'Ink paw print card',desc:'A framed-ready paw print on archival paper.',price:60,needsAshes:false},
+ {id:'nose',name:'Nose print',desc:'A clay or ink impression of the nose.',price:90,needsAshes:false},
+ {id:'fur',name:'Fur keepsake',desc:'A lock of fur in a small glass tube.',price:80,needsAshes:false},
+ {id:'plaque',name:'Engraved name plate',desc:'The name and dates, on a brass plate for the urn.',price:150,needsAshes:true},
+ {id:'frameprint',name:'Framed photo with paw print',desc:'Your photo and paw print together in one frame.',price:220,needsAshes:false},
+ {id:'pendant',name:'Memorial pendant',desc:'A small silver pendant that holds a pinch of ashes.',price:380,needsAshes:true},
+ {id:'stone',name:'Garden memorial stone',desc:'A stone engraved with the name, for the garden.',price:320,needsAshes:false},
+ {id:'express',name:'Express, within 48 hours',desc:'Priority cremation and return of ashes.',price:250,needsAshes:false},
+ {id:'delivery',name:'Ashes delivered to your home',desc:'Instead of collecting from the clinic.',price:60,needsAshes:true}
+];
+var STATUSES=['Received','Collected from clinic','In cremation','Ashes ready','Returned to clinic','Completed'];
+var STEPS=['Your companion','Farewell','Urn','Keepsakes','Review'];
+
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+function money(n){ return 'AED '+Number(n).toLocaleString('en-US'); }
+function byId(list,id){ for(var i=0;i<list.length;i++){ if(list[i].id===id) return list[i]; } return null; }
+
+function urnSvg(kind,c){
+ var s='<svg width="96" height="96" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">';
+ var d='#6B6058';
+ if(kind==='ceramic') s+='<path d="M44 20h32v8c0 4 12 10 12 28 0 30-10 42-28 42S32 86 32 56c0-18 12-24 12-28z" fill="'+c+'"/><rect x="42" y="14" width="36" height="8" rx="3" fill="'+d+'" opacity=".45"/><path d="M42 58h36" stroke="#fff" stroke-opacity=".5" stroke-width="2"/>';
+ else if(kind==='wood') s+='<rect x="28" y="34" width="64" height="56" rx="6" fill="'+c+'"/><rect x="24" y="26" width="72" height="14" rx="5" fill="'+c+'" opacity=".85"/><rect x="48" y="58" width="24" height="14" rx="2" fill="#E9C97A"/>';
+ else if(kind==='marble') s+='<rect x="34" y="40" width="52" height="52" rx="4" fill="'+c+'"/><rect x="30" y="30" width="60" height="12" rx="4" fill="#C3BEB8"/><path d="M40 52l14 16 8-10 14 22" stroke="#9A948C" stroke-width="1.5" fill="none"/>';
+ else if(kind==='brass') s+='<path d="M40 38h40l6 46c1 6-4 10-10 10H44c-6 0-11-4-10-10z" fill="'+c+'"/><rect x="36" y="28" width="48" height="12" rx="5" fill="#E0B965"/><circle cx="60" cy="24" r="5" fill="#E0B965"/>';
+ else if(kind==='garden') s+='<path d="M42 62h36l-4 32H46z" fill="#B8956F"/><path d="M60 62V38" stroke="'+c+'" stroke-width="4" stroke-linecap="round"/><path d="M60 46c-16 0-22-10-22-18 14 0 22 6 22 18zM60 40c14 0 20-8 20-16-13 0-20 5-20 16z" fill="'+c+'"/>';
+ else if(kind==='frame') s+='<rect x="26" y="24" width="68" height="72" rx="5" fill="'+c+'"/><rect x="36" y="34" width="48" height="46" rx="3" fill="#F7F2ED"/><path d="M60 70c-8-6-12-10-12-15a7 7 0 0 1 12-4 7 7 0 0 1 12 4c0 5-4 9-12 15z" fill="#E06F4F"/><rect x="44" y="84" width="32" height="6" rx="2" fill="#E9C97A"/>';
+ else if(kind==='mini') s+='<path d="M50 44h20l4 38c0 6-6 10-14 10s-14-4-14-10z" fill="'+c+'"/><rect x="48" y="36" width="24" height="10" rx="4" fill="'+d+'" opacity=".5"/>';
+ else s+='<rect x="30" y="48" width="60" height="38" rx="6" fill="'+c+'"/><rect x="28" y="42" width="64" height="10" rx="4" fill="#B9A593"/><path d="M60 78c-6-5-9-8-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 4-3 7-9 12z" fill="#fff" opacity=".7"/>';
+ return s+'</svg>';
+}
+
+var orders=[]; 
+function loadOrders(){ try{ var o=JSON.parse(localStorage.getItem('fp_demo_orders_v1')||'null'); if(o&&o.length) return o; }catch(e){} return null; }
+function saveOrders(){ try{ localStorage.setItem('fp_demo_orders_v1',JSON.stringify(orders)); }catch(e){} }
+function seed(){
+ var now=Date.now(), day=86400000;
+ function mk(n,days,status,pet,species,size,owner,svc,urn,adds,paid){
+  var o={id:n,created:now-days*day,status:status,paid:paid,pet:{name:pet,species:species,breed:'',size:size},owner:{name:owner,phone:'+971 50 000 0000',email:'owner@example.com'},service:svc,urn:urn,addons:adds,notes:''};
+  o.total=calc(o); return o;
+ }
+ return [
+  mk('FP-261029-101',5,'Completed','Milo','Cat','S','Sara A.','private','ceramic',['claypaw','plaque'],true),
+  mk('FP-261101-102',2,'Ashes ready','Bruno','Dog','L','Omar H.','private','oak',['fur','inkpaw'],true),
+  mk('FP-261102-103',1,'In cremation','Luna','Dog','M','Elena P.','communal-ashes','box',[],true),
+  mk('FP-261103-104',0,'Received','Coco','Cat','S','Maya K.','communal','box',[],false)
+ ];
+}
+function calc(o){
+ var t=0, s=byId(SERVICES,o.service), u=byId(URNS,o.urn), sz=o.pet.size;
+ if(s) t+=s.price[sz]; if(u&&s&&s.ashes) t+=u.price[sz];
+ for(var i=0;i<o.addons.length;i++){ var a=byId(ADDONS,o.addons[i]); if(a) t+=a.price; }
+ return t;
+}
+orders=loadOrders()||seed(); saveOrders();
+
+function newDraft(){ return {pet:{name:'',species:'Dog',breed:'',size:''},owner:{name:'',phone:'',email:''},service:'',urn:'box',addons:[],consent:false}; }
+var S={view:'login',tablet:false,step:0,draft:newDraft(),open:null,err:'',pinErr:'',askPin:false,last:null};
+try{ if(sessionStorage.getItem('fp_demo_session')==='1') S.view='home'; }catch(e){}
+
+var app=document.getElementById('app');
+
+function draftOrder(){ var d=S.draft; return {pet:d.pet,service:d.service,urn:d.urn,addons:d.addons}; }
+function totals(){
+ var d=S.draft, lines=[], sz=d.pet.size, s=byId(SERVICES,d.service), u=byId(URNS,d.urn);
+ if(s&&sz) lines.push({n:s.name,sub:SIZES.filter(function(x){return x.id===sz;})[0].label+' size, '+SIZES.filter(function(x){return x.id===sz;})[0].range,p:s.price[sz]});
+ if(s&&s.ashes&&u&&sz) lines.push({n:u.name,sub:u.finish,p:u.price[sz]});
+ for(var i=0;i<d.addons.length;i++){ var a=byId(ADDONS,d.addons[i]); if(a&&(!a.needsAshes||(s&&s.ashes))) lines.push({n:a.name,sub:a.desc,p:a.price}); }
+ var t=0; for(var j=0;j<lines.length;j++) t+=lines[j].p;
+ return {lines:lines,total:t};
+}
+function canContinue(){
+ var d=S.draft;
+ if(S.step===0) return d.pet.name.trim().length>0 && !!d.pet.size && d.owner.name.trim().length>0 && d.owner.phone.trim().length>=6;
+ if(S.step===1) return !!d.service;
+ if(S.step===4) return d.consent;
+ return true;
+}
+function activeSteps(){ var s=byId(SERVICES,S.draft.service); return (s&&!s.ashes)?[0,1,3,4]:[0,1,2,3,4]; }
+function nextStep(dir){
+ var a=activeSteps(), i=a.indexOf(S.step); i+=dir; if(i<0) i=0; if(i>=a.length) i=a.length-1; S.step=a[i];
+}
+
+/* ---------- views ---------- */
+function vLogin(){
+ return '<div class="pp-wrap"><div class="pp-card pp-login">'
+ +'<p class="eyebrow" style="text-align:left">Partner clinics</p>'
+ +'<h1>Clinic login</h1><p class="sub">Sign in to arrange a farewell with your client, track orders and see what is ready for collection.</p>'
+ +'<label class="pp-l" for="lc">Clinic code</label><input class="pp-in" id="lc" autocomplete="off" autocapitalize="characters" placeholder="e.g. DEMO">'
+ +'<label class="pp-l" for="lp">Staff PIN</label><input class="pp-in" id="lp" type="password" inputmode="numeric" maxlength="8" placeholder="••••">'
+ +'<div class="pp-err" id="lerr">'+esc(S.err)+'</div>'
+ +'<button class="pp-btn primary" style="width:100%;margin-top:6px" data-act="login">Sign in</button>'
+ +'<div class="pp-demo"><b>Demo access</b><br>Clinic code <b>DEMO</b> · PIN <b>1234</b><br>This is an example clinic so you can try the full flow. Real partner clinics are given their own code and PIN by FarewellPet.</div>'
+ +'<p style="font-size:.82rem;color:var(--ink-soft);margin:18px 0 0">Not a partner yet? <a href="for-clinics.html" style="color:var(--coral-dark);font-weight:600">See how partnership works</a></p>'
+ +'</div></div>';
+}
+function statusPill(o){ var cls=(o.status==='Completed'||o.status==='Ashes ready'||o.status==='Returned to clinic')?'ok':(o.status==='Received'?'warn':''); return '<span class="pp-pill '+cls+'">'+esc(o.status)+'</span>'; }
+function fmtDate(ts){ var d=new Date(ts); return d.toLocaleDateString('en-GB',{day:'numeric',month:'short'})+', '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}); }
+function vHome(){
+ var open=0, ready=0, unpaid=0; orders.forEach(function(o){ if(o.status!=='Completed') open++; if(o.status==='Ashes ready'||o.status==='Returned to clinic') ready++; if(!o.paid) unpaid++; });
+ var h='<div class="pp-wrap"><div class="pp-top"><div><p class="eyebrow" style="text-align:left;margin-bottom:4px">Partner clinic</p><h1>'+esc(CLINIC.name)+'</h1><p>Signed in as clinic reception · code '+esc(CLINIC.code)+'</p></div><div><button class="pp-btn ghost small" data-act="logout">Sign out</button></div></div>';
+ h+='<div class="pp-cta"><div><h2>Arrange a farewell with a client</h2><p>Hand the tablet to the family. They choose the service, urn and keepsakes in their own time. You collect payment at the counter and we take care of the rest.</p></div><button class="pp-btn primary" data-act="tablet">Hand tablet to client →</button></div>';
+ h+='<div class="pp-stats"><div class="pp-stat"><b>'+open+'</b><span>Open orders</span></div><div class="pp-stat"><b>'+ready+'</b><span>Ready for collection</span></div><div class="pp-stat"><b>'+unpaid+'</b><span>Awaiting payment at counter</span></div><div class="pp-stat"><b>'+orders.length+'</b><span>Orders, all time</span></div></div>';
+ h+='<div class="pp-card" style="padding:8px 8px 14px;overflow-x:auto"><table class="pp-t"><tr><th>Order</th><th>Companion</th><th>Service</th><th>Total</th><th>Payment</th><th>Status</th></tr>';
+ orders.slice().sort(function(a,b){return b.created-a.created;}).forEach(function(o){
+  var s=byId(SERVICES,o.service);
+  h+='<tr class="row" data-act="toggle" data-id="'+o.id+'"><td><b>'+esc(o.id)+'</b><br><small style="color:var(--ink-soft)">'+fmtDate(o.created)+'</small></td><td>'+esc(o.pet.name)+'<br><small style="color:var(--ink-soft)">'+esc(o.pet.species)+'</small></td><td>'+esc(s?s.name:'')+'</td><td>'+money(o.total)+'</td><td>'+(o.paid?'<span class="pp-pill ok">Paid</span>':'<span class="pp-pill warn">Pay at counter</span>')+'</td><td>'+statusPill(o)+'</td></tr>';
+  if(S.open===o.id){
+   var sz=SIZES.filter(function(x){return x.id===o.pet.size;})[0], u=byId(URNS,o.urn), st=STATUSES.indexOf(o.status), bar='';
+   for(var i=0;i<STATUSES.length;i++) bar+='<i class="'+(i<=st?'on':'')+'"></i>';
+   var ad=o.addons.map(function(id){var a=byId(ADDONS,id);return a?a.name:'';}).join(', ')||'None';
+   h+='<tr class="pp-detail"><td colspan="6"><dl><dt>Family</dt><dd>'+esc(o.owner.name)+' · '+esc(o.owner.phone)+'</dd><dt>Size</dt><dd>'+esc(sz?sz.label+' ('+sz.range+')':'')+'</dd><dt>Urn</dt><dd>'+esc(s&&s.ashes&&u?u.name:'None (ashes not returned)')+'</dd><dt>Keepsakes and extras</dt><dd>'+esc(ad)+'</dd></dl>'
+   +'<div class="pp-prog">'+bar+'</div><div class="pp-prog-l">'+esc(o.status)+' · step '+(st+1)+' of '+STATUSES.length+'</div>'
+   +'<div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">'+(o.paid?'':'<button class="pp-btn primary small" data-act="paid" data-id="'+o.id+'">Mark paid at counter</button>')
+   +(st<STATUSES.length-1?'<button class="pp-btn ghost small" data-act="advance" data-id="'+o.id+'">Demo: move to next status</button>':'')+'</div></td></tr>';
+  }
+ });
+ h+='</table></div></div>';
+ return h;
+}
+function stepBar(){
+ var a=activeSteps(), h='<div class="tb-steps">';
+ for(var i=0;i<STEPS.length;i++){ if(a.indexOf(i)<0) continue; h+='<span class="'+(i===S.step?'on':(i<S.step?'done':''))+'">'+(i<S.step?'✓ ':'')+STEPS[i]+'</span>'; }
+ return h+'</div>';
+}
+function tHead(){ return '<div class="tb-head"><img src="assets/logo-header.png" alt="FarewellPet"><div class="by">In partnership with<br><b>'+esc(CLINIC.name)+'</b></div></div>'; }
+function sPet(){
+ var d=S.draft, h='<h2 class="tb-title">We are so sorry for your loss</h2><p class="tb-sub">Tell us a little about your companion and about you. We will look after the rest, with care.</p>';
+ h+='<div class="tb-field"><div><label class="pp-l">Companion\'s name</label><input class="pp-in" data-f="pet.name" value="'+esc(d.pet.name)+'" autocomplete="off"></div>';
+ h+='<div><label class="pp-l">Breed, if you like (optional)</label><input class="pp-in" data-f="pet.breed" value="'+esc(d.pet.breed)+'" autocomplete="off"></div></div>';
+ h+='<div class="tb-sec">Species</div><div class="tb-grid four" style="max-width:760px;margin:0 auto">';
+ ['Dog','Cat','Rabbit','Other'].forEach(function(sp){ h+='<button class="opt '+(d.pet.species===sp?'sel':'')+'" data-act="species" data-v="'+sp+'"><span class="ck">'+(d.pet.species===sp?'✓':'')+'</span><span class="nm">'+sp+'</span></button>'; });
+ h+='</div><div class="tb-sec">Size, by weight</div><div class="tb-grid four">';
+ SIZES.forEach(function(z){ h+='<button class="opt '+(d.pet.size===z.id?'sel':'')+'" data-act="size" data-v="'+z.id+'"><span class="ck">'+(d.pet.size===z.id?'✓':'')+'</span><span class="nm">'+z.label+'</span><span class="ds"><b>'+z.range+'</b><br>'+z.ex+'</span></button>'; });
+ h+='</div><div class="tb-sec">About you</div><div class="tb-field"><div><label class="pp-l">Your name</label><input class="pp-in" data-f="owner.name" value="'+esc(d.owner.name)+'" autocomplete="off"></div>';
+ h+='<div><label class="pp-l">Mobile number</label><input class="pp-in" data-f="owner.phone" inputmode="tel" value="'+esc(d.owner.phone)+'" autocomplete="off" placeholder="+971"></div>';
+ h+='<div style="grid-column:1/-1"><label class="pp-l">Email (optional, for the certificate)</label><input class="pp-in" data-f="owner.email" inputmode="email" value="'+esc(d.owner.email)+'" autocomplete="off"></div></div>';
+ return h;
+}
+function sService(){
+ var d=S.draft, sz=d.pet.size, h='<h2 class="tb-title">How would you like to say goodbye to '+esc(d.pet.name||'your companion')+'?</h2><p class="tb-sub">Every option is carried out with the same care. Prices are shown for a '+SIZES.filter(function(x){return x.id===sz;})[0].label.toLowerCase()+' companion.</p><div class="tb-grid two">';
+ SERVICES.forEach(function(s){
+  h+='<button class="opt big '+(d.service===s.id?'sel':'')+'" data-act="service" data-v="'+s.id+'">'+(s.tag?'<span class="tg">'+s.tag+'</span>':'')+'<span class="ck">'+(d.service===s.id?'✓':'')+'</span><span class="nm" style="font-size:1.15rem">'+s.name+'</span><span class="ds">'+s.desc+'</span><ul class="ul">'+s.pts.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ul><span class="pr">'+money(s.price[sz])+'</span></button>';
+ });
+ return h+'</div>';
+}
+function sUrn(){
+ var d=S.draft, sz=d.pet.size, h='<h2 class="tb-title">Choose an urn</h2><p class="tb-sub">The urn is sized for '+esc(d.pet.name||'your companion')+'. A simple memorial box is included if you would rather not choose one now.</p><div class="tb-grid">';
+ URNS.forEach(function(u){
+  var p=u.price[sz];
+  h+='<button class="opt urn '+(d.urn===u.id?'sel':'')+'" data-act="urn" data-v="'+u.id+'"><span class="ck">'+(d.urn===u.id?'✓':'')+'</span><span class="art">'+urnSvg(u.kind,u.color)+'</span><span class="nm">'+u.name+'</span><span class="ds">'+u.finish+'</span><span class="pr">'+(p===0?'Included':money(p))+'</span></button>';
+ });
+ return h+'</div>';
+}
+function sExtras(){
+ var d=S.draft, s=byId(SERVICES,d.service), h='<h2 class="tb-title">Keepsakes and small touches</h2><p class="tb-sub">Entirely optional. Many families choose a paw print or a lock of fur. You can skip this step.</p><div class="tb-grid">';
+ ADDONS.forEach(function(a){
+  var off=a.needsAshes&&!(s&&s.ashes), on=d.addons.indexOf(a.id)>=0&&!off;
+  h+='<button class="opt '+(on?'sel':'')+'" '+(off?'disabled style="opacity:.45;cursor:not-allowed"':'data-act="addon" data-v="'+a.id+'"')+'><span class="ck">'+(on?'✓':'')+'</span><span class="nm" style="padding-right:30px">'+a.name+'</span><span class="ds">'+a.desc+(off?' <i>(needs ashes returned)</i>':'')+'</span><span class="pr">'+money(a.price)+'</span></button>';
+ });
+ return h+'</div>';
+}
+function sReview(){
+ var d=S.draft, T=totals(), h='<h2 class="tb-title">Please check your choices</h2><p class="tb-sub">Nothing is final until you confirm. You will pay at the reception counter of '+esc(CLINIC.name)+'.</p><div class="sum">';
+ h+='<h4>Companion</h4><div class="ln"><span>'+esc(d.pet.name)+'<small>'+esc(d.pet.species)+(d.pet.breed?' · '+esc(d.pet.breed):'')+'</small></span><span></span></div>';
+ h+='<h4>Family</h4><div class="ln"><span>'+esc(d.owner.name)+'<small>'+esc(d.owner.phone)+(d.owner.email?' · '+esc(d.owner.email):'')+'</small></span><span></span></div><h4>Your choices</h4>';
+ T.lines.forEach(function(l){ h+='<div class="ln"><span>'+esc(l.n)+'<small>'+esc(l.sub)+'</small></span><span>'+(l.p===0?'Included':money(l.p))+'</span></div>'; });
+ h+='<div class="tl"><span>Total</span><span>'+money(T.total)+'</span></div></div>';
+ h+='<div class="paynote"><b>Payment:</b> at the reception counter of the clinic today. We collect '+esc(d.pet.name)+' from the clinic and keep you updated by phone or message at each step.</div>';
+ h+='<label class="consent"><input type="checkbox" data-act="consent" '+(d.consent?'checked':'')+'><span>I confirm these details are correct, that I will pay at the clinic counter, and that I would like FarewellPet to proceed with this arrangement.</span></label>';
+ return h;
+}
+function vTablet(){
+ var d=S.draft, T=totals(), h=tHead();
+ if(S.step===5){
+  var o=S.last;
+  h+='<div class="tb-wrap"><div class="done-box"><div class="tick">✓</div><h2 class="serif" style="margin:0 0 6px;font-style:italic">Thank you. We will take it from here.</h2><p style="color:var(--ink-soft);margin:0">Your arrangement for <b>'+esc(o.pet.name)+'</b> has been received.</p><div class="no">'+esc(o.id)+'</div><p style="margin:0 0 6px">Please pay <b>'+money(o.total)+'</b> at the reception counter.</p><p style="color:var(--ink-soft);font-size:.9rem;margin:0 0 24px">Our team will contact you with the next update. Take all the time you need.</p><button class="pp-btn primary" data-act="again">Start another arrangement</button></div>'
+  +'<div style="text-align:center"><button class="pp-btn ghost small" data-act="askpin">Staff: leave tablet mode</button>'
+  +(S.askPin?'<div class="pinbox"><input class="pp-in" id="xp" type="password" inputmode="numeric" maxlength="8" placeholder="Staff PIN"><div class="pp-err">'+esc(S.pinErr)+'</div><button class="pp-btn sage small" data-act="exit">Confirm</button></div>':'')+'</div></div>';
+  return h;
+ }
+ var last=activeSteps().slice(-1)[0], first=S.step===0;
+ h+=stepBar()+'<div class="tb-wrap">';
+ h+=[sPet,sService,sUrn,sExtras,sReview][S.step]();
+ h+='<div style="text-align:center;margin-top:28px"><button class="pp-btn ghost small" data-act="askpin">Staff: leave tablet mode</button>'+(S.askPin?'<div class="pinbox"><input class="pp-in" id="xp" type="password" inputmode="numeric" maxlength="8" placeholder="Staff PIN"><div class="pp-err">'+esc(S.pinErr)+'</div><button class="pp-btn sage small" data-act="exit">Confirm</button></div>':'')+'</div></div>';
+ h+='<div class="tb-bar"><div class="in"><div class="tot">Total so far<b id="tot">'+money(T.total)+'</b></div><div class="btns">'+(first?'':'<button class="pp-btn ghost" data-act="back">Back</button>')
+  +'<button class="pp-btn primary" id="cont" data-act="'+(S.step===last?'submit':'next')+'" '+(canContinue()?'':'disabled')+'>'+(S.step===last?'Confirm arrangement':(S.step===3?'Review':'Continue'))+'</button></div></div></div>';
+ return h;
+}
+
+function render(){
+ document.body.classList.toggle('hide-nav',S.tablet);
+ var n=document.getElementById('ppnote'); if(n) n.style.display=S.tablet?'none':'';
+ app.innerHTML=S.tablet?vTablet():(S.view==='login'?vLogin():vHome());
+ window.scrollTo(0,0);
+}
+function refreshBar(){ var c=document.getElementById('cont'); if(c) c.disabled=!canContinue(); var t=document.getElementById('tot'); if(t) t.textContent=money(totals().total); }
+
+/* ---------- events ---------- */
+app.addEventListener('input',function(e){
+ var f=e.target.getAttribute&&e.target.getAttribute('data-f'); if(!f) return;
+ var p=f.split('.'); S.draft[p[0]][p[1]]=e.target.value; refreshBar();
+});
+app.addEventListener('change',function(e){ if(e.target.getAttribute&&e.target.getAttribute('data-act')==='consent'){ S.draft.consent=e.target.checked; refreshBar(); } });
+app.addEventListener('keydown',function(e){ if(e.key==='Enter'&&S.view==='login'&&!S.tablet) act('login',null); });
+app.addEventListener('click',function(e){
+ var el=e.target; while(el&&el!==app&&!(el.getAttribute&&el.getAttribute('data-act'))) el=el.parentNode;
+ if(!el||el===app) return; if(el.getAttribute('data-act')==='consent') return;
+ act(el.getAttribute('data-act'),el);
+});
+function find(id){ for(var i=0;i<orders.length;i++) if(orders[i].id===id) return orders[i]; return null; }
+function act(a,el){
+ var v=el&&el.getAttribute('data-v'), id=el&&el.getAttribute('data-id');
+ if(a==='login'){
+  var c=document.getElementById('lc').value.trim().toUpperCase(), p=document.getElementById('lp').value.trim();
+  if(c===CLINIC.code&&p===CLINIC.pin){ S.err=''; S.view='home'; try{sessionStorage.setItem('fp_demo_session','1');}catch(x){} render(); }
+  else { S.err='That clinic code or PIN does not match. For the demo use DEMO and 1234.'; document.getElementById('lerr').textContent=S.err; }
+ }
+ else if(a==='logout'){ S.view='login'; S.open=null; try{sessionStorage.removeItem('fp_demo_session');}catch(x){} render(); }
+ else if(a==='toggle'){ S.open=(S.open===id?null:id); render(); }
+ else if(a==='paid'){ var o=find(id); if(o){ o.paid=true; saveOrders(); render(); } }
+ else if(a==='advance'){ var o2=find(id); if(o2){ var i=STATUSES.indexOf(o2.status); if(i<STATUSES.length-1) o2.status=STATUSES[i+1]; saveOrders(); render(); } }
+ else if(a==='tablet'){ S.tablet=true; S.step=0; S.draft=newDraft(); S.askPin=false; render(); }
+ else if(a==='species'){ S.draft.pet.species=v; render(); }
+ else if(a==='size'){ S.draft.pet.size=v; render(); }
+ else if(a==='service'){ S.draft.service=v; if(!byId(SERVICES,v).ashes){ S.draft.urn='box'; } render(); }
+ else if(a==='urn'){ S.draft.urn=v; render(); }
+ else if(a==='addon'){ var i2=S.draft.addons.indexOf(v); if(i2>=0) S.draft.addons.splice(i2,1); else S.draft.addons.push(v); render(); }
+ else if(a==='next'){ if(canContinue()){ nextStep(1); render(); } }
+ else if(a==='back'){ nextStep(-1); render(); }
+ else if(a==='submit'){
+  if(!canContinue()) return; var d=S.draft, T=totals(), now=new Date(), seq=101+orders.length;
+  var ymd=String(now.getFullYear()).slice(2)+('0'+(now.getMonth()+1)).slice(-2)+('0'+now.getDate()).slice(-2);
+  var addons=d.addons.filter(function(x){ var ad=byId(ADDONS,x), s=byId(SERVICES,d.service); return ad&&(!ad.needsAshes||s.ashes); });
+  var o3={id:'FP-'+ymd+'-'+seq,created:now.getTime(),status:'Received',paid:false,pet:JSON.parse(JSON.stringify(d.pet)),owner:JSON.parse(JSON.stringify(d.owner)),service:d.service,urn:byId(SERVICES,d.service).ashes?d.urn:'box',addons:addons,notes:''};
+  o3.total=T.total; orders.push(o3); saveOrders(); S.last=o3; S.step=5; render();
+ }
+ else if(a==='again'){ S.draft=newDraft(); S.step=0; S.askPin=false; render(); }
+ else if(a==='askpin'){ S.askPin=!S.askPin; S.pinErr=''; render(); var x=document.getElementById('xp'); if(x) x.focus(); }
+ else if(a==='exit'){ var pv=document.getElementById('xp').value.trim(); if(pv===CLINIC.pin){ S.tablet=false; S.view='home'; S.askPin=false; S.draft=newDraft(); render(); } else { S.pinErr='Incorrect PIN.'; document.querySelector('.pinbox .pp-err').textContent=S.pinErr; } }
+}
+render();
+})();
+</script>
+</body>
+</html>
