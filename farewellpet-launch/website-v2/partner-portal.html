@@ -239,6 +239,7 @@ var ADDONS=[
  {id:'express',name:'Express, within 48 hours',desc:'Priority cremation and return of ashes.',price:250,needsAshes:false},
  {id:'delivery',name:'Ashes delivered to your home',desc:'Instead of collecting from the clinic.',price:60,needsAshes:true}
 ];
+var HOME_FEE=100; /* example fee for collection from home */
 var STATUSES=['Received','Collected from clinic','In cremation','Ashes ready','Returned to clinic','Completed'];
 var STEPS=['Your companion','Farewell','Urn','Keepsakes','Review'];
 
@@ -266,7 +267,7 @@ function saveOrders(){ try{ localStorage.setItem('fp_demo_orders_v1',JSON.string
 function seed(){
  var now=Date.now(), day=86400000;
  function mk(n,days,status,pet,species,size,owner,svc,urn,adds,paid){
-  var o={id:n,created:now-days*day,status:status,paid:paid,pet:{name:pet,species:species,breed:'',size:size},owner:{name:owner,phone:'+971 50 000 0000',email:'owner@example.com'},service:svc,urn:urn,addons:adds,notes:''};
+  var o={id:n,created:now-days*day,status:status,paid:paid,pet:{name:pet,species:species,breed:'',size:size},owner:{name:owner,phone:'+971 50 000 0000',email:'owner@example.com'},service:svc,urn:urn,addons:adds,notes:'',pickup:{mode:(n==='FP-261102-103'?'home':'clinic'),addr:(n==='FP-261102-103'?'Marina Gate 2, Dubai Marina':'')}};
   o.total=calc(o); return o;
  }
  return [
@@ -279,12 +280,13 @@ function seed(){
 function calc(o){
  var t=0, s=byId(SERVICES,o.service), u=byId(URNS,o.urn), sz=o.pet.size;
  if(s) t+=s.price[sz]; if(u&&s&&s.ashes) t+=u.price[sz];
+ if(o.pickup&&o.pickup.mode==='home') t+=HOME_FEE;
  for(var i=0;i<o.addons.length;i++){ var a=byId(ADDONS,o.addons[i]); if(a) t+=a.price; }
  return t;
 }
 orders=loadOrders()||seed(); saveOrders();
 
-function newDraft(){ return {pet:{name:'',species:'Dog',breed:'',size:''},owner:{name:'',phone:'',email:''},service:'',urn:'box',addons:[],consent:false}; }
+function newDraft(){ return {pet:{name:'',species:'Dog',breed:'',size:''},owner:{name:'',phone:'',email:''},service:'',urn:'box',addons:[],consent:false,pickup:{mode:'clinic',addr:''}}; }
 var S={view:'login',tablet:false,done:false,showErr:false,step:0,draft:newDraft(),open:null,err:'',pinErr:'',askPin:false,last:null};
 try{ if(sessionStorage.getItem('fp_demo_session')==='1') S.view='home'; }catch(e){}
 
@@ -297,6 +299,7 @@ function totals(){
  if(s) lines.push({n:s.name,sub:(sz?SZ(sz).label+' size, '+SZ(sz).range:'Size not chosen yet'),p:sz?s.price[sz]:null});
  if(s&&s.ashes&&u) lines.push({n:u.name,sub:u.finish,p:sz?u.price[sz]:null});
  d.addons.forEach(function(id){ var a=byId(ADDONS,id); if(a&&(!a.needsAshes||(s&&s.ashes))) lines.push({n:a.name,sub:a.desc,p:a.price}); });
+ if(d.pickup.mode==='home') lines.push({n:'Collection from your home',sub:'We collect with care and call to agree a time',p:HOME_FEE});
  lines.forEach(function(l){ if(l.p!=null) t+=l.p; });
  return {lines:lines,total:t,known:!!sz};
 }
@@ -307,13 +310,15 @@ function missing(){
  if(!d.owner.name.trim()) m.push({b:'b1',l:'Your name'});
  if(d.owner.phone.trim().length<6) m.push({b:'b1',l:'Mobile number'});
  if(!d.service) m.push({b:'b2',l:'Farewell type'});
+ if(d.pickup.mode==='home'&&d.pickup.addr.trim().length<4) m.push({b:'b2',l:'Collection address'});
  if(!d.consent) m.push({b:'b5',l:'Confirmation'});
  return m;
 }
 function blockDone(b){
  var d=S.draft;
  if(b==='b1') return !!(d.pet.name.trim()&&d.pet.size&&d.owner.name.trim()&&d.owner.phone.trim().length>=6);
- if(b==='b2'||b==='b3') return !!d.service;
+ if(b==='b2') return !!d.service&&!(d.pickup.mode==='home'&&d.pickup.addr.trim().length<4);
+ if(b==='b3') return !!d.service;
  if(b==='b4') return d.addons.length>0;
  if(b==='b5') return d.consent;
  return false;
@@ -347,7 +352,7 @@ function vHome(){
    var sz=SIZES.filter(function(x){return x.id===o.pet.size;})[0], u=byId(URNS,o.urn), st=STATUSES.indexOf(o.status), bar='';
    for(var i=0;i<STATUSES.length;i++) bar+='<i class="'+(i<=st?'on':'')+'"></i>';
    var ad=o.addons.map(function(id){var a=byId(ADDONS,id);return a?a.name:'';}).join(', ')||'None';
-   h+='<tr class="pp-detail"><td colspan="6"><dl><dt>Family</dt><dd>'+esc(o.owner.name)+' · '+esc(o.owner.phone)+'</dd><dt>Size</dt><dd>'+esc(sz?sz.label+' ('+sz.range+')':'')+'</dd><dt>Urn</dt><dd>'+esc(s&&s.ashes&&u?u.name:'None (ashes not returned)')+'</dd><dt>Keepsakes and extras</dt><dd>'+esc(ad)+'</dd></dl>'
+   h+='<tr class="pp-detail"><td colspan="6"><dl><dt>Family</dt><dd>'+esc(o.owner.name)+' · '+esc(o.owner.phone)+'</dd><dt>Size</dt><dd>'+esc(sz?sz.label+' ('+sz.range+')':'')+'</dd><dt>Urn</dt><dd>'+esc(s&&s.ashes&&u?u.name:'None (ashes not returned)')+'</dd><dt>Keepsakes and extras</dt><dd>'+esc(ad)+'</dd><dt>Collection</dt><dd>'+esc((o.pickup&&o.pickup.mode==='home')?'From home: '+o.pickup.addr:'From the clinic')+'</dd></dl>'
    +'<div class="pp-prog">'+bar+'</div><div class="pp-prog-l">'+esc(o.status)+' · step '+(st+1)+' of '+STATUSES.length+'</div>'
    +'<div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">'+(o.paid?'':'<button class="pp-btn primary small" data-act="paid" data-id="'+o.id+'">Mark paid at counter</button>')
    +(st<STATUSES.length-1?'<button class="pp-btn ghost small" data-act="advance" data-id="'+o.id+'">Demo: move to next status</button>':'')+'</div></td></tr>';
@@ -375,7 +380,11 @@ function bService(){
  SERVICES.forEach(function(s){
   h+='<button class="opt big '+(d.service===s.id?'sel':'')+((S.showErr&&!d.service)?' bad':'')+'" data-act="service" data-v="'+s.id+'">'+(s.tag?'<span class="tg">'+s.tag+'</span>':'')+'<span class="ck">'+(d.service===s.id?'✓':'')+'</span><span class="nm" style="font-size:1.15rem">'+s.name+'</span><span class="ds">'+s.desc+'</span><ul class="ul">'+s.pts.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ul><span class="pr">'+priceOf(s.price)+'</span></button>';
  });
- return h+'</div>';
+ h+='</div><div class="tb-sec">Where is '+esc(d.pet.name.trim()||'your companion')+' now?</div><div class="tb-grid two">';
+ h+='<button class="opt '+(d.pickup.mode==='clinic'?'sel':'')+'" data-act="pmode" data-v="clinic"><span class="ck">'+(d.pickup.mode==='clinic'?'✓':'')+'</span><span class="nm">At the clinic</span><span class="ds">We collect from '+esc(CLINIC.name)+'. Nothing else for you to arrange.</span><span class="pr">No charge</span></button>';
+ h+='<button class="opt '+(d.pickup.mode==='home'?'sel':'')+'" data-act="pmode" data-v="home"><span class="ck">'+(d.pickup.mode==='home'?'✓':'')+'</span><span class="nm">At home, please collect</span><span class="ds">Our team collects with care from your home. We will call to agree a time.</span><span class="pr">'+money(HOME_FEE)+'</span></button></div>';
+ if(d.pickup.mode==='home') h+='<div class="tb-field" style="margin-top:16px;max-width:none"><div style="grid-column:1/-1"><label class="pp-l">Collection address (building, area, and any directions)</label><input class="pp-in" data-f="pickup.addr" data-req="addr" value="'+esc(d.pickup.addr)+'" autocomplete="off" placeholder="e.g. Villa 12, Street 5, Al Barsha 1"></div></div>';
+ return h;
 }
 function bUrn(){
  var d=S.draft, s=byId(SERVICES,d.service);
@@ -400,17 +409,18 @@ function sumHtml(){
  var d=S.draft, T=totals(), sz=d.pet.size?SZ(d.pet.size):null, h='';
  h+='<h4>Companion</h4><div class="ln"><span>'+(d.pet.name.trim()?esc(d.pet.name):'<i class="mi">Name not filled in</i>')+'<small>'+esc(d.pet.species)+(d.pet.breed?' · '+esc(d.pet.breed):'')+' · '+(sz?sz.label+' ('+sz.range+')':'<i class="mi">size not chosen</i>')+'</small></span><button class="ed" data-act="jump" data-v="b1">Edit</button></div>';
  h+='<h4>Family</h4><div class="ln"><span>'+(d.owner.name.trim()?esc(d.owner.name):'<i class="mi">Name not filled in</i>')+'<small>'+(d.owner.phone.trim()?esc(d.owner.phone):'<i class="mi">mobile number needed</i>')+(d.owner.email?' · '+esc(d.owner.email):'')+'</small></span><button class="ed" data-act="jump" data-v="b1">Edit</button></div>';
+ h+='<h4>Collection</h4><div class="ln"><span>'+(d.pickup.mode==='home'?'From your home<small>'+(d.pickup.addr.trim()?esc(d.pickup.addr):'<i class="mi">address needed</i>')+'</small>':'From the clinic<small>'+esc(CLINIC.name)+'</small>')+'</span><button class="ed" data-act="jump" data-v="b2">Edit</button></div>';
  h+='<h4>Your choices</h4>';
  if(!T.lines.length) h+='<div class="ln"><span><i class="mi">Nothing chosen yet</i></span><button class="ed" data-act="jump" data-v="b2">Choose</button></div>';
- T.lines.forEach(function(l){ h+='<div class="ln"><span>'+esc(l.n)+'<small>'+esc(l.sub)+'</small></span><span>'+(l.p==null?'—':(l.p===0?'Included':money(l.p)))+'</span></div>'; });
- h+='<div class="tl"><span>Total</span><span>'+(T.known?money(T.total):'—')+'</span></div>';
+ T.lines.forEach(function(l){ h+='<div class="ln"><span>'+esc(l.n)+'<small>'+esc(l.sub)+'</small></span><span>'+(l.p==null?'<i class="mi">choose size</i>':(l.p===0?'Included':money(l.p)))+'</span></div>'; });
+ h+='<div class="tl"><span>Total</span><span>'+(T.known?money(T.total):'<i class="mi" style="font-size:.9rem;font-weight:600">choose a size</i>')+'</span></div>';
  return h;
 }
 function vTablet(){
  var d=S.draft, h=tHead();
  if(S.done){
   var o=S.last;
-  h+='<div class="tb-wrap"><div class="done-box"><div class="tick">✓</div><h2 class="serif" style="margin:0 0 6px;font-style:italic">Thank you. We will take it from here.</h2><p style="color:var(--ink-soft);margin:0">Your arrangement for <b>'+esc(o.pet.name)+'</b> has been received.</p><div class="no">'+esc(o.id)+'</div><p style="margin:0 0 6px">Please pay <b>'+money(o.total)+'</b> at the reception counter.</p><p style="color:var(--ink-soft);font-size:.9rem;margin:0 0 24px">Our team will contact you with the next update. Take all the time you need.</p><button class="pp-btn primary" data-act="again">Start another arrangement</button></div>'
+  h+='<div class="tb-wrap"><div class="done-box"><div class="tick">✓</div><h2 class="serif" style="margin:0 0 8px;font-style:italic">With our deepest condolences</h2><p style="color:var(--ink);margin:0 0 6px;font-size:1.05rem">We are so sorry for the loss of <b>'+esc(o.pet.name)+'</b>. Thank you for trusting us to care for them.</p><p style="color:var(--ink-soft);margin:0">Your arrangement has been received.</p><div class="no">'+esc(o.id)+'</div><div class="paynote" style="margin:0 0 16px"><b>Please pay '+money(o.total)+' at the reception counter</b> of '+esc(CLINIC.name)+' to complete your arrangement.</div><p style="color:var(--ink-soft);font-size:.92rem;margin:0 0 24px">'+(o.pickup&&o.pickup.mode==='home'?'We will call you to agree a time to collect '+esc(o.pet.name)+' from your home. ':'We will collect '+esc(o.pet.name)+' from the clinic. ')+'Our team will keep you updated at every step. Take all the time you need.</p><button class="pp-btn primary" data-act="again">Start another arrangement</button></div>'
   +'<div style="text-align:center">'+pinHtml()+'</div></div>';
   return h;
  }
@@ -437,7 +447,8 @@ function pinHtml(){
 function refreshAll(){
  if(!S.tablet||S.done) return;
  var T=totals(), m=missing(), e;
- e=document.getElementById('sumS'); if(e) e.innerHTML='<h3>Your arrangement</h3>'+sumHtml();
+ e=document.getElementById('sumS'); if(e) e.innerHTML='<h3>Your arrangement</h3>'+sumHtml()+'<label class="consent" style="margin:16px 0 10px;font-size:.82rem"><input type="checkbox" data-act="consent" '+(S.draft.consent?'checked':'')+'><span>I confirm these details are correct and that I will pay at the clinic counter.</span></label><button class="pp-btn primary" style="width:100%" data-act="submit">'+(m.length?'Show what is missing ('+m.length+')':'Confirm arrangement')+'</button>';
+ var cb=app.querySelectorAll('#b5 input[data-act=consent]'); for(var ci=0;ci<cb.length;ci++) cb[ci].checked=S.draft.consent;
  e=document.getElementById('sumM'); if(e) e.innerHTML='<h3>Your arrangement</h3>'+sumHtml();
  e=document.getElementById('tot'); if(e) e.textContent=T.known?money(T.total):'Choose a size';
  e=document.getElementById('cont'); if(e) e.textContent=m.length?'Show what is missing ('+m.length+')':'Confirm arrangement';
@@ -448,7 +459,7 @@ function refreshAll(){
   if(p) p.className='pill'+(done?' ok':'');
  });
  var ins=app.querySelectorAll('[data-req]');
- for(var i=0;i<ins.length;i++){ var v=ins[i].value.trim(), bad=(ins[i].getAttribute('data-req')==='phone')?v.length<6:v.length===0; ins[i].classList.toggle('bad',S.showErr&&bad); }
+ for(var i=0;i<ins.length;i++){ var v=ins[i].value.trim(), bad=(ins[i].getAttribute('data-req')==='phone')?v.length<6:((ins[i].getAttribute('data-req')==='addr')?v.length<4:v.length===0); ins[i].classList.toggle('bad',S.showErr&&bad); }
 }
 function render(keep){
  var y=window.scrollY;
@@ -485,6 +496,7 @@ function act(a,el){
  else if(a==='paid'){ var o=find(id); if(o){ o.paid=true; saveOrders(); render(true); } }
  else if(a==='advance'){ var o2=find(id); if(o2){ var i=STATUSES.indexOf(o2.status); if(i<STATUSES.length-1) o2.status=STATUSES[i+1]; saveOrders(); render(true); } }
  else if(a==='tablet'){ S.tablet=true; S.done=false; S.showErr=false; S.draft=newDraft(); S.askPin=false; render(); }
+ else if(a==='pmode'){ S.draft.pickup.mode=v; render(true); if(v==='home'){ var ax=app.querySelector('[data-f="pickup.addr"]'); if(ax) ax.focus(); } }
  else if(a==='species'){ S.draft.pet.species=v; render(true); }
  else if(a==='size'){ S.draft.pet.size=v; render(true); }
  else if(a==='service'){ S.draft.service=v; if(!byId(SERVICES,v).ashes){ S.draft.urn='box'; } render(true); }
@@ -498,7 +510,7 @@ function act(a,el){
   var ymd=String(now.getFullYear()).slice(2)+('0'+(now.getMonth()+1)).slice(-2)+('0'+now.getDate()).slice(-2);
   var svc=byId(SERVICES,d.service);
   var addons=d.addons.filter(function(x){ var ad=byId(ADDONS,x); return ad&&(!ad.needsAshes||svc.ashes); });
-  var o3={id:'FP-'+ymd+'-'+seq,created:now.getTime(),status:'Received',paid:false,pet:JSON.parse(JSON.stringify(d.pet)),owner:JSON.parse(JSON.stringify(d.owner)),service:d.service,urn:svc.ashes?d.urn:'box',addons:addons,notes:''};
+  var o3={id:'FP-'+ymd+'-'+seq,created:now.getTime(),status:'Received',paid:false,pet:JSON.parse(JSON.stringify(d.pet)),owner:JSON.parse(JSON.stringify(d.owner)),service:d.service,urn:svc.ashes?d.urn:'box',addons:addons,notes:'',pickup:JSON.parse(JSON.stringify(d.pickup))};
   o3.total=T.total; orders.push(o3); saveOrders(); S.last=o3; S.done=true; S.showErr=false; render();
  }
  else if(a==='again'){ S.draft=newDraft(); S.done=false; S.showErr=false; S.askPin=false; render(); }
