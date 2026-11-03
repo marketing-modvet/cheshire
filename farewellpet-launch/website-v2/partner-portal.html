@@ -102,6 +102,35 @@
  .pinbox{ max-width:340px; margin:22px auto 0; } .pinbox .pp-in{ text-align:center; letter-spacing:6px; }
  .hide-nav nav.top, .hide-nav .buildnote, .hide-nav footer.site{ display:none; }
  .pp-note{ max-width:1100px; margin:0 auto; padding:0 24px 40px; font-size:.78rem; color:var(--ink-soft); }
+
+ .tb-wrap.one{ max-width:1200px; }
+ .tb-cols{ display:grid; grid-template-columns:minmax(0,1fr) 350px; gap:26px; align-items:start; }
+ .tb-side{ position:sticky; top:74px; }
+ .tb-side .sum{ margin:0; max-width:none; padding:14px 22px 20px; }
+ .tb-side .sum h3, .sumM h3{ font-family:'Lora',serif; font-style:italic; font-size:1.2rem; margin:8px 0 0; }
+ .sumM{ display:none; margin:0 !important; max-width:none !important; }
+ @media (max-width:980px){ .tb-cols{ grid-template-columns:1fr; } .tb-side{ display:none; } .sumM{ display:block; } }
+ .blk{ background:#fff; border:1px solid var(--line); border-radius:18px; padding:26px 26px 30px; margin-bottom:22px; scroll-margin-top:84px; }
+ .blk .bh{ display:flex; gap:16px; align-items:center; margin-bottom:20px; }
+ .blk .bh h2{ font-family:'Lora',serif; font-style:italic; font-size:1.55rem; margin:0; }
+ .blk .bh p{ margin:2px 0 0; color:var(--ink-soft); font-size:.88rem; }
+ .bn{ width:44px; height:44px; flex-shrink:0; border-radius:50%; background:var(--sage); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1.1rem; }
+ .bn.ok{ background:var(--coral); }
+ .tb-nav{ position:sticky; top:0; z-index:40; background:rgba(247,242,237,.96); backdrop-filter:blur(6px); border-bottom:1px solid var(--line); padding:10px 16px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap; }
+ .tb-nav .pill{ border:1px solid var(--line); background:#fff; color:var(--ink-soft); border-radius:999px; padding:9px 16px; font-size:.8rem; font-weight:700; cursor:pointer; font-family:inherit; min-height:40px; }
+ .tb-nav .pill.ok{ background:var(--sage-tint); color:var(--sage); border-color:var(--sage-tint); }
+ .pp-in.bad{ border-color:#B3261E; background:#FFF6F5; }
+ .opt.bad{ border-color:#B3261E; }
+ .blk.bad{ border-color:#B3261E; }
+ .mi{ color:#B3261E; font-style:normal; font-size:.85rem; }
+ .ed{ background:none; border:none; color:var(--coral-dark); font-weight:700; font-size:.8rem; cursor:pointer; padding:4px 0 4px 10px; font-family:inherit; text-decoration:underline; }
+ .note-box{ background:var(--cream); border:1px dashed var(--line); border-radius:12px; padding:18px 20px; color:var(--ink-soft); font-size:.9rem; }
+ .tb-bar .miss{ font-size:.8rem; color:#B3261E; font-weight:600; }
+ .tb-intro{ text-align:center; padding:26px 0 20px; }
+ .tb-intro h1{ font-family:'Lora',serif; font-style:italic; font-size:2.2rem; margin:0 0 8px; }
+ .tb-intro p{ color:var(--ink-soft); max-width:660px; margin:0 auto; }
+ .sum .ln > span:last-child, .sum .ln > .ed{ white-space:nowrap; }
+ .sum .ln > span:first-child{ min-width:0; }
 </style>
 </head>
 <body>
@@ -256,30 +285,38 @@ function calc(o){
 orders=loadOrders()||seed(); saveOrders();
 
 function newDraft(){ return {pet:{name:'',species:'Dog',breed:'',size:''},owner:{name:'',phone:'',email:''},service:'',urn:'box',addons:[],consent:false}; }
-var S={view:'login',tablet:false,step:0,draft:newDraft(),open:null,err:'',pinErr:'',askPin:false,last:null};
+var S={view:'login',tablet:false,done:false,showErr:false,step:0,draft:newDraft(),open:null,err:'',pinErr:'',askPin:false,last:null};
 try{ if(sessionStorage.getItem('fp_demo_session')==='1') S.view='home'; }catch(e){}
 
 var app=document.getElementById('app');
 
-function draftOrder(){ var d=S.draft; return {pet:d.pet,service:d.service,urn:d.urn,addons:d.addons}; }
+function SZ(id){ for(var i=0;i<SIZES.length;i++) if(SIZES[i].id===id) return SIZES[i]; return null; }
+function priceOf(p){ var sz=S.draft.pet.size; return sz?money(p[sz]):'From '+money(p.S); }
 function totals(){
- var d=S.draft, lines=[], sz=d.pet.size, s=byId(SERVICES,d.service), u=byId(URNS,d.urn);
- if(s&&sz) lines.push({n:s.name,sub:SIZES.filter(function(x){return x.id===sz;})[0].label+' size, '+SIZES.filter(function(x){return x.id===sz;})[0].range,p:s.price[sz]});
- if(s&&s.ashes&&u&&sz) lines.push({n:u.name,sub:u.finish,p:u.price[sz]});
- for(var i=0;i<d.addons.length;i++){ var a=byId(ADDONS,d.addons[i]); if(a&&(!a.needsAshes||(s&&s.ashes))) lines.push({n:a.name,sub:a.desc,p:a.price}); }
- var t=0; for(var j=0;j<lines.length;j++) t+=lines[j].p;
- return {lines:lines,total:t};
+ var d=S.draft, lines=[], sz=d.pet.size, s=byId(SERVICES,d.service), u=byId(URNS,d.urn), t=0;
+ if(s) lines.push({n:s.name,sub:(sz?SZ(sz).label+' size, '+SZ(sz).range:'Size not chosen yet'),p:sz?s.price[sz]:null});
+ if(s&&s.ashes&&u) lines.push({n:u.name,sub:u.finish,p:sz?u.price[sz]:null});
+ d.addons.forEach(function(id){ var a=byId(ADDONS,id); if(a&&(!a.needsAshes||(s&&s.ashes))) lines.push({n:a.name,sub:a.desc,p:a.price}); });
+ lines.forEach(function(l){ if(l.p!=null) t+=l.p; });
+ return {lines:lines,total:t,known:!!sz};
 }
-function canContinue(){
+function missing(){
+ var d=S.draft, m=[];
+ if(!d.pet.name.trim()) m.push({b:'b1',l:'Companion name'});
+ if(!d.pet.size) m.push({b:'b1',l:'Size'});
+ if(!d.owner.name.trim()) m.push({b:'b1',l:'Your name'});
+ if(d.owner.phone.trim().length<6) m.push({b:'b1',l:'Mobile number'});
+ if(!d.service) m.push({b:'b2',l:'Farewell type'});
+ if(!d.consent) m.push({b:'b5',l:'Confirmation'});
+ return m;
+}
+function blockDone(b){
  var d=S.draft;
- if(S.step===0) return d.pet.name.trim().length>0 && !!d.pet.size && d.owner.name.trim().length>0 && d.owner.phone.trim().length>=6;
- if(S.step===1) return !!d.service;
- if(S.step===4) return d.consent;
- return true;
-}
-function activeSteps(){ var s=byId(SERVICES,S.draft.service); return (s&&!s.ashes)?[0,1,3,4]:[0,1,2,3,4]; }
-function nextStep(dir){
- var a=activeSteps(), i=a.indexOf(S.step); i+=dir; if(i<0) i=0; if(i>=a.length) i=a.length-1; S.step=a[i];
+ if(b==='b1') return !!(d.pet.name.trim()&&d.pet.size&&d.owner.name.trim()&&d.owner.phone.trim().length>=6);
+ if(b==='b2'||b==='b3') return !!d.service;
+ if(b==='b4') return d.addons.length>0;
+ if(b==='b5') return d.consent;
+ return false;
 }
 
 /* ---------- views ---------- */
@@ -319,90 +356,115 @@ function vHome(){
  h+='</table></div></div>';
  return h;
 }
-function stepBar(){
- var a=activeSteps(), h='<div class="tb-steps">';
- for(var i=0;i<STEPS.length;i++){ if(a.indexOf(i)<0) continue; h+='<span class="'+(i===S.step?'on':(i<S.step?'done':''))+'">'+(i<S.step?'✓ ':'')+STEPS[i]+'</span>'; }
- return h+'</div>';
-}
 function tHead(){ return '<div class="tb-head"><img src="assets/logo-header.png" alt="FarewellPet"><div class="by">In partnership with<br><b>'+esc(CLINIC.name)+'</b></div></div>'; }
-function sPet(){
- var d=S.draft, h='<h2 class="tb-title">We are so sorry for your loss</h2><p class="tb-sub">Tell us a little about your companion and about you. We will look after the rest, with care.</p>';
- h+='<div class="tb-field"><div><label class="pp-l">Companion\'s name</label><input class="pp-in" data-f="pet.name" value="'+esc(d.pet.name)+'" autocomplete="off"></div>';
+function blk(id,n,title,sub,inner){ return '<div class="blk" id="'+id+'"><div class="bh"><span class="bn" id="bn-'+id+'">'+n+'</span><div><h2>'+title+'</h2>'+(sub?'<p>'+sub+'</p>':'')+'</div></div>'+inner+'</div>'; }
+function bPet(){
+ var d=S.draft, h='<div class="tb-field"><div><label class="pp-l">Companion\'s name</label><input class="pp-in" data-f="pet.name" data-req="1" value="'+esc(d.pet.name)+'" autocomplete="off"></div>';
  h+='<div><label class="pp-l">Breed, if you like (optional)</label><input class="pp-in" data-f="pet.breed" value="'+esc(d.pet.breed)+'" autocomplete="off"></div></div>';
- h+='<div class="tb-sec">Species</div><div class="tb-grid four" style="max-width:760px;margin:0 auto">';
+ h+='<div class="tb-sec">Species</div><div class="tb-grid four">';
  ['Dog','Cat','Rabbit','Other'].forEach(function(sp){ h+='<button class="opt '+(d.pet.species===sp?'sel':'')+'" data-act="species" data-v="'+sp+'"><span class="ck">'+(d.pet.species===sp?'✓':'')+'</span><span class="nm">'+sp+'</span></button>'; });
- h+='</div><div class="tb-sec">Size, by weight</div><div class="tb-grid four">';
- SIZES.forEach(function(z){ h+='<button class="opt '+(d.pet.size===z.id?'sel':'')+'" data-act="size" data-v="'+z.id+'"><span class="ck">'+(d.pet.size===z.id?'✓':'')+'</span><span class="nm">'+z.label+'</span><span class="ds"><b>'+z.range+'</b><br>'+z.ex+'</span></button>'; });
- h+='</div><div class="tb-sec">About you</div><div class="tb-field"><div><label class="pp-l">Your name</label><input class="pp-in" data-f="owner.name" value="'+esc(d.owner.name)+'" autocomplete="off"></div>';
- h+='<div><label class="pp-l">Mobile number</label><input class="pp-in" data-f="owner.phone" inputmode="tel" value="'+esc(d.owner.phone)+'" autocomplete="off" placeholder="+971"></div>';
+ h+='</div><div class="tb-sec">Size, by weight</div><div class="tb-grid four" id="szgrid">';
+ SIZES.forEach(function(z){ h+='<button class="opt '+(d.pet.size===z.id?'sel':'')+((S.showErr&&!d.pet.size)?' bad':'')+'" data-act="size" data-v="'+z.id+'"><span class="ck">'+(d.pet.size===z.id?'✓':'')+'</span><span class="nm">'+z.label+'</span><span class="ds"><b>'+z.range+'</b><br>'+z.ex+'</span></button>'; });
+ h+='</div><div class="tb-sec">About you</div><div class="tb-field"><div><label class="pp-l">Your name</label><input class="pp-in" data-f="owner.name" data-req="1" value="'+esc(d.owner.name)+'" autocomplete="off"></div>';
+ h+='<div><label class="pp-l">Mobile number</label><input class="pp-in" data-f="owner.phone" data-req="phone" inputmode="tel" value="'+esc(d.owner.phone)+'" autocomplete="off" placeholder="+971"></div>';
  h+='<div style="grid-column:1/-1"><label class="pp-l">Email (optional, for the certificate)</label><input class="pp-in" data-f="owner.email" inputmode="email" value="'+esc(d.owner.email)+'" autocomplete="off"></div></div>';
  return h;
 }
-function sService(){
- var d=S.draft, sz=d.pet.size, h='<h2 class="tb-title">How would you like to say goodbye to '+esc(d.pet.name||'your companion')+'?</h2><p class="tb-sub">Every option is carried out with the same care. Prices are shown for a '+SIZES.filter(function(x){return x.id===sz;})[0].label.toLowerCase()+' companion.</p><div class="tb-grid two">';
+function bService(){
+ var d=S.draft, h='<div class="tb-grid two">';
  SERVICES.forEach(function(s){
-  h+='<button class="opt big '+(d.service===s.id?'sel':'')+'" data-act="service" data-v="'+s.id+'">'+(s.tag?'<span class="tg">'+s.tag+'</span>':'')+'<span class="ck">'+(d.service===s.id?'✓':'')+'</span><span class="nm" style="font-size:1.15rem">'+s.name+'</span><span class="ds">'+s.desc+'</span><ul class="ul">'+s.pts.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ul><span class="pr">'+money(s.price[sz])+'</span></button>';
+  h+='<button class="opt big '+(d.service===s.id?'sel':'')+((S.showErr&&!d.service)?' bad':'')+'" data-act="service" data-v="'+s.id+'">'+(s.tag?'<span class="tg">'+s.tag+'</span>':'')+'<span class="ck">'+(d.service===s.id?'✓':'')+'</span><span class="nm" style="font-size:1.15rem">'+s.name+'</span><span class="ds">'+s.desc+'</span><ul class="ul">'+s.pts.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ul><span class="pr">'+priceOf(s.price)+'</span></button>';
  });
  return h+'</div>';
 }
-function sUrn(){
- var d=S.draft, sz=d.pet.size, h='<h2 class="tb-title">Choose an urn</h2><p class="tb-sub">The urn is sized for '+esc(d.pet.name||'your companion')+'. A simple memorial box is included if you would rather not choose one now.</p><div class="tb-grid">';
+function bUrn(){
+ var d=S.draft, s=byId(SERVICES,d.service);
+ if(!s) return '<div class="note-box">Choose a farewell type in block 2 first. If ashes are returned, you can pick an urn here.</div>';
+ if(!s.ashes) return '<div class="note-box">Not needed. With this farewell option ashes are not returned, so there is no urn to choose.</div>';
+ var h='<div class="tb-grid">';
  URNS.forEach(function(u){
-  var p=u.price[sz];
-  h+='<button class="opt urn '+(d.urn===u.id?'sel':'')+'" data-act="urn" data-v="'+u.id+'"><span class="ck">'+(d.urn===u.id?'✓':'')+'</span><span class="art">'+urnSvg(u.kind,u.color)+'</span><span class="nm">'+u.name+'</span><span class="ds">'+u.finish+'</span><span class="pr">'+(p===0?'Included':money(p))+'</span></button>';
+  var p=d.pet.size?u.price[d.pet.size]:u.price.S;
+  h+='<button class="opt urn '+(d.urn===u.id?'sel':'')+'" data-act="urn" data-v="'+u.id+'"><span class="ck">'+(d.urn===u.id?'✓':'')+'</span><span class="art">'+urnSvg(u.kind,u.color)+'</span><span class="nm">'+u.name+'</span><span class="ds">'+u.finish+'</span><span class="pr">'+(p===0?'Included':(d.pet.size?'':'From ')+money(p))+'</span></button>';
  });
  return h+'</div>';
 }
-function sExtras(){
- var d=S.draft, s=byId(SERVICES,d.service), h='<h2 class="tb-title">Keepsakes and small touches</h2><p class="tb-sub">Entirely optional. Many families choose a paw print or a lock of fur. You can skip this step.</p><div class="tb-grid">';
+function bExtras(){
+ var d=S.draft, s=byId(SERVICES,d.service), h='<div class="tb-grid">';
  ADDONS.forEach(function(a){
   var off=a.needsAshes&&!(s&&s.ashes), on=d.addons.indexOf(a.id)>=0&&!off;
   h+='<button class="opt '+(on?'sel':'')+'" '+(off?'disabled style="opacity:.45;cursor:not-allowed"':'data-act="addon" data-v="'+a.id+'"')+'><span class="ck">'+(on?'✓':'')+'</span><span class="nm" style="padding-right:30px">'+a.name+'</span><span class="ds">'+a.desc+(off?' <i>(needs ashes returned)</i>':'')+'</span><span class="pr">'+money(a.price)+'</span></button>';
  });
  return h+'</div>';
 }
-function sReview(){
- var d=S.draft, T=totals(), h='<h2 class="tb-title">Please check your choices</h2><p class="tb-sub">Nothing is final until you confirm. You will pay at the reception counter of '+esc(CLINIC.name)+'.</p><div class="sum">';
- h+='<h4>Companion</h4><div class="ln"><span>'+esc(d.pet.name)+'<small>'+esc(d.pet.species)+(d.pet.breed?' · '+esc(d.pet.breed):'')+'</small></span><span></span></div>';
- h+='<h4>Family</h4><div class="ln"><span>'+esc(d.owner.name)+'<small>'+esc(d.owner.phone)+(d.owner.email?' · '+esc(d.owner.email):'')+'</small></span><span></span></div><h4>Your choices</h4>';
- T.lines.forEach(function(l){ h+='<div class="ln"><span>'+esc(l.n)+'<small>'+esc(l.sub)+'</small></span><span>'+(l.p===0?'Included':money(l.p))+'</span></div>'; });
- h+='<div class="tl"><span>Total</span><span>'+money(T.total)+'</span></div></div>';
- h+='<div class="paynote"><b>Payment:</b> at the reception counter of the clinic today. We collect '+esc(d.pet.name)+' from the clinic and keep you updated by phone or message at each step.</div>';
- h+='<label class="consent"><input type="checkbox" data-act="consent" '+(d.consent?'checked':'')+'><span>I confirm these details are correct, that I will pay at the clinic counter, and that I would like FarewellPet to proceed with this arrangement.</span></label>';
+function sumHtml(){
+ var d=S.draft, T=totals(), sz=d.pet.size?SZ(d.pet.size):null, h='';
+ h+='<h4>Companion</h4><div class="ln"><span>'+(d.pet.name.trim()?esc(d.pet.name):'<i class="mi">Name not filled in</i>')+'<small>'+esc(d.pet.species)+(d.pet.breed?' · '+esc(d.pet.breed):'')+' · '+(sz?sz.label+' ('+sz.range+')':'<i class="mi">size not chosen</i>')+'</small></span><button class="ed" data-act="jump" data-v="b1">Edit</button></div>';
+ h+='<h4>Family</h4><div class="ln"><span>'+(d.owner.name.trim()?esc(d.owner.name):'<i class="mi">Name not filled in</i>')+'<small>'+(d.owner.phone.trim()?esc(d.owner.phone):'<i class="mi">mobile number needed</i>')+(d.owner.email?' · '+esc(d.owner.email):'')+'</small></span><button class="ed" data-act="jump" data-v="b1">Edit</button></div>';
+ h+='<h4>Your choices</h4>';
+ if(!T.lines.length) h+='<div class="ln"><span><i class="mi">Nothing chosen yet</i></span><button class="ed" data-act="jump" data-v="b2">Choose</button></div>';
+ T.lines.forEach(function(l){ h+='<div class="ln"><span>'+esc(l.n)+'<small>'+esc(l.sub)+'</small></span><span>'+(l.p==null?'—':(l.p===0?'Included':money(l.p)))+'</span></div>'; });
+ h+='<div class="tl"><span>Total</span><span>'+(T.known?money(T.total):'—')+'</span></div>';
  return h;
 }
 function vTablet(){
- var d=S.draft, T=totals(), h=tHead();
- if(S.step===5){
+ var d=S.draft, h=tHead();
+ if(S.done){
   var o=S.last;
   h+='<div class="tb-wrap"><div class="done-box"><div class="tick">✓</div><h2 class="serif" style="margin:0 0 6px;font-style:italic">Thank you. We will take it from here.</h2><p style="color:var(--ink-soft);margin:0">Your arrangement for <b>'+esc(o.pet.name)+'</b> has been received.</p><div class="no">'+esc(o.id)+'</div><p style="margin:0 0 6px">Please pay <b>'+money(o.total)+'</b> at the reception counter.</p><p style="color:var(--ink-soft);font-size:.9rem;margin:0 0 24px">Our team will contact you with the next update. Take all the time you need.</p><button class="pp-btn primary" data-act="again">Start another arrangement</button></div>'
-  +'<div style="text-align:center"><button class="pp-btn ghost small" data-act="askpin">Staff: leave tablet mode</button>'
-  +(S.askPin?'<div class="pinbox"><input class="pp-in" id="xp" type="password" inputmode="numeric" maxlength="8" placeholder="Staff PIN"><div class="pp-err">'+esc(S.pinErr)+'</div><button class="pp-btn sage small" data-act="exit">Confirm</button></div>':'')+'</div></div>';
+  +'<div style="text-align:center">'+pinHtml()+'</div></div>';
   return h;
  }
- var last=activeSteps().slice(-1)[0], first=S.step===0;
- h+=stepBar()+'<div class="tb-wrap">';
- h+=[sPet,sService,sUrn,sExtras,sReview][S.step]();
- h+='<div style="text-align:center;margin-top:28px"><button class="pp-btn ghost small" data-act="askpin">Staff: leave tablet mode</button>'+(S.askPin?'<div class="pinbox"><input class="pp-in" id="xp" type="password" inputmode="numeric" maxlength="8" placeholder="Staff PIN"><div class="pp-err">'+esc(S.pinErr)+'</div><button class="pp-btn sage small" data-act="exit">Confirm</button></div>':'')+'</div></div>';
- h+='<div class="tb-bar"><div class="in"><div class="tot">Total so far<b id="tot">'+money(T.total)+'</b></div><div class="btns">'+(first?'':'<button class="pp-btn ghost" data-act="back">Back</button>')
-  +'<button class="pp-btn primary" id="cont" data-act="'+(S.step===last?'submit':'next')+'" '+(canContinue()?'':'disabled')+'>'+(S.step===last?'Confirm arrangement':(S.step===3?'Review':'Continue'))+'</button></div></div></div>';
+ h+='<div class="tb-nav" id="tbnav">';
+ [['b1','Your companion'],['b2','Farewell'],['b3','Urn'],['b4','Keepsakes'],['b5','Confirm']].forEach(function(p){ h+='<button class="pill" id="np-'+p[0]+'" data-act="jump" data-v="'+p[0]+'">'+p[1]+'</button>'; });
+ h+='</div><div class="tb-wrap one"><div class="tb-intro"><h1>We are so sorry for your loss</h1><p>Please fill in each block below, in any order. You can scroll back and change anything at any time. Your choices are listed next to the form so you can check them as you go.</p></div>';
+ h+='<div class="tb-cols"><div class="tb-main">';
+ h+=blk('b1','1','Your companion and you','So we know who we are caring for and how to reach you.',bPet());
+ h+=blk('b2','2','How would you like to say goodbye?','Every option is carried out with the same care. Prices follow the size you chose.',bService());
+ h+=blk('b3','3','Choose an urn','Only if ashes are returned. A simple memorial box is included.',bUrn());
+ h+=blk('b4','4','Keepsakes and small touches','Entirely optional. Many families choose a paw print or a lock of fur.',bExtras());
+ h+=blk('b5','5','Check and confirm','Nothing is final until you confirm. You will pay at the reception counter of '+esc(CLINIC.name)+'.',
+  '<div class="sum sumM" id="sumM"></div><div class="paynote" style="margin:18px 0"><b>Payment:</b> at the reception counter of the clinic today. We collect '+esc(d.pet.name.trim()||'your companion')+' from the clinic and keep you updated by phone or message at each step.</div>'
+  +'<label class="consent" style="margin:14px 0"><input type="checkbox" data-act="consent" '+(d.consent?'checked':'')+'><span>I confirm these details are correct, that I will pay at the clinic counter, and that I would like FarewellPet to proceed with this arrangement.</span></label>'
+  +'<button class="pp-btn primary" data-act="submit" style="width:100%">Confirm arrangement</button>');
+ h+='<div style="text-align:center;margin-top:10px">'+pinHtml()+'</div></div>';
+ h+='<aside class="tb-side"><div class="sum" id="sumS"></div></aside></div></div>';
+ h+='<div class="tb-bar"><div class="in"><div class="tot">Total so far<b id="tot"></b></div><div class="btns"><span class="miss" id="miss"></span><button class="pp-btn primary" id="cont" data-act="submit">Confirm arrangement</button></div></div></div>';
  return h;
 }
-
-function render(){
+function pinHtml(){
+ return '<button class="pp-btn ghost small" data-act="askpin">Staff: leave tablet mode</button>'+(S.askPin?'<div class="pinbox"><input class="pp-in" id="xp" type="password" inputmode="numeric" maxlength="8" placeholder="Staff PIN"><div class="pp-err">'+esc(S.pinErr)+'</div><button class="pp-btn sage small" data-act="exit">Confirm</button></div>':'');
+}
+function refreshAll(){
+ if(!S.tablet||S.done) return;
+ var T=totals(), m=missing(), e;
+ e=document.getElementById('sumS'); if(e) e.innerHTML='<h3>Your arrangement</h3>'+sumHtml();
+ e=document.getElementById('sumM'); if(e) e.innerHTML='<h3>Your arrangement</h3>'+sumHtml();
+ e=document.getElementById('tot'); if(e) e.textContent=T.known?money(T.total):'Choose a size';
+ e=document.getElementById('cont'); if(e) e.textContent=m.length?'Show what is missing ('+m.length+')':'Confirm arrangement';
+ e=document.getElementById('miss'); if(e) e.textContent=m.length?'Still to fill in: '+m.map(function(x){return x.l;}).join(', '):'';
+ ['b1','b2','b3','b4','b5'].forEach(function(b){
+  var done=blockDone(b), n=document.getElementById('bn-'+b), p=document.getElementById('np-'+b);
+  if(n){ n.className='bn'+(done?' ok':''); n.textContent=done?'✓':b.charAt(1); }
+  if(p) p.className='pill'+(done?' ok':'');
+ });
+ var ins=app.querySelectorAll('[data-req]');
+ for(var i=0;i<ins.length;i++){ var v=ins[i].value.trim(), bad=(ins[i].getAttribute('data-req')==='phone')?v.length<6:v.length===0; ins[i].classList.toggle('bad',S.showErr&&bad); }
+}
+function render(keep){
+ var y=window.scrollY;
  document.body.classList.toggle('hide-nav',S.tablet);
  var n=document.getElementById('ppnote'); if(n) n.style.display=S.tablet?'none':'';
  app.innerHTML=S.tablet?vTablet():(S.view==='login'?vLogin():vHome());
- window.scrollTo(0,0);
+ refreshAll();
+ window.scrollTo(0,keep?y:0);
 }
-function refreshBar(){ var c=document.getElementById('cont'); if(c) c.disabled=!canContinue(); var t=document.getElementById('tot'); if(t) t.textContent=money(totals().total); }
 
 /* ---------- events ---------- */
 app.addEventListener('input',function(e){
  var f=e.target.getAttribute&&e.target.getAttribute('data-f'); if(!f) return;
- var p=f.split('.'); S.draft[p[0]][p[1]]=e.target.value; refreshBar();
+ var p=f.split('.'); S.draft[p[0]][p[1]]=e.target.value; refreshAll();
 });
-app.addEventListener('change',function(e){ if(e.target.getAttribute&&e.target.getAttribute('data-act')==='consent'){ S.draft.consent=e.target.checked; refreshBar(); } });
+app.addEventListener('change',function(e){ if(e.target.getAttribute&&e.target.getAttribute('data-act')==='consent'){ S.draft.consent=e.target.checked; refreshAll(); } });
 app.addEventListener('keydown',function(e){ if(e.key==='Enter'&&S.view==='login'&&!S.tablet) act('login',null); });
 app.addEventListener('click',function(e){
  var el=e.target; while(el&&el!==app&&!(el.getAttribute&&el.getAttribute('data-act'))) el=el.parentNode;
@@ -410,6 +472,7 @@ app.addEventListener('click',function(e){
  act(el.getAttribute('data-act'),el);
 });
 function find(id){ for(var i=0;i<orders.length;i++) if(orders[i].id===id) return orders[i]; return null; }
+function jump(id){ var t=document.getElementById(id); if(t) t.scrollIntoView({behavior:'smooth',block:'start'}); }
 function act(a,el){
  var v=el&&el.getAttribute('data-v'), id=el&&el.getAttribute('data-id');
  if(a==='login'){
@@ -418,27 +481,29 @@ function act(a,el){
   else { S.err='That clinic code or PIN does not match. For the demo use DEMO and 1234.'; document.getElementById('lerr').textContent=S.err; }
  }
  else if(a==='logout'){ S.view='login'; S.open=null; try{sessionStorage.removeItem('fp_demo_session');}catch(x){} render(); }
- else if(a==='toggle'){ S.open=(S.open===id?null:id); render(); }
- else if(a==='paid'){ var o=find(id); if(o){ o.paid=true; saveOrders(); render(); } }
- else if(a==='advance'){ var o2=find(id); if(o2){ var i=STATUSES.indexOf(o2.status); if(i<STATUSES.length-1) o2.status=STATUSES[i+1]; saveOrders(); render(); } }
- else if(a==='tablet'){ S.tablet=true; S.step=0; S.draft=newDraft(); S.askPin=false; render(); }
- else if(a==='species'){ S.draft.pet.species=v; render(); }
- else if(a==='size'){ S.draft.pet.size=v; render(); }
- else if(a==='service'){ S.draft.service=v; if(!byId(SERVICES,v).ashes){ S.draft.urn='box'; } render(); }
- else if(a==='urn'){ S.draft.urn=v; render(); }
- else if(a==='addon'){ var i2=S.draft.addons.indexOf(v); if(i2>=0) S.draft.addons.splice(i2,1); else S.draft.addons.push(v); render(); }
- else if(a==='next'){ if(canContinue()){ nextStep(1); render(); } }
- else if(a==='back'){ nextStep(-1); render(); }
+ else if(a==='toggle'){ S.open=(S.open===id?null:id); render(true); }
+ else if(a==='paid'){ var o=find(id); if(o){ o.paid=true; saveOrders(); render(true); } }
+ else if(a==='advance'){ var o2=find(id); if(o2){ var i=STATUSES.indexOf(o2.status); if(i<STATUSES.length-1) o2.status=STATUSES[i+1]; saveOrders(); render(true); } }
+ else if(a==='tablet'){ S.tablet=true; S.done=false; S.showErr=false; S.draft=newDraft(); S.askPin=false; render(); }
+ else if(a==='species'){ S.draft.pet.species=v; render(true); }
+ else if(a==='size'){ S.draft.pet.size=v; render(true); }
+ else if(a==='service'){ S.draft.service=v; if(!byId(SERVICES,v).ashes){ S.draft.urn='box'; } render(true); }
+ else if(a==='urn'){ S.draft.urn=v; render(true); }
+ else if(a==='addon'){ var i2=S.draft.addons.indexOf(v); if(i2>=0) S.draft.addons.splice(i2,1); else S.draft.addons.push(v); render(true); }
+ else if(a==='jump'){ jump(v); }
  else if(a==='submit'){
-  if(!canContinue()) return; var d=S.draft, T=totals(), now=new Date(), seq=101+orders.length;
+  var m=missing();
+  if(m.length){ S.showErr=true; render(true); jump(m[0].b); return; }
+  var d=S.draft, T=totals(), now=new Date(), seq=101+orders.length;
   var ymd=String(now.getFullYear()).slice(2)+('0'+(now.getMonth()+1)).slice(-2)+('0'+now.getDate()).slice(-2);
-  var addons=d.addons.filter(function(x){ var ad=byId(ADDONS,x), s=byId(SERVICES,d.service); return ad&&(!ad.needsAshes||s.ashes); });
-  var o3={id:'FP-'+ymd+'-'+seq,created:now.getTime(),status:'Received',paid:false,pet:JSON.parse(JSON.stringify(d.pet)),owner:JSON.parse(JSON.stringify(d.owner)),service:d.service,urn:byId(SERVICES,d.service).ashes?d.urn:'box',addons:addons,notes:''};
-  o3.total=T.total; orders.push(o3); saveOrders(); S.last=o3; S.step=5; render();
+  var svc=byId(SERVICES,d.service);
+  var addons=d.addons.filter(function(x){ var ad=byId(ADDONS,x); return ad&&(!ad.needsAshes||svc.ashes); });
+  var o3={id:'FP-'+ymd+'-'+seq,created:now.getTime(),status:'Received',paid:false,pet:JSON.parse(JSON.stringify(d.pet)),owner:JSON.parse(JSON.stringify(d.owner)),service:d.service,urn:svc.ashes?d.urn:'box',addons:addons,notes:''};
+  o3.total=T.total; orders.push(o3); saveOrders(); S.last=o3; S.done=true; S.showErr=false; render();
  }
- else if(a==='again'){ S.draft=newDraft(); S.step=0; S.askPin=false; render(); }
- else if(a==='askpin'){ S.askPin=!S.askPin; S.pinErr=''; render(); var x=document.getElementById('xp'); if(x) x.focus(); }
- else if(a==='exit'){ var pv=document.getElementById('xp').value.trim(); if(pv===CLINIC.pin){ S.tablet=false; S.view='home'; S.askPin=false; S.draft=newDraft(); render(); } else { S.pinErr='Incorrect PIN.'; document.querySelector('.pinbox .pp-err').textContent=S.pinErr; } }
+ else if(a==='again'){ S.draft=newDraft(); S.done=false; S.showErr=false; S.askPin=false; render(); }
+ else if(a==='askpin'){ S.askPin=!S.askPin; S.pinErr=''; render(true); var x=document.getElementById('xp'); if(x) x.focus(); }
+ else if(a==='exit'){ var pv=document.getElementById('xp').value.trim(); if(pv===CLINIC.pin){ S.tablet=false; S.done=false; S.view='home'; S.askPin=false; S.draft=newDraft(); render(); } else { S.pinErr='Incorrect PIN.'; document.querySelector('.pinbox .pp-err').textContent=S.pinErr; } }
 }
 render();
 })();
