@@ -2,7 +2,7 @@
 // Sourced from: Google Maps research (vet-report.html), clinic websites, Groupon, social media
 // Source key: "website" | "social" | "groupon" | "cobone" | "internal" | "" (confirmed, source unknown)
 
-const LAST_UPDATED = "2026-10-06";
+const LAST_UPDATED = "2026-11-04";
 
 const SERVICES = [
   { id: "consult_standard",    label: "Consultation (Standard)",               category: "Consultation" },
@@ -180,7 +180,10 @@ const COMPETITORS = [
     rating: "4.8", reviews: 257,
     notes: "Al Barsha Second | Mall",
     address: "Mall - Al Barsha Second - Al Barsha - Dubai - United Arab Emirates",
-    prices: {}
+    prices: {
+      consult_standard: { val: 150, note: "team submission by vrinda", src: "social", date: "2026-10" },
+      vax_annual_dog: { val: 899, note: "team submission by vrinda", src: "social", date: "2026-10" }
+    }
   },
 
   {
@@ -242,7 +245,9 @@ const COMPETITORS = [
     rating: "4.5", reviews: 131,
     notes: "Al Barsha South Fourth | AMSA 2",
     address: "AMSA 2 - Al Barsha South Fourth - Jumeirah Village Circle - Dubai - United Arab Emirates",
-    prices: {}
+    prices: {
+      consult_standard: { val: 349, note: "team submission by vrinda", src: "social", date: "2026-10" }
+    }
   },
 
   {
@@ -337,7 +342,9 @@ const COMPETITORS = [
     rating: "4.9", reviews: 763,
     notes: "Al Garhoud | Al Garhoud",
     address: "Al Garhoud - Dubai - United Arab Emirates",
-    prices: {}
+    prices: {
+      vax_annual_dog: { val: 199, note: "team submission by vrinda", src: "social", date: "2026-10" }
+    }
   },
 
   {
@@ -346,7 +353,9 @@ const COMPETITORS = [
     rating: "4.8", reviews: 271,
     notes: "Al Garhoud | 31 61B Street",
     address: "31 61B Street - Al Garhoud - Dubai - United Arab Emirates",
-    prices: {}
+    prices: {
+      consult_standard: { val: 149, note: "team submission by vrinda", src: "social", date: "2026-10" }
+    }
   },
 
   {
@@ -501,7 +510,9 @@ const COMPETITORS = [
     rating: "4.8", reviews: 368,
     notes: "Al Qouz Third | The Curve Building",
     address: "The Curve Building - Shop no.G08 - Sheikh Zayed Rd - Al Qouz Third - Al Quoz - Dubai - United Arab Emirates",
-    prices: {}
+    prices: {
+      consult_standard: { val: 120, note: "team submission by vrinda", src: "social", date: "2026-10" }
+    }
   },
 
   {
@@ -995,7 +1006,9 @@ const COMPETITORS = [
     rating: "4.9", reviews: 198,
     notes: "Umm Suqeim First | Umm Suqeim First",
     address: "Umm Suqeim First - Jumeirah 3 - Dubai - United Arab Emirates",
-    prices: {}
+    prices: {
+      consult_standard: { val: 700, note: "team submission by vrinda", src: "social", date: "2026-10" }
+    }
   },
 
   {
@@ -1263,7 +1276,10 @@ const COMPETITORS = [
     rating: "4.3", reviews: 41,
     notes: "الجداف | Al Jaddaf al wasl sports club shops",
     address: "Al Jaddaf al wasl sports club shops - al nowras st - Shop S11 - - - United Arab Emirates",
-    prices: {}
+    prices: {
+      neuter_cat_male: { val: 190, note: "team submission by vrinda", src: "social", date: "2026-10" },
+      spay_cat_female: { val: 290, note: "team submission by vrinda", src: "social", date: "2026-10" }
+    }
   },
 
   {
