@@ -146,13 +146,14 @@ const COMPETITORS = [
     notes: "Al Barsha First | SS Lootha. PROMO until 2026-09-30 on neuter/spay (CIO submission Apr 29).",
     address: "SS Lootha - Building, shop no.3 23b street - Al Barsha First - Al Barsha - Dubai - United Arab Emirates",
     prices: {
-      consult_standard:  { val: 180, note: "not confirmed",                                              src: "",         date: "2026-04" },
-      neuter_cat_male:   { val: 300, note: "excl. VAT — PROMO until 2026-09-30",                          src: "internal", date: "2026-04-29" },
-      spay_cat_female:   { val: 450, note: "excl. VAT — PROMO until 2026-09-30",                          src: "internal", date: "2026-04-29" },
+      consult_standard: { val: 180, note: "not confirmed",                                              src: "",         date: "2026-04" },
+      neuter_cat_male: { val: 300, note: "excl. VAT — PROMO until 2026-09-30",                          src: "internal", date: "2026-04-29" },
+      spay_cat_female: { val: 450, note: "excl. VAT — PROMO until 2026-09-30",                          src: "internal", date: "2026-04-29" },
       neuter_dog_male_s: { val: 450, note: "small dog, excl. VAT — PROMO until 2026-09-30",               src: "internal", date: "2026-04-29" },
       spay_dog_female_s: { val: 650, note: "small dog, excl. VAT — PROMO until 2026-09-30",               src: "internal", date: "2026-04-29" },
       neuter_dog_male_m: { val: 650, note: "medium dog, excl. VAT — PROMO until 2026-09-30 (large 850)",  src: "internal", date: "2026-04-29" },
-      spay_dog_female_m: { val: 850, note: "medium dog, excl. VAT — PROMO until 2026-09-30 (large 950)",  src: "internal", date: "2026-04-29" }
+      spay_dog_female_m: { val: 850, note: "medium dog, excl. VAT — PROMO until 2026-09-30 (large 950)",  src: "internal", date: "2026-04-29" },
+      vax_annual_cat: { val: 575, note: "incl. VAT | web research Nov 2026 | abvc.ae", src: "website", date: "2026-11" }
     }
   },
 
@@ -162,7 +163,9 @@ const COMPETITORS = [
     rating: "4.2", reviews: 472,
     notes: "Al Barsha First | Summer Land Building, Al Barsha 1 Between Mall of the Emirat",
     address: "Summer Land Building, Al Barsha 1 Between Mall of the Emirates and Lulu Hypermarket - Al Barsha First - Al Barsha - Duba",
-    prices: {}
+    prices: {
+      vax_annual_cat: { val: 172, note: "from, promo, VAT not stated | web research Nov 2026 | cobone.com", src: "cobone", date: "2026-11" }
+    }
   },
 
   {
@@ -171,7 +174,11 @@ const COMPETITORS = [
     rating: "4.3", reviews: 449,
     notes: "Al Barsha First | Al Barsha Business Centre",
     address: "Al Barsha Business Centre - 14 Al Barsha 1 - Al Barsha First - Al Barsha - Dubai - United Arab Emirates",
-    prices: {}
+    prices: {
+      consult_standard: { val: 99, note: "promo, VAT not stated | web research Nov 2026 | vetclinicuae.com", src: "website", date: "2026-11" },
+      neuter_cat_male: { val: 329, note: "from, excl. VAT | web research Nov 2026 | vetclinicuae.com", src: "website", date: "2026-11" },
+      spay_cat_female: { val: 549, note: "from, excl. VAT | web research Nov 2026 | vetclinicuae.com", src: "website", date: "2026-11" }
+    }
   },
 
   {
@@ -213,7 +220,10 @@ const COMPETITORS = [
     rating: "4.9", reviews: 308,
     notes: "Al Barsha South Fourth | JVC Dubai, The Manhattan",
     address: "JVC Dubai, The Manhattan - Tower, Shop number 4 - Al Barsha South Fourth - Jumeirah Village Circle - Dubai - United Arab",
-    prices: {}
+    prices: {
+      spay_cat_female: { val: 545, note: "from, VAT not stated | web research Nov 2026 | petssociety.ae", src: "website", date: "2026-11" },
+      neuter_cat_male: { val: 345, note: "from, VAT not stated | web research Nov 2026 | petssociety.ae", src: "website", date: "2026-11" }
+    }
   },
 
   {
@@ -235,7 +245,8 @@ const COMPETITORS = [
       vax_annual_cat: { val: 249, note: "team submission by Andrew (in-person visit)", src: "", date: "2026-06" },
       vax_annual_dog: { val: 249, note: "team submission by Andrew (in-person visit)", src: "", date: "2026-06" },
       vax_initial_cat: { val: 499, note: "team submission by Andrew (in-person visit)", src: "", date: "2026-06" },
-      vax_initial_dog: { val: 599, note: "team submission by Andrew (in-person visit)", src: "", date: "2026-06" }
+      vax_initial_dog: { val: 599, note: "team submission by Andrew (in-person visit)", src: "", date: "2026-06" },
+      dental_scale_cat: { val: 499, note: "excl. VAT | web research Nov 2026 | petplanetdxb.com", src: "website", date: "2026-11" }
     }
   },
 
@@ -246,7 +257,17 @@ const COMPETITORS = [
     notes: "Al Barsha South Fourth | AMSA 2",
     address: "AMSA 2 - Al Barsha South Fourth - Jumeirah Village Circle - Dubai - United Arab Emirates",
     prices: {
-      consult_standard: { val: 349, note: "team submission by vrinda", src: "social", date: "2026-10" }
+      consult_standard: { val: 349, note: "team submission by vrinda", src: "social", date: "2026-10" },
+      vax_annual_cat: { val: 255, note: "incl. VAT | web research Nov 2026 | petavenueclinic.com", src: "website", date: "2026-11" },
+      vax_initial_dog: { val: 450, note: "incl. VAT | web research Nov 2026 | petavenueclinic.com", src: "website", date: "2026-11" },
+      vax_initial_cat: { val: 450, note: "incl. VAT | web research Nov 2026 | petavenueclinic.com", src: "website", date: "2026-11" },
+      microchip: { val: 157.5, note: "incl. VAT | web research Nov 2026 | petavenueclinic.com", src: "website", date: "2026-11" },
+      neuter_cat_male: { val: 565, note: "incl. VAT | web research Nov 2026 | petavenueclinic.com", src: "website", date: "2026-11" },
+      spay_cat_female: { val: 682.5, note: "incl. VAT | web research Nov 2026 | petavenueclinic.com", src: "website", date: "2026-11" },
+      neuter_dog_male_s: { val: 892.5, note: "from, incl. VAT | web research Nov 2026 | petavenueclinic.com", src: "website", date: "2026-11" },
+      spay_dog_female_s: { val: 1365, note: "from, incl. VAT | web research Nov 2026 | petavenueclinic.com", src: "website", date: "2026-11" },
+      dental_scale_cat: { val: 1549, note: "incl. VAT | web research Nov 2026 | petavenueclinic.com", src: "website", date: "2026-11" },
+      dental_scale_dog_s: { val: 1549, note: "incl. VAT | web research Nov 2026 | petavenueclinic.com", src: "website", date: "2026-11" }
     }
   },
 
@@ -274,7 +295,9 @@ const COMPETITORS = [
     rating: "4.4", reviews: 154,
     notes: "Al Barsha South Third | 1 Arjan, Diamond Business Centre",
     address: "1 Arjan, Diamond Business Centre - Al Barsha South Third - Al Barsha South - Dubai - United Arab Emirates",
-    prices: {}
+    prices: {
+      dental_scale_cat: { val: 800, note: "from, VAT not stated | web research Nov 2026 | vetcaredubai.com", src: "website", date: "2026-11" }
+    }
   },
 
   {
@@ -297,7 +320,9 @@ const COMPETITORS = [
     rating: "4.7", reviews: 793,
     notes: "Al Barsha Third | Hessa St",
     address: "Hessa St - Al Barsha Third - Al Barsha - Dubai - United Arab Emirates",
-    prices: {}
+    prices: {
+      vax_annual_cat: { val: 249, note: "from, promo, VAT not stated | web research Nov 2026 | groupon.ae", src: "groupon", date: "2026-11" }
+    }
   },
 
   {
@@ -306,7 +331,20 @@ const COMPETITORS = [
     rating: "4.9", reviews: 448,
     notes: "Al Barsha Third | 39th St",
     address: "39th St - Al Barsha Third - Al Barsha - Dubai - United Arab Emirates",
-    prices: {}
+    prices: {
+      consult_standard: { val: 268, note: "incl. VAT | web research Nov 2026 | mikesvet.com", src: "website", date: "2026-11" },
+      consult_emergency: { val: 420, note: "incl. VAT | web research Nov 2026 | mikesvet.com", src: "website", date: "2026-11" },
+      vax_annual_cat: { val: 330, note: "incl. VAT | web research Nov 2026 | mikesvet.com", src: "website", date: "2026-11" },
+      vax_initial_dog: { val: 550, note: "incl. VAT | web research Nov 2026 | mikesvet.com", src: "website", date: "2026-11" },
+      vax_initial_cat: { val: 550, note: "incl. VAT | web research Nov 2026 | mikesvet.com", src: "website", date: "2026-11" },
+      microchip: { val: 137, note: "incl. VAT | web research Nov 2026 | mikesvet.com", src: "website", date: "2026-11" },
+      neuter_cat_male: { val: 535, note: "incl. VAT | web research Nov 2026 | mikesvet.com", src: "website", date: "2026-11" },
+      spay_cat_female: { val: 934, note: "incl. VAT | web research Nov 2026 | mikesvet.com", src: "website", date: "2026-11" },
+      neuter_dog_male_s: { val: 1273, note: "incl. VAT | web research Nov 2026 | mikesvet.com", src: "website", date: "2026-11" },
+      spay_dog_female_s: { val: 1309, note: "incl. VAT | web research Nov 2026 | mikesvet.com", src: "website", date: "2026-11" },
+      dental_scale_cat: { val: 2025, note: "incl. VAT | web research Nov 2026 | mikesvet.com", src: "website", date: "2026-11" },
+      dental_scale_dog_s: { val: 2153, note: "incl. VAT | web research Nov 2026 | mikesvet.com", src: "website", date: "2026-11" }
+    }
   },
 
   {
@@ -343,7 +381,8 @@ const COMPETITORS = [
     notes: "Al Garhoud | Al Garhoud",
     address: "Al Garhoud - Dubai - United Arab Emirates",
     prices: {
-      vax_annual_dog: { val: 199, note: "team submission by vrinda", src: "social", date: "2026-10" }
+      vax_annual_dog: { val: 199, note: "team submission by vrinda", src: "social", date: "2026-10" },
+      consult_standard: { val: 79, note: "from, promo, VAT not stated | web research Nov 2026 | groupon.ae", src: "groupon", date: "2026-11" }
     }
   },
 
@@ -354,7 +393,11 @@ const COMPETITORS = [
     notes: "Al Garhoud | 31 61B Street",
     address: "31 61B Street - Al Garhoud - Dubai - United Arab Emirates",
     prices: {
-      consult_standard: { val: 149, note: "team submission by vrinda", src: "social", date: "2026-10" }
+      consult_standard: { val: 149, note: "team submission by vrinda", src: "social", date: "2026-10" },
+      vax_annual_cat: { val: 439, note: "incl. VAT | web research Nov 2026 | pawsisters.ae", src: "website", date: "2026-11" },
+      vax_initial_cat: { val: 599, note: "incl. VAT | web research Nov 2026 | pawsisters.ae", src: "website", date: "2026-11" },
+      spay_cat_female: { val: 799, note: "incl. VAT | web research Nov 2026 | pawsisters.ae", src: "website", date: "2026-11" },
+      neuter_cat_male: { val: 660, note: "incl. VAT | web research Nov 2026 | pawsisters.ae", src: "website", date: "2026-11" }
     }
   },
 
@@ -437,7 +480,12 @@ const COMPETITORS = [
     notes: "Al Khor | 59GG+XFJ Al-Khor Industrial Area",
     address: "59GG+XFJ Al-Khor Industrial Area - Al Khor - - - - United Arab Emirates",
     prices: {
-      consult_standard: { val: 250, note: "standard; 75 on Groupon", src: "groupon", date: "2026-04" }
+      consult_standard: { val: 250, note: "standard; 75 on Groupon", src: "groupon", date: "2026-04" },
+      vax_annual_cat: { val: 199, note: "excl. VAT | web research Nov 2026 | petflixvet.com", src: "website", date: "2026-11" },
+      neuter_cat_male: { val: 199, note: "excl. VAT | web research Nov 2026 | petflixvet.com", src: "website", date: "2026-11" },
+      spay_cat_female: { val: 399, note: "excl. VAT | web research Nov 2026 | petflixvet.com", src: "website", date: "2026-11" },
+      neuter_dog_male_s: { val: 650, note: "excl. VAT | web research Nov 2026 | petflixvet.com", src: "website", date: "2026-11" },
+      spay_dog_female_s: { val: 850, note: "excl. VAT | web research Nov 2026 | petflixvet.com", src: "website", date: "2026-11" }
     }
   },
 
@@ -456,7 +504,17 @@ const COMPETITORS = [
     rating: "4.6", reviews: 277,
     notes: "Al Manara | Al Wasl Rd",
     address: "Al Wasl Rd - Al Manara - Dubai - United Arab Emirates",
-    prices: {}
+    prices: {
+      vax_annual_cat: { val: 299, note: "excl. VAT | web research Nov 2026 | canadianvc.com", src: "website", date: "2026-11" },
+      vax_initial_dog: { val: 499, note: "excl. VAT | web research Nov 2026 | canadianvc.com", src: "website", date: "2026-11" },
+      vax_initial_cat: { val: 499, note: "excl. VAT | web research Nov 2026 | canadianvc.com", src: "website", date: "2026-11" },
+      neuter_cat_male: { val: 799, note: "promo, excl. VAT | web research Nov 2026 | canadianvc.com", src: "website", date: "2026-11" },
+      spay_cat_female: { val: 999, note: "promo, excl. VAT | web research Nov 2026 | canadianvc.com", src: "website", date: "2026-11" },
+      neuter_dog_male_s: { val: 1099, note: "promo, excl. VAT | web research Nov 2026 | canadianvc.com", src: "website", date: "2026-11" },
+      spay_dog_female_s: { val: 1399, note: "promo, excl. VAT | web research Nov 2026 | canadianvc.com", src: "website", date: "2026-11" },
+      dental_scale_cat: { val: 1200, note: "promo, excl. VAT | web research Nov 2026 | canadianvc.com", src: "website", date: "2026-11" },
+      dental_scale_dog_s: { val: 1200, note: "promo, excl. VAT | web research Nov 2026 | canadianvc.com", src: "website", date: "2026-11" }
+    }
   },
 
   {
@@ -511,7 +569,10 @@ const COMPETITORS = [
     notes: "Al Qouz Third | The Curve Building",
     address: "The Curve Building - Shop no.G08 - Sheikh Zayed Rd - Al Qouz Third - Al Quoz - Dubai - United Arab Emirates",
     prices: {
-      consult_standard: { val: 120, note: "team submission by vrinda", src: "social", date: "2026-10" }
+      consult_standard: { val: 120, note: "team submission by vrinda", src: "social", date: "2026-10" },
+      neuter_cat_male: { val: 199, note: "promo, VAT not stated | web research Nov 2026 | petbookvet.com", src: "website", date: "2026-11" },
+      spay_cat_female: { val: 399, note: "promo, VAT not stated | web research Nov 2026 | petbookvet.com", src: "website", date: "2026-11" },
+      dental_scale_cat: { val: 349, note: "from, promo, VAT not stated | web research Nov 2026 | petbookvet.com", src: "website", date: "2026-11" }
     }
   },
 
@@ -567,10 +628,13 @@ const COMPETITORS = [
     notes: "Al Thanyah Fifth | N2 Lake Point Tower",
     address: "N2 Lake Point Tower - Showroom R3A Cluster N - Al Thanyah Fifth - Jumeirah Lakes Towers - Dubai - United Arab Emirates",
     prices: {
-      consult_standard: { val: 288, note: "", src: "", date: "2026-04" },
+      consult_standard: { val: 290, note: "from, VAT not stated | web research Nov 2026 | noblevetclinic.com", src: "website", date: "2026-11" },
       vax_initial_dog: { val: 360, note: "DHPPiL + exam", src: "website", date: "2026-04" },
       vax_annual_dog: { val: 510, note: "booster + rabies + muni tag + exam", src: "website", date: "2026-04" },
-      neuter_dog_male_s: { val: 1200, note: "starting from", src: "website", date: "2026-04" }
+      neuter_dog_male_s: { val: 1200, note: "starting from", src: "website", date: "2026-04" },
+      vax_annual_cat: { val: 510, note: "VAT not stated | web research Nov 2026 | noblevetclinic.com", src: "website", date: "2026-11" },
+      microchip: { val: 270, note: "VAT not stated | web research Nov 2026 | noblevetclinic.com", src: "website", date: "2026-11" },
+      spay_dog_female_s: { val: 1500, note: "from, VAT not stated | web research Nov 2026 | noblevetclinic.com", src: "website", date: "2026-11" }
     }
   },
 
@@ -625,7 +689,9 @@ const COMPETITORS = [
     rating: "N/R", reviews: 0,
     notes: "Al Wasl | Dubai",
     address: "Dubai - Al Wasl - Dubai - United Arab Emirates",
-    prices: {}
+    prices: {
+      consult_standard: { val: 290, note: "VAT not stated | web research Nov 2026 | noblevetclinic.com", src: "website", date: "2026-11" }
+    }
   },
 
   {
@@ -736,7 +802,10 @@ const COMPETITORS = [
     notes: "Jumeirah | Villa 63 Umm Al Sheif St",
     address: "Villa 63 Umm Al Sheif St - Jumeirah - Jumeira Third - Dubai - United Arab Emirates",
     prices: {
-      consult_standard: { val: 288, note: "", src: "", date: "2026-04" }
+      consult_standard: { val: 290, note: "VAT not stated | web research Nov 2026 | noblevetclinic.com", src: "website", date: "2026-11" },
+      microchip: { val: 270, note: "VAT not stated | web research Nov 2026 | noblevetclinic.com", src: "website", date: "2026-11" },
+      neuter_dog_male_s: { val: 1200, note: "from, VAT not stated | web research Nov 2026 | noblevetclinic.com", src: "website", date: "2026-11" },
+      spay_dog_female_s: { val: 1500, note: "from, VAT not stated | web research Nov 2026 | noblevetclinic.com", src: "website", date: "2026-11" }
     }
   },
 
@@ -968,7 +1037,10 @@ const COMPETITORS = [
     rating: "4.7", reviews: 345,
     notes: "Nadd Hessa | Apricot Towers",
     address: "Apricot Towers - Nadd Hessa - Dubai Silicon Oasis - Dubai - United Arab Emirates",
-    prices: {}
+    prices: {
+      dental_scale_cat: { val: 349, note: "from, promo, VAT not stated | web research Nov 2026 | groupon.ae", src: "groupon", date: "2026-11" },
+      dental_scale_dog_s: { val: 349, note: "from, promo, VAT not stated | web research Nov 2026 | groupon.ae", src: "groupon", date: "2026-11" }
+    }
   },
 
   {
@@ -1007,7 +1079,8 @@ const COMPETITORS = [
     notes: "Umm Suqeim First | Umm Suqeim First",
     address: "Umm Suqeim First - Jumeirah 3 - Dubai - United Arab Emirates",
     prices: {
-      consult_standard: { val: 700, note: "team submission by vrinda", src: "social", date: "2026-10" }
+      consult_standard: { val: 700, note: "team submission by vrinda", src: "social", date: "2026-10" },
+      vax_annual_cat: { val: 240, note: "promo, VAT not stated | web research Nov 2026 | facebook.com", src: "social", date: "2026-11" }
     }
   },
 
@@ -1019,7 +1092,10 @@ const COMPETITORS = [
     address: "1234 Al Wasl Rd - Umm Suqeim Second - Umm Suqeim 2 - Dubai - United Arab Emirates",
     prices: {
       spay_cat_female: { val: 960, note: "promo spay package cat/dog", src: "cobone", date: "2026-04" },
-      spay_dog_female_s: { val: 960, note: "promo spay package cat/dog", src: "cobone", date: "2026-04" },}
+      spay_dog_female_s: { val: 960, note: "promo spay package cat/dog", src: "cobone", date: "2026-04" },
+      vax_annual_cat: { val: 273, note: "promo, VAT not stated | web research Nov 2026 | cobone.com", src: "cobone", date: "2026-11" },
+      dental_scale_cat: { val: 960, note: "promo, VAT not stated | web research Nov 2026 | cobone.com", src: "cobone", date: "2026-11" }
+    }
   },
 
   {
@@ -1103,7 +1179,8 @@ const COMPETITORS = [
       neuter_cat_male: { val: 333, note: "", src: "website", date: "2026-04" },
       spay_cat_female: { val: 444, note: "", src: "website", date: "2026-04" },
       neuter_dog_male_s: { val: 777, note: "starting from", src: "website", date: "2026-04" },
-      spay_dog_female_s: { val: 999, note: "starting from", src: "website", date: "2026-04" },}
+      spay_dog_female_s: { val: 999, note: "starting from", src: "website", date: "2026-04" }
+    }
   },
 
   {
@@ -1176,7 +1253,12 @@ const COMPETITORS = [
     notes: "البرشاء جنوب الثالثة | resortz by danube building",
     address: "resortz by danube building - dubailand, La Fontana - shop number 12 - - - - United Arab Emirates",
     prices: {
-      consult_standard: { val: 109, note: "promo from; standard range 100–250", src: "groupon", date: "2026-04" }
+      consult_standard: { val: 109, note: "promo from; standard range 100–250", src: "groupon", date: "2026-04" },
+      vax_annual_cat: { val: 400, note: "VAT not stated | web research Nov 2026 | supervetdubai.com", src: "website", date: "2026-11" },
+      neuter_cat_male: { val: 700, note: "VAT not stated | web research Nov 2026 | supervetdubai.com", src: "website", date: "2026-11" },
+      spay_cat_female: { val: 800, note: "VAT not stated | web research Nov 2026 | supervetdubai.com", src: "website", date: "2026-11" },
+      neuter_dog_male_s: { val: 700, note: "VAT not stated | web research Nov 2026 | supervetdubai.com", src: "website", date: "2026-11" },
+      spay_dog_female_s: { val: 1200, note: "VAT not stated | web research Nov 2026 | supervetdubai.com", src: "website", date: "2026-11" }
     }
   },
 
@@ -1204,7 +1286,13 @@ const COMPETITORS = [
     rating: "4.6", reviews: 167,
     notes: "البرشاء جنوب الثانية | My City Centre Ground Floor B016",
     address: "My City Centre Ground Floor B016 - Ground Floor - - - - United Arab Emirates",
-    prices: {}
+    prices: {
+      consult_standard: { val: 200, note: "VAT not stated | web research Nov 2026 | vetdub.ae", src: "website", date: "2026-11" },
+      microchip: { val: 100, note: "VAT not stated | web research Nov 2026 | vetdub.ae", src: "website", date: "2026-11" },
+      spay_cat_female: { val: 500, note: "VAT not stated | web research Nov 2026 | vetdub.ae", src: "website", date: "2026-11" },
+      neuter_cat_male: { val: 300, note: "VAT not stated | web research Nov 2026 | vetdub.ae", src: "website", date: "2026-11" },
+      dental_scale_cat: { val: 500, note: "from, VAT not stated | web research Nov 2026 | vetdub.ae", src: "website", date: "2026-11" }
+    }
   },
 
   {
@@ -1348,7 +1436,9 @@ const COMPETITORS = [
     rating: "4.1", reviews: 84,
     notes: "حدائق الشيخ محمد بن راشد | Dubai Hills Estate Park point Building B",
     address: "Dubai Hills Estate Park point Building B - - - United Arab Emirates",
-    prices: {}
+    prices: {
+      consult_standard: { val: 185, note: "from, VAT not stated | web research Nov 2026 | thehillsvet.com", src: "website", date: "2026-11" }
+    }
   },
 
   {
@@ -1367,10 +1457,12 @@ const COMPETITORS = [
     notes: "مجمع دبي للاستثمار الأول | Retail 5",
     address: "Retail 5 - After Park n Shop - Green Community - DIP1 - - - - United Arab Emirates",
     prices: {
-      consult_standard: { val: 288, note: "", src: "", date: "2026-04" },
+      consult_standard: { val: 290, note: "VAT not stated | web research Nov 2026 | noblevetclinic.com", src: "website", date: "2026-11" },
       vax_annual_dog: { val: 385, note: "team submission by vrinda", src: "website", date: "2026-09" },
-      neuter_dog_male_s: { val: 1155, note: "team submission by vrinda", src: "website", date: "2026-09" },
-      dental_scale_dog_s: { val: 290, note: "team submission by vrinda", src: "website", date: "2026-09" }
+      neuter_dog_male_s: { val: 1200, note: "from, VAT not stated | web research Nov 2026 | noblevetclinic.com", src: "website", date: "2026-11" },
+      dental_scale_dog_s: { val: 290, note: "team submission by vrinda", src: "website", date: "2026-09" },
+      microchip: { val: 270, note: "VAT not stated | web research Nov 2026 | noblevetclinic.com", src: "website", date: "2026-11" },
+      spay_dog_female_s: { val: 1500, note: "from, VAT not stated | web research Nov 2026 | noblevetclinic.com", src: "website", date: "2026-11" }
     }
   },
 
@@ -1536,7 +1628,9 @@ const COMPETITORS = [
     rating: "4.7", reviews: 75,
     notes: "ورسان الرابعة | Shop #5 I.D Blue Building",
     address: "Shop #5 I.D Blue Building - - - United Arab Emirates",
-    prices: {}
+    prices: {
+      consult_standard: { val: 150, note: "from, VAT not stated | web research Nov 2026 | winterfellpets.com", src: "website", date: "2026-11" }
+    }
   },
 
   {
